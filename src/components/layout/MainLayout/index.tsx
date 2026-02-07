@@ -1,8 +1,9 @@
 import { Outlet } from 'react-router-dom';
-import { Sidebar } from '../Sidebar';
-import { Header } from '../Header';
 
-export function MainLayout(): JSX.Element {
+import { Header } from '../Header';
+import { Sidebar } from '../Sidebar';
+
+export const MainLayout = (): JSX.Element => {
   return (
     <div className="flex h-screen bg-background">
       <Sidebar />

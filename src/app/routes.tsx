@@ -1,23 +1,30 @@
 import { lazy, Suspense, type ComponentType } from 'react';
+
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
-import { MainLayout } from '@/components/layout/MainLayout';
+
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { MainLayout } from '@/components/layout/MainLayout';
 
 // Lazy-loaded pages
-const DashboardPage = lazy(() => import('@/features/dashboard/pages/DashboardPage'));
-const LoginPage = lazy(() => import('@/features/auth/pages/LoginPage'));
-const PetsListPage = lazy(() => import('@/features/pets/pages/PetsListPage'));
-const ComponentsPage = lazy(() => import('@/features/showcase/pages/ComponentsPage'));
-const ThemeEditorPage = lazy(() => import('@/features/theme-editor/pages/ThemeEditorPage'));
+const DashboardPage = lazy(async () => import('@/features/dashboard/pages/DashboardPage'));
+const LoginPage = lazy(async () => import('@/features/auth/pages/LoginPage'));
+const PetsListPage = lazy(async () => import('@/features/pets/pages/PetsListPage'));
+const ComponentsPage = lazy(async () => import('@/features/showcase/pages/ComponentsPage'));
+const ThemeEditorPage = lazy(async () => import('@/features/theme-editor/pages/ThemeEditorPage'));
 
 // Wrapper for lazy-loaded components
-function LazyPage({ component: Component }: { component: ComponentType }): JSX.Element {
+interface LazyPageProps {
+  component: ComponentType;
+}
+
+const LazyPage = ({ component }: LazyPageProps): JSX.Element => {
+  const Component = component;
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Component />
     </Suspense>
   );
-}
+};
 
 const routes: RouteObject[] = [
   {

@@ -1,0 +1,226 @@
+/*
+ * Syncfusion Component Overrides
+ *
+ * This layer contains CSS variable overrides for Syncfusion components
+ * to integrate them with our theme system.
+ *
+ * Priority: syncfusion-overrides > syncfusion-base
+ */
+
+/* ===== GLOBAL SYNCFUSION OVERRIDES ===== */
+
+/* Use our theme's primary color for all Syncfusion components */
+.e-control {
+  font-family: var(--font-sans);
+}
+
+/* ===== BUTTON OVERRIDES ===== */
+.e-btn.e-primary {
+  background-color: rgb(var(--color-primary-500));
+  border-color: rgb(var(--color-primary-500));
+  color: white;
+}
+
+.e-btn.e-primary:hover:not(:disabled) {
+  background-color: rgb(var(--color-primary-600));
+  border-color: rgb(var(--color-primary-600));
+}
+
+.e-btn.e-primary:focus {
+  box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.25);
+}
+
+.e-btn.e-secondary {
+  background-color: rgb(var(--color-surface));
+  border-color: rgb(var(--color-border));
+  color: rgb(var(--color-text-primary));
+}
+
+.e-btn.e-secondary:hover:not(:disabled) {
+  background-color: rgb(var(--color-surface-elevated));
+}
+
+.e-btn.e-outline {
+  background-color: transparent;
+  border-color: rgb(var(--color-border));
+  color: rgb(var(--color-text-primary));
+}
+
+.e-btn.e-outline:hover:not(:disabled) {
+  background-color: rgb(var(--color-surface));
+}
+
+.e-btn.e-flat {
+  background-color: transparent;
+  border-color: transparent;
+  color: rgb(var(--color-text-primary));
+}
+
+.e-btn.e-flat:hover:not(:disabled) {
+  background-color: rgb(var(--color-surface));
+}
+
+.e-btn.e-danger {
+  background-color: rgb(var(--color-error-500));
+  border-color: rgb(var(--color-error-500));
+  color: white;
+}
+
+.e-btn.e-danger:hover:not(:disabled) {
+  background-color: rgb(var(--color-error-700));
+  border-color: rgb(var(--color-error-700));
+}
+
+/* ===== INPUT OVERRIDES ===== */
+.e-textbox.e-control-wrapper {
+  background-color: rgb(var(--color-background));
+  border-color: rgb(var(--color-border));
+  border-radius: var(--radius-md);
+}
+
+.e-textbox.e-control-wrapper:hover:not(.e-disabled) {
+  border-color: rgb(var(--color-primary-400));
+}
+
+.e-textbox.e-control-wrapper.e-input-focus {
+  border-color: rgb(var(--color-primary-500));
+  box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+}
+
+.e-textbox.e-control-wrapper .e-input {
+  color: rgb(var(--color-text-primary));
+}
+
+.e-textbox.e-control-wrapper .e-input::placeholder {
+  color: rgb(var(--color-text-muted));
+}
+
+.e-textbox.e-control-wrapper.e-error {
+  border-color: rgb(var(--color-error-500));
+}
+
+.e-textbox.e-control-wrapper.e-error.e-input-focus {
+  box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1);
+}
+
+/* ===== DROPDOWN OVERRIDES ===== */
+.e-ddl.e-control-wrapper {
+  background-color: rgb(var(--color-background));
+  border-color: rgb(var(--color-border));
+  border-radius: var(--radius-md);
+}
+
+.e-ddl.e-control-wrapper:hover:not(.e-disabled) {
+  border-color: rgb(var(--color-primary-400));
+}
+
+.e-ddl.e-control-wrapper.e-input-focus {
+  border-color: rgb(var(--color-primary-500));
+  box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+}
+
+.e-ddl.e-control-wrapper .e-input-group-icon {
+  color: rgb(var(--color-text-secondary));
+}
+
+.e-ddl.e-control-wrapper.e-error {
+  border-color: rgb(var(--color-error-500));
+}
+
+/* Dropdown popup */
+.e-popup.e-ddl {
+  background-color: rgb(var(--color-surface-elevated));
+  border-color: rgb(var(--color-border));
+  border-radius: var(--radius-md);
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.e-popup.e-ddl .e-list-item {
+  color: rgb(var(--color-text-primary));
+}
+
+.e-popup.e-ddl .e-list-item.e-hover {
+  background-color: rgb(var(--color-surface));
+}
+
+.e-popup.e-ddl .e-list-item.e-active {
+  background-color: rgb(var(--color-primary-50));
+  color: rgb(var(--color-primary-700));
+}
+
+/* ===== GRID OVERRIDES ===== */
+.e-grid {
+  background-color: rgb(var(--color-surface));
+  border-color: rgb(var(--color-border));
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.e-grid .e-gridheader {
+  background-color: rgb(var(--color-surface-elevated));
+  border-color: rgb(var(--color-border));
+}
+
+.e-grid .e-headercell {
+  color: rgb(var(--color-text-primary));
+  font-weight: 600;
+}
+
+.e-grid .e-rowcell {
+  color: rgb(var(--color-text-primary));
+  border-color: rgb(var(--color-border));
+}
+
+.e-grid .e-row:hover .e-rowcell {
+  background-color: rgb(var(--color-surface-elevated));
+}
+
+.e-grid .e-row.e-altrow .e-rowcell {
+  background-color: rgb(var(--color-background));
+}
+
+.e-grid .e-row.e-selectionbackground .e-rowcell {
+  background-color: rgb(var(--color-primary-50));
+}
+
+/* Grid pager */
+.e-grid .e-pager {
+  background-color: rgb(var(--color-surface));
+  border-color: rgb(var(--color-border));
+}
+
+.e-grid .e-pager .e-pagercontainer {
+  background-color: transparent;
+}
+
+.e-grid .e-pager .e-numericitem {
+  color: rgb(var(--color-text-primary));
+}
+
+.e-grid .e-pager .e-numericitem.e-currentitem {
+  background-color: rgb(var(--color-primary-500));
+  color: white;
+}
+
+/* Grid sorting icon */
+.e-grid .e-sortfilterdiv .e-ascending,
+.e-grid .e-sortfilterdiv .e-descending {
+  color: rgb(var(--color-primary-500));
+}
+
+/* Grid filter */
+.e-grid .e-filterbar .e-filterbarcell {
+  background-color: rgb(var(--color-surface));
+}
+
+/* ===== DARK MODE ADJUSTMENTS ===== */
+.dark .e-popup.e-ddl .e-list-item.e-active {
+  background-color: rgb(var(--color-primary-900));
+  color: rgb(var(--color-primary-200));
+}
+
+.dark .e-grid .e-row.e-selectionbackground .e-rowcell {
+  background-color: rgb(var(--color-primary-900));
+}

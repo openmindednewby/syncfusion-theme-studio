@@ -1,0 +1,70 @@
+{
+  "app": {
+    "title": "Syncfusion Theme Studio",
+    "description": "A customizable admin portal template"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "create": "Create",
+    "confirm": "Confirm",
+    "yes": "Yes",
+    "no": "No",
+    "refresh": "Refresh"
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Sign in to your account",
+    "email": "Email",
+    "emailPlaceholder": "you@example.com",
+    "password": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Sign In",
+    "demoHint": "Demo login - any credentials will work",
+    "themeSwitchLight": "Switch to light mode",
+    "themeSwitchDark": "Switch to dark mode"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "welcome": "Welcome to Theme Studio",
+    "welcomeDescription": "This is a customizable admin portal template built with React, Vite, Tailwind CSS, and Syncfusion components. Use the Theme Editor to customize colors, typography, and more.",
+    "stats": {
+      "totalUsers": "Total Users",
+      "activeSessions": "Active Sessions",
+      "revenue": "Revenue",
+      "growth": "Growth"
+    }
+  },
+  "menu": {
+    "dashboard": "Dashboard",
+    "pets": "Pets",
+    "components": "Components",
+    "themeEditor": "Theme Editor",
+    "login": "Login"
+  },
+  "sidebar": {
+    "expand": "Expand sidebar",
+    "collapse": "Collapse sidebar"
+  },
+  "header": {
+    "themeSwitchLight": "Switch to light mode",
+    "themeSwitchDark": "Switch to dark mode"
+  },
+  "themeEditor": {
+    "title": "Theme Editor",
+    "colors": "Colors",
+    "typography": "Typography",
+    "preview": "Preview"
+  },
+  "pets": {
+    "title": "Pets",
+    "list": "Pets List"
+  },
+  "components": {
+    "title": "Components Showcase"
+  }
+}

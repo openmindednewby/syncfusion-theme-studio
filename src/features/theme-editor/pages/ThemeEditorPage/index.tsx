@@ -1,21 +1,35 @@
 import { useState, useCallback, useRef, type ChangeEvent } from 'react';
+
 import { useThemeStore } from '@/stores/useThemeStore';
+import { isValueDefined } from '@/utils/is';
 
 const DEBOUNCE_MS = 50;
+const HEX_RADIX = 16;
+const DEFAULT_RGB = '0 0 0';
+const DEFAULT_HEX = '#000000';
+const DARK_SHADE_THRESHOLD = 500;
 const COLOR_SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
 
 // Convert RGB string "R G B" to hex "#RRGGBB"
 function rgbToHex(rgb: string): string {
-  const [r, g, b] = rgb.split(' ').map(Number);
-  if (r === undefined || g === undefined || b === undefined) return '#000000';
-  return `#${[r, g, b].map((x) => x.toString(16).padStart(2, '0')).join('')}`;
+  const parts = rgb.split(' ').map(Number);
+  const r = parts[0];
+  const g = parts[1];
+  const b = parts[2];
+  const isValid = isValueDefined(r) && isValueDefined(g) && isValueDefined(b);
+  if (!isValid) return DEFAULT_HEX;
+  return `#${[r, g, b].map((x) => x.toString(HEX_RADIX).padStart(2, '0')).join('')}`;
 }
 
 // Convert hex "#RRGGBB" to RGB string "R G B"
 function hexToRgb(hex: string): string {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-  if (!result || !result[1] || !result[2] || !result[3]) return '0 0 0';
-  return `${parseInt(result[1], 16)} ${parseInt(result[2], 16)} ${parseInt(result[3], 16)}`;
+  const rPart = result?.[1];
+  const gPart = result?.[2];
+  const bPart = result?.[3];
+  const hasValidParts = isValueDefined(rPart) && isValueDefined(gPart) && isValueDefined(bPart);
+  if (!hasValidParts) return DEFAULT_RGB;
+  return `${parseInt(rPart, HEX_RADIX)} ${parseInt(gPart, HEX_RADIX)} ${parseInt(bPart, HEX_RADIX)}`;
 }
 
 interface ColorPickerProps {
@@ -24,7 +38,7 @@ interface ColorPickerProps {
   onChange: (rgb: string) => void;
 }
 
-function ColorPicker({ label, value, onChange }: ColorPickerProps): JSX.Element {
+const ColorPicker = ({ label, onChange, value }: ColorPickerProps): JSX.Element => {
   const [hexValue, setHexValue] = useState(rgbToHex(value));
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -44,18 +58,18 @@ function ColorPicker({ label, value, onChange }: ColorPickerProps): JSX.Element 
   return (
     <div className="flex items-center gap-3">
       <input
+        aria-label={`Pick color for ${label}`}
+        className="h-8 w-8 cursor-pointer rounded border border-border"
         type="color"
         value={hexValue}
         onChange={handleChange}
-        className="h-8 w-8 cursor-pointer rounded border border-border"
-        aria-label={`Pick color for ${label}`}
       />
       <span className="text-sm text-text-secondary">{label}</span>
     </div>
   );
 }
 
-export default function ThemeEditorPage(): JSX.Element {
+const ThemeEditorPage = (): JSX.Element => {
   const { theme, updatePrimaryColor, resetTheme, exportTheme, importTheme } = useThemeStore();
   const [importJson, setImportJson] = useState('');
   const [importError, setImportError] = useState('');
@@ -74,11 +88,8 @@ export default function ThemeEditorPage(): JSX.Element {
   const handleImport = (): void => {
     setImportError('');
     const success = importTheme(importJson);
-    if (success) {
-      setImportJson('');
-    } else {
-      setImportError('Invalid theme JSON');
-    }
+    if (success) setImportJson('');
+    else setImportError('Invalid theme JSON');
   };
 
   return (
@@ -86,10 +97,10 @@ export default function ThemeEditorPage(): JSX.Element {
       <div className="flex items-center justify-between">
         <h2 className="text-2xl font-bold text-text-primary">Theme Editor</h2>
         <div className="flex gap-2">
-          <button type="button" onClick={resetTheme} className="btn btn-secondary">
+          <button className="btn btn-secondary" type="button" onClick={resetTheme}>
             Reset to Default
           </button>
-          <button type="button" onClick={handleExport} className="btn btn-primary">
+          <button className="btn btn-primary" type="button" onClick={handleExport}>
             Export Theme
           </button>
         </div>
@@ -116,10 +127,10 @@ export default function ThemeEditorPage(): JSX.Element {
           <h3 className="mb-4 text-lg font-semibold text-text-primary">Live Preview</h3>
           <div className="space-y-4">
             <div className="flex gap-2">
-              <button type="button" className="btn btn-primary">
+              <button className="btn btn-primary" type="button">
                 Primary Button
               </button>
-              <button type="button" className="btn btn-secondary">
+              <button className="btn btn-secondary" type="button">
                 Secondary
               </button>
             </div>
@@ -128,7 +139,7 @@ export default function ThemeEditorPage(): JSX.Element {
                 <div
                   key={shade}
                   className={`flex h-12 w-12 items-center justify-center rounded bg-primary-${shade} text-xs font-bold ${
-                    Number(shade) >= 500 ? 'text-white' : 'text-gray-900'
+                    Number(shade) >= DARK_SHADE_THRESHOLD ? 'text-white' : 'text-gray-900'
                   }`}
                 >
                   {shade}
@@ -148,17 +159,17 @@ export default function ThemeEditorPage(): JSX.Element {
           <h3 className="mb-4 text-lg font-semibold text-text-primary">Import Theme</h3>
           <div className="space-y-4">
             <textarea
-              value={importJson}
-              onChange={(e) => setImportJson(e.target.value)}
               className="input min-h-32 font-mono text-sm"
               placeholder="Paste theme JSON here..."
+              value={importJson}
+              onChange={(e) => setImportJson(e.target.value)}
             />
-            {importError && <p className="text-sm text-error-500">{importError}</p>}
+            {importError !== '' && <p className="text-sm text-error-500">{importError}</p>}
             <button
+              className="btn btn-secondary"
+              disabled={importJson.trim() === ''}
               type="button"
               onClick={handleImport}
-              disabled={!importJson.trim()}
-              className="btn btn-secondary"
             >
               Import Theme
             </button>
@@ -167,4 +178,6 @@ export default function ThemeEditorPage(): JSX.Element {
       </div>
     </div>
   );
-}
+};
+
+export default ThemeEditorPage;

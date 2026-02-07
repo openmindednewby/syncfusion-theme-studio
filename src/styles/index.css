@@ -16,11 +16,14 @@
 @import './layers/base.css' layer(base);
 @import './layers/components.css' layer(components);
 
-/*
- * TODO: Import Syncfusion themes after npm install
- * @import '@syncfusion/ej2-react-grids/styles/tailwind.css' layer(syncfusion-base);
- * @import '@syncfusion/ej2-react-inputs/styles/tailwind.css' layer(syncfusion-base);
- * @import '@syncfusion/ej2-react-buttons/styles/tailwind.css' layer(syncfusion-base);
- * @import '@syncfusion/ej2-react-navigations/styles/tailwind.css' layer(syncfusion-base);
- * @import './layers/syncfusion-overrides.css' layer(syncfusion-overrides);
- */
+/* Syncfusion component styles - Tailwind variant for optimal integration */
+@import '@syncfusion/ej2-base/styles/tailwind.css' layer(syncfusion-base);
+@import '@syncfusion/ej2-react-grids/styles/tailwind.css' layer(syncfusion-base);
+@import '@syncfusion/ej2-react-inputs/styles/tailwind.css' layer(syncfusion-base);
+@import '@syncfusion/ej2-react-buttons/styles/tailwind.css' layer(syncfusion-base);
+@import '@syncfusion/ej2-react-dropdowns/styles/tailwind.css' layer(syncfusion-base);
+@import '@syncfusion/ej2-react-popups/styles/tailwind.css' layer(syncfusion-base);
+@import '@syncfusion/ej2-react-navigations/styles/tailwind.css' layer(syncfusion-base);
+
+/* Theme overrides for Syncfusion components */
+@import './layers/syncfusion-overrides.css' layer(syncfusion-overrides);

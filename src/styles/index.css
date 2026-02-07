@@ -1,0 +1,26 @@
+/*
+ * Syncfusion Theme Studio - Main Stylesheet
+ *
+ * Layer order defines specificity (left to right = increasing specificity):
+ * base → syncfusion-base → components → syncfusion-overrides → utilities
+ */
+
+@layer base, syncfusion-base, components, syncfusion-overrides, utilities;
+
+/* Tailwind layers */
+@import 'tailwindcss/base' layer(base);
+@import 'tailwindcss/components' layer(components);
+@import 'tailwindcss/utilities' layer(utilities);
+
+/* Custom layers */
+@import './layers/base.css' layer(base);
+@import './layers/components.css' layer(components);
+
+/*
+ * TODO: Import Syncfusion themes after npm install
+ * @import '@syncfusion/ej2-react-grids/styles/tailwind.css' layer(syncfusion-base);
+ * @import '@syncfusion/ej2-react-inputs/styles/tailwind.css' layer(syncfusion-base);
+ * @import '@syncfusion/ej2-react-buttons/styles/tailwind.css' layer(syncfusion-base);
+ * @import '@syncfusion/ej2-react-navigations/styles/tailwind.css' layer(syncfusion-base);
+ * @import './layers/syncfusion-overrides.css' layer(syncfusion-overrides);
+ */

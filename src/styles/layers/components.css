@@ -1,0 +1,130 @@
+/*
+ * Component Styles
+ *
+ * Custom component styles that use CSS variables.
+ * These sit between Tailwind components and Syncfusion overrides.
+ */
+
+/* ===== BUTTONS ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-weight: 500;
+  border-radius: var(--radius-md);
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: var(--transition-fast);
+  cursor: pointer;
+  border: 1px solid transparent;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background-color: rgb(var(--color-primary-500));
+  color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: rgb(var(--color-primary-600));
+}
+
+.btn-secondary {
+  background-color: rgb(var(--color-surface));
+  color: rgb(var(--color-text-primary));
+  border-color: rgb(var(--color-border));
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: rgb(var(--color-surface-elevated));
+}
+
+/* ===== CARDS ===== */
+.card {
+  background-color: rgb(var(--color-surface));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.card-elevated {
+  background-color: rgb(var(--color-surface-elevated));
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+}
+
+/* ===== INPUTS ===== */
+.input {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  background-color: rgb(var(--color-background));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: var(--radius-md);
+  color: rgb(var(--color-text-primary));
+  font-size: var(--font-size-sm);
+  transition-property: border-color, box-shadow;
+  transition-duration: var(--transition-fast);
+}
+
+.input:focus {
+  border-color: rgb(var(--color-primary-500));
+  box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+  outline: none;
+}
+
+.input::placeholder {
+  color: rgb(var(--color-text-muted));
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: rgb(var(--color-surface));
+  border-right: 1px solid rgb(var(--color-border));
+  transition: width var(--transition-normal);
+}
+
+.sidebar.collapsed {
+  width: var(--sidebar-collapsed-width);
+}
+
+/* ===== HEADER ===== */
+.header {
+  height: var(--header-height);
+  background-color: rgb(var(--color-surface-elevated));
+  border-bottom: 1px solid rgb(var(--color-border));
+}
+
+/* ===== STATUS BADGES ===== */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  border-radius: var(--radius-full);
+}
+
+.badge-success {
+  background-color: rgb(var(--color-success-50));
+  color: rgb(var(--color-success-700));
+}
+
+.badge-warning {
+  background-color: rgb(var(--color-warning-50));
+  color: rgb(var(--color-warning-700));
+}
+
+.badge-error {
+  background-color: rgb(var(--color-error-50));
+  color: rgb(var(--color-error-700));
+}
+
+.badge-info {
+  background-color: rgb(var(--color-info-50));
+  color: rgb(var(--color-info-700));
+}

@@ -34,6 +34,9 @@ A high-performance, fully customizable React admin portal template with visual t
 ## Quick Start
 
 ```bash
+# Tilt
+tilt up --port=10351
+
 # Install dependencies
 npm install
 

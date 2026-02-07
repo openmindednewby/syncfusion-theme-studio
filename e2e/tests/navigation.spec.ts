@@ -25,8 +25,16 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL('/components');
   });
 
-  test('navigates to theme editor page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_THEME_EDITOR).click();
-    await expect(page).toHaveURL('/theme-editor');
+  test('opens theme settings drawer via cog icon', async ({ page }) => {
+    // Click the theme settings button (cog icon)
+    await page.getByTestId(TestIds.THEME_SETTINGS_BUTTON).click();
+
+    // Verify drawer is visible
+    await expect(page.getByTestId(TestIds.THEME_SETTINGS_DRAWER)).toBeVisible();
+  });
+
+  test('navigates to login page', async ({ page }) => {
+    await page.getByTestId(TestIds.NAV_LOGIN).click();
+    await expect(page).toHaveURL('/login');
   });
 });

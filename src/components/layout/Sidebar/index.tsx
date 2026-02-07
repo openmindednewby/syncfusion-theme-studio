@@ -1,19 +1,20 @@
 import { NavLink } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
+import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 
 interface NavItem {
   path: string;
   labelKey: string;
   icon: string;
+  testId: string;
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { path: '/', labelKey: 'menu.dashboard', icon: '🏠' },
-  { path: '/pets', labelKey: 'menu.pets', icon: '🐾' },
-  { path: '/components', labelKey: 'menu.components', icon: '🧩' },
-  { path: '/theme-editor', labelKey: 'menu.themeEditor', icon: '🎨' },
+  { path: '/', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
+  { path: '/pets', labelKey: 'menu.pets', icon: '🐾', testId: TestIds.NAV_PETS },
+  { path: '/components', labelKey: 'menu.components', icon: '🧩', testId: TestIds.NAV_COMPONENTS },
 ];
 
 export const Sidebar = (): JSX.Element => {
@@ -25,6 +26,8 @@ export const Sidebar = (): JSX.Element => {
   return (
     <aside
       className={`${sidebarWidth} flex flex-col border-r border-border bg-surface transition-all duration-normal`}
+      data-collapsed={isCollapsed ? 'true' : 'false'}
+      data-testid={TestIds.SIDEBAR}
     >
       {/* Logo */}
       <div className="flex h-header items-center justify-between border-b border-border px-4">
@@ -32,6 +35,7 @@ export const Sidebar = (): JSX.Element => {
         <button
           aria-label={toggleLabel}
           className="rounded p-2 hover:bg-surface-elevated"
+          data-testid={TestIds.SIDEBAR_TOGGLE}
           type="button"
           onClick={toggle}
         >
@@ -52,6 +56,7 @@ export const Sidebar = (): JSX.Element => {
                       : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
                   }`
                 }
+                data-testid={item.testId}
                 to={item.path}
               >
                 <span className="text-lg">{item.icon}</span>
@@ -66,6 +71,7 @@ export const Sidebar = (): JSX.Element => {
       <div className="border-t border-border p-2">
         <NavLink
           className="flex items-center gap-3 rounded-md px-3 py-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
+          data-testid={TestIds.NAV_LOGIN}
           to="/login"
         >
           <span className="text-lg">🔐</span>
@@ -74,4 +80,4 @@ export const Sidebar = (): JSX.Element => {
       </div>
     </aside>
   );
-}
+};

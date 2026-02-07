@@ -24,6 +24,18 @@ export class DashboardPage extends BasePage {
     await this.clickByTestId(TestIds.SIDEBAR_TOGGLE);
   }
 
+  async openThemeSettings(): Promise<void> {
+    await this.clickByTestId(TestIds.THEME_SETTINGS_BUTTON);
+  }
+
+  async expectThemeDrawerVisible(): Promise<void> {
+    await expect(this.getByTestId(TestIds.THEME_SETTINGS_DRAWER)).toBeVisible();
+  }
+
+  async expectThemeDrawerHidden(): Promise<void> {
+    await expect(this.getByTestId(TestIds.THEME_SETTINGS_DRAWER)).not.toBeVisible();
+  }
+
   async expectDarkMode(): Promise<void> {
     await expect(this.page.locator('html')).toHaveClass(/dark/);
   }
@@ -48,9 +60,5 @@ export class DashboardPage extends BasePage {
 
   async navigateToComponents(): Promise<void> {
     await this.clickByTestId(TestIds.NAV_COMPONENTS);
-  }
-
-  async navigateToThemeEditor(): Promise<void> {
-    await this.clickByTestId(TestIds.NAV_THEME_EDITOR);
   }
 }

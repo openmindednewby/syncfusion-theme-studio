@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { Button, Input } from '@/components/ui';
 import { FM } from '@/localization/helpers';
+import { TestIds } from '@/shared/testIds';
 import { useThemeStore } from '@/stores/useThemeStore';
 
 const LoginPage = (): JSX.Element => {
@@ -13,12 +15,24 @@ const LoginPage = (): JSX.Element => {
 
   const themeLabel =
     mode === 'light' ? FM('login.themeSwitchDark') : FM('login.themeSwitchLight');
+  const themeIcon = mode === 'light' ? 'moon' : 'sun';
 
-  const handleSubmit = (e: React.FormEvent): void => {
-    e.preventDefault();
-    // Demo login - just redirect to dashboard
-    navigate('/');
-  };
+  const handleEmailChange = useCallback((args: { value?: string }) => {
+    setEmail(args.value ?? '');
+  }, []);
+
+  const handlePasswordChange = useCallback((args: { value?: string }) => {
+    setPassword(args.value ?? '');
+  }, []);
+
+  const handleSubmit = useCallback(
+    (e: React.FormEvent): void => {
+      e.preventDefault();
+      // Demo login - just redirect to dashboard
+      navigate('/');
+    },
+    [navigate],
+  );
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
@@ -28,10 +42,41 @@ const LoginPage = (): JSX.Element => {
           <button
             aria-label={themeLabel}
             className="rounded-md p-2 text-text-secondary hover:bg-surface"
+            data-testid={TestIds.THEME_TOGGLE}
             type="button"
             onClick={toggleMode}
           >
-            {mode === 'light' ? '🌙' : '☀️'}
+            {themeIcon === 'moon' ? (
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+            ) : (
+              <svg
+                className="h-5 w-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                />
+              </svg>
+            )}
           </button>
         </div>
 
@@ -42,42 +87,29 @@ const LoginPage = (): JSX.Element => {
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            <div>
-              <label className="mb-1 block text-sm font-medium text-text-primary" htmlFor="email">
-                {FM('login.email')}
-              </label>
-              <input
-                required
-                className="input"
-                id="email"
-                placeholder={FM('login.emailPlaceholder')}
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
+            <Input
+              fullWidth
+              input={handleEmailChange}
+              label={FM('login.email')}
+              placeholder={FM('login.emailPlaceholder')}
+              testId={TestIds.LOGIN_USERNAME}
+              type="email"
+              value={email}
+            />
 
-            <div>
-              <label
-                className="mb-1 block text-sm font-medium text-text-primary"
-                htmlFor="password"
-              >
-                {FM('login.password')}
-              </label>
-              <input
-                required
-                className="input"
-                id="password"
-                placeholder={FM('login.passwordPlaceholder')}
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
+            <Input
+              fullWidth
+              input={handlePasswordChange}
+              label={FM('login.password')}
+              placeholder={FM('login.passwordPlaceholder')}
+              testId={TestIds.LOGIN_PASSWORD}
+              type="password"
+              value={password}
+            />
 
-            <button className="btn btn-primary w-full" type="submit">
+            <Button fullWidth testId={TestIds.LOGIN_SUBMIT} variant="primary">
               {FM('login.submit')}
-            </button>
+            </Button>
           </form>
 
           <p className="mt-4 text-center text-sm text-text-muted">{FM('login.demoHint')}</p>

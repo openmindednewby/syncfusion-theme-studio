@@ -469,6 +469,7 @@ export default [
       'smart-max-lines/smart-max-lines': 'off',
       'no-magic-numbers': 'off',
       'no-console': 'off',
+      'no-null-check/no-null-check': 'off', // Allow null/undefined checks in test mocks
     },
   },
 

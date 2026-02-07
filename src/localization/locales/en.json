@@ -14,7 +14,24 @@
     "confirm": "Confirm",
     "yes": "Yes",
     "no": "No",
-    "refresh": "Refresh"
+    "refresh": "Refresh",
+    "reset": "Reset",
+    "export": "Export",
+    "import": "Import",
+    "tryAgain": "Try Again",
+    "id": "ID",
+    "name": "Name",
+    "email": "Email",
+    "status": "Status",
+    "category": "Category",
+    "role": "Role",
+    "tags": "Tags",
+    "unknown": "Unknown"
+  },
+  "validation": {
+    "required": "This field is required",
+    "invalidEmail": "Please enter a valid email address",
+    "pleaseSelect": "Please select an option"
   },
   "login": {
     "title": "Welcome Back",
@@ -52,19 +69,108 @@
   },
   "header": {
     "themeSwitchLight": "Switch to light mode",
-    "themeSwitchDark": "Switch to dark mode"
+    "themeSwitchDark": "Switch to dark mode",
+    "themeSettings": "Open theme settings"
+  },
+  "themeSettings": {
+    "title": "Theme Settings",
+    "drawerLabel": "Theme settings panel",
+    "closeDrawer": "Close theme settings",
+    "primaryColors": "Primary Colors",
+    "importExport": "Import / Export",
+    "export": "Export",
+    "import": "Import",
+    "exportTheme": "Export theme as JSON",
+    "importTheme": "Import Theme",
+    "showImport": "Show import panel",
+    "hideImport": "Hide import panel",
+    "importJsonLabel": "Paste theme JSON",
+    "importPlaceholder": "Paste theme JSON here...",
+    "importError": "Invalid theme JSON",
+    "resetToDefault": "Reset to Default"
   },
   "themeEditor": {
     "title": "Theme Editor",
-    "colors": "Colors",
-    "typography": "Typography",
-    "preview": "Preview"
+    "primaryColors": "Primary Colors",
+    "livePreview": "Live Preview",
+    "importTheme": "Import Theme",
+    "exportTheme": "Export Theme",
+    "resetToDefault": "Reset to Default",
+    "importPlaceholder": "Paste theme JSON here...",
+    "invalidThemeJson": "Invalid theme JSON",
+    "primaryButton": "Primary Button",
+    "secondaryButton": "Secondary",
+    "primaryTextOnSurface": "Primary text on surface",
+    "secondaryText": "Secondary text",
+    "mutedText": "Muted text",
+    "pickColorFor": "Pick color for {p1}"
   },
   "pets": {
     "title": "Pets",
-    "list": "Pets List"
+    "list": "Pets List",
+    "failedToLoad": "Failed to load pets",
+    "noPetsFound": "No pets found",
+    "noPetsWithStatus": "There are no {p1} pets at the moment.",
+    "status": {
+      "available": "Available",
+      "pending": "Pending",
+      "sold": "Sold"
+    }
   },
   "components": {
-    "title": "Components Showcase"
+    "title": "Components Showcase",
+    "pageTitle": "Components",
+    "sections": {
+      "buttons": "Syncfusion Buttons",
+      "inputs": "Syncfusion Inputs",
+      "select": "Syncfusion Select (Dropdown)",
+      "dataGrid": "Syncfusion DataGrid",
+      "cards": "Cards",
+      "badges": "Badges"
+    },
+    "buttons": {
+      "primary": "Primary",
+      "secondary": "Secondary",
+      "outline": "Outline",
+      "ghost": "Ghost",
+      "danger": "Danger",
+      "disabled": "Disabled",
+      "small": "Small",
+      "medium": "Medium",
+      "large": "Large"
+    },
+    "inputs": {
+      "nameLabel": "Name",
+      "namePlaceholder": "John Doe",
+      "nameHelper": "Enter your full name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "john@example.com",
+      "disabledLabel": "Disabled Input",
+      "disabledPlaceholder": "Cannot type here",
+      "errorLabel": "Input with Error",
+      "errorPlaceholder": "Something is wrong..."
+    },
+    "select": {
+      "basicLabel": "Basic Select",
+      "basicHelper": "Select one of the options",
+      "errorLabel": "Select with Error",
+      "option": "Option {p1}"
+    },
+    "grid": {
+      "toggleLoading": "Simulate Loading",
+      "stopLoading": "Stop Loading"
+    },
+    "cards": {
+      "default": "Default Card",
+      "defaultDesc": "This is a default card with surface background.",
+      "elevated": "Elevated Card",
+      "elevatedDesc": "This card has a subtle shadow for elevation."
+    },
+    "badges": {
+      "success": "Success",
+      "warning": "Warning",
+      "error": "Error",
+      "info": "Info"
+    }
   }
 }

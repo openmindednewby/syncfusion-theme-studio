@@ -9,3 +9,9 @@ export type { InputProps } from './Input';
 
 export { default as Select } from './Select';
 export type { SelectProps, SelectOption } from './Select';
+
+export { default as DatePicker } from './DatePicker';
+export type { DatePickerProps } from './DatePicker';
+
+export { default as Dialog } from './Dialog';
+export type { DialogProps, DialogButton, DialogVariant } from './Dialog';

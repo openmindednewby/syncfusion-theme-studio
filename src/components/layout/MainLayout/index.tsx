@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom';
 
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
+import { ThemeSettingsDrawer } from '../ThemeSettingsDrawer';
 
 export const MainLayout = (): JSX.Element => {
   return (
@@ -13,6 +14,7 @@ export const MainLayout = (): JSX.Element => {
           <Outlet />
         </main>
       </div>
+      <ThemeSettingsDrawer />
     </div>
   );
-}
+};

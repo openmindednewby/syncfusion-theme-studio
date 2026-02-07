@@ -10,7 +10,6 @@ const DashboardPage = lazy(async () => import('@/features/dashboard/pages/Dashbo
 const LoginPage = lazy(async () => import('@/features/auth/pages/LoginPage'));
 const PetsListPage = lazy(async () => import('@/features/pets/pages/PetsListPage'));
 const ComponentsPage = lazy(async () => import('@/features/showcase/pages/ComponentsPage'));
-const ThemeEditorPage = lazy(async () => import('@/features/theme-editor/pages/ThemeEditorPage'));
 
 // Wrapper for lazy-loaded components
 interface LazyPageProps {
@@ -34,7 +33,6 @@ const routes: RouteObject[] = [
       { index: true, element: <LazyPage component={DashboardPage} /> },
       { path: 'pets', element: <LazyPage component={PetsListPage} /> },
       { path: 'components', element: <LazyPage component={ComponentsPage} /> },
-      { path: 'theme-editor', element: <LazyPage component={ThemeEditorPage} /> },
     ],
   },
   { path: '/login', element: <LazyPage component={LoginPage} /> },

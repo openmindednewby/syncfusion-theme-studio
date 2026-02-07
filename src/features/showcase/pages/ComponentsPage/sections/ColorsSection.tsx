@@ -1,11 +1,15 @@
 import { memo } from 'react';
 
+import { FM } from '@/localization/helpers';
+
 const SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 const DARK_SHADE_THRESHOLD = 500;
 
 export const ColorsSection = memo((): JSX.Element => (
   <section className="card">
-    <h3 className="mb-4 text-lg font-semibold text-text-primary">Primary Colors</h3>
+    <h3 className="mb-4 text-lg font-semibold text-text-primary">
+      {FM('themeEditor.primaryColors')}
+    </h3>
     <div className="flex flex-wrap gap-2">
       {SHADES.map((shade) => {
         const isDarkShade = Number(shade) >= DARK_SHADE_THRESHOLD;

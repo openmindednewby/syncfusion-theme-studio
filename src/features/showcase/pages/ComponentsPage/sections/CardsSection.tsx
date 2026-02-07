@@ -1,15 +1,19 @@
 import { memo } from 'react';
 
+import { FM } from '@/localization/helpers';
+
 export const CardsSection = memo((): JSX.Element => (
   <>
     {/* Badges */}
     <section className="card">
-      <h3 className="mb-4 text-lg font-semibold text-text-primary">Badges</h3>
+      <h3 className="mb-4 text-lg font-semibold text-text-primary">
+        {FM('components.sections.badges')}
+      </h3>
       <div className="flex flex-wrap gap-4">
-        <span className="badge badge-success">Success</span>
-        <span className="badge badge-warning">Warning</span>
-        <span className="badge badge-error">Error</span>
-        <span className="badge badge-info">Info</span>
+        <span className="badge badge-success">{FM('components.badges.success')}</span>
+        <span className="badge badge-warning">{FM('components.badges.warning')}</span>
+        <span className="badge badge-error">{FM('components.badges.error')}</span>
+        <span className="badge badge-info">{FM('components.badges.info')}</span>
       </div>
     </section>
 
@@ -40,19 +44,17 @@ export const CardsSection = memo((): JSX.Element => (
 
     {/* Cards */}
     <section className="card">
-      <h3 className="mb-4 text-lg font-semibold text-text-primary">Cards</h3>
+      <h3 className="mb-4 text-lg font-semibold text-text-primary">
+        {FM('components.sections.cards')}
+      </h3>
       <div className="grid gap-4 md:grid-cols-2">
         <div className="card">
-          <h4 className="font-medium text-text-primary">Default Card</h4>
-          <p className="mt-1 text-sm text-text-secondary">
-            This is a default card with surface background.
-          </p>
+          <h4 className="font-medium text-text-primary">{FM('components.cards.default')}</h4>
+          <p className="mt-1 text-sm text-text-secondary">{FM('components.cards.defaultDesc')}</p>
         </div>
         <div className="card card-elevated">
-          <h4 className="font-medium text-text-primary">Elevated Card</h4>
-          <p className="mt-1 text-sm text-text-secondary">
-            This card has a subtle shadow for elevation.
-          </p>
+          <h4 className="font-medium text-text-primary">{FM('components.cards.elevated')}</h4>
+          <p className="mt-1 text-sm text-text-secondary">{FM('components.cards.elevatedDesc')}</p>
         </div>
       </div>
     </section>

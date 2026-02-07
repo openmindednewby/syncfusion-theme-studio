@@ -8,11 +8,11 @@
 # Resources:
 #   - theme-studio-lint: ESLint check
 #   - theme-studio-unit-tests: Vitest unit tests
-#   - theme-studio-dev: Development server (port 3000)
+#   - theme-studio-dev: Development server (port 4444)
 #   - theme-studio-e2e: Playwright E2E tests (manual)
 #   - theme-studio-build: Production build (manual)
 #
-# Port: 3000 (different from BaseClient which uses 8082)
+# Port: 4444 (different from BaseClient which uses 8082)
 # ===============================================================================
 
 # --- Linter ---
@@ -52,17 +52,17 @@ local_resource(
 local_resource(
     name='theme-studio-dev',
     labels=['ThemeStudio'],
-    serve_cmd='npm run dev -- --port 3000',
+    serve_cmd='npm run dev -- --port 4444',
     resource_deps=['theme-studio-unit-tests'],
     readiness_probe=probe(
-        http_get=http_get_action(port=3000, path='/'),
+        http_get=http_get_action(port=4444, path='/'),
         initial_delay_secs=10,
         period_secs=3,
         timeout_secs=5,
         failure_threshold=20,
     ),
     links=[
-        link('http://localhost:3000', 'Theme Studio App'),
+        link('http://localhost:4444', 'Theme Studio App'),
     ],
 )
 

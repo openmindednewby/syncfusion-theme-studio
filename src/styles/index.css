@@ -5,25 +5,25 @@
  * base → syncfusion-base → components → syncfusion-overrides → utilities
  */
 
+/* All @import statements must come first */
+@import '@syncfusion/ej2-base/styles/tailwind.css';
+@import '@syncfusion/ej2-react-grids/styles/tailwind.css';
+@import '@syncfusion/ej2-react-inputs/styles/tailwind.css';
+@import '@syncfusion/ej2-react-buttons/styles/tailwind.css';
+@import '@syncfusion/ej2-react-dropdowns/styles/tailwind.css';
+@import '@syncfusion/ej2-react-popups/styles/tailwind.css';
+@import '@syncfusion/ej2-react-navigations/styles/tailwind.css';
+@import '@syncfusion/ej2-react-calendars/styles/tailwind.css';
+
+/* Import custom styles (they contain @layer directives) */
+@import './layers/base.css';
+@import './layers/components.css';
+@import './layers/syncfusion-overrides.css';
+
+/* Layer order declaration */
 @layer base, syncfusion-base, components, syncfusion-overrides, utilities;
 
-/* Tailwind layers */
-@import 'tailwindcss/base' layer(base);
-@import 'tailwindcss/components' layer(components);
-@import 'tailwindcss/utilities' layer(utilities);
-
-/* Custom layers */
-@import './layers/base.css' layer(base);
-@import './layers/components.css' layer(components);
-
-/* Syncfusion component styles - Tailwind variant for optimal integration */
-@import '@syncfusion/ej2-base/styles/tailwind.css' layer(syncfusion-base);
-@import '@syncfusion/ej2-react-grids/styles/tailwind.css' layer(syncfusion-base);
-@import '@syncfusion/ej2-react-inputs/styles/tailwind.css' layer(syncfusion-base);
-@import '@syncfusion/ej2-react-buttons/styles/tailwind.css' layer(syncfusion-base);
-@import '@syncfusion/ej2-react-dropdowns/styles/tailwind.css' layer(syncfusion-base);
-@import '@syncfusion/ej2-react-popups/styles/tailwind.css' layer(syncfusion-base);
-@import '@syncfusion/ej2-react-navigations/styles/tailwind.css' layer(syncfusion-base);
-
-/* Theme overrides for Syncfusion components */
-@import './layers/syncfusion-overrides.css' layer(syncfusion-overrides);
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -8,12 +8,18 @@ import type {
   StatusKey,
   StatusShade,
   ThemeModeConfig,
+  ThemeModeConfigUpdate,
 } from './colorTypes';
 import type {
+  BadgesConfig,
   ButtonStateColors,
   ButtonVariant,
+  CardsConfig,
   ComponentsConfig,
+  DataGridConfig,
   HeaderComponentConfig,
+  InputsConfig,
+  ModalsConfig,
   SidebarComponentConfig,
 } from './componentTypes';
 import type {
@@ -53,10 +59,23 @@ export interface ThemeState {
   updateSecondaryColor: (shade: ColorShade, value: string) => void;
   updateNeutralColor: (shade: ColorShade, value: string) => void;
   updateStatusColor: (status: StatusKey, shade: StatusShade, value: string) => void;
-  updateModeConfig: (mode: Mode, updates: Partial<ThemeModeConfig>) => void;
+  updateModeConfig: (mode: Mode, updates: ThemeModeConfigUpdate) => void;
   updateHeaderConfig: (updates: Partial<HeaderComponentConfig>) => void;
   updateSidebarConfig: (updates: Partial<SidebarComponentConfig>) => void;
   updateButtonConfig: (variant: ButtonVariant, updates: Partial<ButtonStateColors>) => void;
+  updateInputConfig: (updates: Partial<InputsConfig>) => void;
+  updateDataGridConfig: (updates: Partial<DataGridConfig>) => void;
+  updateCardsConfig: (updates: Partial<CardsConfig>) => void;
+  updateModalsConfig: (updates: Partial<ModalsConfig>) => void;
+  updateBadgesConfig: (updates: Partial<BadgesConfig>) => void;
+  // Typography actions
+  updateFontFamily: (type: 'sans' | 'mono', value: string) => void;
+  updateTransition: (type: 'fast' | 'normal' | 'slow' | 'easing', value: string) => void;
+  // Layout actions
+  updateLayoutDimension: (key: keyof LayoutConfig, value: string) => void;
+  updateSpacingBaseUnit: (value: number) => void;
+  updateBorderRadius: (key: keyof BorderRadiusConfig, value: string) => void;
+  updateShadow: (key: keyof ShadowConfig, value: string) => void;
   resetTheme: () => void;
   exportTheme: () => string;
   importTheme: (json: string) => boolean;

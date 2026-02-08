@@ -35,4 +35,21 @@ export interface ComponentConfigActions {
   updateHeaderConfig: ThemeState['updateHeaderConfig'];
   updateSidebarConfig: ThemeState['updateSidebarConfig'];
   updateButtonConfig: ThemeState['updateButtonConfig'];
+  updateInputConfig: ThemeState['updateInputConfig'];
+  updateDataGridConfig: ThemeState['updateDataGridConfig'];
+  updateCardsConfig: ThemeState['updateCardsConfig'];
+  updateModalsConfig: ThemeState['updateModalsConfig'];
+  updateBadgesConfig: ThemeState['updateBadgesConfig'];
+}
+
+export interface TypographyActions {
+  updateFontFamily: ThemeState['updateFontFamily'];
+  updateTransition: ThemeState['updateTransition'];
+}
+
+export interface LayoutActions {
+  updateLayoutDimension: ThemeState['updateLayoutDimension'];
+  updateSpacingBaseUnit: ThemeState['updateSpacingBaseUnit'];
+  updateBorderRadius: ThemeState['updateBorderRadius'];
+  updateShadow: ThemeState['updateShadow'];
 }

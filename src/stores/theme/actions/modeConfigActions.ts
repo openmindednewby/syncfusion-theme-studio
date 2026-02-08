@@ -2,12 +2,12 @@
 
 import { injectThemeVariables } from '../themeInjector';
 
-import type { Mode, ThemeModeConfig } from '../types';
+import type { Mode, ThemeModeConfigUpdate } from '../types';
 import type { GetState, ModeConfigActions, SetState } from './types';
 
 export function createModeConfigActions(set: SetState, get: GetState): ModeConfigActions {
   return {
-    updateModeConfig: (mode: Mode, updates: Partial<ThemeModeConfig>) => {
+    updateModeConfig: (mode: Mode, updates: ThemeModeConfigUpdate) => {
       const currentTheme = get().theme;
       const currentModeConfig = currentTheme[mode];
       const newModeConfig = {

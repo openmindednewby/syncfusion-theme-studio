@@ -138,7 +138,62 @@
       "title": "Component Styles",
       "description": "Component-specific styling configurations.",
       "properties": "properties",
-      "editHint": "Click on a component to edit its styles."
+      "editHint": "Click on a component to edit its styles.",
+      "header": {
+        "title": "Header",
+        "background": "Background",
+        "textColor": "Text Color",
+        "borderBottom": "Border Bottom"
+      },
+      "sidebar": {
+        "title": "Sidebar",
+        "background": "Background",
+        "textColor": "Text Color",
+        "activeItemBg": "Active Item Background",
+        "activeItemText": "Active Item Text",
+        "hoverItemBg": "Hover Item Background"
+      },
+      "buttons": {
+        "title": "Buttons",
+        "background": "Background",
+        "backgroundHover": "Background Hover",
+        "textColor": "Text Color"
+      },
+      "inputs": {
+        "title": "Inputs",
+        "background": "Background",
+        "borderDefault": "Border Default",
+        "borderFocus": "Border Focus",
+        "textColor": "Text Color",
+        "placeholderColor": "Placeholder"
+      },
+      "dataGrid": {
+        "title": "Data Grid",
+        "headerBackground": "Header Background",
+        "headerTextColor": "Header Text",
+        "rowEvenBackground": "Even Row Background",
+        "rowOddBackground": "Odd Row Background",
+        "rowHoverBackground": "Row Hover Background"
+      },
+      "cards": {
+        "title": "Cards",
+        "background": "Background",
+        "borderColor": "Border Color",
+        "headerBackground": "Header Background",
+        "footerBackground": "Footer Background"
+      },
+      "modals": {
+        "title": "Modals",
+        "contentBackground": "Content Background",
+        "borderColor": "Border Color",
+        "headerBackground": "Header Background",
+        "footerBackground": "Footer Background"
+      },
+      "badges": {
+        "title": "Badges",
+        "background": "Background",
+        "textColor": "Text Color"
+      }
     },
     "presets": {
       "title": "Theme Presets",

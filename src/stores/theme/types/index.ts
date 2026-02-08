@@ -13,6 +13,7 @@ export type {
   TextColors,
   BorderColors,
   ThemeModeConfig,
+  ThemeModeConfigUpdate,
 } from './colorTypes';
 
 // Re-export all layout types

@@ -99,6 +99,7 @@ export const ThemeSettingsDrawer = (): JSX.Element | null => {
       <div
         aria-hidden="true"
         className="fixed inset-0 z-40 transition-opacity duration-normal"
+        data-testid={TestIds.THEME_BACKDROP}
         style={{ backgroundColor: BACKDROP_OPACITY }}
         onClick={handleBackdropClick}
       />
@@ -119,6 +120,7 @@ export const ThemeSettingsDrawer = (): JSX.Element | null => {
           <button
             aria-label={FM('themeSettings.closeDrawer')}
             className="rounded p-1 text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
+            data-testid={TestIds.THEME_CLOSE_BTN}
             type="button"
             onClick={close}
           >

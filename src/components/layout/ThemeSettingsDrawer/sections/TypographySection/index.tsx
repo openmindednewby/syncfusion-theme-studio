@@ -1,8 +1,11 @@
+
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 
+import { TextInputRow } from '../../TextInputRow';
+
 export const TypographySection = (): JSX.Element => {
-  const { theme } = useThemeStore();
+  const { theme, updateFontFamily, updateTransition } = useThemeStore();
 
   return (
     <section className="space-y-4">
@@ -21,18 +24,16 @@ export const TypographySection = (): JSX.Element => {
           {FM('themeSettings.typography.fontFamily')}
         </h5>
         <div className="space-y-2">
-          <div className="flex items-center justify-between rounded bg-surface-sunken px-3 py-2">
-            <span className="text-xs font-medium text-text-secondary">Sans</span>
-            <span className="max-w-[200px] truncate text-xs text-text-muted">
-              {theme.typography.fontSans}
-            </span>
-          </div>
-          <div className="flex items-center justify-between rounded bg-surface-sunken px-3 py-2">
-            <span className="text-xs font-medium text-text-secondary">Mono</span>
-            <span className="max-w-[200px] truncate text-xs text-text-muted">
-              {theme.typography.fontMono}
-            </span>
-          </div>
+          <TextInputRow
+            label="Sans"
+            value={theme.typography.fontSans}
+            onChange={(value) => updateFontFamily('sans', value)}
+          />
+          <TextInputRow
+            label="Mono"
+            value={theme.typography.fontMono}
+            onChange={(value) => updateFontFamily('mono', value)}
+          />
         </div>
       </div>
 
@@ -42,24 +43,30 @@ export const TypographySection = (): JSX.Element => {
           {FM('themeSettings.layout.transitions')}
         </h5>
         <div className="space-y-2">
-          <div className="flex items-center justify-between rounded bg-surface-sunken px-3 py-2">
-            <span className="text-xs font-medium text-text-secondary">Fast</span>
-            <span className="text-xs text-text-muted">{theme.transitions.fast}</span>
-          </div>
-          <div className="flex items-center justify-between rounded bg-surface-sunken px-3 py-2">
-            <span className="text-xs font-medium text-text-secondary">Normal</span>
-            <span className="text-xs text-text-muted">{theme.transitions.normal}</span>
-          </div>
-          <div className="flex items-center justify-between rounded bg-surface-sunken px-3 py-2">
-            <span className="text-xs font-medium text-text-secondary">Slow</span>
-            <span className="text-xs text-text-muted">{theme.transitions.slow}</span>
-          </div>
-          <div className="flex items-center justify-between rounded bg-surface-sunken px-3 py-2">
-            <span className="text-xs font-medium text-text-secondary">Easing</span>
-            <span className="max-w-[180px] truncate text-xs text-text-muted">
-              {theme.transitions.easing}
-            </span>
-          </div>
+          <TextInputRow
+            label="Fast"
+            placeholder="e.g., 150ms"
+            value={theme.transitions.fast}
+            onChange={(value) => updateTransition('fast', value)}
+          />
+          <TextInputRow
+            label="Normal"
+            placeholder="e.g., 250ms"
+            value={theme.transitions.normal}
+            onChange={(value) => updateTransition('normal', value)}
+          />
+          <TextInputRow
+            label="Slow"
+            placeholder="e.g., 350ms"
+            value={theme.transitions.slow}
+            onChange={(value) => updateTransition('slow', value)}
+          />
+          <TextInputRow
+            label="Easing"
+            placeholder="e.g., ease-in-out"
+            value={theme.transitions.easing}
+            onChange={(value) => updateTransition('easing', value)}
+          />
         </div>
       </div>
     </section>

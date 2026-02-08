@@ -1,28 +1,27 @@
 import { FM } from '@/localization/helpers';
-import type { ComponentsConfig } from '@/stores/theme/types';
 import { useThemeStore } from '@/stores/useThemeStore';
-import { isValueDefined } from '@/utils/is';
 
-const COMPONENT_KEYS: Array<keyof ComponentsConfig> = [
-  'header',
-  'sidebar',
-  'buttons',
-  'inputs',
-  'dataGrid',
-  'cards',
-  'modals',
-  'badges',
-];
+import { BadgesEditor } from './BadgesEditor';
+import { ButtonsEditor } from './ButtonsEditor';
+import { CardsEditor } from './CardsEditor';
+import { DataGridEditor } from './DataGridEditor';
+import { HeaderEditor } from './HeaderEditor';
+import { InputsEditor } from './InputsEditor';
+import { ModalsEditor } from './ModalsEditor';
+import { SidebarEditor } from './SidebarEditor';
 
 export const ComponentsSection = (): JSX.Element => {
-  const { theme } = useThemeStore();
-
-  const getComponentPropCount = (componentKey: keyof ComponentsConfig): number => {
-    const component = theme.components[componentKey];
-    const isObject = typeof component === 'object';
-    if (!isObject || !isValueDefined(component)) return 0;
-    return Object.keys(component).length;
-  };
+  const {
+    theme,
+    updateHeaderConfig,
+    updateSidebarConfig,
+    updateButtonConfig,
+    updateInputConfig,
+    updateDataGridConfig,
+    updateCardsConfig,
+    updateModalsConfig,
+    updateBadgesConfig,
+  } = useThemeStore();
 
   return (
     <section className="space-y-4">
@@ -35,24 +34,16 @@ export const ComponentsSection = (): JSX.Element => {
         </p>
       </div>
 
-      {/* Component List */}
       <div className="space-y-2">
-        {COMPONENT_KEYS.map((key) => (
-          <div
-            key={key}
-            className="flex items-center justify-between rounded border border-border bg-surface-sunken px-3 py-2 transition-colors hover:bg-surface"
-          >
-            <span className="text-xs font-medium capitalize text-text-primary">{key}</span>
-            <span className="text-xs text-text-muted">
-              {getComponentPropCount(key)} {FM('themeSettings.components.properties')}
-            </span>
-          </div>
-        ))}
+        <HeaderEditor config={theme.components.header} onUpdate={updateHeaderConfig} />
+        <SidebarEditor config={theme.components.sidebar} onUpdate={updateSidebarConfig} />
+        <ButtonsEditor config={theme.components.buttons} onUpdate={updateButtonConfig} />
+        <InputsEditor config={theme.components.inputs} onUpdate={updateInputConfig} />
+        <DataGridEditor config={theme.components.dataGrid} onUpdate={updateDataGridConfig} />
+        <CardsEditor config={theme.components.cards} onUpdate={updateCardsConfig} />
+        <ModalsEditor config={theme.components.modals} onUpdate={updateModalsConfig} />
+        <BadgesEditor config={theme.components.badges} onUpdate={updateBadgesConfig} />
       </div>
-
-      <p className="text-xs italic text-text-muted">
-        {FM('themeSettings.components.editHint')}
-      </p>
     </section>
   );
 };

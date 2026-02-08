@@ -1,6 +1,17 @@
 import { FM } from '@/localization/helpers';
+import { TestIds } from '@/shared/testIds';
 
 export type TabId = 'colors' | 'typography' | 'layout' | 'lightTheme' | 'darkTheme' | 'components' | 'presets';
+
+const TAB_TEST_ID_MAP: Record<TabId, string> = {
+  colors: TestIds.THEME_TAB_COLORS,
+  typography: TestIds.THEME_TAB_TYPOGRAPHY,
+  layout: TestIds.THEME_TAB_LAYOUT,
+  lightTheme: TestIds.THEME_TAB_LIGHT,
+  darkTheme: TestIds.THEME_TAB_DARK,
+  components: TestIds.THEME_TAB_COMPONENTS,
+  presets: TestIds.THEME_TAB_PRESETS,
+};
 
 interface Tab {
   id: TabId;
@@ -100,6 +111,7 @@ export const DrawerTabs = ({ activeTab, onTabChange }: DrawerTabsProps): JSX.Ele
             aria-current={isActive ? 'page' : undefined}
             aria-label={FM(tab.labelKey)}
             className={`${baseClasses} ${activeClasses}`}
+            data-testid={TAB_TEST_ID_MAP[tab.id]}
             type="button"
             onClick={() => onTabChange(tab.id)}
           >

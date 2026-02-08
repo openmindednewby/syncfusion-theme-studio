@@ -65,3 +65,10 @@ export interface ThemeModeConfig {
   text: TextColors;
   borders: BorderColors;
 }
+
+/** Deep partial version of ThemeModeConfig for update operations */
+export interface ThemeModeConfigUpdate {
+  backgrounds?: Partial<BackgroundColors>;
+  text?: Partial<TextColors>;
+  borders?: Partial<BorderColors>;
+}

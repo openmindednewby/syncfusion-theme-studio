@@ -14,6 +14,7 @@ export type {
   TextColors,
   BorderColors,
   ThemeModeConfig,
+  ThemeModeConfigUpdate,
   // Layout types
   LayoutConfig,
   BorderRadiusConfig,

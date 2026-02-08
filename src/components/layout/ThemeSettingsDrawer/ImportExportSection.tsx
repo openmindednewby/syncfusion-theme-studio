@@ -60,6 +60,7 @@ export const ImportExportSection = (): JSX.Element => {
         <button
           aria-label={showImport ? FM('themeSettings.hideImport') : FM('themeSettings.showImport')}
           className="btn btn-secondary flex-1 text-xs"
+          data-testid={TestIds.THEME_IMPORT_TOGGLE_BTN}
           type="button"
           onClick={toggleImport}
         >
@@ -71,14 +72,16 @@ export const ImportExportSection = (): JSX.Element => {
           <textarea
             aria-label={FM('themeSettings.importJsonLabel')}
             className="input min-h-24 font-mono text-xs"
+            data-testid={TestIds.THEME_IMPORT_TEXTAREA}
             placeholder={FM('themeSettings.importPlaceholder')}
             value={importJson}
             onChange={handleImportJsonChange}
           />
-          {importError !== '' && <p className="text-xs text-error-500">{importError}</p>}
+          {importError !== '' && <p className="text-xs text-error-500" data-testid={TestIds.THEME_IMPORT_ERROR}>{importError}</p>}
           <button
             aria-label={FM('themeSettings.importTheme')}
             className="btn btn-secondary w-full text-xs"
+            data-testid={TestIds.THEME_IMPORT_BTN}
             disabled={isImportDisabled}
             type="button"
             onClick={handleImport}

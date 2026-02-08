@@ -4,9 +4,11 @@ import {
   createColorUpdateActions,
   createComponentConfigActions,
   createExportImportActions,
+  createLayoutActions,
   createModeActions,
   createModeConfigActions,
   createThemeUpdateActions,
+  createTypographyActions,
 } from './actions';
 import { DEFAULT_THEME } from './defaultTheme';
 
@@ -24,5 +26,7 @@ export function createThemeActions(set: SetState, get: GetState): ThemeState {
     ...createThemeUpdateActions(set, get),
     ...createExportImportActions(set, get),
     ...createComponentConfigActions(set, get),
+    ...createTypographyActions(set, get),
+    ...createLayoutActions(set, get),
   };
 }

@@ -17,9 +17,12 @@ import type {
   CardsConfig,
   ComponentsConfig,
   DataGridConfig,
+  DatePickerConfig,
+  DialogConfig,
   HeaderComponentConfig,
   InputsConfig,
   ModalsConfig,
+  SelectConfig,
   SidebarComponentConfig,
 } from './componentTypes';
 import type {
@@ -60,6 +63,7 @@ export interface ThemeState {
   updateNeutralColor: (shade: ColorShade, value: string) => void;
   updateStatusColor: (status: StatusKey, shade: StatusShade, value: string) => void;
   updateModeConfig: (mode: Mode, updates: ThemeModeConfigUpdate) => void;
+  // Component actions now update the current mode's config
   updateHeaderConfig: (updates: Partial<HeaderComponentConfig>) => void;
   updateSidebarConfig: (updates: Partial<SidebarComponentConfig>) => void;
   updateButtonConfig: (variant: ButtonVariant, updates: Partial<ButtonStateColors>) => void;
@@ -68,6 +72,9 @@ export interface ThemeState {
   updateCardsConfig: (updates: Partial<CardsConfig>) => void;
   updateModalsConfig: (updates: Partial<ModalsConfig>) => void;
   updateBadgesConfig: (updates: Partial<BadgesConfig>) => void;
+  updateSelectConfig: (updates: Partial<SelectConfig>) => void;
+  updateDatePickerConfig: (updates: Partial<DatePickerConfig>) => void;
+  updateDialogConfig: (updates: Partial<DialogConfig>) => void;
   // Typography actions
   updateFontFamily: (type: 'sans' | 'mono', value: string) => void;
   updateTransition: (type: 'fast' | 'normal' | 'slow' | 'easing', value: string) => void;

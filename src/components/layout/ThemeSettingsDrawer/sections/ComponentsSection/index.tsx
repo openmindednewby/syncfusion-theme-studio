@@ -13,6 +13,7 @@ import { SidebarEditor } from './SidebarEditor';
 export const ComponentsSection = (): JSX.Element => {
   const {
     theme,
+    mode,
     updateHeaderConfig,
     updateSidebarConfig,
     updateButtonConfig,
@@ -22,6 +23,9 @@ export const ComponentsSection = (): JSX.Element => {
     updateModalsConfig,
     updateBadgesConfig,
   } = useThemeStore();
+
+  // Get the current mode's component configuration
+  const components = theme.components[mode];
 
   return (
     <section className="space-y-4">
@@ -35,14 +39,14 @@ export const ComponentsSection = (): JSX.Element => {
       </div>
 
       <div className="space-y-2">
-        <HeaderEditor config={theme.components.header} onUpdate={updateHeaderConfig} />
-        <SidebarEditor config={theme.components.sidebar} onUpdate={updateSidebarConfig} />
-        <ButtonsEditor config={theme.components.buttons} onUpdate={updateButtonConfig} />
-        <InputsEditor config={theme.components.inputs} onUpdate={updateInputConfig} />
-        <DataGridEditor config={theme.components.dataGrid} onUpdate={updateDataGridConfig} />
-        <CardsEditor config={theme.components.cards} onUpdate={updateCardsConfig} />
-        <ModalsEditor config={theme.components.modals} onUpdate={updateModalsConfig} />
-        <BadgesEditor config={theme.components.badges} onUpdate={updateBadgesConfig} />
+        <HeaderEditor config={components.header} onUpdate={updateHeaderConfig} />
+        <SidebarEditor config={components.sidebar} onUpdate={updateSidebarConfig} />
+        <ButtonsEditor config={components.buttons} onUpdate={updateButtonConfig} />
+        <InputsEditor config={components.inputs} onUpdate={updateInputConfig} />
+        <DataGridEditor config={components.dataGrid} onUpdate={updateDataGridConfig} />
+        <CardsEditor config={components.cards} onUpdate={updateCardsConfig} />
+        <ModalsEditor config={components.modals} onUpdate={updateModalsConfig} />
+        <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />
       </div>
     </section>
   );

@@ -18,4 +18,8 @@ export {
   DEFAULT_TRANSITIONS,
 } from './defaultLayout';
 
-export { DEFAULT_COMPONENTS } from './defaultComponents';
+export {
+  DEFAULT_COMPONENTS,
+  DEFAULT_COMPONENTS_LIGHT,
+  DEFAULT_COMPONENTS_DARK,
+} from './defaultComponents';

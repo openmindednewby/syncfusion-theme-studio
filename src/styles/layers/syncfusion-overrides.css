@@ -5,6 +5,9 @@
  * to integrate them with our theme system.
  *
  * Priority: syncfusion-overrides > syncfusion-base
+ *
+ * All component styles use CSS variables that are injected by themeInjector.ts
+ * based on the current mode (light/dark). This enables automatic theme switching.
  */
 
 @layer syncfusion-overrides {
@@ -106,10 +109,11 @@
     box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1);
   }
 
-  /* ===== DROPDOWN OVERRIDES ===== */
+  /* ===== DROPDOWN/SELECT OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .e-ddl.e-control-wrapper {
-    background-color: rgb(var(--color-background));
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-select-background);
+    border-color: var(--component-select-border-default);
     border-radius: var(--radius-md);
   }
 
@@ -118,12 +122,16 @@
   }
 
   .e-ddl.e-control-wrapper.e-input-focus {
-    border-color: rgb(var(--color-primary-500));
+    border-color: var(--component-select-border-focus);
     box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
   }
 
+  .e-ddl.e-control-wrapper .e-input {
+    color: var(--component-select-text-color);
+  }
+
   .e-ddl.e-control-wrapper .e-input-group-icon {
-    color: rgb(var(--color-text-secondary));
+    color: var(--component-select-icon-color);
   }
 
   .e-ddl.e-control-wrapper.e-error {
@@ -132,8 +140,8 @@
 
   /* Dropdown popup */
   .e-popup.e-ddl {
-    background-color: rgb(var(--color-surface-elevated));
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-select-popup-bg);
+    border-color: var(--component-select-popup-border);
     border-radius: var(--radius-md);
     box-shadow:
       0 10px 15px -3px rgb(0 0 0 / 0.1),
@@ -145,12 +153,12 @@
   }
 
   .e-popup.e-ddl .e-list-item.e-hover {
-    background-color: rgb(var(--color-surface));
+    background-color: var(--component-select-item-hover);
   }
 
   .e-popup.e-ddl .e-list-item.e-active {
-    background-color: rgb(var(--color-primary-50));
-    color: rgb(var(--color-primary-700));
+    background-color: var(--component-select-item-selected-bg);
+    color: var(--component-select-item-selected-text);
   }
 
   /* ===== GRID OVERRIDES ===== */
@@ -190,7 +198,7 @@
   }
 
   .e-grid .e-row.e-selectionbackground .e-rowcell {
-    background-color: rgb(var(--color-primary-50));
+    background-color: var(--component-datagrid-row-selected);
   }
 
   /* Grid pager */
@@ -223,20 +231,11 @@
     background-color: rgb(var(--color-surface));
   }
 
-  /* ===== DARK MODE ADJUSTMENTS ===== */
-  .dark .e-popup.e-ddl .e-list-item.e-active {
-    background-color: rgb(var(--color-primary-900));
-    color: rgb(var(--color-primary-200));
-  }
-
-  .dark .e-grid .e-row.e-selectionbackground .e-rowcell {
-    background-color: rgb(var(--color-primary-900));
-  }
-
   /* ===== DATEPICKER OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .e-datepicker.e-control-wrapper {
-    background-color: rgb(var(--color-background));
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-datepicker-background);
+    border-color: var(--component-datepicker-border-default);
     border-radius: var(--radius-md);
   }
 
@@ -245,12 +244,12 @@
   }
 
   .e-datepicker.e-control-wrapper.e-input-focus {
-    border-color: rgb(var(--color-primary-500));
+    border-color: var(--component-datepicker-border-focus);
     box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
   }
 
   .e-datepicker.e-control-wrapper .e-input {
-    color: rgb(var(--color-text-primary));
+    color: var(--component-datepicker-text-color);
   }
 
   .e-datepicker.e-control-wrapper .e-input::placeholder {
@@ -258,7 +257,7 @@
   }
 
   .e-datepicker.e-control-wrapper .e-input-group-icon {
-    color: rgb(var(--color-text-secondary));
+    color: var(--component-datepicker-icon-color);
   }
 
   .e-datepicker.e-control-wrapper.e-error {
@@ -271,7 +270,7 @@
 
   /* Calendar popup */
   .e-calendar.e-datepicker {
-    background-color: rgb(var(--color-surface-elevated));
+    background-color: var(--component-datepicker-calendar-bg);
     border-color: rgb(var(--color-border));
     border-radius: var(--radius-lg);
     box-shadow:
@@ -280,12 +279,12 @@
   }
 
   .e-calendar .e-header {
-    background-color: rgb(var(--color-surface));
+    background-color: var(--component-datepicker-calendar-header-bg);
     border-color: rgb(var(--color-border));
   }
 
   .e-calendar .e-header .e-title {
-    color: rgb(var(--color-text-primary));
+    color: var(--component-datepicker-calendar-header-text);
   }
 
   .e-calendar .e-header .e-icon-container .e-icons {
@@ -297,26 +296,27 @@
   }
 
   .e-calendar .e-content td.e-cell:hover {
-    background-color: rgb(var(--color-surface));
+    background-color: var(--component-datepicker-cell-hover);
   }
 
   .e-calendar .e-content td.e-selected {
-    background-color: rgb(var(--color-primary-500));
-    color: white;
+    background-color: var(--component-datepicker-selected-bg);
+    color: var(--component-datepicker-selected-text);
   }
 
   .e-calendar .e-content td.e-today {
-    border-color: rgb(var(--color-primary-500));
+    border-color: var(--component-datepicker-today-border);
   }
 
   .e-calendar .e-content td.e-other-month {
-    color: rgb(var(--color-text-muted));
+    color: var(--component-datepicker-other-month-text);
   }
 
   /* ===== DIALOG OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .e-dialog {
-    background-color: rgb(var(--color-surface-elevated));
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-dialog-content-bg);
+    border-color: var(--component-dialog-border);
     border-radius: var(--radius-xl);
     box-shadow:
       0 20px 25px -5px rgb(0 0 0 / 0.1),
@@ -324,35 +324,35 @@
   }
 
   .e-dialog .e-dlg-header-content {
-    background-color: rgb(var(--color-surface-elevated));
-    border-bottom: 1px solid rgb(var(--color-border));
+    background-color: var(--component-dialog-header-bg);
+    border-bottom: 1px solid var(--component-dialog-border);
     padding: 1rem 1.5rem;
   }
 
   .e-dialog .e-dlg-header {
-    color: rgb(var(--color-text-primary));
+    color: var(--component-dialog-header-text);
     font-weight: 600;
     font-size: var(--font-size-lg);
   }
 
   .e-dialog .e-btn.e-dlg-closeicon-btn {
-    color: rgb(var(--color-text-secondary));
+    color: var(--component-dialog-close-btn-color);
   }
 
   .e-dialog .e-btn.e-dlg-closeicon-btn:hover {
-    background-color: rgb(var(--color-surface));
+    background-color: var(--component-dialog-close-btn-hover-bg);
     color: rgb(var(--color-text-primary));
   }
 
   .e-dialog .e-dlg-content {
-    background-color: rgb(var(--color-surface-elevated));
+    background-color: var(--component-dialog-content-bg);
     color: rgb(var(--color-text-primary));
     padding: 1.5rem;
   }
 
   .e-dialog .e-footer-content {
-    background-color: rgb(var(--color-surface));
-    border-top: 1px solid rgb(var(--color-border));
+    background-color: var(--component-dialog-footer-bg);
+    border-top: 1px solid var(--component-dialog-border);
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: flex-end;
@@ -361,7 +361,7 @@
 
   /* Dialog overlay */
   .e-dlg-overlay {
-    background-color: rgb(0 0 0 / 0.5);
+    background-color: var(--component-dialog-backdrop);
   }
 
   /* Danger dialog variant */
@@ -369,12 +369,100 @@
     color: rgb(var(--color-error-700));
   }
 
-  /* ===== DARK MODE DATEPICKER ADJUSTMENTS ===== */
-  .dark .e-calendar .e-content td.e-selected {
-    background-color: rgb(var(--color-primary-600));
+  /* ===== CARD OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-card,
+  .theme-card {
+    background-color: var(--component-card-background);
+    border-color: var(--component-card-border);
   }
 
-  .dark .e-calendar .e-content td.e-today {
-    border-color: rgb(var(--color-primary-400));
+  .e-card .e-card-header,
+  .theme-card-header {
+    background-color: var(--component-card-header-bg);
+  }
+
+  .e-card .e-card-footer,
+  .theme-card-footer {
+    background-color: var(--component-card-footer-bg);
+  }
+
+  /* ===== BADGE OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-badge.e-badge-success,
+  .theme-badge-success {
+    background-color: var(--component-badge-success-bg);
+    color: var(--component-badge-success-text);
+  }
+
+  .e-badge.e-badge-warning,
+  .theme-badge-warning {
+    background-color: var(--component-badge-warning-bg);
+    color: var(--component-badge-warning-text);
+  }
+
+  .e-badge.e-badge-danger,
+  .theme-badge-error {
+    background-color: var(--component-badge-error-bg);
+    color: var(--component-badge-error-text);
+  }
+
+  .e-badge.e-badge-info,
+  .theme-badge-info {
+    background-color: var(--component-badge-info-bg);
+    color: var(--component-badge-info-text);
+  }
+
+  /* ===== MODAL OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-modal-overlay,
+  .theme-modal-overlay {
+    background-color: var(--component-modal-backdrop);
+  }
+
+  .e-modal-content,
+  .theme-modal-content {
+    background-color: var(--component-modal-content-bg);
+    border-color: var(--component-modal-border);
+  }
+
+  .e-modal-header,
+  .theme-modal-header {
+    background-color: var(--component-modal-header-bg);
+  }
+
+  .e-modal-footer,
+  .theme-modal-footer {
+    background-color: var(--component-modal-footer-bg);
+  }
+
+  /* ===== HEADER OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .theme-header,
+  .app-header {
+    background-color: var(--component-header-background);
+    color: var(--component-header-text-color);
+    border-bottom-color: var(--component-header-border-bottom);
+    height: var(--component-header-height);
+  }
+
+  /* ===== SIDEBAR OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .theme-sidebar,
+  .app-sidebar {
+    background-color: var(--component-sidebar-background);
+    color: var(--component-sidebar-text-color);
+    border-right-color: var(--component-sidebar-border-right);
+  }
+
+  .theme-sidebar-item.active,
+  .app-sidebar .nav-item.active {
+    background-color: var(--component-sidebar-active-bg);
+    color: var(--component-sidebar-active-text);
+  }
+
+  .theme-sidebar-item:hover,
+  .app-sidebar .nav-item:hover {
+    background-color: var(--component-sidebar-hover-bg);
   }
 }

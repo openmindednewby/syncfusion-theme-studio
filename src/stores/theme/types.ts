@@ -35,6 +35,10 @@ export type {
   ModalsConfig,
   BadgeVariant,
   BadgesConfig,
+  SelectConfig,
+  DatePickerConfig,
+  DialogConfig,
+  ComponentConfigSingle,
   ComponentsConfig,
   // Theme types
   ThemeConfig,

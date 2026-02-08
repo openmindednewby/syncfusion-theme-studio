@@ -8,163 +8,53 @@ import type {
   ButtonVariant,
   CardsConfig,
   DataGridConfig,
+  DatePickerConfig,
+  DialogConfig,
   HeaderComponentConfig,
   InputsConfig,
   ModalsConfig,
+  SelectConfig,
   SidebarComponentConfig,
   ThemeConfig,
 } from '../types';
 import type { ComponentConfigActions, GetState, SetState } from './types';
 
-function applyThemeUpdate(set: SetState, get: GetState, newTheme: ThemeConfig): void {
+type ComponentKey = 'header' | 'sidebar' | 'inputs' | 'dataGrid' |
+  'cards' | 'modals' | 'badges' | 'select' | 'datePicker' | 'dialog';
+
+function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
+  const { theme, mode } = get();
+  const newTheme: ThemeConfig = {
+    ...theme,
+    components: {
+      ...theme.components,
+      [mode]: { ...theme.components[mode], [key]: { ...theme.components[mode][key], ...updates } },
+    },
+  };
   set({ theme: newTheme });
-  injectThemeVariables(newTheme, get().mode);
+  injectThemeVariables(newTheme, mode);
 }
 
-function updateHeaderConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<HeaderComponentConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      header: { ...currentTheme.components.header, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
+function updateButton(set: SetState, get: GetState, variant: ButtonVariant, updates: Partial<ButtonStateColors>): void {
+  const { theme, mode } = get();
+  const buttons = { ...theme.components[mode].buttons, [variant]: { ...theme.components[mode].buttons[variant], ...updates } };
+  const newTheme: ThemeConfig = { ...theme, components: { ...theme.components, [mode]: { ...theme.components[mode], buttons } } };
+  set({ theme: newTheme });
+  injectThemeVariables(newTheme, mode);
 }
 
-function updateSidebarConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<SidebarComponentConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      sidebar: { ...currentTheme.components.sidebar, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-function updateButtonConfigAction(
-  set: SetState,
-  get: GetState,
-  variant: ButtonVariant,
-  updates: Partial<ButtonStateColors>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      buttons: {
-        ...currentTheme.components.buttons,
-        [variant]: { ...currentTheme.components.buttons[variant], ...updates },
-      },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-function updateInputConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<InputsConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      inputs: { ...currentTheme.components.inputs, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-function updateDataGridConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<DataGridConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      dataGrid: { ...currentTheme.components.dataGrid, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-function updateCardsConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<CardsConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      cards: { ...currentTheme.components.cards, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-function updateModalsConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<ModalsConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      modals: { ...currentTheme.components.modals, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-function updateBadgesConfigAction(
-  set: SetState,
-  get: GetState,
-  updates: Partial<BadgesConfig>
-): void {
-  const currentTheme = get().theme;
-  const newTheme = {
-    ...currentTheme,
-    components: {
-      ...currentTheme.components,
-      badges: { ...currentTheme.components.badges, ...updates },
-    },
-  };
-  applyThemeUpdate(set, get, newTheme);
-}
-
-export function createComponentConfigActions(
-  set: SetState,
-  get: GetState
-): ComponentConfigActions {
+export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
   return {
-    updateHeaderConfig: (updates) => updateHeaderConfigAction(set, get, updates),
-    updateSidebarConfig: (updates) => updateSidebarConfigAction(set, get, updates),
-    updateButtonConfig: (variant, updates) => updateButtonConfigAction(set, get, variant, updates),
-    updateInputConfig: (updates) => updateInputConfigAction(set, get, updates),
-    updateDataGridConfig: (updates) => updateDataGridConfigAction(set, get, updates),
-    updateCardsConfig: (updates) => updateCardsConfigAction(set, get, updates),
-    updateModalsConfig: (updates) => updateModalsConfigAction(set, get, updates),
-    updateBadgesConfig: (updates) => updateBadgesConfigAction(set, get, updates),
+    updateHeaderConfig: (u: Partial<HeaderComponentConfig>) => update(set, get, 'header', u),
+    updateSidebarConfig: (u: Partial<SidebarComponentConfig>) => update(set, get, 'sidebar', u),
+    updateInputConfig: (u: Partial<InputsConfig>) => update(set, get, 'inputs', u),
+    updateDataGridConfig: (u: Partial<DataGridConfig>) => update(set, get, 'dataGrid', u),
+    updateCardsConfig: (u: Partial<CardsConfig>) => update(set, get, 'cards', u),
+    updateModalsConfig: (u: Partial<ModalsConfig>) => update(set, get, 'modals', u),
+    updateBadgesConfig: (u: Partial<BadgesConfig>) => update(set, get, 'badges', u),
+    updateSelectConfig: (u: Partial<SelectConfig>) => update(set, get, 'select', u),
+    updateDatePickerConfig: (u: Partial<DatePickerConfig>) => update(set, get, 'datePicker', u),
+    updateDialogConfig: (u: Partial<DialogConfig>) => update(set, get, 'dialog', u),
+    updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
   };
 }

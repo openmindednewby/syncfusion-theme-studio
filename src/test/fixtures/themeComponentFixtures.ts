@@ -4,6 +4,7 @@
 
 import type {
   ComponentsConfig,
+  ComponentConfigSingle,
   ButtonsComponentConfig,
   ButtonStateColors,
   HeaderComponentConfig,
@@ -13,6 +14,9 @@ import type {
   CardsConfig,
   ModalsConfig,
   BadgesConfig,
+  SelectConfig,
+  DatePickerConfig,
+  DialogConfig,
 } from '../../stores/theme/types';
 
 const createPrimaryButton = (): ButtonStateColors => ({
@@ -163,7 +167,59 @@ const createBadges = (): BadgesConfig => ({
   padding: '4px 12px',
 });
 
-export const createComponents = (): ComponentsConfig => ({
+const createSelect = (): SelectConfig => ({
+  background: '255 255 255',
+  borderDefault: '209 213 219',
+  borderHover: '156 163 175',
+  borderFocus: '59 130 246',
+  borderError: '239 68 68',
+  textColor: '17 24 39',
+  placeholderColor: '156 163 175',
+  iconColor: '107 114 128',
+  popupBackground: '255 255 255',
+  popupBorderColor: '229 231 235',
+  itemHoverBackground: '249 250 251',
+  itemSelectedBackground: '239 246 255',
+  itemSelectedTextColor: '29 78 216',
+  borderRadius: 'md',
+});
+
+const createDatePicker = (): DatePickerConfig => ({
+  background: '255 255 255',
+  borderDefault: '209 213 219',
+  borderHover: '156 163 175',
+  borderFocus: '59 130 246',
+  borderError: '239 68 68',
+  textColor: '17 24 39',
+  placeholderColor: '156 163 175',
+  iconColor: '107 114 128',
+  calendarBackground: '255 255 255',
+  calendarHeaderBackground: '249 250 251',
+  calendarHeaderTextColor: '17 24 39',
+  calendarCellHoverBackground: '249 250 251',
+  calendarSelectedBackground: '59 130 246',
+  calendarSelectedTextColor: '255 255 255',
+  calendarTodayBorderColor: '59 130 246',
+  calendarOtherMonthTextColor: '156 163 175',
+  borderRadius: 'md',
+});
+
+const createDialog = (): DialogConfig => ({
+  backdropColor: 'rgba(0, 0, 0, 0.5)',
+  backdropBlur: '4px',
+  contentBackground: '255 255 255',
+  borderColor: '229 231 235',
+  borderRadius: 'xl',
+  shadow: '0 20px 25px -5px rgb(0 0 0 / 0.1)',
+  headerBackground: '255 255 255',
+  headerTextColor: '17 24 39',
+  footerBackground: '249 250 251',
+  closeButtonColor: '107 114 128',
+  closeButtonHoverBackground: '249 250 251',
+});
+
+/** Create a single-mode component config (for light mode) */
+const createComponentConfigSingle = (): ComponentConfigSingle => ({
   header: createHeader(),
   sidebar: createSidebar(),
   buttons: createButtons(),
@@ -172,4 +228,13 @@ export const createComponents = (): ComponentsConfig => ({
   cards: createCards(),
   modals: createModals(),
   badges: createBadges(),
+  select: createSelect(),
+  datePicker: createDatePicker(),
+  dialog: createDialog(),
+});
+
+/** Create mode-aware components config with light and dark variants */
+export const createComponents = (): ComponentsConfig => ({
+  light: createComponentConfigSingle(),
+  dark: createComponentConfigSingle(), // Uses same values for test simplicity
 });

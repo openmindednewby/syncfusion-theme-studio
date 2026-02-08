@@ -110,7 +110,59 @@ export interface BadgesConfig {
   padding: string;
 }
 
-export interface ComponentsConfig {
+export interface SelectConfig {
+  background: string;
+  borderDefault: string;
+  borderHover: string;
+  borderFocus: string;
+  borderError: string;
+  textColor: string;
+  placeholderColor: string;
+  iconColor: string;
+  popupBackground: string;
+  popupBorderColor: string;
+  itemHoverBackground: string;
+  itemSelectedBackground: string;
+  itemSelectedTextColor: string;
+  borderRadius: string;
+}
+
+export interface DatePickerConfig {
+  background: string;
+  borderDefault: string;
+  borderHover: string;
+  borderFocus: string;
+  borderError: string;
+  textColor: string;
+  placeholderColor: string;
+  iconColor: string;
+  calendarBackground: string;
+  calendarHeaderBackground: string;
+  calendarHeaderTextColor: string;
+  calendarCellHoverBackground: string;
+  calendarSelectedBackground: string;
+  calendarSelectedTextColor: string;
+  calendarTodayBorderColor: string;
+  calendarOtherMonthTextColor: string;
+  borderRadius: string;
+}
+
+export interface DialogConfig {
+  backdropColor: string;
+  backdropBlur: string;
+  contentBackground: string;
+  borderColor: string;
+  borderRadius: string;
+  shadow: string;
+  headerBackground: string;
+  headerTextColor: string;
+  footerBackground: string;
+  closeButtonColor: string;
+  closeButtonHoverBackground: string;
+}
+
+/** Single component configuration (for one mode) */
+export interface ComponentConfigSingle {
   header: HeaderComponentConfig;
   sidebar: SidebarComponentConfig;
   buttons: ButtonsComponentConfig;
@@ -119,4 +171,13 @@ export interface ComponentsConfig {
   cards: CardsConfig;
   modals: ModalsConfig;
   badges: BadgesConfig;
+  select: SelectConfig;
+  datePicker: DatePickerConfig;
+  dialog: DialogConfig;
+}
+
+/** Mode-aware components configuration with light and dark variants */
+export interface ComponentsConfig {
+  light: ComponentConfigSingle;
+  dark: ComponentConfigSingle;
 }

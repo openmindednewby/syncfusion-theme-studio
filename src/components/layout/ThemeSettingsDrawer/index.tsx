@@ -34,15 +34,16 @@ const PresetsSection = lazy(async () => ({
 }));
 
 const DEFAULT_TAB: TabId = 'colors';
-const PANEL_WIDTH_PX = 420;
+const PANEL_WIDTH_PX = 520;
+const COLLAPSED_WIDTH_PX = 52;
 
 /**
- * Collapse/Expand toggle icon - points right when collapsed, left when expanded
+ * Collapse/Expand toggle icon with smooth rotation animation
  */
 const CollapseIcon = ({ isCollapsed }: { isCollapsed: boolean }): JSX.Element => (
   <svg
     aria-hidden="true"
-    className={`h-5 w-5 transition-transform duration-normal ${isCollapsed ? '' : 'rotate-180'}`}
+    className={`h-5 w-5 transition-transform duration-200 ease-out ${isCollapsed ? '' : 'rotate-180'}`}
     fill="none"
     stroke="currentColor"
     strokeWidth={2}
@@ -53,10 +54,63 @@ const CollapseIcon = ({ isCollapsed }: { isCollapsed: boolean }): JSX.Element =>
   </svg>
 );
 
+/**
+ * App logo icon - gradient theme studio icon
+ */
+const LogoIcon = (): JSX.Element => (
+  <svg
+    aria-hidden="true"
+    className="h-7 w-7"
+    fill="none"
+    viewBox="0 0 32 32"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <defs>
+      <linearGradient id="logo-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
+        <stop offset="0%" stopColor="rgb(var(--color-primary-500))" />
+        <stop offset="100%" stopColor="rgb(var(--color-primary-700))" />
+      </linearGradient>
+    </defs>
+    <rect fill="url(#logo-gradient)" height="32" rx="8" width="32" />
+    <text
+      fill="white"
+      fontFamily="system-ui, sans-serif"
+      fontSize="18"
+      fontWeight="700"
+      textAnchor="middle"
+      x="16"
+      y="22"
+    >
+      T
+    </text>
+  </svg>
+);
+
+/**
+ * Reset icon
+ */
+const ResetIcon = (): JSX.Element => (
+  <svg
+    aria-hidden="true"
+    className="h-4 w-4"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth={2}
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </svg>
+);
+
 // Loading fallback for lazy-loaded sections
 const SectionLoader = (): JSX.Element => (
-  <div className="flex items-center justify-center py-8">
-    <div className="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-primary-500" />
+  <div className="flex items-center justify-center py-12">
+    <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary-500" />
   </div>
 );
 
@@ -88,10 +142,8 @@ const renderTabContent = (activeTab: TabId): JSX.Element | null => {
 };
 
 /**
- * Theme Settings Panel - A fixed right sidebar for theme customization.
- * Replaces the previous modal-like drawer with a persistent panel that's
- * part of the layout grid. Panel state (expanded/collapsed) persists
- * across page reloads via Zustand persist middleware.
+ * Theme Settings Panel - A premium design tool sidebar for theme customization.
+ * Features a modern Figma-inspired design with smooth animations and professional UX.
  */
 export const ThemeSettingsDrawer = (): JSX.Element => {
   const { isOpen, toggle } = useThemeSettingsDrawerStore();
@@ -111,15 +163,15 @@ export const ThemeSettingsDrawer = (): JSX.Element => {
   return (
     <aside
       aria-label={FM('themeSettings.panelLabel')}
-      className="flex h-full flex-col border-l border-border bg-surface transition-all duration-normal"
+      className="theme-panel flex h-full flex-col border-l border-border bg-surface shadow-lg transition-all duration-300 ease-out"
       data-testid={TestIds.THEME_SETTINGS_DRAWER}
-      style={{ width: isOpen ? `${PANEL_WIDTH_PX}px` : '48px' }}
+      style={{ width: isOpen ? `${PANEL_WIDTH_PX}px` : `${COLLAPSED_WIDTH_PX}px` }}
     >
       {/* Collapse/Expand Toggle */}
       <button
         aria-expanded={isOpen}
         aria-label={toggleLabel}
-        className="flex h-12 w-full items-center justify-center border-b border-border text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
+        className="theme-panel-toggle flex h-12 w-full items-center justify-center border-b border-border text-text-secondary transition-all duration-200 hover:bg-surface-elevated hover:text-primary-500"
         data-testid={TestIds.THEME_CLOSE_BTN}
         type="button"
         onClick={toggle}
@@ -127,36 +179,49 @@ export const ThemeSettingsDrawer = (): JSX.Element => {
         <CollapseIcon isCollapsed={!isOpen} />
       </button>
 
-      {isOpen ? <>
-          {/* Header */}
-          <header className="flex items-center justify-between border-b border-border px-4 py-3">
-            <h3 className="text-lg font-semibold text-text-primary">{FM('themeSettings.title')}</h3>
+      {isOpen ? (
+        <div className="flex flex-1 flex-col overflow-hidden">
+          {/* Header with Logo and Title */}
+          <header className="theme-panel-header flex items-center gap-3 border-b border-border bg-gradient-to-r from-surface to-surface-elevated px-5 py-4">
+            <LogoIcon />
+            <div className="flex flex-col">
+              <h2 className="text-base font-bold tracking-tight text-text-primary">
+                {FM('themeSettings.title')}
+              </h2>
+              <span className="text-xs text-text-muted">Design your theme</span>
+            </div>
           </header>
 
           {/* Tabs */}
           <DrawerTabs activeTab={activeTab} onTabChange={handleTabChange} />
 
           {/* Content */}
-          <div className="flex-1 space-y-6 overflow-y-auto p-4">
-            {renderTabContent(activeTab)}
+          <div className="theme-panel-content flex-1 overflow-y-auto">
+            <div className="space-y-6 p-5">
+              {renderTabContent(activeTab)}
 
-            {/* Import/Export in all tabs for convenience */}
-            <ImportExportSection />
+              {/* Import/Export Section */}
+              <div className="theme-section">
+                <ImportExportSection />
+              </div>
 
-            {/* Reset Button */}
-            <section className="pt-4">
-              <button
-                aria-label={FM('themeSettings.resetToDefault')}
-                className="btn btn-secondary w-full text-xs"
-                data-testid={TestIds.THEME_RESET_BTN}
-                type="button"
-                onClick={handleReset}
-              >
-                {FM('themeSettings.resetToDefault')}
-              </button>
-            </section>
+              {/* Reset Button */}
+              <div className="pt-2">
+                <button
+                  aria-label={FM('themeSettings.resetToDefault')}
+                  className="theme-reset-btn flex w-full items-center justify-center gap-2 rounded-lg border border-border bg-surface-elevated px-4 py-2.5 text-sm font-medium text-text-secondary transition-all duration-200 hover:border-error-500 hover:bg-error-50 hover:text-error-600"
+                  data-testid={TestIds.THEME_RESET_BTN}
+                  type="button"
+                  onClick={handleReset}
+                >
+                  <ResetIcon />
+                  {FM('themeSettings.resetToDefault')}
+                </button>
+              </div>
+            </div>
           </div>
-        </> : null}
+        </div>
+      ) : null}
     </aside>
   );
 };

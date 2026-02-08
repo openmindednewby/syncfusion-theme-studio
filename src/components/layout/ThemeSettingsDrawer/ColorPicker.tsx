@@ -31,9 +31,10 @@ interface ColorPickerProps {
   label: string;
   value: string;
   onChange: (rgb: string) => void;
+  compact?: boolean;
 }
 
-export const ColorPicker = ({ label, onChange, value }: ColorPickerProps): JSX.Element => {
+export const ColorPicker = ({ compact = false, label, onChange, value }: ColorPickerProps): JSX.Element => {
   const [hexValue, setHexValue] = useState(rgbToHex(value));
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
@@ -50,16 +51,44 @@ export const ColorPicker = ({ label, onChange, value }: ColorPickerProps): JSX.E
     [onChange]
   );
 
+  if (compact) 
+    return (
+      <div className="color-picker-compact group flex flex-col items-center gap-1.5">
+        <div className="relative">
+          <input
+            aria-label={`Pick color for ${label}`}
+            className="color-input h-10 w-10 min-h-[40px] min-w-[40px] cursor-pointer rounded-lg border-2 border-border transition-all duration-200 hover:border-primary-400 hover:shadow-md"
+            type="color"
+            value={hexValue}
+            onChange={handleChange}
+          />
+          <div
+            className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+            style={{
+              boxShadow: `0 0 0 3px ${hexValue}20`,
+            }}
+          />
+        </div>
+        <span className="text-[10px] font-semibold tabular-nums text-text-muted">{label}</span>
+      </div>
+    );
+  
+
   return (
-    <div className="flex items-center gap-2">
-      <input
-        aria-label={`Pick color for ${label}`}
-        className="h-11 w-11 min-h-[44px] min-w-[44px] cursor-pointer rounded border border-border"
-        type="color"
-        value={hexValue}
-        onChange={handleChange}
-      />
-      <span className="text-xs text-text-secondary">{label}</span>
+    <div className="color-picker group flex items-center gap-3 rounded-lg border border-transparent bg-surface-elevated/50 p-2 transition-all duration-200 hover:border-border hover:bg-surface-elevated">
+      <div className="relative">
+        <input
+          aria-label={`Pick color for ${label}`}
+          className="color-input h-10 w-10 min-h-[40px] min-w-[40px] cursor-pointer rounded-lg border-2 border-border transition-all duration-200 hover:border-primary-400"
+          type="color"
+          value={hexValue}
+          onChange={handleChange}
+        />
+      </div>
+      <div className="flex flex-col">
+        <span className="text-xs font-medium text-text-primary">{label}</span>
+        <span className="font-mono text-[10px] uppercase text-text-muted">{hexValue}</span>
+      </div>
     </div>
   );
 };

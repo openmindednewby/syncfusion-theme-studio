@@ -40,6 +40,10 @@ export type {
   ModalsConfig,
   BadgeVariant,
   BadgesConfig,
+  SelectConfig,
+  DatePickerConfig,
+  DialogConfig,
+  ComponentConfigSingle,
   ComponentsConfig,
 } from './componentTypes';
 

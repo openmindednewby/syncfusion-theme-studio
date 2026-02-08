@@ -145,16 +145,93 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
     // Report compressed size
     reportCompressedSize: true,
   },
-  // Optimize dependencies
+  // Optimize dependencies - pre-bundle all heavy packages for faster dev server
   optimizeDeps: {
-    include: ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query', 'zustand'],
+    include: [
+      // React core
+      'react',
+      'react-dom',
+      'react-dom/client',
+      'react/jsx-runtime',
+      'react/jsx-dev-runtime',
+
+      // React Router
+      'react-router-dom',
+
+      // State management
+      'zustand',
+      'zustand/middleware',
+
+      // React Query
+      '@tanstack/react-query',
+
+      // i18n
+      'i18next',
+      'react-i18next',
+      'i18next-browser-languagedetector',
+
+      // HTTP client
+      'axios',
+
+      // Syncfusion base - shared across all components
+      '@syncfusion/ej2-base',
+
+      // Syncfusion React components
+      '@syncfusion/ej2-react-buttons',
+      '@syncfusion/ej2-react-inputs',
+      '@syncfusion/ej2-react-dropdowns',
+      '@syncfusion/ej2-react-grids',
+      '@syncfusion/ej2-react-navigations',
+      '@syncfusion/ej2-react-popups',
+      '@syncfusion/ej2-react-calendars',
+      '@syncfusion/ej2-react-layouts',
+
+      // Syncfusion core packages (dependencies of React components)
+      '@syncfusion/ej2-buttons',
+      '@syncfusion/ej2-inputs',
+      '@syncfusion/ej2-dropdowns',
+      '@syncfusion/ej2-grids',
+      '@syncfusion/ej2-navigations',
+      '@syncfusion/ej2-popups',
+      '@syncfusion/ej2-calendars',
+      '@syncfusion/ej2-layouts',
+      '@syncfusion/ej2-data',
+      '@syncfusion/ej2-lists',
+      '@syncfusion/ej2-splitbuttons',
+    ],
+    // Force optimization even if packages seem not to need it
+    force: false,
+    // Use esbuild options for faster transforms
+    esbuildOptions: {
+      target: 'es2020',
+      // Preserve names for better debugging
+      keepNames: true,
+    },
   },
   server: {
     port: 4445,
     open: true,
+    // Warmup critical files for faster initial load
+    warmup: {
+      clientFiles: [
+        './src/main.tsx',
+        './src/app/App.tsx',
+        './src/app/routes.tsx',
+        './src/stores/useThemeStore.ts',
+        './src/localization/i18n.ts',
+        './src/components/common/LoadingSpinner.tsx',
+        './src/features/auth/pages/LoginPage/index.tsx',
+      ],
+    },
+    // Enable faster file system watching
+    watch: {
+      usePolling: false,
+    },
   },
-  // Performance hints
+  // Performance hints and esbuild optimizations
   esbuild: {
     legalComments: 'none',
+    // Keep names for better debugging in dev
+    keepNames: true,
   },
 }));

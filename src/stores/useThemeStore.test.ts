@@ -314,25 +314,25 @@ describe('useThemeStore', () => {
       it('updates header background color', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateHeaderConfig({ background: '240 240 240' }));
-        expect(result.current.theme.components.header.background).toBe('240 240 240');
+        expect(result.current.theme.components.light.header.background).toBe('240 240 240');
       });
 
       it('updates header text color', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateHeaderConfig({ textColor: '30 30 30' }));
-        expect(result.current.theme.components.header.textColor).toBe('30 30 30');
+        expect(result.current.theme.components.light.header.textColor).toBe('30 30 30');
       });
 
       it('updates header height', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateHeaderConfig({ height: '80px' }));
-        expect(result.current.theme.components.header.height).toBe('80px');
+        expect(result.current.theme.components.light.header.height).toBe('80px');
       });
 
       it('updates header shadow', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateHeaderConfig({ shadow: 'lg' }));
-        expect(result.current.theme.components.header.shadow).toBe('lg');
+        expect(result.current.theme.components.light.header.shadow).toBe('lg');
       });
 
       it('updates multiple header properties at once', () => {
@@ -342,16 +342,16 @@ describe('useThemeStore', () => {
           textColor: '0 0 0',
           height: '72px',
         }));
-        expect(result.current.theme.components.header.background).toBe('255 255 255');
-        expect(result.current.theme.components.header.textColor).toBe('0 0 0');
-        expect(result.current.theme.components.header.height).toBe('72px');
+        expect(result.current.theme.components.light.header.background).toBe('255 255 255');
+        expect(result.current.theme.components.light.header.textColor).toBe('0 0 0');
+        expect(result.current.theme.components.light.header.height).toBe('72px');
       });
 
       it('preserves other header properties when updating one', () => {
         const { result } = renderHook(() => useThemeStore());
-        const originalHeight = result.current.theme.components.header.height;
+        const originalHeight = result.current.theme.components.light.header.height;
         act(() => result.current.updateHeaderConfig({ background: '200 200 200' }));
-        expect(result.current.theme.components.header.height).toBe(originalHeight);
+        expect(result.current.theme.components.light.header.height).toBe(originalHeight);
       });
     });
 
@@ -359,13 +359,13 @@ describe('useThemeStore', () => {
       it('updates sidebar background color', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateSidebarConfig({ background: '245 245 245' }));
-        expect(result.current.theme.components.sidebar.background).toBe('245 245 245');
+        expect(result.current.theme.components.light.sidebar.background).toBe('245 245 245');
       });
 
       it('updates sidebar text color', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateSidebarConfig({ textColor: '50 50 50' }));
-        expect(result.current.theme.components.sidebar.textColor).toBe('50 50 50');
+        expect(result.current.theme.components.light.sidebar.textColor).toBe('50 50 50');
       });
 
       it('updates sidebar active item colors', () => {
@@ -374,8 +374,8 @@ describe('useThemeStore', () => {
           activeItemBackground: '230 240 255',
           activeItemTextColor: '59 130 246',
         }));
-        expect(result.current.theme.components.sidebar.activeItemBackground).toBe('230 240 255');
-        expect(result.current.theme.components.sidebar.activeItemTextColor).toBe('59 130 246');
+        expect(result.current.theme.components.light.sidebar.activeItemBackground).toBe('230 240 255');
+        expect(result.current.theme.components.light.sidebar.activeItemTextColor).toBe('59 130 246');
       });
 
       it('updates sidebar widths', () => {
@@ -384,15 +384,15 @@ describe('useThemeStore', () => {
           widthExpanded: '300px',
           widthCollapsed: '80px',
         }));
-        expect(result.current.theme.components.sidebar.widthExpanded).toBe('300px');
-        expect(result.current.theme.components.sidebar.widthCollapsed).toBe('80px');
+        expect(result.current.theme.components.light.sidebar.widthExpanded).toBe('300px');
+        expect(result.current.theme.components.light.sidebar.widthCollapsed).toBe('80px');
       });
 
       it('does not affect header config when updating sidebar', () => {
         const { result } = renderHook(() => useThemeStore());
-        const originalHeaderBg = result.current.theme.components.header.background;
+        const originalHeaderBg = result.current.theme.components.light.header.background;
         act(() => result.current.updateSidebarConfig({ background: '220 220 220' }));
-        expect(result.current.theme.components.header.background).toBe(originalHeaderBg);
+        expect(result.current.theme.components.light.header.background).toBe(originalHeaderBg);
       });
     });
 
@@ -400,7 +400,7 @@ describe('useThemeStore', () => {
       it('updates primary button background', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateButtonConfig('primary', { background: '100 150 200' }));
-        expect(result.current.theme.components.buttons.primary.background).toBe('100 150 200');
+        expect(result.current.theme.components.light.buttons.primary.background).toBe('100 150 200');
       });
 
       it('updates primary button hover state', () => {
@@ -409,8 +409,8 @@ describe('useThemeStore', () => {
           backgroundHover: '80 130 180',
           textColorHover: '255 255 255',
         }));
-        expect(result.current.theme.components.buttons.primary.backgroundHover).toBe('80 130 180');
-        expect(result.current.theme.components.buttons.primary.textColorHover).toBe('255 255 255');
+        expect(result.current.theme.components.light.buttons.primary.backgroundHover).toBe('80 130 180');
+        expect(result.current.theme.components.light.buttons.primary.textColorHover).toBe('255 255 255');
       });
 
       it('updates secondary button colors', () => {
@@ -419,8 +419,8 @@ describe('useThemeStore', () => {
           background: '230 230 230',
           textColor: '50 50 50',
         }));
-        expect(result.current.theme.components.buttons.secondary.background).toBe('230 230 230');
-        expect(result.current.theme.components.buttons.secondary.textColor).toBe('50 50 50');
+        expect(result.current.theme.components.light.buttons.secondary.background).toBe('230 230 230');
+        expect(result.current.theme.components.light.buttons.secondary.textColor).toBe('50 50 50');
       });
 
       it('updates outline button border', () => {
@@ -429,8 +429,8 @@ describe('useThemeStore', () => {
           borderColor: '59 130 246',
           borderWidth: '2px',
         }));
-        expect(result.current.theme.components.buttons.outline.borderColor).toBe('59 130 246');
-        expect(result.current.theme.components.buttons.outline.borderWidth).toBe('2px');
+        expect(result.current.theme.components.light.buttons.outline.borderColor).toBe('59 130 246');
+        expect(result.current.theme.components.light.buttons.outline.borderWidth).toBe('2px');
       });
 
       it('updates ghost button transparency', () => {
@@ -439,8 +439,8 @@ describe('useThemeStore', () => {
           background: 'transparent',
           backgroundHover: '243 244 246',
         }));
-        expect(result.current.theme.components.buttons.ghost.background).toBe('transparent');
-        expect(result.current.theme.components.buttons.ghost.backgroundHover).toBe('243 244 246');
+        expect(result.current.theme.components.light.buttons.ghost.background).toBe('transparent');
+        expect(result.current.theme.components.light.buttons.ghost.backgroundHover).toBe('243 244 246');
       });
 
       it('updates danger button colors', () => {
@@ -449,27 +449,27 @@ describe('useThemeStore', () => {
           background: '220 38 38',
           backgroundHover: '185 28 28',
         }));
-        expect(result.current.theme.components.buttons.danger.background).toBe('220 38 38');
-        expect(result.current.theme.components.buttons.danger.backgroundHover).toBe('185 28 28');
+        expect(result.current.theme.components.light.buttons.danger.background).toBe('220 38 38');
+        expect(result.current.theme.components.light.buttons.danger.backgroundHover).toBe('185 28 28');
       });
 
       it('does not affect other button variants when updating one', () => {
         const { result } = renderHook(() => useThemeStore());
-        const originalSecondary = result.current.theme.components.buttons.secondary.background;
+        const originalSecondary = result.current.theme.components.light.buttons.secondary.background;
         act(() => result.current.updateButtonConfig('primary', { background: '100 100 100' }));
-        expect(result.current.theme.components.buttons.secondary.background).toBe(originalSecondary);
+        expect(result.current.theme.components.light.buttons.secondary.background).toBe(originalSecondary);
       });
 
       it('updates button border radius', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateButtonConfig('primary', { borderRadius: 'lg' }));
-        expect(result.current.theme.components.buttons.primary.borderRadius).toBe('lg');
+        expect(result.current.theme.components.light.buttons.primary.borderRadius).toBe('lg');
       });
 
       it('updates button shadow', () => {
         const { result } = renderHook(() => useThemeStore());
         act(() => result.current.updateButtonConfig('primary', { shadow: 'md' }));
-        expect(result.current.theme.components.buttons.primary.shadow).toBe('md');
+        expect(result.current.theme.components.light.buttons.primary.shadow).toBe('md');
       });
     });
   });
@@ -642,9 +642,9 @@ describe('useThemeStore', () => {
       act(() => {
         result.current.importTheme(exported);
       });
-      expect(result.current.theme.components.header.height).toBe('80px');
-      expect(result.current.theme.components.sidebar.widthExpanded).toBe('320px');
-      expect(result.current.theme.components.buttons.primary.borderRadius).toBe('xl');
+      expect(result.current.theme.components.light.header.height).toBe('80px');
+      expect(result.current.theme.components.light.sidebar.widthExpanded).toBe('320px');
+      expect(result.current.theme.components.light.buttons.primary.borderRadius).toBe('xl');
     });
   });
 
@@ -679,7 +679,7 @@ describe('useThemeStore', () => {
         result.current.updateHeaderConfig({ height: '100px' });
       });
       act(() => result.current.resetTheme());
-      expect(result.current.theme.components.header.height).not.toBe('100px');
+      expect(result.current.theme.components.light.header.height).not.toBe('100px');
     });
 
     it('does not reset mode when resetting theme', () => {
@@ -706,7 +706,8 @@ describe('useThemeStore', () => {
       expect(result.current.theme.primary['500']).toBe('100 100 100');
       expect(result.current.mode).toBe('dark');
       expect(result.current.theme.dark.backgrounds.page).toBe('10 10 10');
-      expect(result.current.theme.components.header.height).toBe('72px');
+      // Header update happened when mode was dark, so check dark mode components
+      expect(result.current.theme.components.dark.header.height).toBe('72px');
     });
 
     it('allows sequential updates without data loss', () => {

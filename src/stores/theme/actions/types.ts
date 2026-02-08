@@ -40,6 +40,9 @@ export interface ComponentConfigActions {
   updateCardsConfig: ThemeState['updateCardsConfig'];
   updateModalsConfig: ThemeState['updateModalsConfig'];
   updateBadgesConfig: ThemeState['updateBadgesConfig'];
+  updateSelectConfig: ThemeState['updateSelectConfig'];
+  updateDatePickerConfig: ThemeState['updateDatePickerConfig'];
+  updateDialogConfig: ThemeState['updateDialogConfig'];
 }
 
 export interface TypographyActions {

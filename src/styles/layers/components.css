@@ -160,4 +160,198 @@
     background-color: var(--component-modal-content-bg);
     border: 1px solid var(--component-modal-border);
   }
+
+  /* ===== THEME SETTINGS PANEL ===== */
+  /* Premium design tool sidebar styles */
+  .theme-panel {
+    background: linear-gradient(
+      180deg,
+      rgb(var(--color-surface)) 0%,
+      rgb(var(--color-surface-elevated) / 0.5) 100%
+    );
+  }
+
+  .theme-panel-toggle:hover {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--color-primary-50)) 0%,
+      rgb(var(--color-surface-elevated)) 100%
+    );
+  }
+
+  .theme-panel-header {
+    background: linear-gradient(
+      90deg,
+      rgb(var(--color-surface)) 0%,
+      rgb(var(--color-surface-elevated)) 100%
+    );
+  }
+
+  .theme-panel-content {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-border)) transparent;
+  }
+
+  .theme-panel-content::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .theme-panel-content::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .theme-panel-content::-webkit-scrollbar-thumb {
+    background-color: rgb(var(--color-border));
+    border-radius: 3px;
+  }
+
+  .theme-panel-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgb(var(--color-text-muted));
+  }
+
+  /* Theme section styling */
+  .theme-section {
+    position: relative;
+  }
+
+  /* Color picker styling */
+  .color-picker .color-input,
+  .color-picker-compact .color-input {
+    -webkit-appearance: none;
+    appearance: none;
+    background: none;
+    padding: 0;
+  }
+
+  .color-picker .color-input::-webkit-color-swatch-wrapper,
+  .color-picker-compact .color-input::-webkit-color-swatch-wrapper {
+    padding: 0;
+  }
+
+  .color-picker .color-input::-webkit-color-swatch,
+  .color-picker-compact .color-input::-webkit-color-swatch {
+    border: none;
+    border-radius: 6px;
+  }
+
+  .color-picker .color-input::-moz-color-swatch,
+  .color-picker-compact .color-input::-moz-color-swatch {
+    border: none;
+    border-radius: 6px;
+  }
+
+  /* Color palette styling */
+  .color-palette {
+    background: linear-gradient(
+      135deg,
+      rgb(var(--color-surface)) 0%,
+      rgb(var(--color-surface-elevated) / 0.3) 100%
+    );
+  }
+
+  /* Tab styling */
+  .theme-tabs {
+    background: linear-gradient(
+      180deg,
+      rgb(var(--color-surface-elevated) / 0.5) 0%,
+      rgb(var(--color-surface)) 100%
+    );
+  }
+
+  .theme-tab {
+    position: relative;
+  }
+
+  .theme-tab::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: rgb(var(--color-primary-500));
+    border-radius: 1px;
+    transform: translateX(-50%);
+    transition: width 0.2s ease-out;
+  }
+
+  .theme-tab:hover::after {
+    width: 80%;
+  }
+
+  .theme-tab[aria-current="page"]::after {
+    display: none;
+  }
+
+  /* Collapsible section animation */
+  .collapsible-section {
+    transition: box-shadow 0.2s ease-out;
+  }
+
+  .collapsible-section:hover {
+    box-shadow: 0 2px 8px rgb(0 0 0 / 0.04);
+  }
+
+  /* Import panel animation */
+  @keyframes slideInFromTop {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .import-panel {
+    animation: slideInFromTop 0.2s ease-out;
+  }
+
+  /* Reset button hover effect */
+  .theme-reset-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theme-reset-btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgb(var(--color-error-500) / 0.05) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-out;
+  }
+
+  .theme-reset-btn:hover::before {
+    transform: translateX(100%);
+  }
+
+  /* Action button hover effects */
+  .theme-action-btn {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .theme-action-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgb(255 255 255 / 0.1) 0%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+  }
+
+  .theme-action-btn:hover::after {
+    opacity: 1;
+  }
 }

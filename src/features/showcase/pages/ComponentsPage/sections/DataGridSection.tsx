@@ -1,9 +1,10 @@
-import { memo, useState, useCallback } from 'react';
+import { memo, useState, useCallback, useEffect } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import { Button, DataGrid } from '@/components/ui';
 import { FM } from '@/localization/helpers';
+import { loadSyncfusionCss } from '@/utils';
 
 // Sample data for the DataGrid
 interface SampleData {
@@ -38,6 +39,11 @@ const GRID_COLUMNS: ColumnModel[] = [
 
 export const DataGridSection = memo((): JSX.Element => {
   const [isGridLoading, setIsGridLoading] = useState(false);
+
+  // Load grid CSS on mount
+  useEffect(() => {
+    loadSyncfusionCss('grids').catch(() => {});
+  }, []);
 
   const handleLoadingToggle = useCallback(() => {
     setIsGridLoading((prev) => !prev);

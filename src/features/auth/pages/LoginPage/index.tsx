@@ -5,13 +5,24 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Input } from '@/components/ui';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
+import { useLicenseStore } from '@/stores/useLicenseStore';
 import { useThemeStore } from '@/stores/useThemeStore';
+
+const DEFAULT_EMAIL = 'demo@example.com';
+const DEFAULT_PASSWORD = 'demo123';
+const DEFAULT_LICENSE_KEY =
+  'Ngo9BigBOggjGyl/VkR+XU9Ff1RBQmJJYVF2R2VJflx6dFVMZV5BJAtUQF1hT35Rdk1iXHxWdHVVRWJaWkd0';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
   const { mode, toggleMode } = useThemeStore();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const { licenseKey, setLicenseKey } = useLicenseStore();
+  const [email, setEmail] = useState(DEFAULT_EMAIL);
+  const [password, setPassword] = useState(DEFAULT_PASSWORD);
+  // Use stored key if available, otherwise use default
+  const [localLicenseKey, setLocalLicenseKey] = useState(
+    licenseKey !== '' ? licenseKey : DEFAULT_LICENSE_KEY
+  );
 
   const themeLabel =
     mode === 'light' ? FM('login.themeSwitchDark') : FM('login.themeSwitchLight');
@@ -25,13 +36,19 @@ const LoginPage = (): JSX.Element => {
     setPassword(args.value ?? '');
   }, []);
 
+  const handleLicenseKeyChange = useCallback((args: { value?: string }) => {
+    setLocalLicenseKey(args.value ?? '');
+  }, []);
+
   const handleSubmit = useCallback(
     (e: React.FormEvent): void => {
       e.preventDefault();
-      // Demo login - just redirect to dashboard
-      navigate('/');
+      // Save license key if provided
+      if (localLicenseKey !== '') setLicenseKey(localLicenseKey);
+      // Demo login - redirect to dashboard
+      navigate('/dashboard');
     },
-    [navigate],
+    [navigate, localLicenseKey, setLicenseKey],
   );
 
   return (
@@ -108,6 +125,19 @@ const LoginPage = (): JSX.Element => {
               type="password"
               value={password}
             />
+
+            <div className="border-t border-border pt-4">
+              <Input
+                fullWidth
+                input={handleLicenseKeyChange}
+                label={FM('login.licenseKey')}
+                placeholder={FM('login.licenseKeyPlaceholder')}
+                testId={TestIds.LOGIN_LICENSE_KEY}
+                type="text"
+                value={localLicenseKey}
+              />
+              <p className="mt-1 text-xs text-text-muted">{FM('login.licenseKeyHint')}</p>
+            </div>
 
             <Button fullWidth testId={TestIds.LOGIN_SUBMIT} variant="primary">
               {FM('login.submit')}

@@ -11,7 +11,7 @@ const DashboardPage = (): JSX.Element => {
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
 
   const handleExploreComponents = (): void => {
-    navigate('/components');
+    navigate('/dashboard/components');
   };
 
   return (

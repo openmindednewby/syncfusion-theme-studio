@@ -28,6 +28,7 @@ export default [
       'coverage/**',
       'playwright-report/**',
       'e2e/**',
+      'scripts/**', // Node.js build scripts
     ],
   },
 

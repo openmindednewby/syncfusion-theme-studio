@@ -10,6 +10,7 @@ const DashboardPage = lazy(async () => import('@/features/dashboard/pages/Dashbo
 const LoginPage = lazy(async () => import('@/features/auth/pages/LoginPage'));
 const ProductsListPage = lazy(async () => import('@/features/products/pages/ProductsListPage'));
 const ComponentsPage = lazy(async () => import('@/features/showcase/pages/ComponentsPage'));
+const DataGridPage = lazy(async () => import('@/features/showcase/pages/DataGridPage'));
 
 // Wrapper for lazy-loaded components
 interface LazyPageProps {
@@ -26,15 +27,19 @@ const LazyPage = ({ component }: LazyPageProps): JSX.Element => {
 };
 
 const routes: RouteObject[] = [
+  // Login is the landing page
+  { path: '/', element: <LazyPage component={LoginPage} /> },
   {
-    path: '/',
+    path: '/dashboard',
     element: <MainLayout />,
     children: [
       { index: true, element: <LazyPage component={DashboardPage} /> },
       { path: 'products', element: <LazyPage component={ProductsListPage} /> },
       { path: 'components', element: <LazyPage component={ComponentsPage} /> },
+      { path: 'components/grid', element: <LazyPage component={DataGridPage} /> },
     ],
   },
+  // Keep /login as alias for backwards compatibility
   { path: '/login', element: <LazyPage component={LoginPage} /> },
 ];
 

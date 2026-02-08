@@ -28,6 +28,7 @@ export const TestIds = {
   // Login
   LOGIN_USERNAME: 'login-username',
   LOGIN_PASSWORD: 'login-password',
+  LOGIN_LICENSE_KEY: 'login-license-key',
   LOGIN_SUBMIT: 'login-submit',
   LOGIN_ERROR: 'login-error',
 
@@ -55,6 +56,8 @@ export const TestIds = {
   THEME_PRESET_CARD: 'theme-preset-card',
   THEME_CLOSE_BTN: 'theme-close-btn',
   THEME_BACKDROP: 'theme-backdrop',
+  THEME_EDITOR_PANEL: 'theme-editor-panel',
+  THEME_SPLITTER: 'theme-splitter',
 
   // Showcase
   SHOWCASE_GRID: 'showcase-grid',
@@ -72,6 +75,13 @@ export const TestIds = {
   SELECT_ERROR: 'select-error',
   DATA_GRID_USERS: 'data-grid-users',
   BTN_TOGGLE_LOADING: 'btn-toggle-loading',
+
+  // DataGrid Page
+  DATA_GRID_PAGE: 'data-grid-page',
+  DATA_GRID_SHOWCASE: 'data-grid-showcase',
+  DATA_GRID_BACK_LINK: 'data-grid-back-link',
+  DATA_GRID_LINK_CARD: 'data-grid-link-card',
+  DATA_GRID_VIEW_LINK: 'data-grid-view-link',
 } as const;
 
 export type TestId = (typeof TestIds)[keyof typeof TestIds];

@@ -10,9 +10,9 @@ export const ColorsSection = (): JSX.Element => {
 
   return (
     <section className="space-y-3">
-      <h4 className="text-sm font-semibold text-text-primary">
+      <h3 className="text-sm font-semibold text-text-primary">
         {FM('themeSettings.primaryColors')}
-      </h4>
+      </h3>
       <div className="grid grid-cols-2 gap-2">
         {COLOR_SHADES.map((shade) => (
           <ColorPicker

@@ -4,6 +4,8 @@ import path from 'path';
 import { analyzer } from 'vite-bundle-analyzer';
 import { compression } from 'vite-plugin-compression2';
 
+// Note: Google Fonts are stripped post-build by scripts/strip-google-fonts.js
+
 export default defineConfig(({ mode }: ConfigEnv) => ({
   plugins: [
     react(),
@@ -15,6 +17,7 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
       deleteOriginalAssets: false,
       algorithms: ['gzip', 'brotliCompress'],
     }),
+    // Note: Prefetch hints are added by scripts/add-prefetch-hints.js post-build
   ].filter(Boolean),
   resolve: {
     alias: {
@@ -64,11 +67,11 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
           if (id.includes('i18next')) return 'i18n';
 
           // Syncfusion base - shared across all components
-          if (id.includes('@syncfusion/ej2-base')) return 'sf-base';
+          if (id.includes('@syncfusion/ej2-base')) return 'syncfusion-base';
 
           // Syncfusion Grid - large, load on demand
           if (id.includes('@syncfusion/ej2-react-grids') || id.includes('@syncfusion/ej2-grids'))
-            return 'sf-grid';
+            return 'syncfusion-grid';
 
           // Syncfusion Inputs - buttons, inputs, dropdowns
           if (
@@ -77,23 +80,23 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
             id.includes('@syncfusion/ej2-react-buttons') ||
             id.includes('@syncfusion/ej2-buttons')
           )
-            return 'sf-inputs';
+            return 'syncfusion-inputs';
 
           // Syncfusion Dropdowns
           if (id.includes('@syncfusion/ej2-react-dropdowns') || id.includes('@syncfusion/ej2-dropdowns'))
-            return 'sf-dropdowns';
+            return 'syncfusion-dropdowns';
 
           // Syncfusion Navigation - sidebar, tabs, etc.
           if (id.includes('@syncfusion/ej2-react-navigations') || id.includes('@syncfusion/ej2-navigations'))
-            return 'sf-nav';
+            return 'syncfusion-nav';
 
           // Syncfusion Popups - dialogs, tooltips
           if (id.includes('@syncfusion/ej2-react-popups') || id.includes('@syncfusion/ej2-popups'))
-            return 'sf-popups';
+            return 'syncfusion-popups';
 
           // Syncfusion Calendars - date pickers
           if (id.includes('@syncfusion/ej2-react-calendars') || id.includes('@syncfusion/ej2-calendars'))
-            return 'sf-calendars';
+            return 'syncfusion-calendars';
 
           // Axios - HTTP client
           if (id.includes('axios')) return 'http';
@@ -139,7 +142,7 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
     include: ['react', 'react-dom', 'react-router-dom', '@tanstack/react-query', 'zustand'],
   },
   server: {
-    port: 4444,
+    port: 4445,
     open: true,
   },
   // Performance hints

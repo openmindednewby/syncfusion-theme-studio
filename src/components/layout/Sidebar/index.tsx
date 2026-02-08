@@ -13,9 +13,9 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { path: '/', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
-  { path: '/products', labelKey: 'menu.products', icon: '📦', testId: TestIds.NAV_PRODUCTS },
-  { path: '/components', labelKey: 'menu.components', icon: '🧩', testId: TestIds.NAV_COMPONENTS },
+  { path: '/dashboard', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
+  { path: '/dashboard/products', labelKey: 'menu.products', icon: '📦', testId: TestIds.NAV_PRODUCTS },
+  { path: '/dashboard/components', labelKey: 'menu.components', icon: '🧩', testId: TestIds.NAV_COMPONENTS },
 ];
 
 export const Sidebar = (): JSX.Element => {
@@ -90,7 +90,7 @@ export const Sidebar = (): JSX.Element => {
           aria-label={FM('menu.loginLabel')}
           className="flex items-center gap-3 rounded-md px-3 py-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
           data-testid={TestIds.NAV_LOGIN}
-          to="/login"
+          to="/"
         >
           <span aria-hidden="true" className="text-lg">🔐</span>
           {!isCollapsed && <span>{FM('menu.login')}</span>}

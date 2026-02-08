@@ -45,8 +45,11 @@
     "emailPlaceholder": "you@example.com",
     "password": "Password",
     "passwordPlaceholder": "Enter your password",
+    "licenseKey": "Syncfusion License Key",
+    "licenseKeyPlaceholder": "Paste your license key here",
+    "licenseKeyHint": "Optional - Get a free community license at syncfusion.com",
     "submit": "Sign In",
-    "demoHint": "Demo login - any credentials will work",
+    "demoHint": "Demo login - credentials are pre-filled for convenience",
     "themeSwitchLight": "Switch to light mode",
     "themeSwitchDark": "Switch to dark mode"
   },
@@ -283,6 +286,11 @@
       "toggleLoading": "Simulate Loading",
       "stopLoading": "Stop Loading"
     },
+    "dataGrid": {
+      "description": "The DataGrid component is loaded on a separate page for better performance. Click below to view the full demo.",
+      "viewDemo": "View DataGrid Demo",
+      "backToComponents": "Back to Components"
+    },
     "cards": {
       "default": "Default Card",
       "defaultDesc": "This is a default card with surface background.",
@@ -294,6 +302,39 @@
       "warning": "Warning",
       "error": "Error",
       "info": "Info"
-    }
+    },
+    "selection": "Selection Controls",
+    "checkboxes": "Checkboxes",
+    "radioButtons": "Radio Buttons",
+    "switches": "Switches",
+    "chips": "Chips",
+    "advancedInputs": "Advanced Inputs",
+    "slider": "Slider",
+    "numericInput": "Numeric Input",
+    "colorPicker": "Color Picker",
+    "rating": "Rating",
+    "advancedDropdowns": "Advanced Dropdowns",
+    "comboBox": "Combo Box",
+    "autoComplete": "Auto Complete",
+    "multiSelect": "Multi Select",
+    "comboBoxError": "Combo Box (Error)",
+    "autoCompleteDisabled": "Auto Complete (Disabled)",
+    "multiSelectChips": "Multi Select (Chips)",
+    "calendars": "Date & Time Pickers",
+    "datePicker": "Date Picker",
+    "timePicker": "Time Picker",
+    "dateTimePicker": "Date Time Picker",
+    "dateRangePicker": "Date Range Picker",
+    "datePickerError": "Date Picker (Error)",
+    "datePickerDisabled": "Date Picker (Disabled)",
+    "navigations": "Navigation Components",
+    "tabs": "Tabs",
+    "accordion": "Accordion",
+    "toolbar": "Toolbar",
+    "breadcrumb": "Breadcrumb",
+    "menu": "Menu",
+    "popups": "Popups & Dialogs",
+    "dialogs": "Dialogs",
+    "tooltips": "Tooltips"
   }
 }

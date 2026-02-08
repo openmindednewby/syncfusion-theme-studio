@@ -3,6 +3,11 @@
     "title": "Syncfusion Theme Studio",
     "description": "A customizable admin portal template"
   },
+  "accessibility": {
+    "skipToMainContent": "Skip to main content",
+    "expandSection": "Expand {p1} section",
+    "collapseSection": "Collapse {p1} section"
+  },
   "common": {
     "loading": "Loading...",
     "error": "An error occurred",
@@ -61,7 +66,9 @@
     "products": "Products",
     "components": "Components",
     "themeEditor": "Theme Editor",
-    "login": "Login"
+    "themeEditorLabel": "Open theme editor",
+    "login": "Login",
+    "loginLabel": "Go to login page"
   },
   "sidebar": {
     "expand": "Expand sidebar",

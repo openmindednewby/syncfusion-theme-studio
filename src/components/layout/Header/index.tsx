@@ -30,7 +30,7 @@ export const Header = (): JSX.Element => {
     mode === 'light' ? FM('header.themeSwitchDark') : FM('header.themeSwitchLight');
 
   return (
-    <header className="flex h-header items-center justify-between border-b border-border bg-surface-elevated px-6">
+    <header className="header flex items-center justify-between px-6">
       <h1 className="text-lg font-semibold text-text-primary">{FM('app.title')}</h1>
 
       <div className="flex items-center gap-2">
@@ -53,7 +53,7 @@ export const Header = (): JSX.Element => {
           type="button"
           onClick={toggleMode}
         >
-          {mode === 'light' ? '🌙' : '☀️'}
+          <span aria-hidden="true">{mode === 'light' ? '🌙' : '☀️'}</span>
         </button>
       </div>
     </header>

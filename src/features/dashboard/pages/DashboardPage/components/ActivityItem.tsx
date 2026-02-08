@@ -17,6 +17,7 @@ export const ActivityItem = memo(({ title, time, icon }: ActivityItemProps): JSX
     <div className="flex items-center gap-3 py-3">
       <div className={`rounded-full p-2 ${iconClasses[icon]}`}>
         <svg
+          aria-hidden="true"
           className="h-4 w-4"
           fill="none"
           stroke="currentColor"

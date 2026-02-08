@@ -54,7 +54,7 @@ export const ColorPicker = ({ label, onChange, value }: ColorPickerProps): JSX.E
     <div className="flex items-center gap-2">
       <input
         aria-label={`Pick color for ${label}`}
-        className="h-6 w-6 cursor-pointer rounded border border-border"
+        className="h-11 w-11 min-h-[44px] min-w-[44px] cursor-pointer rounded border border-border"
         type="color"
         value={hexValue}
         onChange={handleChange}

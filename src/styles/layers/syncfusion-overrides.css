@@ -16,15 +16,16 @@
   }
 
   /* ===== BUTTON OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .e-btn.e-primary {
-    background-color: rgb(var(--color-primary-500));
-    border-color: rgb(var(--color-primary-500));
-    color: white;
+    background-color: var(--component-button-primary-bg);
+    border-color: var(--component-button-primary-bg);
+    color: var(--component-button-primary-text);
   }
 
   .e-btn.e-primary:hover:not(:disabled) {
-    background-color: rgb(var(--color-primary-600));
-    border-color: rgb(var(--color-primary-600));
+    background-color: var(--component-button-primary-bg-hover);
+    border-color: var(--component-button-primary-bg-hover);
   }
 
   .e-btn.e-primary:focus {
@@ -32,19 +33,19 @@
   }
 
   .e-btn.e-secondary {
-    background-color: rgb(var(--color-surface));
+    background-color: var(--component-button-secondary-bg);
     border-color: rgb(var(--color-border));
-    color: rgb(var(--color-text-primary));
+    color: var(--component-button-secondary-text);
   }
 
   .e-btn.e-secondary:hover:not(:disabled) {
-    background-color: rgb(var(--color-surface-elevated));
+    background-color: var(--component-button-secondary-bg-hover);
   }
 
   .e-btn.e-outline {
     background-color: transparent;
-    border-color: rgb(var(--color-border));
-    color: rgb(var(--color-text-primary));
+    border-color: var(--component-button-outline-border);
+    color: var(--component-button-outline-text);
   }
 
   .e-btn.e-outline:hover:not(:disabled) {
@@ -54,7 +55,7 @@
   .e-btn.e-flat {
     background-color: transparent;
     border-color: transparent;
-    color: rgb(var(--color-text-primary));
+    color: var(--component-button-ghost-text);
   }
 
   .e-btn.e-flat:hover:not(:disabled) {
@@ -62,9 +63,9 @@
   }
 
   .e-btn.e-danger {
-    background-color: rgb(var(--color-error-500));
-    border-color: rgb(var(--color-error-500));
-    color: white;
+    background-color: var(--component-button-danger-bg);
+    border-color: var(--component-button-danger-bg);
+    color: var(--component-button-danger-text);
   }
 
   .e-btn.e-danger:hover:not(:disabled) {
@@ -73,9 +74,10 @@
   }
 
   /* ===== INPUT OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .e-textbox.e-control-wrapper {
-    background-color: rgb(var(--color-background));
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-input-background);
+    border-color: var(--component-input-border-default);
     border-radius: var(--radius-md);
   }
 
@@ -84,16 +86,16 @@
   }
 
   .e-textbox.e-control-wrapper.e-input-focus {
-    border-color: rgb(var(--color-primary-500));
+    border-color: var(--component-input-border-focus);
     box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
   }
 
   .e-textbox.e-control-wrapper .e-input {
-    color: rgb(var(--color-text-primary));
+    color: var(--component-input-text-color);
   }
 
   .e-textbox.e-control-wrapper .e-input::placeholder {
-    color: rgb(var(--color-text-muted));
+    color: var(--component-input-placeholder);
   }
 
   .e-textbox.e-control-wrapper.e-error {
@@ -152,6 +154,7 @@
   }
 
   /* ===== GRID OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .e-grid {
     background-color: rgb(var(--color-surface));
     border-color: rgb(var(--color-border));
@@ -160,12 +163,12 @@
   }
 
   .e-grid .e-gridheader {
-    background-color: rgb(var(--color-surface-elevated));
+    background-color: var(--component-datagrid-header-bg);
     border-color: rgb(var(--color-border));
   }
 
   .e-grid .e-headercell {
-    color: rgb(var(--color-text-primary));
+    color: var(--component-datagrid-header-text);
     font-weight: 600;
   }
 
@@ -175,11 +178,15 @@
   }
 
   .e-grid .e-row:hover .e-rowcell {
-    background-color: rgb(var(--color-surface-elevated));
+    background-color: var(--component-datagrid-row-hover);
   }
 
   .e-grid .e-row.e-altrow .e-rowcell {
-    background-color: rgb(var(--color-background));
+    background-color: var(--component-datagrid-row-odd);
+  }
+
+  .e-grid .e-row:not(.e-altrow) .e-rowcell {
+    background-color: var(--component-datagrid-row-even);
   }
 
   .e-grid .e-row.e-selectionbackground .e-rowcell {

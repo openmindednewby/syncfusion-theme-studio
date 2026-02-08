@@ -27,7 +27,7 @@ export const Sidebar = (): JSX.Element => {
 
   return (
     <aside
-      className={`${sidebarWidth} flex flex-col border-r border-border bg-surface transition-all duration-normal`}
+      className={`${sidebarWidth} sidebar flex flex-col transition-all duration-normal`}
       data-collapsed={isCollapsed ? 'true' : 'false'}
       data-testid={TestIds.SIDEBAR}
     >
@@ -41,7 +41,7 @@ export const Sidebar = (): JSX.Element => {
           type="button"
           onClick={toggle}
         >
-          {isCollapsed ? '→' : '←'}
+          <span aria-hidden="true">{isCollapsed ? '→' : '←'}</span>
         </button>
       </div>
 
@@ -51,6 +51,7 @@ export const Sidebar = (): JSX.Element => {
           {NAV_ITEMS.map((item) => (
             <li key={item.path}>
               <NavLink
+                aria-label={FM(item.labelKey)}
                 className={({ isActive }) =>
                   `flex items-center gap-3 rounded-md px-3 py-2 transition-colors ${
                     isActive
@@ -61,7 +62,7 @@ export const Sidebar = (): JSX.Element => {
                 data-testid={item.testId}
                 to={item.path}
               >
-                <span className="text-lg">{item.icon}</span>
+                <span aria-hidden="true" className="text-lg">{item.icon}</span>
                 {!isCollapsed && <span>{FM(item.labelKey)}</span>}
               </NavLink>
             </li>
@@ -70,12 +71,13 @@ export const Sidebar = (): JSX.Element => {
           {/* Theme Editor - opens drawer */}
           <li>
             <button
+              aria-label={FM('menu.themeEditorLabel')}
               className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-text-secondary transition-colors hover:bg-surface-elevated hover:text-text-primary"
               data-testid={TestIds.NAV_THEME_EDITOR}
               type="button"
               onClick={openThemeSettings}
             >
-              <span className="text-lg">🎨</span>
+              <span aria-hidden="true" className="text-lg">🎨</span>
               {!isCollapsed && <span>{FM('menu.themeEditor')}</span>}
             </button>
           </li>
@@ -85,11 +87,12 @@ export const Sidebar = (): JSX.Element => {
       {/* Login link at bottom */}
       <div className="border-t border-border p-2">
         <NavLink
+          aria-label={FM('menu.loginLabel')}
           className="flex items-center gap-3 rounded-md px-3 py-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
           data-testid={TestIds.NAV_LOGIN}
           to="/login"
         >
-          <span className="text-lg">🔐</span>
+          <span aria-hidden="true" className="text-lg">🔐</span>
           {!isCollapsed && <span>{FM('menu.login')}</span>}
         </NavLink>
       </div>

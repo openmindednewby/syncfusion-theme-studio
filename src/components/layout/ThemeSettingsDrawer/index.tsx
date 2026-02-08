@@ -1,21 +1,37 @@
-import { useEffect, useCallback, useRef, useState } from 'react';
+import { useEffect, useCallback, useRef, useState, lazy, Suspense } from 'react';
 
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
 import { useThemeStore } from '@/stores/useThemeStore';
 
-import { ColorsSection } from './ColorsSection';
 import { DrawerTabs } from './DrawerTabs';
 import { ImportExportSection } from './ImportExportSection';
-import { ComponentsSection } from './sections/ComponentsSection';
-import { DarkThemeSection } from './sections/DarkThemeSection';
-import { LayoutSection } from './sections/LayoutSection';
-import { LightThemeSection } from './sections/LightThemeSection';
-import { PresetsSection } from './sections/PresetsSection';
-import { TypographySection } from './sections/TypographySection';
 
 import type { TabId } from './DrawerTabs';
+
+// Lazy load heavy tab sections for better initial load performance
+const ColorsSection = lazy(async () => ({
+  default: (await import('./ColorsSection')).ColorsSection,
+}));
+const TypographySection = lazy(async () => ({
+  default: (await import('./sections/TypographySection')).TypographySection,
+}));
+const LayoutSection = lazy(async () => ({
+  default: (await import('./sections/LayoutSection')).LayoutSection,
+}));
+const LightThemeSection = lazy(async () => ({
+  default: (await import('./sections/LightThemeSection')).LightThemeSection,
+}));
+const DarkThemeSection = lazy(async () => ({
+  default: (await import('./sections/DarkThemeSection')).DarkThemeSection,
+}));
+const ComponentsSection = lazy(async () => ({
+  default: (await import('./sections/ComponentsSection')).ComponentsSection,
+}));
+const PresetsSection = lazy(async () => ({
+  default: (await import('./sections/PresetsSection')).PresetsSection,
+}));
 
 const ESCAPE_KEY = 'Escape';
 const BACKDROP_OPACITY = 'rgba(0, 0, 0, 0.5)';
@@ -35,25 +51,38 @@ const CloseIcon = (): JSX.Element => (
   </svg>
 );
 
+// Loading fallback for lazy-loaded sections
+const SectionLoader = (): JSX.Element => (
+  <div className="flex items-center justify-center py-8">
+    <div className="h-6 w-6 animate-spin rounded-full border-2 border-border border-t-primary-500" />
+  </div>
+);
+
 const renderTabContent = (activeTab: TabId): JSX.Element | null => {
-  switch (activeTab) {
-    case 'colors':
-      return <ColorsSection />;
-    case 'typography':
-      return <TypographySection />;
-    case 'layout':
-      return <LayoutSection />;
-    case 'lightTheme':
-      return <LightThemeSection />;
-    case 'darkTheme':
-      return <DarkThemeSection />;
-    case 'components':
-      return <ComponentsSection />;
-    case 'presets':
-      return <PresetsSection />;
-    default:
-      return null;
-  }
+  const content = (() => {
+    switch (activeTab) {
+      case 'colors':
+        return <ColorsSection />;
+      case 'typography':
+        return <TypographySection />;
+      case 'layout':
+        return <LayoutSection />;
+      case 'lightTheme':
+        return <LightThemeSection />;
+      case 'darkTheme':
+        return <DarkThemeSection />;
+      case 'components':
+        return <ComponentsSection />;
+      case 'presets':
+        return <PresetsSection />;
+      default:
+        return null;
+    }
+  })();
+
+  if (!content) return null;
+
+  return <Suspense fallback={<SectionLoader />}>{content}</Suspense>;
 };
 
 export const ThemeSettingsDrawer = (): JSX.Element | null => {

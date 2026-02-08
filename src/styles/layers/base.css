@@ -80,6 +80,69 @@
     --color-text-primary: 17 24 39;
     --color-text-secondary: 107 114 128;
     --color-text-muted: 156 163 175;
+
+    /* ===== COMPONENT DEFAULTS ===== */
+    /* These are overridden by the theme injector at runtime */
+
+    /* Header */
+    --component-header-background: rgb(255 255 255);
+    --component-header-text-color: rgb(17 24 39);
+    --component-header-border-bottom: rgb(229 231 235);
+    --component-header-height: 64px;
+
+    /* Sidebar */
+    --component-sidebar-background: rgb(249 250 251);
+    --component-sidebar-text-color: rgb(55 65 81);
+    --component-sidebar-active-bg: rgb(59 130 246);
+    --component-sidebar-active-text: rgb(255 255 255);
+    --component-sidebar-hover-bg: rgb(243 244 246);
+    --component-sidebar-border-right: rgb(229 231 235);
+
+    /* Buttons */
+    --component-button-primary-bg: rgb(59 130 246);
+    --component-button-primary-bg-hover: rgb(37 99 235);
+    --component-button-primary-text: rgb(255 255 255);
+    --component-button-secondary-bg: rgb(243 244 246);
+    --component-button-secondary-bg-hover: rgb(229 231 235);
+    --component-button-secondary-text: rgb(55 65 81);
+    --component-button-outline-border: rgb(59 130 246);
+    --component-button-outline-text: rgb(59 130 246);
+    --component-button-ghost-text: rgb(55 65 81);
+    --component-button-danger-bg: rgb(239 68 68);
+    --component-button-danger-text: rgb(255 255 255);
+
+    /* Inputs */
+    --component-input-background: rgb(255 255 255);
+    --component-input-border-default: rgb(209 213 219);
+    --component-input-border-focus: rgb(59 130 246);
+    --component-input-text-color: rgb(17 24 39);
+    --component-input-placeholder: rgb(156 163 175);
+
+    /* DataGrid */
+    --component-datagrid-header-bg: rgb(249 250 251);
+    --component-datagrid-header-text: rgb(55 65 81);
+    --component-datagrid-row-even: rgb(255 255 255);
+    --component-datagrid-row-odd: rgb(249 250 251);
+    --component-datagrid-row-hover: rgb(243 244 246);
+
+    /* Cards */
+    --component-card-background: rgb(255 255 255);
+    --component-card-border: rgb(229 231 235);
+
+    /* Modals */
+    --component-modal-backdrop: rgba(0, 0, 0, 0.5);
+    --component-modal-content-bg: rgb(255 255 255);
+    --component-modal-border: rgb(229 231 235);
+
+    /* Badges */
+    --component-badge-success-bg: rgb(220 252 231);
+    --component-badge-success-text: rgb(21 128 61);
+    --component-badge-warning-bg: rgb(254 249 195);
+    --component-badge-warning-text: rgb(161 98 7);
+    --component-badge-error-bg: rgb(254 226 226);
+    --component-badge-error-text: rgb(185 28 28);
+    --component-badge-info-bg: rgb(219 234 254);
+    --component-badge-info-text: rgb(29 78 216);
   }
 
   /* ===== DARK MODE ===== */
@@ -91,6 +154,28 @@
     --color-text-primary: 249 250 251;
     --color-text-secondary: 156 163 175;
     --color-text-muted: 107 114 128;
+
+    /* Dark mode component defaults */
+    --component-header-background: rgb(31 41 55);
+    --component-header-text-color: rgb(249 250 251);
+    --component-header-border-bottom: rgb(75 85 99);
+    --component-sidebar-background: rgb(17 24 39);
+    --component-sidebar-text-color: rgb(156 163 175);
+    --component-sidebar-hover-bg: rgb(31 41 55);
+    --component-sidebar-border-right: rgb(75 85 99);
+    --component-input-background: rgb(31 41 55);
+    --component-input-border-default: rgb(75 85 99);
+    --component-input-text-color: rgb(249 250 251);
+    --component-input-placeholder: rgb(107 114 128);
+    --component-datagrid-header-bg: rgb(31 41 55);
+    --component-datagrid-header-text: rgb(249 250 251);
+    --component-datagrid-row-even: rgb(17 24 39);
+    --component-datagrid-row-odd: rgb(31 41 55);
+    --component-datagrid-row-hover: rgb(55 65 81);
+    --component-card-background: rgb(31 41 55);
+    --component-card-border: rgb(75 85 99);
+    --component-modal-content-bg: rgb(31 41 55);
+    --component-modal-border: rgb(75 85 99);
   }
 
   /* ===== BASE STYLES ===== */
@@ -119,6 +204,36 @@
   :focus-visible {
     outline: 2px solid rgb(var(--color-primary-500));
     outline-offset: 2px;
+  }
+
+  /* Ensure all interactive elements meet WCAG 2.1 touch target size requirements */
+  button,
+  [role="button"],
+  a,
+  input[type="checkbox"],
+  input[type="radio"],
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Exception: inline links can be smaller but get extra padding when focused */
+  a:not([role="button"]):not(.btn) {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Skip link styles - visible only on focus */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
   }
 
   /* Scrollbar styling */

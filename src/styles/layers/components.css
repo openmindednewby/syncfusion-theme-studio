@@ -26,29 +26,31 @@
     cursor: not-allowed;
   }
 
+  /* Uses component-specific CSS variables from theme editor */
   .btn-primary {
-    background-color: rgb(var(--color-primary-500));
-    color: white;
+    background-color: var(--component-button-primary-bg);
+    color: var(--component-button-primary-text);
   }
 
   .btn-primary:hover:not(:disabled) {
-    background-color: rgb(var(--color-primary-600));
+    background-color: var(--component-button-primary-bg-hover);
   }
 
   .btn-secondary {
-    background-color: rgb(var(--color-surface));
-    color: rgb(var(--color-text-primary));
+    background-color: var(--component-button-secondary-bg);
+    color: var(--component-button-secondary-text);
     border-color: rgb(var(--color-border));
   }
 
   .btn-secondary:hover:not(:disabled) {
-    background-color: rgb(var(--color-surface-elevated));
+    background-color: var(--component-button-secondary-bg-hover);
   }
 
   /* ===== CARDS ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .card {
-    background-color: rgb(var(--color-surface));
-    border: 1px solid rgb(var(--color-border));
+    background-color: var(--component-card-background);
+    border: 1px solid var(--component-card-border);
     border-radius: var(--radius-lg);
     padding: 1.5rem;
   }
@@ -59,33 +61,35 @@
   }
 
   /* ===== INPUTS ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .input {
     width: 100%;
     padding: 0.5rem 0.75rem;
-    background-color: rgb(var(--color-background));
-    border: 1px solid rgb(var(--color-border));
+    background-color: var(--component-input-background);
+    border: 1px solid var(--component-input-border-default);
     border-radius: var(--radius-md);
-    color: rgb(var(--color-text-primary));
+    color: var(--component-input-text-color);
     font-size: var(--font-size-sm);
     transition-property: border-color, box-shadow;
     transition-duration: var(--transition-fast);
   }
 
   .input:focus {
-    border-color: rgb(var(--color-primary-500));
+    border-color: var(--component-input-border-focus);
     box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
     outline: none;
   }
 
   .input::placeholder {
-    color: rgb(var(--color-text-muted));
+    color: var(--component-input-placeholder);
   }
 
   /* ===== SIDEBAR ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .sidebar {
     width: var(--sidebar-width);
-    background-color: rgb(var(--color-surface));
-    border-right: 1px solid rgb(var(--color-border));
+    background-color: var(--component-sidebar-background);
+    border-right: 1px solid var(--component-sidebar-border-right);
     transition: width var(--transition-normal);
   }
 
@@ -93,14 +97,30 @@
     width: var(--sidebar-collapsed-width);
   }
 
+  .sidebar-item {
+    color: var(--component-sidebar-text-color);
+  }
+
+  .sidebar-item:hover {
+    background-color: var(--component-sidebar-hover-bg);
+  }
+
+  .sidebar-item.active {
+    background-color: var(--component-sidebar-active-bg);
+    color: var(--component-sidebar-active-text);
+  }
+
   /* ===== HEADER ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .header {
-    height: var(--header-height);
-    background-color: rgb(var(--color-surface-elevated));
-    border-bottom: 1px solid rgb(var(--color-border));
+    height: var(--component-header-height, var(--header-height));
+    background-color: var(--component-header-background);
+    border-bottom: 1px solid var(--component-header-border-bottom);
+    color: var(--component-header-text-color);
   }
 
   /* ===== STATUS BADGES ===== */
+  /* Uses component-specific CSS variables from theme editor */
   .badge {
     display: inline-flex;
     align-items: center;
@@ -111,22 +131,33 @@
   }
 
   .badge-success {
-    background-color: rgb(var(--color-success-50));
-    color: rgb(var(--color-success-700));
+    background-color: var(--component-badge-success-bg);
+    color: var(--component-badge-success-text);
   }
 
   .badge-warning {
-    background-color: rgb(var(--color-warning-50));
-    color: rgb(var(--color-warning-700));
+    background-color: var(--component-badge-warning-bg);
+    color: var(--component-badge-warning-text);
   }
 
   .badge-error {
-    background-color: rgb(var(--color-error-50));
-    color: rgb(var(--color-error-700));
+    background-color: var(--component-badge-error-bg);
+    color: var(--component-badge-error-text);
   }
 
   .badge-info {
-    background-color: rgb(var(--color-info-50));
-    color: rgb(var(--color-info-700));
+    background-color: var(--component-badge-info-bg);
+    color: var(--component-badge-info-text);
+  }
+
+  /* ===== MODALS ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .modal-backdrop {
+    background-color: var(--component-modal-backdrop);
+  }
+
+  .modal-content {
+    background-color: var(--component-modal-content-bg);
+    border: 1px solid var(--component-modal-border);
   }
 }

@@ -33,6 +33,14 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
     },
   },
   build: {
+    // Disable modulePreload for heavy chunks that aren't needed on initial load
+    // This prevents Syncfusion Grid from being preloaded on the login page
+    modulePreload: {
+      resolveDependencies: (_filename, deps) => {
+        // Filter out syncfusion-grid from initial modulepreload
+        return deps.filter((dep) => !dep.includes('syncfusion-grid'));
+      },
+    },
     // Enable terser for better minification
     minify: 'terser',
     terserOptions: {

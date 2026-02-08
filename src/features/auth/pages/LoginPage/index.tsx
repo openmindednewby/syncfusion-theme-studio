@@ -2,7 +2,7 @@ import { useState, useCallback, type ChangeEvent } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonNative, InputNative } from '@/components/ui';
+import { ButtonNative, InputNative } from '@/components/ui/native';
 import { preloadSyncfusionModules } from '@/config/syncfusionLazy';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';

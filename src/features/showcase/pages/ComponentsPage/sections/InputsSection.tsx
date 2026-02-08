@@ -1,7 +1,7 @@
 import { memo, useState, useCallback, useMemo } from 'react';
 
-import { Input, Select } from '@/components/ui';
-import type { SelectOption } from '@/components/ui';
+import { Input, Select } from '@/components/ui/syncfusion';
+import type { SelectOption } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
 const OPTION_COUNT = 3;

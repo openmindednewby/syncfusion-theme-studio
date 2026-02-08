@@ -1,11 +1,9 @@
-import { registerLicense } from '@syncfusion/ej2-base';
-
 import { isValueDefined, isNotEmptyString } from '@/utils/is';
 
 /**
  * Syncfusion License Registration
  *
- * The license key is registered immediately at app startup.
+ * The license key is registered lazily when entering protected routes.
  * Users can also enter their own key on the login page (stored in localStorage).
  *
  * Get a free community license or purchase one at:
@@ -46,14 +44,20 @@ function getStoredLicenseKey(): string | undefined {
   }
 }
 
+// Dynamic import to avoid loading Syncfusion on login page
+async function registerLicenseAsync(key: string): Promise<void> {
+  const { registerLicense } = await import('@syncfusion/ej2-base');
+  registerLicense(key);
+}
+
 export function initializeSyncfusion(): void {
   // Try to get user-provided key from localStorage first
   const userKey = getStoredLicenseKey();
   if (isValueDefined(userKey)) {
-    registerLicense(userKey);
+    registerLicenseAsync(userKey).catch(() => undefined);
     return;
   }
 
   // Use default license key
-  registerLicense(DEFAULT_LICENSE_KEY);
+  registerLicenseAsync(DEFAULT_LICENSE_KEY).catch(() => undefined);
 }

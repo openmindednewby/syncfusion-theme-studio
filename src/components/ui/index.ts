@@ -1,25 +1,30 @@
-// Syncfusion-wrapped components (lazy-loaded after login)
-export { default as DataGrid } from './DataGrid';
-export type { DataGridProps } from './DataGrid';
+/**
+ * UI Components Barrel Export
+ *
+ * IMPORTANT: This barrel ONLY exports native components to keep the login page bundle small.
+ * For Syncfusion components, import directly from '@/components/ui/syncfusion':
+ *
+ *   import { Button, DataGrid } from '@/components/ui/syncfusion';
+ *
+ * This ensures proper tree-shaking and keeps the 790KB Syncfusion Grid out of the
+ * initial bundle for pages that don't need it.
+ */
 
-export { default as Button } from './Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+// Native components - zero Syncfusion dependencies, safe for all pages
+export { ButtonNative, InputNative } from './native';
+export type { ButtonNativeProps, InputNativeProps } from './native';
 
-export { default as Input } from './Input';
-export type { InputProps } from './Input';
-
-export { default as Select } from './Select';
-export type { SelectProps, SelectOption } from './Select';
-
-export { default as DatePicker } from './DatePicker';
-export type { DatePickerProps } from './DatePicker';
-
-export { default as Dialog } from './Dialog';
-export type { DialogProps, DialogButton, DialogVariant } from './Dialog';
-
-// Native components (for login page - zero Syncfusion dependency)
-export { default as ButtonNative } from './ButtonNative';
-export type { ButtonNativeProps } from './ButtonNative';
-
-export { default as InputNative } from './InputNative';
-export type { InputNativeProps } from './InputNative';
+// Re-export types only (types are erased at runtime, no bundle impact)
+export type {
+  DataGridProps,
+  ButtonProps,
+  ButtonVariant,
+  ButtonSize,
+  InputProps,
+  SelectProps,
+  SelectOption,
+  DatePickerProps,
+  DialogProps,
+  DialogButton,
+  DialogVariant,
+} from './syncfusion';

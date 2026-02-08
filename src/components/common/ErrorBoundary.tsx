@@ -1,6 +1,6 @@
 import { Component, type ReactNode } from 'react';
 
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui/syncfusion';
 import { isValueDefined } from '@/utils/is';
 
 interface Props {

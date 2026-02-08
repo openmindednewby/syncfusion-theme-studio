@@ -1,0 +1,67 @@
+/*
+ * Critical Component Styles for Login Page
+ *
+ * Only the components needed for the login form.
+ */
+
+@layer components {
+  /* Buttons - only primary needed for login */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: var(--transition-fast);
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background-color: var(--component-button-primary-bg);
+    color: var(--component-button-primary-text);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover);
+  }
+
+  /* Card - for login form container */
+  .card {
+    background-color: var(--component-card-background);
+    border: 1px solid var(--component-card-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+  }
+
+  /* Input - for login form fields */
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--component-input-background);
+    border: 1px solid var(--component-input-border-default);
+    border-radius: var(--radius-md);
+    color: var(--component-input-text-color);
+    font-size: var(--font-size-sm);
+    transition-property: border-color, box-shadow;
+    transition-duration: var(--transition-fast);
+  }
+
+  .input:focus {
+    border-color: var(--component-input-border-focus);
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+    outline: none;
+  }
+
+  .input::placeholder {
+    color: var(--component-input-placeholder);
+  }
+}

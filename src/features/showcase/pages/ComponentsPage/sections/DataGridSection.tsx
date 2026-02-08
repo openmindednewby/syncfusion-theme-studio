@@ -2,7 +2,7 @@ import { memo, useState, useCallback, useEffect } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
-import { Button, DataGrid } from '@/components/ui';
+import { Button, DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 import { loadSyncfusionCss } from '@/utils';
 

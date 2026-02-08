@@ -29,18 +29,12 @@ export const isSyncfusionInitialized = (): boolean => isInitialized;
 
 /**
  * Preloads Syncfusion modules in the background using requestIdleCallback
- * Call after login to prepare dashboard load
+ * Call after login to prepare dashboard load for faster navigation
  */
 export const preloadSyncfusionModules = (): void => {
   const preload = (): void => {
-    // Fire-and-forget CSS preloads with empty catch handlers
-    import('@syncfusion/ej2-react-grids/styles/tailwind.css').catch(() => undefined);
-    import('@syncfusion/ej2-react-calendars/styles/tailwind.css').catch(() => undefined);
-    import('@syncfusion/ej2-react-dropdowns/styles/tailwind.css').catch(() => undefined);
-    import('@syncfusion/ej2-react-navigations/styles/tailwind.css').catch(() => undefined);
-    import('@syncfusion/ej2-react-popups/styles/tailwind.css').catch(() => undefined);
-
-    // Fire-and-forget JS module preloads
+    // Preload heavy Syncfusion modules in background
+    // These are lazy-loaded chunks that will be needed on the dashboard
     import('@syncfusion/ej2-react-grids').catch(() => undefined);
     import('@syncfusion/ej2-react-calendars').catch(() => undefined);
     import('@syncfusion/ej2-react-dropdowns').catch(() => undefined);

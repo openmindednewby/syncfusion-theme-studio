@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { Button } from '@/components/ui';
+import { Button } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
 export const ButtonsSection = memo((): JSX.Element => (

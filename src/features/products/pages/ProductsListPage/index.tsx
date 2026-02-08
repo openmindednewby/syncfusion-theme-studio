@@ -5,7 +5,7 @@ import type { ColumnModel } from '@syncfusion/ej2-grids';
 import type { Product, Category } from '@/api/generated/models';
 import { useGetAllProducts, useGetCategories } from '@/api/generated/products/products';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { Button, DataGrid } from '@/components/ui';
+import { Button, DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';

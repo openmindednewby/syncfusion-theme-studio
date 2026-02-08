@@ -1,12 +1,24 @@
 /*
- * App CSS - Full Syncfusion Styles
+ * App CSS - Full Syncfusion Styles + Additional Components
  *
  * Loaded only after login on protected routes.
- * This file contains Syncfusion component styles and custom overrides.
+ * This file contains:
+ * - Full component styles (sidebar, header, badges, modals)
+ * - Syncfusion component styles
+ * - Syncfusion overrides for theme integration
  *
  * Loaded dynamically in MainLayout via:
  *   import('@/styles/app.css');
+ *
+ * CSS Load Order:
+ * 1. login.css (base.css + components-critical.css) - loaded on initial page
+ * 2. app.css (this file) - loaded after login for protected routes
  */
+
+/* App component styles - extends components-critical.css with:
+ * sidebar, header, secondary buttons, badges, modals
+ * NOTE: Uses components-app.css (no @layer) since this is loaded dynamically */
+@import './layers/components-app.css';
 
 /* Syncfusion base styles - always needed for all Syncfusion components */
 @import '@syncfusion/ej2-base/styles/tailwind.css';

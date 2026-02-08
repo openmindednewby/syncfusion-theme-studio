@@ -3,7 +3,11 @@ import { lazy, Suspense, type ComponentType } from 'react';
 import { createBrowserRouter, type RouteObject } from 'react-router-dom';
 
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { MainLayout } from '@/components/layout/MainLayout';
+
+// Lazy-loaded layout - keeps login page bundle small
+const MainLayout = lazy(async () => ({
+  default: (await import('@/components/layout/MainLayout')).MainLayout,
+}));
 
 // Lazy-loaded pages
 const DashboardPage = lazy(async () => import('@/features/dashboard/pages/DashboardPage'));
@@ -31,7 +35,11 @@ const routes: RouteObject[] = [
   { path: '/', element: <LazyPage component={LoginPage} /> },
   {
     path: '/dashboard',
-    element: <MainLayout />,
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <MainLayout />
+      </Suspense>
+    ),
     children: [
       { index: true, element: <LazyPage component={DashboardPage} /> },
       { path: 'products', element: <LazyPage component={ProductsListPage} /> },

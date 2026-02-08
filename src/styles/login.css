@@ -4,16 +4,20 @@
  * This file contains only the styles needed for the login page.
  * Syncfusion CSS is loaded lazily when entering protected routes.
  *
- * This enables faster FCP (First Contentful Paint) on the login page
- * by avoiding the loading of heavy Syncfusion stylesheets.
+ * Optimization: Uses components-critical.css instead of full components.css
+ * to reduce CSS size on login page (only btn, card, input needed).
+ *
+ * This enables faster FCP (First Contentful Paint) on the login page.
  */
 
 /* Import custom styles - layer order declaration first */
 @layer base, components, utilities;
 
-/* Base variables and theme */
+/* Base variables and theme - full set needed for consistency */
 @import './layers/base.css';
-@import './layers/components.css';
+
+/* Critical-only components (btn, card, input only) - smaller than full components.css */
+@import './layers/components-critical.css';
 
 /* Tailwind directives */
 @tailwind base;

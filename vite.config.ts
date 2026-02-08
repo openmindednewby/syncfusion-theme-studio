@@ -1,9 +1,10 @@
-import { defineConfig } from 'vite';
+import { defineConfig, ConfigEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import { analyzer } from 'vite-bundle-analyzer';
 
-export default defineConfig({
-  plugins: [react()],
+export default defineConfig(({ mode }: ConfigEnv) => ({
+  plugins: [react(), mode === 'analyze' && analyzer()].filter(Boolean),
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -39,4 +40,4 @@ export default defineConfig({
     port: 4444,
     open: true,
   },
-});
+}));

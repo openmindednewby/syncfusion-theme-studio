@@ -96,13 +96,13 @@ local_resource(
     trigger_mode=TRIGGER_MODE_MANUAL,
 )
 
-local_resource(
-    name='theme-studio-e2e-ui',
-    labels=['ThemeStudio'],
-    serve_cmd='npm run test:e2e:ui',
-    resource_deps=['theme-studio-dev'],
-    trigger_mode=TRIGGER_MODE_MANUAL,
-)
+# local_resource(
+#     name='theme-studio-e2e-ui',
+#     labels=['ThemeStudio'],
+#     serve_cmd='npm run test:e2e:ui',
+#     resource_deps=['theme-studio-dev'],
+#     trigger_mode=TRIGGER_MODE_MANUAL,
+# )
 
 # --- API Hook Generation (manual) ---
 local_resource(
@@ -122,7 +122,60 @@ local_resource(
     trigger_mode=TRIGGER_MODE_MANUAL,
     links=[
         link('http://localhost:4445', 'Preview - Dashboard'),
-        link('http://localhost:4445/pets', 'Preview - Pets'),
+        link('http://localhost:4445/products', 'Preview - Products'),
         link('http://localhost:4445/components', 'Preview - Components'),
     ],
+)
+
+# ===============================================================================
+# QUALITY GATES - Performance & Bundle Analysis
+# ===============================================================================
+
+# --- Lighthouse Performance Audit (manual, runs after E2E tests) ---
+# Enforces 100% scores for performance, accessibility, best practices, SEO
+local_resource(
+    name='theme-studio-lighthouse',
+    labels=['ThemeStudio', 'QualityGate'],
+    cmd='npm run lighthouse:ci',
+    resource_deps=['theme-studio-e2e'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Lighthouse Audit with HTML Report (manual) ---
+local_resource(
+    name='theme-studio-lighthouse-report',
+    labels=['ThemeStudio', 'QualityGate'],
+    cmd='npm run lighthouse && npm run lighthouse:open',
+    resource_deps=['theme-studio-dev'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Bundle Analyzer (manual) ---
+# Opens interactive visualization of bundle sizes
+local_resource(
+    name='theme-studio-bundle-analyze',
+    labels=['ThemeStudio', 'QualityGate'],
+    cmd='npm run analyze',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Security Audit (manual) ---
+local_resource(
+    name='theme-studio-security-audit',
+    labels=['ThemeStudio', 'QualityGate'],
+    cmd='npm audit --audit-level=high',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Dependency Health Check (manual) ---
+local_resource(
+    name='theme-studio-deps-health',
+    labels=['ThemeStudio', 'QualityGate'],
+    cmd='npm outdated || true',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
 )

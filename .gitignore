@@ -56,3 +56,6 @@ syncfusion-license.txt
 # Temporary files
 *.tmp
 *.temp
+
+# Lighthouse and bundle analyzer reports
+reports/

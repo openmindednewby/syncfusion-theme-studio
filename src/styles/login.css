@@ -1,0 +1,21 @@
+/*
+ * Login Page CSS - Zero Syncfusion Dependencies
+ *
+ * This file contains only the styles needed for the login page.
+ * Syncfusion CSS is loaded lazily when entering protected routes.
+ *
+ * This enables faster FCP (First Contentful Paint) on the login page
+ * by avoiding the loading of heavy Syncfusion stylesheets.
+ */
+
+/* Import custom styles - layer order declaration first */
+@layer base, components, utilities;
+
+/* Base variables and theme */
+@import './layers/base.css';
+@import './layers/components.css';
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,19 @@
+/*
+ * App CSS - Full Syncfusion Styles
+ *
+ * Loaded only after login on protected routes.
+ * This file contains Syncfusion component styles and custom overrides.
+ *
+ * Loaded dynamically in MainLayout via:
+ *   import('@/styles/app.css');
+ */
+
+/* Syncfusion base styles - always needed for all Syncfusion components */
+@import '@syncfusion/ej2-base/styles/tailwind.css';
+
+/* Syncfusion component styles - used on most pages */
+@import '@syncfusion/ej2-react-inputs/styles/tailwind.css';
+@import '@syncfusion/ej2-react-buttons/styles/tailwind.css';
+
+/* Custom Syncfusion overrides to integrate with theme system */
+@import './layers/syncfusion-overrides.css';

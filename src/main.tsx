@@ -2,14 +2,11 @@ import { StrictMode } from 'react';
 
 import { createRoot } from 'react-dom/client';
 
-import { initializeSyncfusion } from '@config/syncfusion';
-
 import { App } from './app/App';
 
-import './styles/index.css';
-
-// Initialize Syncfusion license
-initializeSyncfusion();
+// Login-only CSS (no Syncfusion) - enables faster FCP on login page
+// Syncfusion CSS is loaded lazily in MainLayout for protected routes
+import './styles/login.css';
 
 const rootElement = document.getElementById('root');
 

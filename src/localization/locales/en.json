@@ -85,7 +85,10 @@
   "themeSettings": {
     "title": "Theme Settings",
     "drawerLabel": "Theme settings panel",
+    "panelLabel": "Theme settings panel",
     "closeDrawer": "Close theme settings",
+    "collapse": "Collapse theme panel",
+    "expand": "Expand theme panel",
     "primaryColors": "Primary Colors",
     "importExport": "Import / Export",
     "export": "Export",

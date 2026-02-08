@@ -1,3 +1,4 @@
+// Syncfusion-wrapped components (lazy-loaded after login)
 export { default as DataGrid } from './DataGrid';
 export type { DataGridProps } from './DataGrid';
 
@@ -15,3 +16,10 @@ export type { DatePickerProps } from './DatePicker';
 
 export { default as Dialog } from './Dialog';
 export type { DialogProps, DialogButton, DialogVariant } from './Dialog';
+
+// Native components (for login page - zero Syncfusion dependency)
+export { default as ButtonNative } from './ButtonNative';
+export type { ButtonNativeProps } from './ButtonNative';
+
+export { default as InputNative } from './InputNative';
+export type { InputNativeProps } from './InputNative';

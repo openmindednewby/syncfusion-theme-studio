@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef, useState, lazy, Suspense } from 'react';
+import { useState, lazy, Suspense } from 'react';
 
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -33,21 +33,23 @@ const PresetsSection = lazy(async () => ({
   default: (await import('./sections/PresetsSection')).PresetsSection,
 }));
 
-const ESCAPE_KEY = 'Escape';
-const BACKDROP_OPACITY = 'rgba(0, 0, 0, 0.5)';
 const DEFAULT_TAB: TabId = 'colors';
+const PANEL_WIDTH_PX = 420;
 
-const CloseIcon = (): JSX.Element => (
+/**
+ * Collapse/Expand toggle icon - points right when collapsed, left when expanded
+ */
+const CollapseIcon = ({ isCollapsed }: { isCollapsed: boolean }): JSX.Element => (
   <svg
     aria-hidden="true"
-    className="h-5 w-5"
+    className={`h-5 w-5 transition-transform duration-normal ${isCollapsed ? '' : 'rotate-180'}`}
     fill="none"
     stroke="currentColor"
     strokeWidth={2}
     viewBox="0 0 24 24"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" />
+    <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
   </svg>
 );
 
@@ -85,32 +87,16 @@ const renderTabContent = (activeTab: TabId): JSX.Element | null => {
   return <Suspense fallback={<SectionLoader />}>{content}</Suspense>;
 };
 
-export const ThemeSettingsDrawer = (): JSX.Element | null => {
-  const { isOpen, close } = useThemeSettingsDrawerStore();
+/**
+ * Theme Settings Panel - A fixed right sidebar for theme customization.
+ * Replaces the previous modal-like drawer with a persistent panel that's
+ * part of the layout grid. Panel state (expanded/collapsed) persists
+ * across page reloads via Zustand persist middleware.
+ */
+export const ThemeSettingsDrawer = (): JSX.Element => {
+  const { isOpen, toggle } = useThemeSettingsDrawerStore();
   const { resetTheme } = useThemeStore();
-  const drawerRef = useRef<HTMLDivElement>(null);
   const [activeTab, setActiveTab] = useState<TabId>(DEFAULT_TAB);
-
-  const handleKeyDown = useCallback(
-    (event: KeyboardEvent) => {
-      if (event.key === ESCAPE_KEY) close();
-    },
-    [close]
-  );
-
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      drawerRef.current?.focus();
-    }
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isOpen, handleKeyDown]);
-
-  const handleBackdropClick = (): void => {
-    close();
-  };
 
   const handleReset = (): void => {
     resetTheme();
@@ -120,67 +106,57 @@ export const ThemeSettingsDrawer = (): JSX.Element | null => {
     setActiveTab(tab);
   };
 
-  if (!isOpen) return null;
+  const toggleLabel = isOpen ? FM('themeSettings.collapse') : FM('themeSettings.expand');
 
   return (
-    <>
-      {/* Backdrop */}
-      <div
-        aria-hidden="true"
-        className="fixed inset-0 z-40 transition-opacity duration-normal"
-        data-testid={TestIds.THEME_BACKDROP}
-        style={{ backgroundColor: BACKDROP_OPACITY }}
-        onClick={handleBackdropClick}
-      />
-
-      {/* Drawer */}
-      <aside
-        ref={drawerRef}
-        aria-label={FM('themeSettings.drawerLabel')}
-        aria-modal="true"
-        className="fixed right-0 top-0 z-50 flex h-full w-[420px] flex-col bg-surface shadow-lg transition-transform duration-normal"
-        data-testid={TestIds.THEME_SETTINGS_DRAWER}
-        role="dialog"
-        tabIndex={-1}
+    <aside
+      aria-label={FM('themeSettings.panelLabel')}
+      className="flex h-full flex-col border-l border-border bg-surface transition-all duration-normal"
+      data-testid={TestIds.THEME_SETTINGS_DRAWER}
+      style={{ width: isOpen ? `${PANEL_WIDTH_PX}px` : '48px' }}
+    >
+      {/* Collapse/Expand Toggle */}
+      <button
+        aria-expanded={isOpen}
+        aria-label={toggleLabel}
+        className="flex h-12 w-full items-center justify-center border-b border-border text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
+        data-testid={TestIds.THEME_CLOSE_BTN}
+        type="button"
+        onClick={toggle}
       >
-        {/* Header */}
-        <header className="flex items-center justify-between border-b border-border px-4 py-3">
-          <h3 className="text-lg font-semibold text-text-primary">{FM('themeSettings.title')}</h3>
-          <button
-            aria-label={FM('themeSettings.closeDrawer')}
-            className="rounded p-1 text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
-            data-testid={TestIds.THEME_CLOSE_BTN}
-            type="button"
-            onClick={close}
-          >
-            <CloseIcon />
-          </button>
-        </header>
+        <CollapseIcon isCollapsed={!isOpen} />
+      </button>
 
-        {/* Tabs */}
-        <DrawerTabs activeTab={activeTab} onTabChange={handleTabChange} />
+      {isOpen ? <>
+          {/* Header */}
+          <header className="flex items-center justify-between border-b border-border px-4 py-3">
+            <h3 className="text-lg font-semibold text-text-primary">{FM('themeSettings.title')}</h3>
+          </header>
 
-        {/* Content */}
-        <div className="flex-1 space-y-6 overflow-y-auto p-4">
-          {renderTabContent(activeTab)}
+          {/* Tabs */}
+          <DrawerTabs activeTab={activeTab} onTabChange={handleTabChange} />
 
-          {/* Import/Export in all tabs for convenience */}
-          <ImportExportSection />
+          {/* Content */}
+          <div className="flex-1 space-y-6 overflow-y-auto p-4">
+            {renderTabContent(activeTab)}
 
-          {/* Reset Button */}
-          <section className="pt-4">
-            <button
-              aria-label={FM('themeSettings.resetToDefault')}
-              className="btn btn-secondary w-full text-xs"
-              data-testid={TestIds.THEME_RESET_BTN}
-              type="button"
-              onClick={handleReset}
-            >
-              {FM('themeSettings.resetToDefault')}
-            </button>
-          </section>
-        </div>
-      </aside>
-    </>
+            {/* Import/Export in all tabs for convenience */}
+            <ImportExportSection />
+
+            {/* Reset Button */}
+            <section className="pt-4">
+              <button
+                aria-label={FM('themeSettings.resetToDefault')}
+                className="btn btn-secondary w-full text-xs"
+                data-testid={TestIds.THEME_RESET_BTN}
+                type="button"
+                onClick={handleReset}
+              >
+                {FM('themeSettings.resetToDefault')}
+              </button>
+            </section>
+          </div>
+        </> : null}
+    </aside>
   );
 };

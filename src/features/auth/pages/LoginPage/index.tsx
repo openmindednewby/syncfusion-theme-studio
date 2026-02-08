@@ -1,8 +1,9 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, type ChangeEvent } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { Button, Input } from '@/components/ui';
+import { ButtonNative, InputNative } from '@/components/ui';
+import { preloadSyncfusionModules } from '@/config/syncfusionLazy';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useLicenseStore } from '@/stores/useLicenseStore';
@@ -21,23 +22,23 @@ const LoginPage = (): JSX.Element => {
   const [password, setPassword] = useState(DEFAULT_PASSWORD);
   // Use stored key if available, otherwise use default
   const [localLicenseKey, setLocalLicenseKey] = useState(
-    licenseKey !== '' ? licenseKey : DEFAULT_LICENSE_KEY
+    licenseKey !== '' ? licenseKey : DEFAULT_LICENSE_KEY,
   );
 
   const themeLabel =
     mode === 'light' ? FM('login.themeSwitchDark') : FM('login.themeSwitchLight');
   const themeIcon = mode === 'light' ? 'moon' : 'sun';
 
-  const handleEmailChange = useCallback((args: { value?: string }) => {
-    setEmail(args.value ?? '');
+  const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
   }, []);
 
-  const handlePasswordChange = useCallback((args: { value?: string }) => {
-    setPassword(args.value ?? '');
+  const handlePasswordChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value);
   }, []);
 
-  const handleLicenseKeyChange = useCallback((args: { value?: string }) => {
-    setLocalLicenseKey(args.value ?? '');
+  const handleLicenseKeyChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
+    setLocalLicenseKey(e.target.value);
   }, []);
 
   const handleSubmit = useCallback(
@@ -45,6 +46,10 @@ const LoginPage = (): JSX.Element => {
       e.preventDefault();
       // Save license key if provided
       if (localLicenseKey !== '') setLicenseKey(localLicenseKey);
+
+      // Preload Syncfusion modules in background before navigation
+      preloadSyncfusionModules();
+
       // Demo login - redirect to dashboard
       navigate('/dashboard');
     },
@@ -106,42 +111,42 @@ const LoginPage = (): JSX.Element => {
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
-            <Input
+            <InputNative
               fullWidth
-              input={handleEmailChange}
               label={FM('login.email')}
               placeholder={FM('login.emailPlaceholder')}
               testId={TestIds.LOGIN_USERNAME}
               type="email"
               value={email}
+              onChange={handleEmailChange}
             />
 
-            <Input
+            <InputNative
               fullWidth
-              input={handlePasswordChange}
               label={FM('login.password')}
               placeholder={FM('login.passwordPlaceholder')}
               testId={TestIds.LOGIN_PASSWORD}
               type="password"
               value={password}
+              onChange={handlePasswordChange}
             />
 
             <div className="border-t border-border pt-4">
-              <Input
+              <InputNative
                 fullWidth
-                input={handleLicenseKeyChange}
                 label={FM('login.licenseKey')}
                 placeholder={FM('login.licenseKeyPlaceholder')}
                 testId={TestIds.LOGIN_LICENSE_KEY}
                 type="text"
                 value={localLicenseKey}
+                onChange={handleLicenseKeyChange}
               />
               <p className="mt-1 text-xs text-text-muted">{FM('login.licenseKeyHint')}</p>
             </div>
 
-            <Button fullWidth testId={TestIds.LOGIN_SUBMIT} variant="primary">
+            <ButtonNative fullWidth testId={TestIds.LOGIN_SUBMIT} type="submit" variant="primary">
               {FM('login.submit')}
-            </Button>
+            </ButtonNative>
           </form>
 
           <p className="mt-4 text-center text-sm text-text-muted">{FM('login.demoHint')}</p>

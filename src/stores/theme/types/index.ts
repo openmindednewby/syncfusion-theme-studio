@@ -1,8 +1,7 @@
-// Theme store types - re-export from types folder
-// This file maintains backward compatibility with existing imports
+// Theme store types - barrel export
 
+// Re-export all color types
 export type {
-  // Color types
   Mode,
   ColorScale,
   StatusColor,
@@ -14,14 +13,20 @@ export type {
   TextColors,
   BorderColors,
   ThemeModeConfig,
-  // Layout types
+} from './colorTypes';
+
+// Re-export all layout types
+export type {
   LayoutConfig,
   BorderRadiusConfig,
   TypographyConfig,
   TransitionConfig,
   SpacingConfig,
   ShadowConfig,
-  // Component types
+} from './layoutTypes';
+
+// Re-export all component types
+export type {
   ShadowScale,
   HeaderComponentConfig,
   SidebarComponentConfig,
@@ -35,7 +40,7 @@ export type {
   BadgeVariant,
   BadgesConfig,
   ComponentsConfig,
-  // Theme types
-  ThemeConfig,
-  ThemeState,
-} from './types/index';
+} from './componentTypes';
+
+// Re-export theme config and state types
+export type { ThemeConfig, ThemeState } from './themeTypes';

@@ -5,8 +5,9 @@
 export const TestIds = {
   // Navigation
   NAV_HOME: 'nav-home',
-  NAV_PETS: 'nav-pets',
+  NAV_PRODUCTS: 'nav-products',
   NAV_COMPONENTS: 'nav-components',
+  NAV_THEME_EDITOR: 'nav-theme-editor',
   NAV_LOGIN: 'nav-login',
   SIDEBAR: 'sidebar',
   SIDEBAR_TOGGLE: 'sidebar-toggle',
@@ -30,10 +31,10 @@ export const TestIds = {
   LOGIN_SUBMIT: 'login-submit',
   LOGIN_ERROR: 'login-error',
 
-  // Pets
-  PETS_GRID: 'pets-grid',
-  PETS_STATUS_FILTER: 'pets-status-filter',
-  PETS_ADD: 'pets-add',
+  // Products
+  PRODUCTS_GRID: 'products-grid',
+  PRODUCTS_CATEGORY_FILTER: 'products-category-filter',
+  PRODUCTS_ADD: 'products-add',
   BTN_RETRY: 'btn-retry',
 
   // Theme Settings Drawer

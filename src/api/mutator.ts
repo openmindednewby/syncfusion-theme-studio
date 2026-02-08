@@ -1,9 +1,9 @@
 import axios, { type AxiosRequestConfig, type AxiosResponse } from 'axios';
 
-const PETSTORE_BASE_URL = 'https://petstore3.swagger.io/api/v3';
+const DUMMYJSON_BASE_URL = 'https://dummyjson.com';
 
 const axiosInstance = axios.create({
-  baseURL: PETSTORE_BASE_URL,
+  baseURL: DUMMYJSON_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },

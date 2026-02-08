@@ -58,7 +58,7 @@
   },
   "menu": {
     "dashboard": "Dashboard",
-    "pets": "Pets",
+    "products": "Products",
     "components": "Components",
     "themeEditor": "Theme Editor",
     "login": "Login"
@@ -87,7 +87,66 @@
     "importJsonLabel": "Paste theme JSON",
     "importPlaceholder": "Paste theme JSON here...",
     "importError": "Invalid theme JSON",
-    "resetToDefault": "Reset to Default"
+    "resetToDefault": "Reset to Default",
+    "tabs": {
+      "navigation": "Theme settings tabs",
+      "colors": "Colors",
+      "typography": "Typography",
+      "layout": "Layout",
+      "lightTheme": "Light",
+      "darkTheme": "Dark",
+      "components": "Components",
+      "presets": "Presets",
+      "importExport": "Import/Export"
+    },
+    "typography": {
+      "title": "Typography Settings",
+      "description": "Configure font families, sizes, weights, and spacing.",
+      "fontFamily": "Font Families",
+      "fontSize": "Font Sizes",
+      "fontWeight": "Font Weights",
+      "lineHeight": "Line Heights",
+      "letterSpacing": "Letter Spacing"
+    },
+    "layout": {
+      "title": "Layout Settings",
+      "description": "Configure spacing, border radius, shadows, and dimensions.",
+      "dimensions": "Layout Dimensions",
+      "sidebarWidth": "Sidebar Width",
+      "sidebarCollapsed": "Sidebar Collapsed",
+      "headerHeight": "Header Height",
+      "borderRadius": "Border Radius",
+      "shadows": "Shadows",
+      "spacing": "Spacing",
+      "transitions": "Transitions"
+    },
+    "lightTheme": {
+      "title": "Light Theme",
+      "description": "Configure colors for light mode.",
+      "backgrounds": "Background Colors",
+      "textColors": "Text Colors",
+      "borderColors": "Border Colors"
+    },
+    "darkTheme": {
+      "title": "Dark Theme",
+      "description": "Configure colors for dark mode.",
+      "backgrounds": "Background Colors",
+      "textColors": "Text Colors",
+      "borderColors": "Border Colors"
+    },
+    "components": {
+      "title": "Component Styles",
+      "description": "Component-specific styling configurations.",
+      "properties": "properties",
+      "editHint": "Click on a component to edit its styles."
+    },
+    "presets": {
+      "title": "Theme Presets",
+      "description": "Choose from pre-built theme configurations.",
+      "apply": "Apply",
+      "applyPreset": "Apply {p1} theme",
+      "active": "Active"
+    }
   },
   "themeEditor": {
     "title": "Theme Editor",
@@ -105,16 +164,18 @@
     "mutedText": "Muted text",
     "pickColorFor": "Pick color for {p1}"
   },
-  "pets": {
-    "title": "Pets",
-    "list": "Pets List",
-    "failedToLoad": "Failed to load pets",
-    "noPetsFound": "No pets found",
-    "noPetsWithStatus": "There are no {p1} pets at the moment.",
-    "status": {
-      "available": "Available",
-      "pending": "Pending",
-      "sold": "Sold"
+  "products": {
+    "title": "Products",
+    "list": "Products List",
+    "failedToLoad": "Failed to load products",
+    "noProductsFound": "No products found",
+    "noProductsInCategory": "There are no products in the {p1} category.",
+    "allCategories": "All",
+    "columns": {
+      "title": "Title",
+      "price": "Price",
+      "rating": "Rating",
+      "stock": "Stock"
     }
   },
   "components": {

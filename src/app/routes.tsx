@@ -8,7 +8,7 @@ import { MainLayout } from '@/components/layout/MainLayout';
 // Lazy-loaded pages
 const DashboardPage = lazy(async () => import('@/features/dashboard/pages/DashboardPage'));
 const LoginPage = lazy(async () => import('@/features/auth/pages/LoginPage'));
-const PetsListPage = lazy(async () => import('@/features/pets/pages/PetsListPage'));
+const ProductsListPage = lazy(async () => import('@/features/products/pages/ProductsListPage'));
 const ComponentsPage = lazy(async () => import('@/features/showcase/pages/ComponentsPage'));
 
 // Wrapper for lazy-loaded components
@@ -31,7 +31,7 @@ const routes: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { index: true, element: <LazyPage component={DashboardPage} /> },
-      { path: 'pets', element: <LazyPage component={PetsListPage} /> },
+      { path: 'products', element: <LazyPage component={ProductsListPage} /> },
       { path: 'components', element: <LazyPage component={ComponentsPage} /> },
     ],
   },

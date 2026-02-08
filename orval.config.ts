@@ -1,9 +1,9 @@
 import { defineConfig } from 'orval';
 
 export default defineConfig({
-  petstore: {
+  dummyjson: {
     input: {
-      target: './src/api/swagger/petstore.json',
+      target: './src/api/swagger/dummyjson.json',
       validation: false,
     },
     output: {

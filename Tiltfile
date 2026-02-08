@@ -62,7 +62,10 @@ local_resource(
         failure_threshold=20,
     ),
     links=[
-        link('http://localhost:4444', 'Theme Studio App'),
+        link('http://localhost:4444', 'Dashboard'),
+        link('http://localhost:4444/products', 'Products (API Demo)'),
+        link('http://localhost:4444/components', 'Components Showcase'),
+        link('http://localhost:4444/login', 'Login Page'),
     ],
 )
 
@@ -114,10 +117,12 @@ local_resource(
 local_resource(
     name='theme-studio-preview',
     labels=['ThemeStudio'],
-    serve_cmd='npm run preview -- --port 3001',
+    serve_cmd='npm run preview -- --port 4445',
     resource_deps=['theme-studio-build'],
     trigger_mode=TRIGGER_MODE_MANUAL,
     links=[
-        link('http://localhost:3001', 'Theme Studio Preview'),
+        link('http://localhost:4445', 'Preview - Dashboard'),
+        link('http://localhost:4445/pets', 'Preview - Pets'),
+        link('http://localhost:4445/components', 'Preview - Components'),
     ],
 )

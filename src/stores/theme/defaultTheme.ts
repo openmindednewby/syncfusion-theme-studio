@@ -1,65 +1,38 @@
+// Default theme configuration - assembled from split config files
+
+import {
+  DEFAULT_BORDER_RADIUS,
+  DEFAULT_COMPONENTS,
+  DEFAULT_DARK_MODE,
+  DEFAULT_LAYOUT,
+  DEFAULT_LIGHT_MODE,
+  DEFAULT_NEUTRAL,
+  DEFAULT_PRIMARY,
+  DEFAULT_SECONDARY,
+  DEFAULT_SHADOWS,
+  DEFAULT_SPACING,
+  DEFAULT_STATUS,
+  DEFAULT_TRANSITIONS,
+  DEFAULT_TYPOGRAPHY,
+} from './defaults';
+
 import type { ThemeConfig } from './types';
+
 
 export const DEFAULT_THEME: ThemeConfig = {
   id: 'default',
   name: 'Default Blue',
-  primary: {
-    '50': '239 246 255',
-    '100': '219 234 254',
-    '200': '191 219 254',
-    '300': '147 197 253',
-    '400': '96 165 250',
-    '500': '59 130 246',
-    '600': '37 99 235',
-    '700': '29 78 216',
-    '800': '30 64 175',
-    '900': '30 58 138',
-  },
-  status: {
-    success: { '50': '240 253 244', '500': '34 197 94', '700': '21 128 61' },
-    warning: { '50': '254 252 232', '500': '234 179 8', '700': '161 98 7' },
-    error: { '50': '254 242 242', '500': '239 68 68', '700': '185 28 28' },
-    info: { '50': '239 246 255', '500': '59 130 246', '700': '29 78 216' },
-  },
-  layout: {
-    sidebarWidth: '280px',
-    sidebarCollapsedWidth: '64px',
-    headerHeight: '64px',
-  },
-  borderRadius: {
-    none: '0px',
-    sm: '0.125rem',
-    md: '0.375rem',
-    lg: '0.5rem',
-    xl: '0.75rem',
-    '2xl': '1rem',
-    full: '9999px',
-  },
-  typography: {
-    fontSans: "ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
-    fontMono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
-  },
-  transitions: {
-    fast: '150ms',
-    normal: '200ms',
-    slow: '300ms',
-  },
-  light: {
-    background: '255 255 255',
-    surface: '249 250 251',
-    surfaceElevated: '255 255 255',
-    border: '229 231 235',
-    textPrimary: '17 24 39',
-    textSecondary: '107 114 128',
-    textMuted: '156 163 175',
-  },
-  dark: {
-    background: '17 24 39',
-    surface: '31 41 55',
-    surfaceElevated: '55 65 81',
-    border: '75 85 99',
-    textPrimary: '249 250 251',
-    textSecondary: '156 163 175',
-    textMuted: '107 114 128',
-  },
+  primary: DEFAULT_PRIMARY,
+  secondary: DEFAULT_SECONDARY,
+  neutral: DEFAULT_NEUTRAL,
+  status: DEFAULT_STATUS,
+  layout: DEFAULT_LAYOUT,
+  spacing: DEFAULT_SPACING,
+  borderRadius: DEFAULT_BORDER_RADIUS,
+  shadows: DEFAULT_SHADOWS,
+  typography: DEFAULT_TYPOGRAPHY,
+  transitions: DEFAULT_TRANSITIONS,
+  light: DEFAULT_LIGHT_MODE,
+  dark: DEFAULT_DARK_MODE,
+  components: DEFAULT_COMPONENTS,
 };

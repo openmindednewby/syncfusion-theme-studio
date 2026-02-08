@@ -15,9 +15,9 @@ test.describe('Navigation', () => {
     await dashboardPage.expectDashboardVisible();
   });
 
-  test('navigates to pets page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_PETS).click();
-    await expect(page).toHaveURL('/pets');
+  test('navigates to products page', async ({ page }) => {
+    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
+    await expect(page).toHaveURL('/products');
   });
 
   test('navigates to components page', async ({ page }) => {

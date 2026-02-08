@@ -38,8 +38,8 @@ test.describe('Theme Toggle', () => {
     await expect(page.locator('html')).toHaveClass(/dark/);
 
     // Navigate to another page
-    await page.getByTestId(TestIds.NAV_PETS).click();
-    await expect(page).toHaveURL('/pets');
+    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
+    await expect(page).toHaveURL('/products');
 
     // Theme should still be dark
     await expect(page.locator('html')).toHaveClass(/dark/);

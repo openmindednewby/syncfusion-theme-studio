@@ -48,8 +48,8 @@ test.describe('Sidebar', () => {
     await expect(sidebar).toHaveAttribute('data-collapsed', 'true');
 
     // Navigate to another page
-    await page.getByTestId(TestIds.NAV_PETS).click();
-    await expect(page).toHaveURL('/pets');
+    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
+    await expect(page).toHaveURL('/products');
 
     // Sidebar should still be collapsed
     await expect(sidebar).toHaveAttribute('data-collapsed', 'true');
@@ -64,8 +64,8 @@ test.describe('Sidebar', () => {
 
   test('navigation links are accessible in both states', async ({ page }) => {
     // Test navigation while expanded
-    await page.getByTestId(TestIds.NAV_PETS).click();
-    await expect(page).toHaveURL('/pets');
+    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
+    await expect(page).toHaveURL('/products');
 
     // Go back and collapse sidebar
     await page.getByTestId(TestIds.NAV_HOME).click();

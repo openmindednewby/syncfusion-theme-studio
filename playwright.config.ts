@@ -37,9 +37,11 @@ export default defineConfig({
     // },
   ],
   webServer: {
-    command: 'npm run dev',
+    command: 'npm run dev -- --port 4444',
     url: BASE_URL,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     timeout: 120000,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 });

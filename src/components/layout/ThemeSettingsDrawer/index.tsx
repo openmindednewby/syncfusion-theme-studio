@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useRef } from 'react';
+import { useEffect, useCallback, useRef, useState } from 'react';
 
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -6,10 +6,20 @@ import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStor
 import { useThemeStore } from '@/stores/useThemeStore';
 
 import { ColorsSection } from './ColorsSection';
+import { DrawerTabs } from './DrawerTabs';
 import { ImportExportSection } from './ImportExportSection';
+import { ComponentsSection } from './sections/ComponentsSection';
+import { DarkThemeSection } from './sections/DarkThemeSection';
+import { LayoutSection } from './sections/LayoutSection';
+import { LightThemeSection } from './sections/LightThemeSection';
+import { PresetsSection } from './sections/PresetsSection';
+import { TypographySection } from './sections/TypographySection';
+
+import type { TabId } from './DrawerTabs';
 
 const ESCAPE_KEY = 'Escape';
 const BACKDROP_OPACITY = 'rgba(0, 0, 0, 0.5)';
+const DEFAULT_TAB: TabId = 'colors';
 
 const CloseIcon = (): JSX.Element => (
   <svg
@@ -25,10 +35,32 @@ const CloseIcon = (): JSX.Element => (
   </svg>
 );
 
+const renderTabContent = (activeTab: TabId): JSX.Element | null => {
+  switch (activeTab) {
+    case 'colors':
+      return <ColorsSection />;
+    case 'typography':
+      return <TypographySection />;
+    case 'layout':
+      return <LayoutSection />;
+    case 'lightTheme':
+      return <LightThemeSection />;
+    case 'darkTheme':
+      return <DarkThemeSection />;
+    case 'components':
+      return <ComponentsSection />;
+    case 'presets':
+      return <PresetsSection />;
+    default:
+      return null;
+  }
+};
+
 export const ThemeSettingsDrawer = (): JSX.Element | null => {
   const { isOpen, close } = useThemeSettingsDrawerStore();
   const { resetTheme } = useThemeStore();
   const drawerRef = useRef<HTMLDivElement>(null);
+  const [activeTab, setActiveTab] = useState<TabId>(DEFAULT_TAB);
 
   const handleKeyDown = useCallback(
     (event: KeyboardEvent) => {
@@ -55,6 +87,10 @@ export const ThemeSettingsDrawer = (): JSX.Element | null => {
     resetTheme();
   };
 
+  const handleTabChange = (tab: TabId): void => {
+    setActiveTab(tab);
+  };
+
   if (!isOpen) return null;
 
   return (
@@ -72,7 +108,7 @@ export const ThemeSettingsDrawer = (): JSX.Element | null => {
         ref={drawerRef}
         aria-label={FM('themeSettings.drawerLabel')}
         aria-modal="true"
-        className="fixed right-0 top-0 z-50 flex h-full w-80 flex-col bg-surface shadow-lg transition-transform duration-normal"
+        className="fixed right-0 top-0 z-50 flex h-full w-[420px] flex-col bg-surface shadow-lg transition-transform duration-normal"
         data-testid={TestIds.THEME_SETTINGS_DRAWER}
         role="dialog"
         tabIndex={-1}
@@ -90,9 +126,14 @@ export const ThemeSettingsDrawer = (): JSX.Element | null => {
           </button>
         </header>
 
+        {/* Tabs */}
+        <DrawerTabs activeTab={activeTab} onTabChange={handleTabChange} />
+
         {/* Content */}
         <div className="flex-1 space-y-6 overflow-y-auto p-4">
-          <ColorsSection />
+          {renderTabContent(activeTab)}
+
+          {/* Import/Export in all tabs for convenience */}
           <ImportExportSection />
 
           {/* Reset Button */}

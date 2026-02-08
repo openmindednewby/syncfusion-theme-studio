@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
+import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
 
 interface NavItem {
   path: string;
@@ -13,12 +14,13 @@ interface NavItem {
 
 const NAV_ITEMS: NavItem[] = [
   { path: '/', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
-  { path: '/pets', labelKey: 'menu.pets', icon: '🐾', testId: TestIds.NAV_PETS },
+  { path: '/products', labelKey: 'menu.products', icon: '📦', testId: TestIds.NAV_PRODUCTS },
   { path: '/components', labelKey: 'menu.components', icon: '🧩', testId: TestIds.NAV_COMPONENTS },
 ];
 
 export const Sidebar = (): JSX.Element => {
   const { isCollapsed, toggle } = useSidebarStore();
+  const { open: openThemeSettings } = useThemeSettingsDrawerStore();
 
   const sidebarWidth = isCollapsed ? 'w-16' : 'w-sidebar';
   const toggleLabel = isCollapsed ? FM('sidebar.expand') : FM('sidebar.collapse');
@@ -64,6 +66,19 @@ export const Sidebar = (): JSX.Element => {
               </NavLink>
             </li>
           ))}
+
+          {/* Theme Editor - opens drawer */}
+          <li>
+            <button
+              className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-text-secondary transition-colors hover:bg-surface-elevated hover:text-text-primary"
+              data-testid={TestIds.NAV_THEME_EDITOR}
+              type="button"
+              onClick={openThemeSettings}
+            >
+              <span className="text-lg">🎨</span>
+              {!isCollapsed && <span>{FM('menu.themeEditor')}</span>}
+            </button>
+          </li>
         </ul>
       </nav>
 

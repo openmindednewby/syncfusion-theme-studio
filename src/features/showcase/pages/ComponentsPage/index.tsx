@@ -3,7 +3,6 @@ import { lazy, Suspense, useEffect } from 'react';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 
 import { SectionSkeleton } from '@/components/common';
-import { ThemeEditorPanel } from '@/components/layout/ThemeEditorPanel';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { loadSyncfusionCss } from '@/utils';
@@ -32,9 +31,6 @@ const DataGridSection = lazy(async () =>
   import('./sections/DataGridSection').then((m) => ({ default: m.DataGridSection }))
 );
 
-const SPLITTER_PANE_SIZE_EDITOR = '380px';
-const SPLITTER_PANE_SIZE_MIN_EDITOR = '280px';
-const SPLITTER_PANE_SIZE_MAX_EDITOR = '600px';
 const SPLITTER_PANE_SIZE_MIN_CONTENT = '400px';
 
 // Skeleton heights MUST match actual rendered content heights to prevent CLS
@@ -53,14 +49,7 @@ const ComponentsPage = (): JSX.Element => {
     <div className="h-full -m-6" data-testid={TestIds.THEME_SPLITTER}>
       <SplitterComponent height="100%" separatorSize={4} width="100%">
         <PanesDirective>
-          {/* Theme Editor Panel */}
-          <PaneDirective
-            collapsible
-            content={() => <ThemeEditorPanel />}
-            max={SPLITTER_PANE_SIZE_MAX_EDITOR}
-            min={SPLITTER_PANE_SIZE_MIN_EDITOR}
-            size={SPLITTER_PANE_SIZE_EDITOR}
-          />
+          
           {/* Component Showcase */}
           <PaneDirective
             content={() => (

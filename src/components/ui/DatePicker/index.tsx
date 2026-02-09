@@ -1,4 +1,4 @@
-import { memo, forwardRef, useId } from 'react';
+import { memo, forwardRef, useId, useMemo } from 'react';
 
 import {
   DatePickerComponent,
@@ -6,6 +6,7 @@ import {
   type ChangedEventArgs,
 } from '@syncfusion/ej2-react-calendars';
 
+import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
@@ -45,9 +46,29 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
     ref,
   ): JSX.Element => {
     const id = useId();
+    const { mode } = useThemeStore();
+
     const hasError = isValueDefined(error);
     const helperId = `${id}-helper`;
     const hasHelperOrError = isValueDefined(helperText) || hasError;
+
+    const datePickerCssClass = useMemo(() => {
+      const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+      const errorClass = hasError ? 'e-error sf-datepicker-error' : '';
+      const fullWidthClassStr = fullWidth ? 'e-block sf-datepicker-full' : '';
+      return cn('sf-datepicker', modeClass, errorClass, fullWidthClassStr);
+    }, [mode, hasError, fullWidth]);
+
+    const wrapperClass = cn(
+      'sf-datepicker-wrapper flex flex-col gap-1',
+      fullWidth && 'w-full',
+      className,
+    );
+
+    const helperClass = cn(
+      'sf-datepicker-helper text-sm',
+      hasError ? 'text-error-500' : 'text-text-secondary',
+    );
 
     function handleChange(args: ChangedEventArgs): void {
       if (isValueDefined(onChange)) {
@@ -57,12 +78,12 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
     }
 
     return (
-      <div
-        className={cn('flex flex-col gap-1', fullWidth && 'w-full', className)}
-        data-testid={testId}
-      >
+      <div className={wrapperClass} data-testid={testId}>
         {isValueDefined(label) && (
-          <label className="text-sm font-medium text-text-primary" htmlFor={id}>
+          <label
+            className="sf-datepicker-label text-sm font-medium text-text-primary"
+            htmlFor={id}
+          >
             {label}
           </label>
         )}
@@ -71,7 +92,7 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
           aria-describedby={hasHelperOrError ? helperId : undefined}
           aria-invalid={hasError}
           change={handleChange}
-          cssClass={cn(hasError && 'e-error', fullWidth && 'e-block')}
+          cssClass={datePickerCssClass}
           enabled={enabled}
           floatLabelType="Never"
           format={format}
@@ -81,10 +102,7 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
           {...rest}
         />
         {hasHelperOrError ? (
-          <span
-            className={cn('text-sm', hasError ? 'text-error-500' : 'text-text-secondary')}
-            id={helperId}
-          >
+          <span className={helperClass} id={helperId}>
             {hasError ? error : helperText}
           </span>
         ) : null}

@@ -1,4 +1,4 @@
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 import {
@@ -12,9 +12,9 @@ import {
 } from '@syncfusion/ej2-react-grids';
 import type { PageSettingsModel, RowSelectEventArgs } from '@syncfusion/ej2-react-grids';
 
+import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
-
 
 const DEFAULT_PAGE_SIZE = 10;
 const PAGE_SIZE_SMALL = 25;
@@ -71,6 +71,8 @@ const DataGridComponent = <T extends object>({
   isLoading = false,
   emptyText = 'No data available',
 }: Props<T>): JSX.Element => {
+  const { mode } = useThemeStore();
+
   const handleRowSelected = useCallback(
     (args: RowSelectEventArgs) => {
       // Type assertion needed: Syncfusion returns Object type
@@ -92,28 +94,45 @@ const DataGridComponent = <T extends object>({
   );
 
   // Determine which features to inject
-  const features = [];
-  if (allowPaging) features.push(Page);
-  if (allowSorting) features.push(Sort);
-  if (allowFiltering) features.push(Filter);
+  const features = useMemo(() => {
+    const featureList = [];
+    if (allowPaging) featureList.push(Page);
+    if (allowSorting) featureList.push(Sort);
+    if (allowFiltering) featureList.push(Filter);
+    return featureList;
+  }, [allowPaging, allowSorting, allowFiltering]);
+
+  const gridCssClass = useMemo(() => {
+    const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+    return cn('sf-datagrid', modeClass);
+  }, [mode]);
+
+  const wrapperClass = cn(
+    'sf-datagrid-wrapper relative',
+    isLoading && 'sf-datagrid-loading',
+    className,
+  );
 
   const renderEmptyRecord = (): JSX.Element => (
-    <div className="py-8 text-center text-text-secondary">{emptyText}</div>
+    <div className="sf-datagrid-empty py-8 text-center text-text-secondary">{emptyText}</div>
   );
 
   return (
-    <div className={cn('relative', className)} data-testid={testId}>
-      {isLoading ? <div className="absolute inset-0 z-10 flex items-center justify-center bg-surface/80">
+    <div className={wrapperClass} data-testid={testId}>
+      {isLoading ? (
+        <div className="sf-datagrid-loader absolute inset-0 z-10 flex items-center justify-center bg-surface/80">
           <div
             aria-label="Loading"
             className="h-8 w-8 animate-spin rounded-full border-4 border-primary-500 border-t-transparent"
             role="status"
           />
-        </div> : null}
+        </div>
+      ) : null}
       <GridComponent
         allowFiltering={allowFiltering}
         allowPaging={allowPaging}
         allowSorting={allowSorting}
+        cssClass={gridCssClass}
         dataSource={data}
         emptyRecordTemplate={renderEmptyRecord}
         height={height}
@@ -123,7 +142,7 @@ const DataGridComponent = <T extends object>({
       >
         <ColumnsDirective>
           {columns.map((column) => (
-            <ColumnDirective key={column.field} {...column} />
+            <ColumnDirective key={String(column.field)} {...column} />
           ))}
         </ColumnsDirective>
         <Inject services={features} />

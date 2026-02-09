@@ -1,0 +1,281 @@
+/*
+ * Syncfusion Themed Component Styles
+ *
+ * This layer provides additional styling for themed Syncfusion component wrappers.
+ * It works in conjunction with syncfusion-overrides.css and the theme injector.
+ *
+ * The sf-* classes are applied by the React component wrappers and provide:
+ * 1. Mode-specific styling (sf-light / sf-dark)
+ * 2. Component-specific theming hooks
+ * 3. Loading states and transitions
+ */
+
+@layer syncfusion-overrides {
+  /* ========================================
+   * BUTTON THEMED STYLES
+   * ======================================== */
+
+  /* Base button class for all themed buttons */
+  .sf-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition:
+      background-color var(--transition-fast),
+      border-color var(--transition-fast),
+      color var(--transition-fast),
+      box-shadow var(--transition-fast);
+  }
+
+  /* Button content wrapper */
+  .sf-btn-content {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Button icon positioning */
+  .sf-btn-icon-left,
+  .sf-btn-icon-right {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .sf-btn-icon-left {
+    margin-right: 0.25rem;
+  }
+
+  .sf-btn-icon-right {
+    margin-left: 0.25rem;
+  }
+
+  /* Loading spinner */
+  .sf-btn-spinner {
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: sf-spin 0.6s linear infinite;
+  }
+
+  @keyframes sf-spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Loading state */
+  .sf-btn-loading {
+    cursor: wait;
+    opacity: 0.8;
+  }
+
+  /* Full width button */
+  .sf-btn-full {
+    width: 100%;
+  }
+
+  /* Size variants */
+  .sf-size-sm .sf-btn-content {
+    font-size: var(--font-size-sm);
+  }
+
+  .sf-size-lg .sf-btn-content {
+    font-size: var(--font-size-lg);
+  }
+
+  /* ========================================
+   * INPUT THEMED STYLES
+   * ======================================== */
+
+  .sf-input-wrapper {
+    position: relative;
+  }
+
+  .sf-input-label {
+    color: var(--component-input-label);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .sf-input-helper {
+    margin-top: 0.25rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .sf-input-full {
+    width: 100%;
+  }
+
+  /* Error state styling */
+  .sf-input-error .e-input-group {
+    border-color: rgb(var(--color-error-500)) !important;
+  }
+
+  .sf-input-error .e-input-group.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
+  }
+
+  /* ========================================
+   * SELECT THEMED STYLES
+   * ======================================== */
+
+  .sf-select-wrapper {
+    position: relative;
+  }
+
+  .sf-select-label {
+    color: var(--component-input-label);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .sf-select-helper {
+    margin-top: 0.25rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .sf-select-full {
+    width: 100%;
+  }
+
+  /* Error state styling */
+  .sf-select-error .e-input-group {
+    border-color: rgb(var(--color-error-500)) !important;
+  }
+
+  /* ========================================
+   * DATAGRID THEMED STYLES
+   * ======================================== */
+
+  .sf-datagrid-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .sf-datagrid-loading {
+    pointer-events: none;
+  }
+
+  .sf-datagrid-loader {
+    backdrop-filter: blur(2px);
+  }
+
+  .sf-datagrid-empty {
+    color: rgb(var(--color-text-secondary));
+  }
+
+  /* Themed grid additional styles */
+  .sf-datagrid .e-grid {
+    transition: background-color var(--transition-normal);
+  }
+
+  /* ========================================
+   * DATEPICKER THEMED STYLES
+   * ======================================== */
+
+  .sf-datepicker-wrapper {
+    position: relative;
+  }
+
+  .sf-datepicker-label {
+    color: var(--component-input-label);
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+  }
+
+  .sf-datepicker-helper {
+    margin-top: 0.25rem;
+    font-size: var(--font-size-sm);
+  }
+
+  .sf-datepicker-full {
+    width: 100%;
+  }
+
+  /* Error state styling */
+  .sf-datepicker-error .e-input-group {
+    border-color: rgb(var(--color-error-500)) !important;
+  }
+
+  .sf-datepicker-error .e-input-group.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
+  }
+
+  /* ========================================
+   * DIALOG THEMED STYLES
+   * ======================================== */
+
+  .sf-dialog {
+    transition:
+      transform var(--transition-normal),
+      opacity var(--transition-normal);
+  }
+
+  .sf-dialog-content {
+    line-height: 1.6;
+  }
+
+  /* Dialog variants */
+  .sf-dialog-confirm .e-dlg-header {
+    color: rgb(var(--color-primary-700));
+  }
+
+  .sf-dialog-danger .e-dlg-header {
+    color: rgb(var(--color-error-700));
+  }
+
+  /* Dark mode specific adjustments */
+  .sf-dark.sf-dialog-confirm .e-dlg-header {
+    color: rgb(var(--color-primary-400));
+  }
+
+  .sf-dark.sf-dialog-danger .e-dlg-header {
+    color: rgb(var(--color-error-400));
+  }
+
+  /* ========================================
+   * DARK MODE OVERRIDES
+   * ======================================== */
+
+  /* Dark mode focus rings */
+  .sf-dark .e-btn:focus-visible {
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-400) / 0.3);
+  }
+
+  .sf-dark .e-textbox.e-control-wrapper.e-input-focus,
+  .sf-dark .e-ddl.e-control-wrapper.e-input-focus,
+  .sf-dark .e-datepicker.e-control-wrapper.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-400) / 0.15);
+  }
+
+  /* ========================================
+   * ACCESSIBILITY IMPROVEMENTS
+   * ======================================== */
+
+  /* Ensure focus states are visible */
+  .sf-button:focus-visible,
+  .sf-input .e-input:focus-visible,
+  .sf-select .e-input:focus-visible,
+  .sf-datepicker .e-input:focus-visible {
+    outline: 2px solid rgb(var(--color-primary-500));
+    outline-offset: 2px;
+  }
+
+  /* Reduced motion preference */
+  @media (prefers-reduced-motion: reduce) {
+    .sf-btn-spinner {
+      animation-duration: 1.5s;
+    }
+
+    .sf-button,
+    .sf-dialog,
+    .sf-datagrid .e-grid {
+      transition-duration: 0.01ms;
+    }
+  }
+}

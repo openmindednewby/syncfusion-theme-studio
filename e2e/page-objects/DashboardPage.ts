@@ -8,12 +8,22 @@ export class DashboardPage extends BasePage {
     super(page);
   }
 
+  /**
+   * Login and go to dashboard - the login page is at `/` and dashboard at `/dashboard`
+   */
   async goto(): Promise<void> {
+    // Navigate to login page
     await super.goto('/');
+
+    // Submit login form (credentials are pre-filled)
+    await this.page.getByTestId(TestIds.LOGIN_SUBMIT).click();
+
+    // Wait for dashboard to load
+    await this.page.waitForURL('/dashboard');
   }
 
   async expectDashboardVisible(): Promise<void> {
-    await expect(this.page.getByRole('heading', { name: /dashboard/i })).toBeVisible();
+    await expect(this.getByTestId(TestIds.DASHBOARD_HEADING)).toBeVisible();
   }
 
   async toggleTheme(): Promise<void> {
@@ -28,12 +38,22 @@ export class DashboardPage extends BasePage {
     await this.clickByTestId(TestIds.THEME_SETTINGS_BUTTON);
   }
 
-  async expectThemeDrawerVisible(): Promise<void> {
-    await expect(this.getByTestId(TestIds.THEME_SETTINGS_DRAWER)).toBeVisible();
+  /**
+   * Note: The theme drawer is always visible (collapsed or expanded).
+   * This checks if it's in the expanded state.
+   */
+  async expectThemeDrawerExpanded(): Promise<void> {
+    const toggleBtn = this.page.getByTestId(TestIds.THEME_CLOSE_BTN);
+    await expect(toggleBtn).toHaveAttribute('aria-expanded', 'true');
   }
 
-  async expectThemeDrawerHidden(): Promise<void> {
-    await expect(this.getByTestId(TestIds.THEME_SETTINGS_DRAWER)).not.toBeVisible();
+  /**
+   * Note: The theme drawer is always visible but can be collapsed.
+   * This checks if it's in the collapsed state.
+   */
+  async expectThemeDrawerCollapsed(): Promise<void> {
+    const toggleBtn = this.page.getByTestId(TestIds.THEME_CLOSE_BTN);
+    await expect(toggleBtn).toHaveAttribute('aria-expanded', 'false');
   }
 
   async expectDarkMode(): Promise<void> {
@@ -54,8 +74,8 @@ export class DashboardPage extends BasePage {
     await expect(sidebar).toHaveAttribute('data-collapsed', 'false');
   }
 
-  async navigateToPets(): Promise<void> {
-    await this.clickByTestId(TestIds.NAV_PETS);
+  async navigateToProducts(): Promise<void> {
+    await this.clickByTestId(TestIds.NAV_PRODUCTS);
   }
 
   async navigateToComponents(): Promise<void> {

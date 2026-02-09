@@ -114,7 +114,9 @@ const ProductsListPage = (): JSX.Element => {
     refetch: refetchProducts,
   } = useGetAllProducts({ limit: 30 });
 
-  const { data: categories = [] } = useGetCategories();
+  const { data: categoriesData } = useGetCategories();
+  // Orval 8.x wraps response in { data, status, headers }
+  const categories = categoriesData?.data ?? [];
 
   const handleRetry = useCallback(async (): Promise<void> => {
     await refetchProducts();
@@ -133,10 +135,12 @@ const ProductsListPage = (): JSX.Element => {
   );
 
   const filteredProducts = useMemo(() => {
-    const products = productsData?.products ?? [];
+    // Orval 8.x wraps response in { data, status, headers }
+    const responseData = productsData?.data;
+    const products = responseData?.products ?? [];
     if (selectedCategory === 'all') return products;
-    return products.filter((p) => p.category === selectedCategory);
-  }, [productsData?.products, selectedCategory]);
+    return products.filter((p: Product) => p.category === selectedCategory);
+  }, [productsData?.data, selectedCategory]);
 
   const gridData = useMemo(() => {
     if (!isNotEmptyArray(filteredProducts)) return [];

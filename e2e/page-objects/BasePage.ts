@@ -13,7 +13,7 @@ export abstract class BasePage {
   }
 
   protected async waitForPageLoad(): Promise<void> {
-    await this.page.waitForLoadState('networkidle');
+    await this.page.waitForLoadState('domcontentloaded');
   }
 
   protected getByTestId(testId: string): Locator {

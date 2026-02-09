@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 import { TestIds } from '../shared/testIds';
-import { DashboardPage } from '../pages/DashboardPage';
+import { DashboardPage } from '../page-objects/DashboardPage';
 
 test.describe('Theme Toggle', () => {
   let dashboardPage: DashboardPage;
@@ -37,16 +37,16 @@ test.describe('Theme Toggle', () => {
     await page.getByTestId(TestIds.THEME_TOGGLE).click();
     await expect(page.locator('html')).toHaveClass(/dark/);
 
-    // Navigate to another page
-    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
-    await expect(page).toHaveURL('/products');
+    // Navigate to another page using URL
+    await page.goto('/dashboard/products');
+    await page.waitForLoadState('domcontentloaded');
 
     // Theme should still be dark
     await expect(page.locator('html')).toHaveClass(/dark/);
 
     // Navigate back
-    await page.getByTestId(TestIds.NAV_HOME).click();
-    await expect(page).toHaveURL('/');
+    await page.goto('/dashboard');
+    await page.waitForLoadState('domcontentloaded');
 
     // Theme should still be dark
     await expect(page.locator('html')).toHaveClass(/dark/);

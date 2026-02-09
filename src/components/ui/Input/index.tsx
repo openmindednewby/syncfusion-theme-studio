@@ -1,7 +1,8 @@
-import { memo, forwardRef, useId } from 'react';
+import { memo, forwardRef, useId, useMemo } from 'react';
 
 import { TextBoxComponent, type TextBoxModel } from '@syncfusion/ej2-react-inputs';
 
+import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
@@ -38,17 +39,37 @@ const Input = forwardRef<TextBoxComponent, Props>(
     ref,
   ): JSX.Element => {
     const id = useId();
+    const { mode } = useThemeStore();
+
     const hasError = isValueDefined(error);
     const helperId = `${id}-helper`;
     const hasHelperOrError = isValueDefined(helperText) || hasError;
 
+    const inputCssClass = useMemo(() => {
+      const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+      const errorClass = hasError ? 'e-error sf-input-error' : '';
+      const fullWidthClassStr = fullWidth ? 'e-block sf-input-full' : '';
+      return cn('sf-input', modeClass, errorClass, fullWidthClassStr);
+    }, [mode, hasError, fullWidth]);
+
+    const wrapperClass = cn(
+      'sf-input-wrapper flex flex-col gap-1',
+      fullWidth && 'w-full',
+      className,
+    );
+
+    const helperClass = cn(
+      'sf-input-helper text-sm',
+      hasError ? 'text-error-500' : 'text-text-secondary',
+    );
+
     return (
-      <div
-        className={cn('flex flex-col gap-1', fullWidth && 'w-full', className)}
-        data-testid={testId}
-      >
+      <div className={wrapperClass} data-testid={testId}>
         {isValueDefined(label) && (
-          <label className="text-sm font-medium text-text-primary" htmlFor={id}>
+          <label
+            className="sf-input-label text-sm font-medium text-text-primary"
+            htmlFor={id}
+          >
             {label}
           </label>
         )}
@@ -56,7 +77,7 @@ const Input = forwardRef<TextBoxComponent, Props>(
           ref={ref}
           aria-describedby={hasHelperOrError ? helperId : undefined}
           aria-invalid={hasError}
-          cssClass={cn(hasError && 'e-error', fullWidth && 'e-block')}
+          cssClass={inputCssClass}
           enabled={enabled}
           floatLabelType="Never"
           htmlAttributes={{ id }}
@@ -65,12 +86,11 @@ const Input = forwardRef<TextBoxComponent, Props>(
           value={value}
           {...rest}
         />
-        {hasHelperOrError ? <span
-            className={cn('text-sm', hasError ? 'text-error-500' : 'text-text-secondary')}
-            id={helperId}
-          >
+        {hasHelperOrError ? (
+          <span className={helperClass} id={helperId}>
             {hasError ? error : helperText}
-          </span> : null}
+          </span>
+        ) : null}
       </div>
     );
   },

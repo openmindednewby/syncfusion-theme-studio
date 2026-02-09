@@ -99,7 +99,7 @@ Object.defineProperty(document.documentElement, 'classList', {
 });
 
 // Mock requestAnimationFrame
-global.requestAnimationFrame = vi.fn((callback) => {
+global.requestAnimationFrame = vi.fn((callback: FrameRequestCallback) => {
   callback(0);
   return 0;
 });

@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-import { ThemeSettingsPage } from '../pages/ThemeSettingsPage';
+import { ThemeSettingsPage } from '../page-objects/ThemeSettingsPage';
 import { TestIds } from '../shared/testIds';
 
 test.describe('Theme Editor', () => {
@@ -102,7 +102,8 @@ test.describe('Theme Editor', () => {
 
     test('displays preset cards in presets tab', async ({ page }) => {
       const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
-      await expect(presetCards).toHaveCount(2);
+      // There are 14 presets defined in presets.ts
+      await expect(presetCards).toHaveCount(14);
     });
 
     test('default preset is active initially', async () => {

@@ -1,4 +1,4 @@
-import { memo, useCallback, useEffect, useRef } from 'react';
+import { memo, useCallback, useEffect, useRef, useMemo } from 'react';
 
 import {
   DialogComponent,
@@ -6,6 +6,7 @@ import {
   type BeforeCloseEventArgs,
 } from '@syncfusion/ej2-react-popups';
 
+import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
@@ -56,9 +57,9 @@ const BUTTON_VARIANTS: Record<string, string> = {
 };
 
 const VARIANT_CLASSES: Record<DialogVariant, string> = {
-  default: 'dialog-default',
-  confirm: 'dialog-confirm',
-  danger: 'dialog-danger',
+  default: 'sf-dialog-default',
+  confirm: 'sf-dialog-confirm',
+  danger: 'sf-dialog-danger',
 };
 
 function buildButtonConfig(
@@ -68,15 +69,16 @@ function buildButtonConfig(
   buttonModel: { content: string; cssClass: string };
   click: () => void;
 } {
-  const variantClass = BUTTON_VARIANTS[button.variant ?? defaultVariant] ?? 'e-secondary';
-  const testClass = isValueDefined(button.testId) ? `test-${button.testId}` : undefined;
+  const variantKey = button.variant ?? defaultVariant;
+  const variantClass = BUTTON_VARIANTS[variantKey] ?? 'e-secondary';
+  const testClass = isValueDefined(button.testId) ? `test-${button.testId}` : '';
 
   return {
     buttonModel: {
       content: button.text,
       cssClass: cn(variantClass, testClass),
     },
-    click: button.onClick ?? (() => {}),
+    click: button.onClick ?? ((): void => {}),
   };
 }
 
@@ -96,17 +98,25 @@ const Dialog = ({
   ...rest
 }: Props): JSX.Element => {
   const dialogRef = useRef<DialogComponent>(null);
+  const { mode } = useThemeStore();
 
   // Build buttons array
-  const buttons = [];
+  const buttons = useMemo(() => {
+    const buttonList = [];
+    if (isValueDefined(secondaryButton))
+      buttonList.push(buildButtonConfig(secondaryButton, 'secondary'));
+    if (isValueDefined(primaryButton)) {
+      const defaultPrimaryVariant = variant === 'danger' ? 'danger' : 'primary';
+      buttonList.push(buildButtonConfig(primaryButton, defaultPrimaryVariant));
+    }
+    return buttonList;
+  }, [primaryButton, secondaryButton, variant]);
 
-  if (isValueDefined(secondaryButton))
-    buttons.push(buildButtonConfig(secondaryButton, 'secondary'));
-
-  if (isValueDefined(primaryButton)) {
-    const defaultPrimaryVariant = variant === 'danger' ? 'danger' : 'primary';
-    buttons.push(buildButtonConfig(primaryButton, defaultPrimaryVariant));
-  }
+  const dialogCssClass = useMemo(() => {
+    const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+    const variantClass = VARIANT_CLASSES[variant];
+    return cn('sf-dialog', modeClass, variantClass, className);
+  }, [mode, variant, className]);
 
   const handleBeforeClose = useCallback(
     (args: BeforeCloseEventArgs) => {
@@ -123,10 +133,11 @@ const Dialog = ({
 
   // Sync visibility with isOpen prop
   useEffect(() => {
-    if (isValueDefined(dialogRef.current)) 
-      if (isOpen) dialogRef.current.show();
-      else dialogRef.current.hide();
-    
+    const dialog = dialogRef.current;
+    if (!isValueDefined(dialog)) return;
+
+    if (isOpen) dialog.show();
+    else dialog.hide();
   }, [isOpen]);
 
   return (
@@ -138,7 +149,7 @@ const Dialog = ({
       animationSettings={{ effect: 'FadeZoom', duration: 200 }}
       beforeClose={handleBeforeClose}
       buttons={buttons}
-      cssClass={cn(VARIANT_CLASSES[variant], className)}
+      cssClass={dialogCssClass}
       data-testid={testId}
       header={title}
       overlayClick={handleOverlayClick}
@@ -147,7 +158,7 @@ const Dialog = ({
       width={width}
       {...rest}
     >
-      <div className="dialog-content">{children}</div>
+      <div className="sf-dialog-content">{children}</div>
     </DialogComponent>
   );
 };

@@ -29,6 +29,7 @@
 @import './layers/base.css';
 @import './layers/components.css';
 @import './layers/syncfusion-overrides.css';
+@import './layers/syncfusion-themed.css';
 
 /* Layer order declaration */
 @layer base, syncfusion-base, components, syncfusion-overrides, utilities;

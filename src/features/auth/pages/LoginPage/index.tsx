@@ -50,8 +50,8 @@ const LoginPage = (): JSX.Element => {
       // Preload Syncfusion modules in background before navigation
       preloadSyncfusionModules();
 
-      // Demo login - redirect to dashboard
-      navigate('/dashboard');
+      // Demo login - redirect to dashboard (navigate may return Promise in React Router v7)
+      Promise.resolve(navigate('/dashboard')).catch(() => undefined);
     },
     [navigate, localLicenseKey, setLicenseKey],
   );

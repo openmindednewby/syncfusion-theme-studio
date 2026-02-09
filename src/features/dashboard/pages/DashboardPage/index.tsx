@@ -11,7 +11,8 @@ const DashboardPage = (): JSX.Element => {
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
 
   const handleExploreComponents = (): void => {
-    navigate('/dashboard/components');
+    // navigate may return Promise in React Router v7
+    Promise.resolve(navigate('/dashboard/components')).catch(() => undefined);
   };
 
   return (

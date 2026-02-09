@@ -5,9 +5,12 @@ import { BadgesEditor } from './BadgesEditor';
 import { ButtonsEditor } from './ButtonsEditor';
 import { CardsEditor } from './CardsEditor';
 import { DataGridEditor } from './DataGridEditor';
+import { DatePickerEditor } from './DatePickerEditor';
+import { DialogEditor } from './DialogEditor';
 import { HeaderEditor } from './HeaderEditor';
 import { InputsEditor } from './InputsEditor';
 import { ModalsEditor } from './ModalsEditor';
+import { SelectEditor } from './SelectEditor';
 import { SidebarEditor } from './SidebarEditor';
 
 export const ComponentsSection = (): JSX.Element => {
@@ -22,6 +25,9 @@ export const ComponentsSection = (): JSX.Element => {
     updateCardsConfig,
     updateModalsConfig,
     updateBadgesConfig,
+    updateSelectConfig,
+    updateDatePickerConfig,
+    updateDialogConfig,
   } = useThemeStore();
 
   // Get the current mode's component configuration
@@ -36,6 +42,9 @@ export const ComponentsSection = (): JSX.Element => {
         <p className="mt-1 text-xs text-text-muted">
           {FM('themeSettings.components.description')}
         </p>
+        <p className="mt-1 text-xs font-medium text-primary-600">
+          {FM('themeSettings.components.editingMode', mode === 'dark' ? 'Dark' : 'Light')}
+        </p>
       </div>
 
       <div className="space-y-2">
@@ -43,7 +52,10 @@ export const ComponentsSection = (): JSX.Element => {
         <SidebarEditor config={components.sidebar} onUpdate={updateSidebarConfig} />
         <ButtonsEditor config={components.buttons} onUpdate={updateButtonConfig} />
         <InputsEditor config={components.inputs} onUpdate={updateInputConfig} />
+        <SelectEditor config={components.select} onUpdate={updateSelectConfig} />
+        <DatePickerEditor config={components.datePicker} onUpdate={updateDatePickerConfig} />
         <DataGridEditor config={components.dataGrid} onUpdate={updateDataGridConfig} />
+        <DialogEditor config={components.dialog} onUpdate={updateDialogConfig} />
         <CardsEditor config={components.cards} onUpdate={updateCardsConfig} />
         <ModalsEditor config={components.modals} onUpdate={updateModalsConfig} />
         <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />

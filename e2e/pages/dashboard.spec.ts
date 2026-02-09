@@ -34,7 +34,8 @@ test.describe('Dashboard Page', () => {
 
   test('should navigate to components page when clicking Explore Components', async ({ page }) => {
     await page.getByTestId(TestIds.BTN_EXPLORE_COMPONENTS).click();
-    await expect(page).toHaveURL('/dashboard/components');
+    // /dashboard/components redirects to /dashboard/components/native
+    await expect(page).toHaveURL('/dashboard/components/native');
   });
 
   test('should open theme drawer when clicking Theme Editor button', async ({ page }) => {
@@ -51,7 +52,8 @@ test.describe('Dashboard Page', () => {
     await expect(page.getByTestId(TestIds.SIDEBAR)).toBeVisible();
     await expect(page.getByTestId(TestIds.NAV_HOME)).toBeVisible();
     await expect(page.getByTestId(TestIds.NAV_PRODUCTS)).toBeVisible();
-    await expect(page.getByTestId(TestIds.NAV_COMPONENTS)).toBeVisible();
+    // Components is now an expandable sub-menu with expand button
+    await expect(page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND)).toBeVisible();
     await expect(page.getByTestId(TestIds.NAV_THEME_EDITOR)).toBeVisible();
   });
 
@@ -86,9 +88,13 @@ test.describe('Dashboard Page', () => {
     await expect(page).toHaveURL('/dashboard/products');
   });
 
-  test('should navigate to components page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_COMPONENTS).click();
-    await expect(page).toHaveURL('/dashboard/components');
+  test('should navigate to components page via sidebar sub-menu', async ({ page }) => {
+    // Components is now an expandable sub-menu - expand it first
+    await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
+    // Click on Native components (first sub-item)
+    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
+    // /dashboard/components redirects to /dashboard/components/native
+    await expect(page).toHaveURL('/dashboard/components/native');
   });
 
   test('should navigate back to login page', async ({ page }) => {

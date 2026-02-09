@@ -39,21 +39,19 @@ test.describe('Login Page', () => {
   });
 
   test('should toggle between light and dark mode on login page', async ({ page }) => {
-    // Get initial mode
-    const initialMode = await page.evaluate(() =>
-      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    );
+    const htmlElement = page.locator('html');
+
+    // Check initial mode and toggle
+    const initiallyDark = await htmlElement.evaluate((el) => el.classList.contains('dark'));
 
     // Click theme toggle
     await page.getByTestId(TestIds.THEME_TOGGLE).click();
-    await page.waitForTimeout(100); // Wait for animation
 
-    // Verify mode changed
-    const newMode = await page.evaluate(() =>
-      document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-    );
-
-    expect(newMode).not.toBe(initialMode);
+    // Wait for mode to change using web-first assertion
+    if (initiallyDark)
+      await expect(htmlElement).not.toHaveClass(/dark/);
+    else
+      await expect(htmlElement).toHaveClass(/dark/);
   });
 
   test('should use native components (not Syncfusion) for performance', async ({ page }) => {

@@ -4,6 +4,7 @@ import { Outlet } from 'react-router-dom';
 
 import { initializeSyncfusionLazy } from '@/config/syncfusionLazy';
 import { FM } from '@/localization/helpers';
+import { useThemeInitializer } from '@/stores/useThemeStore';
 
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
@@ -18,6 +19,10 @@ const MAIN_CONTENT_ID = 'main-content';
  * - Right: Theme Settings Panel (collapsible)
  */
 export const MainLayout = (): JSX.Element => {
+  // Initialize full theme system when entering protected routes
+  // This loads the heavy theme injectors (~80KB) only for dashboard pages
+  useThemeInitializer();
+
   // Initialize Syncfusion and load app CSS only when entering protected routes
   useEffect(() => {
     initializeSyncfusionLazy();

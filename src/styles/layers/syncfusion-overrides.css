@@ -20,60 +20,290 @@
 
   /* ===== BUTTON OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
-  .e-btn.e-primary {
-    background-color: var(--component-button-primary-bg);
-    border-color: var(--component-button-primary-bg);
-    color: var(--component-button-primary-text);
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  .e-btn.e-primary,
+  .e-css.e-btn.e-primary {
+    background-color: var(--component-button-primary-bg) !important;
+    border-color: var(--component-button-primary-bg) !important;
+    color: var(--component-button-primary-text) !important;
   }
 
-  .e-btn.e-primary:hover:not(:disabled) {
-    background-color: var(--component-button-primary-bg-hover);
-    border-color: var(--component-button-primary-bg-hover);
+  .e-btn.e-primary:hover:not(:disabled),
+  .e-css.e-btn.e-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover) !important;
+    border-color: var(--component-button-primary-bg-hover) !important;
   }
 
-  .e-btn.e-primary:focus {
-    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.25);
+  .e-btn.e-primary:focus,
+  .e-css.e-btn.e-primary:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px var(--component-button-primary-bg) !important;
   }
 
-  .e-btn.e-secondary {
-    background-color: var(--component-button-secondary-bg);
-    border-color: rgb(var(--color-border));
-    color: var(--component-button-secondary-text);
+  .e-btn.e-primary:active,
+  .e-css.e-btn.e-primary:active {
+    background-color: var(--component-button-primary-bg-hover) !important;
+    border-color: var(--component-button-primary-bg-hover) !important;
   }
 
-  .e-btn.e-secondary:hover:not(:disabled) {
-    background-color: var(--component-button-secondary-bg-hover);
+  .e-btn.e-secondary,
+  .e-css.e-btn.e-secondary {
+    background-color: var(--component-button-secondary-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: var(--component-button-secondary-text) !important;
   }
 
-  .e-btn.e-outline {
-    background-color: transparent;
-    border-color: var(--component-button-outline-border);
-    color: var(--component-button-outline-text);
+  .e-btn.e-secondary:hover:not(:disabled),
+  .e-css.e-btn.e-secondary:hover:not(:disabled) {
+    background-color: var(--component-button-secondary-bg-hover) !important;
   }
 
-  .e-btn.e-outline:hover:not(:disabled) {
-    background-color: rgb(var(--color-surface));
+  .e-btn.e-outline,
+  .e-css.e-btn.e-outline {
+    background-color: transparent !important;
+    border-color: var(--component-button-outline-border) !important;
+    color: var(--component-button-outline-text) !important;
   }
 
-  .e-btn.e-flat {
-    background-color: transparent;
-    border-color: transparent;
-    color: var(--component-button-ghost-text);
+  .e-btn.e-outline:hover:not(:disabled),
+  .e-css.e-btn.e-outline:hover:not(:disabled) {
+    background-color: rgb(var(--color-surface)) !important;
   }
 
-  .e-btn.e-flat:hover:not(:disabled) {
-    background-color: rgb(var(--color-surface));
+  .e-btn.e-flat,
+  .e-css.e-btn.e-flat {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--component-button-ghost-text) !important;
   }
 
-  .e-btn.e-danger {
-    background-color: var(--component-button-danger-bg);
-    border-color: var(--component-button-danger-bg);
-    color: var(--component-button-danger-text);
+  .e-btn.e-flat:hover:not(:disabled),
+  .e-css.e-btn.e-flat:hover:not(:disabled) {
+    background-color: rgb(var(--color-surface)) !important;
   }
 
-  .e-btn.e-danger:hover:not(:disabled) {
-    background-color: rgb(var(--color-error-700));
-    border-color: rgb(var(--color-error-700));
+  .e-btn.e-danger,
+  .e-css.e-btn.e-danger {
+    background-color: var(--component-button-danger-bg) !important;
+    border-color: var(--component-button-danger-bg) !important;
+    color: var(--component-button-danger-text) !important;
+  }
+
+  .e-btn.e-danger:hover:not(:disabled),
+  .e-css.e-btn.e-danger:hover:not(:disabled) {
+    background-color: rgb(var(--color-error-700)) !important;
+    border-color: rgb(var(--color-error-700)) !important;
+  }
+
+  .e-btn.e-danger:focus,
+  .e-css.e-btn.e-danger:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-error-500)) !important;
+  }
+
+  /* Success button */
+  .e-btn.e-success,
+  .e-css.e-btn.e-success {
+    background-color: rgb(var(--color-success-500)) !important;
+    border-color: rgb(var(--color-success-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-btn.e-success:hover:not(:disabled),
+  .e-css.e-btn.e-success:hover:not(:disabled) {
+    background-color: rgb(var(--color-success-700)) !important;
+    border-color: rgb(var(--color-success-700)) !important;
+  }
+
+  .e-btn.e-success:focus,
+  .e-css.e-btn.e-success:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-success-500)) !important;
+  }
+
+  /* Warning button */
+  .e-btn.e-warning,
+  .e-css.e-btn.e-warning {
+    background-color: rgb(var(--color-warning-500)) !important;
+    border-color: rgb(var(--color-warning-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-btn.e-warning:hover:not(:disabled),
+  .e-css.e-btn.e-warning:hover:not(:disabled) {
+    background-color: rgb(var(--color-warning-700)) !important;
+    border-color: rgb(var(--color-warning-700)) !important;
+  }
+
+  .e-btn.e-warning:focus,
+  .e-css.e-btn.e-warning:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-warning-500)) !important;
+  }
+
+  /* Info button */
+  .e-btn.e-info,
+  .e-css.e-btn.e-info {
+    background-color: rgb(var(--color-info-500)) !important;
+    border-color: rgb(var(--color-info-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-btn.e-info:hover:not(:disabled),
+  .e-css.e-btn.e-info:hover:not(:disabled) {
+    background-color: rgb(var(--color-info-700)) !important;
+    border-color: rgb(var(--color-info-700)) !important;
+  }
+
+  .e-btn.e-info:focus,
+  .e-css.e-btn.e-info:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-info-500)) !important;
+  }
+
+  /* ===== CHECKBOX OVERRIDES ===== */
+  /* Uses theme CSS variables for checkbox colors */
+  .e-checkbox-wrapper .e-frame,
+  .e-css.e-checkbox-wrapper .e-frame {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-checkbox-wrapper .e-frame.e-check,
+  .e-css.e-checkbox-wrapper .e-frame.e-check {
+    background-color: rgb(var(--color-primary-500)) !important;
+    border-color: rgb(var(--color-primary-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-checkbox-wrapper .e-frame.e-stop,
+  .e-css.e-checkbox-wrapper .e-frame.e-stop {
+    background-color: rgb(var(--color-primary-500)) !important;
+    border-color: rgb(var(--color-primary-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-checkbox-wrapper:hover .e-frame.e-check,
+  .e-css.e-checkbox-wrapper:hover .e-frame.e-check {
+    background-color: rgb(var(--color-primary-600)) !important;
+    border-color: rgb(var(--color-primary-600)) !important;
+  }
+
+  .e-checkbox-wrapper:hover .e-frame.e-stop,
+  .e-css.e-checkbox-wrapper:hover .e-frame.e-stop {
+    background-color: rgb(var(--color-primary-600)) !important;
+    border-color: rgb(var(--color-primary-600)) !important;
+  }
+
+  .e-checkbox-wrapper .e-checkbox:focus + .e-frame,
+  .e-css.e-checkbox-wrapper .e-checkbox:focus + .e-frame {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-checkbox-wrapper .e-checkbox:focus + .e-frame.e-check,
+  .e-css.e-checkbox-wrapper .e-checkbox:focus + .e-frame.e-check {
+    background-color: rgb(var(--color-primary-500)) !important;
+    border-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-checkbox-wrapper .e-label,
+  .e-css.e-checkbox-wrapper .e-label {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-checkbox-wrapper.e-checkbox-disabled .e-frame.e-check,
+  .e-css.e-checkbox-wrapper.e-checkbox-disabled .e-frame.e-check {
+    background-color: rgb(var(--color-primary-300)) !important;
+    border-color: rgb(var(--color-primary-300)) !important;
+  }
+
+  /* ===== RADIO BUTTON OVERRIDES ===== */
+  /* Uses theme CSS variables for radio button colors */
+  .e-radio-wrapper .e-radio + label::before,
+  .e-css.e-radio-wrapper .e-radio + label::before {
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-radio-wrapper .e-radio:checked + label::before,
+  .e-css.e-radio-wrapper .e-radio:checked + label::before {
+    border-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-radio-wrapper .e-radio:checked + label::after,
+  .e-css.e-radio-wrapper .e-radio:checked + label::after {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-radio-wrapper .e-radio:focus + label::before,
+  .e-css.e-radio-wrapper .e-radio:focus + label::before {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-radio-wrapper .e-label,
+  .e-css.e-radio-wrapper .e-label {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-radio-wrapper.e-disabled .e-radio:checked + label::after,
+  .e-css.e-radio-wrapper.e-disabled .e-radio:checked + label::after {
+    background-color: rgb(var(--color-primary-300)) !important;
+  }
+
+  /* ===== SWITCH OVERRIDES ===== */
+  /* Uses theme CSS variables for switch colors */
+  .e-switch-wrapper .e-switch-inner,
+  .e-css.e-switch-wrapper .e-switch-inner {
+    background-color: rgb(var(--color-neutral-300)) !important;
+  }
+
+  .e-switch-wrapper .e-switch-on,
+  .e-css.e-switch-wrapper .e-switch-on {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-switch-wrapper .e-switch-handle,
+  .e-css.e-switch-wrapper .e-switch-handle {
+    background-color: #fff !important;
+  }
+
+  .e-switch-wrapper:hover .e-switch-on,
+  .e-css.e-switch-wrapper:hover .e-switch-on {
+    background-color: rgb(var(--color-primary-600)) !important;
+  }
+
+  .e-switch-wrapper .e-switch:focus + .e-switch-inner,
+  .e-css.e-switch-wrapper .e-switch:focus + .e-switch-inner {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-switch-wrapper.e-switch-disabled .e-switch-on,
+  .e-css.e-switch-wrapper.e-switch-disabled .e-switch-on {
+    background-color: rgb(var(--color-primary-300)) !important;
+  }
+
+  /* ===== CHIP OVERRIDES ===== */
+  /* Uses theme CSS variables for chip colors */
+  .e-chip.e-primary,
+  .e-chip-list .e-chip.e-primary {
+    background-color: rgb(var(--color-primary-500)) !important;
+    border-color: rgb(var(--color-primary-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-chip.e-success,
+  .e-chip-list .e-chip.e-success {
+    background-color: rgb(var(--color-success-500)) !important;
+    border-color: rgb(var(--color-success-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-chip.e-warning,
+  .e-chip-list .e-chip.e-warning {
+    background-color: rgb(var(--color-warning-500)) !important;
+    border-color: rgb(var(--color-warning-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-chip.e-danger,
+  .e-chip-list .e-chip.e-danger {
+    background-color: rgb(var(--color-error-500)) !important;
+    border-color: rgb(var(--color-error-500)) !important;
+    color: #fff !important;
   }
 
   /* ===== INPUT OVERRIDES ===== */

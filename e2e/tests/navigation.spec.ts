@@ -20,17 +20,20 @@ test.describe('Navigation', () => {
     await expect(page).toHaveURL('/dashboard/products');
   });
 
-  test('navigates to components page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_COMPONENTS).click();
-    await expect(page).toHaveURL('/dashboard/components');
+  test('navigates to components page via sidebar sub-menu', async ({ page }) => {
+    // Components is now an expandable sub-menu - expand it first
+    await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
+    // Click on Native components (first sub-item)
+    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
+    // /dashboard/components redirects to /dashboard/components/native
+    await expect(page).toHaveURL('/dashboard/components/native');
   });
 
   test('opens theme settings drawer via cog icon', async ({ page }) => {
     // Click the theme settings button (cog icon) to expand drawer
     await page.getByTestId(TestIds.THEME_SETTINGS_BUTTON).click();
-    await page.waitForTimeout(350);
 
-    // Verify drawer is expanded (aria-expanded=true)
+    // Wait for drawer to expand using web-first assertion (auto-waits for attribute)
     await expect(page.getByTestId(TestIds.THEME_CLOSE_BTN)).toHaveAttribute('aria-expanded', 'true');
   });
 

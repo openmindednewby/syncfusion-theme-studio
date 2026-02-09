@@ -7,7 +7,8 @@ import { preloadSyncfusionModules } from '@/config/syncfusionLazy';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useLicenseStore } from '@/stores/useLicenseStore';
-import { useThemeStore } from '@/stores/useThemeStore';
+// Use lightweight mode store to avoid loading full theme system (~80KB)
+import { useModeStore } from '@/stores/useModeStore';
 
 const DEFAULT_EMAIL = 'demo@example.com';
 const DEFAULT_PASSWORD = 'demo123';
@@ -16,7 +17,7 @@ const DEFAULT_LICENSE_KEY =
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const { mode, toggleMode } = useThemeStore();
+  const { mode, toggleMode } = useModeStore();
   const { licenseKey, setLicenseKey } = useLicenseStore();
   const [email, setEmail] = useState(DEFAULT_EMAIL);
   const [password, setPassword] = useState(DEFAULT_PASSWORD);

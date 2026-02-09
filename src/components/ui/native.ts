@@ -8,5 +8,17 @@ export type { ButtonNativeProps } from './ButtonNative';
 export { default as InputNative } from './InputNative';
 export type { InputNativeProps } from './InputNative';
 
+export { default as SelectNative } from './SelectNative';
+export type { SelectNativeProps, SelectNativeOption } from './SelectNative';
+
+export { default as CheckboxNative } from './CheckboxNative';
+export type { CheckboxNativeProps } from './CheckboxNative';
+
+export { default as DatePickerNative } from './DatePickerNative';
+export type { DatePickerNativeProps } from './DatePickerNative';
+
+export { default as DialogNative } from './DialogNative';
+export type { DialogNativeProps, DialogNativeButton, DialogVariant } from './DialogNative';
+
 // Note: ButtonVariant and ButtonSize are exported separately to avoid conflicts
 // with the Syncfusion Button component which has the same type names

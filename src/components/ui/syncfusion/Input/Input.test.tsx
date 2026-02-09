@@ -6,9 +6,11 @@ import Input from './index';
 
 // Mock Syncfusion TextBoxComponent
 vi.mock('@syncfusion/ej2-react-inputs', () => ({
-  TextBoxComponent: vi.fn(({ cssClass, htmlAttributes, ...props }) => (
-    <input className={cssClass} id={htmlAttributes?.id} type="text" {...props} />
-  )),
+  TextBoxComponent: vi.fn(
+    ({ cssClass, htmlAttributes, floatLabelType: _floatLabelType, ...props }) => (
+      <input className={cssClass} id={htmlAttributes?.id} type="text" {...props} />
+    )
+  ),
 }));
 
 // Mock useThemeStore

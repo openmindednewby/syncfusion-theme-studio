@@ -1,4 +1,6 @@
-import { NavLink } from 'react-router-dom';
+import { useState, useCallback } from 'react';
+
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -12,18 +14,55 @@ interface NavItem {
   testId: string;
 }
 
+interface SubNavItem {
+  path: string;
+  labelKey: string;
+  testId: string;
+}
+
+interface NavItemWithChildren {
+  labelKey: string;
+  icon: string;
+  testId: string;
+  expandTestId: string;
+  children: SubNavItem[];
+}
+
 const NAV_ITEMS: NavItem[] = [
   { path: '/dashboard', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
   { path: '/dashboard/products', labelKey: 'menu.products', icon: '📦', testId: TestIds.NAV_PRODUCTS },
-  { path: '/dashboard/components', labelKey: 'menu.components', icon: '🧩', testId: TestIds.NAV_COMPONENTS },
 ];
+
+const COMPONENTS_NAV: NavItemWithChildren = {
+  labelKey: 'menu.components',
+  icon: '🧩',
+  testId: TestIds.NAV_COMPONENTS,
+  expandTestId: TestIds.NAV_COMPONENTS_EXPAND,
+  children: [
+    { path: '/dashboard/components/native', labelKey: 'menu.componentsNative', testId: TestIds.NAV_COMPONENTS_NATIVE },
+    { path: '/dashboard/components/syncfusion', labelKey: 'menu.componentsSyncfusion', testId: TestIds.NAV_COMPONENTS_SYNCFUSION },
+  ],
+};
 
 export const Sidebar = (): JSX.Element => {
   const { isCollapsed, toggle } = useSidebarStore();
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
+  const location = useLocation();
+
+  // Check if we're on a components sub-page
+  const isComponentsActive = location.pathname.startsWith('/dashboard/components');
+  const [isComponentsExpanded, setIsComponentsExpanded] = useState(isComponentsActive);
 
   const collapsedClass = isCollapsed ? 'collapsed' : '';
   const toggleLabel = isCollapsed ? FM('sidebar.expand') : FM('sidebar.collapse');
+
+  const handleComponentsToggle = useCallback(() => {
+    setIsComponentsExpanded((prev) => !prev);
+  }, []);
+
+  const expandLabel = isComponentsExpanded
+    ? FM('accessibility.collapseSection', 'Components')
+    : FM('accessibility.expandSection', 'Components');
 
   return (
     <aside
@@ -67,6 +106,58 @@ export const Sidebar = (): JSX.Element => {
               </NavLink>
             </li>
           ))}
+
+          {/* Components with expandable sub-menu */}
+          <li>
+            <button
+              aria-expanded={isComponentsExpanded}
+              aria-label={expandLabel}
+              className={`flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors ${
+                isComponentsActive
+                  ? 'bg-primary-50 text-primary-700'
+                  : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
+              }`}
+              data-testid={COMPONENTS_NAV.expandTestId}
+              type="button"
+              onClick={handleComponentsToggle}
+            >
+              <span aria-hidden="true" className="text-lg">{COMPONENTS_NAV.icon}</span>
+              {!isCollapsed && (
+                <>
+                  <span className="flex-1 text-left">{FM(COMPONENTS_NAV.labelKey)}</span>
+                  <span
+                    aria-hidden="true"
+                    className={`text-xs transition-transform ${isComponentsExpanded ? 'rotate-180' : ''}`}
+                  >
+                    ▼
+                  </span>
+                </>
+              )}
+            </button>
+
+            {/* Sub-menu items */}
+            {isComponentsExpanded && !isCollapsed ? <ul className="ml-6 mt-1 space-y-1">
+                {COMPONENTS_NAV.children.map((child) => (
+                  <li key={child.path}>
+                    <NavLink
+                      aria-label={FM(child.labelKey)}
+                      className={({ isActive }) =>
+                        `flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                          isActive
+                            ? 'bg-primary-50 text-primary-700'
+                            : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
+                        }`
+                      }
+                      data-testid={child.testId}
+                      to={child.path}
+                    >
+                      <span aria-hidden="true" className="text-xs">•</span>
+                      <span>{FM(child.labelKey)}</span>
+                    </NavLink>
+                  </li>
+                ))}
+              </ul> : null}
+          </li>
 
           {/* Theme Editor - opens drawer */}
           <li>

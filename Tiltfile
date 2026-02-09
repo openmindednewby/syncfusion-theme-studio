@@ -64,7 +64,8 @@ local_resource(
     links=[
         link('http://localhost:4444', 'Dashboard'),
         link('http://localhost:4444/products', 'Products (API Demo)'),
-        link('http://localhost:4444/components', 'Components Showcase'),
+        link('http://localhost:4444/components/native', 'Native Components'),
+        link('http://localhost:4444/components/syncfusion', 'Syncfusion Components'),
         link('http://localhost:4444/login', 'Login Page'),
     ],
 )
@@ -123,7 +124,8 @@ local_resource(
     links=[
         link('http://localhost:4445', 'Preview - Dashboard'),
         link('http://localhost:4445/products', 'Preview - Products'),
-        link('http://localhost:4445/components', 'Preview - Components'),
+        link('http://localhost:4445/components/native', 'Preview - Native Components'),
+        link('http://localhost:4445/components/syncfusion', 'Preview - Syncfusion Components'),
     ],
 )
 
@@ -173,11 +175,11 @@ local_resource(
 
 # --- Dependency Health Check (manual) ---
 # Note: npm outdated returns exit code 1 when packages are outdated
-# Using cmd /c with & exit /b 0 to always succeed (Windows-compatible)
+# Using PowerShell to always succeed regardless of outdated packages
 local_resource(
     name='theme-studio-deps-health',
     labels=['ThemeStudio', 'QualityGate'],
-    cmd='cmd /c "npm outdated & exit /b 0"',
+    cmd='powershell -Command "npm outdated; exit 0"',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )

@@ -82,6 +82,17 @@ export const TestIds = {
   DATA_GRID_BACK_LINK: 'data-grid-back-link',
   DATA_GRID_LINK_CARD: 'data-grid-link-card',
   DATA_GRID_VIEW_LINK: 'data-grid-view-link',
+
+  // Native Components Page
+  NATIVE_COMPONENTS_PAGE: 'native-components-page',
+
+  // Syncfusion Components Page
+  SYNCFUSION_COMPONENTS_PAGE: 'syncfusion-components-page',
+
+  // Sidebar Sub-menu
+  NAV_COMPONENTS_NATIVE: 'nav-components-native',
+  NAV_COMPONENTS_SYNCFUSION: 'nav-components-syncfusion',
+  NAV_COMPONENTS_EXPAND: 'nav-components-expand',
 } as const;
 
 export type TestId = (typeof TestIds)[keyof typeof TestIds];

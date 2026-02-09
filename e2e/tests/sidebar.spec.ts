@@ -18,6 +18,9 @@ test.describe('Sidebar', () => {
   test('collapses sidebar on toggle button click', async ({ page }) => {
     const sidebar = page.getByTestId(TestIds.SIDEBAR);
 
+    // Wait for sidebar to be visible first
+    await expect(sidebar).toBeVisible();
+
     // Initially should be expanded
     await expect(sidebar).toHaveAttribute('data-collapsed', 'false');
 
@@ -30,6 +33,9 @@ test.describe('Sidebar', () => {
 
   test('expands sidebar after being collapsed', async ({ page }) => {
     const sidebar = page.getByTestId(TestIds.SIDEBAR);
+
+    // Wait for sidebar to be visible first
+    await expect(sidebar).toBeVisible();
 
     // Collapse first
     await page.getByTestId(TestIds.SIDEBAR_TOGGLE).click();

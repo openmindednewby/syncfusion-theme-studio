@@ -1,6 +1,6 @@
 import { lazy, Suspense, type ComponentType } from 'react';
 
-import { createBrowserRouter, type RouteObject } from 'react-router-dom';
+import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
 
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 
@@ -13,7 +13,8 @@ const MainLayout = lazy(async () => ({
 const DashboardPage = lazy(async () => import('@/features/dashboard/pages/DashboardPage'));
 const LoginPage = lazy(async () => import('@/features/auth/pages/LoginPage'));
 const ProductsListPage = lazy(async () => import('@/features/products/pages/ProductsListPage'));
-const ComponentsPage = lazy(async () => import('@/features/showcase/pages/ComponentsPage'));
+const NativeComponentsPage = lazy(async () => import('@/features/showcase/pages/NativeComponentsPage'));
+const SyncfusionComponentsPage = lazy(async () => import('@/features/showcase/pages/SyncfusionComponentsPage'));
 const DataGridPage = lazy(async () => import('@/features/showcase/pages/DataGridPage'));
 
 // Wrapper for lazy-loaded components
@@ -43,7 +44,10 @@ const routes: RouteObject[] = [
     children: [
       { index: true, element: <LazyPage component={DashboardPage} /> },
       { path: 'products', element: <LazyPage component={ProductsListPage} /> },
-      { path: 'components', element: <LazyPage component={ComponentsPage} /> },
+      // Components routes - redirect /components to /components/native
+      { path: 'components', element: <Navigate replace to="native" /> },
+      { path: 'components/native', element: <LazyPage component={NativeComponentsPage} /> },
+      { path: 'components/syncfusion', element: <LazyPage component={SyncfusionComponentsPage} /> },
       { path: 'components/grid', element: <LazyPage component={DataGridPage} /> },
     ],
   },

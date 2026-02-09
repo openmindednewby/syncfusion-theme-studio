@@ -68,6 +68,8 @@
     "dashboard": "Dashboard",
     "products": "Products",
     "components": "Components",
+    "componentsNative": "Native",
+    "componentsSyncfusion": "Syncfusion",
     "themeEditor": "Theme Editor",
     "themeEditorLabel": "Open theme editor",
     "login": "Login",
@@ -310,13 +312,23 @@
   "components": {
     "title": "Components Showcase",
     "pageTitle": "Components",
+    "nativeTitle": "Native Components",
+    "nativeDescription": "HTML/CSS native components using CSS variables for theming. Zero Syncfusion dependencies.",
+    "syncfusionTitle": "Syncfusion Components",
+    "syncfusionDescription": "Premium Syncfusion components with theme-aware styling and advanced features.",
     "sections": {
       "buttons": "Syncfusion Buttons",
       "inputs": "Syncfusion Inputs",
       "select": "Syncfusion Select (Dropdown)",
       "dataGrid": "Syncfusion DataGrid",
       "cards": "Cards",
-      "badges": "Badges"
+      "badges": "Badges",
+      "nativeButtons": "Native Buttons",
+      "nativeInputs": "Native Inputs",
+      "nativeSelect": "Native Select (Dropdown)",
+      "nativeCheckboxes": "Native Checkboxes",
+      "nativeDatePicker": "Native Date Picker",
+      "nativeDialogs": "Native Dialogs"
     },
     "buttons": {
       "primary": "Primary",

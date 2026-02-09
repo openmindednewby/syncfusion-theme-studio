@@ -1,21 +1,23 @@
 /**
  * Syncfusion UI components - Heavy dependencies
  * Only import these on pages that need Syncfusion features
+ *
+ * All Syncfusion component wrappers are now located in the syncfusion/ folder
  */
-export { default as DataGrid } from './DataGrid';
-export type { DataGridProps } from './DataGrid';
+export { default as Button } from './syncfusion/Button';
+export type { ButtonProps, ButtonVariant, ButtonSize } from './syncfusion/Button';
 
-export { default as Button } from './Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+export { default as Input } from './syncfusion/Input';
+export type { InputProps } from './syncfusion/Input';
 
-export { default as Input } from './Input';
-export type { InputProps } from './Input';
+export { default as Select } from './syncfusion/Select';
+export type { SelectProps, SelectOption } from './syncfusion/Select';
 
-export { default as Select } from './Select';
-export type { SelectProps, SelectOption } from './Select';
+export { default as DataGrid } from './syncfusion/DataGrid';
+export type { DataGridProps } from './syncfusion/DataGrid';
 
-export { default as DatePicker } from './DatePicker';
-export type { DatePickerProps } from './DatePicker';
+export { default as DatePicker } from './syncfusion/DatePicker';
+export type { DatePickerProps } from './syncfusion/DatePicker';
 
-export { default as Dialog } from './Dialog';
-export type { DialogProps, DialogButton, DialogVariant } from './Dialog';
+export { default as Dialog } from './syncfusion/Dialog';
+export type { DialogProps, DialogButton, DialogVariant } from './syncfusion/Dialog';

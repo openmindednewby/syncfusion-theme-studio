@@ -9,24 +9,24 @@
  * that need Syncfusion features.
  */
 
-// Re-export from parent ui folder (these are the themed components)
-export { default as DataGrid } from '../DataGrid';
-export type { DataGridProps } from '../DataGrid';
+// Syncfusion component wrappers (now located in this folder)
+export { default as Button } from './Button';
+export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
 
-export { default as Button } from '../Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from '../Button';
+export { default as Input } from './Input';
+export type { InputProps } from './Input';
 
-export { default as Input } from '../Input';
-export type { InputProps } from '../Input';
+export { default as Select } from './Select';
+export type { SelectProps, SelectOption } from './Select';
 
-export { default as Select } from '../Select';
-export type { SelectProps, SelectOption } from '../Select';
+export { default as DataGrid } from './DataGrid';
+export type { DataGridProps } from './DataGrid';
 
-export { default as DatePicker } from '../DatePicker';
-export type { DatePickerProps } from '../DatePicker';
+export { default as DatePicker } from './DatePicker';
+export type { DatePickerProps } from './DatePicker';
 
-export { default as Dialog } from '../Dialog';
-export type { DialogProps, DialogButton, DialogVariant } from '../Dialog';
+export { default as Dialog } from './Dialog';
+export type { DialogProps, DialogButton, DialogVariant } from './Dialog';
 
 // Re-export hooks
 export {

@@ -29,7 +29,13 @@
       - [useEffect](#useeffect)
     - [The !](#the-)
       - [example](#example)
-    - [Redux](#redux)
+    - [Redux (Legacy)](#redux-legacy---avoid-for-new-code)
+    - [Zustand (Preferred)](#zustand-preferred-for-client-state)
+      - [Zustand vs Redux Comparison](#zustand-vs-redux-comparison)
+      - [When to Use Zustand vs Redux](#when-to-use-zustand-vs-redux)
+      - [Zustand Store Structure](#zustand-store-structure)
+      - [Zustand Code Standards](#zustand-code-standards)
+      - [Zustand Best Practices Summary](#zustand-best-practices-summary)
     - [State Management](#state-management)
     - [Locale](#locale)
     - [Forms](#forms)
@@ -73,7 +79,7 @@
 - **DRY**
   - if it is duplicated 2-3 times its ok, its at the discretion of the developer to refactor and make it shared. If it is dublicated more than 3 times it must be refactored and shared
 - Each component should have/do one single responsibility/ semantic meaning. If a file gets too large its a warning sign that the single responsibility principle is violated
-- Avoid prop drilling. For complicated components, prefer to move state to redux instead of passing state through multiple props
+- Avoid prop drilling. For complicated components, prefer to move state to **Zustand** (preferred) or Redux (legacy) instead of passing state through multiple props
 - Prefer to minimize passing custom props to avoid dependencies, hence, copying and passing React components work as they are.
 - Avoid writing comments, do not write comments, instead make the the code clean and self explanatory
 - **do not use prefix or post fix or abbreviations, use whole words (e.g. use NameFilter instead of NameFilt).**
@@ -345,14 +351,15 @@ if (hasError) {
 
 #### Component Structure Order
 
-1. **global state** (useAppDispatch, useAppSelector)
-2. **TanStack Query hooks** (useQuery, useMutation, or real-time wrappers like `useRealtimeTemplatesList`)
-3. **local state** (useState)
-4. **any other hook** like useLocal, useNavigate
-5. **define constant variables** from the hooks above
-6. **useEffect** hook with logic
-7. **function definitions** (onClick, onChange)
-8. **Conditional Logic With Return Statement** `(if (!user?.profileResponse || !roleIsAuthorized) return <Navigate to="/login" />;)`
+1. **Zustand stores** (useUiStore, useSelectionStore) - preferred for new code
+2. **Redux state** (useAppDispatch, useAppSelector) - legacy, maintain only
+3. **TanStack Query hooks** (useQuery, useMutation, or real-time wrappers like `useRealtimeTemplatesList`)
+4. **local state** (useState)
+5. **any other hook** like useLocal, useNavigate
+6. **define constant variables** from the hooks above
+7. **useEffect** hook with logic
+8. **function definitions** (onClick, onChange)
+9. **Conditional Logic With Return Statement** `(if (!user?.profileResponse || !roleIsAuthorized) return <Navigate to="/login" />;)`
 
 > **Note:** For real-time features, prefer using wrapped hooks (e.g., `useRealtimeTemplatesList`) over raw Orval hooks. See [State Management Architecture](state-management-architecture.md).
 
@@ -388,7 +395,7 @@ const UpdateCase = memo(() => {
 #### Props
 
 - Always create a private interface named **Props** for props passed to the component
-- Avoid _prop dirlling_. If we need to pass a prop through multiple layers/components (more than 1 - max 2 components) using props is not ideal, consider moving the state to redux.
+- Avoid _prop drilling_. If we need to pass a prop through multiple layers/components (more than 1 - max 2 components) using props is not ideal, consider moving the state to **Zustand** (preferred) or Redux (legacy).
 
 **Example**
 
@@ -434,11 +441,316 @@ useEffect(() => {
 }, [selectedLawFirm]);
 ```
 
-### Redux
+### Redux (Legacy - Avoid for New Code)
+
+> **IMPORTANT:** For new features, prefer **Zustand** over Redux. Redux should only be used for maintaining existing code.
 
 - do not store everything (limit 5mb) for whole app
 - do not store binary files
 - store shared
+
+### Zustand (Preferred for Client State)
+
+Zustand is a lightweight, flexible state management library that we prefer over Redux for client-side state. It offers simpler setup, better TypeScript support, and smaller bundle size.
+
+#### Zustand vs Redux Comparison
+
+| Feature | Zustand | Redux |
+|---------|---------|-------|
+| **Bundle Size** | ~1KB | ~7KB (+ toolkit ~12KB) |
+| **Boilerplate** | Minimal | High (actions, reducers, selectors) |
+| **TypeScript** | Excellent (native) | Good (requires extra setup) |
+| **DevTools** | Optional middleware | Built-in with Redux DevTools |
+| **Learning Curve** | Low | High |
+| **Async Actions** | Native (just use async/await) | Requires thunks/sagas |
+| **Re-renders** | Fine-grained (auto-optimized) | Requires manual `useSelector` optimization |
+| **Middleware** | Simple functions | Complex middleware system |
+| **Use Case** | UI state, preferences, simple global state | Complex state with time-travel debugging needs |
+
+#### When to Use Zustand vs Redux
+
+| Scenario | Use Zustand | Use Redux |
+|----------|-------------|-----------|
+| UI preferences (sidebar, theme) | ✅ | ❌ |
+| Selected rows/items | ✅ | ❌ |
+| Modal/drawer state | ✅ | ❌ |
+| Form wizards (multi-step) | ✅ | ❌ |
+| Shopping cart | ✅ | ❌ |
+| Existing Redux codebase | ❌ | ✅ (maintain only) |
+| Complex undo/redo | ❌ | ✅ |
+| Time-travel debugging needed | ❌ | ✅ |
+
+#### Zustand Store Structure
+
+```
+src/
+├── stores/
+│   ├── index.ts              # Re-exports all stores
+│   ├── useUiStore.ts         # UI preferences (sidebar, theme mode)
+│   ├── useSelectionStore.ts  # Selected items across tables
+│   └── useWizardStore.ts     # Multi-step form state
+```
+
+#### Zustand Code Standards
+
+##### 1. Store File Naming
+
+- Use `use{StoreName}Store.ts` naming convention
+- One store per file
+- Keep stores focused (single responsibility)
+
+```typescript
+// ✅ GOOD: Focused store names
+useUiStore.ts
+useSelectionStore.ts
+useCartStore.ts
+
+// ❌ BAD: Generic or multi-purpose
+useStore.ts
+useGlobalStore.ts
+useEverythingStore.ts
+```
+
+##### 2. Store Definition Pattern
+
+```typescript
+// src/stores/useUiStore.ts
+import { create } from 'zustand';
+import { devtools, persist } from 'zustand/middleware';
+
+// Define state interface
+interface UiState {
+  // State
+  isSidebarOpen: boolean;
+  isDarkMode: boolean;
+
+  // Actions
+  toggleSidebar: () => void;
+  setSidebarOpen: (isOpen: boolean) => void;
+  toggleDarkMode: () => void;
+}
+
+// Create store with middleware
+export const useUiStore = create<UiState>()(
+  devtools(
+    persist(
+      (set) => ({
+        // Initial state
+        isSidebarOpen: true,
+        isDarkMode: false,
+
+        // Actions
+        toggleSidebar: () => set((state) => ({
+          isSidebarOpen: !state.isSidebarOpen
+        })),
+
+        setSidebarOpen: (isOpen) => set({ isSidebarOpen: isOpen }),
+
+        toggleDarkMode: () => set((state) => ({
+          isDarkMode: !state.isDarkMode
+        })),
+      }),
+      {
+        name: 'ui-storage', // localStorage key
+      }
+    ),
+    { name: 'UiStore' } // DevTools name
+  )
+);
+```
+
+##### 3. Using Stores in Components
+
+```typescript
+// ✅ GOOD: Select only what you need (auto-optimized re-renders)
+function Sidebar() {
+  const isSidebarOpen = useUiStore((state) => state.isSidebarOpen);
+  const toggleSidebar = useUiStore((state) => state.toggleSidebar);
+
+  return (
+    <aside className={isSidebarOpen ? 'open' : 'closed'}>
+      <button onClick={toggleSidebar}>Toggle</button>
+    </aside>
+  );
+}
+
+// ✅ GOOD: Multiple selectors for fine-grained control
+function Header() {
+  const isDarkMode = useUiStore((state) => state.isDarkMode);
+  const toggleDarkMode = useUiStore((state) => state.toggleDarkMode);
+  // Component only re-renders when isDarkMode or toggleDarkMode changes
+}
+
+// ❌ BAD: Selecting entire store (causes unnecessary re-renders)
+function Component() {
+  const store = useUiStore(); // Re-renders on ANY state change
+}
+```
+
+##### 4. Async Actions
+
+```typescript
+interface DataState {
+  items: Item[];
+  isLoading: boolean;
+  error: string | null;
+
+  fetchItems: () => Promise<void>;
+  addItem: (item: Item) => Promise<void>;
+}
+
+export const useDataStore = create<DataState>()(
+  devtools((set, get) => ({
+    items: [],
+    isLoading: false,
+    error: null,
+
+    fetchItems: async () => {
+      set({ isLoading: true, error: null });
+      try {
+        const items = await api.getItems();
+        set({ items, isLoading: false });
+      } catch (error) {
+        set({ error: error.message, isLoading: false });
+      }
+    },
+
+    addItem: async (item) => {
+      const currentItems = get().items; // Access current state
+      try {
+        const newItem = await api.createItem(item);
+        set({ items: [...currentItems, newItem] });
+      } catch (error) {
+        set({ error: error.message });
+      }
+    },
+  }))
+);
+```
+
+##### 5. Computed Values / Derived State
+
+```typescript
+interface CartState {
+  items: CartItem[];
+  addItem: (item: CartItem) => void;
+  removeItem: (id: string) => void;
+}
+
+export const useCartStore = create<CartState>()((set) => ({
+  items: [],
+  addItem: (item) => set((state) => ({
+    items: [...state.items, item]
+  })),
+  removeItem: (id) => set((state) => ({
+    items: state.items.filter((item) => item.id !== id)
+  })),
+}));
+
+// ✅ GOOD: Compute derived values in component or custom hook
+function useCartTotal() {
+  const items = useCartStore((state) => state.items);
+  return useMemo(() =>
+    items.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    [items]
+  );
+}
+
+// Usage in component
+function CartSummary() {
+  const total = useCartTotal();
+  return <div>Total: ${total}</div>;
+}
+```
+
+##### 6. Slices Pattern (for larger stores)
+
+```typescript
+// src/stores/slices/uiSlice.ts
+import type { StateCreator } from 'zustand';
+
+export interface UiSlice {
+  isSidebarOpen: boolean;
+  toggleSidebar: () => void;
+}
+
+export const createUiSlice: StateCreator<UiSlice> = (set) => ({
+  isSidebarOpen: true,
+  toggleSidebar: () => set((state) => ({
+    isSidebarOpen: !state.isSidebarOpen
+  })),
+});
+
+// src/stores/slices/themeSlice.ts
+export interface ThemeSlice {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+export const createThemeSlice: StateCreator<ThemeSlice> = (set) => ({
+  isDarkMode: false,
+  toggleDarkMode: () => set((state) => ({
+    isDarkMode: !state.isDarkMode
+  })),
+});
+
+// src/stores/useAppStore.ts
+import { create } from 'zustand';
+import { createUiSlice, type UiSlice } from './slices/uiSlice';
+import { createThemeSlice, type ThemeSlice } from './slices/themeSlice';
+
+type AppStore = UiSlice & ThemeSlice;
+
+export const useAppStore = create<AppStore>()((...args) => ({
+  ...createUiSlice(...args),
+  ...createThemeSlice(...args),
+}));
+```
+
+##### 7. Testing Zustand Stores
+
+```typescript
+// src/stores/__tests__/useUiStore.test.ts
+import { useUiStore } from '../useUiStore';
+
+describe('useUiStore', () => {
+  beforeEach(() => {
+    // Reset store state before each test
+    useUiStore.setState({ isSidebarOpen: true, isDarkMode: false });
+  });
+
+  it('toggles sidebar state', () => {
+    const { toggleSidebar } = useUiStore.getState();
+
+    expect(useUiStore.getState().isSidebarOpen).toBe(true);
+
+    toggleSidebar();
+
+    expect(useUiStore.getState().isSidebarOpen).toBe(false);
+  });
+
+  it('sets sidebar open state directly', () => {
+    const { setSidebarOpen } = useUiStore.getState();
+
+    setSidebarOpen(false);
+
+    expect(useUiStore.getState().isSidebarOpen).toBe(false);
+  });
+});
+```
+
+#### Zustand Best Practices Summary
+
+| Practice | Do | Don't |
+|----------|----|----- |
+| Store scope | One responsibility per store | One giant store for everything |
+| Selectors | Select only needed state | Select entire store object |
+| Persistence | Use `persist` middleware for user preferences | Persist server data (use TanStack Query) |
+| DevTools | Enable in development | Disable in production for performance |
+| Naming | `use{Name}Store` | Generic names like `useStore` |
+| Actions | Keep in store definition | Dispatch actions from components |
+| Async | Use async/await directly | Create separate action creators |
+| Types | Define interfaces for state | Use `any` types |
 
 ### State Management
 
@@ -450,9 +762,15 @@ useEffect(() => {
 |------------|----------|---------|
 | Server Data | TanStack Query Cache | Templates, users, menus |
 | Real-time Updates | TanStack Query Cache (via SignalR) | Live row updates |
-| UI Preferences | React Context or Zustand | Sidebar open, selected rows |
-| Form State | React Hook Form / useState | Form inputs |
+| **UI Preferences** | **Zustand** (preferred) | Sidebar open, theme mode |
+| **Selected Items** | **Zustand** (preferred) | Selected table rows, active filters |
+| **Multi-step Forms** | **Zustand** (preferred) | Wizard state, form progress |
+| Simple Local State | useState | Toggle visibility, input focus |
+| Form State | React Hook Form / useState | Form inputs, validation |
 | Route State | URL/Router | Current page, query params |
+| Legacy Global State | Redux (maintain only) | Existing Redux stores |
+
+> **Rule:** Use **Zustand** for client state that needs to be shared across components. Use **TanStack Query** for server state. Use **useState** for component-local state.
 
 #### Real-Time Features (SignalR + TanStack Query)
 

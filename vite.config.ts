@@ -34,11 +34,21 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
   },
   build: {
     // Disable modulePreload for heavy chunks that aren't needed on initial load
-    // This prevents Syncfusion Grid from being preloaded on the login page
+    // This prevents large vendors from being preloaded on the initial page
     modulePreload: {
-      resolveDependencies: (_filename, deps) => {
-        // Filter out syncfusion-grid from initial modulepreload
-        return deps.filter((dep) => !dep.includes('syncfusion-grid'));
+      resolveDependencies: (filename, deps) => {
+        // Only filter for the main entry point - allow lazy chunks to preload their deps
+        if (!filename.includes('index')) return deps;
+
+        // Filter out heavy chunks from initial modulepreload
+        // These will load when actually needed (after App lazy loads)
+        return deps.filter((dep) => {
+          const isHeavyChunk =
+            dep.includes('syncfusion-grid') ||
+            dep.includes('react-vendor') ||
+            dep.includes('App-');
+          return !isHeavyChunk;
+        });
       },
     },
     // Enable terser for better minification
@@ -58,67 +68,44 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
     },
     rollupOptions: {
       output: {
-        // Improved manual chunks for better code splitting
-        manualChunks: (id: string) => {
-          // React core - loads first, cache for long time
-          if (id.includes('react-dom')) return 'react-dom';
-          if (id.includes('node_modules/react/')) return 'react-core';
-
-          // React Router - needed for navigation
-          if (id.includes('react-router')) return 'react-router';
-
-          // State management - small, loads with app
-          if (id.includes('zustand')) return 'state';
-          if (id.includes('@tanstack/react-query')) return 'query';
-
-          // i18n - internationalization
-          if (id.includes('i18next')) return 'i18n';
-
-          // Syncfusion base - shared across all components
-          if (id.includes('@syncfusion/ej2-base')) return 'syncfusion-base';
-
-          // Syncfusion Grid - large, load on demand
-          if (id.includes('@syncfusion/ej2-react-grids') || id.includes('@syncfusion/ej2-grids'))
-            return 'syncfusion-grid';
-
-          // Syncfusion Inputs - buttons, inputs, dropdowns
-          if (
-            id.includes('@syncfusion/ej2-react-inputs') ||
-            id.includes('@syncfusion/ej2-inputs') ||
-            id.includes('@syncfusion/ej2-react-buttons') ||
-            id.includes('@syncfusion/ej2-buttons')
-          )
-            return 'syncfusion-inputs';
-
-          // Syncfusion Dropdowns
-          if (id.includes('@syncfusion/ej2-react-dropdowns') || id.includes('@syncfusion/ej2-dropdowns'))
-            return 'syncfusion-dropdowns';
-
-          // Syncfusion Navigation - sidebar, tabs, etc.
-          if (id.includes('@syncfusion/ej2-react-navigations') || id.includes('@syncfusion/ej2-navigations'))
-            return 'syncfusion-nav';
-
-          // Syncfusion Popups - dialogs, tooltips
-          if (id.includes('@syncfusion/ej2-react-popups') || id.includes('@syncfusion/ej2-popups'))
-            return 'syncfusion-popups';
-
-          // Syncfusion Calendars - date pickers
-          if (id.includes('@syncfusion/ej2-react-calendars') || id.includes('@syncfusion/ej2-calendars'))
-            return 'syncfusion-calendars';
-
-          // Axios - HTTP client
-          if (id.includes('axios')) return 'http';
-
-          // Other vendor libraries
-          if (id.includes('node_modules')) return 'vendor';
-
-          return undefined;
+        // Manual chunks for code splitting
+        // Using object syntax for explicit vendor chunks, function for dynamic
+        manualChunks: {
+          // React core - must load first
+          'react-core': ['react', 'react-dom'],
+          // React Router - separate chunk, loaded lazily with App
+          'router': ['react-router', 'react-router-dom'],
+          // State management
+          'state': ['zustand'],
+          // React Query
+          'query': ['@tanstack/react-query'],
+          // i18n
+          'i18n': ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
+          // HTTP
+          'http': ['axios'],
+          // Syncfusion Grid - very large
+          'syncfusion-grid': ['@syncfusion/ej2-grids', '@syncfusion/ej2-react-grids'],
+          // Syncfusion base
+          'syncfusion-base': ['@syncfusion/ej2-base'],
+          // Syncfusion inputs
+          'syncfusion-inputs': [
+            '@syncfusion/ej2-inputs',
+            '@syncfusion/ej2-react-inputs',
+            '@syncfusion/ej2-buttons',
+            '@syncfusion/ej2-react-buttons',
+          ],
+          // Syncfusion dropdowns
+          'syncfusion-dropdowns': ['@syncfusion/ej2-dropdowns', '@syncfusion/ej2-react-dropdowns'],
+          // Syncfusion navigation
+          'syncfusion-nav': ['@syncfusion/ej2-navigations', '@syncfusion/ej2-react-navigations'],
+          // Syncfusion popups
+          'syncfusion-popups': ['@syncfusion/ej2-popups', '@syncfusion/ej2-react-popups'],
+          // Syncfusion calendars
+          'syncfusion-calendars': ['@syncfusion/ej2-calendars', '@syncfusion/ej2-react-calendars'],
         },
-        // Optimize chunk file names for caching
-        chunkFileNames: () => {
-          return `assets/js/[name]-[hash].js`;
-        },
-        entryFileNames: 'assets/js/[name]-[hash].js',
+        // Use standard chunk file naming with [name] from manualChunks
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
         assetFileNames: (assetInfo) => {
           const extType = assetInfo.name?.split('.').pop() ?? '';
           if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {

@@ -22,12 +22,12 @@ export const Sidebar = (): JSX.Element => {
   const { isCollapsed, toggle } = useSidebarStore();
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
 
-  const sidebarWidth = isCollapsed ? 'w-16' : 'w-sidebar';
+  const collapsedClass = isCollapsed ? 'collapsed' : '';
   const toggleLabel = isCollapsed ? FM('sidebar.expand') : FM('sidebar.collapse');
 
   return (
     <aside
-      className={`${sidebarWidth} sidebar flex flex-col transition-all duration-normal`}
+      className={`sidebar ${collapsedClass} flex flex-col transition-all duration-normal`}
       data-collapsed={isCollapsed ? 'true' : 'false'}
       data-testid={TestIds.SIDEBAR}
     >

@@ -172,10 +172,12 @@ local_resource(
 )
 
 # --- Dependency Health Check (manual) ---
+# Note: npm outdated returns exit code 1 when packages are outdated
+# Using cmd /c with & exit /b 0 to always succeed (Windows-compatible)
 local_resource(
     name='theme-studio-deps-health',
     labels=['ThemeStudio', 'QualityGate'],
-    cmd='npm outdated || true',
+    cmd='cmd /c "npm outdated & exit /b 0"',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )

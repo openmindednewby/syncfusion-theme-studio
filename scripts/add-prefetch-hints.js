@@ -26,8 +26,11 @@ const PREFETCH_CHUNKS = [
 ];
 
 // Chunks to REMOVE from modulepreload (too heavy for initial load)
+// These will still load when needed, just not preloaded immediately
 const REMOVE_FROM_MODULEPRELOAD = [
   'syncfusion-grid',
+  'react-vendor', // Contains React Router 7 (~75KB gzip) - defer until App loads
+  'query-vendor', // React Query - not needed for initial spinner render
 ];
 
 function addPrefetchHints() {

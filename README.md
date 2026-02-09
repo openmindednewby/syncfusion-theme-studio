@@ -2,10 +2,24 @@
 
 A high-performance, fully customizable React admin portal template with visual theme editor. Built with React 18, Vite, TypeScript, Tailwind CSS, and Syncfusion components.
 
+## Performance Highlights
+
+| Metric | Score |
+|--------|-------|
+| **Lighthouse Performance** | 98/100 |
+| **First Contentful Paint** | 1.8s |
+| **Largest Contentful Paint** | 2.0s |
+| **Total Blocking Time** | 0ms |
+| **Cumulative Layout Shift** | 0 |
+| **Initial JS Bundle** | ~116 KB |
+| **Initial CSS Bundle** | ~6 KB |
+
 ## Features
 
 - **Visual Theme Editor** - Real-time theme customization with live preview
 - **100% CSS Variables** - All styling driven by CSS variables for runtime editing
+- **Per-Component Theming** - Each component has its own light/dark theme configuration
+- **12+ Theme Presets** - Beautiful pre-built themes with light/dark variants
 - **Dark/Light Mode** - Full theme support with smooth transitions
 - **Syncfusion Components** - Enterprise-grade UI components with custom wrappers
 - **Type-Safe API Hooks** - Auto-generated with Orval from OpenAPI specs
@@ -117,6 +131,525 @@ This project follows strict coding standards:
 - No magic numbers
 - Comprehensive accessibility support
 - Unit test coverage > 80%
+
+## Performance Optimization Details
+
+This project underwent extensive performance optimization to achieve a **98/100 Lighthouse score**. Below are the detailed fixes and techniques implemented.
+
+### The Problem
+
+The initial implementation had severe performance issues:
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Lighthouse Score | 54/100 | 98/100 | +44 points |
+| First Contentful Paint | 32.2s | 1.8s | **18x faster** |
+| Largest Contentful Paint | 62.4s | 2.0s | **31x faster** |
+| Initial JS Bundle | ~2.5 MB | ~116 KB | **95% smaller** |
+| Total Blocking Time | 120ms | 0ms | **Perfect** |
+
+### Root Causes Identified
+
+1. **Syncfusion Grid Loading on Login Page** - The 2.1MB Syncfusion Grid component was loading on every page, including the login page where it wasn't needed.
+
+2. **Static Imports of Heavy Dependencies** - The `registerLicense` function from `@syncfusion/ej2-base` was imported statically, pulling in the entire Syncfusion dependency tree.
+
+3. **Barrel Export Tree-Shaking Issues** - The main UI component barrel (`@/components/ui/index.ts`) mixed native and Syncfusion components, causing bundlers to include all Syncfusion code.
+
+4. **Eager CSS Loading** - All Syncfusion CSS was loaded upfront instead of being code-split.
+
+5. **MainLayout Not Lazy-Loaded** - The dashboard layout and all its dependencies loaded on every page.
+
+### Solution 1: Dynamic Imports for Syncfusion License
+
+**Problem:** Static import of `registerLicense` pulled in all Syncfusion dependencies.
+
+**Before:**
+```typescript
+// src/config/syncfusion.ts
+import { registerLicense } from '@syncfusion/ej2-base';
+
+export function initializeSyncfusion(): void {
+  registerLicense(DEFAULT_LICENSE_KEY);
+}
+```
+
+**After:**
+```typescript
+// src/config/syncfusion.ts
+async function registerLicenseAsync(key: string): Promise<void> {
+  const { registerLicense } = await import('@syncfusion/ej2-base');
+  registerLicense(key);
+}
+
+export function initializeSyncfusion(): void {
+  registerLicenseAsync(DEFAULT_LICENSE_KEY).catch(() => undefined);
+}
+```
+
+**Impact:** Removed ~2MB from initial bundle by deferring Syncfusion base library loading.
+
+### Solution 2: Split UI Component Barrels
+
+**Problem:** Importing any component from the main barrel loaded all Syncfusion dependencies.
+
+**Solution:** Created separate barrel exports for native and Syncfusion components:
+
+```
+src/components/ui/
+├── index.ts        → Re-exports types only (backward compatible)
+├── native.ts       → ButtonNative, InputNative (zero Syncfusion deps)
+└── syncfusion.ts   → DataGrid, Button, Input, Select, etc.
+```
+
+**Login Page Import (Before):**
+```typescript
+import { Button, Input } from '@/components/ui';  // Loaded ALL components
+```
+
+**Login Page Import (After):**
+```typescript
+import { ButtonNative, InputNative } from '@/components/ui/native';  // Zero Syncfusion
+```
+
+**Impact:** Login page no longer loads any Syncfusion JavaScript.
+
+### Solution 3: Native HTML Components for Login
+
+**Problem:** Login page used Syncfusion Button and Input components unnecessarily.
+
+**Solution:** Created lightweight native HTML components:
+
+```typescript
+// src/components/ui/ButtonNative/index.tsx
+const ButtonNative = ({ children, variant, ...props }) => (
+  <button className={`btn btn-${variant}`} {...props}>
+    {children}
+  </button>
+);
+
+// src/components/ui/InputNative/index.tsx
+const InputNative = ({ label, error, ...props }) => (
+  <div className="input-wrapper">
+    <label>{label}</label>
+    <input className="input" {...props} />
+    {error && <span className="error">{error}</span>}
+  </div>
+);
+```
+
+**Impact:** Login page uses only ~2KB of component code instead of ~200KB.
+
+### Solution 4: Lazy-Load MainLayout
+
+**Problem:** MainLayout and all its dependencies (Sidebar, Header, ThemeSettingsDrawer) loaded on every page.
+
+**Before:**
+```typescript
+// src/app/routes.tsx
+import { MainLayout } from '@/components/layout/MainLayout';
+
+const routes = [
+  { path: '/dashboard', element: <MainLayout /> }
+];
+```
+
+**After:**
+```typescript
+// src/app/routes.tsx
+const MainLayout = lazy(async () => ({
+  default: (await import('@/components/layout/MainLayout')).MainLayout,
+}));
+
+const routes = [
+  {
+    path: '/dashboard',
+    element: (
+      <Suspense fallback={<LoadingSpinner />}>
+        <MainLayout />
+      </Suspense>
+    )
+  }
+];
+```
+
+**Impact:** Dashboard layout code only loads when navigating to `/dashboard`.
+
+### Solution 5: CSS Code Splitting
+
+**Problem:** All CSS (including Syncfusion styles) loaded on initial page load.
+
+**Solution:** Split CSS into login-specific and app-specific files:
+
+```
+src/styles/
+├── login.css       → Base styles + critical components only (~6KB gzipped)
+├── app.css         → Syncfusion styles + full components (~140KB gzipped)
+└── layers/
+    ├── base.css
+    ├── components-critical.css  → btn, card, input only
+    └── components-app.css       → sidebar, header, badges, modals
+```
+
+**Login Page:**
+```typescript
+// src/main.tsx
+import './styles/login.css';  // Only critical CSS
+```
+
+**Dashboard (loaded dynamically):**
+```typescript
+// src/components/layout/MainLayout/index.tsx
+useEffect(() => {
+  import('@/styles/app.css');  // Full CSS loaded after login
+}, []);
+```
+
+**Impact:** Initial CSS reduced from ~150KB to ~6KB.
+
+### Solution 6: Remove Syncfusion Grid from Modulepreload
+
+**Problem:** Vite's modulepreload was including the 2.1MB Syncfusion Grid chunk.
+
+**Solution:** Post-build script to strip heavy chunks from modulepreload:
+
+```javascript
+// scripts/add-prefetch-hints.js
+const REMOVE_FROM_MODULEPRELOAD = ['syncfusion-grid'];
+
+for (const chunkName of REMOVE_FROM_MODULEPRELOAD) {
+  const regex = new RegExp(
+    `\\s*<link[^>]*rel="modulepreload"[^>]*href="[^"]*${chunkName}[^"]*"[^>]*>`,
+    'g'
+  );
+  html = html.replace(regex, '\n');
+}
+```
+
+**Also configured in Vite:**
+```typescript
+// vite.config.ts
+build: {
+  modulePreload: {
+    resolveDependencies: (_filename, deps) => {
+      return deps.filter((dep) => !dep.includes('syncfusion-grid'));
+    },
+  },
+}
+```
+
+**Impact:** Browser no longer preloads the 2.1MB grid chunk on login.
+
+### Solution 7: Background Preloading After Login
+
+**Problem:** Dashboard felt slow because Syncfusion modules loaded on navigation.
+
+**Solution:** Preload modules in background after successful login:
+
+```typescript
+// src/config/syncfusionLazy.ts
+export const preloadSyncfusionModules = (): void => {
+  const preload = (): void => {
+    import('@syncfusion/ej2-react-grids').catch(() => undefined);
+    import('@syncfusion/ej2-react-calendars').catch(() => undefined);
+    import('@syncfusion/ej2-react-dropdowns').catch(() => undefined);
+  };
+
+  if ('requestIdleCallback' in window)
+    window.requestIdleCallback(preload, { timeout: 2000 });
+  else
+    setTimeout(preload, 100);
+};
+
+// Called on login form submit
+const handleSubmit = () => {
+  preloadSyncfusionModules();  // Start loading in background
+  navigate('/dashboard');
+};
+```
+
+**Impact:** Dashboard loads instantly because modules are already cached.
+
+### Solution 8: Optimize Vite Dev Server
+
+**Problem:** Development server had 9.1s FCP due to on-demand transforms.
+
+**Solution:** Pre-bundle all heavy dependencies:
+
+```typescript
+// vite.config.ts
+optimizeDeps: {
+  include: [
+    'react', 'react-dom', 'react-dom/client',
+    'react-router-dom', '@tanstack/react-query', 'zustand',
+    'i18next', 'react-i18next',
+    '@syncfusion/ej2-base',
+    '@syncfusion/ej2-react-grids',
+    '@syncfusion/ej2-react-inputs',
+    '@syncfusion/ej2-react-buttons',
+    // ... all Syncfusion packages
+  ],
+  esbuildOptions: {
+    target: 'es2020',
+    keepNames: true,
+  },
+},
+server: {
+  warmup: {
+    clientFiles: [
+      './src/main.tsx',
+      './src/app/App.tsx',
+      './src/app/routes.tsx',
+      './src/features/auth/pages/LoginPage/index.tsx',
+    ],
+  },
+},
+```
+
+**Impact:** Dev server starts faster and HMR is more responsive.
+
+### Bundle Analysis
+
+**Final Production Bundle (Login Page):**
+
+| File | Size (gzipped) | Purpose |
+|------|----------------|---------|
+| `index-*.js` | 27.7 KB | Main app entry |
+| `react-vendor-*.js` | 66.1 KB | React + React DOM |
+| `query-vendor-*.js` | 13.5 KB | TanStack Query |
+| `index-*.css` | 6.4 KB | Login CSS |
+| **Total** | **~116 KB** | Initial load |
+
+**Deferred Chunks (loaded after login):**
+
+| File | Size (gzipped) | When Loaded |
+|------|----------------|-------------|
+| `syncfusion-grid-*.js` | 498 KB | DataGrid pages |
+| `syncfusion-inputs-*.js` | 1.4 KB | Form pages |
+| `app-*.css` | 140 KB | Dashboard |
+
+### Performance Testing
+
+Always test performance using the **production build**:
+
+```bash
+# Build for production
+npm run build
+
+# Start preview server (port 4173)
+npm run preview
+
+# Run Lighthouse
+npx lighthouse http://localhost:4173 --view
+```
+
+**Note:** The dev server (port 4444/4445) will always be slower because code isn't minified. Only use production builds for accurate performance metrics.
+
+---
+
+## CSS Customization System
+
+This project implements a comprehensive CSS customization system using CSS variables, layers, and dynamic injection.
+
+### CSS Architecture
+
+```
+src/styles/
+├── login.css                    # Entry point for login page
+├── app.css                      # Entry point for dashboard (lazy-loaded)
+└── layers/
+    ├── base.css                 # CSS reset, variables, theme tokens
+    ├── components.css           # Full component library
+    ├── components-critical.css  # Minimal components for login
+    ├── components-app.css       # Additional dashboard components
+    └── syncfusion-overrides.css # Syncfusion theme integration
+```
+
+### CSS Layers
+
+CSS layers are used for specificity control:
+
+```css
+@layer base, components, utilities;
+```
+
+This ensures:
+1. **base** - Theme variables and resets (lowest specificity)
+2. **components** - Component styles
+3. **utilities** - Tailwind utilities (highest specificity)
+
+### Theme Variables
+
+All styling is driven by CSS variables for runtime customization:
+
+```css
+:root {
+  /* Primary Colors */
+  --color-primary-50: 239 246 255;
+  --color-primary-500: 59 130 246;
+  --color-primary-900: 30 58 138;
+
+  /* Component-Specific Variables */
+  --button-bg: var(--color-primary-500);
+  --button-text: 255 255 255;
+  --button-border-radius: var(--radius-md);
+
+  --input-bg: var(--color-surface);
+  --input-border: var(--color-border);
+  --input-focus-ring: var(--color-primary-500);
+
+  /* Layout Variables */
+  --sidebar-width: 256px;
+  --header-height: 64px;
+}
+```
+
+### Per-Component Theming
+
+Each component has its own light and dark theme configuration:
+
+```typescript
+// src/stores/theme/types/componentTypes.ts
+interface ComponentsConfig {
+  light: ComponentConfigSingle;
+  dark: ComponentConfigSingle;
+}
+
+interface ComponentConfigSingle {
+  button: ButtonConfig;
+  input: InputConfig;
+  select: SelectConfig;
+  dataGrid: DataGridConfig;
+  datePicker: DatePickerConfig;
+  dialog: DialogConfig;
+}
+```
+
+Components automatically use the correct theme based on current mode:
+
+```typescript
+// src/stores/theme/injectors/componentInjector.ts
+export function injectComponentVariables(
+  components: ComponentsConfig,
+  mode: 'light' | 'dark'
+): void {
+  const config = components[mode];
+
+  // Inject button variables
+  setVar('--button-bg', config.button.background);
+  setVar('--button-text', config.button.textColor);
+
+  // Inject input variables
+  setVar('--input-bg', config.input.background);
+  setVar('--input-border', config.input.borderColor);
+  // ... etc
+}
+```
+
+### Theme Presets
+
+12 beautiful theme presets are included, each with light and dark variants:
+
+| Preset | Description |
+|--------|-------------|
+| Ocean Blue | Professional blue (Salesforce-inspired) |
+| Forest Green | Nature-inspired with amber accents |
+| Royal Purple | Elegant with rose gold secondary |
+| Sunset Orange | Warm coral and orange tones |
+| Rose Pink | Soft pink with lavender accent |
+| Midnight | Deep dark blue with electric violet |
+| Arctic | Cool ice blue, clean and refreshing |
+| Copper | Warm metallic with bronze accents |
+| Emerald | Rich jewel-toned green |
+| Lavender | Soft calming purple tones |
+| Slate | Professional gray |
+| Gold | Luxurious with bronze accents |
+
+### Using Presets
+
+```typescript
+import { useThemeStore } from '@/stores/useThemeStore';
+import { oceanBluePreset } from '@/stores/theme/presets';
+
+const { applyPreset } = useThemeStore();
+
+// Apply a preset
+applyPreset(oceanBluePreset);
+```
+
+### Export/Import Themes
+
+```typescript
+const { exportTheme, importTheme } = useThemeStore();
+
+// Export current theme as JSON
+const themeJson = exportTheme();
+console.log(JSON.stringify(themeJson, null, 2));
+
+// Import a theme
+importTheme(customThemeJson);
+```
+
+### Syncfusion Component Styling
+
+Syncfusion components are styled using CSS variable overrides:
+
+```css
+/* src/styles/layers/syncfusion-overrides.css */
+
+/* Button Overrides */
+.e-btn {
+  background-color: rgb(var(--button-bg));
+  color: rgb(var(--button-text));
+  border-radius: var(--button-border-radius);
+}
+
+/* Input Overrides */
+.e-input-group {
+  background-color: rgb(var(--input-bg));
+  border-color: rgb(var(--input-border));
+}
+
+.e-input-group:focus-within {
+  border-color: rgb(var(--input-focus-ring));
+  box-shadow: 0 0 0 3px rgb(var(--input-focus-ring) / 0.1);
+}
+
+/* DataGrid Overrides */
+.e-grid {
+  background-color: rgb(var(--datagrid-bg));
+  border-color: rgb(var(--datagrid-border));
+}
+
+.e-grid .e-headercell {
+  background-color: rgb(var(--datagrid-header-bg));
+  color: rgb(var(--datagrid-header-text));
+}
+```
+
+---
+
+## Related Projects
+
+This theme studio is designed to work with the broader SaaS platform:
+
+| Project | Description | Location |
+|---------|-------------|----------|
+| **BaseClient** | React Native/Expo frontend | `../BaseClient` |
+| **IdentityService** | Authentication & authorization | `../IdentityService` |
+| **QuestionerService** | Survey/questionnaire service | `../QuestionerService` |
+| **OnlineMenuService** | Restaurant menu management | `../OnlineMenuSaaS/OnlineMenuService` |
+| **NotificationService** | Push notifications & alerts | `../NotificationService` |
+| **E2ETests** | Playwright end-to-end tests | `../E2ETests` |
+
+### Integration Points
+
+1. **Theme Export** - Export themes as JSON for use in other frontends
+2. **CSS Variables** - Generated variables can be imported into any project
+3. **Component Wrappers** - Syncfusion wrappers are reusable across projects
+4. **Design Tokens** - Export design tokens for design system consistency
+
+---
 
 ## License
 

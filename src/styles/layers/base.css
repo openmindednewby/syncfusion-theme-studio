@@ -79,7 +79,7 @@
     --color-border: 229 231 235;
     --color-text-primary: 17 24 39;
     --color-text-secondary: 107 114 128;
-    --color-text-muted: 156 163 175;
+    --color-text-muted: 107 114 128; /* gray-500 for WCAG AA contrast (4.6:1 vs white) */
 
     /* ===== COMPONENT DEFAULTS ===== */
     /* These are overridden by the theme injector at runtime */

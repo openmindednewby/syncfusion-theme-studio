@@ -23,7 +23,7 @@ interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className
 }
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700',
+  primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800', // primary-600 for WCAG AA contrast
   secondary: 'bg-surface-elevated text-text-primary hover:bg-surface-hover',
   outline: 'border border-border bg-transparent text-text-primary hover:bg-surface',
   ghost: 'bg-transparent text-text-primary hover:bg-surface',

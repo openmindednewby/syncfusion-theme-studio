@@ -126,7 +126,7 @@ describe('ButtonNative', () => {
   describe('variants', () => {
     it('applies primary variant classes by default', () => {
       render(<ButtonNative testId="test-button">Primary</ButtonNative>);
-      expect(screen.getByTestId('test-button').className).toContain('bg-primary-500');
+      expect(screen.getByTestId('test-button').className).toContain('bg-primary-600');
     });
 
     it('applies danger variant classes when specified', () => {

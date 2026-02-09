@@ -16,6 +16,9 @@
 # ===============================================================================
 
 # --- Linter ---
+from os import link
+
+
 local_resource(
     name='theme-studio-lint',
     labels=['ThemeStudio'],
@@ -128,7 +131,6 @@ local_resource(
         link('http://localhost:4445/components/syncfusion', 'Preview - Syncfusion Components'),
     ],
 )
-
 # ===============================================================================
 # QUALITY GATES - Performance & Bundle Analysis
 # ===============================================================================
@@ -145,13 +147,29 @@ local_resource(
 )
 
 # --- Lighthouse Audit with HTML Report (manual) ---
+# NOTE: This runs against DEV server (unoptimized). For accurate metrics, use theme-studio-lighthouse-prod
 local_resource(
-    name='theme-studio-lighthouse-report',
+    name='theme-studio-lighthouse-dev',
     labels=['ThemeStudio', 'QualityGate'],
     cmd='npm run lighthouse && npm run lighthouse:open',
     resource_deps=['theme-studio-dev'],
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
+)
+
+# --- Lighthouse on Production Build (manual) ---
+# Runs against production preview server for accurate performance metrics
+local_resource(
+    name='theme-studio-lighthouse-prod',
+    labels=['ThemeStudio', 'QualityGate'],
+    cmd='npm run build && powershell -Command "Start-Process -NoNewWindow npm -ArgumentList \'run\',\'preview\',\'--\',\'--port\',\'4446\'; Start-Sleep -Seconds 3; npx lighthouse http://localhost:4446 --output html --output-path ./reports/lighthouse-prod.html; Start-Process ./reports/lighthouse-prod.html"',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+    links=[
+        link('http://localhost:4446', 'Preview - Dashboard Prod'),
+        link('http://localhost:4446/products', 'Preview - Products Prod'),
+        link('http://localhost:4446/components/native', 'Preview - Native Components Prod')
+    ],
 )
 
 # --- Bundle Analyzer (manual) ---

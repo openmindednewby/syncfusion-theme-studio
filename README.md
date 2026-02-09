@@ -2,6 +2,13 @@
 
 A high-performance, fully customizable React admin portal template with visual theme editor. Built with React 18, Vite, TypeScript, Tailwind CSS, and Syncfusion components.
 
+- local dev http://localhost:4444/
+- local production http://localhost:4446/dashboard
+
+Login page light house result for production build 
+
+![alt text](image.png)
+
 ## Performance Highlights
 
 | Metric | Score |

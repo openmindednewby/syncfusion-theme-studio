@@ -70,38 +70,64 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
       output: {
         // Manual chunks for code splitting
         // Using object syntax for explicit vendor chunks, function for dynamic
-        manualChunks: {
+        manualChunks: (id) => {
+          // Shared utilities used across native components - prevent duplication
+          if (id.includes('/utils/cn') || id.includes('/utils/is')) {
+            return 'utils';
+          }
           // React core - must load first
-          'react-core': ['react', 'react-dom'],
-          // React Router - separate chunk, loaded lazily with App
-          'router': ['react-router', 'react-router-dom'],
-          // State management
-          'state': ['zustand'],
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+            return 'react-vendor';
+          }
+          // React Router - separate chunk
+          if (id.includes('react-router')) {
+            return 'router';
+          }
+          // Zustand
+          if (id.includes('zustand')) {
+            return 'state';
+          }
           // React Query
-          'query': ['@tanstack/react-query'],
+          if (id.includes('@tanstack/react-query')) {
+            return 'query-vendor';
+          }
           // i18n
-          'i18n': ['i18next', 'react-i18next', 'i18next-browser-languagedetector'],
+          if (id.includes('i18next')) {
+            return 'i18n';
+          }
           // HTTP
-          'http': ['axios'],
+          if (id.includes('axios')) {
+            return 'http';
+          }
           // Syncfusion Grid - very large
-          'syncfusion-grid': ['@syncfusion/ej2-grids', '@syncfusion/ej2-react-grids'],
+          if (id.includes('ej2-grids') || id.includes('ej2-react-grids')) {
+            return 'syncfusion-grid';
+          }
           // Syncfusion base
-          'syncfusion-base': ['@syncfusion/ej2-base'],
+          if (id.includes('ej2-base')) {
+            return 'syncfusion-base';
+          }
           // Syncfusion inputs
-          'syncfusion-inputs': [
-            '@syncfusion/ej2-inputs',
-            '@syncfusion/ej2-react-inputs',
-            '@syncfusion/ej2-buttons',
-            '@syncfusion/ej2-react-buttons',
-          ],
+          if (id.includes('ej2-inputs') || id.includes('ej2-buttons')) {
+            return 'syncfusion-inputs';
+          }
           // Syncfusion dropdowns
-          'syncfusion-dropdowns': ['@syncfusion/ej2-dropdowns', '@syncfusion/ej2-react-dropdowns'],
+          if (id.includes('ej2-dropdowns')) {
+            return 'syncfusion-dropdowns';
+          }
           // Syncfusion navigation
-          'syncfusion-nav': ['@syncfusion/ej2-navigations', '@syncfusion/ej2-react-navigations'],
+          if (id.includes('ej2-navigations')) {
+            return 'syncfusion-nav';
+          }
           // Syncfusion popups
-          'syncfusion-popups': ['@syncfusion/ej2-popups', '@syncfusion/ej2-react-popups'],
+          if (id.includes('ej2-popups')) {
+            return 'syncfusion-popups';
+          }
           // Syncfusion calendars
-          'syncfusion-calendars': ['@syncfusion/ej2-calendars', '@syncfusion/ej2-react-calendars'],
+          if (id.includes('ej2-calendars')) {
+            return 'syncfusion-calendars';
+          }
+          return undefined;
         },
         // Use standard chunk file naming with [name] from manualChunks
         chunkFileNames: 'assets/[name]-[hash].js',

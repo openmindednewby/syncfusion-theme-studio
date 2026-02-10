@@ -6,3 +6,10 @@ export {
   isSyncfusionCssLoaded,
   type SyncfusionCssModule,
 } from './loadSyncfusionCss';
+export {
+  generatePaletteFromBase,
+  generateDerivedColors,
+  hexToRgbString,
+  rgbStringToHex,
+  type DerivedComponentColors,
+} from './paletteGenerator';

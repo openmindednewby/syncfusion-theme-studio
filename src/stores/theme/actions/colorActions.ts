@@ -1,8 +1,21 @@
 // Color update actions
 
+import { generateDerivedColors, generatePaletteFromBase } from '@/utils';
+import type { DerivedComponentColors } from '@/utils';
+
 import { injectThemeVariables } from '../themeInjector';
 
-import type { ColorShade, StatusKey, StatusShade, ThemeConfig } from '../types';
+import type {
+  ButtonsComponentConfig,
+  ColorShade,
+  ComponentConfigSingle,
+  ComponentsConfig,
+  InputsConfig,
+  SidebarComponentConfig,
+  StatusKey,
+  StatusShade,
+  ThemeConfig,
+} from '../types';
 import type { ColorUpdateActions, GetState, SetState } from './types';
 
 type ColorScaleKey = 'primary' | 'secondary' | 'neutral';
@@ -36,27 +49,69 @@ function buildStatusColorTheme(currentTheme: ThemeConfig, update: StatusColorUpd
   };
 }
 
-export function createColorUpdateActions(set: SetState, get: GetState): ColorUpdateActions {
-  const applyColorScaleUpdate = (update: ColorScaleUpdate): void => {
-    const newTheme = buildColorScaleTheme(get().theme, update);
-    set({ theme: newTheme });
-    injectThemeVariables(newTheme, get().mode);
+function buildDerivedButtons(buttons: ButtonsComponentConfig, derived: DerivedComponentColors): ButtonsComponentConfig {
+  return {
+    ...buttons,
+    primary: {
+      ...buttons.primary,
+      background: derived.buttons.primary.background,
+      backgroundHover: derived.buttons.primary.backgroundHover,
+      textColor: derived.buttons.primary.textColor,
+    },
   };
+}
 
-  const applyStatusColorUpdate = (update: StatusColorUpdate): void => {
-    const newTheme = buildStatusColorTheme(get().theme, update);
+function buildDerivedSidebar(sidebar: SidebarComponentConfig, derived: DerivedComponentColors): SidebarComponentConfig {
+  return {
+    ...sidebar,
+    activeItemBackground: derived.sidebar.activeBg,
+    activeItemTextColor: derived.sidebar.activeText,
+  };
+}
+
+function buildDerivedInputs(inputs: InputsConfig, derived: DerivedComponentColors): InputsConfig {
+  return { ...inputs, borderFocus: derived.inputs.borderFocus };
+}
+
+function buildDerivedModeConfig(config: ComponentConfigSingle, derived: DerivedComponentColors): ComponentConfigSingle {
+  return {
+    ...config,
+    buttons: buildDerivedButtons(config.buttons, derived),
+    sidebar: buildDerivedSidebar(config.sidebar, derived),
+    inputs: buildDerivedInputs(config.inputs, derived),
+  };
+}
+
+function buildDerivedComponents(components: ComponentsConfig, derived: DerivedComponentColors): ComponentsConfig {
+  return {
+    light: buildDerivedModeConfig(components.light, derived),
+    dark: buildDerivedModeConfig(components.dark, derived),
+  };
+}
+
+export function createColorUpdateActions(set: SetState, get: GetState): ColorUpdateActions {
+  const applyAndInject = (newTheme: ThemeConfig): void => {
     set({ theme: newTheme });
     injectThemeVariables(newTheme, get().mode);
   };
 
   return {
     updatePrimaryColor: (shade, value) =>
-      applyColorScaleUpdate({ scaleKey: 'primary', shade, value }),
+      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: 'primary', shade, value })),
     updateSecondaryColor: (shade, value) =>
-      applyColorScaleUpdate({ scaleKey: 'secondary', shade, value }),
+      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: 'secondary', shade, value })),
     updateNeutralColor: (shade, value) =>
-      applyColorScaleUpdate({ scaleKey: 'neutral', shade, value }),
+      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: 'neutral', shade, value })),
     updateStatusColor: (status, shade, value) =>
-      applyStatusColorUpdate({ status, shade, value }),
+      applyAndInject(buildStatusColorTheme(get().theme, { status, shade, value })),
+    updatePrimaryPalette: (baseColor, cascadeToComponents) => {
+      const palette = generatePaletteFromBase(baseColor);
+      let newTheme: ThemeConfig = { ...get().theme, primary: palette };
+      if (cascadeToComponents) {
+        const derived = generateDerivedColors(palette);
+        newTheme = { ...newTheme, components: buildDerivedComponents(newTheme.components, derived) };
+      }
+      applyAndInject(newTheme);
+    },
   };
 }

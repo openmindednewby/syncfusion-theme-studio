@@ -15,6 +15,7 @@ export interface ColorUpdateActions {
   updateSecondaryColor: ThemeState['updateSecondaryColor'];
   updateNeutralColor: ThemeState['updateNeutralColor'];
   updateStatusColor: ThemeState['updateStatusColor'];
+  updatePrimaryPalette: ThemeState['updatePrimaryPalette'];
 }
 
 export interface ThemeUpdateActions {

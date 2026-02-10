@@ -62,6 +62,8 @@ export interface ThemeState {
   updateSecondaryColor: (shade: ColorShade, value: string) => void;
   updateNeutralColor: (shade: ColorShade, value: string) => void;
   updateStatusColor: (status: StatusKey, shade: StatusShade, value: string) => void;
+  /** Updates entire primary palette and cascades to component colors */
+  updatePrimaryPalette: (baseColor: string, cascadeToComponents: boolean) => void;
   updateModeConfig: (mode: Mode, updates: ThemeModeConfigUpdate) => void;
   // Component actions now update the current mode's config
   updateHeaderConfig: (updates: Partial<HeaderComponentConfig>) => void;

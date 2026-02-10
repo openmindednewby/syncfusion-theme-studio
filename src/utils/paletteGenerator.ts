@@ -208,22 +208,24 @@ export interface DerivedComponentColors {
   };
 }
 
-/** Generate derived component colors from a primary palette */
+/** Generate derived component colors from a primary palette
+ * Returns raw RGB values (e.g., "37 99 235") - the componentInjector adds rgb() wrapper
+ */
 export function generateDerivedColors(primaryPalette: ColorScale): DerivedComponentColors {
   return {
     buttons: {
       primary: {
-        background: `rgb(${primaryPalette['600']})`,
-        backgroundHover: `rgb(${primaryPalette['700']})`,
-        textColor: 'rgb(255 255 255)',
+        background: primaryPalette['600'],
+        backgroundHover: primaryPalette['700'],
+        textColor: '255 255 255',
       },
     },
     sidebar: {
-      activeBg: `rgb(${primaryPalette['500']})`,
-      activeText: 'rgb(255 255 255)',
+      activeBg: primaryPalette['500'],
+      activeText: '255 255 255',
     },
     inputs: {
-      borderFocus: `rgb(${primaryPalette['500']})`,
+      borderFocus: primaryPalette['500'],
     },
   };
 }

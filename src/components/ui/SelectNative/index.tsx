@@ -25,6 +25,8 @@ interface Props extends Omit<SelectHTMLAttributes<HTMLSelectElement>, 'className
   testId?: string;
   /** Full width select */
   fullWidth?: boolean;
+  /** Show required indicator (*) - visual only, use HTML required for validation */
+  showRequired?: boolean;
 }
 
 const SelectNative = forwardRef<HTMLSelectElement, Props>(
@@ -38,6 +40,7 @@ const SelectNative = forwardRef<HTMLSelectElement, Props>(
       className,
       testId,
       fullWidth = false,
+      showRequired = false,
       ...rest
     },
     ref,
@@ -55,6 +58,7 @@ const SelectNative = forwardRef<HTMLSelectElement, Props>(
         {isValueDefined(label) && (
           <label className="text-sm font-medium text-text-primary" htmlFor={id}>
             {label}
+            {showRequired ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <select

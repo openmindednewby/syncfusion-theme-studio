@@ -23,6 +23,8 @@ interface Props extends Omit<DatePickerModel, 'cssClass' | 'floatLabelType'> {
   testId?: string;
   /** Full width input */
   fullWidth?: boolean;
+  /** Show required indicator (*) */
+  required?: boolean;
   /** Change handler */
   onChange?: (date: Date | undefined) => void;
 }
@@ -36,6 +38,7 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
       className,
       testId,
       fullWidth = false,
+      required = false,
       placeholder = 'Select a date',
       value,
       format = 'MM/dd/yyyy',
@@ -85,6 +88,7 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
             htmlFor={id}
           >
             {label}
+            {required ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <DatePickerComponent

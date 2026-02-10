@@ -36,6 +36,18 @@
   "validation": {
     "required": "This field is required",
     "invalidEmail": "Please enter a valid email address",
+    "invalidPhone": "Please enter a valid phone number",
+    "passwordTooShort": "Password must be at least 8 characters",
+    "passwordMismatch": "Passwords do not match",
+    "acceptTerms": "You must accept the terms and conditions",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must be no more than {{max}} characters",
+    "mustBePositive": "Must be a positive number",
+    "mustBeFutureDate": "Date must be in the future",
+    "invalidType": "Invalid value",
+    "invalidFormat": "Invalid format",
+    "invalidUrl": "Please enter a valid URL",
+    "tooSmall": "Value must be at least {{min}}",
     "pleaseSelect": "Please select an option"
   },
   "login": {
@@ -70,6 +82,7 @@
     "components": "Components",
     "componentsNative": "Native",
     "componentsSyncfusion": "Syncfusion",
+    "showcaseForms": "Forms",
     "themeEditor": "Theme Editor",
     "themeEditorLabel": "Open theme editor",
     "login": "Login",
@@ -412,5 +425,98 @@
     "popups": "Popups & Dialogs",
     "dialogs": "Dialogs",
     "tooltips": "Tooltips"
+  },
+  "forms": {
+    "page": {
+      "title": "Syncfusion Forms Showcase",
+      "description": "Demonstrates React Hook Form + Zod integration with Syncfusion components. Shows validation on blur, cross-field validation, and various input types."
+    },
+    "native": {
+      "page": {
+        "title": "Native Forms Showcase",
+        "description": "Demonstrates React Hook Form + Zod integration with native HTML components. Zero Syncfusion dependencies for optimal bundle size."
+      },
+      "performance": {
+        "title": "Performance Optimized",
+        "description": "These forms use native HTML inputs with zero Syncfusion dependencies. Ideal for login pages, public-facing forms, and performance-critical scenarios."
+      }
+    },
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "name": "Name",
+      "subject": "Subject",
+      "message": "Message",
+      "rememberMe": "Remember me"
+    },
+    "actions": {
+      "login": "Sign In",
+      "send": "Send Message",
+      "subscribe": "Subscribe",
+      "submit": "Submit"
+    },
+    "login": {
+      "title": "Login Form",
+      "description": "Simple login form with email, password, and remember me checkbox. Uses native HTML inputs for minimal bundle size."
+    },
+    "newsletter": {
+      "title": "Newsletter Form",
+      "description": "Minimal inline form for newsletter subscription. Single email field with horizontal layout."
+    },
+    "common": {
+      "noSubmissionYet": "No form submission yet. Fill out the form and submit to see the results.",
+      "submittedData": "Submitted Data:"
+    },
+    "contact": {
+      "title": "Contact Form",
+      "description": "Basic form with name, email, phone (optional), and message fields. Demonstrates required field validation and email format validation.",
+      "name": "Name",
+      "namePlaceholder": "John Doe",
+      "email": "Email",
+      "emailPlaceholder": "john@example.com",
+      "phone": "Phone",
+      "phonePlaceholder": "+1 234 567 8900",
+      "phoneHelper": "Optional - Enter your phone number",
+      "message": "Message",
+      "messagePlaceholder": "Enter your message here...",
+      "submit": "Send Message"
+    },
+    "registration": {
+      "title": "Registration Form",
+      "description": "Form with cross-field validation. Demonstrates password confirmation matching and required checkbox for terms acceptance.",
+      "email": "Email",
+      "emailPlaceholder": "you@example.com",
+      "password": "Password",
+      "passwordPlaceholder": "Enter password",
+      "passwordHelper": "Minimum 8 characters",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Re-enter password",
+      "acceptTerms": "I accept the terms and conditions",
+      "submit": "Create Account"
+    },
+    "product": {
+      "title": "Product Form",
+      "description": "Form with select dropdown and date picker. Demonstrates category selection, positive number validation, and future date validation.",
+      "productName": "Product Name",
+      "productNamePlaceholder": "Enter product name",
+      "category": "Category",
+      "categoryPlaceholder": "Select a category",
+      "price": "Price",
+      "pricePlaceholder": "0.00",
+      "priceHelper": "Enter a positive number",
+      "releaseDate": "Release Date",
+      "releaseDateHelper": "Optional - Must be a future date",
+      "submit": "Add Product"
+    },
+    "search": {
+      "title": "Search Form",
+      "description": "Inline/horizontal layout for search and filter functionality. Demonstrates optional fields and date range selection.",
+      "query": "Search",
+      "queryPlaceholder": "Search...",
+      "category": "Category",
+      "dateFrom": "From",
+      "dateTo": "To",
+      "submit": "Search"
+    }
   }
 }

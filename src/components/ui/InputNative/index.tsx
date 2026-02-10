@@ -16,11 +16,13 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className'>
   testId?: string;
   /** Full width input */
   fullWidth?: boolean;
+  /** Show required indicator (*) - visual only, use HTML required for validation */
+  showRequired?: boolean;
 }
 
 const InputNative = forwardRef<HTMLInputElement, Props>(
   (
-    { label, helperText, error, className, testId, fullWidth = false, ...rest },
+    { label, helperText, error, className, testId, fullWidth = false, showRequired = false, ...rest },
     ref,
   ): JSX.Element => {
     const id = useId();
@@ -36,6 +38,7 @@ const InputNative = forwardRef<HTMLInputElement, Props>(
         {isValueDefined(label) && (
           <label className="text-sm font-medium text-text-primary" htmlFor={id}>
             {label}
+            {showRequired ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <input

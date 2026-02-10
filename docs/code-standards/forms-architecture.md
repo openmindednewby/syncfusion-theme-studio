@@ -726,23 +726,20 @@ const form = useFormWithSchema({
   mode: 'onBlur', // Only validate when field loses focus
 });
 
-// 2. Memoize change handlers in adapters
-const handleChange = useCallback(
-  (args: { value: string }) => field.onChange(args.value),
-  [field]
-);
-
-// 3. Use Controller for complex components, register for simple inputs
+// 2. Use Controller for complex components, register for simple inputs
 // Controller: More overhead but needed for non-standard components
 // register: Lighter but only works with standard HTML inputs
 
-// 4. Avoid watching all fields - watch specific ones
+// 3. Avoid watching all fields - watch specific ones
 const email = watch('email'); // Good: specific field
 const values = watch(); // Bad: re-renders on any change
 
-// 5. Use formState selectors
+// 4. Use formState selectors
 const { isSubmitting, isDirty } = formState; // Good: destructure
 const formState = useFormState(); // Bad: new object every render
+
+// Note: React 19 includes automatic memoization via the React Compiler,
+// so manual memo() calls are no longer needed for components.
 ```
 
 ### Bundle Splitting

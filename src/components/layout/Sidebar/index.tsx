@@ -41,6 +41,7 @@ const COMPONENTS_NAV: NavItemWithChildren = {
   children: [
     { path: '/dashboard/components/native', labelKey: 'menu.componentsNative', testId: TestIds.NAV_COMPONENTS_NATIVE },
     { path: '/dashboard/components/syncfusion', labelKey: 'menu.componentsSyncfusion', testId: TestIds.NAV_COMPONENTS_SYNCFUSION },
+    { path: '/dashboard/showcase/forms', labelKey: 'menu.showcaseForms', testId: TestIds.NAV_SHOWCASE_FORMS },
   ],
 };
 
@@ -49,8 +50,8 @@ export const Sidebar = (): JSX.Element => {
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
   const location = useLocation();
 
-  // Check if we're on a components sub-page
-  const isComponentsActive = location.pathname.startsWith('/dashboard/components');
+  // Check if we're on a components sub-page or showcase sub-page
+  const isComponentsActive = location.pathname.startsWith('/dashboard/components') || location.pathname.startsWith('/dashboard/showcase');
   const [isComponentsExpanded, setIsComponentsExpanded] = useState(isComponentsActive);
 
   const collapsedClass = isCollapsed ? 'collapsed' : '';

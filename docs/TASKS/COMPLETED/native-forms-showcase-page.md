@@ -1,9 +1,8 @@
 # Task: Create Native Forms Showcase Page
 
 > **Reference**: [Forms Architecture Guide](../../code-standards/forms-architecture.md)
-> **Dependency**: Complete [Syncfusion Forms Showcase](./syncfusion-forms-showcase-page.md) first
 
-## Status: TODO
+## Status: COMPLETED
 
 ## Problem Statement
 

@@ -32,6 +32,8 @@ interface Props extends Omit<DropDownListModel, 'cssClass' | 'dataSource' | 'fie
   testId?: string;
   /** Full width select */
   fullWidth?: boolean;
+  /** Show required indicator (*) */
+  required?: boolean;
   /** Change handler */
   onChange?: (value: string | number) => void;
 }
@@ -48,6 +50,7 @@ const Select = forwardRef<DropDownListComponent, Props>(
       className,
       testId,
       fullWidth = false,
+      required = false,
       placeholder = 'Select an option',
       value,
       onChange,
@@ -94,6 +97,7 @@ const Select = forwardRef<DropDownListComponent, Props>(
             htmlFor={id}
           >
             {label}
+            {required ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <DropDownListComponent

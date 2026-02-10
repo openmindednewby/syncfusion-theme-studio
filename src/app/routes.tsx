@@ -16,6 +16,8 @@ const ProductsListPage = lazy(async () => import('@/features/products/pages/Prod
 const NativeComponentsPage = lazy(async () => import('@/features/showcase/pages/NativeComponentsPage'));
 const SyncfusionComponentsPage = lazy(async () => import('@/features/showcase/pages/SyncfusionComponentsPage'));
 const DataGridPage = lazy(async () => import('@/features/showcase/pages/DataGridPage'));
+const SyncfusionFormsPage = lazy(async () => import('@/features/showcase/pages/SyncfusionFormsPage'));
+const NativeFormsPage = lazy(async () => import('@/features/showcase/pages/NativeFormsPage'));
 
 // Wrapper for lazy-loaded components
 interface LazyPageProps {
@@ -49,6 +51,8 @@ const routes: RouteObject[] = [
       { path: 'components/native', element: <LazyPage component={NativeComponentsPage} /> },
       { path: 'components/syncfusion', element: <LazyPage component={SyncfusionComponentsPage} /> },
       { path: 'components/grid', element: <LazyPage component={DataGridPage} /> },
+      { path: 'showcase/forms', element: <LazyPage component={SyncfusionFormsPage} /> },
+      { path: 'showcase/native-forms', element: <LazyPage component={NativeFormsPage} /> },
     ],
   },
   // Keep /login as alias for backwards compatibility

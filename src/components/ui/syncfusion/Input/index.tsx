@@ -19,6 +19,8 @@ interface Props extends Omit<TextBoxModel, 'cssClass' | 'floatLabelType'> {
   testId?: string;
   /** Full width input */
   fullWidth?: boolean;
+  /** Show required indicator (*) */
+  required?: boolean;
 }
 
 const Input = forwardRef<TextBoxComponent, Props>(
@@ -30,6 +32,7 @@ const Input = forwardRef<TextBoxComponent, Props>(
       className,
       testId,
       fullWidth = false,
+      required = false,
       enabled,
       placeholder,
       value,
@@ -71,6 +74,7 @@ const Input = forwardRef<TextBoxComponent, Props>(
             htmlFor={id}
           >
             {label}
+            {required ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <TextBoxComponent

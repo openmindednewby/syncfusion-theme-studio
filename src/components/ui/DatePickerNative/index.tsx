@@ -20,6 +20,8 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className' 
   minDate?: string;
   /** Maximum date (YYYY-MM-DD format) */
   maxDate?: string;
+  /** Show required indicator (*) - visual only, use HTML required for validation */
+  showRequired?: boolean;
 }
 
 const DatePickerNative = forwardRef<HTMLInputElement, Props>(
@@ -31,6 +33,7 @@ const DatePickerNative = forwardRef<HTMLInputElement, Props>(
       className,
       testId,
       fullWidth = false,
+      showRequired = false,
       minDate,
       maxDate,
       disabled,
@@ -51,6 +54,7 @@ const DatePickerNative = forwardRef<HTMLInputElement, Props>(
         {isValueDefined(label) && (
           <label className="text-sm font-medium text-text-primary" htmlFor={id}>
             {label}
+            {showRequired ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <input

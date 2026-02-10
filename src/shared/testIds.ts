@@ -93,6 +93,10 @@ export const TestIds = {
   NAV_COMPONENTS_NATIVE: 'nav-components-native',
   NAV_COMPONENTS_SYNCFUSION: 'nav-components-syncfusion',
   NAV_COMPONENTS_EXPAND: 'nav-components-expand',
+
+  // Forms Showcase
+  NAV_SHOWCASE_FORMS: 'nav-showcase-forms',
+  FORMS_SHOWCASE_PAGE: 'forms-showcase-page',
 } as const;
 
 export type TestId = (typeof TestIds)[keyof typeof TestIds];

@@ -168,7 +168,8 @@ npm run orval
 
 ## Code Standards
 
-- [SyncfusionThemeStudio\docs\code-standards\README.md](./docs/code-standards/README.md)
+- [Code Standards Hub](./docs/code-standards/README.md) - Index of all standards
+- [Styling Architecture Guide](./docs/code-standards/styling-architecture.md) - CSS layers, theme injection, customization guide
 
 This project follows strict coding standards:
 

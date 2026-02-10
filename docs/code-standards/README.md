@@ -10,7 +10,7 @@
 
 | Standard | File | Purpose |
 |----------|------|---------|
-
+| **Styling Architecture** | [styling-architecture.md](styling-architecture.md) | CSS layers, theme variables, runtime injection |
 | **State Management** | [state-management-architecture.md](state-management-architecture.md) | TanStack Query + SignalR real-time architecture |
 | **Frontend (React/Expo)** | [frontend-react.md](frontend-react.md) | React Native/Expo coding standards |
 | **E2E Tests (Playwright)** | [e2e-playwright.md](e2e-playwright.md) | Playwright testing standards |
@@ -156,12 +156,11 @@ When updating standards:
 ## File Structure
 
 ```
-BaseClient/docs/code-standards/
+docs/code-standards/
 ├── README.md                        # This file (index)
-├── architecture-patterns.md         # HOW things are built
+├── styling-architecture.md          # CSS layers, theme variables, injection
 ├── state-management-architecture.md # TanStack Query + SignalR real-time
-├── frontend-react.md                # React/Expo standards
-├── backend-csharp.md                # C#/.NET standards
+├── frontend-react.md                # React standards
 ├── e2e-playwright.md                # Playwright standards
 └── api-hooks-guide.md               # Hook generation guide
 ```

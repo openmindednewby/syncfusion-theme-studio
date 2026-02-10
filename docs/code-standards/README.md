@@ -10,10 +10,9 @@
 
 | Standard | File | Purpose |
 |----------|------|---------|
-| **Architecture Patterns** | [architecture-patterns.md](architecture-patterns.md) | HOW things are built (structure, patterns, consistency) |
+
 | **State Management** | [state-management-architecture.md](state-management-architecture.md) | TanStack Query + SignalR real-time architecture |
 | **Frontend (React/Expo)** | [frontend-react.md](frontend-react.md) | React Native/Expo coding standards |
-| **Backend (C#/.NET)** | [backend-csharp.md](backend-csharp.md) | Clean Architecture, CQRS, .NET best practices |
 | **E2E Tests (Playwright)** | [e2e-playwright.md](e2e-playwright.md) | Playwright testing standards |
 | **API Hooks** | [api-hooks-guide.md](api-hooks-guide.md) | Orval hook generation guide |
 
@@ -21,14 +20,13 @@
 
 ## For Agents
 
-### Implementation Agents (frontend-dev, backend-dev)
+### Implementation Agents (frontend-dev)
 
 Before writing code, review:
 1. [architecture-patterns.md](architecture-patterns.md) - Understand existing patterns
 2. [state-management-architecture.md](state-management-architecture.md) - **CRITICAL** for real-time features
 3. Your domain-specific standards:
    - Frontend: [frontend-react.md](frontend-react.md)
-   - Backend: [backend-csharp.md](backend-csharp.md)
 4. [api-hooks-guide.md](api-hooks-guide.md) - For API integration
 
 ### Review Agents (code-reviewer)
@@ -96,18 +94,6 @@ Defines HOW features are implemented:
 | Localization | All text via t() or FM() |
 | Forms | FormType, FormFields, getInitialFormState pattern |
 
-### Backend Standards (`backend-csharp.md`)
-
-| Topic | Key Rules |
-|-------|-----------|
-| Architecture | Clean Architecture with strict layer separation |
-| CQRS | Commands (write) and Queries (read) with MediatR |
-| Endpoints | FastEndpoints, not MVC Controllers |
-| Results | Return Result<T>, don't throw for business logic |
-| Repositories | Generic repository with specifications |
-| Naming | Create/Update/Delete + EntityCommand, Get/List + EntityQuery |
-| Testing | AAA pattern, mock repositories, Shouldly assertions |
-
 ### E2E Standards (`e2e-playwright.md`)
 
 | Topic | Key Rules |
@@ -144,14 +130,6 @@ Defines HOW features are implemented:
 - [ ] Files under 300 lines
 - [ ] React components under 200 lines
 - [ ] Regular functions under 50 lines (warning at 30)
-
-#### Backend Changes
-- [ ] Follows Clean Architecture layers
-- [ ] Uses CQRS (Command/Query + Handler)
-- [ ] Uses FastEndpoints (not MVC)
-- [ ] Tenant entities inherit BaseTenantEntity
-- [ ] Uses Result<T> pattern
-- [ ] Has unit tests for handlers
 
 #### E2E Changes
 - [ ] Uses data-testid locators

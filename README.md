@@ -9,6 +9,44 @@ Login page light house result for production build
 
 ![alt text](image.png)
 
+- [Syncfusion Theme Studio](#syncfusion-theme-studio)
+  - [Performance Highlights](#performance-highlights)
+  - [Features](#features)
+  - [Tech Stack](#tech-stack)
+  - [Quick Start](#quick-start)
+  - [Project Structure](#project-structure)
+  - [Theme Customization](#theme-customization)
+    - [Export/Import Themes](#exportimport-themes)
+  - [API Integration](#api-integration)
+  - [Code Standards](#code-standards)
+  - [Performance Optimization Details](#performance-optimization-details)
+    - [The Problem](#the-problem)
+    - [Root Causes Identified](#root-causes-identified)
+    - [Solution 1: Dynamic Imports for Syncfusion License](#solution-1-dynamic-imports-for-syncfusion-license)
+    - [Solution 2: Split UI Component Barrels](#solution-2-split-ui-component-barrels)
+    - [Solution 3: Native HTML Components for Login](#solution-3-native-html-components-for-login)
+    - [Solution 4: Lazy-Load MainLayout](#solution-4-lazy-load-mainlayout)
+    - [Solution 5: CSS Code Splitting](#solution-5-css-code-splitting)
+    - [Solution 6: Remove Syncfusion Grid from Modulepreload](#solution-6-remove-syncfusion-grid-from-modulepreload)
+    - [Solution 7: Background Preloading After Login](#solution-7-background-preloading-after-login)
+    - [Solution 8: Optimize Vite Dev Server](#solution-8-optimize-vite-dev-server)
+    - [Bundle Analysis](#bundle-analysis)
+    - [Performance Testing](#performance-testing)
+  - [CSS Customization System](#css-customization-system)
+    - [CSS Architecture](#css-architecture)
+    - [CSS Layers](#css-layers)
+    - [Theme Variables](#theme-variables)
+    - [Per-Component Theming](#per-component-theming)
+    - [Theme Presets](#theme-presets)
+    - [Using Presets](#using-presets)
+    - [Export/Import Themes](#exportimport-themes-1)
+    - [Syncfusion Component Styling](#syncfusion-component-styling)
+  - [Related Projects](#related-projects)
+    - [Integration Points](#integration-points)
+  - [License](#license)
+  - [Contributing](#contributing)
+
+
 ## Performance Highlights
 
 | Metric | Score |
@@ -129,6 +167,8 @@ npm run orval
 ```
 
 ## Code Standards
+
+- [SyncfusionThemeStudio\docs\code-standards\README.md](./docs/code-standards/README.md)
 
 This project follows strict coding standards:
 

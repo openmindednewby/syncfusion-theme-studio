@@ -28,6 +28,9 @@ export function createLayoutActions(set: SetState, get: GetState): LayoutActions
     updateLayoutDimension: (key: LayoutDimensionKey, value: string): void =>
       apply((theme) => ({ ...theme, layout: { ...theme.layout, [key]: value } })),
 
+    updateLayoutFullWidth: (value: boolean): void =>
+      apply((theme) => ({ ...theme, layout: { ...theme.layout, contentFullWidth: value } })),
+
     updateSpacingBaseUnit: (value: number): void =>
       apply((theme) => ({ ...theme, spacing: { ...theme.spacing, baseUnit: value } })),
 

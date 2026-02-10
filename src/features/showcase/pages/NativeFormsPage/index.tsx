@@ -19,8 +19,10 @@ import type { ContactFormData } from './forms/ContactForm/schema';
 import type { LoginFormData } from './forms/LoginForm/schema';
 import type { NewsletterFormData } from './forms/NewsletterForm/schema';
 
+const PASSWORD_MASK = '********';
+
 interface FormResults {
-  login: Omit<LoginFormData, 'password'> | null;
+  login: (Omit<LoginFormData, 'password'> & { password: string }) | null;
   contact: ContactFormData | null;
   newsletter: NewsletterFormData | null;
 }
@@ -33,9 +35,9 @@ const NativeFormsPage = (): JSX.Element => {
   });
 
   const handleLoginSubmit = useCallback((data: LoginFormData) => {
-    // Omit password for security
     const safeData = {
       email: data.email,
+      password: PASSWORD_MASK,
       rememberMe: data.rememberMe,
     };
     setResults((prev) => ({ ...prev, login: safeData }));

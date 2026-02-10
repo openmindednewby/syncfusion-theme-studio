@@ -18,6 +18,9 @@ const SEVERITY_ICONS: Record<NativeToast['severity'], string> = {
   info: '\u2139',
 };
 
+const CLOSE_ICON = '\u2715';
+const BULLET_ICON = '\u2022';
+
 let toastIdCounter = 0;
 
 const ToastItem = memo(({ toast, onDismiss }: { toast: NativeToast; onDismiss: (id: number) => void }): JSX.Element => (
@@ -33,7 +36,7 @@ const ToastItem = memo(({ toast, onDismiss }: { toast: NativeToast; onDismiss: (
       type="button"
       onClick={() => onDismiss(toast.id)}
     >
-      &#x2715;
+      {CLOSE_ICON}
     </button>
   </div>
 ));
@@ -54,19 +57,19 @@ export const NativeNotificationsSection = memo((): JSX.Element => {
   };
 
   const handleSuccess = (): void => {
-    addToast('success', 'Success', 'Operation completed successfully.');
+    addToast('success', FM('components.nativeToasts.success'), FM('components.nativeToasts.successMessage'));
   };
 
   const handleWarning = (): void => {
-    addToast('warning', 'Warning', 'Please review before proceeding.');
+    addToast('warning', FM('components.nativeToasts.warning'), FM('components.nativeToasts.warningMessage'));
   };
 
   const handleError = (): void => {
-    addToast('error', 'Error', 'Something went wrong.');
+    addToast('error', FM('components.nativeToasts.error'), FM('components.nativeToasts.errorMessage'));
   };
 
   const handleInfo = (): void => {
-    addToast('info', 'Info', 'New updates are available.');
+    addToast('info', FM('components.nativeToasts.info'), FM('components.nativeToasts.infoMessage'));
   };
 
   return (
@@ -81,16 +84,16 @@ export const NativeNotificationsSection = memo((): JSX.Element => {
           <h4 className="font-medium text-text-secondary">{FM('components.toasts')}</h4>
           <div className="flex flex-wrap gap-3">
             <ButtonNative testId="native-toast-success-btn" variant="primary" onClick={handleSuccess}>
-              Success
+              {FM('components.nativeToasts.success')}
             </ButtonNative>
             <ButtonNative testId="native-toast-warning-btn" variant="outline" onClick={handleWarning}>
-              Warning
+              {FM('components.nativeToasts.warning')}
             </ButtonNative>
             <ButtonNative testId="native-toast-error-btn" variant="secondary" onClick={handleError}>
-              Error
+              {FM('components.nativeToasts.error')}
             </ButtonNative>
             <ButtonNative testId="native-toast-info-btn" variant="outline" onClick={handleInfo}>
-              Info
+              {FM('components.nativeToasts.info')}
             </ButtonNative>
           </div>
           {toasts.length > 0 && (
@@ -108,23 +111,23 @@ export const NativeNotificationsSection = memo((): JSX.Element => {
           <div className="space-y-3">
             <div className="native-message native-message-success" role="alert">
               <span className="native-message-icon">{SEVERITY_ICONS.success}</span>
-              <div className="native-message-content">This is a success message.</div>
+              <div className="native-message-content">{FM('components.nativeMessages.success')}</div>
             </div>
             <div className="native-message native-message-warning" role="alert">
               <span className="native-message-icon">{SEVERITY_ICONS.warning}</span>
-              <div className="native-message-content">This is a warning message.</div>
+              <div className="native-message-content">{FM('components.nativeMessages.warning')}</div>
             </div>
             <div className="native-message native-message-error" role="alert">
               <span className="native-message-icon">{SEVERITY_ICONS.error}</span>
-              <div className="native-message-content">This is an error message.</div>
+              <div className="native-message-content">{FM('components.nativeMessages.error')}</div>
             </div>
             <div className="native-message native-message-info" role="alert">
               <span className="native-message-icon">{SEVERITY_ICONS.info}</span>
-              <div className="native-message-content">This is an informational message.</div>
+              <div className="native-message-content">{FM('components.nativeMessages.info')}</div>
             </div>
             <div className="native-message native-message-normal" role="alert">
-              <span className="native-message-icon">&#x2022;</span>
-              <div className="native-message-content">This is a normal message.</div>
+              <span className="native-message-icon">{BULLET_ICON}</span>
+              <div className="native-message-content">{FM('components.nativeMessages.normal')}</div>
             </div>
           </div>
         </div>

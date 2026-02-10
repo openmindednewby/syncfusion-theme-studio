@@ -92,6 +92,7 @@ export interface ThemeState {
   updateTransition: (type: 'fast' | 'normal' | 'slow' | 'easing', value: string) => void;
   // Layout actions
   updateLayoutDimension: (key: keyof LayoutConfig, value: string) => void;
+  updateLayoutFullWidth: (value: boolean) => void;
   updateSpacingBaseUnit: (value: number) => void;
   updateBorderRadius: (key: keyof BorderRadiusConfig, value: string) => void;
   updateShadow: (key: keyof ShadowConfig, value: string) => void;

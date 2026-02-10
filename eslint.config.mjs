@@ -8,8 +8,10 @@ import importPlugin from 'eslint-plugin-import';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import prettierConfig from 'eslint-config-prettier';
 import i18nextPlugin from 'eslint-plugin-i18next';
+import jsoncParser from 'jsonc-eslint-parser';
 import smartMaxLinesPlugin from './eslint-plugins/smart-max-lines.mjs';
 import noNullCheckPlugin from './eslint-plugins/no-null-check.mjs';
+import i18nInterpolationPlugin from './eslint-plugins/i18n-interpolation.mjs';
 
 export default [
   // =====================================================
@@ -537,6 +539,22 @@ export default [
     files: ['src/utils/logger.ts'],
     rules: {
       'no-console': 'off',
+    },
+  },
+
+  // =====================================================
+  // I18N INTERPOLATION - Enforce {{p1}}/{{p2}}/{{p3}} in translation JSON
+  // =====================================================
+  {
+    files: ['src/localization/locales/*.json'],
+    languageOptions: {
+      parser: jsoncParser,
+    },
+    plugins: {
+      'i18n-interpolation': i18nInterpolationPlugin,
+    },
+    rules: {
+      'i18n-interpolation/i18n-interpolation': 'error',
     },
   },
 

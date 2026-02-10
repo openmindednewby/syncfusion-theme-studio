@@ -41,7 +41,7 @@ export const ButtonsSection = memo((): JSX.Element => (
     </div>
 
     {/* Native HTML Buttons (for comparison) */}
-    <h4 className="mb-2 mt-6 font-medium text-text-primary">Native Buttons (CSS Classes)</h4>
+    <h4 className="mb-2 mt-6 font-medium text-text-primary">{FM('components.sections.nativeButtonsCss')}</h4>
     <div className="flex flex-wrap gap-4">
       <button className="btn btn-primary" type="button">
         {FM('components.buttons.primary')}

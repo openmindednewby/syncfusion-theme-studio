@@ -6,6 +6,7 @@
  */
 import { z } from 'zod';
 
+import { TE } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 // Regex patterns
@@ -48,13 +49,13 @@ export const requiredString = z.string().min(1, 'validation.required');
  * Name validation schema
  * Requires minimum 2 characters
  */
-export const nameSchema = z.string().min(1, 'validation.required').min(MIN_NAME_LENGTH, 'validation.minLength');
+export const nameSchema = z.string().min(1, 'validation.required').min(MIN_NAME_LENGTH, TE('validation.minLength', String(MIN_NAME_LENGTH)));
 
 /**
  * Message/textarea validation schema
  * Requires minimum 10 characters for meaningful content
  */
-export const messageSchema = z.string().min(1, 'validation.required').min(MIN_MESSAGE_LENGTH, 'validation.minLength');
+export const messageSchema = z.string().min(1, 'validation.required').min(MIN_MESSAGE_LENGTH, TE('validation.minLength', String(MIN_MESSAGE_LENGTH)));
 
 /**
  * Optional string schema
@@ -91,7 +92,7 @@ export const futureDateSchema = z.date().refine((date) => date > new Date(), {
  * @param max - Maximum length
  */
 export function stringWithLength(min: number, max: number): z.ZodString {
-  return z.string().min(min, 'validation.minLength').max(max, 'validation.maxLength');
+  return z.string().min(min, TE('validation.minLength', String(min))).max(max, TE('validation.maxLength', String(max)));
 }
 
 /**

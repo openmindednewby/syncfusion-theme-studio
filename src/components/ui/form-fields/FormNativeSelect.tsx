@@ -12,7 +12,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import SelectNative from '@/components/ui/SelectNative';
 import type { SelectNativeProps } from '@/components/ui/SelectNative';
-import { FM } from '@/localization/helpers';
+import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormNativeSelectProps<T extends FieldValues>
@@ -39,7 +39,7 @@ export const FormNativeSelect = <T extends FieldValues>({
     name={name}
     render={({ field, fieldState }) => {
       const hasError = fieldState.isTouched && isValueDefined(fieldState.error);
-      const errorMessage = hasError ? FM(fieldState.error?.message ?? '') : '';
+      const errorMessage = hasError ? resolveTranslationError(fieldState.error?.message ?? '') : '';
 
       function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
         field.onChange(e.target.value);

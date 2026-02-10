@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import Input from '@/components/ui/syncfusion/Input';
 import type { InputProps } from '@/components/ui/syncfusion/Input';
-import { FM } from '@/localization/helpers';
+import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormInputProps<T extends FieldValues>
@@ -41,7 +41,7 @@ export const FormInput = <T extends FieldValues>({
     name={name}
     render={({ field, fieldState }) => {
       const hasError = fieldState.isTouched && isValueDefined(fieldState.error);
-      const errorMessage = hasError ? FM(fieldState.error?.message ?? '') : '';
+      const errorMessage = hasError ? resolveTranslationError(fieldState.error?.message ?? '') : '';
 
       function handleInput(args: InputChangeArgs): void {
         field.onChange(args.value);

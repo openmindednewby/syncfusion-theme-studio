@@ -4,6 +4,9 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
 
+const EXPAND_ARROW = '\u25BC';
+const BULLET = '\u2022';
+
 interface SubNavItem {
   path: string;
   labelKey: string;
@@ -61,7 +64,7 @@ export const NavExpandableItem = ({
               aria-hidden="true"
               className={`text-xs transition-transform ${isExpanded ? 'rotate-180' : ''}`}
             >
-              ▼
+              {EXPAND_ARROW}
             </span>
           </>
         )}
@@ -80,7 +83,7 @@ export const NavExpandableItem = ({
                 data-testid={child.testId}
                 to={child.path}
               >
-                <span aria-hidden="true" className="text-xs">&#8226;</span>
+                <span aria-hidden="true" className="text-xs">{BULLET}</span>
                 <span>{FM(child.labelKey)}</span>
               </NavLink>
             </li>

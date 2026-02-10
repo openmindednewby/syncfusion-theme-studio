@@ -11,6 +11,8 @@ import { ThemeStudioLoader } from './ThemeStudioLoader';
 
 import type { TabId } from './DrawerTabs';
 
+const LOGO_LETTER = 'T';
+
 // Lazy load heavy tab sections for better initial load performance
 const ColorsSection = lazy(async () => ({
   default: (await import('./ColorsSection')).ColorsSection,
@@ -82,7 +84,7 @@ const LogoIcon = (): JSX.Element => (
       x="16"
       y="22"
     >
-      T
+      {LOGO_LETTER}
     </text>
   </svg>
 );
@@ -187,7 +189,7 @@ export const ThemeSettingsDrawer = (): JSX.Element => {
               <h2 className="text-base font-bold tracking-tight text-text-primary">
                 {FM('themeSettings.title')}
               </h2>
-              <span className="text-xs text-text-muted">Design your theme</span>
+              <span className="text-xs text-text-muted">{FM('themeSettings.subtitle')}</span>
             </div>
           </header>
 

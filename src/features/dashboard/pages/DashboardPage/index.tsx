@@ -49,8 +49,8 @@ const DashboardPage = (): JSX.Element => {
 
       {/* Charts Row */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <ChartPlaceholder testId="chart-revenue" title="Revenue Overview" />
-        <ChartPlaceholder testId="chart-users" title="User Activity" />
+        <ChartPlaceholder testId="chart-revenue" title={FM('dashboard.charts.revenueOverview')} />
+        <ChartPlaceholder testId="chart-users" title={FM('dashboard.charts.userActivity')} />
       </div>
 
       {/* Welcome Card and Activity */}
@@ -67,7 +67,7 @@ const DashboardPage = (): JSX.Element => {
               type="button"
               onClick={handleExploreComponents}
             >
-              Explore Components
+              {FM('dashboard.exploreComponents')}
             </button>
             <button
               className="btn btn-secondary"
@@ -75,42 +75,42 @@ const DashboardPage = (): JSX.Element => {
               type="button"
               onClick={openThemeSettings}
             >
-              Theme Editor
+              {FM('dashboard.themeEditor')}
             </button>
           </div>
         </div>
 
         {/* Recent Activity */}
         <div className="card">
-          <h3 className="mb-4 text-lg font-semibold text-text-primary">Recent Activity</h3>
+          <h3 className="mb-4 text-lg font-semibold text-text-primary">{FM('dashboard.recentActivity')}</h3>
           <div className="divide-y divide-border">
-            <ActivityItem icon="success" time="2 minutes ago" title="New user registered" />
-            <ActivityItem icon="info" time="1 hour ago" title="Theme updated" />
-            <ActivityItem icon="warning" time="3 hours ago" title="API rate limit reached" />
-            <ActivityItem icon="success" time="5 hours ago" title="Backup completed" />
+            <ActivityItem icon="success" time={FM('dashboard.activity.twoMinutesAgo')} title={FM('dashboard.activity.newUserRegistered')} />
+            <ActivityItem icon="info" time={FM('dashboard.activity.oneHourAgo')} title={FM('dashboard.activity.themeUpdated')} />
+            <ActivityItem icon="warning" time={FM('dashboard.activity.threeHoursAgo')} title={FM('dashboard.activity.apiRateLimitReached')} />
+            <ActivityItem icon="success" time={FM('dashboard.activity.fiveHoursAgo')} title={FM('dashboard.activity.backupCompleted')} />
           </div>
         </div>
       </div>
 
       {/* Color Showcase */}
       <div className="card">
-        <h3 className="mb-4 text-lg font-semibold text-text-primary">Theme Colors in Action</h3>
+        <h3 className="mb-4 text-lg font-semibold text-text-primary">{FM('dashboard.colorsInAction')}</h3>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-lg bg-primary-500 p-4 text-white">
-            <p className="font-semibold">Primary</p>
-            <p className="text-sm opacity-90">Main brand color</p>
+            <p className="font-semibold">{FM('dashboard.colorPrimary')}</p>
+            <p className="text-sm opacity-90">{FM('dashboard.colorPrimaryDesc')}</p>
           </div>
           <div className="rounded-lg bg-success-500 p-4 text-white">
-            <p className="font-semibold">Success</p>
-            <p className="text-sm opacity-90">Positive actions</p>
+            <p className="font-semibold">{FM('dashboard.colorSuccess')}</p>
+            <p className="text-sm opacity-90">{FM('dashboard.colorSuccessDesc')}</p>
           </div>
           <div className="rounded-lg bg-warning-500 p-4 text-white">
-            <p className="font-semibold">Warning</p>
-            <p className="text-sm opacity-90">Caution states</p>
+            <p className="font-semibold">{FM('dashboard.colorWarning')}</p>
+            <p className="text-sm opacity-90">{FM('dashboard.colorWarningDesc')}</p>
           </div>
           <div className="rounded-lg bg-error-500 p-4 text-white">
-            <p className="font-semibold">Error</p>
-            <p className="text-sm opacity-90">Error states</p>
+            <p className="font-semibold">{FM('dashboard.colorError')}</p>
+            <p className="text-sm opacity-90">{FM('dashboard.colorErrorDesc')}</p>
           </div>
         </div>
       </div>

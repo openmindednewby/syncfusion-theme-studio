@@ -37,6 +37,10 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         { src: '/screenshots/mobile.png', sizes: '390x844', type: 'image/png', form_factor: 'narrow' },
       ],
     },
+    devOptions: {
+      enabled: true,
+      type: 'module',
+    },
     workbox: {
       globPatterns: ['**/*.{js,css,html,svg,png,woff,woff2}'],
       navigateFallback: 'index.html',

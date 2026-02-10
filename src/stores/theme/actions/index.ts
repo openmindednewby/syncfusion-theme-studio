@@ -1,6 +1,6 @@
 // Actions barrel export
 
-export { createColorUpdateActions } from './colorActions';
+export { buildDerivedComponents, createColorUpdateActions } from './colorActions';
 export { createComponentConfigActions } from './componentActions';
 export { createLayoutActions } from './layoutActions';
 export { createModeActions } from './modeActions';

@@ -30,6 +30,7 @@ export const LayoutSection = (): JSX.Element => {
     theme,
     updateBorderRadius,
     updateLayoutDimension,
+    updateLayoutFullWidth,
     updateShadow,
     updateSpacingBaseUnit,
   } = useThemeStore();
@@ -56,6 +57,7 @@ export const LayoutSection = (): JSX.Element => {
         <DimensionsEditor
           layout={theme.layout}
           spacing={theme.spacing}
+          onFullWidthChange={updateLayoutFullWidth}
           onLayoutChange={updateLayoutDimension}
           onSpacingChange={updateSpacingBaseUnit}
         />

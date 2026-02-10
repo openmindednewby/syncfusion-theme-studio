@@ -7,6 +7,9 @@ import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStor
 
 import { NavExpandableItem } from './NavExpandableItem';
 
+const ICON_PALETTE = '\uD83C\uDFA8';
+const ICON_LOCK = '\uD83D\uDD10';
+
 interface NavItem {
   path: string;
   labelKey: string;
@@ -108,7 +111,7 @@ export const Sidebar = (): JSX.Element => {
               type="button"
               onClick={openThemeSettings}
             >
-              <span aria-hidden="true" className="text-lg">🎨</span>
+              <span aria-hidden="true" className="text-lg">{ICON_PALETTE}</span>
               {!isCollapsed && <span>{FM('menu.themeEditor')}</span>}
             </button>
           </li>
@@ -123,7 +126,7 @@ export const Sidebar = (): JSX.Element => {
           data-testid={TestIds.NAV_LOGIN}
           to="/"
         >
-          <span aria-hidden="true" className="text-lg">🔐</span>
+          <span aria-hidden="true" className="text-lg">{ICON_LOCK}</span>
           {!isCollapsed && <span>{FM('menu.login')}</span>}
         </NavLink>
       </div>

@@ -30,55 +30,54 @@ export const NativeDialogsSection = memo((): JSX.Element => {
       </h3>
       <div className="flex gap-4">
         <ButtonNative testId="native-dialog-open-btn" variant="primary" onClick={handleDialogOpen}>
-          Open Dialog
+          {FM('components.openDialog')}
         </ButtonNative>
         <ButtonNative
           testId="native-confirm-dialog-open-btn"
           variant="outline"
           onClick={handleConfirmDialogOpen}
         >
-          Confirm Dialog
+          {FM('components.confirmDialog')}
         </ButtonNative>
       </div>
 
       <DialogNative
         isOpen={isDialogOpen}
         primaryButton={{
-          text: 'Close',
+          text: FM('components.close'),
           variant: 'primary',
           onClick: handleDialogClose,
           testId: 'native-dialog-close-btn',
         }}
         testId="native-dialog"
-        title="Information"
+        title={FM('components.dialogHeader')}
         onClose={handleDialogClose}
       >
         <p>
-          This is a native HTML dialog component using the &lt;dialog&gt; element. It provides
-          built-in accessibility and modal behavior.
+          {FM('components.nativeDialogContent')}
         </p>
       </DialogNative>
 
       <DialogNative
         isOpen={isConfirmDialogOpen}
         primaryButton={{
-          text: 'Confirm',
+          text: FM('common.confirm'),
           variant: 'primary',
           onClick: handleConfirmDialogClose,
           testId: 'native-confirm-dialog-confirm-btn',
         }}
         secondaryButton={{
-          text: 'Cancel',
+          text: FM('common.cancel'),
           variant: 'secondary',
           onClick: handleConfirmDialogClose,
           testId: 'native-confirm-dialog-cancel-btn',
         }}
         testId="native-confirm-dialog"
-        title="Confirm Action"
+        title={FM('components.confirmDialogHeader')}
         variant="confirm"
         onClose={handleConfirmDialogClose}
       >
-        <p>Are you sure you want to proceed with this action? This operation cannot be undone.</p>
+        <p>{FM('components.confirmDialogContent')}</p>
       </DialogNative>
     </section>
   );

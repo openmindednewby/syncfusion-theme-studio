@@ -58,6 +58,7 @@ export interface TypographyActions {
 
 export interface LayoutActions {
   updateLayoutDimension: ThemeState['updateLayoutDimension'];
+  updateLayoutFullWidth: ThemeState['updateLayoutFullWidth'];
   updateSpacingBaseUnit: ThemeState['updateSpacingBaseUnit'];
   updateBorderRadius: ThemeState['updateBorderRadius'];
   updateShadow: ThemeState['updateShadow'];

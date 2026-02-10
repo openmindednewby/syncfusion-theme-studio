@@ -1,7 +1,9 @@
 import { FM } from '@/localization/helpers';
+import { buildDerivedComponents } from '@/stores/theme/actions';
 import type { ThemePreset } from '@/stores/theme/presets';
 import { themePresets } from '@/stores/theme/presets';
 import { useThemeStore } from '@/stores/useThemeStore';
+import { generateDerivedColors } from '@/utils';
 
 import { PresetCard } from './PresetCard';
 
@@ -9,7 +11,9 @@ export const PresetsSection = (): JSX.Element => {
   const { theme, updateTheme } = useThemeStore();
 
   const handleApplyPreset = (preset: ThemePreset): void => {
-    updateTheme(preset.theme);
+    const derived = generateDerivedColors(preset.theme.primary);
+    const components = buildDerivedComponents(preset.theme.components, derived);
+    updateTheme({ ...preset.theme, components });
   };
 
   return (

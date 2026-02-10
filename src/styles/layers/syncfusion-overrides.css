@@ -321,281 +321,298 @@
 
   /* ===== INPUT OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
-  .e-textbox.e-control-wrapper {
-    background-color: var(--component-input-background);
-    border-color: var(--component-input-border-default);
-    border-radius: var(--radius-md);
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  /* Selector: Syncfusion renders TextBox as <span class="e-input-group e-control-wrapper"> */
+  /* The e-textbox class is on the inner <input>, NOT the wrapper span */
+  /* Exclude dropdowns (.e-ddl) and datepickers (.e-date-wrapper) which have their own overrides */
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper) {
+    background-color: var(--component-input-background) !important;
+    border-color: var(--component-input-border-default) !important;
+    border-radius: var(--radius-md) !important;
   }
 
-  .e-textbox.e-control-wrapper:hover:not(.e-disabled) {
-    border-color: rgb(var(--color-primary-400));
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper):hover:not(.e-disabled) {
+    border-color: var(--component-input-border-hover) !important;
   }
 
-  .e-textbox.e-control-wrapper.e-input-focus {
-    border-color: var(--component-input-border-focus);
-    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-input-focus {
+    border-color: var(--component-input-border-focus) !important;
+    box-shadow: 0 0 0 3px var(--component-input-focus-ring) !important;
   }
 
-  .e-textbox.e-control-wrapper .e-input {
-    color: var(--component-input-text-color);
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper) .e-input {
+    color: var(--component-input-text-color) !important;
+    background-color: transparent !important;
   }
 
-  .e-textbox.e-control-wrapper .e-input::placeholder {
-    color: var(--component-input-placeholder);
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper) .e-input::placeholder {
+    color: var(--component-input-placeholder) !important;
   }
 
-  .e-textbox.e-control-wrapper.e-error {
-    border-color: rgb(var(--color-error-500));
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-disabled {
+    opacity: 0.5 !important;
   }
 
-  .e-textbox.e-control-wrapper.e-error.e-input-focus {
-    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1);
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-error {
+    border-color: var(--component-input-border-error) !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-error.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
   }
 
   /* ===== DROPDOWN/SELECT OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
   .e-ddl.e-control-wrapper {
-    background-color: var(--component-select-background);
-    border-color: var(--component-select-border-default);
-    border-radius: var(--radius-md);
+    background-color: var(--component-select-background) !important;
+    border-color: var(--component-select-border-default) !important;
+    border-radius: var(--radius-md) !important;
   }
 
   .e-ddl.e-control-wrapper:hover:not(.e-disabled) {
-    border-color: rgb(var(--color-primary-400));
+    border-color: rgb(var(--color-primary-400)) !important;
   }
 
   .e-ddl.e-control-wrapper.e-input-focus {
-    border-color: var(--component-select-border-focus);
-    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+    border-color: var(--component-select-border-focus) !important;
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1) !important;
   }
 
   .e-ddl.e-control-wrapper .e-input {
-    color: var(--component-select-text-color);
+    color: var(--component-select-text-color) !important;
+    background-color: transparent !important;
   }
 
   .e-ddl.e-control-wrapper .e-input-group-icon {
-    color: var(--component-select-icon-color);
+    color: var(--component-select-icon-color) !important;
   }
 
   .e-ddl.e-control-wrapper.e-error {
-    border-color: rgb(var(--color-error-500));
+    border-color: rgb(var(--color-error-500)) !important;
   }
 
   /* Dropdown popup */
   .e-popup.e-ddl {
-    background-color: var(--component-select-popup-bg);
-    border-color: var(--component-select-popup-border);
-    border-radius: var(--radius-md);
+    background-color: var(--component-select-popup-bg) !important;
+    border-color: var(--component-select-popup-border) !important;
+    border-radius: var(--radius-md) !important;
     box-shadow:
       0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
+      0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
   }
 
   .e-popup.e-ddl .e-list-item {
-    color: rgb(var(--color-text-primary));
+    color: rgb(var(--color-text-primary)) !important;
   }
 
   .e-popup.e-ddl .e-list-item.e-hover {
-    background-color: var(--component-select-item-hover);
+    background-color: var(--component-select-item-hover) !important;
   }
 
   .e-popup.e-ddl .e-list-item.e-active {
-    background-color: var(--component-select-item-selected-bg);
-    color: var(--component-select-item-selected-text);
+    background-color: var(--component-select-item-selected-bg) !important;
+    color: var(--component-select-item-selected-text) !important;
   }
 
   /* ===== GRID OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
   .e-grid {
-    background-color: rgb(var(--color-surface));
-    border-color: rgb(var(--color-border));
-    border-radius: var(--radius-lg);
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    border-radius: var(--radius-lg) !important;
     overflow: hidden;
   }
 
   .e-grid .e-gridheader {
-    background-color: var(--component-datagrid-header-bg);
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-datagrid-header-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
   }
 
   .e-grid .e-headercell {
-    color: var(--component-datagrid-header-text);
+    color: var(--component-datagrid-header-text) !important;
     font-weight: 600;
   }
 
   .e-grid .e-rowcell {
-    color: rgb(var(--color-text-primary));
-    border-color: rgb(var(--color-border));
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
   }
 
   .e-grid .e-row:hover .e-rowcell {
-    background-color: var(--component-datagrid-row-hover);
+    background-color: var(--component-datagrid-row-hover) !important;
   }
 
   .e-grid .e-row.e-altrow .e-rowcell {
-    background-color: var(--component-datagrid-row-odd);
+    background-color: var(--component-datagrid-row-odd) !important;
   }
 
   .e-grid .e-row:not(.e-altrow) .e-rowcell {
-    background-color: var(--component-datagrid-row-even);
+    background-color: var(--component-datagrid-row-even) !important;
   }
 
   .e-grid .e-row.e-selectionbackground .e-rowcell {
-    background-color: var(--component-datagrid-row-selected);
+    background-color: var(--component-datagrid-row-selected) !important;
   }
 
   /* Grid pager */
   .e-grid .e-pager {
-    background-color: rgb(var(--color-surface));
-    border-color: rgb(var(--color-border));
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
   }
 
   .e-grid .e-pager .e-pagercontainer {
-    background-color: transparent;
+    background-color: transparent !important;
   }
 
   .e-grid .e-pager .e-numericitem {
-    color: rgb(var(--color-text-primary));
+    color: rgb(var(--color-text-primary)) !important;
   }
 
   .e-grid .e-pager .e-numericitem.e-currentitem {
-    background-color: rgb(var(--color-primary-500));
-    color: white;
+    background-color: rgb(var(--color-primary-500)) !important;
+    color: white !important;
   }
 
   /* Grid sorting icon */
   .e-grid .e-sortfilterdiv .e-ascending,
   .e-grid .e-sortfilterdiv .e-descending {
-    color: rgb(var(--color-primary-500));
+    color: rgb(var(--color-primary-500)) !important;
   }
 
   /* Grid filter */
   .e-grid .e-filterbar .e-filterbarcell {
-    background-color: rgb(var(--color-surface));
+    background-color: rgb(var(--color-surface)) !important;
   }
 
   /* ===== DATEPICKER OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
-  .e-datepicker.e-control-wrapper {
-    background-color: var(--component-datepicker-background);
-    border-color: var(--component-datepicker-border-default);
-    border-radius: var(--radius-md);
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  /* Selector: Syncfusion renders DatePicker wrapper as <span class="e-input-group e-control-wrapper e-date-wrapper"> */
+  /* The e-datepicker class is on the inner <input>, NOT the wrapper span */
+  .e-date-wrapper.e-control-wrapper {
+    background-color: var(--component-datepicker-background) !important;
+    border-color: var(--component-datepicker-border-default) !important;
+    border-radius: var(--radius-md) !important;
   }
 
-  .e-datepicker.e-control-wrapper:hover:not(.e-disabled) {
-    border-color: rgb(var(--color-primary-400));
+  .e-date-wrapper.e-control-wrapper:hover:not(.e-disabled) {
+    border-color: rgb(var(--color-primary-400)) !important;
   }
 
-  .e-datepicker.e-control-wrapper.e-input-focus {
-    border-color: var(--component-datepicker-border-focus);
-    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+  .e-date-wrapper.e-control-wrapper.e-input-focus {
+    border-color: var(--component-datepicker-border-focus) !important;
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1) !important;
   }
 
-  .e-datepicker.e-control-wrapper .e-input {
-    color: var(--component-datepicker-text-color);
+  .e-date-wrapper.e-control-wrapper .e-input {
+    color: var(--component-datepicker-text-color) !important;
+    background-color: transparent !important;
   }
 
-  .e-datepicker.e-control-wrapper .e-input::placeholder {
-    color: rgb(var(--color-text-muted));
+  .e-date-wrapper.e-control-wrapper .e-input::placeholder {
+    color: rgb(var(--color-text-muted)) !important;
   }
 
-  .e-datepicker.e-control-wrapper .e-input-group-icon {
-    color: var(--component-datepicker-icon-color);
+  .e-date-wrapper.e-control-wrapper .e-input-group-icon {
+    color: var(--component-datepicker-icon-color) !important;
   }
 
-  .e-datepicker.e-control-wrapper.e-error {
-    border-color: rgb(var(--color-error-500));
+  .e-date-wrapper.e-control-wrapper.e-error {
+    border-color: rgb(var(--color-error-500)) !important;
   }
 
-  .e-datepicker.e-control-wrapper.e-error.e-input-focus {
-    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1);
+  .e-date-wrapper.e-control-wrapper.e-error.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
   }
 
   /* Calendar popup */
   .e-calendar.e-datepicker {
-    background-color: var(--component-datepicker-calendar-bg);
-    border-color: rgb(var(--color-border));
-    border-radius: var(--radius-lg);
+    background-color: var(--component-datepicker-calendar-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
+    border-radius: var(--radius-lg) !important;
     box-shadow:
       0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1);
+      0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
   }
 
   .e-calendar .e-header {
-    background-color: var(--component-datepicker-calendar-header-bg);
-    border-color: rgb(var(--color-border));
+    background-color: var(--component-datepicker-calendar-header-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
   }
 
   .e-calendar .e-header .e-title {
-    color: var(--component-datepicker-calendar-header-text);
+    color: var(--component-datepicker-calendar-header-text) !important;
   }
 
   .e-calendar .e-header .e-icon-container .e-icons {
-    color: rgb(var(--color-text-secondary));
+    color: rgb(var(--color-text-secondary)) !important;
   }
 
   .e-calendar .e-content td.e-cell {
-    color: rgb(var(--color-text-primary));
+    color: rgb(var(--color-text-primary)) !important;
   }
 
   .e-calendar .e-content td.e-cell:hover {
-    background-color: var(--component-datepicker-cell-hover);
+    background-color: var(--component-datepicker-cell-hover) !important;
   }
 
   .e-calendar .e-content td.e-selected {
-    background-color: var(--component-datepicker-selected-bg);
-    color: var(--component-datepicker-selected-text);
+    background-color: var(--component-datepicker-selected-bg) !important;
+    color: var(--component-datepicker-selected-text) !important;
   }
 
   .e-calendar .e-content td.e-today {
-    border-color: var(--component-datepicker-today-border);
+    border-color: var(--component-datepicker-today-border) !important;
   }
 
   .e-calendar .e-content td.e-other-month {
-    color: var(--component-datepicker-other-month-text);
+    color: var(--component-datepicker-other-month-text) !important;
   }
 
   /* ===== DIALOG OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
   .e-dialog {
-    background-color: var(--component-dialog-content-bg);
-    border-color: var(--component-dialog-border);
-    border-radius: var(--radius-xl);
+    background-color: var(--component-dialog-content-bg) !important;
+    border-color: var(--component-dialog-border) !important;
+    border-radius: var(--radius-xl) !important;
     box-shadow:
       0 20px 25px -5px rgb(0 0 0 / 0.1),
-      0 8px 10px -6px rgb(0 0 0 / 0.1);
+      0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
   }
 
   .e-dialog .e-dlg-header-content {
-    background-color: var(--component-dialog-header-bg);
-    border-bottom: 1px solid var(--component-dialog-border);
+    background-color: var(--component-dialog-header-bg) !important;
+    border-bottom: 1px solid var(--component-dialog-border) !important;
     padding: 1rem 1.5rem;
   }
 
   .e-dialog .e-dlg-header {
-    color: var(--component-dialog-header-text);
+    color: var(--component-dialog-header-text) !important;
     font-weight: 600;
     font-size: var(--font-size-lg);
   }
 
   .e-dialog .e-btn.e-dlg-closeicon-btn {
-    color: var(--component-dialog-close-btn-color);
+    color: var(--component-dialog-close-btn-color) !important;
   }
 
   .e-dialog .e-btn.e-dlg-closeicon-btn:hover {
-    background-color: var(--component-dialog-close-btn-hover-bg);
-    color: rgb(var(--color-text-primary));
+    background-color: var(--component-dialog-close-btn-hover-bg) !important;
+    color: rgb(var(--color-text-primary)) !important;
   }
 
   .e-dialog .e-dlg-content {
-    background-color: var(--component-dialog-content-bg);
-    color: rgb(var(--color-text-primary));
+    background-color: var(--component-dialog-content-bg) !important;
+    color: rgb(var(--color-text-primary)) !important;
     padding: 1.5rem;
   }
 
   .e-dialog .e-footer-content {
-    background-color: var(--component-dialog-footer-bg);
-    border-top: 1px solid var(--component-dialog-border);
+    background-color: var(--component-dialog-footer-bg) !important;
+    border-top: 1px solid var(--component-dialog-border) !important;
     padding: 1rem 1.5rem;
     display: flex;
     justify-content: flex-end;
@@ -604,7 +621,7 @@
 
   /* Dialog overlay */
   .e-dlg-overlay {
-    background-color: var(--component-dialog-backdrop);
+    background-color: var(--component-dialog-backdrop) !important;
   }
 
   /* Danger dialog variant */

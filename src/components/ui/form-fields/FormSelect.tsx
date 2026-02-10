@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import Select from '@/components/ui/syncfusion/Select';
 import type { SelectProps } from '@/components/ui/syncfusion/Select';
-import { FM } from '@/localization/helpers';
+import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormSelectProps<T extends FieldValues>
@@ -37,7 +37,7 @@ export const FormSelect = <T extends FieldValues>({
     name={name}
     render={({ field, fieldState }) => {
       const hasError = fieldState.isTouched && isValueDefined(fieldState.error);
-      const errorMessage = hasError ? FM(fieldState.error?.message ?? '') : '';
+      const errorMessage = hasError ? resolveTranslationError(fieldState.error?.message ?? '') : '';
 
       function handleChange(value: string | number): void {
         field.onChange(value);

@@ -47,15 +47,15 @@ export const AdvancedInputsSection = (): JSX.Element => {
           <h4 className="font-medium text-text-secondary">{FM('components.slider')}</h4>
           <div className="space-y-6 pt-4">
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={sliderDefaultId}>Default Slider</label>
+              <label className="text-sm text-text-muted" htmlFor={sliderDefaultId}>{FM('components.sliderDefault')}</label>
               <SliderComponent id={sliderDefaultId} max={SLIDER_MAX} min={SLIDER_MIN} value={SLIDER_DEFAULT_VALUE} />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={sliderRangeId}>Range Slider</label>
+              <label className="text-sm text-text-muted" htmlFor={sliderRangeId}>{FM('components.sliderRange')}</label>
               <SliderComponent id={sliderRangeId} max={SLIDER_MAX} min={SLIDER_MIN} type="Range" value={[SLIDER_RANGE_LOW, SLIDER_RANGE_HIGH]} />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={sliderDisabledId}>Disabled Slider</label>
+              <label className="text-sm text-text-muted" htmlFor={sliderDisabledId}>{FM('components.sliderDisabled')}</label>
               <SliderComponent enabled={false} id={sliderDisabledId} max={SLIDER_MAX} min={SLIDER_MIN} value={SLIDER_DEFAULT_VALUE} />
             </div>
           </div>
@@ -66,7 +66,7 @@ export const AdvancedInputsSection = (): JSX.Element => {
           <h4 className="font-medium text-text-secondary">{FM('components.numericInput')}</h4>
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={numericDefaultId}>Default Numeric</label>
+              <label className="text-sm text-text-muted" htmlFor={numericDefaultId}>{FM('components.numericDefault')}</label>
               <NumericTextBoxComponent
                 format="n0"
                 id={numericDefaultId}
@@ -77,7 +77,7 @@ export const AdvancedInputsSection = (): JSX.Element => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={numericCurrencyId}>Currency Format</label>
+              <label className="text-sm text-text-muted" htmlFor={numericCurrencyId}>{FM('components.numericCurrency')}</label>
               <NumericTextBoxComponent
                 currency="USD"
                 format="c2"
@@ -89,7 +89,7 @@ export const AdvancedInputsSection = (): JSX.Element => {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={numericPercentageId}>Percentage Format</label>
+              <label className="text-sm text-text-muted" htmlFor={numericPercentageId}>{FM('components.numericPercentage')}</label>
               <NumericTextBoxComponent
                 format="p2"
                 id={numericPercentageId}
@@ -108,15 +108,15 @@ export const AdvancedInputsSection = (): JSX.Element => {
           <h4 className="font-medium text-text-secondary">{FM('components.colorPicker')}</h4>
           <div className="flex flex-wrap gap-4">
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={colorDefaultId}>Default</label>
+              <label className="text-sm text-text-muted" htmlFor={colorDefaultId}>{FM('components.colorDefault')}</label>
               <ColorPickerComponent id={colorDefaultId} value="#3B82F6" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={colorPaletteId}>Palette Mode</label>
+              <label className="text-sm text-text-muted" htmlFor={colorPaletteId}>{FM('components.colorPalette')}</label>
               <ColorPickerComponent id={colorPaletteId} mode="Palette" value="#10B981" />
             </div>
             <div className="space-y-2">
-              <label className="text-sm text-text-muted" htmlFor={colorDisabledId}>Disabled</label>
+              <label className="text-sm text-text-muted" htmlFor={colorDisabledId}>{FM('components.colorDisabled')}</label>
               <ColorPickerComponent disabled id={colorDisabledId} value="#EF4444" />
             </div>
           </div>
@@ -128,15 +128,15 @@ export const AdvancedInputsSection = (): JSX.Element => {
           <div className="space-y-4">
             <div className="flex items-center gap-4">
               <RatingComponent itemsCount={RATING_MAX} value={RATING_DEFAULT_VALUE} />
-              <span className="text-sm text-text-muted">3.5 / 5</span>
+              <span className="text-sm text-text-muted">{FM('components.ratingValue', '3.5', '5')}</span>
             </div>
             <div className="flex items-center gap-4">
               <RatingComponent readOnly itemsCount={RATING_MAX} value={RATING_READONLY_VALUE} />
-              <span className="text-sm text-text-muted">Read-only</span>
+              <span className="text-sm text-text-muted">{FM('components.ratingReadonly')}</span>
             </div>
             <div className="flex items-center gap-4">
               <RatingComponent allowReset itemsCount={RATING_MAX} value={RATING_RESET_VALUE} />
-              <span className="text-sm text-text-muted">With reset</span>
+              <span className="text-sm text-text-muted">{FM('components.ratingWithReset')}</span>
             </div>
           </div>
         </div>

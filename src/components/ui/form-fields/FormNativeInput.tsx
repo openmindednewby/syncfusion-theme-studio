@@ -12,7 +12,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import InputNative from '@/components/ui/InputNative';
 import type { InputNativeProps } from '@/components/ui/InputNative';
-import { FM } from '@/localization/helpers';
+import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormNativeInputProps<T extends FieldValues>
@@ -39,7 +39,7 @@ export const FormNativeInput = <T extends FieldValues>({
     name={name}
     render={({ field, fieldState }) => {
       const hasError = fieldState.isTouched && isValueDefined(fieldState.error);
-      const errorMessage = hasError ? FM(fieldState.error?.message ?? '') : '';
+      const errorMessage = hasError ? resolveTranslationError(fieldState.error?.message ?? '') : '';
 
       function handleChange(e: ChangeEvent<HTMLInputElement>): void {
         field.onChange(e.target.value);

@@ -12,8 +12,8 @@ test.describe('Native Alert Components', () => {
     await login(page);
     await page.goto('/dashboard/components/native');
     await page.waitForLoadState('domcontentloaded');
-    // Wait for the page container to be visible
-    await expect(page.getByTestId(TestIds.NATIVE_COMPONENTS_PAGE)).toBeVisible();
+    // Wait for the lazy-loaded page container to be visible (longer timeout for parallel runs)
+    await expect(page.getByTestId(TestIds.NATIVE_COMPONENTS_PAGE)).toBeVisible({ timeout: 15000 });
   });
 
   test('should render all four alert variants', async ({ page }) => {

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 import { createThemeActions } from './theme/storeActions';
 import { injectThemeVariables } from './theme/themeInjector';
@@ -15,18 +15,21 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 const THEME_SCHEMA_VERSION = 1;
 
 export const useThemeStore = create<ThemeState>()(
-  persist(
-    (set, get) => createThemeActions(set, get),
-    {
-      name: 'theme-storage',
-      version: THEME_SCHEMA_VERSION,
-      partialize: (state) => ({ mode: state.mode, theme: state.theme }),
-      onRehydrateStorage: () => (state) => {
-        // Inject theme variables after hydration completes
-        if (state) injectThemeVariables(state.theme, state.mode);
+  devtools(
+    persist(
+      (set, get) => createThemeActions(set, get),
+      {
+        name: 'theme-storage',
+        version: THEME_SCHEMA_VERSION,
+        partialize: (state) => ({ mode: state.mode, theme: state.theme }),
+        onRehydrateStorage: () => (state) => {
+          // Inject theme variables after hydration completes
+          if (state) injectThemeVariables(state.theme, state.mode);
+        },
       },
-    }
-  )
+    ),
+    { name: 'ThemeStore' },
+  ),
 );
 
 export function useThemeInitializer(): void {

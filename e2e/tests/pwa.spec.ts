@@ -46,6 +46,9 @@ test.describe('PWA', () => {
   });
 
   test('offline indicator appears when network is disabled', async ({ page, context }) => {
+    // Wait for React app to fully render (login button proves the component tree is mounted)
+    await page.getByTestId(TestIds.LOGIN_SUBMIT).waitFor({ state: 'visible', timeout: 15000 });
+
     // Verify indicator is not shown when online
     await expect(page.getByTestId(TestIds.OFFLINE_INDICATOR)).not.toBeVisible();
 

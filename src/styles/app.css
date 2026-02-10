@@ -29,3 +29,6 @@
 
 /* Custom Syncfusion overrides to integrate with theme system */
 @import './layers/syncfusion-overrides.css';
+
+/* Themed component wrappers (.sf-dark, .sf-button, .sf-input-wrapper, etc.) */
+@import './layers/syncfusion-themed.css';

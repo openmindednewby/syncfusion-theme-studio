@@ -55,6 +55,8 @@ export function injectLayoutVariables(root: HTMLElement, theme: ThemeConfig): vo
   root.style.setProperty('--sidebar-width', theme.layout.sidebarWidth);
   root.style.setProperty('--sidebar-collapsed-width', theme.layout.sidebarCollapsedWidth);
   root.style.setProperty('--header-height', theme.layout.headerHeight);
+  const resolvedMaxWidth = theme.layout.contentFullWidth ? '100%' : theme.layout.contentMaxWidth;
+  root.style.setProperty('--content-max-width', resolvedMaxWidth);
 }
 
 export function injectTypographyVariables(root: HTMLElement, theme: ThemeConfig): void {

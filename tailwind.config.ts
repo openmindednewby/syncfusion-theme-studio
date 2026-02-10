@@ -91,6 +91,9 @@ const config: Config = {
         normal: 'var(--transition-normal)',
         slow: 'var(--transition-slow)',
       },
+      maxWidth: {
+        content: 'var(--content-max-width)',
+      },
       spacing: {
         sidebar: 'var(--sidebar-width)',
         'sidebar-collapsed': 'var(--sidebar-collapsed-width)',

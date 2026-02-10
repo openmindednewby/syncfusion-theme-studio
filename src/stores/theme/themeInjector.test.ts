@@ -254,6 +254,24 @@ describe('injectThemeVariables', () => {
       injectThemeVariables(DEFAULT_THEME, 'light');
       expect(mockSetProperty).toHaveBeenCalledWith('--header-height', DEFAULT_THEME.layout.headerHeight);
     });
+
+    it('injects content max width when contentFullWidth is false', () => {
+      const theme: ThemeConfig = {
+        ...DEFAULT_THEME,
+        layout: { ...DEFAULT_THEME.layout, contentFullWidth: false, contentMaxWidth: '1440px' },
+      };
+      injectThemeVariables(theme, 'light');
+      expect(mockSetProperty).toHaveBeenCalledWith('--content-max-width', '1440px');
+    });
+
+    it('injects 100% content max width when contentFullWidth is true', () => {
+      const theme: ThemeConfig = {
+        ...DEFAULT_THEME,
+        layout: { ...DEFAULT_THEME.layout, contentFullWidth: true, contentMaxWidth: '1440px' },
+      };
+      injectThemeVariables(theme, 'light');
+      expect(mockSetProperty).toHaveBeenCalledWith('--content-max-width', '100%');
+    });
   });
 
   describe('typography injection', () => {
@@ -333,7 +351,7 @@ describe('injectThemeVariables', () => {
       const borderRadiusVars = 8;
       const shadowVars = 7;
       const spacingVars = 18; // base unit + 17 multipliers
-      const layoutVars = 3;
+      const layoutVars = 4;
       const typographyVars = 2;
       const transitionVars = 4;
       const modeBackgroundVars = 5;

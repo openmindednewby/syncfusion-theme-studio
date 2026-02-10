@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 
+import { OfflineIndicator } from '@/components/common/OfflineIndicator';
 import { isValueDefined } from '@/utils/is';
 
 import { I18nProvider } from './providers/I18nProvider';
@@ -26,9 +27,6 @@ const PWAUpdatePrompt = lazy(async () =>
 const PWAInstallPrompt = lazy(async () =>
   import('@/components/common/PWAInstallPrompt').then((m) => ({ default: m.PWAInstallPrompt })),
 );
-const OfflineIndicator = lazy(async () =>
-  import('@/components/common/OfflineIndicator').then((m) => ({ default: m.OfflineIndicator })),
-);
 
 export const App = (): JSX.Element => (
   <I18nProvider>
@@ -40,9 +38,7 @@ export const App = (): JSX.Element => (
       <Suspense fallback={null}>
         <PWAInstallPrompt />
       </Suspense>
-      <Suspense fallback={null}>
-        <OfflineIndicator />
-      </Suspense>
+      <OfflineIndicator />
       {isValueDefined(ReactQueryDevtools) ? (
         <Suspense fallback={null}>
           <ReactQueryDevtools initialIsOpen={false} />

@@ -10,7 +10,7 @@
  */
 
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 type Mode = 'light' | 'dark';
 
@@ -28,26 +28,31 @@ function applyModeToDocument(mode: Mode): void {
 }
 
 export const useModeStore = create<ModeState>()(
-  persist(
-    (set, get) => ({
-      mode: 'light',
-      setMode: (mode) => {
-        set({ mode });
-        applyModeToDocument(mode);
+  devtools(
+    persist(
+      (set, get) => ({
+        mode: 'light',
+        setMode: (mode) => {
+          set({ mode }, false, 'setMode');
+          applyModeToDocument(mode);
+        },
+        toggleMode: () => {
+          const newMode = get().mode === 'light' ? 'dark' : 'light';
+          set({ mode: newMode }, false, 'toggleMode');
+          applyModeToDocument(newMode);
+        },
+      }),
+      {
+        name: 'theme-storage',
+        // Must match useThemeStore's version since they share the same storage key
+        version: 1,
+        partialize: (state) => ({ mode: state.mode }),
+        onRehydrateStorage: () => (state) => {
+          // Apply mode on hydration (must match useThemeStore's storage key)
+          if (state) applyModeToDocument(state.mode);
+        },
       },
-      toggleMode: () => {
-        const newMode = get().mode === 'light' ? 'dark' : 'light';
-        set({ mode: newMode });
-        applyModeToDocument(newMode);
-      },
-    }),
-    {
-      name: 'theme-storage',
-      partialize: (state) => ({ mode: state.mode }),
-      onRehydrateStorage: () => (state) => {
-        // Apply mode on hydration (must match useThemeStore's storage key)
-        if (state) applyModeToDocument(state.mode);
-      },
-    },
+    ),
+    { name: 'ModeStore' },
   ),
 );

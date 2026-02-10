@@ -35,9 +35,15 @@ export function injectButtonVariables(root: HTMLElement, c: ComponentConfigSingl
 export function injectInputVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   root.style.setProperty('--component-input-background', `rgb(${c.inputs.background})`);
   root.style.setProperty('--component-input-border-default', `rgb(${c.inputs.borderDefault})`);
+  root.style.setProperty('--component-input-border-hover', `rgb(${c.inputs.borderHover})`);
   root.style.setProperty('--component-input-border-focus', `rgb(${c.inputs.borderFocus})`);
+  root.style.setProperty('--component-input-border-error', `rgb(${c.inputs.borderError})`);
   root.style.setProperty('--component-input-text-color', `rgb(${c.inputs.textColor})`);
   root.style.setProperty('--component-input-placeholder', `rgb(${c.inputs.placeholderColor})`);
+  root.style.setProperty('--component-input-label', `rgb(${c.inputs.labelColor})`);
+  root.style.setProperty('--component-input-helper-text', `rgb(${c.inputs.helperTextColor})`);
+  root.style.setProperty('--component-input-error-text', `rgb(${c.inputs.errorTextColor})`);
+  root.style.setProperty('--component-input-focus-ring', `rgb(${c.inputs.focusRingColor} / 0.1)`);
 }
 
 export function injectDataGridVariables(root: HTMLElement, c: ComponentConfigSingle): void {

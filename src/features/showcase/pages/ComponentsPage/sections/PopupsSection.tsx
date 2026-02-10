@@ -36,7 +36,7 @@ export const PopupsSection = (): JSX.Element => {
   const dialogButtons = [
     {
       buttonModel: {
-        content: 'Close',
+        content: FM('components.close'),
         cssClass: 'e-flat',
       },
       click: handleDialogClose,
@@ -46,14 +46,14 @@ export const PopupsSection = (): JSX.Element => {
   const confirmButtons = [
     {
       buttonModel: {
-        content: 'Cancel',
+        content: FM('common.cancel'),
         cssClass: 'e-flat',
       },
       click: handleConfirmDialogClose,
     },
     {
       buttonModel: {
-        content: 'Confirm',
+        content: FM('common.confirm'),
         cssClass: 'e-primary',
         isPrimary: true,
       },
@@ -71,10 +71,10 @@ export const PopupsSection = (): JSX.Element => {
           <h4 className="font-medium text-text-secondary">{FM('components.dialogs')}</h4>
           <div className="flex gap-4">
             <ButtonComponent cssClass="e-primary" onClick={handleDialogOpen}>
-              Open Dialog
+              {FM('components.openDialog')}
             </ButtonComponent>
             <ButtonComponent cssClass="e-outline" onClick={handleConfirmDialogOpen}>
-              Confirm Dialog
+              {FM('components.confirmDialog')}
             </ButtonComponent>
           </div>
         </div>
@@ -83,17 +83,17 @@ export const PopupsSection = (): JSX.Element => {
         <div className="space-y-4">
           <h4 className="font-medium text-text-secondary">{FM('components.tooltips')}</h4>
           <div className="flex flex-wrap gap-4">
-            <TooltipComponent content="Tooltip on top" position="TopCenter">
-              <ButtonComponent cssClass="e-outline">Hover Top</ButtonComponent>
+            <TooltipComponent content={FM('components.tooltipTop')} position="TopCenter">
+              <ButtonComponent cssClass="e-outline">{FM('components.hoverTop')}</ButtonComponent>
             </TooltipComponent>
-            <TooltipComponent content="Tooltip on bottom" position="BottomCenter">
-              <ButtonComponent cssClass="e-outline">Hover Bottom</ButtonComponent>
+            <TooltipComponent content={FM('components.tooltipBottom')} position="BottomCenter">
+              <ButtonComponent cssClass="e-outline">{FM('components.hoverBottom')}</ButtonComponent>
             </TooltipComponent>
-            <TooltipComponent content="Tooltip on left" position="LeftCenter">
-              <ButtonComponent cssClass="e-outline">Hover Left</ButtonComponent>
+            <TooltipComponent content={FM('components.tooltipLeft')} position="LeftCenter">
+              <ButtonComponent cssClass="e-outline">{FM('components.hoverLeft')}</ButtonComponent>
             </TooltipComponent>
-            <TooltipComponent content="Tooltip on right" position="RightCenter">
-              <ButtonComponent cssClass="e-outline">Hover Right</ButtonComponent>
+            <TooltipComponent content={FM('components.tooltipRight')} position="RightCenter">
+              <ButtonComponent cssClass="e-outline">{FM('components.hoverRight')}</ButtonComponent>
             </TooltipComponent>
           </div>
         </div>
@@ -107,12 +107,12 @@ export const PopupsSection = (): JSX.Element => {
         showCloseIcon
         buttons={dialogButtons}
         close={handleDialogClose}
-        header="Information"
+        header={FM('components.dialogHeader')}
         visible={isDialogOpen}
         width="400px"
       >
         <p className="text-text-primary">
-          This is a basic dialog component. Dialogs are used to show information or gather input from users.
+          {FM('components.dialogContent')}
         </p>
       </DialogComponent>
 
@@ -124,12 +124,12 @@ export const PopupsSection = (): JSX.Element => {
         showCloseIcon
         buttons={confirmButtons}
         close={handleConfirmDialogClose}
-        header="Confirm Action"
+        header={FM('components.confirmDialogHeader')}
         visible={isConfirmDialogOpen}
         width="400px"
       >
         <p className="text-text-primary">
-          Are you sure you want to proceed with this action? This operation cannot be undone.
+          {FM('components.confirmDialogContent')}
         </p>
       </DialogComponent>
     </section>

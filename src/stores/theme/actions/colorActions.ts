@@ -49,7 +49,7 @@ function buildStatusColorTheme(currentTheme: ThemeConfig, update: StatusColorUpd
   };
 }
 
-function buildDerivedButtons(buttons: ButtonsComponentConfig, derived: DerivedComponentColors): ButtonsComponentConfig {
+export function buildDerivedButtons(buttons: ButtonsComponentConfig, derived: DerivedComponentColors): ButtonsComponentConfig {
   return {
     ...buttons,
     primary: {
@@ -61,7 +61,7 @@ function buildDerivedButtons(buttons: ButtonsComponentConfig, derived: DerivedCo
   };
 }
 
-function buildDerivedSidebar(sidebar: SidebarComponentConfig, derived: DerivedComponentColors): SidebarComponentConfig {
+export function buildDerivedSidebar(sidebar: SidebarComponentConfig, derived: DerivedComponentColors): SidebarComponentConfig {
   return {
     ...sidebar,
     activeItemBackground: derived.sidebar.activeBg,
@@ -69,11 +69,11 @@ function buildDerivedSidebar(sidebar: SidebarComponentConfig, derived: DerivedCo
   };
 }
 
-function buildDerivedInputs(inputs: InputsConfig, derived: DerivedComponentColors): InputsConfig {
+export function buildDerivedInputs(inputs: InputsConfig, derived: DerivedComponentColors): InputsConfig {
   return { ...inputs, borderFocus: derived.inputs.borderFocus };
 }
 
-function buildDerivedModeConfig(config: ComponentConfigSingle, derived: DerivedComponentColors): ComponentConfigSingle {
+export function buildDerivedModeConfig(config: ComponentConfigSingle, derived: DerivedComponentColors): ComponentConfigSingle {
   return {
     ...config,
     buttons: buildDerivedButtons(config.buttons, derived),
@@ -82,7 +82,7 @@ function buildDerivedModeConfig(config: ComponentConfigSingle, derived: DerivedC
   };
 }
 
-function buildDerivedComponents(components: ComponentsConfig, derived: DerivedComponentColors): ComponentsConfig {
+export function buildDerivedComponents(components: ComponentsConfig, derived: DerivedComponentColors): ComponentsConfig {
   return {
     light: buildDerivedModeConfig(components.light, derived),
     dark: buildDerivedModeConfig(components.dark, derived),

@@ -1,6 +1,7 @@
 import { Component, type ReactNode } from 'react';
 
 import { Button } from '@/components/ui/syncfusion';
+import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
 interface Props {
@@ -36,13 +37,13 @@ class ErrorBoundary extends Component<Props, State> {
 
       return (
         <div className="flex min-h-[400px] flex-col items-center justify-center gap-4 p-8">
-          <div className="text-6xl">Warning</div>
-          <h2 className="text-xl font-semibold text-text-primary">Something went wrong</h2>
+          <div className="text-6xl">{FM('common.warning')}</div>
+          <h2 className="text-xl font-semibold text-text-primary">{FM('common.somethingWentWrong')}</h2>
           <p className="text-center text-text-secondary">
-            {error?.message ?? 'An unexpected error occurred. Please try again.'}
+            {error?.message ?? FM('common.unexpectedError')}
           </p>
           <Button testId="error-boundary-retry" onClick={this.handleReset}>
-            Try Again
+            {FM('common.tryAgain')}
           </Button>
         </div>
       );

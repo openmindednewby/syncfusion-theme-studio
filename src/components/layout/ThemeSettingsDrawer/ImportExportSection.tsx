@@ -122,7 +122,7 @@ export const ImportExportSection = (): JSX.Element => {
             {FM('themeSettings.importExport')}
           </h4>
           <p className="text-xs text-text-muted">
-            Save or load theme configurations
+            {FM('themeSettings.importExportDesc')}
           </p>
         </div>
       </div>

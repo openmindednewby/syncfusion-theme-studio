@@ -11,6 +11,7 @@ import { loadSyncfusionCss } from '@/utils';
 
 import { DataGridSection } from '../ComponentsPage/sections';
 
+const BACK_ARROW = '\u2190';
 const SPLITTER_PANE_SIZE_EDITOR = '380px';
 const SPLITTER_PANE_SIZE_MIN_EDITOR = '280px';
 const SPLITTER_PANE_SIZE_MAX_EDITOR = '600px';
@@ -50,7 +51,7 @@ const DataGridPage = (): JSX.Element => {
                     data-testid={TestIds.DATA_GRID_BACK_LINK}
                     to="/dashboard/components"
                   >
-                    <span aria-hidden="true">&larr;</span>
+                    <span aria-hidden="true">{BACK_ARROW}</span>
                     <span>{FM('components.dataGrid.backToComponents')}</span>
                   </Link>
                 </div>

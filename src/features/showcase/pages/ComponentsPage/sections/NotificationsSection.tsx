@@ -22,19 +22,19 @@ export const NotificationsSection = (): JSX.Element => {
   }, []);
 
   const handleSuccessToast = useCallback(() => {
-    showToast('e-toast-success', 'Success', 'Operation completed successfully.');
+    showToast('e-toast-success', FM('components.syncfusionToasts.successTitle'), FM('components.syncfusionToasts.successMessage'));
   }, [showToast]);
 
   const handleWarningToast = useCallback(() => {
-    showToast('e-toast-warning', 'Warning', 'Please review before proceeding.');
+    showToast('e-toast-warning', FM('components.syncfusionToasts.warningTitle'), FM('components.syncfusionToasts.warningMessage'));
   }, [showToast]);
 
   const handleErrorToast = useCallback(() => {
-    showToast('e-toast-danger', 'Error', 'Something went wrong. Please try again.');
+    showToast('e-toast-danger', FM('components.syncfusionToasts.errorTitle'), FM('components.syncfusionToasts.errorMessage'));
   }, [showToast]);
 
   const handleInfoToast = useCallback(() => {
-    showToast('e-toast-info', 'Info', 'New updates are available.');
+    showToast('e-toast-info', FM('components.syncfusionToasts.infoTitle'), FM('components.syncfusionToasts.infoMessage'));
   }, [showToast]);
 
   return (
@@ -51,28 +51,28 @@ export const NotificationsSection = (): JSX.Element => {
               data-testid={TestIds.TOAST_SUCCESS_BTN}
               onClick={handleSuccessToast}
             >
-              Success Toast
+              {FM('components.syncfusionToasts.successBtn')}
             </ButtonComponent>
             <ButtonComponent
               cssClass="e-warning"
               data-testid={TestIds.TOAST_WARNING_BTN}
               onClick={handleWarningToast}
             >
-              Warning Toast
+              {FM('components.syncfusionToasts.warningBtn')}
             </ButtonComponent>
             <ButtonComponent
               cssClass="e-danger"
               data-testid={TestIds.TOAST_ERROR_BTN}
               onClick={handleErrorToast}
             >
-              Error Toast
+              {FM('components.syncfusionToasts.errorBtn')}
             </ButtonComponent>
             <ButtonComponent
               cssClass="e-info"
               data-testid={TestIds.TOAST_INFO_BTN}
               onClick={handleInfoToast}
             >
-              Info Toast
+              {FM('components.syncfusionToasts.infoBtn')}
             </ButtonComponent>
           </div>
         </div>
@@ -86,31 +86,31 @@ export const NotificationsSection = (): JSX.Element => {
               data-testid={TestIds.MESSAGE_SUCCESS}
               severity="Success"
             >
-              This is a success message.
+              {FM('components.syncfusionMessages.success')}
             </MessageComponent>
             <MessageComponent
               showCloseIcon
               data-testid={TestIds.MESSAGE_WARNING}
               severity="Warning"
             >
-              This is a warning message.
+              {FM('components.syncfusionMessages.warning')}
             </MessageComponent>
             <MessageComponent
               showCloseIcon
               data-testid={TestIds.MESSAGE_ERROR}
               severity="Error"
             >
-              This is an error message.
+              {FM('components.syncfusionMessages.error')}
             </MessageComponent>
             <MessageComponent
               showCloseIcon
               data-testid={TestIds.MESSAGE_INFO}
               severity="Info"
             >
-              This is an informational message.
+              {FM('components.syncfusionMessages.info')}
             </MessageComponent>
             <MessageComponent data-testid={TestIds.MESSAGE_NORMAL} severity="Normal">
-              This is a normal message.
+              {FM('components.syncfusionMessages.normal')}
             </MessageComponent>
           </div>
         </div>

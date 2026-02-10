@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import DatePicker from '@/components/ui/syncfusion/DatePicker';
 import type { DatePickerProps } from '@/components/ui/syncfusion/DatePicker';
-import { FM } from '@/localization/helpers';
+import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormDatePickerProps<T extends FieldValues>
@@ -44,7 +44,7 @@ export const FormDatePicker = <T extends FieldValues>({
     name={name}
     render={({ field, fieldState }) => {
       const hasError = fieldState.isTouched && isValueDefined(fieldState.error);
-      const errorMessage = hasError ? FM(fieldState.error?.message ?? '') : '';
+      const errorMessage = hasError ? resolveTranslationError(fieldState.error?.message ?? '') : '';
 
       function handleChange(date: Date | undefined): void {
         field.onChange(date);

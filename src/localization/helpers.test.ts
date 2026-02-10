@@ -20,9 +20,11 @@ vi.mock('./i18n', () => ({
       let result = id;
       const p1 = options?.['p1'];
       const p2 = options?.['p2'];
+      const p3 = options?.['p3'];
       // Simple undefined check
       if (p1 !== undefined && p1 !== '') result = `${result} ${p1}`;
       if (p2 !== undefined && p2 !== '') result = `${result} ${p2}`;
+      if (p3 !== undefined && p3 !== '') result = `${result} ${p3}`;
       return result;
     }),
     language: 'en',
@@ -87,6 +89,23 @@ describe('FM (Format Message)', () => {
       expect(i18n.t).toHaveBeenCalledWith('stats', { p1: '100', p2: '200' });
       expect(result).toContain('100');
       expect(result).toContain('200');
+    });
+  });
+
+  describe('with p1, p2 and p3 parameters', () => {
+    it('passes all three parameters to the translation function', () => {
+      const result = FM('showingRange', '1', '10', '100');
+      expect(i18n.t).toHaveBeenCalledWith('showingRange', { p1: '1', p2: '10', p3: '100' });
+      expect(result).toContain('1');
+      expect(result).toContain('10');
+      expect(result).toContain('100');
+    });
+
+    it('handles p1 and p2 with undefined p3', () => {
+      const result = FM('message', 'a', 'b', undefined);
+      expect(i18n.t).toHaveBeenCalledWith('message', { p1: 'a', p2: 'b' });
+      expect(result).toContain('a');
+      expect(result).toContain('b');
     });
   });
 });

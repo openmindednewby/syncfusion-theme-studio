@@ -57,7 +57,7 @@ export const ColorsSection = (): JSX.Element => {
         </div>
         <div>
           <h3 className="text-sm font-semibold text-text-primary">{FM('themeSettings.primaryColors')}</h3>
-          <p className="text-xs text-text-muted">Define your brand color palette</p>
+          <p className="text-xs text-text-muted">{FM('themeSettings.brandPaletteDesc')}</p>
         </div>
       </div>
 
@@ -66,13 +66,13 @@ export const ColorsSection = (): JSX.Element => {
         <ModeButton
           active={paletteMode === 'auto'}
           icon={<WandIcon />}
-          label="Auto Palette"
+          label={FM('themeSettings.autoPalette')}
           onClick={() => setPaletteMode('auto')}
         />
         <ModeButton
           active={paletteMode === 'manual'}
           icon={<SlidersIcon />}
-          label="Manual"
+          label={FM('themeSettings.manual')}
           onClick={() => setPaletteMode('manual')}
         />
       </div>
@@ -81,8 +81,8 @@ export const ColorsSection = (): JSX.Element => {
       {paletteMode === 'auto' && (
         <div className="space-y-4">
           <div className="rounded-xl border border-border bg-surface-elevated/30 p-4">
-            <label className="text-sm font-medium text-text-primary" htmlFor="base-color">Base Color (500)</label>
-            <p className="mt-0.5 mb-3 text-xs text-text-muted">Choose your brand color - shades generate automatically</p>
+            <label className="text-sm font-medium text-text-primary" htmlFor="base-color">{FM('themeSettings.baseColor')}</label>
+            <p className="mt-0.5 mb-3 text-xs text-text-muted">{FM('themeSettings.baseColorDesc')}</p>
             <div className="flex items-center gap-3">
               <input
                 className="h-12 w-20 cursor-pointer rounded-lg border border-border"
@@ -104,15 +104,15 @@ export const ColorsSection = (): JSX.Element => {
           <div className="flex items-start gap-2 rounded-lg border border-info-500/20 bg-info-50/50 p-3">
             <InfoIcon />
             <div>
-              <p className="text-xs font-medium text-info-700">Auto-updates components</p>
+              <p className="text-xs font-medium text-info-700">{FM('themeSettings.autoUpdatesTitle')}</p>
               <p className="mt-0.5 text-[11px] text-info-700/80">
-                Updates: Buttons (primary), Sidebar (active), Input (focus)
+                {FM('themeSettings.autoUpdatesDesc')}
               </p>
             </div>
           </div>
 
           <div className="rounded-xl border border-border bg-surface-elevated/30 p-4">
-            <p className="mb-3 text-xs font-medium text-text-secondary">Generated Palette</p>
+            <p className="mb-3 text-xs font-medium text-text-secondary">{FM('themeSettings.generatedPalette')}</p>
             <div className="flex h-10 overflow-hidden rounded-lg shadow-sm">
               {COLOR_SHADES.map((shade) => {
                 const isDark = Number(shade) >= DARK_SHADE_THRESHOLD;
@@ -159,7 +159,7 @@ export const ColorsSection = (): JSX.Element => {
             </div>
           </div>
           <p className="text-[11px] italic text-text-muted">
-            Tip: In manual mode, each shade is independent. Changes won&apos;t cascade to components.
+            {FM('themeSettings.manualTip')}
           </p>
         </div>
       )}

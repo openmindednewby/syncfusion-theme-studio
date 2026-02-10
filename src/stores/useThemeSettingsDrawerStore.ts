@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface ThemeSettingsPanelState {
   isOpen: boolean;
@@ -13,15 +13,18 @@ interface ThemeSettingsPanelState {
  * Uses Zustand persist middleware to remember collapsed/expanded state across page reloads.
  */
 export const useThemeSettingsDrawerStore = create<ThemeSettingsPanelState>()(
-  persist(
-    (set) => ({
-      isOpen: true, // Default to open
-      open: () => set({ isOpen: true }),
-      close: () => set({ isOpen: false }),
-      toggle: () => set((state) => ({ isOpen: !state.isOpen })),
-    }),
-    {
-      name: 'theme-settings-panel',
-    }
-  )
+  devtools(
+    persist(
+      (set) => ({
+        isOpen: true, // Default to open
+        open: () => set({ isOpen: true }, false, 'open'),
+        close: () => set({ isOpen: false }, false, 'close'),
+        toggle: () => set((state) => ({ isOpen: !state.isOpen }), false, 'toggle'),
+      }),
+      {
+        name: 'theme-settings-panel',
+      },
+    ),
+    { name: 'ThemeSettingsDrawerStore' },
+  ),
 );

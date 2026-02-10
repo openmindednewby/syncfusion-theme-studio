@@ -36,7 +36,7 @@ export const createCustomTheme = (): ThemeConfig => ({
   secondary: createSecondaryColors(),
   neutral: createNeutralColors(),
   status: createStatusColors(),
-  layout: { sidebarWidth: '300px', sidebarCollapsedWidth: '80px', headerHeight: '72px' },
+  layout: { sidebarWidth: '300px', sidebarCollapsedWidth: '80px', headerHeight: '72px', contentMaxWidth: '1440px', contentFullWidth: false },
   spacing: { baseUnit: 4 },
   borderRadius: createBorderRadius(),
   shadows: createShadows(),

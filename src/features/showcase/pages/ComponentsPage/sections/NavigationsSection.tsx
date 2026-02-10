@@ -23,19 +23,19 @@ import { loadSyncfusionCss } from '@/utils';
 
 const Tab1Content = (): JSX.Element => (
   <div className="p-4">
-    <p className="text-text-primary">This is the content for Tab 1. Tabs help organize content.</p>
+    <p className="text-text-primary">{FM('components.tabContent1')}</p>
   </div>
 );
 
 const Tab2Content = (): JSX.Element => (
   <div className="p-4">
-    <p className="text-text-primary">This is the content for Tab 2. Each tab can have unique content.</p>
+    <p className="text-text-primary">{FM('components.tabContent2')}</p>
   </div>
 );
 
 const Tab3Content = (): JSX.Element => (
   <div className="p-4">
-    <p className="text-text-primary">This is the content for Tab 3. Switch between tabs to navigate.</p>
+    <p className="text-text-primary">{FM('components.tabContent3')}</p>
   </div>
 );
 

@@ -47,7 +47,9 @@ export const MainLayout = (): JSX.Element => {
       <div className="flex flex-col overflow-hidden">
         <Header />
         <main className="flex-1 overflow-auto p-6" id={MAIN_CONTENT_ID} tabIndex={-1}>
-          <Outlet />
+          <div className="mx-auto max-w-content">
+            <Outlet />
+          </div>
         </main>
       </div>
 

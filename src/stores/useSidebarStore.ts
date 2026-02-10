@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { devtools, persist } from 'zustand/middleware';
 
 interface SidebarState {
   isCollapsed: boolean;
@@ -8,12 +8,15 @@ interface SidebarState {
 }
 
 export const useSidebarStore = create<SidebarState>()(
-  persist(
-    (set) => ({
-      isCollapsed: false,
-      toggle: () => set((state) => ({ isCollapsed: !state.isCollapsed })),
-      setCollapsed: (collapsed) => set({ isCollapsed: collapsed }),
-    }),
-    { name: 'sidebar-storage' }
-  )
+  devtools(
+    persist(
+      (set) => ({
+        isCollapsed: false,
+        toggle: () => set((state) => ({ isCollapsed: !state.isCollapsed }), false, 'toggle'),
+        setCollapsed: (collapsed) => set({ isCollapsed: collapsed }, false, 'setCollapsed'),
+      }),
+      { name: 'sidebar-storage' },
+    ),
+    { name: 'SidebarStore' },
+  ),
 );

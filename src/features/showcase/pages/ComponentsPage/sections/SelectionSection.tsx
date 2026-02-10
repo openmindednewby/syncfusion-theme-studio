@@ -49,15 +49,15 @@ export const SelectionSection = (): JSX.Element => {
           <div className="flex flex-col gap-3">
             <div className="flex items-center gap-3">
               <SwitchComponent checked id={enabledSwitchId} name="enabledSwitch" />
-              <label className="text-text-primary" htmlFor={enabledSwitchId}>Enabled</label>
+              <label className="text-text-primary" htmlFor={enabledSwitchId}>{FM('components.switchEnabled')}</label>
             </div>
             <div className="flex items-center gap-3">
               <SwitchComponent id={disabledSwitchId} name="disabledSwitch" />
-              <label className="text-text-primary" htmlFor={disabledSwitchId}>Disabled</label>
+              <label className="text-text-primary" htmlFor={disabledSwitchId}>{FM('components.switchDisabled')}</label>
             </div>
             <div className="flex items-center gap-3">
               <SwitchComponent checked disabled id={lockedSwitchId} name="lockedSwitch" />
-              <label className="text-text-muted" htmlFor={lockedSwitchId}>Locked On</label>
+              <label className="text-text-muted" htmlFor={lockedSwitchId}>{FM('components.switchLockedOn')}</label>
             </div>
           </div>
         </div>

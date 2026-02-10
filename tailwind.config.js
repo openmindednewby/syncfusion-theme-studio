@@ -1,6 +1,20 @@
 const config = {
     content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
     darkMode: 'class',
+    // Safelist dynamic classes that can't be detected by JIT compiler
+    // Used in ColorsSection for primary color palette display
+    safelist: [
+        'bg-primary-50',
+        'bg-primary-100',
+        'bg-primary-200',
+        'bg-primary-300',
+        'bg-primary-400',
+        'bg-primary-500',
+        'bg-primary-600',
+        'bg-primary-700',
+        'bg-primary-800',
+        'bg-primary-900',
+    ],
     theme: {
         extend: {
             colors: {

@@ -54,13 +54,6 @@ local_resource(
     labels=['ThemeStudio'],
     serve_cmd='npm run dev -- --port 4444',
     resource_deps=['theme-studio-unit-tests'],
-    readiness_probe=probe(
-        http_get=http_get_action(port=4444, path='/'),
-        initial_delay_secs=10,
-        period_secs=3,
-        timeout_secs=5,
-        failure_threshold=20,
-    ),
     links=[
         link('http://localhost:4444', 'Dashboard'),
         link('http://localhost:4444/products', 'Products (API Demo)'),

@@ -90,6 +90,12 @@ test.describe('Components Showcase Page', () => {
     await expect(dataGridHeading).toBeVisible();
   });
 
+  test('should display FlexBox Layout section', async ({ page }) => {
+    const flexHeading = page.getByRole('heading', { name: 'Flexbox Layout' });
+    await flexHeading.scrollIntoViewIfNeeded();
+    await expect(flexHeading).toBeVisible();
+  });
+
   test('should display Cards section', async ({ page }) => {
     const cardsHeading = page.getByRole('heading', { name: 'Cards' });
     await cardsHeading.scrollIntoViewIfNeeded();

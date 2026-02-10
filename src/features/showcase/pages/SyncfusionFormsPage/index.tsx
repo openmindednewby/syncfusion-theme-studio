@@ -7,6 +7,7 @@
 import { useState, useCallback } from 'react';
 
 import { FM } from '@/localization/helpers';
+import { TestIds } from '@/shared/testIds';
 
 import { FormResult } from './components/FormResult';
 import { FormSection } from './components/FormSection';
@@ -57,7 +58,7 @@ const SyncfusionFormsPage = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" data-testid={TestIds.FORMS_SHOWCASE_PAGE}>
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold text-text-primary">{FM('forms.page.title')}</h1>

@@ -1,3 +1,12 @@
+/**
+ * Input - Theme-aware Syncfusion TextBoxComponent wrapper.
+ *
+ * Provides a styled text input with label, helper text, error state,
+ * required indicator, and full-width option. Automatically generates
+ * unique IDs for label-input association and aria-describedby linking.
+ *
+ * @see {@link https://ej2.syncfusion.com/react/documentation/textbox/getting-started | Syncfusion TextBox docs}
+ */
 import { memo, forwardRef, useId, useMemo } from 'react';
 
 import { TextBoxComponent, type TextBoxModel } from '@syncfusion/ej2-react-inputs';

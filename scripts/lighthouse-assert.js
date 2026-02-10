@@ -23,6 +23,7 @@ const THRESHOLDS = {
   accessibility: 1.0,
   'best-practices': 1.0,
   seo: 1.0,
+  pwa: 1.0,
 };
 
 // ANSI colors for console output

@@ -30,6 +30,9 @@ const PopupsSection = lazy(async () =>
 const DataGridSection = lazy(async () =>
   import('../ComponentsPage/sections/DataGridSection').then((m) => ({ default: m.DataGridSection }))
 );
+const NotificationsSection = lazy(async () =>
+  import('../ComponentsPage/sections/NotificationsSection').then((m) => ({ default: m.NotificationsSection }))
+);
 
 const SPLITTER_PANE_SIZE_MIN_CONTENT = '400px';
 
@@ -38,6 +41,7 @@ const CALENDARS_SKELETON_HEIGHT = '220px';
 const NAVIGATIONS_SKELETON_HEIGHT = '650px';
 const POPUPS_SKELETON_HEIGHT = '200px';
 const DATAGRID_SKELETON_HEIGHT = '450px';
+const NOTIFICATIONS_SKELETON_HEIGHT = '350px';
 
 const SyncfusionComponentsPage = (): JSX.Element => {
   // Load layouts CSS on mount (needed for SplitterComponent)
@@ -116,6 +120,15 @@ const SyncfusionComponentsPage = (): JSX.Element => {
                     }
                   >
                     <DataGridSection />
+                  </Suspense>
+
+                  {/* Notifications - Lazy loaded */}
+                  <Suspense
+                    fallback={
+                      <SectionSkeleton height={NOTIFICATIONS_SKELETON_HEIGHT} title="Notifications" />
+                    }
+                  >
+                    <NotificationsSection />
                   </Suspense>
 
                   {/* Cards and Badges */}

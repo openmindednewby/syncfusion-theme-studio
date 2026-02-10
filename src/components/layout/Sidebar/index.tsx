@@ -1,11 +1,11 @@
-import { useState, useCallback } from 'react';
-
-import { NavLink, useLocation } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
+
+import { NavExpandableItem } from './NavExpandableItem';
 
 interface NavItem {
   path: string;
@@ -14,56 +14,27 @@ interface NavItem {
   testId: string;
 }
 
-interface SubNavItem {
-  path: string;
-  labelKey: string;
-  testId: string;
-}
-
-interface NavItemWithChildren {
-  labelKey: string;
-  icon: string;
-  testId: string;
-  expandTestId: string;
-  children: SubNavItem[];
-}
-
 const NAV_ITEMS: NavItem[] = [
   { path: '/dashboard', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
   { path: '/dashboard/products', labelKey: 'menu.products', icon: '📦', testId: TestIds.NAV_PRODUCTS },
 ];
 
-const COMPONENTS_NAV: NavItemWithChildren = {
-  labelKey: 'menu.components',
-  icon: '🧩',
-  testId: TestIds.NAV_COMPONENTS,
-  expandTestId: TestIds.NAV_COMPONENTS_EXPAND,
-  children: [
-    { path: '/dashboard/components/native', labelKey: 'menu.componentsNative', testId: TestIds.NAV_COMPONENTS_NATIVE },
-    { path: '/dashboard/components/syncfusion', labelKey: 'menu.componentsSyncfusion', testId: TestIds.NAV_COMPONENTS_SYNCFUSION },
-    { path: '/dashboard/showcase/forms', labelKey: 'menu.showcaseForms', testId: TestIds.NAV_SHOWCASE_FORMS },
-  ],
-};
+const COMPONENTS_CHILDREN = [
+  { path: '/dashboard/components/native', labelKey: 'menu.componentsNative', testId: TestIds.NAV_COMPONENTS_NATIVE },
+  { path: '/dashboard/components/syncfusion', labelKey: 'menu.componentsSyncfusion', testId: TestIds.NAV_COMPONENTS_SYNCFUSION },
+];
+
+const FORMS_CHILDREN = [
+  { path: '/dashboard/forms/syncfusion', labelKey: 'menu.formsSyncfusion', testId: TestIds.NAV_FORMS_SYNCFUSION },
+  { path: '/dashboard/forms/native', labelKey: 'menu.formsNative', testId: TestIds.NAV_FORMS_NATIVE },
+];
 
 export const Sidebar = (): JSX.Element => {
   const { isCollapsed, toggle } = useSidebarStore();
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
-  const location = useLocation();
-
-  // Check if we're on a components sub-page or showcase sub-page
-  const isComponentsActive = location.pathname.startsWith('/dashboard/components') || location.pathname.startsWith('/dashboard/showcase');
-  const [isComponentsExpanded, setIsComponentsExpanded] = useState(isComponentsActive);
 
   const collapsedClass = isCollapsed ? 'collapsed' : '';
   const toggleLabel = isCollapsed ? FM('sidebar.expand') : FM('sidebar.collapse');
-
-  const handleComponentsToggle = useCallback(() => {
-    setIsComponentsExpanded((prev) => !prev);
-  }, []);
-
-  const expandLabel = isComponentsExpanded
-    ? FM('accessibility.collapseSection', 'Components')
-    : FM('accessibility.expandSection', 'Components');
 
   return (
     <aside
@@ -73,10 +44,10 @@ export const Sidebar = (): JSX.Element => {
     >
       {/* Logo */}
       <div className="flex h-header items-center justify-between border-b border-border px-4">
-        {!isCollapsed && <span className="text-lg font-bold text-primary-600">Theme Studio</span>}
+        {!isCollapsed && <span className="text-lg font-bold text-primary-600">{FM('app.title')}</span>}
         <button
           aria-label={toggleLabel}
-          className="rounded p-2 hover:bg-surface-elevated"
+          className="sidebar-item rounded p-2"
           data-testid={TestIds.SIDEBAR_TOGGLE}
           type="button"
           onClick={toggle}
@@ -93,10 +64,8 @@ export const Sidebar = (): JSX.Element => {
               <NavLink
                 aria-label={FM(item.labelKey)}
                 className={({ isActive }) =>
-                  `flex items-center gap-3 rounded-md px-3 py-2 transition-colors ${
-                    isActive
-                      ? 'bg-primary-50 text-primary-700'
-                      : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
+                  `sidebar-item flex items-center gap-3 rounded-md px-3 py-2 transition-colors ${
+                    isActive ? 'active' : ''
                   }`
                 }
                 data-testid={item.testId}
@@ -108,63 +77,33 @@ export const Sidebar = (): JSX.Element => {
             </li>
           ))}
 
-          {/* Components with expandable sub-menu */}
-          <li>
-            <button
-              aria-expanded={isComponentsExpanded}
-              aria-label={expandLabel}
-              className={`flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors ${
-                isComponentsActive
-                  ? 'bg-primary-50 text-primary-700'
-                  : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
-              }`}
-              data-testid={COMPONENTS_NAV.expandTestId}
-              type="button"
-              onClick={handleComponentsToggle}
-            >
-              <span aria-hidden="true" className="text-lg">{COMPONENTS_NAV.icon}</span>
-              {!isCollapsed && (
-                <>
-                  <span className="flex-1 text-left">{FM(COMPONENTS_NAV.labelKey)}</span>
-                  <span
-                    aria-hidden="true"
-                    className={`text-xs transition-transform ${isComponentsExpanded ? 'rotate-180' : ''}`}
-                  >
-                    ▼
-                  </span>
-                </>
-              )}
-            </button>
+          {/* Components - expandable sub-menu */}
+          <NavExpandableItem
+            expandTestId={TestIds.NAV_COMPONENTS_EXPAND}
+            icon="🧩"
+            isCollapsed={isCollapsed}
+            labelKey="menu.components"
+            pathPrefix="/dashboard/components"
+          >
+            {COMPONENTS_CHILDREN}
+          </NavExpandableItem>
 
-            {/* Sub-menu items */}
-            {isComponentsExpanded && !isCollapsed ? <ul className="ml-6 mt-1 space-y-1">
-                {COMPONENTS_NAV.children.map((child) => (
-                  <li key={child.path}>
-                    <NavLink
-                      aria-label={FM(child.labelKey)}
-                      className={({ isActive }) =>
-                        `flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
-                          isActive
-                            ? 'bg-primary-50 text-primary-700'
-                            : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
-                        }`
-                      }
-                      data-testid={child.testId}
-                      to={child.path}
-                    >
-                      <span aria-hidden="true" className="text-xs">•</span>
-                      <span>{FM(child.labelKey)}</span>
-                    </NavLink>
-                  </li>
-                ))}
-              </ul> : null}
-          </li>
+          {/* Forms - expandable sub-menu */}
+          <NavExpandableItem
+            expandTestId={TestIds.NAV_FORMS_EXPAND}
+            icon="📝"
+            isCollapsed={isCollapsed}
+            labelKey="menu.forms"
+            pathPrefix="/dashboard/forms"
+          >
+            {FORMS_CHILDREN}
+          </NavExpandableItem>
 
           {/* Theme Editor - opens drawer */}
           <li>
             <button
               aria-label={FM('menu.themeEditorLabel')}
-              className="flex w-full items-center gap-3 rounded-md px-3 py-2 text-text-secondary transition-colors hover:bg-surface-elevated hover:text-text-primary"
+              className="sidebar-item flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors"
               data-testid={TestIds.NAV_THEME_EDITOR}
               type="button"
               onClick={openThemeSettings}
@@ -180,7 +119,7 @@ export const Sidebar = (): JSX.Element => {
       <div className="border-t border-border p-2">
         <NavLink
           aria-label={FM('menu.loginLabel')}
-          className="flex items-center gap-3 rounded-md px-3 py-2 text-text-secondary hover:bg-surface-elevated hover:text-text-primary"
+          className="sidebar-item flex items-center gap-3 rounded-md px-3 py-2"
           data-testid={TestIds.NAV_LOGIN}
           to="/"
         >

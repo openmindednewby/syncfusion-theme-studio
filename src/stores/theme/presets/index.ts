@@ -3,6 +3,7 @@ export { ARCTIC_THEME } from './arctic';
 export { COPPER_THEME } from './copper';
 export { EMERALD_THEME } from './emerald';
 export { FOREST_GREEN_THEME } from './forestGreen';
+export { FREMEN_THEME } from './fremen';
 export { GOLD_THEME } from './gold';
 export { LAVENDER_THEME } from './lavender';
 export { MIDNIGHT_THEME } from './midnight';

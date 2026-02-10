@@ -1,3 +1,12 @@
+/**
+ * Dialog - Theme-aware Syncfusion DialogComponent wrapper.
+ *
+ * Provides a modal dialog with configurable variant (default, confirm, danger),
+ * primary/secondary action buttons, close icon, overlay click handling,
+ * and ESC key support. Visibility is controlled via the `isOpen` prop.
+ *
+ * @see {@link https://ej2.syncfusion.com/react/documentation/dialog/getting-started | Syncfusion Dialog docs}
+ */
 import { memo, useCallback, useEffect, useRef, useMemo } from 'react';
 
 import {
@@ -10,6 +19,7 @@ import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
+/** Dialog style variants controlling button defaults and appearance */
 type DialogVariant = 'default' | 'confirm' | 'danger';
 
 interface DialogButton {

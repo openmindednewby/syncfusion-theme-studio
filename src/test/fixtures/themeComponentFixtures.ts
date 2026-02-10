@@ -17,6 +17,11 @@ import type {
   SelectConfig,
   DatePickerConfig,
   DialogConfig,
+  ErrorMessagesConfig,
+  FlexBoxConfig,
+  AlertsConfig,
+  ToastConfig,
+  MessageConfig,
 } from '../../stores/theme/types';
 
 const createPrimaryButton = (): ButtonStateColors => ({
@@ -145,6 +150,18 @@ const createCards = (): CardsConfig => ({
   paddingLg: '32px',
   headerBackground: '249 250 251',
   footerBackground: '249 250 251',
+  textColor: '55 65 81',
+  titleColor: '17 24 39',
+  subtitleColor: '107 114 128',
+  borderWidth: '1px',
+  hoverBorderColor: '156 163 175',
+  headerTextColor: '17 24 39',
+  headerBorderColor: '229 231 235',
+  footerBorderColor: '229 231 235',
+  contentPadding: '16px',
+  imageOverlayColor: '0 0 0',
+  actionTextColor: '59 130 246',
+  actionHoverColor: '37 99 235',
 });
 
 const createModals = (): ModalsConfig => ({
@@ -218,6 +235,105 @@ const createDialog = (): DialogConfig => ({
   closeButtonHoverBackground: '249 250 251',
 });
 
+const createErrorMessages = (): ErrorMessagesConfig => ({
+  textColor: '239 68 68',
+  fontSize: '0.75rem',
+  fontWeight: '400',
+  animation: 'fadeIn',
+  animationDuration: '200ms',
+  iconColor: '239 68 68',
+  iconSize: '0.875rem',
+});
+
+const createFlexBox = (): FlexBoxConfig => ({
+  containerBackground: '249 250 251',
+  containerBorderColor: '229 231 235',
+  containerBorderRadius: 'lg',
+  containerPadding: '16px',
+  gap: '12px',
+  direction: 'row',
+  wrap: 'wrap',
+  justifyContent: 'flex-start',
+  alignItems: 'stretch',
+  itemBackground: '249 250 251',
+  itemBorderColor: '229 231 235',
+  itemBorderRadius: 'md',
+  itemPadding: '12px',
+});
+
+const createAlerts = (): AlertsConfig => ({
+  success: {
+    background: '220 252 231',
+    textColor: '21 128 61',
+    borderColor: '187 247 208',
+    iconColor: '34 197 94',
+  },
+  warning: {
+    background: '254 249 195',
+    textColor: '161 98 7',
+    borderColor: '254 240 138',
+    iconColor: '234 179 8',
+  },
+  error: {
+    background: '254 226 226',
+    textColor: '185 28 28',
+    borderColor: '254 202 202',
+    iconColor: '239 68 68',
+  },
+  info: {
+    background: '219 234 254',
+    textColor: '29 78 216',
+    borderColor: '191 219 254',
+    iconColor: '59 130 246',
+  },
+  borderRadius: 'md',
+  borderWidth: '1px',
+  padding: '12px 16px',
+});
+
+const createToast = (): ToastConfig => ({
+  background: '255 255 255',
+  textColor: '17 24 39',
+  titleColor: '17 24 39',
+  borderColor: '229 231 235',
+  borderRadius: 'lg',
+  shadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)',
+  closeButtonColor: '107 114 128',
+  closeButtonHoverColor: '17 24 39',
+  progressBarColor: '59 130 246',
+  successBackground: '220 252 231',
+  successTextColor: '21 128 61',
+  successIconColor: '34 197 94',
+  warningBackground: '254 249 195',
+  warningTextColor: '161 98 7',
+  warningIconColor: '234 179 8',
+  errorBackground: '254 226 226',
+  errorTextColor: '185 28 28',
+  errorIconColor: '239 68 68',
+  infoBackground: '219 234 254',
+  infoTextColor: '29 78 216',
+  infoIconColor: '59 130 246',
+});
+
+const createMessage = (): MessageConfig => ({
+  borderRadius: 'md',
+  successBackground: '220 252 231',
+  successTextColor: '21 128 61',
+  successBorderColor: '187 247 208',
+  warningBackground: '254 249 195',
+  warningTextColor: '161 98 7',
+  warningBorderColor: '254 240 138',
+  errorBackground: '254 226 226',
+  errorTextColor: '185 28 28',
+  errorBorderColor: '254 202 202',
+  infoBackground: '219 234 254',
+  infoTextColor: '29 78 216',
+  infoBorderColor: '191 219 254',
+  normalBackground: '249 250 251',
+  normalTextColor: '55 65 81',
+  normalBorderColor: '229 231 235',
+});
+
 /** Create a single-mode component config (for light mode) */
 const createComponentConfigSingle = (): ComponentConfigSingle => ({
   header: createHeader(),
@@ -231,6 +347,11 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
   select: createSelect(),
   datePicker: createDatePicker(),
   dialog: createDialog(),
+  errorMessages: createErrorMessages(),
+  flexBox: createFlexBox(),
+  alerts: createAlerts(),
+  toast: createToast(),
+  message: createMessage(),
 });
 
 /** Create mode-aware components config with light and dark variants */

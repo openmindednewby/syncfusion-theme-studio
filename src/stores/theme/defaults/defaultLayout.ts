@@ -13,6 +13,8 @@ export const DEFAULT_LAYOUT: LayoutConfig = {
   sidebarWidth: '280px',
   sidebarCollapsedWidth: '64px',
   headerHeight: '64px',
+  contentMaxWidth: '1440px',
+  contentFullWidth: false,
 };
 
 export const DEFAULT_SPACING: SpacingConfig = {

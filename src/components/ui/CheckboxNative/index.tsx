@@ -1,3 +1,11 @@
+/**
+ * CheckboxNative - Zero-dependency themed checkbox using native HTML.
+ *
+ * Provides a styled checkbox with label, helper text, error state,
+ * indeterminate state support, required indicator, and disabled styling.
+ * Uses the native `<input type="checkbox">` with CSS accent-color theming.
+ * No Syncfusion dependency for minimal bundle size.
+ */
 import { memo, forwardRef, useId, type InputHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/cn';
@@ -45,7 +53,7 @@ const CheckboxNative = forwardRef<HTMLInputElement, Props>(
 
     return (
       <div className={cn('flex flex-col gap-1', className)} data-testid={testId}>
-        <div className="flex items-center gap-2">
+        <div className="flex min-h-[44px] items-center gap-2">
           <input
             ref={handleRef}
             aria-describedby={hasHelperOrError ? helperId : undefined}

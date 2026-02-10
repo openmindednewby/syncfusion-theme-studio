@@ -3,6 +3,7 @@
 import { injectThemeVariables } from '../themeInjector';
 
 import type {
+  AlertsConfig,
   BadgesConfig,
   ButtonStateColors,
   ButtonVariant,
@@ -10,17 +11,22 @@ import type {
   DataGridConfig,
   DatePickerConfig,
   DialogConfig,
+  ErrorMessagesConfig,
+  FlexBoxConfig,
   HeaderComponentConfig,
   InputsConfig,
+  MessageConfig,
   ModalsConfig,
   SelectConfig,
   SidebarComponentConfig,
   ThemeConfig,
+  ToastConfig,
 } from '../types';
 import type { ComponentConfigActions, GetState, SetState } from './types';
 
 type ComponentKey = 'header' | 'sidebar' | 'inputs' | 'dataGrid' |
-  'cards' | 'modals' | 'badges' | 'select' | 'datePicker' | 'dialog';
+  'cards' | 'modals' | 'badges' | 'select' | 'datePicker' | 'dialog' |
+  'errorMessages' | 'flexBox' | 'alerts' | 'toast' | 'message';
 
 function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
   const { theme, mode } = get();
@@ -55,6 +61,11 @@ export function createComponentConfigActions(set: SetState, get: GetState): Comp
     updateSelectConfig: (u: Partial<SelectConfig>) => update(set, get, 'select', u),
     updateDatePickerConfig: (u: Partial<DatePickerConfig>) => update(set, get, 'datePicker', u),
     updateDialogConfig: (u: Partial<DialogConfig>) => update(set, get, 'dialog', u),
+    updateErrorMessagesConfig: (u: Partial<ErrorMessagesConfig>) => update(set, get, 'errorMessages', u),
+    updateFlexBoxConfig: (u: Partial<FlexBoxConfig>) => update(set, get, 'flexBox', u),
+    updateAlertsConfig: (u: Partial<AlertsConfig>) => update(set, get, 'alerts', u),
+    updateToastConfig: (u: Partial<ToastConfig>) => update(set, get, 'toast', u),
+    updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, 'message', u),
     updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
   };
 }

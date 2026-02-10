@@ -1,8 +1,17 @@
+/**
+ * ButtonNative - Zero-dependency themed button using native HTML.
+ *
+ * Provides variant-based styling (primary, secondary, outline, ghost, danger),
+ * size options, and full-width support using Tailwind CSS utility classes
+ * with theme CSS variables. No Syncfusion dependency for minimal bundle size.
+ */
 import { memo, forwardRef, type ButtonHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/cn';
 
+/** Available button style variants */
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+/** Available button size presets */
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {

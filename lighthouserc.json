@@ -5,7 +5,7 @@
       "numberOfRuns": 3,
       "settings": {
         "chromeFlags": "--headless --no-sandbox --disable-gpu",
-        "onlyCategories": ["performance", "accessibility", "best-practices", "seo"]
+        "onlyCategories": ["performance", "accessibility", "best-practices", "seo", "pwa"]
       }
     },
     "assert": {
@@ -14,6 +14,7 @@
         "categories:accessibility": ["error", { "minScore": 1 }],
         "categories:best-practices": ["error", { "minScore": 1 }],
         "categories:seo": ["error", { "minScore": 1 }],
+        "categories:pwa": ["error", { "minScore": 1 }],
         "first-contentful-paint": ["warn", { "maxNumericValue": 1500 }],
         "largest-contentful-paint": ["error", { "maxNumericValue": 2500 }],
         "interactive": ["error", { "maxNumericValue": 3500 }],

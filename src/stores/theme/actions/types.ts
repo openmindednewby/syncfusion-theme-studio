@@ -44,6 +44,11 @@ export interface ComponentConfigActions {
   updateSelectConfig: ThemeState['updateSelectConfig'];
   updateDatePickerConfig: ThemeState['updateDatePickerConfig'];
   updateDialogConfig: ThemeState['updateDialogConfig'];
+  updateErrorMessagesConfig: ThemeState['updateErrorMessagesConfig'];
+  updateFlexBoxConfig: ThemeState['updateFlexBoxConfig'];
+  updateAlertsConfig: ThemeState['updateAlertsConfig'];
+  updateToastConfig: ThemeState['updateToastConfig'];
+  updateMessageConfig: ThemeState['updateMessageConfig'];
 }
 
 export interface TypographyActions {

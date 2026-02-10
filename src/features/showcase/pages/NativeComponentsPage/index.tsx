@@ -8,6 +8,9 @@ import {
   NativeCheckboxSection,
   NativeDatePickerSection,
   NativeDialogsSection,
+  NativeCardsSection,
+  NativeAlertsSection,
+  NativeNotificationsSection,
 } from './sections';
 
 const NativeComponentsPage = (): JSX.Element => (
@@ -24,6 +27,9 @@ const NativeComponentsPage = (): JSX.Element => (
       <NativeCheckboxSection />
       <NativeDatePickerSection />
       <NativeDialogsSection />
+      <NativeCardsSection />
+      <NativeAlertsSection />
+      <NativeNotificationsSection />
     </div>
   </div>
 );

@@ -18,8 +18,8 @@ test.describe('Theme Presets', () => {
     // Find all preset cards
     const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
 
-    // Should have multiple presets (14 according to presets.ts)
-    await expect(presetCards).toHaveCount(14);
+    // Should have multiple presets (15 according to presets.ts)
+    await expect(presetCards).toHaveCount(15);
   });
 
   test('should apply preset and update UI colors', async ({ page }) => {
@@ -118,6 +118,40 @@ test.describe('Theme Presets', () => {
       const primaryColor = await getCSSVariable(page, '--color-primary-500');
       expect(primaryColor).toBeTruthy();
     }
+  });
+
+  test('should load Fremen as the default preset', async ({ page }) => {
+    // Fremen is now the default theme - verify its teal primary color is applied
+    const primaryColor = await getCSSVariable(page, '--color-primary-500');
+    expect(primaryColor).toBe('0 188 212');
+
+    // Verify Fremen preset card is first and marked active
+    const firstPreset = page.getByTestId(TestIds.THEME_PRESET_CARD).first();
+    await expect(firstPreset).toContainText('Fremen');
+  });
+
+  test('should apply Fremen preset and set teal colors', async ({ page }) => {
+    // Apply a different preset first
+    const slatePreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Slate'
+    });
+    await slatePreset.click();
+    await page.waitForTimeout(100);
+
+    // Now apply Fremen
+    const fremenPreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Fremen'
+    });
+    await fremenPreset.click();
+    await page.waitForTimeout(100);
+
+    // Verify teal primary color is applied
+    const primaryColor = await getCSSVariable(page, '--color-primary-500');
+    expect(primaryColor).toBe('0 188 212');
+
+    // Verify violet secondary color
+    const secondaryColor = await getCSSVariable(page, '--color-secondary-500');
+    expect(secondaryColor).toBe('139 92 246');
   });
 
   test('should display preset with name and description', async ({ page }) => {

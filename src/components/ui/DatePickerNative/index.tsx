@@ -1,3 +1,11 @@
+/**
+ * DatePickerNative - Zero-dependency themed date picker using native HTML.
+ *
+ * Renders a native `<input type="date">` with label, helper text, error state,
+ * min/max date constraints, required indicator, and full-width support.
+ * Relies on the browser's built-in date picker UI.
+ * No Syncfusion dependency for minimal bundle size.
+ */
 import { memo, forwardRef, useId, type InputHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/cn';

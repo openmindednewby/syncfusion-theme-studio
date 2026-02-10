@@ -618,16 +618,51 @@
   .theme-card {
     background-color: var(--component-card-background);
     border-color: var(--component-card-border);
+    color: var(--component-card-text);
+    transition: border-color var(--transition-fast);
+  }
+
+  .e-card:hover,
+  .theme-card:hover {
+    border-color: var(--component-card-hover-border);
   }
 
   .e-card .e-card-header,
   .theme-card-header {
     background-color: var(--component-card-header-bg);
+    border-bottom: 1px solid var(--component-card-header-border);
+    color: var(--component-card-header-text);
   }
 
+  .e-card .e-card-header .e-card-header-title,
+  .e-card .e-card-header-title {
+    color: var(--component-card-title);
+  }
+
+  .e-card .e-card-header .e-card-sub-title {
+    color: var(--component-card-subtitle);
+  }
+
+  .e-card .e-card-content {
+    color: var(--component-card-text);
+    padding: var(--component-card-content-padding);
+  }
+
+  .e-card .e-card-actions,
   .e-card .e-card-footer,
   .theme-card-footer {
     background-color: var(--component-card-footer-bg);
+    border-top: 1px solid var(--component-card-footer-border);
+  }
+
+  .e-card .e-card-actions .e-card-btn,
+  .e-card .e-card-actions .e-btn {
+    color: var(--component-card-action-text);
+  }
+
+  .e-card .e-card-actions .e-card-btn:hover,
+  .e-card .e-card-actions .e-btn:hover {
+    color: var(--component-card-action-hover);
   }
 
   /* ===== BADGE OVERRIDES ===== */
@@ -707,5 +742,108 @@
   .theme-sidebar-item:hover,
   .app-sidebar .nav-item:hover {
     background-color: var(--component-sidebar-hover-bg);
+  }
+
+  /* ===== TOAST OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-toast-container .e-toast {
+    background-color: var(--component-toast-bg) !important;
+    color: var(--component-toast-text) !important;
+    border: 1px solid var(--component-toast-border) !important;
+    border-radius: var(--component-toast-border-radius) !important;
+    box-shadow: var(--component-toast-shadow) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-title {
+    color: var(--component-toast-title) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-close-icon {
+    color: var(--component-toast-close-btn) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-close-icon:hover {
+    color: var(--component-toast-close-btn-hover) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-progress {
+    background-color: var(--component-toast-progress) !important;
+  }
+
+  /* Toast severity variants */
+  .e-toast-container .e-toast.e-toast-success {
+    background-color: var(--component-toast-success-bg) !important;
+    color: var(--component-toast-success-text) !important;
+    border-color: var(--component-toast-success-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-success .e-toast-icon {
+    color: var(--component-toast-success-icon) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-warning {
+    background-color: var(--component-toast-warning-bg) !important;
+    color: var(--component-toast-warning-text) !important;
+    border-color: var(--component-toast-warning-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-warning .e-toast-icon {
+    color: var(--component-toast-warning-icon) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-danger {
+    background-color: var(--component-toast-error-bg) !important;
+    color: var(--component-toast-error-text) !important;
+    border-color: var(--component-toast-error-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-danger .e-toast-icon {
+    color: var(--component-toast-error-icon) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-info {
+    background-color: var(--component-toast-info-bg) !important;
+    color: var(--component-toast-info-text) !important;
+    border-color: var(--component-toast-info-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-info .e-toast-icon {
+    color: var(--component-toast-info-icon) !important;
+  }
+
+  /* ===== MESSAGE OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-message {
+    border-radius: var(--component-message-border-radius) !important;
+  }
+
+  .e-message.e-success {
+    background-color: var(--component-message-success-bg) !important;
+    color: var(--component-message-success-text) !important;
+    border-color: var(--component-message-success-border) !important;
+  }
+
+  .e-message.e-warning {
+    background-color: var(--component-message-warning-bg) !important;
+    color: var(--component-message-warning-text) !important;
+    border-color: var(--component-message-warning-border) !important;
+  }
+
+  .e-message.e-error {
+    background-color: var(--component-message-error-bg) !important;
+    color: var(--component-message-error-text) !important;
+    border-color: var(--component-message-error-border) !important;
+  }
+
+  .e-message.e-info {
+    background-color: var(--component-message-info-bg) !important;
+    color: var(--component-message-info-text) !important;
+    border-color: var(--component-message-info-border) !important;
+  }
+
+  .e-message.e-normal {
+    background-color: var(--component-message-normal-bg) !important;
+    color: var(--component-message-normal-text) !important;
+    border-color: var(--component-message-normal-border) !important;
   }
 }

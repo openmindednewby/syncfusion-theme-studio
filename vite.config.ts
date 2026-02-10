@@ -3,36 +3,96 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import { analyzer } from 'vite-bundle-analyzer';
 import { compression } from 'vite-plugin-compression2';
+import { VitePWA } from 'vite-plugin-pwa';
 
 // Note: Google Fonts are stripped post-build by scripts/strip-google-fonts.js
 
-export default defineConfig(({ mode }: ConfigEnv) => ({
-  plugins: [
-    react(),
-    mode === 'analyze' && analyzer(),
-    // Gzip and Brotli compression for production builds
-    compression({
-      include: /\.(js|css|html|svg|json)$/,
-      threshold: 1024, // Only compress files > 1kb
-      deleteOriginalAssets: false,
-      algorithms: ['gzip', 'brotliCompress'],
-    }),
-    // Note: Prefetch hints are added by scripts/add-prefetch-hints.js post-build
-  ].filter(Boolean),
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, './src/components'),
-      '@features': path.resolve(__dirname, './src/features'),
-      '@stores': path.resolve(__dirname, './src/stores'),
-      '@utils': path.resolve(__dirname, './src/utils'),
-      '@api': path.resolve(__dirname, './src/api'),
-      '@localization': path.resolve(__dirname, './src/localization'),
-      '@styles': path.resolve(__dirname, './src/styles'),
-      '@config': path.resolve(__dirname, './src/config'),
+export default defineConfig(({ mode }: ConfigEnv) => {
+  const pwaPlugin = VitePWA({
+    registerType: 'prompt',
+    includeAssets: ['favicon.svg', 'icons/*.png', 'screenshots/*.png'],
+    manifest: {
+      name: 'Syncfusion Theme Studio',
+      short_name: 'Theme Studio',
+      description: 'Design and customize React admin portal themes with live preview',
+      theme_color: '#3B82F6',
+      background_color: '#ffffff',
+      display: 'standalone',
+      scope: '/',
+      start_url: '/',
+      categories: ['design', 'developer tools'],
+      icons: [
+        { src: '/icons/icon-48x48.png', sizes: '48x48', type: 'image/png' },
+        { src: '/icons/icon-72x72.png', sizes: '72x72', type: 'image/png' },
+        { src: '/icons/icon-96x96.png', sizes: '96x96', type: 'image/png' },
+        { src: '/icons/icon-128x128.png', sizes: '128x128', type: 'image/png' },
+        { src: '/icons/icon-144x144.png', sizes: '144x144', type: 'image/png' },
+        { src: '/icons/icon-192x192.png', sizes: '192x192', type: 'image/png' },
+        { src: '/icons/icon-384x384.png', sizes: '384x384', type: 'image/png' },
+        { src: '/icons/icon-512x512.png', sizes: '512x512', type: 'image/png' },
+        { src: '/icons/icon-512x512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+      ],
+      screenshots: [
+        { src: '/screenshots/desktop.png', sizes: '1280x720', type: 'image/png', form_factor: 'wide' },
+        { src: '/screenshots/mobile.png', sizes: '390x844', type: 'image/png', form_factor: 'narrow' },
+      ],
     },
-  },
-  build: {
+    workbox: {
+      globPatterns: ['**/*.{js,css,html,svg,png,woff,woff2}'],
+      navigateFallback: 'index.html',
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/.*\.(?:png|jpg|jpeg|svg|gif|webp)$/,
+          handler: 'CacheFirst',
+          options: {
+            cacheName: 'images-cache',
+            expiration: { maxEntries: 60, maxAgeSeconds: 30 * 24 * 60 * 60 },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/.*\/api\//,
+          handler: 'NetworkFirst',
+          options: {
+            cacheName: 'api-cache',
+            expiration: { maxEntries: 50, maxAgeSeconds: 5 * 60 },
+          },
+        },
+      ],
+    },
+  });
+
+  return {
+    plugins: [
+      react(),
+      ...pwaPlugin,
+      mode === 'analyze' && analyzer({
+        analyzerMode: 'static',
+        fileName: 'reports/bundle-analysis',
+        openAnalyzer: false,
+      }),
+      // Gzip and Brotli compression for production builds
+      compression({
+        include: /\.(js|css|html|svg|json)$/,
+        threshold: 1024, // Only compress files > 1kb
+        deleteOriginalAssets: false,
+        algorithms: ['gzip', 'brotliCompress'],
+      }),
+      // Note: Prefetch hints are added by scripts/add-prefetch-hints.js post-build
+    ].filter(Boolean),
+    resolve: {
+      alias: {
+        '@': path.resolve(__dirname, './src'),
+        '@components': path.resolve(__dirname, './src/components'),
+        '@features': path.resolve(__dirname, './src/features'),
+        '@stores': path.resolve(__dirname, './src/stores'),
+        '@utils': path.resolve(__dirname, './src/utils'),
+        '@api': path.resolve(__dirname, './src/api'),
+        '@localization': path.resolve(__dirname, './src/localization'),
+        '@styles': path.resolve(__dirname, './src/styles'),
+        '@config': path.resolve(__dirname, './src/config'),
+      },
+    },
+    build: {
     // Disable modulePreload for heavy chunks that aren't needed on initial load
     // This prevents large vendors from being preloaded on the initial page
     modulePreload: {
@@ -221,9 +281,12 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
       keepNames: true,
     },
   },
-  server: {
+  preview: {
     port: 4445,
-    open: true,
+  },
+  server: {
+    port: 4444,
+    open: false,
     // Warmup critical files for faster initial load
     warmup: {
       clientFiles: [
@@ -247,4 +310,5 @@ export default defineConfig(({ mode }: ConfigEnv) => ({
     // Keep names for better debugging in dev
     keepNames: true,
   },
-}));
+};
+});

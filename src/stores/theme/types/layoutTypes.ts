@@ -4,6 +4,8 @@ export interface LayoutConfig {
   sidebarWidth: string;
   sidebarCollapsedWidth: string;
   headerHeight: string;
+  contentMaxWidth: string;
+  contentFullWidth: boolean;
 }
 
 export interface BorderRadiusConfig {

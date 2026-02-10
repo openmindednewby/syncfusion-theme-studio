@@ -1,3 +1,12 @@
+/**
+ * DatePicker - Theme-aware Syncfusion DatePickerComponent wrapper.
+ *
+ * Provides a styled date picker with label, helper text, error state,
+ * required indicator, configurable date format, and full-width option.
+ * Wraps Syncfusion's calendar popup with theme-aware CSS classes.
+ *
+ * @see {@link https://ej2.syncfusion.com/react/documentation/datepicker/getting-started | Syncfusion DatePicker docs}
+ */
 import { memo, forwardRef, useId, useMemo } from 'react';
 
 import {

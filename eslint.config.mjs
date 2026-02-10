@@ -7,6 +7,7 @@ import jsxA11yPlugin from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
 import unusedImportsPlugin from 'eslint-plugin-unused-imports';
 import prettierConfig from 'eslint-config-prettier';
+import i18nextPlugin from 'eslint-plugin-i18next';
 import smartMaxLinesPlugin from './eslint-plugins/smart-max-lines.mjs';
 import noNullCheckPlugin from './eslint-plugins/no-null-check.mjs';
 
@@ -262,6 +263,15 @@ export default [
       'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
       'react/no-array-index-key': 'warn',
       'react/jsx-no-leaked-render': 'error',
+      'react/jsx-no-literals': ['warn', {
+        noStrings: true,
+        allowedStrings: [
+          '/', '-', '>', '<', '|', ':', '.', ',', '+', '=', '(', ')',
+          '*', '%', '$', '#', '&', '@', '~', '^', '!', '?', ';',
+        ],
+        ignoreProps: true,
+        noAttributeStrings: false,
+      }],
 
       // =====================================================
       // REACT HOOKS RULES
@@ -432,7 +442,52 @@ export default [
         { selector: 'IfStatement > LogicalExpression[right.type="LogicalExpression"]', message: 'Condition has more than 2 expressions. Extract to a named variable' },
         { selector: 'ConditionalExpression > LogicalExpression[left.type="LogicalExpression"]', message: 'Ternary condition has more than 2 expressions. Extract to a named variable' },
         { selector: 'ConditionalExpression > LogicalExpression[right.type="LogicalExpression"]', message: 'Ternary condition has more than 2 expressions. Extract to a named variable' },
+        { selector: 'WhileStatement > LogicalExpression[left.type="LogicalExpression"]', message: 'While condition has more than 2 expressions. Extract to a named variable' },
+        { selector: 'WhileStatement > LogicalExpression[right.type="LogicalExpression"]', message: 'While condition has more than 2 expressions. Extract to a named variable' },
       ],
+    },
+  },
+
+  // =====================================================
+  // I18N ENFORCEMENT - No hardcoded user-facing strings
+  // =====================================================
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    plugins: { 'i18next': i18nextPlugin },
+    rules: {
+      'i18next/no-literal-string': ['warn', {
+        markupOnly: true,
+        ignoreAttribute: [
+          'className', 'style', 'id', 'key', 'ref', 'type', 'name', 'value',
+          'defaultValue', 'href', 'src', 'as', 'to', 'from',
+          'mode', 'variant', 'size', 'color',
+          'data-testid', 'testId',
+          'cssClass', 'iconCss',
+          'aria-hidden', 'aria-live', 'aria-current', 'aria-expanded',
+          'aria-selected', 'aria-checked',
+          'd', 'viewBox', 'fill', 'stroke', 'strokeWidth',
+          'strokeLinecap', 'strokeLinejoin', 'xmlns',
+          'role', 'tabIndex', 'htmlFor', 'autoComplete', 'autoFocus',
+        ],
+        ignoreCallee: [
+          'require', 'Error', 'URL', 'console.*', 'cn',
+          'navigate', 'useNavigate',
+        ],
+        ignoreProperty: [
+          'className', 'style', 'id', 'key', 'type', 'name',
+          'variant', 'mode', 'path', 'cssClass', 'iconCss',
+          'fontFamily', 'fontWeight', 'textAlign', 'display',
+        ],
+        ignore: [
+          '^[A-Z_]+$',
+          '^#[0-9a-fA-F]+$',
+          '^rgba?\\(',
+          '^hsl',
+          '^var\\(--',
+          '^e-',
+          '^M\\d',
+        ],
+      }],
     },
   },
 
@@ -470,7 +525,18 @@ export default [
       'smart-max-lines/smart-max-lines': 'off',
       'no-magic-numbers': 'off',
       'no-console': 'off',
+      'no-script-url': 'off',
       'no-null-check/no-null-check': 'off', // Allow null/undefined checks in test mocks
+      'react/jsx-no-literals': 'off', // Tests often have hardcoded strings in assertions
+      'i18next/no-literal-string': 'off', // Tests use hardcoded strings
+    },
+  },
+
+  // Allow console usage in the centralized logger utility only
+  {
+    files: ['src/utils/logger.ts'],
+    rules: {
+      'no-console': 'off',
     },
   },
 

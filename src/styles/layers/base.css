@@ -210,11 +210,16 @@
   button,
   [role="button"],
   a,
-  input[type="checkbox"],
-  input[type="radio"],
   select {
     min-height: 44px;
     min-width: 44px;
+  }
+
+  /* Checkboxes/radios: keep the control small but ensure the clickable row meets 44px */
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: auto;
+    min-width: auto;
   }
 
   /* Exception: inline links can be smaller but get extra padding when focused */

@@ -84,4 +84,28 @@ export class DashboardPage extends BasePage {
     // Click on Native components (first sub-item)
     await this.clickByTestId(TestIds.NAV_COMPONENTS_NATIVE);
   }
+
+  async expandFormsSection(): Promise<void> {
+    await this.clickByTestId(TestIds.NAV_FORMS_EXPAND);
+  }
+
+  async navigateToSyncfusionForms(): Promise<void> {
+    await this.expandFormsSection();
+    await this.clickByTestId(TestIds.NAV_FORMS_SYNCFUSION);
+  }
+
+  async navigateToNativeForms(): Promise<void> {
+    await this.expandFormsSection();
+    await this.clickByTestId(TestIds.NAV_FORMS_NATIVE);
+  }
+
+  async expectFormsExpanded(): Promise<void> {
+    const expandBtn = this.page.getByTestId(TestIds.NAV_FORMS_EXPAND);
+    await expect(expandBtn).toHaveAttribute('aria-expanded', 'true');
+  }
+
+  async expectFormsCollapsed(): Promise<void> {
+    const expandBtn = this.page.getByTestId(TestIds.NAV_FORMS_EXPAND);
+    await expect(expandBtn).toHaveAttribute('aria-expanded', 'false');
+  }
 }

@@ -93,6 +93,56 @@ export const TestIds = {
   NAV_COMPONENTS_NATIVE: 'nav-components-native',
   NAV_COMPONENTS_SYNCFUSION: 'nav-components-syncfusion',
   NAV_COMPONENTS_EXPAND: 'nav-components-expand',
+
+  // Forms Section
+  NAV_FORMS: 'nav-forms',
+  NAV_FORMS_EXPAND: 'nav-forms-expand',
+  NAV_FORMS_SYNCFUSION: 'nav-forms-syncfusion',
+  NAV_FORMS_NATIVE: 'nav-forms-native',
+  FORMS_SHOWCASE_PAGE: 'forms-showcase-page',
+  NATIVE_FORMS_PAGE: 'native-forms-page',
+
+  // Cards
+  CARDS_NATIVE_SECTION: 'cards-native-section',
+  CARDS_SYNCFUSION_SECTION: 'cards-syncfusion-section',
+  CARDS_NATIVE_PAGE_SECTION: 'cards-native-page-section',
+
+  // Notifications showcase
+  TOAST_SUCCESS_BTN: 'toast-success-btn',
+  TOAST_WARNING_BTN: 'toast-warning-btn',
+  TOAST_ERROR_BTN: 'toast-error-btn',
+  TOAST_INFO_BTN: 'toast-info-btn',
+  MESSAGE_SUCCESS: 'message-success',
+  MESSAGE_WARNING: 'message-warning',
+  MESSAGE_ERROR: 'message-error',
+  MESSAGE_INFO: 'message-info',
+  MESSAGE_NORMAL: 'message-normal',
+  NOTIFICATIONS_SECTION: 'notifications-section',
+  NATIVE_NOTIFICATIONS_SECTION: 'native-notifications-section',
+
+  // Alerts (Syncfusion)
+  ALERT_SUCCESS: 'alert-success',
+  ALERT_WARNING: 'alert-warning',
+  ALERT_ERROR: 'alert-error',
+  ALERT_INFO: 'alert-info',
+  ALERT_DISMISSIBLE: 'alert-dismissible',
+
+  // Alerts (Native)
+  NATIVE_ALERT_SUCCESS: 'native-alert-success',
+  NATIVE_ALERT_WARNING: 'native-alert-warning',
+  NATIVE_ALERT_ERROR: 'native-alert-error',
+  NATIVE_ALERT_INFO: 'native-alert-info',
+  NATIVE_ALERT_DISMISSIBLE: 'native-alert-dismissible',
+  NATIVE_ALERT_NO_ICON: 'native-alert-no-icon',
+
+  // PWA
+  PWA_UPDATE_PROMPT: 'pwa-update-prompt',
+  PWA_UPDATE_BUTTON: 'pwa-update-button',
+  PWA_DISMISS_BUTTON: 'pwa-dismiss-button',
+  PWA_INSTALL_PROMPT: 'pwa-install-prompt',
+  PWA_INSTALL_BUTTON: 'pwa-install-button',
+  PWA_INSTALL_DISMISS: 'pwa-install-dismiss',
+  OFFLINE_INDICATOR: 'offline-indicator',
 } as const;
 
 export type TestId = (typeof TestIds)[keyof typeof TestIds];

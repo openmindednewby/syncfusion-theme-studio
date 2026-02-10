@@ -1,3 +1,12 @@
+/**
+ * Button - Theme-aware Syncfusion ButtonComponent wrapper.
+ *
+ * Provides variant-based styling (primary, secondary, outline, ghost, danger),
+ * size options, loading state with spinner, and left/right icon slots.
+ * Automatically applies light/dark mode CSS classes from the theme store.
+ *
+ * @see {@link https://ej2.syncfusion.com/react/documentation/button/getting-started | Syncfusion Button docs}
+ */
 import { memo, forwardRef, useMemo } from 'react';
 
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
@@ -7,7 +16,9 @@ import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
+/** Available button style variants */
 type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+/** Available button size presets */
 type ButtonSize = 'sm' | 'md' | 'lg';
 
 interface Props extends Omit<ButtonModel, 'cssClass'> {

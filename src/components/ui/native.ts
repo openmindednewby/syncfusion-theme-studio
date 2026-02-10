@@ -20,5 +20,8 @@ export type { DatePickerNativeProps } from './DatePickerNative';
 export { default as DialogNative } from './DialogNative';
 export type { DialogNativeProps, DialogNativeButton, DialogVariant } from './DialogNative';
 
+export { default as AlertNative } from './AlertNative';
+export type { AlertNativeProps, AlertVariant as AlertNativeVariant } from './AlertNative';
+
 // Note: ButtonVariant and ButtonSize are exported separately to avoid conflicts
 // with the Syncfusion Button component which has the same type names

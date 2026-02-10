@@ -161,6 +161,97 @@
     border: 1px solid var(--component-modal-border);
   }
 
+  /* ===== ALERTS ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: var(--component-alert-padding, 0.75rem 1rem);
+    border-width: var(--component-alert-border-width, 1px);
+    border-style: solid;
+    border-radius: var(--component-alert-border-radius, var(--radius-md));
+    font-size: var(--font-size-sm);
+    line-height: 1.5;
+  }
+
+  .alert-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.125rem;
+  }
+
+  .alert-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .alert-title {
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+
+  .alert-description {
+    opacity: 0.9;
+  }
+
+  .alert-close {
+    flex-shrink: 0;
+    padding: 0.25rem;
+    border-radius: var(--radius-sm);
+    opacity: 0.7;
+    cursor: pointer;
+    transition: opacity var(--transition-fast);
+    background: transparent;
+    border: none;
+    color: inherit;
+  }
+
+  .alert-close:hover {
+    opacity: 1;
+  }
+
+  .alert-success {
+    background-color: var(--component-alert-success-bg);
+    color: var(--component-alert-success-text);
+    border-color: var(--component-alert-success-border);
+  }
+
+  .alert-success .alert-icon {
+    color: var(--component-alert-success-icon);
+  }
+
+  .alert-warning {
+    background-color: var(--component-alert-warning-bg);
+    color: var(--component-alert-warning-text);
+    border-color: var(--component-alert-warning-border);
+  }
+
+  .alert-warning .alert-icon {
+    color: var(--component-alert-warning-icon);
+  }
+
+  .alert-error {
+    background-color: var(--component-alert-error-bg);
+    color: var(--component-alert-error-text);
+    border-color: var(--component-alert-error-border);
+  }
+
+  .alert-error .alert-icon {
+    color: var(--component-alert-error-icon);
+  }
+
+  .alert-info {
+    background-color: var(--component-alert-info-bg);
+    color: var(--component-alert-info-text);
+    border-color: var(--component-alert-info-border);
+  }
+
+  .alert-info .alert-icon {
+    color: var(--component-alert-info-icon);
+  }
+
   /* ===== THEME SETTINGS PANEL ===== */
   /* Premium design tool sidebar styles */
   .theme-panel {
@@ -292,6 +383,23 @@
     box-shadow: 0 2px 8px rgb(0 0 0 / 0.04);
   }
 
+  /* ===== ERROR MESSAGE ANIMATIONS ===== */
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+  }
+
   /* Import panel animation */
   @keyframes slideInFromTop {
     from {
@@ -353,5 +461,149 @@
 
   .theme-action-btn:hover::after {
     opacity: 1;
+  }
+
+  /* ===== NATIVE TOAST NOTIFICATIONS ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  @keyframes toastSlideIn {
+    from { opacity: 0; transform: translateX(100%); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes toastSlideOut {
+    from { opacity: 1; transform: translateX(0); }
+    to { opacity: 0; transform: translateX(100%); }
+  }
+
+  .native-toast {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--component-toast-border-radius, var(--radius-lg));
+    border: 1px solid var(--component-toast-border);
+    background-color: var(--component-toast-bg);
+    color: var(--component-toast-text);
+    box-shadow: var(--component-toast-shadow);
+    animation: toastSlideIn 0.3s ease-out;
+    min-width: 280px;
+    max-width: 400px;
+  }
+
+  .native-toast-success {
+    background-color: var(--component-toast-success-bg);
+    color: var(--component-toast-success-text);
+    border-color: var(--component-toast-success-bg);
+  }
+
+  .native-toast-warning {
+    background-color: var(--component-toast-warning-bg);
+    color: var(--component-toast-warning-text);
+    border-color: var(--component-toast-warning-bg);
+  }
+
+  .native-toast-error {
+    background-color: var(--component-toast-error-bg);
+    color: var(--component-toast-error-text);
+    border-color: var(--component-toast-error-bg);
+  }
+
+  .native-toast-info {
+    background-color: var(--component-toast-info-bg);
+    color: var(--component-toast-info-text);
+    border-color: var(--component-toast-info-bg);
+  }
+
+  .native-toast-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.125rem;
+  }
+
+  .native-toast-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .native-toast-title {
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+  }
+
+  .native-toast-message {
+    font-size: var(--font-size-xs);
+    margin-top: 0.125rem;
+    opacity: 0.9;
+  }
+
+  .native-toast-close {
+    flex-shrink: 0;
+    padding: 0.25rem;
+    border: none;
+    background: none;
+    color: inherit;
+    opacity: 0.6;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: opacity var(--transition-fast);
+  }
+
+  .native-toast-close:hover {
+    opacity: 1;
+  }
+
+  /* ===== NATIVE MESSAGES / ALERTS ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .native-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.875rem 1rem;
+    border-radius: var(--component-message-border-radius, var(--radius-md));
+    border: 1px solid;
+    font-size: var(--font-size-sm);
+  }
+
+  .native-message-success {
+    background-color: var(--component-message-success-bg);
+    color: var(--component-message-success-text);
+    border-color: var(--component-message-success-border);
+  }
+
+  .native-message-warning {
+    background-color: var(--component-message-warning-bg);
+    color: var(--component-message-warning-text);
+    border-color: var(--component-message-warning-border);
+  }
+
+  .native-message-error {
+    background-color: var(--component-message-error-bg);
+    color: var(--component-message-error-text);
+    border-color: var(--component-message-error-border);
+  }
+
+  .native-message-info {
+    background-color: var(--component-message-info-bg);
+    color: var(--component-message-info-text);
+    border-color: var(--component-message-info-border);
+  }
+
+  .native-message-normal {
+    background-color: var(--component-message-normal-bg);
+    color: var(--component-message-normal-text);
+    border-color: var(--component-message-normal-border);
+  }
+
+  .native-message-icon {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: 0.0625rem;
+  }
+
+  .native-message-content {
+    flex: 1;
+    min-width: 0;
   }
 }

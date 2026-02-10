@@ -76,9 +76,9 @@ test.describe('Dashboard Page', () => {
   test('should have active state on dashboard nav item', async ({ page }) => {
     const dashboardNav = page.getByTestId(TestIds.NAV_HOME);
 
-    // Should have active styling (bg-primary-50, text-primary-700)
+    // Should have active styling via the 'active' class applied by NavLink
     const hasActiveClass = await dashboardNav.evaluate((el) =>
-      el.classList.contains('bg-primary-50') || el.className.includes('primary')
+      el.classList.contains('active')
     );
     expect(hasActiveClass).toBe(true);
   });

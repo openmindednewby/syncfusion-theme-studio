@@ -4,3 +4,6 @@ export { NativeSelectSection } from './NativeSelectSection';
 export { NativeCheckboxSection } from './NativeCheckboxSection';
 export { NativeDatePickerSection } from './NativeDatePickerSection';
 export { NativeDialogsSection } from './NativeDialogsSection';
+export { NativeCardsSection } from './NativeCardsSection';
+export { NativeAlertsSection } from './NativeAlertsSection';
+export { NativeNotificationsSection } from './NativeNotificationsSection';

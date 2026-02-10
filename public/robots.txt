@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://theme-studio.example.com/sitemap.xml
+Sitemap: https://syncfusion-theme-studio.com/sitemap.xml

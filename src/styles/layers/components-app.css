@@ -92,6 +92,58 @@
   box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
 }
 
+/* ===== CARD SUB-ELEMENTS ===== */
+.card:hover {
+  border-color: var(--component-card-hover-border);
+}
+
+.card-header {
+  background-color: var(--component-card-header-bg);
+  border-bottom: 1px solid var(--component-card-header-border);
+  color: var(--component-card-header-text);
+  padding: 0.75rem 1rem;
+  margin: -1.5rem -1.5rem 1rem;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+.card-title {
+  color: var(--component-card-title);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.card-subtitle {
+  color: var(--component-card-subtitle);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+.card-content {
+  padding: var(--component-card-content-padding);
+  color: var(--component-card-text);
+}
+
+.card-footer {
+  background-color: var(--component-card-footer-bg);
+  border-top: 1px solid var(--component-card-footer-border);
+  padding: 0.75rem 1rem;
+  margin: 1rem -1.5rem -1.5rem;
+  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+}
+
+.card-action {
+  color: var(--component-card-action-text);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color var(--transition-fast);
+}
+
+.card-action:hover {
+  color: var(--component-card-action-hover);
+}
+
 /* ===== MODALS ===== */
 .modal-backdrop {
   background-color: var(--component-modal-backdrop);

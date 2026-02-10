@@ -1,17 +1,22 @@
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 
+import { AlertsEditor } from './AlertsEditor';
 import { BadgesEditor } from './BadgesEditor';
 import { ButtonsEditor } from './ButtonsEditor';
 import { CardsEditor } from './CardsEditor';
 import { DataGridEditor } from './DataGridEditor';
 import { DatePickerEditor } from './DatePickerEditor';
 import { DialogEditor } from './DialogEditor';
+import { ErrorMessagesEditor } from './ErrorMessagesEditor';
+import { FlexBoxEditor } from './FlexBoxEditor';
 import { HeaderEditor } from './HeaderEditor';
 import { InputsEditor } from './InputsEditor';
+import { MessageEditor } from './MessageEditor';
 import { ModalsEditor } from './ModalsEditor';
 import { SelectEditor } from './SelectEditor';
 import { SidebarEditor } from './SidebarEditor';
+import { ToastEditor } from './ToastEditor';
 
 export const ComponentsSection = (): JSX.Element => {
   const {
@@ -28,6 +33,11 @@ export const ComponentsSection = (): JSX.Element => {
     updateSelectConfig,
     updateDatePickerConfig,
     updateDialogConfig,
+    updateErrorMessagesConfig,
+    updateFlexBoxConfig,
+    updateAlertsConfig,
+    updateToastConfig,
+    updateMessageConfig,
   } = useThemeStore();
 
   // Get the current mode's component configuration
@@ -59,6 +69,11 @@ export const ComponentsSection = (): JSX.Element => {
         <CardsEditor config={components.cards} onUpdate={updateCardsConfig} />
         <ModalsEditor config={components.modals} onUpdate={updateModalsConfig} />
         <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />
+        <ErrorMessagesEditor config={components.errorMessages} onUpdate={updateErrorMessagesConfig} />
+        <FlexBoxEditor config={components.flexBox} onUpdate={updateFlexBoxConfig} />
+        <AlertsEditor config={components.alerts} onUpdate={updateAlertsConfig} />
+        <ToastEditor config={components.toast} onUpdate={updateToastConfig} />
+        <MessageEditor config={components.message} onUpdate={updateMessageConfig} />
       </div>
     </section>
   );

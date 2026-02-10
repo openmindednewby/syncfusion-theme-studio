@@ -4,6 +4,7 @@ import {
   COPPER_THEME,
   EMERALD_THEME,
   FOREST_GREEN_THEME,
+  FREMEN_THEME,
   GOLD_THEME,
   LAVENDER_THEME,
   MIDNIGHT_THEME,
@@ -26,6 +27,17 @@ export interface ThemePreset {
 }
 
 export const themePresets: ThemePreset[] = [
+  {
+    id: 'fremen',
+    name: 'Fremen',
+    description: 'Cybersecurity-inspired teal with deep navy',
+    previewColors: [
+      FREMEN_THEME.primary['500'],
+      FREMEN_THEME.secondary['500'],
+      FREMEN_THEME.neutral['500'],
+    ],
+    theme: FREMEN_THEME,
+  },
   {
     id: 'default',
     name: 'Default Blue',

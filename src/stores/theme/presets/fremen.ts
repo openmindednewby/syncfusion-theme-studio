@@ -1,0 +1,159 @@
+// Fremen Theme Preset
+// Cybersecurity-inspired theme with teal/cyan primary and deep navy darks
+// Based on Incident Management dashboard designs with clean light mode
+// and immersive dark mode for security operations
+
+import {
+  DEFAULT_BORDER_RADIUS,
+  DEFAULT_COMPONENTS,
+  DEFAULT_LAYOUT,
+  DEFAULT_SHADOWS,
+  DEFAULT_SPACING,
+  DEFAULT_TRANSITIONS,
+  DEFAULT_TYPOGRAPHY,
+} from '../defaults';
+
+import type { ThemeConfig } from '../types';
+
+// Teal/Cyan primary - security-focused, modern, sharp
+const FREMEN_PRIMARY = {
+  '50': '224 247 250',
+  '100': '178 235 242',
+  '200': '128 222 234',
+  '300': '77 208 225',
+  '400': '38 198 218',
+  '500': '0 188 212',
+  '600': '0 172 193',
+  '700': '0 151 167',
+  '800': '0 131 143',
+  '900': '0 96 100',
+};
+
+// Violet/Purple secondary - accent for avatars, badges, highlights
+const FREMEN_SECONDARY = {
+  '50': '245 243 255',
+  '100': '237 233 254',
+  '200': '221 214 254',
+  '300': '196 181 253',
+  '400': '167 139 250',
+  '500': '139 92 246',
+  '600': '124 58 237',
+  '700': '109 40 217',
+  '800': '91 33 182',
+  '900': '76 29 149',
+};
+
+// Cool navy-tinted neutral - professional, deep
+const FREMEN_NEUTRAL = {
+  '50': '248 250 252',
+  '100': '241 244 249',
+  '200': '226 231 240',
+  '300': '200 210 225',
+  '400': '148 163 184',
+  '500': '100 116 139',
+  '600': '71 85 105',
+  '700': '45 58 82',
+  '800': '26 34 56',
+  '900': '15 20 38',
+};
+
+const FREMEN_STATUS = {
+  success: {
+    '50': '236 253 245',
+    '100': '209 250 229',
+    '200': '167 243 208',
+    '500': '16 185 129',
+    '700': '4 120 87',
+  },
+  warning: {
+    '50': '255 251 235',
+    '100': '254 243 199',
+    '200': '253 230 138',
+    '500': '245 158 11',
+    '700': '180 83 9',
+  },
+  error: {
+    '50': '254 242 242',
+    '100': '254 226 226',
+    '200': '254 202 202',
+    '500': '239 68 68',
+    '700': '185 28 28',
+  },
+  info: {
+    '50': '224 247 250',
+    '100': '178 235 242',
+    '200': '128 222 234',
+    '500': '0 188 212',
+    '700': '0 151 167',
+  },
+};
+
+const FREMEN_LIGHT_MODE = {
+  backgrounds: {
+    page: '255 255 255',
+    surface: '248 250 252',
+    surfaceElevated: '255 255 255',
+    surfaceSunken: '241 244 249',
+    overlay: '15 20 38',
+  },
+  text: {
+    primary: '15 20 38',
+    secondary: '71 85 105',
+    muted: '100 116 139',
+    disabled: '148 163 184',
+    inverse: '255 255 255',
+    link: '0 172 193',
+    linkHover: '0 151 167',
+  },
+  borders: {
+    default: '226 231 240',
+    strong: '148 163 184',
+    subtle: '241 244 249',
+    focus: '0 188 212',
+    divider: '226 231 240',
+  },
+};
+
+const FREMEN_DARK_MODE = {
+  backgrounds: {
+    page: '15 20 38',
+    surface: '26 34 56',
+    surfaceElevated: '38 48 68',
+    surfaceSunken: '10 14 28',
+    overlay: '0 0 0',
+  },
+  text: {
+    primary: '248 250 252',
+    secondary: '148 163 184',
+    muted: '100 116 139',
+    disabled: '71 85 105',
+    inverse: '15 20 38',
+    link: '38 198 218',
+    linkHover: '77 208 225',
+  },
+  borders: {
+    default: '45 58 82',
+    strong: '71 85 105',
+    subtle: '26 34 56',
+    focus: '38 198 218',
+    divider: '38 48 68',
+  },
+};
+
+export const FREMEN_THEME: ThemeConfig = {
+  id: 'fremen',
+  name: 'Fremen',
+  primary: FREMEN_PRIMARY,
+  secondary: FREMEN_SECONDARY,
+  neutral: FREMEN_NEUTRAL,
+  status: FREMEN_STATUS,
+  layout: DEFAULT_LAYOUT,
+  spacing: DEFAULT_SPACING,
+  borderRadius: DEFAULT_BORDER_RADIUS,
+  shadows: DEFAULT_SHADOWS,
+  typography: DEFAULT_TYPOGRAPHY,
+  transitions: DEFAULT_TRANSITIONS,
+  light: FREMEN_LIGHT_MODE,
+  dark: FREMEN_DARK_MODE,
+  components: DEFAULT_COMPONENTS,
+};

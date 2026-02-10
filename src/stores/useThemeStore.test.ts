@@ -67,17 +67,17 @@ describe('useThemeStore', () => {
   });
 
   describe('theme management', () => {
-    it('has default theme with id "default"', () => {
+    it('has default theme with id "fremen"', () => {
       const { result } = renderHook(() => useThemeStore());
-      expect(result.current.theme.id).toBe('default');
-      expect(result.current.theme.name).toBe('Default Blue');
+      expect(result.current.theme.id).toBe('fremen');
+      expect(result.current.theme.name).toBe('Fremen');
     });
 
     it('updates theme properties', () => {
       const { result } = renderHook(() => useThemeStore());
       act(() => result.current.updateTheme({ name: 'Custom Theme' }));
       expect(result.current.theme.name).toBe('Custom Theme');
-      expect(result.current.theme.id).toBe('default');
+      expect(result.current.theme.id).toBe('fremen');
     });
 
     it('updates primary color shade', () => {
@@ -92,8 +92,8 @@ describe('useThemeStore', () => {
       act(() => result.current.updateTheme({ name: 'Modified Theme' }));
       expect(result.current.theme.name).toBe('Modified Theme');
       act(() => result.current.resetTheme());
-      expect(result.current.theme.name).toBe('Default Blue');
-      expect(result.current.theme.id).toBe('default');
+      expect(result.current.theme.name).toBe('Fremen');
+      expect(result.current.theme.id).toBe('fremen');
     });
 
     it('updates multiple theme properties at once', () => {
@@ -480,8 +480,8 @@ describe('useThemeStore', () => {
       const exported = result.current.exportTheme();
       expect(typeof exported).toBe('string');
       const parsed = JSON.parse(exported) as { id: string; name: string };
-      expect(parsed.id).toBe('default');
-      expect(parsed.name).toBe('Default Blue');
+      expect(parsed.id).toBe('fremen');
+      expect(parsed.name).toBe('Fremen');
     });
 
     it('imports valid theme JSON successfully', () => {
@@ -503,7 +503,7 @@ describe('useThemeStore', () => {
         importResult = result.current.importTheme('invalid json');
       });
       expect(importResult).toBe(false);
-      expect(result.current.theme.id).toBe('default');
+      expect(result.current.theme.id).toBe('fremen');
     });
 
     it('returns false for JSON missing required fields', () => {
@@ -514,7 +514,7 @@ describe('useThemeStore', () => {
         importResult = result.current.importTheme(JSON.stringify(incompleteTheme));
       });
       expect(importResult).toBe(false);
-      expect(result.current.theme.id).toBe('default');
+      expect(result.current.theme.id).toBe('fremen');
     });
 
     it('returns false for JSON with empty id', () => {
@@ -582,7 +582,7 @@ describe('useThemeStore', () => {
       });
       const exported = result.current.exportTheme();
       act(() => result.current.resetTheme());
-      expect(result.current.theme.name).toBe('Default Blue');
+      expect(result.current.theme.name).toBe('Fremen');
       let importResult = false;
       act(() => {
         importResult = result.current.importTheme(exported);
@@ -658,8 +658,8 @@ describe('useThemeStore', () => {
         result.current.updateStatusColor('error', '500', '100 100 100');
       });
       act(() => result.current.resetTheme());
-      expect(result.current.theme.id).toBe('default');
-      expect(result.current.theme.name).toBe('Default Blue');
+      expect(result.current.theme.id).toBe('fremen');
+      expect(result.current.theme.name).toBe('Fremen');
     });
 
     it('resets mode config to default', () => {
@@ -721,6 +721,79 @@ describe('useThemeStore', () => {
       allShades.forEach((shade, index) => {
         expect(result.current.theme.primary[shade]).toBe(`${index} ${index} ${index}`);
       });
+    });
+  });
+
+  describe('updateFlexBoxConfig', () => {
+    it('updates flexBox container background', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({ containerBackground: '200 200 200' }));
+      expect(result.current.theme.components.light.flexBox.containerBackground).toBe('200 200 200');
+    });
+
+    it('updates flexBox direction', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({ direction: 'column' }));
+      expect(result.current.theme.components.light.flexBox.direction).toBe('column');
+    });
+
+    it('updates flexBox wrap', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({ wrap: 'nowrap' }));
+      expect(result.current.theme.components.light.flexBox.wrap).toBe('nowrap');
+    });
+
+    it('updates flexBox justifyContent', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({ justifyContent: 'space-between' }));
+      expect(result.current.theme.components.light.flexBox.justifyContent).toBe('space-between');
+    });
+
+    it('updates flexBox alignItems', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({ alignItems: 'center' }));
+      expect(result.current.theme.components.light.flexBox.alignItems).toBe('center');
+    });
+
+    it('updates flexBox gap', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({ gap: '24px' }));
+      expect(result.current.theme.components.light.flexBox.gap).toBe('24px');
+    });
+
+    it('updates flexBox item styling', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.updateFlexBoxConfig({
+        itemBackground: '100 150 200',
+        itemBorderColor: '50 75 100',
+        itemBorderRadius: 'lg',
+        itemPadding: '20px',
+      }));
+      expect(result.current.theme.components.light.flexBox.itemBackground).toBe('100 150 200');
+      expect(result.current.theme.components.light.flexBox.itemBorderColor).toBe('50 75 100');
+      expect(result.current.theme.components.light.flexBox.itemBorderRadius).toBe('lg');
+      expect(result.current.theme.components.light.flexBox.itemPadding).toBe('20px');
+    });
+
+    it('preserves other flexBox properties when updating one', () => {
+      const { result } = renderHook(() => useThemeStore());
+      const originalGap = result.current.theme.components.light.flexBox.gap;
+      act(() => result.current.updateFlexBoxConfig({ direction: 'column-reverse' }));
+      expect(result.current.theme.components.light.flexBox.gap).toBe(originalGap);
+    });
+
+    it('updates dark mode flexBox when mode is dark', () => {
+      const { result } = renderHook(() => useThemeStore());
+      act(() => result.current.setMode('dark'));
+      act(() => result.current.updateFlexBoxConfig({ containerBackground: '50 50 50' }));
+      expect(result.current.theme.components.dark.flexBox.containerBackground).toBe('50 50 50');
+    });
+
+    it('does not affect other component configs', () => {
+      const { result } = renderHook(() => useThemeStore());
+      const originalHeaderBg = result.current.theme.components.light.header.background;
+      act(() => result.current.updateFlexBoxConfig({ containerBackground: '123 123 123' }));
+      expect(result.current.theme.components.light.header.background).toBe(originalHeaderBg);
     });
   });
 

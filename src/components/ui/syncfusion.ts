@@ -21,3 +21,6 @@ export type { DatePickerProps } from './syncfusion/DatePicker';
 
 export { default as Dialog } from './syncfusion/Dialog';
 export type { DialogProps, DialogButton, DialogVariant } from './syncfusion/Dialog';
+
+export { default as Alert } from './syncfusion/Alert';
+export type { AlertProps, AlertSeverity, AlertDisplayVariant } from './syncfusion/Alert';

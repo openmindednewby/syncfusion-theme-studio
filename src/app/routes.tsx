@@ -51,8 +51,10 @@ const routes: RouteObject[] = [
       { path: 'components/native', element: <LazyPage component={NativeComponentsPage} /> },
       { path: 'components/syncfusion', element: <LazyPage component={SyncfusionComponentsPage} /> },
       { path: 'components/grid', element: <LazyPage component={DataGridPage} /> },
-      { path: 'showcase/forms', element: <LazyPage component={SyncfusionFormsPage} /> },
-      { path: 'showcase/native-forms', element: <LazyPage component={NativeFormsPage} /> },
+      // Forms routes - redirect /forms to /forms/syncfusion
+      { path: 'forms', element: <Navigate replace to="syncfusion" /> },
+      { path: 'forms/syncfusion', element: <LazyPage component={SyncfusionFormsPage} /> },
+      { path: 'forms/native', element: <LazyPage component={NativeFormsPage} /> },
     ],
   },
   // Keep /login as alias for backwards compatibility

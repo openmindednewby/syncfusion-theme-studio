@@ -27,4 +27,7 @@ export type {
   DialogProps,
   DialogButton,
   DialogVariant,
+  AlertProps,
+  AlertSeverity,
+  AlertDisplayVariant,
 } from './syncfusion';

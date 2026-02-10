@@ -7,6 +7,7 @@ import { useThemeStore } from '@/stores/useThemeStore';
 
 import { DrawerTabs } from './DrawerTabs';
 import { ImportExportSection } from './ImportExportSection';
+import { ThemeStudioLoader } from './ThemeStudioLoader';
 
 import type { TabId } from './DrawerTabs';
 
@@ -107,12 +108,10 @@ const ResetIcon = (): JSX.Element => (
   </svg>
 );
 
-// Loading fallback for lazy-loaded sections
-const SectionLoader = (): JSX.Element => (
-  <div className="flex items-center justify-center py-12">
-    <div className="h-8 w-8 animate-spin rounded-full border-2 border-border border-t-primary-500" />
-  </div>
-);
+// Loading fallback for lazy-loaded sections.
+// ThemeStudioLoader reserves 200px min-height by default, preventing the
+// shrink→expand layout jump the old fixed-padding spinner caused.
+const SectionLoader = (): JSX.Element => <ThemeStudioLoader />;
 
 const renderTabContent = (activeTab: TabId): JSX.Element | null => {
   const content = (() => {

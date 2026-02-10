@@ -1,3 +1,12 @@
+/**
+ * DataGrid - Theme-aware Syncfusion GridComponent wrapper.
+ *
+ * Provides a configurable data grid with pagination, sorting, filtering,
+ * row selection/deselection callbacks, loading overlay, and empty state.
+ * Supports generic row types for type-safe data and event handling.
+ *
+ * @see {@link https://ej2.syncfusion.com/react/documentation/grid/getting-started | Syncfusion Grid docs}
+ */
 import { memo, useCallback, useMemo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';

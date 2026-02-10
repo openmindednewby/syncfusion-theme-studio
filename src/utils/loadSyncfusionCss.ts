@@ -22,7 +22,8 @@ export type SyncfusionCssModule =
   | 'navigations'
   | 'popups'
   | 'dropdowns'
-  | 'layouts';
+  | 'layouts'
+  | 'notifications';
 
 /** Set to track already-loaded CSS modules */
 const loadedCss = new Set<SyncfusionCssModule>();
@@ -80,6 +81,9 @@ async function loadCssModule(module: SyncfusionCssModule): Promise<void> {
       break;
     case 'layouts':
       await import('@syncfusion/ej2-react-layouts/styles/tailwind.css');
+      break;
+    case 'notifications':
+      await import('@syncfusion/ej2-react-notifications/styles/tailwind.css');
       break;
     default:
       // Exhaustive check - all cases should be handled above

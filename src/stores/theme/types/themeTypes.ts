@@ -11,6 +11,7 @@ import type {
   ThemeModeConfigUpdate,
 } from './colorTypes';
 import type {
+  AlertsConfig,
   BadgesConfig,
   ButtonStateColors,
   ButtonVariant,
@@ -19,11 +20,15 @@ import type {
   DataGridConfig,
   DatePickerConfig,
   DialogConfig,
+  ErrorMessagesConfig,
+  FlexBoxConfig,
   HeaderComponentConfig,
   InputsConfig,
+  MessageConfig,
   ModalsConfig,
   SelectConfig,
   SidebarComponentConfig,
+  ToastConfig,
 } from './componentTypes';
 import type {
   BorderRadiusConfig,
@@ -77,6 +82,11 @@ export interface ThemeState {
   updateSelectConfig: (updates: Partial<SelectConfig>) => void;
   updateDatePickerConfig: (updates: Partial<DatePickerConfig>) => void;
   updateDialogConfig: (updates: Partial<DialogConfig>) => void;
+  updateErrorMessagesConfig: (updates: Partial<ErrorMessagesConfig>) => void;
+  updateFlexBoxConfig: (updates: Partial<FlexBoxConfig>) => void;
+  updateAlertsConfig: (updates: Partial<AlertsConfig>) => void;
+  updateToastConfig: (updates: Partial<ToastConfig>) => void;
+  updateMessageConfig: (updates: Partial<MessageConfig>) => void;
   // Typography actions
   updateFontFamily: (type: 'sans' | 'mono', value: string) => void;
   updateTransition: (type: 'fast' | 'normal' | 'slow' | 'easing', value: string) => void;

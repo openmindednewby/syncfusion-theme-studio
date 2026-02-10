@@ -82,6 +82,18 @@ export interface CardsConfig {
   paddingLg: string;
   headerBackground: string;
   footerBackground: string;
+  textColor: string;
+  titleColor: string;
+  subtitleColor: string;
+  borderWidth: string;
+  hoverBorderColor: string;
+  headerTextColor: string;
+  headerBorderColor: string;
+  footerBorderColor: string;
+  contentPadding: string;
+  imageOverlayColor: string;
+  actionTextColor: string;
+  actionHoverColor: string;
 }
 
 export interface ModalsConfig {
@@ -161,6 +173,99 @@ export interface DialogConfig {
   closeButtonHoverBackground: string;
 }
 
+export type FlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+export type FlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
+export type FlexJustify = 'flex-start' | 'center' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly';
+export type FlexAlign = 'flex-start' | 'center' | 'flex-end' | 'stretch' | 'baseline';
+
+export interface FlexBoxConfig {
+  containerBackground: string;
+  containerBorderColor: string;
+  containerBorderRadius: string;
+  containerPadding: string;
+  gap: string;
+  direction: FlexDirection;
+  wrap: FlexWrap;
+  justifyContent: FlexJustify;
+  alignItems: FlexAlign;
+  itemBackground: string;
+  itemBorderColor: string;
+  itemBorderRadius: string;
+  itemPadding: string;
+}
+
+export type ErrorAnimationType = 'none' | 'fadeIn' | 'slideDown' | 'shake';
+
+export interface ErrorMessagesConfig {
+  textColor: string;
+  fontSize: string;
+  fontWeight: string;
+  animation: ErrorAnimationType;
+  animationDuration: string;
+  iconColor: string;
+  iconSize: string;
+}
+
+export interface AlertVariantConfig {
+  background: string;
+  textColor: string;
+  borderColor: string;
+  iconColor: string;
+}
+
+export interface AlertsConfig {
+  success: AlertVariantConfig;
+  warning: AlertVariantConfig;
+  error: AlertVariantConfig;
+  info: AlertVariantConfig;
+  borderRadius: string;
+  borderWidth: string;
+  padding: string;
+}
+
+export interface ToastConfig {
+  background: string;
+  textColor: string;
+  titleColor: string;
+  borderColor: string;
+  borderRadius: string;
+  shadow: string;
+  closeButtonColor: string;
+  closeButtonHoverColor: string;
+  progressBarColor: string;
+  successBackground: string;
+  successTextColor: string;
+  successIconColor: string;
+  warningBackground: string;
+  warningTextColor: string;
+  warningIconColor: string;
+  errorBackground: string;
+  errorTextColor: string;
+  errorIconColor: string;
+  infoBackground: string;
+  infoTextColor: string;
+  infoIconColor: string;
+}
+
+export interface MessageConfig {
+  borderRadius: string;
+  successBackground: string;
+  successTextColor: string;
+  successBorderColor: string;
+  warningBackground: string;
+  warningTextColor: string;
+  warningBorderColor: string;
+  errorBackground: string;
+  errorTextColor: string;
+  errorBorderColor: string;
+  infoBackground: string;
+  infoTextColor: string;
+  infoBorderColor: string;
+  normalBackground: string;
+  normalTextColor: string;
+  normalBorderColor: string;
+}
+
 /** Single component configuration (for one mode) */
 export interface ComponentConfigSingle {
   header: HeaderComponentConfig;
@@ -174,6 +279,11 @@ export interface ComponentConfigSingle {
   select: SelectConfig;
   datePicker: DatePickerConfig;
   dialog: DialogConfig;
+  errorMessages: ErrorMessagesConfig;
+  flexBox: FlexBoxConfig;
+  alerts: AlertsConfig;
+  toast: ToastConfig;
+  message: MessageConfig;
 }
 
 /** Mode-aware components configuration with light and dark variants */

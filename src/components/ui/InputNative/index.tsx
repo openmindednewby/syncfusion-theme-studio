@@ -1,3 +1,11 @@
+/**
+ * InputNative - Zero-dependency themed text input using native HTML.
+ *
+ * Provides a styled text input with label, helper text, error state,
+ * required indicator, and full-width support. Auto-generates unique IDs
+ * for label-input association and aria-describedby linking.
+ * No Syncfusion dependency for minimal bundle size.
+ */
 import { memo, forwardRef, useId, type InputHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/cn';

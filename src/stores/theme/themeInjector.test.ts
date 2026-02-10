@@ -278,6 +278,43 @@ describe('injectThemeVariables', () => {
     });
   });
 
+  describe('flexbox variable injection', () => {
+    it('injects flexBox container CSS variables', () => {
+      injectThemeVariables(DEFAULT_THEME, 'light');
+      const lightFlex = DEFAULT_THEME.components.light.flexBox;
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-bg', `rgb(${lightFlex.containerBackground})`);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-border', `rgb(${lightFlex.containerBorderColor})`);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-radius', lightFlex.containerBorderRadius);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-padding', lightFlex.containerPadding);
+    });
+
+    it('injects flexBox behavior CSS variables', () => {
+      injectThemeVariables(DEFAULT_THEME, 'light');
+      const lightFlex = DEFAULT_THEME.components.light.flexBox;
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-gap', lightFlex.gap);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-direction', lightFlex.direction);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-wrap', lightFlex.wrap);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-justify', lightFlex.justifyContent);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-align', lightFlex.alignItems);
+    });
+
+    it('injects flexBox item CSS variables', () => {
+      injectThemeVariables(DEFAULT_THEME, 'light');
+      const lightFlex = DEFAULT_THEME.components.light.flexBox;
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-bg', `rgb(${lightFlex.itemBackground})`);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-border', `rgb(${lightFlex.itemBorderColor})`);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-radius', lightFlex.itemBorderRadius);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-padding', lightFlex.itemPadding);
+    });
+
+    it('injects dark mode flexBox variables when mode is dark', () => {
+      injectThemeVariables(DEFAULT_THEME, 'dark');
+      const darkFlex = DEFAULT_THEME.components.dark.flexBox;
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-bg', `rgb(${darkFlex.containerBackground})`);
+      expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-bg', `rgb(${darkFlex.itemBackground})`);
+    });
+  });
+
   describe('requestAnimationFrame usage', () => {
     it('uses requestAnimationFrame to batch DOM updates', () => {
       const mockRAF = global.requestAnimationFrame as ReturnType<typeof vi.fn>;

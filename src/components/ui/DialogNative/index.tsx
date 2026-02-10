@@ -1,8 +1,17 @@
+/**
+ * DialogNative - Zero-dependency themed modal dialog using native HTML `<dialog>`.
+ *
+ * Provides a modal dialog with configurable variant (default, confirm, danger),
+ * primary/secondary action buttons, close icon, overlay click handling, and
+ * ESC key support via the native dialog `cancel` event.
+ * No Syncfusion dependency for minimal bundle size.
+ */
 import { memo, useEffect, useRef, useCallback, type ReactNode } from 'react';
 
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
+/** Dialog style variants controlling button defaults and appearance */
 type DialogVariant = 'default' | 'confirm' | 'danger';
 
 interface DialogButton {

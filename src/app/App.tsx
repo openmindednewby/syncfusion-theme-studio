@@ -19,10 +19,30 @@ const ReactQueryDevtools = IS_DEVELOPMENT
     }))
   : null;
 
+// Lazy load PWA components to keep them off the critical path
+const PWAUpdatePrompt = lazy(async () =>
+  import('@/components/common/PWAUpdatePrompt').then((m) => ({ default: m.PWAUpdatePrompt })),
+);
+const PWAInstallPrompt = lazy(async () =>
+  import('@/components/common/PWAInstallPrompt').then((m) => ({ default: m.PWAInstallPrompt })),
+);
+const OfflineIndicator = lazy(async () =>
+  import('@/components/common/OfflineIndicator').then((m) => ({ default: m.OfflineIndicator })),
+);
+
 export const App = (): JSX.Element => (
   <I18nProvider>
     <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
+      <Suspense fallback={null}>
+        <PWAUpdatePrompt />
+      </Suspense>
+      <Suspense fallback={null}>
+        <PWAInstallPrompt />
+      </Suspense>
+      <Suspense fallback={null}>
+        <OfflineIndicator />
+      </Suspense>
       {isValueDefined(ReactQueryDevtools) ? (
         <Suspense fallback={null}>
           <ReactQueryDevtools initialIsOpen={false} />

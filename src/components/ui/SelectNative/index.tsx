@@ -1,8 +1,17 @@
+/**
+ * SelectNative - Zero-dependency themed dropdown select using native HTML.
+ *
+ * Provides a styled `<select>` with label, helper text, error state,
+ * placeholder option, required indicator, and full-width support.
+ * Uses a CSS-encoded SVG chevron for the dropdown arrow.
+ * No Syncfusion dependency for minimal bundle size.
+ */
 import { memo, forwardRef, useId, type SelectHTMLAttributes } from 'react';
 
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
+/** Option item for the native select dropdown */
 interface SelectOption {
   value: string | number;
   label: string;

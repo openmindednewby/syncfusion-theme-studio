@@ -20,6 +20,7 @@ local_resource(
     name='theme-studio-lint',
     labels=['ThemeStudio'],
     cmd='npm run lint',
+    trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )
 
@@ -52,7 +53,7 @@ local_resource(
 local_resource(
     name='theme-studio-dev',
     labels=['ThemeStudio'],
-    serve_cmd='npm run dev -- --port 4444',
+    serve_cmd='npm run dev',
     resource_deps=['theme-studio-unit-tests'],
     links=[
         link('http://localhost:4444', 'Dashboard'),
@@ -111,7 +112,7 @@ local_resource(
 local_resource(
     name='theme-studio-preview',
     labels=['ThemeStudio'],
-    serve_cmd='npm run preview -- --port 4445',
+    serve_cmd='npm run preview',
     resource_deps=['theme-studio-build'],
     trigger_mode=TRIGGER_MODE_MANUAL,
     links=[

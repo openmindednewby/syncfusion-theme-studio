@@ -1,3 +1,12 @@
+/**
+ * Select - Theme-aware Syncfusion DropDownListComponent wrapper.
+ *
+ * Provides a styled dropdown select with label, helper text, error state,
+ * required indicator, and full-width option. Maps `SelectOption[]` to
+ * Syncfusion's field configuration for label/value binding.
+ *
+ * @see {@link https://ej2.syncfusion.com/react/documentation/drop-down-list/getting-started | Syncfusion DropDownList docs}
+ */
 import { memo, forwardRef, useId, useMemo } from 'react';
 
 import {
@@ -10,7 +19,7 @@ import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
-// Index signature needed for Syncfusion dataSource compatibility
+/** Option item for the dropdown. Index signature required for Syncfusion dataSource compatibility. */
 interface SelectOption {
   [key: string]: object | string | number;
   value: string | number;

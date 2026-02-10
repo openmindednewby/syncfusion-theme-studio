@@ -7,6 +7,7 @@
 import { useState, useCallback } from 'react';
 
 import { FM } from '@/localization/helpers';
+import { TestIds } from '@/shared/testIds';
 
 import { ContactForm } from './forms/ContactForm';
 import { LoginForm } from './forms/LoginForm';
@@ -49,7 +50,7 @@ const NativeFormsPage = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-8" data-testid={TestIds.NATIVE_FORMS_PAGE}>
       {/* Page Header */}
       <div>
         <h1 className="text-2xl font-bold text-text-primary">{FM('forms.native.page.title')}</h1>

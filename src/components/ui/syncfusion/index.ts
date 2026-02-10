@@ -28,6 +28,9 @@ export type { DatePickerProps } from './DatePicker';
 export { default as Dialog } from './Dialog';
 export type { DialogProps, DialogButton, DialogVariant } from './Dialog';
 
+export { default as Alert } from './Alert';
+export type { AlertProps, AlertSeverity, AlertDisplayVariant } from './Alert';
+
 // Re-export hooks
 export {
   useSyncfusionTheme,

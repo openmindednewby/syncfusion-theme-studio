@@ -16,9 +16,6 @@
 # ===============================================================================
 
 # --- Linter ---
-from os import link
-
-
 local_resource(
     name='theme-studio-lint',
     labels=['ThemeStudio'],

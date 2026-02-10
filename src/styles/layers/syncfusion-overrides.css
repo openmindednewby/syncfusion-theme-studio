@@ -13,9 +13,22 @@
 @layer syncfusion-overrides {
   /* ===== GLOBAL SYNCFUSION OVERRIDES ===== */
 
-  /* Use our theme's primary color for all Syncfusion components */
-  .e-control {
-    font-family: var(--font-sans);
+  /* Apply theme font-family to all Syncfusion components */
+  /* Note: !important is required to override Syncfusion's hardcoded font-family */
+  .e-control,
+  .e-lib,
+  .e-popup,
+  .e-dialog,
+  .e-grid,
+  .e-input,
+  .e-btn,
+  .e-checkbox-wrapper,
+  .e-radio-wrapper,
+  .e-switch-wrapper,
+  .e-dropdown-popup,
+  [class^='e-'],
+  [class*=' e-'] {
+    font-family: var(--font-sans) !important;
   }
 
   /* ===== BUTTON OVERRIDES ===== */

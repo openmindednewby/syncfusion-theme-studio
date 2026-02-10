@@ -170,6 +170,7 @@ npm run orval
 
 - [Code Standards Hub](./docs/code-standards/README.md) - Index of all standards
 - [Styling Architecture Guide](./docs/code-standards/styling-architecture.md) - CSS layers, theme injection, customization guide
+- [Forms Architecture Guide](./docs/code-standards/forms-architecture.md) - React Hook Form + Zod, field adapters, validation patterns
 
 This project follows strict coding standards:
 
@@ -492,6 +493,92 @@ npx lighthouse http://localhost:4173 --view
 ```
 
 **Note:** The dev server (port 4444/4445) will always be slower because code isn't minified. Only use production builds for accurate performance metrics.
+
+### Module Preloading Strategy
+
+To maintain fast initial load while ensuring smooth dashboard experience, we use strategic background preloading.
+
+#### What to Preload and Where
+
+| Module | When to Preload | Location | Why |
+|--------|-----------------|----------|-----|
+| **Syncfusion Components** | On login submit | LoginPage | Dashboard needs them immediately |
+| **Form Libraries** (react-hook-form, zod) | After login page loads | LoginPage useEffect | Forms used throughout dashboard |
+| **App CSS** | On dashboard mount | MainLayout | Full styling for dashboard |
+| **Syncfusion Grid** | On dashboard idle | MainLayout | Heavy, load when browser is idle |
+
+#### Implementation Locations
+
+```typescript
+// 1. Login Page - Preload Syncfusion on submit
+// src/features/auth/pages/LoginPage/index.tsx
+import { preloadSyncfusionModules } from '@/config/syncfusionLazy';
+import { preloadFormLibraries } from '@/config/preloadForms';
+
+function LoginPage() {
+  // Preload form libraries when login page mounts
+  useEffect(() => {
+    preloadFormLibraries();
+  }, []);
+
+  const handleSubmit = () => {
+    preloadSyncfusionModules(); // Start loading before navigation
+    navigate('/dashboard');
+  };
+}
+
+// 2. MainLayout - Preload remaining heavy modules
+// src/components/layout/MainLayout/index.tsx
+import { preloadSyncfusionFormComponents } from '@/config/preloadForms';
+
+function MainLayout() {
+  useEffect(() => {
+    import('@/styles/app.css'); // Load full CSS
+    preloadSyncfusionFormComponents(); // Form-specific Syncfusion
+  }, []);
+}
+```
+
+#### Preload Configuration Files
+
+```typescript
+// src/config/preloadForms.ts
+export function preloadFormLibraries(): void {
+  const preload = (): void => {
+    import('react-hook-form').catch(() => undefined);
+    import('zod').catch(() => undefined);
+    import('@hookform/resolvers/zod').catch(() => undefined);
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(preload, { timeout: 3000 });
+  } else {
+    setTimeout(preload, 1000);
+  }
+}
+
+export function preloadSyncfusionFormComponents(): void {
+  const preload = (): void => {
+    import('@syncfusion/ej2-react-inputs').catch(() => undefined);
+    import('@syncfusion/ej2-react-dropdowns').catch(() => undefined);
+    import('@syncfusion/ej2-react-calendars').catch(() => undefined);
+  };
+
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(preload, { timeout: 3000 });
+  } else {
+    setTimeout(preload, 1000);
+  }
+}
+```
+
+#### Preloading Best Practices
+
+1. **Use `requestIdleCallback`** - Only preload when browser is idle
+2. **Set timeout** - Ensure preload happens even if browser never idles
+3. **Catch errors** - Silent failure for preloads (non-critical)
+4. **Don't block** - Preloading should never delay user interactions
+5. **Order matters** - Preload modules in order of likely use
 
 ---
 

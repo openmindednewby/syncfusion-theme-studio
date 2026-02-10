@@ -11,6 +11,7 @@
 | Standard | File | Purpose |
 |----------|------|---------|
 | **Styling Architecture** | [styling-architecture.md](styling-architecture.md) | CSS layers, theme variables, runtime injection |
+| **Forms Architecture** | [forms-architecture.md](forms-architecture.md) | React Hook Form + Zod, field adapters, validation |
 | **State Management** | [state-management-architecture.md](state-management-architecture.md) | TanStack Query + SignalR real-time architecture |
 | **Frontend (React/Expo)** | [frontend-react.md](frontend-react.md) | React Native/Expo coding standards |
 | **E2E Tests (Playwright)** | [e2e-playwright.md](e2e-playwright.md) | Playwright testing standards |
@@ -159,6 +160,7 @@ When updating standards:
 docs/code-standards/
 ├── README.md                        # This file (index)
 ├── styling-architecture.md          # CSS layers, theme variables, injection
+├── forms-architecture.md            # React Hook Form + Zod, validation
 ├── state-management-architecture.md # TanStack Query + SignalR real-time
 ├── frontend-react.md                # React standards
 ├── e2e-playwright.md                # Playwright standards

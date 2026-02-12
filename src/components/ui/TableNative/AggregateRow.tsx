@@ -31,8 +31,12 @@ const AggregateRow = ({
 
   return (
     <tr
-      className="bg-surface-elevated border-t border-border font-medium"
+      className="border-t font-medium"
       data-testid="aggregate-row"
+      style={{
+        backgroundColor: 'var(--component-datagrid-footer-bg)',
+        borderColor: 'var(--component-datagrid-cell-border)',
+      }}
     >
       {hasCheckboxColumn ? <td className={cellPadding} /> : null}
       {columns.map((col) => {
@@ -40,8 +44,9 @@ const AggregateRow = ({
         return (
           <td
             key={col.field}
-            className={cn(cellPadding, 'text-text-primary text-sm')}
+            className={cn(cellPadding, 'text-sm')}
             data-testid={`aggregate-cell-${col.field}`}
+            style={{ color: 'var(--component-datagrid-footer-text)' }}
           >
             {agg?.formatted ?? ''}
           </td>

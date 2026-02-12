@@ -98,30 +98,3 @@ const routes: RouteObject[] = [
 ];
 
 export const router = createBrowserRouter(routes);
-
-const REQUEST_IDLE_TIMEOUT_MS = 3000;
-const FALLBACK_DELAY_MS = 100;
-
-/**
- * Preloads all lazy-loaded route pages in the background using requestIdleCallback.
- * Call on the login page to prepare dashboard chunks for instant navigation.
- */
-export const preloadRoutePages = (): void => {
-  const preload = (): void => {
-    import('@/components/layout/MainLayout').catch(() => undefined);
-    import('@/features/auth/pages/LoginPage').catch(() => undefined);
-    import('@/features/dashboard/pages/DashboardPage').catch(() => undefined);
-    import('@/features/products/pages/NativeProductsPage').catch(() => undefined);
-    import('@/features/products/pages/ProductsListPage').catch(() => undefined);
-    import('@/features/components/pages/NativeComponentsPage').catch(() => undefined);
-    import('@/features/components/pages/SyncfusionComponentsPage').catch(() => undefined);
-    import('@/features/components/pages/NativeGridShowcase').catch(() => undefined);
-    import('@/features/components/pages/SyncfusionGridShowcase').catch(() => undefined);
-    import('@/features/forms/pages/SyncfusionFormsPage').catch(() => undefined);
-    import('@/features/forms/pages/NativeFormsPage').catch(() => undefined);
-  };
-
-  if ('requestIdleCallback' in window)
-    window.requestIdleCallback(preload, { timeout: REQUEST_IDLE_TIMEOUT_MS });
-  else setTimeout(preload, FALLBACK_DELAY_MS);
-};

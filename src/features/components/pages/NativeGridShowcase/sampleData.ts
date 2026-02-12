@@ -4,8 +4,8 @@
  * Each dataset is tailored for a specific feature demonstration:
  * employees for basic/grouping, orders for aggregates, products for editing.
  */
-import type { TableColumn } from '@/components/ui/TableNative';
-import { TextAlign } from '@/components/ui/TableNative/types';
+import { TextAlign } from '@/components/ui/native';
+import type { TableColumn } from '@/components/ui/native';
 
 // --- Magic number constants ---
 const EMPLOYEE_COUNT = 12;
@@ -82,9 +82,9 @@ export const EMPLOYEES: Array<Record<string, unknown>> = Array.from(
 
 export const EMPLOYEE_COLUMNS: TableColumn[] = [
   { field: 'id', headerText: 'ID', width: COL_WIDTH_NARROW, textAlign: TextAlign.Right },
-  { field: 'name', headerText: 'Name', width: COL_WIDTH_NAME },
-  { field: 'department', headerText: 'Department', width: COL_WIDTH_MEDIUM },
-  { field: 'city', headerText: 'City', width: COL_WIDTH_MEDIUM },
+  { field: 'name', headerText: 'Name', minWidth: COL_WIDTH_NAME },
+  { field: 'department', headerText: 'Department', minWidth: COL_WIDTH_MEDIUM },
+  { field: 'city', headerText: 'City', minWidth: COL_WIDTH_MEDIUM },
   { field: 'salary', headerText: 'Salary', width: COL_WIDTH_WIDE, textAlign: TextAlign.Right,
     format: (v) => `$${Number(v).toLocaleString()}` },
   { field: 'age', headerText: 'Age', width: COL_WIDTH_NARROW, textAlign: TextAlign.Right },
@@ -126,8 +126,8 @@ export const ORDERS: Array<Record<string, unknown>> = Array.from(
 
 export const ORDER_COLUMNS: TableColumn[] = [
   { field: 'id', headerText: 'ID', width: COL_WIDTH_NARROW, textAlign: TextAlign.Right },
-  { field: 'product', headerText: 'Product', width: COL_WIDTH_NAME },
-  { field: 'category', headerText: 'Category', width: COL_WIDTH_MEDIUM },
+  { field: 'product', headerText: 'Product', minWidth: COL_WIDTH_NAME },
+  { field: 'category', headerText: 'Category', minWidth: COL_WIDTH_MEDIUM },
   { field: 'price', headerText: 'Price', width: COL_WIDTH_MEDIUM, textAlign: TextAlign.Right,
     format: (v) => `$${Number(v).toFixed(CURRENCY_DECIMALS)}` },
   { field: 'quantity', headerText: 'Qty', width: COL_WIDTH_NARROW, textAlign: TextAlign.Right },
@@ -168,8 +168,8 @@ export const PRODUCTS: Array<Record<string, unknown>> = Array.from(
 
 export const PRODUCT_COLUMNS: TableColumn[] = [
   { field: 'id', headerText: 'ID', width: COL_WIDTH_NARROW, textAlign: TextAlign.Right },
-  { field: 'name', headerText: 'Name', width: COL_WIDTH_NAME },
-  { field: 'category', headerText: 'Category', width: COL_WIDTH_MEDIUM },
+  { field: 'name', headerText: 'Name', minWidth: COL_WIDTH_NAME },
+  { field: 'category', headerText: 'Category', minWidth: COL_WIDTH_MEDIUM },
   { field: 'price', headerText: 'Price', width: COL_WIDTH_MEDIUM, textAlign: TextAlign.Right,
     format: (v) => `$${Number(v).toFixed(CURRENCY_DECIMALS)}` },
   { field: 'stock', headerText: 'Stock', width: COL_WIDTH_NARROW, textAlign: TextAlign.Right },

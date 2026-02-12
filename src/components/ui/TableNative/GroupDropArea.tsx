@@ -46,13 +46,14 @@ const GroupDropArea = ({ groupColumns, onRemoveGroup, onAddGroup }: Props): JSX.
     <div
       aria-label={FM('table.groupDropHint')}
       className={cn(
-        'flex min-h-[40px] flex-wrap items-center gap-2 border-b border-border px-4 py-2',
+        'flex min-h-[40px] flex-wrap items-center gap-2 border-b px-4 py-2',
         'transition-colors',
         isDragOver && DROP_AREA_ACTIVE_BG,
         !hasGroups && 'text-text-muted text-sm',
       )}
       data-testid="group-drop-area"
       role="listbox"
+      style={{ borderColor: 'var(--component-datagrid-cell-border)' }}
       tabIndex={0}
       onDragLeave={handleDragLeave}
       onDragOver={handleDragOver}

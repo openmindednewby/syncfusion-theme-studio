@@ -15,6 +15,8 @@ import { Sidebar } from '../Sidebar';
 import { ThemeSettingsDrawer } from '../ThemeSettingsDrawer';
 
 const MAIN_CONTENT_ID = 'main-content';
+const selectContentFullWidth = (s: { theme: { layout: { contentFullWidth: boolean } } }): boolean =>
+  s.theme.layout.contentFullWidth;
 
 /**
  * MainLayout - Three-column grid layout with:
@@ -26,7 +28,7 @@ export const MainLayout = (): JSX.Element => {
   // Initialize full theme system when entering protected routes
   // This loads the heavy theme injectors (~80KB) only for dashboard pages
   useThemeInitializer();
-  const contentFullWidth = useThemeStore((s) => s.theme.layout.contentFullWidth);
+  const contentFullWidth = useThemeStore(selectContentFullWidth);
 
   // Load Syncfusion CSS dynamically - keeps login page bundle small
   // License is already registered synchronously via the syncfusionInit side-effect import above.

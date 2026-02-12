@@ -10,9 +10,8 @@
 import type React from 'react';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { useToast } from '@/components/ui/native';
-import { ToastSeverity } from '@/components/ui/ToastNative/types';
-import type { ToastContextValue } from '@/components/ui/ToastNative/types';
+import { useToast, ToastSeverity } from '@/components/ui/native';
+import type { ToastContextValue } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 

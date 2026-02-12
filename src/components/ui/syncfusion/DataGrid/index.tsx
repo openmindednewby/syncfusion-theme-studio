@@ -10,10 +10,15 @@
  *
  * @see {@link https://ej2.syncfusion.com/react/documentation/grid/getting-started | Syncfusion Grid docs}
  */
-// Module-level CSS import ensures styles are loaded synchronously with the JS
+// Module-level CSS imports ensure styles are loaded synchronously with the JS
 // chunk (before first render), preventing unstyled pager/grid flash. Since
 // DataGrid is always lazy-loaded, this does not affect login page performance.
+// Grid CSS: columns, rows, headers, sorting, filtering, grouping, editing, etc.
 import '@syncfusion/ej2-react-grids/styles/tailwind.css';
+// Pager CSS: pagination layout, page-number buttons, nav-icon glyph definitions
+// (e-icon-first/prev/next/last), page-size dropdown, and info bar.
+// The grid CSS does NOT include pager styles — they ship in ej2-navigations.
+import '@syncfusion/ej2-navigations/styles/pager/tailwind.css';
 
 import { memo, useMemo, useRef } from 'react';
 
@@ -114,6 +119,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
         </div>
       ) : null}
       <GridComponent
+        // eslint-disable-next-line react-compiler/react-compiler -- imperative ref assignment for Syncfusion
         ref={(g: GridComponent) => { gridRef.current = g; }}
         actionBegin={callbacks.handleActionBegin}
         actionComplete={callbacks.handleActionComplete}

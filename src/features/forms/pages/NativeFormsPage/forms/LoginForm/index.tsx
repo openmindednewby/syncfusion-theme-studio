@@ -1,19 +1,21 @@
 /**
  * Login Form - Native form example using FormNativeInput
  */
-import ButtonNative, { ButtonVariant } from '@/components/ui/ButtonNative';
 import { FormNativeInput, FormCheckbox } from '@/components/ui/form-fields';
+import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
 import { FM } from '@/localization/helpers';
 
 import { loginSchema, type LoginFormData } from './schema';
+
+const FORM_CONFIG = { schema: loginSchema };
 
 interface Props {
   onSubmit: (data: LoginFormData) => void;
 }
 
 export const LoginForm = ({ onSubmit }: Props): JSX.Element => {
-  const { control, handleSubmit, formState } = useFormWithSchema({ schema: loginSchema });
+  const { control, handleSubmit, formState } = useFormWithSchema(FORM_CONFIG);
   const { isSubmitting } = formState;
 
   return (

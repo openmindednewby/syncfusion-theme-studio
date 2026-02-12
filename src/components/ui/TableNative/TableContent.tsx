@@ -80,6 +80,7 @@ const TableContent = ({
   aggregates,
   editConfig, onSave, onDelete, onAdd, onBatchSave,
   tableRef,
+  // eslint-disable-next-line complexity -- conditional rendering for grid features (filter/group/edit/aggregate/paginate)
 }: Props): JSX.Element => {
   const fields = useMemo(() => columns.map((c) => c.field), [columns]);
   const gridState = useNativeGridState(data, fields, gridConfig);
@@ -94,6 +95,7 @@ const TableContent = ({
   const colSpan = calcColSpan(columns.length, flags);
   const isFilterEnabled = shouldShowFilter(gridConfig);
   const cellPadding = compact ? COMPACT_PADDING : DEFAULT_PADDING;
+  const tableLayoutClass = gridConfig?.tableLayout === 'auto' ? '' : 'table-fixed';
   const showGroupDropArea = flags.groupingEnabled && flags.showDropArea;
   const isDialogMode = flags.editingEnabled && editConfig?.mode === 'Dialog';
 
@@ -109,7 +111,7 @@ const TableContent = ({
       <table
         ref={tableRef}
         aria-label={ariaLabel}
-        className="w-full border-collapse"
+        className={cn('w-full border-collapse', tableLayoutClass)}
         data-testid={testId}
       >
         <TableHeader
@@ -158,8 +160,11 @@ const TableContent = ({
       {gridState.shouldShowPagination ? (
         <TablePagination
           currentPage={gridState.currentPage}
+          pageCount={gridConfig?.pagination?.pageCount}
           pageSize={gridState.pageSize}
           pageSizes={gridConfig?.pagination?.pageSizes}
+          showFirstLastButtons={gridConfig?.pagination?.showFirstLastButtons}
+          showPageInfo={gridConfig?.pagination?.showPageInfo}
           totalItems={gridState.totalItems}
           totalPages={gridState.totalPages}
           onPageChange={gridState.onPageChange}

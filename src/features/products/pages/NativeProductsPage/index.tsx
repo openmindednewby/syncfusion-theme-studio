@@ -10,9 +10,8 @@ import { useState, useCallback, useMemo } from 'react';
 import type { Product, Category } from '@/api/generated/dummyjson/models';
 import { useGetAllProducts, useGetCategories } from '@/api/generated/dummyjson/products/products';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { ButtonNative, ButtonVariant, TableNative } from '@/components/ui/native';
+import { ButtonNative, ButtonVariant, TableNative, TextAlign } from '@/components/ui/native';
 import type { TableColumn } from '@/components/ui/native';
-import { TextAlign } from '@/components/ui/TableNative/types';
 import type { GridConfig } from '@/lib/grid/types';
 import { FilterType, SortDirection } from '@/lib/grid/types';
 import { FM } from '@/localization/helpers';
@@ -35,6 +34,7 @@ const PAGE_SIZE_DEFAULT = 10;
 const PAGE_SIZE_SMALL = 25;
 const PAGE_SIZE_MEDIUM = 50;
 const PAGE_SIZE_LARGE = 100;
+const PRODUCTS_QUERY_PARAMS = { limit: PRODUCTS_LIMIT };
 
 const GRID_CONFIG: GridConfig = {
   filter: {
@@ -151,7 +151,7 @@ const NativeProductsPage = (): JSX.Element => {
     isError: isProductsError,
     error: productsError,
     refetch: refetchProducts,
-  } = useGetAllProducts({ limit: PRODUCTS_LIMIT });
+  } = useGetAllProducts(PRODUCTS_QUERY_PARAMS);
 
   const { data: categoriesData } = useGetCategories();
   const categories = categoriesData?.data ?? [];

@@ -44,8 +44,9 @@ const CommandCell = ({
     return (
       <div className="flex gap-1">
         <button
-          className={cn(BTN_BASE, 'bg-primary-500 text-white hover:bg-primary-600')}
+          className={cn(BTN_BASE, 'native-grid-action-btn text-white')}
           data-testid={`cmd-save-${String(rowId)}`}
+          style={{ backgroundColor: 'var(--component-datagrid-action-btn)' }}
           type="button"
           onClick={onSave}
         >
@@ -66,8 +67,9 @@ const CommandCell = ({
     <div className="flex gap-1">
       {allowEditing ? (
         <button
-          className={cn(BTN_BASE, 'text-primary-500 hover:bg-primary-500/10')}
+          className={cn(BTN_BASE, 'hover:bg-primary-500/10')}
           data-testid={`cmd-edit-${String(rowId)}`}
+          style={{ color: 'var(--component-datagrid-action-btn)' }}
           type="button"
           onClick={handleEdit}
         >

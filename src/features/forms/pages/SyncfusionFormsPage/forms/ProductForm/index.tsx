@@ -18,15 +18,14 @@ import {
   type ProductFormData,
 } from './schema';
 
+const FORM_CONFIG = { schema: productFormSchema, defaultValues: defaultProductFormValues };
+
 interface Props {
   onSubmit: (data: ProductFormData) => void;
 }
 
 export const ProductForm = ({ onSubmit }: Props): JSX.Element => {
-  const form = useFormWithSchema({
-    schema: productFormSchema,
-    defaultValues: defaultProductFormValues,
-  });
+  const form = useFormWithSchema(FORM_CONFIG);
 
   const { handleSubmit, control, reset, formState } = form;
   const { isSubmitting, isDirty } = formState;

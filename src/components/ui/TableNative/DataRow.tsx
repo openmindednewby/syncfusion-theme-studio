@@ -14,7 +14,6 @@ import type { EditingHandlers, SelectionHandlers, CellEditContext } from './Data
 import type { TableColumn } from './types';
 
 const EVEN_ROW_INDEX_DIVISOR = 2;
-const SELECTED_ROW_BG = 'bg-primary-500/10';
 const DELETED_ROW_OPACITY = 'opacity-40 line-through';
 
 interface Props {
@@ -35,17 +34,12 @@ interface Props {
   showCommandColumn: boolean;
 }
 
-/** Determine background class for striped rows */
-function getRowBgClass(striped: boolean, isOddRow: boolean): string {
-  if (striped && isOddRow) return 'bg-surface-elevated';
-  return 'bg-surface';
-}
-
 const DataRow = ({
   row, rowIndex, columns, cellPadding,
   striped, hoverable, rowKeyField,
   showCheckbox, selectionEnabled, selection,
   editingEnabled, editing, allowEditing, allowDeleting, showCommandColumn,
+// eslint-disable-next-line complexity -- conditional rendering for selection/editing/command features
 }: Props): JSX.Element => {
   const rowId = row[rowKeyField] ?? rowIndex;
   const isSelected = selectionEnabled && selection?.isRowSelected(rowId) === true;
@@ -67,13 +61,18 @@ const DataRow = ({
   return (
     <tr
       className={cn(
-        'border-b border-border transition-colors',
-        getRowBgClass(striped, isOddRow),
-        hoverable && 'hover:bg-surface-hover',
-        isSelected && SELECTED_ROW_BG,
+        'border-b transition-colors',
+        hoverable && 'native-grid-row-hoverable',
+        isSelected && 'native-grid-row-selected',
         isDeleted && DELETED_ROW_OPACITY,
       )}
       data-testid={`table-row-${String(rowId)}`}
+      style={{
+        backgroundColor: striped && isOddRow
+          ? 'var(--component-datagrid-row-odd)'
+          : 'var(--component-datagrid-row-even)',
+        borderColor: 'var(--component-datagrid-cell-border)',
+      }}
       onClick={handleRowClick}
     >
       {showCheckbox ? (

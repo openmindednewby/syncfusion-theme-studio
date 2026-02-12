@@ -91,6 +91,8 @@ interface NativeTableColumn {
   field: string;
   headerText: string;
   width?: number | string | undefined;
+  minWidth?: number | string | undefined;
+  maxWidth?: number | string | undefined;
   textAlign?: TextAlign | undefined;
   format?: ((value: unknown) => string) | undefined;
 }
@@ -159,6 +161,8 @@ function gridColumnToNative(col: GridColumn): NativeTableColumn {
     field: col.field,
     headerText: col.headerText,
     width: col.width,
+    minWidth: col.minWidth,
+    maxWidth: col.maxWidth,
     textAlign: col.textAlign,
   };
 

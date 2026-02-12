@@ -18,15 +18,14 @@ import {
   type SearchFormData,
 } from './schema';
 
+const FORM_CONFIG = { schema: searchFormSchema, defaultValues: defaultSearchFormValues };
+
 interface Props {
   onSubmit: (data: SearchFormData) => void;
 }
 
 export const SearchForm = ({ onSubmit }: Props): JSX.Element => {
-  const form = useFormWithSchema({
-    schema: searchFormSchema,
-    defaultValues: defaultSearchFormValues,
-  });
+  const form = useFormWithSchema(FORM_CONFIG);
 
   const { handleSubmit, control, reset, formState } = form;
   const { isSubmitting, isDirty } = formState;

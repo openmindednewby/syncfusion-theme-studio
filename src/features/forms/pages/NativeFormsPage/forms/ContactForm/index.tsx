@@ -1,13 +1,14 @@
 /**
  * Contact Form - Native form example using FormNativeInput and FormNativeSelect
  */
-import ButtonNative, { ButtonVariant } from '@/components/ui/ButtonNative';
 import { FormNativeInput, FormNativeSelect } from '@/components/ui/form-fields';
+import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
 import { FM } from '@/localization/helpers';
 
 import { contactSchema, type ContactFormData } from './schema';
 
+const FORM_CONFIG = { schema: contactSchema };
 const SUBJECT_OPTIONS = [
   { value: 'general', label: 'General Inquiry' },
   { value: 'support', label: 'Technical Support' },
@@ -20,7 +21,7 @@ interface Props {
 }
 
 export const ContactForm = ({ onSubmit }: Props): JSX.Element => {
-  const { control, handleSubmit, formState } = useFormWithSchema({ schema: contactSchema });
+  const { control, handleSubmit, formState } = useFormWithSchema(FORM_CONFIG);
   const { isSubmitting } = formState;
 
   return (

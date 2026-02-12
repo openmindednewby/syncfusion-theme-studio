@@ -73,6 +73,12 @@ interface PaginationConfig {
   threshold?: number;
   pageSize?: number;
   pageSizes?: number[];
+  /** Maximum number of visible page buttons before ellipsis (default: 5) */
+  pageCount?: number;
+  /** Show first/last page jump buttons (default: true) */
+  showFirstLastButtons?: boolean;
+  /** Show "Page X of Y" info text (default: true) */
+  showPageInfo?: boolean;
 }
 
 /** Server-mode callback signatures */
@@ -99,6 +105,8 @@ interface TanStackQueryAdapterConfig<TParams = unknown> {
 /** Top-level grid configuration consumed by both DataGrid and TableNative */
 interface GridConfig {
   mode?: DataMode;
+  /** Table layout mode. Default: 'fixed'. Use 'auto' for content-driven column sizing. */
+  tableLayout?: 'auto' | 'fixed';
   filter?: FilterConfig;
   defaultSort?: SortColumnConfig[];
   pagination?: PaginationConfig;

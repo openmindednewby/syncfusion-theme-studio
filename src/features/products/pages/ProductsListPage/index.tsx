@@ -28,6 +28,7 @@ const PAGE_SIZE_DEFAULT = 10;
 const PAGE_SIZE_SMALL = 25;
 const PAGE_SIZE_MEDIUM = 50;
 const PAGE_SIZE_LARGE = 100;
+const PRODUCTS_QUERY_PARAMS = { limit: PRODUCTS_LIMIT };
 
 const GRID_CONFIG: GridConfig = {
   filter: {
@@ -138,7 +139,7 @@ const ProductsListPage = (): JSX.Element => {
     isError: isProductsError,
     error: productsError,
     refetch: refetchProducts,
-  } = useGetAllProducts({ limit: PRODUCTS_LIMIT });
+  } = useGetAllProducts(PRODUCTS_QUERY_PARAMS);
 
   const { data: categoriesData } = useGetCategories();
   // Orval 8.x wraps response in { data, status, headers }

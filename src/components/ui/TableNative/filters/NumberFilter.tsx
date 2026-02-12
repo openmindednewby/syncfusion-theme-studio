@@ -26,9 +26,10 @@ const NumberFilter = ({ field, value, onChange }: Props): JSX.Element => {
   return (
     <input
       aria-label={FM('table.filterColumn', field)}
-      className="w-full rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary placeholder:text-text-muted focus:border-primary-500 focus:outline-none"
+      className="native-grid-filter-input w-full rounded border px-2 py-1 text-xs text-text-primary placeholder:text-text-muted focus:outline-none"
       data-testid={`filter-number-${field}`}
       placeholder={FM('table.filterPlaceholder')}
+      style={{ backgroundColor: 'var(--component-datagrid-filter-input-bg)', borderColor: 'var(--component-datagrid-filter-border)' }}
       type="number"
       value={localValue}
       onChange={onInputChange}

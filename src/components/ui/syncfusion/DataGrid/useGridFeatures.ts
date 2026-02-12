@@ -223,8 +223,10 @@ export function computePageSettings(
 
   if (!shouldShow) return { ...fallback, pageSize: dataLength };
 
-  return {
+  const settings: PageSettingsModel = {
     pageSize: pag.pageSize ?? DEFAULT_PAGE_SIZE,
     pageSizes: pag.pageSizes ?? AVAILABLE_PAGE_SIZES,
   };
+  if (isValueDefined(pag.pageCount)) settings.pageCount = pag.pageCount;
+  return settings;
 }

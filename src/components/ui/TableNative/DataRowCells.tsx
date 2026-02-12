@@ -79,7 +79,7 @@ interface EditableCellProps {
 const EditableCell = memo(({ column, cellPadding, editing, isDirty, row }: EditableCellProps): JSX.Element => {
   const align = column.textAlign ?? TextAlign.Left;
   return (
-    <td className={cn(cellPadding, ALIGN_CLASSES[align])}>
+    <td className={cn(cellPadding, ALIGN_CLASSES[align], 'overflow-hidden')}>
       <EditCell
         field={column.field}
         isDirty={isDirty}
@@ -120,6 +120,7 @@ const ReadOnlyCell = memo(({
     <td
       className={cn(
         cellPadding, 'text-text-primary', ALIGN_CLASSES[align],
+        'overflow-hidden text-ellipsis whitespace-nowrap',
         isDirty && DIRTY_CELL_BG,
       )}
       data-testid={`cell-${String(rowId)}-${column.field}`}

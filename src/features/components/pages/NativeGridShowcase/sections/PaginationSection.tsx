@@ -4,7 +4,7 @@
  */
 import { memo } from 'react';
 
-import TableNative from '@/components/ui/TableNative';
+import { TableNative } from '@/components/ui/native';
 import type { GridConfig } from '@/lib/grid/types';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';

@@ -29,6 +29,27 @@ function formatWidth(width: number | string): string {
   return width;
 }
 
+/** Build the style object for column width constraints */
+function buildColumnStyle(column: TableColumn): React.CSSProperties | undefined {
+  const style: React.CSSProperties = {};
+  let hasStyle = false;
+
+  if (isValueDefined(column.width)) {
+    style.width = formatWidth(column.width);
+    hasStyle = true;
+  }
+  if (isValueDefined(column.minWidth)) {
+    style.minWidth = formatWidth(column.minWidth);
+    hasStyle = true;
+  }
+  if (isValueDefined(column.maxWidth)) {
+    style.maxWidth = formatWidth(column.maxWidth);
+    hasStyle = true;
+  }
+
+  return hasStyle ? style : undefined;
+}
+
 interface Props {
   columns: TableColumn[];
   fields: string[];
@@ -72,7 +93,13 @@ const TableHeader = ({
 
   return (
     <thead>
-      <tr className="bg-surface-elevated border-b border-border">
+      <tr
+        className="border-b"
+        style={{
+          backgroundColor: 'var(--component-datagrid-header-bg)',
+          borderColor: 'var(--component-datagrid-header-border)',
+        }}
+      >
         {showCheckbox ? (
           <th className={cn(cellPadding, 'w-10 text-center')} scope="col">
             <input
@@ -94,20 +121,29 @@ const TableHeader = ({
               aria-sort={isSorted ? sortDirection : undefined}
               className={cn(
                 cellPadding,
-                'cursor-pointer select-none font-semibold text-text-primary',
-                'border-b border-border transition-colors hover:bg-surface-hover',
+                'native-grid-header-cell cursor-pointer select-none font-semibold',
+                'border-b transition-colors',
+                'overflow-hidden text-ellipsis whitespace-nowrap',
                 ALIGN_CLASSES[align],
               )}
               draggable={draggableHeaders}
               scope="col"
-              style={isValueDefined(column.width) ? { width: formatWidth(column.width) } : undefined}
+              style={{
+                color: 'var(--component-datagrid-header-text)',
+                borderColor: 'var(--component-datagrid-header-border)',
+                ...buildColumnStyle(column),
+              }}
               onClick={() => onSort(column.field)}
               onDragStart={(e) => handleDragStart(e, column.field)}
             >
               <span className="inline-flex items-center gap-1">
                 {column.headerText}
                 {isSorted ? (
-                  <span aria-hidden="true" className="text-xs text-text-secondary">
+                  <span
+                    aria-hidden="true"
+                    className="text-xs"
+                    style={{ color: 'var(--component-datagrid-sort-icon)' }}
+                  >
                     {sortDirection === 'ascending'
                       ? SORT_ASCENDING_INDICATOR
                       : SORT_DESCENDING_INDICATOR}

@@ -26,6 +26,7 @@ export function useSyncfusionDefaultSort(
     const grid = gridRef.current;
     if (!isValueDefined(grid)) return;
 
+    // eslint-disable-next-line react-compiler/react-compiler -- imperative Syncfusion API
     grid.sortSettings = {
       columns: defaultSort.map((col) => ({
         field: col.field,

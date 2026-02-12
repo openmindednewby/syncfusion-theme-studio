@@ -13,15 +13,14 @@ import { FM } from '@/localization/helpers';
 
 import { contactFormSchema, defaultContactFormValues, type ContactFormData } from './schema';
 
+const FORM_CONFIG = { schema: contactFormSchema, defaultValues: defaultContactFormValues };
+
 interface Props {
   onSubmit: (data: ContactFormData) => void;
 }
 
 export const ContactForm = ({ onSubmit }: Props): JSX.Element => {
-  const form = useFormWithSchema({
-    schema: contactFormSchema,
-    defaultValues: defaultContactFormValues,
-  });
+  const form = useFormWithSchema(FORM_CONFIG);
 
   const { handleSubmit, control, reset, formState } = form;
   const { isSubmitting, isDirty } = formState;

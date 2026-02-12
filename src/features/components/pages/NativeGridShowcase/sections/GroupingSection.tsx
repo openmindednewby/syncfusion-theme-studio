@@ -4,8 +4,8 @@
  */
 import { memo, useCallback, useState } from 'react';
 
-import TableNative from '@/components/ui/TableNative';
-import type { GroupingConfig } from '@/components/ui/TableNative';
+import { TableNative } from '@/components/ui/native';
+import type { GroupingConfig } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 

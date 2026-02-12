@@ -697,8 +697,13 @@
     min-width: 0;
   }
 
-  /* ===== PAGINATION ===== */
-  /* Uses component-specific CSS variables from theme editor */
+  /* ===== PAGINATION (shares DataGrid theme variables) ===== */
+  .pagination-bar {
+    background-color: var(--component-datagrid-pagination-bg);
+    border-top: 1px solid var(--component-datagrid-pagination-border);
+    color: var(--component-datagrid-pagination-text);
+  }
+
   .pagination-btn {
     display: inline-flex;
     align-items: center;
@@ -707,42 +712,42 @@
     min-height: 1.75rem;
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
-    background-color: var(--component-pagination-btn-bg);
-    color: var(--component-pagination-btn-text);
-    border-radius: var(--component-pagination-btn-radius);
+    background-color: transparent;
+    color: var(--component-datagrid-pagination-text);
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px);
     transition: background-color 150ms ease, color 150ms ease;
     border: none;
     cursor: pointer;
   }
 
   .pagination-btn:hover:not(:disabled) {
-    background-color: var(--component-pagination-btn-hover-bg);
-    color: var(--component-pagination-btn-hover-text);
+    background-color: var(--component-datagrid-pagination-hover-bg);
+    color: var(--component-datagrid-pagination-text);
   }
 
   .pagination-btn:disabled {
-    color: var(--component-pagination-nav-disabled);
+    color: var(--component-datagrid-pagination-nav-disabled);
     cursor: not-allowed;
     opacity: 0.5;
   }
 
   .pagination-btn-active {
-    background-color: var(--component-pagination-btn-active-bg) !important;
-    color: var(--component-pagination-btn-active-text) !important;
+    background-color: var(--component-datagrid-pagination-active-bg) !important;
+    color: var(--component-datagrid-pagination-active-text) !important;
   }
 
   .pagination-nav {
-    color: var(--component-pagination-nav-text);
+    color: var(--component-datagrid-pagination-nav-color);
   }
 
   .pagination-nav:disabled {
-    color: var(--component-pagination-nav-disabled);
+    color: var(--component-datagrid-pagination-nav-disabled);
   }
 
   .pagination-select {
-    background-color: var(--component-pagination-select-bg);
-    border: 1px solid var(--component-pagination-select-border);
-    color: var(--component-pagination-select-text);
+    background-color: var(--component-datagrid-pagination-bg);
+    border: 1px solid var(--component-datagrid-pagination-border);
+    color: var(--component-datagrid-pagination-text);
     border-radius: 0.25rem;
     padding: 0.125rem 0.25rem;
     font-size: 0.75rem;
@@ -753,6 +758,28 @@
   }
 
   .pagination-info {
-    color: var(--component-pagination-info-text);
+    color: var(--component-datagrid-pagination-info-text);
+  }
+
+  /* ===== NATIVE GRID (shares DataGrid theme variables) ===== */
+  .native-grid-header-cell:hover {
+    background-color: var(--component-datagrid-row-hover);
+  }
+
+  .native-grid-row-hoverable:hover {
+    background-color: var(--component-datagrid-row-hover) !important;
+  }
+
+  .native-grid-row-selected {
+    background-color: var(--component-datagrid-row-selected) !important;
+  }
+
+  /* ===== NATIVE GRID INPUTS ===== */
+  .native-grid-filter-input:focus {
+    border-color: var(--component-datagrid-edit-cell-border) !important;
+  }
+
+  .native-grid-action-btn:hover {
+    background-color: var(--component-datagrid-action-btn-hover) !important;
   }
 }

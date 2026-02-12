@@ -24,7 +24,10 @@ export { default as AlertNative, AlertVariant } from './AlertNative';
 export type { AlertNativeProps, AlertVariant as AlertNativeVariant } from './AlertNative';
 
 export { default as TableNative } from './TableNative';
-export type { TableNativeProps, TableColumn } from './TableNative';
+export type { TableNativeProps, TableColumn, SelectionConfig, EditingConfig, GroupingConfig } from './TableNative';
+export { TextAlign } from './TableNative/types';
+export { AggregateType } from './TableNative/hooks/useTableAggregates';
+export type { AggregateRowDef } from './TableNative/hooks/useTableAggregates';
 
 export { default as AccordionNative } from './AccordionNative';
 export type { AccordionNativeProps, AccordionItem } from './AccordionNative';

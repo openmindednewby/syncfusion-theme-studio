@@ -1,19 +1,21 @@
 /**
  * Newsletter Form - Minimal native form example
  */
-import ButtonNative, { ButtonVariant } from '@/components/ui/ButtonNative';
 import { FormNativeInput } from '@/components/ui/form-fields';
+import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
 import { FM } from '@/localization/helpers';
 
 import { newsletterSchema, type NewsletterFormData } from './schema';
+
+const FORM_CONFIG = { schema: newsletterSchema };
 
 interface Props {
   onSubmit: (data: NewsletterFormData) => void;
 }
 
 export const NewsletterForm = ({ onSubmit }: Props): JSX.Element => {
-  const { control, handleSubmit, formState } = useFormWithSchema({ schema: newsletterSchema });
+  const { control, handleSubmit, formState } = useFormWithSchema(FORM_CONFIG);
   const { isSubmitting } = formState;
 
   return (

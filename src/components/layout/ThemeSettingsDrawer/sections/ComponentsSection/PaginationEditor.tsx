@@ -3,14 +3,20 @@ import type { PaginationConfig } from '@/stores/theme/types/paginationTypes';
 
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
+import { TextInputRow } from '../../TextInputRow';
 
 interface PaginationEditorProps {
   config: PaginationConfig;
   onUpdate: (updates: Partial<PaginationConfig>) => void;
 }
 
-export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
-  <CollapsibleSection title={FM('themeSettings.components.pagination.title')}>
+const PAGINATION_PROPERTY_COUNT = 16;
+
+const ContainerFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
+  <>
+    <p className="text-xs font-medium text-text-secondary">
+      {FM('themeSettings.components.pagination.containerSection')}
+    </p>
     <ColorPicker
       label={FM('themeSettings.components.pagination.background')}
       value={config.background}
@@ -21,6 +27,19 @@ export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): J
       value={config.borderColor}
       onChange={(value) => onUpdate({ borderColor: value })}
     />
+    <ColorPicker
+      label={FM('themeSettings.components.pagination.textColor')}
+      value={config.textColor}
+      onChange={(value) => onUpdate({ textColor: value })}
+    />
+  </>
+);
+
+const ButtonFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
+  <>
+    <p className="text-xs font-medium text-text-secondary">
+      {FM('themeSettings.components.pagination.buttonsSection')}
+    </p>
     <ColorPicker
       label={FM('themeSettings.components.pagination.buttonBackground')}
       value={config.buttonBackground}
@@ -51,6 +70,19 @@ export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): J
       value={config.buttonActiveTextColor}
       onChange={(value) => onUpdate({ buttonActiveTextColor: value })}
     />
+    <TextInputRow
+      label={FM('themeSettings.components.pagination.buttonBorderRadius')}
+      value={config.buttonBorderRadius}
+      onChange={(value) => onUpdate({ buttonBorderRadius: value })}
+    />
+  </>
+);
+
+const NavigationFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
+  <>
+    <p className="text-xs font-medium text-text-secondary">
+      {FM('themeSettings.components.pagination.navigationSection')}
+    </p>
     <ColorPicker
       label={FM('themeSettings.components.pagination.navTextColor')}
       value={config.navTextColor}
@@ -61,6 +93,14 @@ export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): J
       value={config.navDisabledColor}
       onChange={(value) => onUpdate({ navDisabledColor: value })}
     />
+  </>
+);
+
+const SelectFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
+  <>
+    <p className="text-xs font-medium text-text-secondary">
+      {FM('themeSettings.components.pagination.selectSection')}
+    </p>
     <ColorPicker
       label={FM('themeSettings.components.pagination.selectBackground')}
       value={config.selectBackground}
@@ -76,10 +116,43 @@ export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): J
       value={config.selectTextColor}
       onChange={(value) => onUpdate({ selectTextColor: value })}
     />
+  </>
+);
+
+const InfoFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
+  <>
+    <p className="text-xs font-medium text-text-secondary">
+      {FM('themeSettings.components.pagination.infoSection')}
+    </p>
     <ColorPicker
       label={FM('themeSettings.components.pagination.infoTextColor')}
       value={config.infoTextColor}
       onChange={(value) => onUpdate({ infoTextColor: value })}
     />
+  </>
+);
+
+export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
+  <CollapsibleSection
+    propertyCount={PAGINATION_PROPERTY_COUNT}
+    title={FM('themeSettings.components.pagination.title')}
+  >
+    <div className="space-y-4">
+      <div className="space-y-2">
+        <ContainerFields config={config} onUpdate={onUpdate} />
+      </div>
+      <div className="space-y-2">
+        <ButtonFields config={config} onUpdate={onUpdate} />
+      </div>
+      <div className="space-y-2">
+        <NavigationFields config={config} onUpdate={onUpdate} />
+      </div>
+      <div className="space-y-2">
+        <SelectFields config={config} onUpdate={onUpdate} />
+      </div>
+      <div className="space-y-2">
+        <InfoFields config={config} onUpdate={onUpdate} />
+      </div>
+    </div>
   </CollapsibleSection>
 );

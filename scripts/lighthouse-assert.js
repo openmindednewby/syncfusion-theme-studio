@@ -6,7 +6,7 @@
  * Fails with exit code 1 if any score is below the threshold.
  *
  * Required thresholds (configurable below):
- * - Performance: 90%
+ * - Performance: 95%
  * - Accessibility: 100%
  * - Best Practices: 100%
  * - SEO: 100%
@@ -22,7 +22,7 @@ const REPORT_PATH = process.argv[2]
 
 // Score thresholds (0-1 scale)
 const THRESHOLDS = {
-  performance: 0.9,
+  performance: 0.95,
   accessibility: 1.0,
   'best-practices': 1.0,
   seo: 1.0,

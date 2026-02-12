@@ -7,9 +7,14 @@ import type { ApiEvent } from '../apiEventTypes';
 
 const mockAddToast = vi.fn();
 
-vi.mock('@/components/ui/native', () => ({
-  useToast: () => ({ addToast: mockAddToast }),
-}));
+vi.mock('@/components/ui/native', async (importOriginal) => {
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-assertion -- tsc TS2698 requires cast for spreading
+  const actual = await importOriginal() as Record<string, unknown>;
+  return {
+    ...actual,
+    useToast: () => ({ addToast: mockAddToast }),
+  };
+});
 
 // Mock FM to return key as-is (already mocked in setup via i18n)
 vi.mock('@/localization/helpers', () => ({

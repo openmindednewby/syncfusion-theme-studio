@@ -304,6 +304,12 @@ export default [
         ignoreHookPatterns: [
           // Auto-generated API hooks (safe - don't use args as deps)
           '^useApi',
+          // Internal hook-to-hook composition (args derived from parent hook params, stable by design)
+          '^useEdit',
+          '^useSelection',
+          '^useRowClick',
+          '^useDataPipeline$',
+          '^useTable',
         ],
       }],
 
@@ -612,6 +618,29 @@ export default [
     rules: {
       'enforce-lazy-preload/enforce-lazy-preload': ['error', {
         preloadFunctionName: 'preloadRoutePages',
+      }],
+    },
+  },
+
+  // =====================================================
+  // ENFORCE BARREL IMPORTS FOR UI COMPONENTS
+  // =====================================================
+  // Prevents importing directly from component folders (e.g. @/components/ui/ButtonNative).
+  // Must use barrel exports: @/components/ui/native, @/components/ui/syncfusion, @/components/ui/form-fields.
+  // Excludes src/components/ui/** since the barrels themselves need direct access.
+  {
+    files: ['src/features/**/*.ts', 'src/features/**/*.tsx', 'src/app/**/*.ts', 'src/app/**/*.tsx', 'src/lib/**/*.ts', 'src/lib/**/*.tsx'],
+    rules: {
+      'no-restricted-imports': ['error', {
+        patterns: [{
+          group: [
+            '@/components/ui/*',
+            '!@/components/ui/native',
+            '!@/components/ui/syncfusion',
+            '!@/components/ui/form-fields',
+          ],
+          message: 'Import from barrel exports (@/components/ui/native, @/components/ui/syncfusion, or @/components/ui/form-fields) instead of directly from component folders.',
+        }],
       }],
     },
   },

@@ -26,7 +26,11 @@ const FilterRow = ({
   onFilterChange,
   cellPadding,
 }: Props): JSX.Element => (
-  <tr className="border-b border-border bg-surface" data-testid="filter-row">
+  <tr
+    className="border-b"
+    data-testid="filter-row"
+    style={{ backgroundColor: 'var(--component-datagrid-filter-bg)', borderColor: 'var(--component-datagrid-filter-border)' }}
+  >
     {fields.map((field) => {
       const type = columnTypes[field] ?? ColumnType.String;
       const value = filterValues[field] ?? '';

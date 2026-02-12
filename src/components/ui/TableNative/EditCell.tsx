@@ -75,8 +75,9 @@ const EditCell = ({
         <input
           ref={inputRef}
           aria-label={FM('table.editField', field)}
-          className="w-full rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none"
+          className="native-grid-filter-input w-full rounded border px-2 py-1 text-xs text-text-primary focus:outline-none"
           data-testid={`edit-cell-${field}`}
+          style={{ backgroundColor: 'var(--component-datagrid-edit-cell-bg)', borderColor: 'var(--component-datagrid-edit-cell-border)' }}
           type={isNumberValue ? 'number' : 'text'}
           value={String(value ?? '')}
           onChange={handleChange}

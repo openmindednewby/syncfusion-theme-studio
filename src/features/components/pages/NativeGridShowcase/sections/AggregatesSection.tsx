@@ -4,9 +4,8 @@
  */
 import { memo } from 'react';
 
-import TableNative from '@/components/ui/TableNative';
-import { AggregateType } from '@/components/ui/TableNative/hooks/useTableAggregates';
-import type { AggregateRowDef } from '@/components/ui/TableNative/hooks/useTableAggregates';
+import { AggregateType, TableNative } from '@/components/ui/native';
+import type { AggregateRowDef } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 

@@ -44,8 +44,12 @@ const GroupRow = ({
 
   return (
     <tr
-      className="bg-surface-elevated border-b border-border"
+      className="border-b"
       data-testid={`group-row-${groupKey}`}
+      style={{
+        backgroundColor: 'var(--component-datagrid-group-header-bg)',
+        borderColor: 'var(--component-datagrid-cell-border)',
+      }}
     >
       <td className="px-4 py-2" colSpan={colSpan}>
         <button
@@ -63,7 +67,10 @@ const GroupRow = ({
           <span aria-hidden="true" className="text-xs">
             {icon}
           </span>
-          <span className="font-medium text-text-primary">
+          <span
+            className="font-medium"
+            style={{ color: 'var(--component-datagrid-group-header-text)' }}
+          >
             {field}:
             {' '}
             {String(value)}

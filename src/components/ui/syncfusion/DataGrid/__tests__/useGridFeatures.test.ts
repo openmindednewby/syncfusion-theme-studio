@@ -354,4 +354,21 @@ describe('computePageSettings', () => {
 
     expect(result.pageSize).toBe(DATA_LENGTH_SMALL);
   });
+
+  it('forwards pageCount when explicitly set in gridConfig', () => {
+    const CUSTOM_PAGE_COUNT = 8;
+    const config = {
+      pagination: { enabled: true, pageCount: CUSTOM_PAGE_COUNT },
+    };
+    const result = computePageSettings(config, DEFAULT_PAGE_SETTINGS, true, DATA_LENGTH_LARGE);
+
+    expect(result.pageCount).toBe(CUSTOM_PAGE_COUNT);
+  });
+
+  it('does not include pageCount when not set in gridConfig', () => {
+    const config = { pagination: { enabled: true } };
+    const result = computePageSettings(config, DEFAULT_PAGE_SETTINGS, true, DATA_LENGTH_LARGE);
+
+    expect(result).not.toHaveProperty('pageCount');
+  });
 });

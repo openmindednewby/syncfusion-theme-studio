@@ -15,6 +15,10 @@ interface TableColumn {
   headerText: string;
   /** Column width (number for px, string for any CSS unit) */
   width?: number | string;
+  /** Minimum column width (number for px, string for any CSS unit) */
+  minWidth?: number | string;
+  /** Maximum column width (number for px, string for any CSS unit) */
+  maxWidth?: number | string;
   /** Text alignment for the column */
   textAlign?: TextAlign;
   /** Custom formatter for cell values */

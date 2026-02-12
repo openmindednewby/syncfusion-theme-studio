@@ -18,6 +18,8 @@ const DEFAULT_PAGE_SIZES = [PAGE_SIZE_DEFAULT, PAGE_SIZE_SMALL, PAGE_SIZE_MEDIUM
 
 const PREV_ARROW = '\u2039';
 const NEXT_ARROW = '\u203A';
+const FIRST_ARROW = '\u00AB';
+const LAST_ARROW = '\u00BB';
 const ELLIPSIS_TEXT = '...';
 
 interface Props {
@@ -26,6 +28,9 @@ interface Props {
   pageSize: number;
   pageSizes?: number[] | undefined;
   totalItems: number;
+  pageCount?: number | undefined;
+  showFirstLastButtons?: boolean | undefined;
+  showPageInfo?: boolean | undefined;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
 }
@@ -36,13 +41,20 @@ const TablePagination = ({
   pageSize,
   pageSizes = DEFAULT_PAGE_SIZES,
   totalItems,
+  pageCount,
+  showFirstLastButtons = true,
+  showPageInfo = true,
   onPageChange,
   onPageSizeChange,
 }: Props): JSX.Element => {
   const pages = useMemo(
-    () => generatePageNumbers(currentPage, totalPages),
-    [currentPage, totalPages],
+    () => generatePageNumbers(currentPage, totalPages, pageCount),
+    [currentPage, totalPages, pageCount],
   );
+
+  const handleFirst = useCallback(() => {
+    if (currentPage > 1) onPageChange(1);
+  }, [currentPage, onPageChange]);
 
   const handlePrev = useCallback(() => {
     if (currentPage > 1) onPageChange(currentPage - 1);
@@ -50,6 +62,10 @@ const TablePagination = ({
 
   const handleNext = useCallback(() => {
     if (currentPage < totalPages) onPageChange(currentPage + 1);
+  }, [currentPage, totalPages, onPageChange]);
+
+  const handleLast = useCallback(() => {
+    if (currentPage < totalPages) onPageChange(totalPages);
   }, [currentPage, totalPages, onPageChange]);
 
   const handlePageSizeChange = useCallback(
@@ -67,12 +83,8 @@ const TablePagination = ({
 
   return (
     <div
-      className="flex flex-wrap items-center justify-between gap-4 px-4 py-3"
+      className="pagination-bar flex flex-wrap items-center justify-between gap-4 px-4 py-3"
       data-testid="table-pagination"
-      style={{
-        backgroundColor: 'var(--component-pagination-bg)',
-        borderTop: '1px solid var(--component-pagination-border)',
-      }}
     >
       <div className="flex items-center gap-2 text-xs pagination-info">
         <span>{FM('table.rowsPerPage')}</span>
@@ -92,9 +104,26 @@ const TablePagination = ({
         <span>
           {String(startItem)}-{String(endItem)} / {String(totalItems)}
         </span>
+        {showPageInfo ? (
+          <span data-testid="pagination-page-info">
+            {FM('table.pageInfo', String(currentPage), String(totalPages))}
+          </span>
+        ) : null}
       </div>
 
       <nav aria-label={FM('table.pagination')} className="flex items-center gap-1">
+        {showFirstLastButtons ? (
+          <button
+            aria-label={FM('table.first')}
+            className={cn('pagination-btn pagination-nav')}
+            data-testid="pagination-first"
+            disabled={isFirstPage}
+            type="button"
+            onClick={handleFirst}
+          >
+            {FIRST_ARROW}
+          </button>
+        ) : null}
         <button
           aria-label={FM('table.previous')}
           className={cn('pagination-btn pagination-nav')}
@@ -138,6 +167,18 @@ const TablePagination = ({
         >
           {NEXT_ARROW}
         </button>
+        {showFirstLastButtons ? (
+          <button
+            aria-label={FM('table.last')}
+            className={cn('pagination-btn pagination-nav')}
+            data-testid="pagination-last"
+            disabled={isLastPage}
+            type="button"
+            onClick={handleLast}
+          >
+            {LAST_ARROW}
+          </button>
+        ) : null}
       </nav>
     </div>
   );

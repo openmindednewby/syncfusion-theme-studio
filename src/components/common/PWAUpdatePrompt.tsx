@@ -8,18 +8,20 @@ const SECONDS_PER_MINUTE = 60;
 const MS_PER_SECOND = 1000;
 const UPDATE_CHECK_INTERVAL_MS = MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MS_PER_SECOND;
 
+function handleRegisteredSW(_url: string, registration: ServiceWorkerRegistration | undefined): void {
+  if (!registration) return;
+  setInterval(() => {
+    registration.update().catch(() => {});
+  }, UPDATE_CHECK_INTERVAL_MS);
+}
+
+const SW_CONFIG = { onRegisteredSW: handleRegisteredSW };
+
 export const PWAUpdatePrompt = (): JSX.Element | null => {
   const {
     needRefresh: [needRefresh, setNeedRefresh],
     updateServiceWorker,
-  } = useRegisterSW({
-    onRegisteredSW: (_url, registration) => {
-      if (!registration) return;
-      setInterval(() => {
-        registration.update().catch(() => {});
-      }, UPDATE_CHECK_INTERVAL_MS);
-    },
-  });
+  } = useRegisterSW(SW_CONFIG);
 
   if (!needRefresh) return null;
 

@@ -2,9 +2,8 @@ import { useState, useCallback, useEffect, type ChangeEvent } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { preloadRoutePages } from '@/app/router';
 import { ButtonNative, ButtonVariant, InputNative } from '@/components/ui/native';
-import { preloadSyncfusionModules } from '@/config/syncfusionLazy';
+import { startPhasedPreload } from '@/config/preloadOrchestrator';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { Mode } from '@/stores/mode';
@@ -20,12 +19,10 @@ const LoginPage = (): JSX.Element => {
   const [email, setEmail] = useState(DEFAULT_EMAIL);
   const [password, setPassword] = useState(DEFAULT_PASSWORD);
 
-  // Preload route pages and Syncfusion modules in the background as soon as
-  // the login page mounts. Both functions internally use requestIdleCallback,
-  // so they will never block the main thread or delay user interaction.
+  // Kick off phased background preloading (critical routes → remaining
+  // routes → Syncfusion modules) so heavy chunks never block initial render.
   useEffect(() => {
-    preloadRoutePages();
-    preloadSyncfusionModules();
+    startPhasedPreload();
   }, []);
 
   const themeLabel =

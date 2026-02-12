@@ -17,15 +17,14 @@ import {
   type RegistrationFormData,
 } from './schema';
 
+const FORM_CONFIG = { schema: registrationFormSchema, defaultValues: defaultRegistrationFormValues };
+
 interface Props {
   onSubmit: (data: RegistrationFormData) => void;
 }
 
 export const RegistrationForm = ({ onSubmit }: Props): JSX.Element => {
-  const form = useFormWithSchema({
-    schema: registrationFormSchema,
-    defaultValues: defaultRegistrationFormValues,
-  });
+  const form = useFormWithSchema(FORM_CONFIG);
 
   const { handleSubmit, control, reset, formState } = form;
   const { isSubmitting, isDirty } = formState;

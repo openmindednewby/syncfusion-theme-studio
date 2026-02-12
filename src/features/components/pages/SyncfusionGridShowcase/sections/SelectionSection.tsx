@@ -16,7 +16,6 @@ import {
   COL_WIDTH_ROLE,
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_STATUS,
-  GRID_HEIGHT_DEFAULT,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
 
@@ -50,7 +49,6 @@ export const SelectionSection = memo((): JSX.Element => {
       <DataGrid
         columns={SELECTION_COLUMNS}
         data={EMPLOYEES}
-        height={GRID_HEIGHT_DEFAULT}
         selectionSettings={selectionSettings}
         testId="grid-selection"
       />

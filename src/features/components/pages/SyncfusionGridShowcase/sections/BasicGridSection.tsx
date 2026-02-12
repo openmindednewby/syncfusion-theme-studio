@@ -16,7 +16,6 @@ import {
   COL_WIDTH_ROLE,
   COL_WIDTH_STATUS,
   COL_WIDTH_DEPARTMENT,
-  GRID_HEIGHT_DEFAULT,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
 
@@ -41,7 +40,6 @@ export const BasicGridSection = memo((): JSX.Element => (
       allowSorting
       columns={BASIC_COLUMNS}
       data={EMPLOYEES}
-      height={GRID_HEIGHT_DEFAULT}
       testId="grid-basic"
     />
   </ShowcaseSection>

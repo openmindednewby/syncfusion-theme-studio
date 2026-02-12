@@ -1,0 +1,16 @@
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\bin\Debug\net9.0\MockServer.Infrastructure.deps.json
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\bin\Debug\net9.0\MockServer.Infrastructure.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\bin\Debug\net9.0\MockServer.Infrastructure.pdb
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\bin\Debug\net9.0\MockServer.Core.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\bin\Debug\net9.0\MockServer.Core.pdb
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.csproj.AssemblyReference.cache
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.AssemblyInfoInputs.cache
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.AssemblyInfo.cs
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.csproj.CoreCompileInputs.cache
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.sourcelink.json
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServ.7A6C87E8.Up2Date
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\refint\MockServer.Infrastructure.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\MockServer.Infrastructure.pdb
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Infrastructure\obj\Debug\net9.0\ref\MockServer.Infrastructure.dll

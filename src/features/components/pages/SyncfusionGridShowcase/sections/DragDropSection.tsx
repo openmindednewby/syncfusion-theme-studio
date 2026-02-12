@@ -14,7 +14,6 @@ import {
   COL_WIDTH_ROLE,
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_STATUS,
-  GRID_HEIGHT_DEFAULT,
   PAGE_SIZE_FIVE,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
@@ -48,7 +47,6 @@ export const DragDropSection = memo((): JSX.Element => (
       allowSorting
       columns={DRAG_COLUMNS}
       data={DRAG_DATA}
-      height={GRID_HEIGHT_DEFAULT}
       pageSettings={{ pageSize: PAGE_SIZE_FIVE }}
       testId="grid-drag-drop"
     />

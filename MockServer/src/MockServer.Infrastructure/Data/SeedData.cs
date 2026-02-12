@@ -1,0 +1,124 @@
+namespace MockServer.Infrastructure.Data;
+
+public static class SeedData
+{
+  public static async Task SeedDatabaseAsync(MockDbContext context)
+  {
+    if (await context.Products.AnyAsync()) return;
+
+    context.Products.AddRange(GetProducts());
+    context.Users.AddRange(GetUsers());
+    context.Notifications.AddRange(GetNotifications());
+    await context.SaveChangesAsync();
+
+    // Seed orders after users and products exist
+    context.Orders.AddRange(GetOrders());
+    await context.SaveChangesAsync();
+  }
+
+  private static List<Product> GetProducts() =>
+  [
+    new() { Title = "iPhone 15 Pro", Description = "Apple smartphone with A17 Pro chip", Price = 999.99m, DiscountPercentage = 5.0m, Rating = 4.8m, Stock = 45, Brand = "Apple", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/iphone15/200", Images = ["https://picsum.photos/seed/iphone15a/400", "https://picsum.photos/seed/iphone15b/400"] },
+    new() { Title = "Samsung Galaxy S24", Description = "Samsung flagship with Galaxy AI", Price = 899.99m, DiscountPercentage = 8.0m, Rating = 4.7m, Stock = 60, Brand = "Samsung", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/galaxy24/200", Images = ["https://picsum.photos/seed/galaxy24a/400"] },
+    new() { Title = "MacBook Pro 16\"", Description = "Apple laptop with M3 Max chip", Price = 2499.99m, DiscountPercentage = 3.0m, Rating = 4.9m, Stock = 20, Brand = "Apple", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/macbook16/200", Images = ["https://picsum.photos/seed/macbook16a/400"] },
+    new() { Title = "Sony WH-1000XM5", Description = "Premium noise-cancelling headphones", Price = 349.99m, DiscountPercentage = 12.0m, Rating = 4.6m, Stock = 80, Brand = "Sony", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/sonyxm5/200", Images = ["https://picsum.photos/seed/sonyxm5a/400"] },
+    new() { Title = "Dell XPS 15", Description = "Premium ultrabook with OLED display", Price = 1799.99m, DiscountPercentage = 7.0m, Rating = 4.5m, Stock = 35, Brand = "Dell", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/dellxps/200", Images = ["https://picsum.photos/seed/dellxpsa/400"] },
+    new() { Title = "Nike Air Max 270", Description = "Comfortable running shoes with Air cushioning", Price = 150.00m, DiscountPercentage = 15.0m, Rating = 4.4m, Stock = 120, Brand = "Nike", Category = "Clothing", Thumbnail = "https://picsum.photos/seed/airmax/200", Images = ["https://picsum.photos/seed/airmaxa/400"] },
+    new() { Title = "Levi's 501 Original", Description = "Classic straight-fit jeans", Price = 69.50m, DiscountPercentage = 20.0m, Rating = 4.3m, Stock = 200, Brand = "Levi's", Category = "Clothing", Thumbnail = "https://picsum.photos/seed/levis501/200", Images = ["https://picsum.photos/seed/levis501a/400"] },
+    new() { Title = "Adidas Ultraboost 23", Description = "High-performance running shoes", Price = 190.00m, DiscountPercentage = 10.0m, Rating = 4.6m, Stock = 90, Brand = "Adidas", Category = "Clothing", Thumbnail = "https://picsum.photos/seed/ultraboost/200", Images = ["https://picsum.photos/seed/ultraboosta/400"] },
+    new() { Title = "North Face Thermoball Jacket", Description = "Lightweight insulated jacket", Price = 229.00m, DiscountPercentage = 18.0m, Rating = 4.5m, Stock = 55, Brand = "The North Face", Category = "Clothing", Thumbnail = "https://picsum.photos/seed/thermoball/200", Images = ["https://picsum.photos/seed/thermoballa/400"] },
+    new() { Title = "Patagonia Better Sweater", Description = "Fleece jacket made from recycled materials", Price = 139.00m, DiscountPercentage = 5.0m, Rating = 4.7m, Stock = 70, Brand = "Patagonia", Category = "Clothing", Thumbnail = "https://picsum.photos/seed/patagonia/200", Images = ["https://picsum.photos/seed/patagoniaa/400"] },
+    new() { Title = "Dyson V15 Detect", Description = "Cordless vacuum with laser dust detection", Price = 749.99m, DiscountPercentage = 6.0m, Rating = 4.8m, Stock = 30, Brand = "Dyson", Category = "Home", Thumbnail = "https://picsum.photos/seed/dysonv15/200", Images = ["https://picsum.photos/seed/dysonv15a/400"] },
+    new() { Title = "KitchenAid Stand Mixer", Description = "Professional 5-quart stand mixer", Price = 449.99m, DiscountPercentage = 10.0m, Rating = 4.9m, Stock = 25, Brand = "KitchenAid", Category = "Home", Thumbnail = "https://picsum.photos/seed/kitchenaid/200", Images = ["https://picsum.photos/seed/kitchenaida/400"] },
+    new() { Title = "Instant Pot Duo 7-in-1", Description = "Multi-use electric pressure cooker", Price = 89.95m, DiscountPercentage = 25.0m, Rating = 4.7m, Stock = 150, Brand = "Instant Pot", Category = "Home", Thumbnail = "https://picsum.photos/seed/instantpot/200", Images = ["https://picsum.photos/seed/instantpota/400"] },
+    new() { Title = "Roomba j7+", Description = "Robot vacuum with obstacle avoidance", Price = 599.99m, DiscountPercentage = 15.0m, Rating = 4.4m, Stock = 40, Brand = "iRobot", Category = "Home", Thumbnail = "https://picsum.photos/seed/roomba/200", Images = ["https://picsum.photos/seed/roombaa/400"] },
+    new() { Title = "Breville Barista Express", Description = "Espresso machine with built-in grinder", Price = 699.95m, DiscountPercentage = 8.0m, Rating = 4.6m, Stock = 18, Brand = "Breville", Category = "Home", Thumbnail = "https://picsum.photos/seed/breville/200", Images = ["https://picsum.photos/seed/brevillea/400"] },
+    new() { Title = "Organic Almond Butter", Description = "Smooth organic almond butter, 16oz", Price = 12.99m, DiscountPercentage = 5.0m, Rating = 4.5m, Stock = 300, Brand = "Justin's", Category = "Food", Thumbnail = "https://picsum.photos/seed/almondbutter/200", Images = ["https://picsum.photos/seed/almondbuttera/400"] },
+    new() { Title = "Matcha Green Tea Powder", Description = "Ceremonial grade matcha from Japan", Price = 29.99m, DiscountPercentage = 10.0m, Rating = 4.8m, Stock = 180, Brand = "Jade Leaf", Category = "Food", Thumbnail = "https://picsum.photos/seed/matcha/200", Images = ["https://picsum.photos/seed/matchaa/400"] },
+    new() { Title = "Dark Chocolate Truffles", Description = "Belgian dark chocolate truffle collection", Price = 24.99m, DiscountPercentage = 12.0m, Rating = 4.7m, Stock = 100, Brand = "Godiva", Category = "Food", Thumbnail = "https://picsum.photos/seed/truffles/200", Images = ["https://picsum.photos/seed/trufflesa/400"] },
+    new() { Title = "Extra Virgin Olive Oil", Description = "Cold-pressed Italian olive oil, 500ml", Price = 18.50m, DiscountPercentage = 8.0m, Rating = 4.6m, Stock = 220, Brand = "Colavita", Category = "Food", Thumbnail = "https://picsum.photos/seed/oliveoil/200", Images = ["https://picsum.photos/seed/oliveoila/400"] },
+    new() { Title = "Organic Coffee Beans", Description = "Single origin Ethiopian coffee, 1lb", Price = 16.99m, DiscountPercentage = 15.0m, Rating = 4.9m, Stock = 250, Brand = "Counter Culture", Category = "Food", Thumbnail = "https://picsum.photos/seed/coffeebeans/200", Images = ["https://picsum.photos/seed/coffeebansa/400"] },
+    new() { Title = "Yoga Mat Premium", Description = "Non-slip exercise mat, 6mm thick", Price = 68.00m, DiscountPercentage = 10.0m, Rating = 4.5m, Stock = 140, Brand = "Manduka", Category = "Sports", Thumbnail = "https://picsum.photos/seed/yogamat/200", Images = ["https://picsum.photos/seed/yogamata/400"] },
+    new() { Title = "Adjustable Dumbbells", Description = "5-52.5 lb adjustable dumbbell set", Price = 349.00m, DiscountPercentage = 5.0m, Rating = 4.7m, Stock = 35, Brand = "Bowflex", Category = "Sports", Thumbnail = "https://picsum.photos/seed/dumbbells/200", Images = ["https://picsum.photos/seed/dumbbellsa/400"] },
+    new() { Title = "Running Watch GPS", Description = "GPS running watch with heart rate monitor", Price = 299.99m, DiscountPercentage = 12.0m, Rating = 4.6m, Stock = 50, Brand = "Garmin", Category = "Sports", Thumbnail = "https://picsum.photos/seed/garminwatch/200", Images = ["https://picsum.photos/seed/garminwatcha/400"] },
+    new() { Title = "Resistance Bands Set", Description = "Set of 5 resistance bands with handles", Price = 29.99m, DiscountPercentage = 20.0m, Rating = 4.4m, Stock = 200, Brand = "Fit Simplify", Category = "Sports", Thumbnail = "https://picsum.photos/seed/resistbands/200", Images = ["https://picsum.photos/seed/resistbandsa/400"] },
+    new() { Title = "Foam Roller", Description = "High-density foam roller for recovery", Price = 24.95m, DiscountPercentage = 8.0m, Rating = 4.3m, Stock = 175, Brand = "TriggerPoint", Category = "Sports", Thumbnail = "https://picsum.photos/seed/foamroller/200", Images = ["https://picsum.photos/seed/foamrollera/400"] },
+    new() { Title = "iPad Air M2", Description = "Apple tablet with M2 chip and 11-inch display", Price = 599.00m, DiscountPercentage = 4.0m, Rating = 4.8m, Stock = 55, Brand = "Apple", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/ipadair/200", Images = ["https://picsum.photos/seed/ipadaira/400"] },
+    new() { Title = "Canon EOS R6 Mark II", Description = "Full-frame mirrorless camera", Price = 2499.00m, DiscountPercentage = 3.0m, Rating = 4.9m, Stock = 12, Brand = "Canon", Category = "Electronics", Thumbnail = "https://picsum.photos/seed/canonr6/200", Images = ["https://picsum.photos/seed/canonr6a/400"] },
+    new() { Title = "Herman Miller Aeron Chair", Description = "Ergonomic office chair, size B", Price = 1395.00m, DiscountPercentage = 0.0m, Rating = 4.8m, Stock = 15, Brand = "Herman Miller", Category = "Home", Thumbnail = "https://picsum.photos/seed/aeron/200", Images = ["https://picsum.photos/seed/aerona/400"] },
+    new() { Title = "Wilson Pro Staff Tennis Racket", Description = "Professional tennis racket, 97 sq in", Price = 249.00m, DiscountPercentage = 10.0m, Rating = 4.5m, Stock = 40, Brand = "Wilson", Category = "Sports", Thumbnail = "https://picsum.photos/seed/wilson/200", Images = ["https://picsum.photos/seed/wilsona/400"] },
+    new() { Title = "Samsonite Carry-On Spinner", Description = "Hardside expandable carry-on luggage", Price = 179.99m, DiscountPercentage = 22.0m, Rating = 4.4m, Stock = 65, Brand = "Samsonite", Category = "Clothing", Thumbnail = "https://picsum.photos/seed/samsonite/200", Images = ["https://picsum.photos/seed/samsonitea/400"] },
+  ];
+
+  private static List<User> GetUsers() =>
+  [
+    new() { FirstName = "James", LastName = "Wilson", Email = "james.wilson@example.com", Phone = "+1-555-0101", Username = "jwilson", BirthDate = new DateTime(1988, 3, 15), Image = "https://picsum.photos/seed/user1/100", Address = new Address { Street = "123 Oak Avenue", City = "San Francisco", State = "CA", PostalCode = "94102", Country = "USA" } },
+    new() { FirstName = "Sarah", LastName = "Chen", Email = "sarah.chen@example.com", Phone = "+1-555-0102", Username = "schen", BirthDate = new DateTime(1992, 7, 22), Image = "https://picsum.photos/seed/user2/100", Address = new Address { Street = "456 Maple Street", City = "New York", State = "NY", PostalCode = "10001", Country = "USA" } },
+    new() { FirstName = "Michael", LastName = "Brown", Email = "michael.brown@example.com", Phone = "+1-555-0103", Username = "mbrown", BirthDate = new DateTime(1985, 11, 8), Image = "https://picsum.photos/seed/user3/100", Address = new Address { Street = "789 Pine Road", City = "Chicago", State = "IL", PostalCode = "60601", Country = "USA" } },
+    new() { FirstName = "Emma", LastName = "Davis", Email = "emma.davis@example.com", Phone = "+1-555-0104", Username = "edavis", BirthDate = new DateTime(1995, 1, 30), Image = "https://picsum.photos/seed/user4/100", Address = new Address { Street = "321 Elm Drive", City = "Austin", State = "TX", PostalCode = "73301", Country = "USA" } },
+    new() { FirstName = "Daniel", LastName = "Martinez", Email = "daniel.martinez@example.com", Phone = "+1-555-0105", Username = "dmartinez", BirthDate = new DateTime(1990, 5, 17), Image = "https://picsum.photos/seed/user5/100", Address = new Address { Street = "654 Cedar Lane", City = "Seattle", State = "WA", PostalCode = "98101", Country = "USA" } },
+    new() { FirstName = "Olivia", LastName = "Taylor", Email = "olivia.taylor@example.com", Phone = "+1-555-0106", Username = "otaylor", BirthDate = new DateTime(1993, 9, 3), Image = "https://picsum.photos/seed/user6/100", Address = new Address { Street = "987 Birch Court", City = "Denver", State = "CO", PostalCode = "80201", Country = "USA" } },
+    new() { FirstName = "William", LastName = "Anderson", Email = "william.anderson@example.com", Phone = "+1-555-0107", Username = "wanderson", BirthDate = new DateTime(1987, 12, 25), Image = "https://picsum.photos/seed/user7/100", Address = new Address { Street = "147 Walnut Way", City = "Portland", State = "OR", PostalCode = "97201", Country = "USA" } },
+    new() { FirstName = "Sophia", LastName = "Thomas", Email = "sophia.thomas@example.com", Phone = "+1-555-0108", Username = "sthomas", BirthDate = new DateTime(1991, 4, 11), Image = "https://picsum.photos/seed/user8/100", Address = new Address { Street = "258 Spruce Place", City = "Miami", State = "FL", PostalCode = "33101", Country = "USA" } },
+    new() { FirstName = "Alexander", LastName = "Jackson", Email = "alex.jackson@example.com", Phone = "+1-555-0109", Username = "ajackson", BirthDate = new DateTime(1989, 8, 19), Image = "https://picsum.photos/seed/user9/100", Address = new Address { Street = "369 Ash Boulevard", City = "Boston", State = "MA", PostalCode = "02101", Country = "USA" } },
+    new() { FirstName = "Isabella", LastName = "White", Email = "isabella.white@example.com", Phone = "+1-555-0110", Username = "iwhite", BirthDate = new DateTime(1994, 2, 7), Image = "https://picsum.photos/seed/user10/100", Address = new Address { Street = "480 Poplar Circle", City = "Nashville", State = "TN", PostalCode = "37201", Country = "USA" } },
+    new() { FirstName = "Ethan", LastName = "Harris", Email = "ethan.harris@example.com", Phone = "+1-555-0111", Username = "eharris", BirthDate = new DateTime(1986, 6, 14), Image = "https://picsum.photos/seed/user11/100", Address = new Address { Street = "591 Willow Street", City = "Philadelphia", State = "PA", PostalCode = "19101", Country = "USA" } },
+    new() { FirstName = "Mia", LastName = "Clark", Email = "mia.clark@example.com", Phone = "+1-555-0112", Username = "mclark", BirthDate = new DateTime(1996, 10, 28), Image = "https://picsum.photos/seed/user12/100", Address = new Address { Street = "602 Cypress Avenue", City = "San Diego", State = "CA", PostalCode = "92101", Country = "USA" } },
+    new() { FirstName = "Benjamin", LastName = "Lewis", Email = "ben.lewis@example.com", Phone = "+1-555-0113", Username = "blewis", BirthDate = new DateTime(1984, 3, 5), Image = "https://picsum.photos/seed/user13/100", Address = new Address { Street = "713 Redwood Drive", City = "Atlanta", State = "GA", PostalCode = "30301", Country = "USA" } },
+    new() { FirstName = "Charlotte", LastName = "Robinson", Email = "charlotte.robinson@example.com", Phone = "+1-555-0114", Username = "crobinson", BirthDate = new DateTime(1997, 7, 12), Image = "https://picsum.photos/seed/user14/100", Address = new Address { Street = "824 Magnolia Lane", City = "Phoenix", State = "AZ", PostalCode = "85001", Country = "USA" } },
+    new() { FirstName = "Lucas", LastName = "Walker", Email = "lucas.walker@example.com", Phone = "+1-555-0115", Username = "lwalker", BirthDate = new DateTime(1983, 11, 21), Image = "https://picsum.photos/seed/user15/100", Address = new Address { Street = "935 Chestnut Road", City = "Minneapolis", State = "MN", PostalCode = "55401", Country = "USA" } },
+    new() { FirstName = "Amelia", LastName = "Hall", Email = "amelia.hall@example.com", Phone = "+1-555-0116", Username = "ahall", BirthDate = new DateTime(1998, 1, 9), Image = "https://picsum.photos/seed/user16/100", Address = new Address { Street = "146 Sycamore Way", City = "Detroit", State = "MI", PostalCode = "48201", Country = "USA" } },
+    new() { FirstName = "Henry", LastName = "Young", Email = "henry.young@example.com", Phone = "+1-555-0117", Username = "hyoung", BirthDate = new DateTime(1990, 9, 16), Image = "https://picsum.photos/seed/user17/100", Address = new Address { Street = "257 Juniper Court", City = "Dallas", State = "TX", PostalCode = "75201", Country = "USA" } },
+    new() { FirstName = "Ava", LastName = "King", Email = "ava.king@example.com", Phone = "+1-555-0118", Username = "aking", BirthDate = new DateTime(1992, 5, 24), Image = "https://picsum.photos/seed/user18/100", Address = new Address { Street = "368 Hickory Place", City = "Tampa", State = "FL", PostalCode = "33601", Country = "USA" } },
+    new() { FirstName = "Sebastian", LastName = "Wright", Email = "sebastian.wright@example.com", Phone = "+1-555-0119", Username = "swright", BirthDate = new DateTime(1988, 12, 2), Image = "https://picsum.photos/seed/user19/100", Address = new Address { Street = "479 Dogwood Boulevard", City = "Charlotte", State = "NC", PostalCode = "28201", Country = "USA" } },
+    new() { FirstName = "Harper", LastName = "Lopez", Email = "harper.lopez@example.com", Phone = "+1-555-0120", Username = "hlopez", BirthDate = new DateTime(1994, 8, 31), Image = "https://picsum.photos/seed/user20/100", Address = new Address { Street = "580 Hawthorn Circle", City = "Las Vegas", State = "NV", PostalCode = "89101", Country = "USA" } },
+  ];
+
+  private static List<Order> GetOrders() =>
+  [
+    new() { UserId = 1, Status = OrderStatus.Delivered, TotalAmount = 1349.98m, Items = [new() { ProductId = 1, ProductTitle = "iPhone 15 Pro", Quantity = 1, UnitPrice = 999.99m }, new() { ProductId = 4, ProductTitle = "Sony WH-1000XM5", Quantity = 1, UnitPrice = 349.99m }] },
+    new() { UserId = 2, Status = OrderStatus.Processing, TotalAmount = 190.00m, Items = [new() { ProductId = 8, ProductTitle = "Adidas Ultraboost 23", Quantity = 1, UnitPrice = 190.00m }] },
+    new() { UserId = 3, Status = OrderStatus.Shipped, TotalAmount = 539.94m, Items = [new() { ProductId = 12, ProductTitle = "KitchenAid Stand Mixer", Quantity = 1, UnitPrice = 449.99m }, new() { ProductId = 13, ProductTitle = "Instant Pot Duo 7-in-1", Quantity = 1, UnitPrice = 89.95m }] },
+    new() { UserId = 4, Status = OrderStatus.Pending, TotalAmount = 2499.99m, Items = [new() { ProductId = 3, ProductTitle = "MacBook Pro 16\"", Quantity = 1, UnitPrice = 2499.99m }] },
+    new() { UserId = 5, Status = OrderStatus.Delivered, TotalAmount = 97.97m, Items = [new() { ProductId = 16, ProductTitle = "Organic Almond Butter", Quantity = 2, UnitPrice = 12.99m }, new() { ProductId = 17, ProductTitle = "Matcha Green Tea Powder", Quantity = 1, UnitPrice = 29.99m }, new() { ProductId = 20, ProductTitle = "Organic Coffee Beans", Quantity = 2, UnitPrice = 16.99m }, new() { ProductId = 19, ProductTitle = "Extra Virgin Olive Oil", Quantity = 1, UnitPrice = 18.50m }] },
+    new() { UserId = 6, Status = OrderStatus.Cancelled, TotalAmount = 349.00m, Items = [new() { ProductId = 22, ProductTitle = "Adjustable Dumbbells", Quantity = 1, UnitPrice = 349.00m }] },
+    new() { UserId = 7, Status = OrderStatus.Delivered, TotalAmount = 1799.99m, Items = [new() { ProductId = 5, ProductTitle = "Dell XPS 15", Quantity = 1, UnitPrice = 1799.99m }] },
+    new() { UserId = 8, Status = OrderStatus.Processing, TotalAmount = 368.00m, Items = [new() { ProductId = 9, ProductTitle = "North Face Thermoball Jacket", Quantity = 1, UnitPrice = 229.00m }, new() { ProductId = 10, ProductTitle = "Patagonia Better Sweater", Quantity = 1, UnitPrice = 139.00m }] },
+    new() { UserId = 9, Status = OrderStatus.Shipped, TotalAmount = 749.99m, Items = [new() { ProductId = 11, ProductTitle = "Dyson V15 Detect", Quantity = 1, UnitPrice = 749.99m }] },
+    new() { UserId = 10, Status = OrderStatus.Pending, TotalAmount = 599.00m, Items = [new() { ProductId = 26, ProductTitle = "iPad Air M2", Quantity = 1, UnitPrice = 599.00m }] },
+    new() { UserId = 1, Status = OrderStatus.Delivered, TotalAmount = 299.99m, Items = [new() { ProductId = 23, ProductTitle = "Running Watch GPS", Quantity = 1, UnitPrice = 299.99m }] },
+    new() { UserId = 3, Status = OrderStatus.Processing, TotalAmount = 899.99m, Items = [new() { ProductId = 2, ProductTitle = "Samsung Galaxy S24", Quantity = 1, UnitPrice = 899.99m }] },
+    new() { UserId = 5, Status = OrderStatus.Shipped, TotalAmount = 699.95m, Items = [new() { ProductId = 15, ProductTitle = "Breville Barista Express", Quantity = 1, UnitPrice = 699.95m }] },
+    new() { UserId = 12, Status = OrderStatus.Pending, TotalAmount = 319.50m, Items = [new() { ProductId = 6, ProductTitle = "Nike Air Max 270", Quantity = 1, UnitPrice = 150.00m }, new() { ProductId = 7, ProductTitle = "Levi's 501 Original", Quantity = 1, UnitPrice = 69.50m }, new() { ProductId = 25, ProductTitle = "Foam Roller", Quantity = 4, UnitPrice = 24.95m }] },
+    new() { UserId = 15, Status = OrderStatus.Delivered, TotalAmount = 2499.00m, Items = [new() { ProductId = 27, ProductTitle = "Canon EOS R6 Mark II", Quantity = 1, UnitPrice = 2499.00m }] },
+  ];
+
+  private static List<Notification> GetNotifications() =>
+  [
+    new() { Type = NotificationType.Success, Title = "Order Delivered", Message = "Order #1001 has been delivered successfully.", IsRead = true },
+    new() { Type = NotificationType.Info, Title = "New Feature Available", Message = "Dark mode is now available in settings.", IsRead = true },
+    new() { Type = NotificationType.Warning, Title = "Low Stock Alert", Message = "Canon EOS R6 Mark II stock is below 15 units.", IsRead = false },
+    new() { Type = NotificationType.Error, Title = "Payment Failed", Message = "Payment processing failed for order #1006.", IsRead = false },
+    new() { Type = NotificationType.Info, Title = "System Maintenance", Message = "Scheduled maintenance on Feb 15, 2026 from 2-4 AM UTC.", IsRead = false },
+    new() { Type = NotificationType.Success, Title = "New User Registered", Message = "User harper.lopez@example.com has joined the platform.", IsRead = true },
+    new() { Type = NotificationType.Warning, Title = "High Traffic", Message = "Server load is above 80% capacity.", IsRead = false },
+    new() { Type = NotificationType.Info, Title = "Weekly Report Ready", Message = "Your weekly sales report is ready for download.", IsRead = true },
+    new() { Type = NotificationType.Success, Title = "Backup Complete", Message = "Database backup completed successfully.", IsRead = true },
+    new() { Type = NotificationType.Error, Title = "API Rate Limit", Message = "Third-party API rate limit exceeded.", IsRead = false },
+    new() { Type = NotificationType.Info, Title = "Price Update", Message = "5 products have been updated with new pricing.", IsRead = false },
+    new() { Type = NotificationType.Warning, Title = "Expiring Subscription", Message = "Your premium subscription expires in 7 days.", IsRead = false },
+    new() { Type = NotificationType.Success, Title = "Order Shipped", Message = "Order #1009 has been shipped via FedEx.", IsRead = true },
+    new() { Type = NotificationType.Info, Title = "New Review Posted", Message = "A new 5-star review was posted for iPhone 15 Pro.", IsRead = false },
+    new() { Type = NotificationType.Warning, Title = "Security Alert", Message = "Multiple failed login attempts detected.", IsRead = false },
+    new() { Type = NotificationType.Success, Title = "Campaign Launched", Message = "Spring sale campaign is now live.", IsRead = true },
+    new() { Type = NotificationType.Error, Title = "Webhook Failed", Message = "Webhook delivery to endpoint failed after 3 retries.", IsRead = false },
+    new() { Type = NotificationType.Info, Title = "Inventory Restocked", Message = "50 units of Adjustable Dumbbells have been restocked.", IsRead = true },
+    new() { Type = NotificationType.Success, Title = "User Verified", Message = "Email verification completed for daniel.martinez.", IsRead = true },
+    new() { Type = NotificationType.Warning, Title = "Disk Space Low", Message = "Server disk usage is at 85%.", IsRead = false },
+    new() { Type = NotificationType.Info, Title = "API Version Update", Message = "API v2.1 is now available with improved endpoints.", IsRead = false },
+    new() { Type = NotificationType.Success, Title = "Export Complete", Message = "Product catalog export completed (CSV).", IsRead = true },
+    new() { Type = NotificationType.Error, Title = "Email Delivery Failed", Message = "Failed to send order confirmation to customer.", IsRead = false },
+    new() { Type = NotificationType.Info, Title = "New Integration", Message = "Stripe payment integration is now available.", IsRead = false },
+    new() { Type = NotificationType.Warning, Title = "Slow Query Detected", Message = "Database query taking >5s on products endpoint.", IsRead = false },
+  ];
+}

@@ -1,0 +1,13 @@
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\bin\Debug\net9.0\MockServer.Core.deps.json
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\bin\Debug\net9.0\MockServer.Core.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\bin\Debug\net9.0\MockServer.Core.pdb
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.csproj.AssemblyReference.cache
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.AssemblyInfoInputs.cache
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.AssemblyInfo.cs
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.csproj.CoreCompileInputs.cache
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.sourcelink.json
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\refint\MockServer.Core.dll
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\MockServer.Core.pdb
+C:\desktopContents\projects\SaaS\SyncfusionThemeStudio\MockServer\src\MockServer.Core\obj\Debug\net9.0\ref\MockServer.Core.dll

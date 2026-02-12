@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "XqOg2vpxGBc=",
+  "success": true,
+  "projectFilePath": "C:\\desktopContents\\projects\\SaaS\\SyncfusionThemeStudio\\MockServer\\src\\MockServer.UseCases\\MockServer.UseCases.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\loizi\\.nuget\\packages\\ardalis.result\\10.0.0\\ardalis.result.10.0.0.nupkg.sha512",
+    "C:\\Users\\loizi\\.nuget\\packages\\mediatr\\12.4.1\\mediatr.12.4.1.nupkg.sha512",
+    "C:\\Users\\loizi\\.nuget\\packages\\mediatr.contracts\\2.0.1\\mediatr.contracts.2.0.1.nupkg.sha512",
+    "C:\\Users\\loizi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.0\\microsoft.extensions.dependencyinjection.abstractions.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

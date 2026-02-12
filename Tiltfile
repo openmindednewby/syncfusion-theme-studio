@@ -175,3 +175,35 @@ local_resource(
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )
+
+# ===============================================================================
+# 6. MOCK SERVER
+# ===============================================================================
+
+# --- Mock Server (.NET API on port 5150) ---
+local_resource(
+    name='mock-server',
+    labels=['MockServer'],
+    serve_cmd='dotnet run --project MockServer/src/MockServer.Web/MockServer.Web.csproj --urls http://localhost:5150',
+    links=[
+        link('http://localhost:5150/swagger', 'Swagger UI'),
+        link('http://localhost:5150/api/products', 'Products API'),
+        link('http://localhost:5150/api/users', 'Users API'),
+        link('http://localhost:5150/api/orders', 'Orders API'),
+    ],
+    readiness_probe=probe(
+        http_get=http_get_action(port=5150, path='/api/products'),
+        initial_delay_secs=10,
+        period_secs=10,
+    ),
+)
+
+# --- Export OpenAPI spec for Orval (manual, depends on mock-server) ---
+local_resource(
+    name='mock-server-export-spec',
+    labels=['MockServer'],
+    cmd='powershell -Command "Invoke-WebRequest -Uri http://localhost:5150/swagger/v1/swagger.json -OutFile src/api/swagger/mockserver.json; Write-Host \'OpenAPI spec exported to src/api/swagger/mockserver.json\'"',
+    resource_deps=['mock-server'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)

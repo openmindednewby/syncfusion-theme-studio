@@ -16,7 +16,6 @@ import {
   COL_WIDTH_ROLE,
   COL_WIDTH_STATUS,
   COL_WIDTH_DEPARTMENT,
-  GRID_HEIGHT_DEFAULT,
   PAGE_SIZE_FIVE,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
@@ -42,7 +41,6 @@ export const PaginationSection = memo((): JSX.Element => (
       allowPaging
       columns={PAGINATION_COLUMNS}
       data={EMPLOYEES}
-      height={GRID_HEIGHT_DEFAULT}
       pageSettings={{ pageSize: PAGE_SIZE_FIVE, pageSizes: PAGE_SIZES }}
       testId="grid-pagination"
     />

@@ -1,0 +1,9 @@
+namespace MockServer.UseCases.DTOs;
+
+public record NotificationDto(
+  int Id,
+  string Type,
+  string Title,
+  string Message,
+  bool IsRead,
+  DateTime CreatedAt);

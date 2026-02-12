@@ -19,7 +19,6 @@ import {
   COL_WIDTH_PRICE,
   COL_WIDTH_TOTAL,
   COL_WIDTH_COUNTRY,
-  GRID_HEIGHT_DEFAULT,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
 
@@ -59,7 +58,6 @@ export const AggregatesSection = memo((): JSX.Element => {
         aggregates={aggregates}
         columns={AGGREGATE_COLUMNS}
         data={ORDERS}
-        height={GRID_HEIGHT_DEFAULT}
         testId="grid-aggregates"
       />
     </ShowcaseSection>

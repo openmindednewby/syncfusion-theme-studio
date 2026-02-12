@@ -18,6 +18,7 @@ import { defineConfig } from 'orval';
 
 // ─── Mutator paths ──────────────────────────────────────────────────────────
 const DUMMYJSON_MUTATOR = './src/api/mutators/dummyjsonMutator.ts';
+const MOCKSERVER_MUTATOR = './src/api/mutators/mockserverMutator.ts';
 
 // ─── Shared output config applied to every service ──────────────────────────
 const sharedOutput = {
@@ -59,6 +60,32 @@ export default defineConfig({
       afterAllFilesWrite: [
         { command: 'npx prettier --write ./src/api/generated/dummyjson' },
         { command: 'echo "✅ Orval: DummyJSON hooks generated"' },
+      ],
+    },
+  },
+
+  // ─── MockServer Local API ────────────────────────────────────────────────
+  mockserver: {
+    input: {
+      target: './src/api/swagger/mockserver.json',
+      validation: false,
+    },
+    output: {
+      ...sharedOutput,
+      target: './src/api/generated/mockserver/index.ts',
+      schemas: './src/api/generated/mockserver/models',
+      override: {
+        ...sharedOverride,
+        mutator: {
+          path: MOCKSERVER_MUTATOR,
+          name: 'mockserverInstance',
+        },
+      },
+    },
+    hooks: {
+      afterAllFilesWrite: [
+        { command: 'npx prettier --write ./src/api/generated/mockserver' },
+        { command: 'echo "✅ Orval: MockServer hooks generated"' },
       ],
     },
   },

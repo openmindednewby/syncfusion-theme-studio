@@ -712,6 +712,34 @@
     color: var(--component-datagrid-pagination-nav-color) !important;
   }
 
+  /* Navigation icon glyph content - restore e-icons font content values
+     that get overridden to "" by higher-specificity grid CSS selectors */
+  .e-grid .e-pager .e-icon-first::before {
+    content: "\e744" !important;
+  }
+
+  .e-grid .e-pager .e-icon-prev::before {
+    content: "\e765" !important;
+  }
+
+  .e-grid .e-pager .e-icon-next::before {
+    content: "\e748" !important;
+  }
+
+  .e-grid .e-pager .e-icon-last::before {
+    content: "\e7a9" !important;
+  }
+
+  /* Ensure nav icon elements are visible */
+  .e-grid .e-pager .e-first .e-icons,
+  .e-grid .e-pager .e-prev .e-icons,
+  .e-grid .e-pager .e-next .e-icons,
+  .e-grid .e-pager .e-last .e-icons {
+    display: inline-block !important;
+    font-family: 'e-icons' !important;
+    font-size: 14px !important;
+  }
+
   /* Navigation icon glyphs - disabled state */
   .e-grid .e-pager .e-firstpagedisabled,
   .e-grid .e-pager .e-prevpagedisabled,

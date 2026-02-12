@@ -6,7 +6,7 @@ import { describe, it, expect } from 'vitest';
 
 import { AggregateType } from '@/lib/grid/types';
 
-import { DEFAULT_PAGE_SETTINGS, DEFAULT_PAGE_SIZE, AVAILABLE_PAGE_SIZES } from '../constants';
+import { DEFAULT_PAGE_COUNT, DEFAULT_PAGE_SETTINGS, DEFAULT_PAGE_SIZE, AVAILABLE_PAGE_SIZES } from '../constants';
 import { resolveFeatures, computePageSettings } from '../useGridFeatures';
 
 import type { DataGridProps } from '../types';
@@ -355,8 +355,8 @@ describe('computePageSettings', () => {
     expect(result.pageSize).toBe(DATA_LENGTH_SMALL);
   });
 
-  it('forwards pageCount when explicitly set in gridConfig', () => {
-    const CUSTOM_PAGE_COUNT = 8;
+  it('forwards pageCount when explicitly set in gridConfig and data has enough pages', () => {
+    const CUSTOM_PAGE_COUNT = 3;
     const config = {
       pagination: { enabled: true, pageCount: CUSTOM_PAGE_COUNT },
     };
@@ -365,10 +365,21 @@ describe('computePageSettings', () => {
     expect(result.pageCount).toBe(CUSTOM_PAGE_COUNT);
   });
 
-  it('does not include pageCount when not set in gridConfig', () => {
+  it('caps pageCount to actual total pages when custom value exceeds them', () => {
+    const CUSTOM_PAGE_COUNT = 8;
+    const config = {
+      pagination: { enabled: true, pageCount: CUSTOM_PAGE_COUNT },
+    };
+    // 50 items / 10 pageSize = 5 pages, so pageCount capped to 5
+    const result = computePageSettings(config, DEFAULT_PAGE_SETTINGS, true, DATA_LENGTH_LARGE);
+
+    expect(result.pageCount).toBe(5);
+  });
+
+  it('defaults pageCount to DEFAULT_PAGE_COUNT when not set in gridConfig', () => {
     const config = { pagination: { enabled: true } };
     const result = computePageSettings(config, DEFAULT_PAGE_SETTINGS, true, DATA_LENGTH_LARGE);
 
-    expect(result).not.toHaveProperty('pageCount');
+    expect(result.pageCount).toBe(DEFAULT_PAGE_COUNT);
   });
 });

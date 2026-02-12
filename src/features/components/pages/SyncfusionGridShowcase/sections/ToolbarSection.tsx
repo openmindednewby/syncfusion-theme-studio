@@ -16,7 +16,6 @@ import {
   COL_WIDTH_ROLE,
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_STATUS,
-  GRID_HEIGHT_DEFAULT,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
 
@@ -55,7 +54,6 @@ export const ToolbarSection = memo((): JSX.Element => {
         columns={TOOLBAR_COLUMNS}
         contextMenuItems={contextMenuItems}
         data={EMPLOYEES}
-        height={GRID_HEIGHT_DEFAULT}
         searchSettings={{ fields: ['name', 'email', 'role'], ignoreCase: true }}
         testId="grid-toolbar"
         toolbar={TOOLBAR_ITEMS}

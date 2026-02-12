@@ -15,7 +15,6 @@ import {
   COL_WIDTH_EMAIL,
   COL_WIDTH_ROLE,
   COL_WIDTH_COMMAND,
-  GRID_HEIGHT_DEFAULT,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
 
@@ -68,7 +67,6 @@ export const EditingSection = memo((): JSX.Element => {
         columns={EDIT_COLUMNS}
         data={INITIAL_EDIT_DATA}
         editSettings={editSettings}
-        height={GRID_HEIGHT_DEFAULT}
         testId="grid-editing"
       />
     </ShowcaseSection>

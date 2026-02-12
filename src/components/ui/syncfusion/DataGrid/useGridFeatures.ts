@@ -36,7 +36,7 @@ import type { PageSettingsModel } from '@syncfusion/ej2-react-grids';
 import type { GridConfig } from '@/lib/grid/types';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 
-import { AVAILABLE_PAGE_SIZES, DEFAULT_PAGE_SIZE } from './constants';
+import { AVAILABLE_PAGE_SIZES, DEFAULT_PAGE_COUNT, DEFAULT_PAGE_SIZE } from './constants';
 
 import type { DataGridProps, ResolvedGridFeatures } from './types';
 
@@ -206,6 +206,12 @@ export function useGridFeatures<T extends object>(
   return { features, services };
 }
 
+/** Cap pageCount to the actual number of pages so Syncfusion doesn't render empty page buttons. */
+function capPageCount(pageSize: number, dataLength: number, desiredPageCount: number): number {
+  const totalPages = Math.max(1, Math.ceil(dataLength / pageSize));
+  return Math.min(desiredPageCount, totalPages);
+}
+
 /**
  * Compute effective page settings from gridConfig or fallback.
  */
@@ -215,7 +221,11 @@ export function computePageSettings(
   pagingEnabled: boolean,
   dataLength: number,
 ): PageSettingsModel {
-  if (!isValueDefined(gridConfig?.pagination)) return fallback;
+  if (!isValueDefined(gridConfig?.pagination)) {
+    const pageSize = fallback.pageSize ?? DEFAULT_PAGE_SIZE;
+    const pageCount = capPageCount(pageSize, dataLength, fallback.pageCount ?? DEFAULT_PAGE_COUNT);
+    return { ...fallback, pageCount };
+  }
 
   const pag = gridConfig.pagination;
   const threshold = pag.threshold ?? 0;
@@ -223,10 +233,12 @@ export function computePageSettings(
 
   if (!shouldShow) return { ...fallback, pageSize: dataLength };
 
+  const pageSize = pag.pageSize ?? DEFAULT_PAGE_SIZE;
+  const desiredPageCount = pag.pageCount ?? DEFAULT_PAGE_COUNT;
   const settings: PageSettingsModel = {
-    pageSize: pag.pageSize ?? DEFAULT_PAGE_SIZE,
+    pageSize,
+    pageCount: capPageCount(pageSize, dataLength, desiredPageCount),
     pageSizes: pag.pageSizes ?? AVAILABLE_PAGE_SIZES,
   };
-  if (isValueDefined(pag.pageCount)) settings.pageCount = pag.pageCount;
   return settings;
 }

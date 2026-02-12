@@ -291,6 +291,11 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         changeOrigin: true,
         rewrite: (p: string) => p.replace(/^\/dummyjson/, ''),
       },
+      '/mockapi': {
+        target: 'http://localhost:5150',
+        changeOrigin: true,
+        rewrite: (p: string) => p.replace(/^\/mockapi/, ''),
+      },
     },
   },
   server: {
@@ -301,6 +306,11 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         target: 'https://dummyjson.com',
         changeOrigin: true,
         rewrite: (p: string) => p.replace(/^\/dummyjson/, ''),
+      },
+      '/mockapi': {
+        target: 'http://localhost:5150',
+        changeOrigin: true,
+        rewrite: (p: string) => p.replace(/^\/mockapi/, ''),
       },
     },
     // Warmup critical files for faster initial load

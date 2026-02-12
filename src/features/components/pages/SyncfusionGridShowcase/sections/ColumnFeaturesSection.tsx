@@ -18,7 +18,6 @@ import {
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_SALARY,
   COL_WIDTH_COUNTRY,
-  GRID_HEIGHT_DEFAULT,
   FROZEN_COLUMN_COUNT,
 } from './data';
 import { ShowcaseSection } from './ShowcaseSection';
@@ -49,7 +48,6 @@ export const ColumnFeaturesSection = memo((): JSX.Element => (
       columns={COLUMN_FEATURE_COLS}
       data={EMPLOYEES}
       frozenColumns={FROZEN_COLUMN_COUNT}
-      height={GRID_HEIGHT_DEFAULT}
       testId="grid-column-features"
       toolbar={TOOLBAR_ITEMS}
     />

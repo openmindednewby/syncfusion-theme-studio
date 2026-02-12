@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/MockServer.Core/MockServer.Core.csproj" />
+    <Project Path="src/MockServer.Infrastructure/MockServer.Infrastructure.csproj" />
+    <Project Path="src/MockServer.UseCases/MockServer.UseCases.csproj" />
+    <Project Path="src/MockServer.Web/MockServer.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/MockServer.UnitTests/MockServer.UnitTests.csproj" />
+  </Folder>
+</Solution>

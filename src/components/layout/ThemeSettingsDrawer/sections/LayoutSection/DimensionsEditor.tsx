@@ -1,5 +1,5 @@
 
-import CheckboxNative from '@/components/ui/CheckboxNative';
+import CheckboxNative from '@/components/ui/native/CheckboxNative';
 import { FM } from '@/localization/helpers';
 import type { LayoutConfig, SpacingConfig } from '@/stores/theme/types';
 

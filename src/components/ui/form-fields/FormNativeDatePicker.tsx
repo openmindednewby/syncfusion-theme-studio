@@ -10,8 +10,8 @@ import type { ChangeEvent } from 'react';
 
 import { Controller, type Control, type FieldPath, type FieldValues } from 'react-hook-form';
 
-import DatePickerNative from '@/components/ui/DatePickerNative';
-import type { DatePickerNativeProps } from '@/components/ui/DatePickerNative';
+import DatePickerNative from '@/components/ui/native/DatePickerNative';
+import type { DatePickerNativeProps } from '@/components/ui/native/DatePickerNative';
 import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 

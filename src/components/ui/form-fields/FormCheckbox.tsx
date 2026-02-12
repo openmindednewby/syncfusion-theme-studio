@@ -11,8 +11,8 @@ import type { ChangeEvent } from 'react';
 
 import { Controller, type Control, type FieldPath, type FieldValues } from 'react-hook-form';
 
-import CheckboxNative from '@/components/ui/CheckboxNative';
-import type { CheckboxNativeProps } from '@/components/ui/CheckboxNative';
+import CheckboxNative from '@/components/ui/native/CheckboxNative';
+import type { CheckboxNativeProps } from '@/components/ui/native/CheckboxNative';
 import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 

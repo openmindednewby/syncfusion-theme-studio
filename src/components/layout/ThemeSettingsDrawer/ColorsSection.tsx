@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import AlertNative, { AlertVariant } from '@/components/ui/AlertNative';
+import AlertNative, { AlertVariant } from '@/components/ui/native/AlertNative';
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { rgbStringToHex, hexToRgbString } from '@/utils';

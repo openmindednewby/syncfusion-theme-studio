@@ -10,8 +10,8 @@ import type { ChangeEvent } from 'react';
 
 import { Controller, type Control, type FieldPath, type FieldValues } from 'react-hook-form';
 
-import SelectNative from '@/components/ui/SelectNative';
-import type { SelectNativeProps } from '@/components/ui/SelectNative';
+import SelectNative from '@/components/ui/native/SelectNative';
+import type { SelectNativeProps } from '@/components/ui/native/SelectNative';
 import { resolveTranslationError } from '@/localization/translation-error';
 import { isValueDefined } from '@/utils/is';
 

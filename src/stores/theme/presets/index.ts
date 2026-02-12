@@ -13,3 +13,5 @@ export { ROSE_PINK_THEME } from './rosePink';
 export { ROYAL_PURPLE_THEME } from './royalPurple';
 export { SLATE_THEME } from './slate';
 export { SUNSET_ORANGE_THEME } from './sunsetOrange';
+export type { ThemePreset } from './themePresets';
+export { themePresets } from './themePresets';

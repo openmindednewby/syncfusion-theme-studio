@@ -16,6 +16,7 @@ import {
 import type { ThemeConfig } from '../types';
 
 // Teal/Cyan primary - security-focused, modern, sharp
+// 600-900 darkened for WCAG AA contrast (≥4.5:1) with white text
 const FREMEN_PRIMARY = {
   '50': '224 247 250',
   '100': '178 235 242',
@@ -23,10 +24,10 @@ const FREMEN_PRIMARY = {
   '300': '77 208 225',
   '400': '38 198 218',
   '500': '0 188 212',
-  '600': '0 172 193',
-  '700': '0 151 167',
-  '800': '0 131 143',
-  '900': '0 96 100',
+  '600': '0 124 139',
+  '700': '0 105 118',
+  '800': '0 88 99',
+  '900': '0 70 80',
 };
 
 // Violet/Purple secondary - accent for avatars, badges, highlights
@@ -102,8 +103,8 @@ const FREMEN_LIGHT_MODE = {
     muted: '100 116 139',
     disabled: '148 163 184',
     inverse: '255 255 255',
-    link: '0 172 193',
-    linkHover: '0 151 167',
+    link: '0 124 139',
+    linkHover: '0 105 118',
   },
   borders: {
     default: '226 231 240',

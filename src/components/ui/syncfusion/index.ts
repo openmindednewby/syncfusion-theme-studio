@@ -10,8 +10,8 @@
  */
 
 // Syncfusion component wrappers (now located in this folder)
-export { default as Button } from './Button';
-export type { ButtonProps, ButtonVariant, ButtonSize } from './Button';
+export { default as Button, ButtonVariant, ButtonSize } from './Button';
+export type { ButtonProps } from './Button';
 
 export { default as Input } from './Input';
 export type { InputProps } from './Input';
@@ -25,11 +25,11 @@ export type { DataGridProps } from './DataGrid';
 export { default as DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 
-export { default as Dialog } from './Dialog';
-export type { DialogProps, DialogButton, DialogVariant } from './Dialog';
+export { default as Dialog, DialogVariant } from './Dialog';
+export type { DialogProps, DialogButton } from './Dialog';
 
-export { default as Alert } from './Alert';
-export type { AlertProps, AlertSeverity, AlertDisplayVariant } from './Alert';
+export { default as Alert, AlertSeverity, AlertDisplayVariant } from './Alert';
+export type { AlertProps } from './Alert';
 
 // Re-export hooks
 export {
@@ -45,14 +45,16 @@ export {
   SF_THEME_PREFIX,
   SF_LIGHT_CLASS,
   SF_DARK_CLASS,
-  type ComponentSize,
-  type ButtonVariant as SfButtonVariant,
-  type ThemeClasses,
-  type ButtonThemeClasses,
-  type InputThemeClasses,
-  type SelectThemeClasses,
-  type DataGridThemeClasses,
-  type DatePickerThemeClasses,
-  type DialogThemeClasses,
-  type AccessibilityProps,
+  ComponentSize,
+  ButtonVariant as SfButtonVariant,
+} from './types';
+export type {
+  ThemeClasses,
+  ButtonThemeClasses,
+  InputThemeClasses,
+  SelectThemeClasses,
+  DataGridThemeClasses,
+  DatePickerThemeClasses,
+  DialogThemeClasses,
+  AccessibilityProps,
 } from './types';

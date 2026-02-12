@@ -51,7 +51,8 @@ test.describe('Dashboard Page', () => {
   test('should display sidebar navigation', async ({ page }) => {
     await expect(page.getByTestId(TestIds.SIDEBAR)).toBeVisible();
     await expect(page.getByTestId(TestIds.NAV_HOME)).toBeVisible();
-    await expect(page.getByTestId(TestIds.NAV_PRODUCTS)).toBeVisible();
+    // Products is now an expandable sub-menu with expand button
+    await expect(page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND)).toBeVisible();
     // Components is now an expandable sub-menu with expand button
     await expect(page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND)).toBeVisible();
     await expect(page.getByTestId(TestIds.NAV_THEME_EDITOR)).toBeVisible();
@@ -83,9 +84,12 @@ test.describe('Dashboard Page', () => {
     expect(hasActiveClass).toBe(true);
   });
 
-  test('should navigate to products page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
-    await expect(page).toHaveURL('/dashboard/products');
+  test('should navigate to products page via sidebar sub-menu', async ({ page }) => {
+    // Products is now an expandable sub-menu - expand it first
+    await page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND).click();
+    // Click on Native products (first sub-item)
+    await page.getByTestId(TestIds.NAV_PRODUCTS_NATIVE).click();
+    await expect(page).toHaveURL('/dashboard/products/native');
   });
 
   test('should navigate to components page via sidebar sub-menu', async ({ page }) => {

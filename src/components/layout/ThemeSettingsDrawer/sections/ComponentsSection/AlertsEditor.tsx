@@ -9,9 +9,14 @@ interface AlertsEditorProps {
   onUpdate: (updates: Partial<AlertsConfig>) => void;
 }
 
-type AlertKey = 'success' | 'warning' | 'error' | 'info';
+const enum AlertKey {
+  Success = 'success',
+  Warning = 'warning',
+  Error = 'error',
+  Info = 'info',
+}
 
-const ALERT_VARIANTS: AlertKey[] = ['success', 'warning', 'error', 'info'];
+const ALERT_VARIANTS: AlertKey[] = [AlertKey.Success, AlertKey.Warning, AlertKey.Error, AlertKey.Info];
 
 interface AlertVariantEditorProps {
   config: AlertVariantConfig;

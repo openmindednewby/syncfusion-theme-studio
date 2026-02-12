@@ -1,11 +1,13 @@
 import { renderHook } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import { Mode } from '@/stores/mode';
 
+import { ButtonVariant, ComponentSize } from '../types';
 import { useSyncfusionTheme, getButtonClasses } from './useSyncfusionTheme';
 
 // Mock useThemeStore
-const mockMode = { current: 'light' as 'light' | 'dark' };
+const mockMode = { current: Mode.Light as Mode };
 vi.mock('@/stores/useThemeStore', () => ({
   useThemeStore: () => ({
     mode: mockMode.current,
@@ -14,18 +16,18 @@ vi.mock('@/stores/useThemeStore', () => ({
 
 describe('useSyncfusionTheme', () => {
   beforeEach(() => {
-    mockMode.current = 'light';
+    mockMode.current = Mode.Light;
   });
 
   describe('modeClass', () => {
     it('returns sf-light in light mode', () => {
-      mockMode.current = 'light';
+      mockMode.current = Mode.Light;
       const { result } = renderHook(() => useSyncfusionTheme());
       expect(result.current.modeClass).toBe('sf-light');
     });
 
     it('returns sf-dark in dark mode', () => {
-      mockMode.current = 'dark';
+      mockMode.current = Mode.Dark;
       const { result } = renderHook(() => useSyncfusionTheme());
       expect(result.current.modeClass).toBe('sf-dark');
     });
@@ -155,7 +157,7 @@ describe('useSyncfusionTheme', () => {
 
 describe('getButtonClasses', () => {
   it('returns correct classes for primary button in light mode', () => {
-    const classes = getButtonClasses('primary', 'md', 'light');
+    const classes = getButtonClasses(ButtonVariant.Primary, ComponentSize.Md, Mode.Light);
     expect(classes).toContain('sf-themed');
     expect(classes).toContain('sf-light');
     expect(classes).toContain('e-primary');
@@ -164,7 +166,7 @@ describe('getButtonClasses', () => {
   });
 
   it('returns correct classes for danger button in dark mode', () => {
-    const classes = getButtonClasses('danger', 'lg', 'dark');
+    const classes = getButtonClasses(ButtonVariant.Danger, ComponentSize.Lg, Mode.Dark);
     expect(classes).toContain('sf-themed');
     expect(classes).toContain('sf-dark');
     expect(classes).toContain('e-danger');
@@ -174,7 +176,7 @@ describe('getButtonClasses', () => {
   });
 
   it('returns correct classes for outline button with small size', () => {
-    const classes = getButtonClasses('outline', 'sm', 'light');
+    const classes = getButtonClasses(ButtonVariant.Outline, ComponentSize.Sm, Mode.Light);
     expect(classes).toContain('e-outline');
     expect(classes).toContain('sf-btn-outline');
     expect(classes).toContain('e-small');

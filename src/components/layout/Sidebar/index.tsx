@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
+import { RoutePath, RoutePrefix } from '@/app/routePaths';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
@@ -18,18 +19,24 @@ interface NavItem {
 }
 
 const NAV_ITEMS: NavItem[] = [
-  { path: '/dashboard', labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
-  { path: '/dashboard/products', labelKey: 'menu.products', icon: '📦', testId: TestIds.NAV_PRODUCTS },
+  { path: RoutePath.Dashboard, labelKey: 'menu.dashboard', icon: '🏠', testId: TestIds.NAV_HOME },
+];
+
+const PRODUCTS_CHILDREN = [
+  { path: RoutePath.ProductsNative, labelKey: 'menu.productsNative', testId: TestIds.NAV_PRODUCTS_NATIVE },
+  { path: RoutePath.ProductsSyncfusion, labelKey: 'menu.productsSyncfusion', testId: TestIds.NAV_PRODUCTS_SYNCFUSION },
 ];
 
 const COMPONENTS_CHILDREN = [
-  { path: '/dashboard/components/native', labelKey: 'menu.componentsNative', testId: TestIds.NAV_COMPONENTS_NATIVE },
-  { path: '/dashboard/components/syncfusion', labelKey: 'menu.componentsSyncfusion', testId: TestIds.NAV_COMPONENTS_SYNCFUSION },
+  { path: RoutePath.ComponentsSyncfusion, labelKey: 'menu.componentsSyncfusion', testId: TestIds.NAV_COMPONENTS_SYNCFUSION },
+  { path: RoutePath.ComponentsGridSyncfusion, labelKey: 'menu.gridSyncfusion', testId: TestIds.NAV_GRID_SYNCFUSION, indent: true },
+  { path: RoutePath.ComponentsNative, labelKey: 'menu.componentsNative', testId: TestIds.NAV_COMPONENTS_NATIVE },
+  { path: RoutePath.ComponentsGridNative, labelKey: 'menu.gridNative', testId: TestIds.NAV_GRID_NATIVE, indent: true },
 ];
 
 const FORMS_CHILDREN = [
-  { path: '/dashboard/forms/syncfusion', labelKey: 'menu.formsSyncfusion', testId: TestIds.NAV_FORMS_SYNCFUSION },
-  { path: '/dashboard/forms/native', labelKey: 'menu.formsNative', testId: TestIds.NAV_FORMS_NATIVE },
+  { path: RoutePath.FormsSyncfusion, labelKey: 'menu.formsSyncfusion', testId: TestIds.NAV_FORMS_SYNCFUSION },
+  { path: RoutePath.FormsNative, labelKey: 'menu.formsNative', testId: TestIds.NAV_FORMS_NATIVE },
 ];
 
 export const Sidebar = (): JSX.Element => {
@@ -80,13 +87,24 @@ export const Sidebar = (): JSX.Element => {
             </li>
           ))}
 
+          {/* Products - expandable sub-menu */}
+          <NavExpandableItem
+            expandTestId={TestIds.NAV_PRODUCTS_EXPAND}
+            icon="📦"
+            isCollapsed={isCollapsed}
+            labelKey="menu.products"
+            pathPrefix={RoutePrefix.Products}
+          >
+            {PRODUCTS_CHILDREN}
+          </NavExpandableItem>
+
           {/* Components - expandable sub-menu */}
           <NavExpandableItem
             expandTestId={TestIds.NAV_COMPONENTS_EXPAND}
             icon="🧩"
             isCollapsed={isCollapsed}
             labelKey="menu.components"
-            pathPrefix="/dashboard/components"
+            pathPrefix={RoutePrefix.Components}
           >
             {COMPONENTS_CHILDREN}
           </NavExpandableItem>
@@ -97,7 +115,7 @@ export const Sidebar = (): JSX.Element => {
             icon="📝"
             isCollapsed={isCollapsed}
             labelKey="menu.forms"
-            pathPrefix="/dashboard/forms"
+            pathPrefix={RoutePrefix.Forms}
           >
             {FORMS_CHILDREN}
           </NavExpandableItem>
@@ -124,7 +142,7 @@ export const Sidebar = (): JSX.Element => {
           aria-label={FM('menu.loginLabel')}
           className="sidebar-item flex items-center gap-3 rounded-md px-3 py-2"
           data-testid={TestIds.NAV_LOGIN}
-          to="/"
+          to={RoutePath.Root}
         >
           <span aria-hidden="true" className="text-lg">{ICON_LOCK}</span>
           {!isCollapsed && <span>{FM('menu.login')}</span>}

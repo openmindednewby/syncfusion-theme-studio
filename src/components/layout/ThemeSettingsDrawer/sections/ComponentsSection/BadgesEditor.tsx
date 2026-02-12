@@ -10,9 +10,14 @@ interface BadgesEditorProps {
   onUpdate: (updates: Partial<BadgesConfig>) => void;
 }
 
-type BadgeKey = 'success' | 'warning' | 'error' | 'info';
+const enum BadgeKey {
+  Success = 'success',
+  Warning = 'warning',
+  Error = 'error',
+  Info = 'info',
+}
 
-const BADGE_VARIANTS: BadgeKey[] = ['success', 'warning', 'error', 'info'];
+const BADGE_VARIANTS: BadgeKey[] = [BadgeKey.Success, BadgeKey.Warning, BadgeKey.Error, BadgeKey.Info];
 
 interface BadgeVariantEditorProps {
   config: BadgeVariant;

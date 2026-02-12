@@ -249,6 +249,7 @@
 
   .sf-dark .e-input-group.e-control-wrapper.e-input-focus,
   .sf-dark .e-ddl.e-control-wrapper.e-input-focus,
+  .sf-dark .e-multiselect.e-control-wrapper.e-input-focus,
   .sf-dark .e-date-wrapper.e-control-wrapper.e-input-focus {
     box-shadow: 0 0 0 3px rgb(var(--color-primary-400) / 0.15);
   }

@@ -15,19 +15,15 @@ export { ButtonNative, InputNative } from './native';
 export type { ButtonNativeProps, InputNativeProps } from './native';
 
 // Re-export types only (types are erased at runtime, no bundle impact)
+export { AlertSeverity, AlertDisplayVariant, ButtonVariant, ButtonSize, DialogVariant } from './syncfusion';
 export type {
   DataGridProps,
   ButtonProps,
-  ButtonVariant,
-  ButtonSize,
   InputProps,
   SelectProps,
   SelectOption,
   DatePickerProps,
   DialogProps,
   DialogButton,
-  DialogVariant,
   AlertProps,
-  AlertSeverity,
-  AlertDisplayVariant,
 } from './syncfusion';

@@ -1,4 +1,4 @@
-import { StrictMode, Suspense, lazy } from 'react';
+import { StrictMode } from 'react';
 
 import { createRoot } from 'react-dom/client';
 
@@ -6,32 +6,10 @@ import { createRoot } from 'react-dom/client';
 // Syncfusion CSS is loaded lazily in MainLayout for protected routes
 import './styles/login.css';
 
-// Lazy load App to defer React Router loading
-// This allows the CSS spinner to show while JS downloads
-const App = lazy(async () => import('./app/App').then((m) => ({ default: m.App })));
-
-// Minimal fallback while App loads - matches the inline CSS spinner style
-const AppLoading = (): JSX.Element => (
-  <div
-    style={{
-      minHeight: '100vh',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-    }}
-  >
-    <div
-      style={{
-        width: 40,
-        height: 40,
-        border: '3px solid #e5e7eb',
-        borderTopColor: '#3b82f6',
-        borderRadius: '50%',
-        animation: 'spin 1s linear infinite',
-      }}
-    />
-  </div>
-);
+// Direct import — eliminates a lazy-load waterfall hop.
+// The inline CSS spinner in index.html (#root:empty::after) provides
+// visual feedback while this JS bundle downloads and executes.
+import { App } from './app/App';
 
 const rootElement = document.getElementById('root');
 
@@ -39,8 +17,6 @@ if (!rootElement) throw new Error('Root element not found');
 
 createRoot(rootElement).render(
   <StrictMode>
-    <Suspense fallback={<AppLoading />}>
-      <App />
-    </Suspense>
+    <App />
   </StrictMode>
 );

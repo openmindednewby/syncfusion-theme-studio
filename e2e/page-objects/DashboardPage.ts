@@ -75,7 +75,10 @@ export class DashboardPage extends BasePage {
   }
 
   async navigateToProducts(): Promise<void> {
-    await this.clickByTestId(TestIds.NAV_PRODUCTS);
+    // Products is now an expandable sub-menu - expand it first
+    await this.clickByTestId(TestIds.NAV_PRODUCTS_EXPAND);
+    // Click on Native products (first sub-item)
+    await this.clickByTestId(TestIds.NAV_PRODUCTS_NATIVE);
   }
 
   async navigateToComponents(): Promise<void> {

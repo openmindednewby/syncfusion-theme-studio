@@ -11,8 +11,10 @@ import type { ThemeState } from './theme/types';
 // Re-export types for consumers
 export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 
-// Schema version — bump when ThemeConfig shape changes to invalidate stale data
-const THEME_SCHEMA_VERSION = 1;
+// Schema version -- bump when ThemeConfig shape changes to invalidate stale data
+// v2: Added ChipConfig to component configurations
+// v3: Added fontSize, fontWeight, lineHeight, letterSpacing to TypographyConfig
+const THEME_SCHEMA_VERSION = 3;
 
 export const useThemeStore = create<ThemeState>()(
   devtools(

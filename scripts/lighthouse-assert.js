@@ -15,7 +15,10 @@
 import { readFileSync, existsSync } from 'fs';
 import { resolve } from 'path';
 
-const REPORT_PATH = resolve(process.cwd(), 'reports', 'lighthouse.json');
+const DEFAULT_REPORT = resolve(process.cwd(), 'reports', 'lighthouse.json');
+const REPORT_PATH = process.argv[2]
+  ? resolve(process.cwd(), process.argv[2])
+  : DEFAULT_REPORT;
 
 // Score thresholds (0-1 scale)
 const THRESHOLDS = {
@@ -23,7 +26,6 @@ const THRESHOLDS = {
   accessibility: 1.0,
   'best-practices': 1.0,
   seo: 1.0,
-  pwa: 1.0,
 };
 
 // ANSI colors for console output

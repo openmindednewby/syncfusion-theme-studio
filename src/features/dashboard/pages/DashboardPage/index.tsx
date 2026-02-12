@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
+import { RoutePath } from '@/app/routePaths';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
@@ -12,7 +13,7 @@ const DashboardPage = (): JSX.Element => {
 
   const handleExploreComponents = (): void => {
     // navigate may return Promise in React Router v7
-    Promise.resolve(navigate('/dashboard/components')).catch(() => undefined);
+    Promise.resolve(navigate(RoutePath.Components)).catch(() => undefined);
   };
 
   return (

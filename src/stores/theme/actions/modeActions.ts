@@ -1,6 +1,8 @@
 // Mode-related actions
 
 import { injectThemeVariables } from '../themeInjector';
+import { Mode } from '../types';
+
 
 import type { GetState, ModeActions, SetState } from './types';
 
@@ -11,7 +13,7 @@ export function createModeActions(set: SetState, get: GetState): ModeActions {
       injectThemeVariables(get().theme, mode);
     },
     toggleMode: () => {
-      const newMode = get().mode === 'light' ? 'dark' : 'light';
+      const newMode = get().mode === Mode.Light ? Mode.Dark : Mode.Light;
       set({ mode: newMode });
       injectThemeVariables(get().theme, newMode);
     },

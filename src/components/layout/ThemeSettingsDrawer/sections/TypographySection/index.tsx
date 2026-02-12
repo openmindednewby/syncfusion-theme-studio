@@ -1,11 +1,26 @@
 
 import { FM } from '@/localization/helpers';
+import { TransitionType } from '@/stores/theme/types';
 import { useThemeStore } from '@/stores/useThemeStore';
 
+
+import { FontFamilyEditor } from './FontFamilyEditor';
+import { FontSizeEditor } from './FontSizeEditor';
+import { FontWeightEditor } from './FontWeightEditor';
+import { LetterSpacingEditor } from './LetterSpacingEditor';
+import { LineHeightEditor } from './LineHeightEditor';
 import { TextInputRow } from '../../TextInputRow';
 
 export const TypographySection = (): JSX.Element => {
-  const { theme, updateFontFamily, updateTransition } = useThemeStore();
+  const {
+    theme,
+    updateFontFamily,
+    updateFontSize,
+    updateFontWeight,
+    updateLetterSpacing,
+    updateLineHeight,
+    updateTransition,
+  } = useThemeStore();
 
   return (
     <section className="space-y-4">
@@ -18,24 +33,31 @@ export const TypographySection = (): JSX.Element => {
         </p>
       </div>
 
-      {/* Font Families */}
-      <div className="space-y-2">
-        <h5 className="text-xs font-medium text-text-secondary">
-          {FM('themeSettings.typography.fontFamily')}
-        </h5>
-        <div className="space-y-2">
-          <TextInputRow
-            label="Sans"
-            value={theme.typography.fontSans}
-            onChange={(value) => updateFontFamily('sans', value)}
-          />
-          <TextInputRow
-            label="Mono"
-            value={theme.typography.fontMono}
-            onChange={(value) => updateFontFamily('mono', value)}
-          />
-        </div>
-      </div>
+      <FontFamilyEditor
+        fontMono={theme.typography.fontMono}
+        fontSans={theme.typography.fontSans}
+        onUpdateFontFamily={updateFontFamily}
+      />
+
+      <FontSizeEditor
+        fontSize={theme.typography.fontSize}
+        onUpdateFontSize={updateFontSize}
+      />
+
+      <FontWeightEditor
+        fontWeight={theme.typography.fontWeight}
+        onUpdateFontWeight={updateFontWeight}
+      />
+
+      <LineHeightEditor
+        lineHeight={theme.typography.lineHeight}
+        onUpdateLineHeight={updateLineHeight}
+      />
+
+      <LetterSpacingEditor
+        letterSpacing={theme.typography.letterSpacing}
+        onUpdateLetterSpacing={updateLetterSpacing}
+      />
 
       {/* Transitions */}
       <div className="space-y-2">
@@ -47,25 +69,25 @@ export const TypographySection = (): JSX.Element => {
             label="Fast"
             placeholder="e.g., 150ms"
             value={theme.transitions.fast}
-            onChange={(value) => updateTransition('fast', value)}
+            onChange={(value) => updateTransition(TransitionType.Fast, value)}
           />
           <TextInputRow
             label="Normal"
             placeholder="e.g., 250ms"
             value={theme.transitions.normal}
-            onChange={(value) => updateTransition('normal', value)}
+            onChange={(value) => updateTransition(TransitionType.Normal, value)}
           />
           <TextInputRow
             label="Slow"
             placeholder="e.g., 350ms"
             value={theme.transitions.slow}
-            onChange={(value) => updateTransition('slow', value)}
+            onChange={(value) => updateTransition(TransitionType.Slow, value)}
           />
           <TextInputRow
             label="Easing"
             placeholder="e.g., ease-in-out"
             value={theme.transitions.easing}
-            onChange={(value) => updateTransition('easing', value)}
+            onChange={(value) => updateTransition(TransitionType.Easing, value)}
           />
         </div>
       </div>

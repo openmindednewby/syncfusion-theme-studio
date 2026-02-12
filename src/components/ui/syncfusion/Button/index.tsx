@@ -12,14 +12,25 @@ import { memo, forwardRef, useMemo } from 'react';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import type { ButtonModel } from '@syncfusion/ej2-react-buttons';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
 /** Available button style variants */
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+const enum ButtonVariant {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Outline = 'outline',
+  Ghost = 'ghost',
+  Danger = 'danger',
+}
 /** Available button size presets */
-type ButtonSize = 'sm' | 'md' | 'lg';
+const enum ButtonSize {
+  Sm = 'sm',
+  Md = 'md',
+  Lg = 'lg',
+}
 
 interface Props extends Omit<ButtonModel, 'cssClass'> {
   /** Button variant */
@@ -48,25 +59,25 @@ interface Props extends Omit<ButtonModel, 'cssClass'> {
 
 /** Syncfusion + themed variant classes */
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'e-primary sf-btn-primary',
-  secondary: 'e-secondary sf-btn-secondary',
-  outline: 'e-outline sf-btn-outline',
-  ghost: 'e-flat sf-btn-ghost',
-  danger: 'e-danger sf-btn-danger',
+  [ButtonVariant.Primary]: 'e-primary sf-btn-primary',
+  [ButtonVariant.Secondary]: 'e-secondary sf-btn-secondary',
+  [ButtonVariant.Outline]: 'e-outline sf-btn-outline',
+  [ButtonVariant.Ghost]: 'e-flat sf-btn-ghost',
+  [ButtonVariant.Danger]: 'e-danger sf-btn-danger',
 };
 
 /** Size classes */
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  sm: 'e-small',
-  md: '',
-  lg: 'e-large',
+  [ButtonSize.Sm]: 'e-small',
+  [ButtonSize.Md]: '',
+  [ButtonSize.Lg]: 'e-large',
 };
 
 const Button = forwardRef<ButtonComponent, Props>(
   (
     {
-      variant = 'primary',
-      size = 'md',
+      variant = ButtonVariant.Primary,
+      size = ButtonSize.Md,
       className,
       testId,
       ariaLabel,
@@ -84,7 +95,7 @@ const Button = forwardRef<ButtonComponent, Props>(
     const { mode } = useThemeStore();
 
     const cssClass = useMemo(() => {
-      const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+      const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
       const variantClass = VARIANT_CLASSES[variant];
       const sizeClass = SIZE_CLASSES[size];
       const fullWidthClass = fullWidth ? 'e-block sf-btn-full' : '';
@@ -129,4 +140,5 @@ const Button = forwardRef<ButtonComponent, Props>(
 Button.displayName = 'Button';
 
 export default memo(Button);
-export type { Props as ButtonProps, ButtonVariant, ButtonSize };
+export { ButtonVariant, ButtonSize };
+export type { Props as ButtonProps };

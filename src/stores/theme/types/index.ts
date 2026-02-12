@@ -1,13 +1,16 @@
 // Theme store types - barrel export
 
 // Re-export all color types
-export type {
+export {
   Mode,
+  StatusKey,
+  StatusShade,
+} from './colorTypes';
+
+export type {
   ColorScale,
   StatusColor,
   StatusColors,
-  StatusKey,
-  StatusShade,
   ColorShade,
   BackgroundColors,
   TextColors,
@@ -16,23 +19,35 @@ export type {
   ThemeModeConfigUpdate,
 } from './colorTypes';
 
-// Re-export all layout types
+// Re-export all layout types (const enums + interfaces)
+export {
+  FontFamilyType,
+  TransitionType,
+} from './layoutTypes';
+
 export type {
   LayoutConfig,
   BorderRadiusConfig,
+  FontSizeScale,
+  FontWeightScale,
+  LineHeightScale,
+  LetterSpacingScale,
   TypographyConfig,
   TransitionConfig,
   SpacingConfig,
   ShadowConfig,
 } from './layoutTypes';
 
-// Re-export all component types
-export type {
+// Re-export layout component types (const enums + interfaces)
+export {
   ShadowScale,
+  ButtonVariant,
+} from './componentTypes';
+
+export type {
   HeaderComponentConfig,
   SidebarComponentConfig,
   ButtonStateColors,
-  ButtonVariant,
   ButtonsComponentConfig,
   InputsConfig,
   DataGridConfig,
@@ -40,23 +55,36 @@ export type {
   ModalsConfig,
   BadgeVariant,
   BadgesConfig,
-  SelectConfig,
-  DatePickerConfig,
-  DialogConfig,
+  AccordionConfig,
+  ToolbarConfig,
+  MenuConfig,
+  BreadcrumbConfig,
+  PaginationConfig,
+  ComponentConfigSingle,
+  ComponentsConfig,
+} from './componentTypes';
+
+// Re-export feedback component types (const enums + interfaces)
+export {
   FlexDirection,
   FlexWrap,
   FlexJustify,
   FlexAlign,
-  FlexBoxConfig,
   ErrorAnimationType,
+} from './feedbackComponentTypes';
+
+export type {
+  SelectConfig,
+  DatePickerConfig,
+  DialogConfig,
+  FlexBoxConfig,
   ErrorMessagesConfig,
   AlertVariantConfig,
   AlertsConfig,
   ToastConfig,
   MessageConfig,
-  ComponentConfigSingle,
-  ComponentsConfig,
-} from './componentTypes';
+  ChipConfig,
+} from './feedbackComponentTypes';
 
 // Re-export theme config and state types
 export type { ThemeConfig, ThemeState } from './themeTypes';

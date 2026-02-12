@@ -11,6 +11,7 @@ import {
   createTypographyActions,
 } from './actions';
 import { DEFAULT_THEME } from './defaultTheme';
+import { Mode } from './types';
 
 import type { GetState, SetState } from './actions';
 import type { ThemeState } from './types';
@@ -18,7 +19,7 @@ import type { ThemeState } from './types';
 
 export function createThemeActions(set: SetState, get: GetState): ThemeState {
   return {
-    mode: 'light',
+    mode: Mode.Light,
     theme: DEFAULT_THEME,
     ...createModeActions(set, get),
     ...createColorUpdateActions(set, get),

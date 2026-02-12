@@ -76,6 +76,23 @@ const config: Config = {
         '2xl': 'var(--font-size-2xl)',
         '3xl': 'var(--font-size-3xl)',
       },
+      fontWeight: {
+        light: 'var(--font-weight-light)',
+        normal: 'var(--font-weight-normal)',
+        medium: 'var(--font-weight-medium)',
+        semibold: 'var(--font-weight-semibold)',
+        bold: 'var(--font-weight-bold)',
+      },
+      lineHeight: {
+        tight: 'var(--line-height-tight)',
+        normal: 'var(--line-height-normal)',
+        relaxed: 'var(--line-height-relaxed)',
+      },
+      letterSpacing: {
+        tight: 'var(--letter-spacing-tight)',
+        normal: 'var(--letter-spacing-normal)',
+        wide: 'var(--letter-spacing-wide)',
+      },
       borderRadius: {
         none: 'var(--radius-none)',
         sm: 'var(--radius-sm)',

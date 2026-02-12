@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@/test/utils';
 
-import ButtonNative from './index';
+import ButtonNative, { ButtonVariant, ButtonSize } from './index';
 
 describe('ButtonNative', () => {
   describe('click behavior', () => {
@@ -131,7 +131,7 @@ describe('ButtonNative', () => {
 
     it('applies danger variant classes when specified', () => {
       render(
-        <ButtonNative testId="test-button" variant="danger">
+        <ButtonNative testId="test-button" variant={ButtonVariant.Danger}>
           Danger
         </ButtonNative>,
       );
@@ -140,7 +140,7 @@ describe('ButtonNative', () => {
 
     it('applies outline variant classes when specified', () => {
       render(
-        <ButtonNative testId="test-button" variant="outline">
+        <ButtonNative testId="test-button" variant={ButtonVariant.Outline}>
           Outline
         </ButtonNative>,
       );
@@ -151,7 +151,7 @@ describe('ButtonNative', () => {
 
     it('applies ghost variant classes when specified', () => {
       render(
-        <ButtonNative testId="test-button" variant="ghost">
+        <ButtonNative testId="test-button" variant={ButtonVariant.Ghost}>
           Ghost
         </ButtonNative>,
       );
@@ -167,7 +167,7 @@ describe('ButtonNative', () => {
 
     it('applies small size classes when specified', () => {
       render(
-        <ButtonNative size="sm" testId="test-button">
+        <ButtonNative size={ButtonSize.Sm} testId="test-button">
           Small
         </ButtonNative>,
       );
@@ -176,7 +176,7 @@ describe('ButtonNative', () => {
 
     it('applies large size classes when specified', () => {
       render(
-        <ButtonNative size="lg" testId="test-button">
+        <ButtonNative size={ButtonSize.Lg} testId="test-button">
           Large
         </ButtonNative>,
       );

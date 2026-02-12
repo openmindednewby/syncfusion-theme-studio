@@ -15,6 +15,7 @@ import {
   type ChangeEventArgs,
 } from '@syncfusion/ej2-react-dropdowns';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
@@ -75,7 +76,7 @@ const Select = forwardRef<DropDownListComponent, Props>(
     const hasHelperOrError = isValueDefined(helperText) || hasError;
 
     const selectCssClass = useMemo(() => {
-      const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+      const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
       const errorClass = hasError ? 'e-error sf-select-error' : '';
       const fullWidthClassStr = fullWidth ? 'e-block sf-select-full' : '';
       return cn('sf-select', modeClass, errorClass, fullWidthClassStr);

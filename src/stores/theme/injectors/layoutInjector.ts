@@ -55,13 +55,39 @@ export function injectLayoutVariables(root: HTMLElement, theme: ThemeConfig): vo
   root.style.setProperty('--sidebar-width', theme.layout.sidebarWidth);
   root.style.setProperty('--sidebar-collapsed-width', theme.layout.sidebarCollapsedWidth);
   root.style.setProperty('--header-height', theme.layout.headerHeight);
-  const resolvedMaxWidth = theme.layout.contentFullWidth ? '100%' : theme.layout.contentMaxWidth;
+  const resolvedMaxWidth = theme.layout.contentFullWidth ? 'none' : theme.layout.contentMaxWidth;
   root.style.setProperty('--content-max-width', resolvedMaxWidth);
 }
 
 export function injectTypographyVariables(root: HTMLElement, theme: ThemeConfig): void {
   root.style.setProperty('--font-sans', theme.typography.fontSans);
   root.style.setProperty('--font-mono', theme.typography.fontMono);
+
+  // Font sizes
+  root.style.setProperty('--font-size-xs', theme.typography.fontSize.xs);
+  root.style.setProperty('--font-size-sm', theme.typography.fontSize.sm);
+  root.style.setProperty('--font-size-base', theme.typography.fontSize.base);
+  root.style.setProperty('--font-size-lg', theme.typography.fontSize.lg);
+  root.style.setProperty('--font-size-xl', theme.typography.fontSize.xl);
+  root.style.setProperty('--font-size-2xl', theme.typography.fontSize['2xl']);
+  root.style.setProperty('--font-size-3xl', theme.typography.fontSize['3xl']);
+
+  // Font weights
+  root.style.setProperty('--font-weight-light', theme.typography.fontWeight.light);
+  root.style.setProperty('--font-weight-normal', theme.typography.fontWeight.normal);
+  root.style.setProperty('--font-weight-medium', theme.typography.fontWeight.medium);
+  root.style.setProperty('--font-weight-semibold', theme.typography.fontWeight.semibold);
+  root.style.setProperty('--font-weight-bold', theme.typography.fontWeight.bold);
+
+  // Line heights
+  root.style.setProperty('--line-height-tight', theme.typography.lineHeight.tight);
+  root.style.setProperty('--line-height-normal', theme.typography.lineHeight.normal);
+  root.style.setProperty('--line-height-relaxed', theme.typography.lineHeight.relaxed);
+
+  // Letter spacing
+  root.style.setProperty('--letter-spacing-tight', theme.typography.letterSpacing.tight);
+  root.style.setProperty('--letter-spacing-normal', theme.typography.letterSpacing.normal);
+  root.style.setProperty('--letter-spacing-wide', theme.typography.letterSpacing.wide);
 }
 
 export function injectTransitionVariables(root: HTMLElement, theme: ThemeConfig): void {

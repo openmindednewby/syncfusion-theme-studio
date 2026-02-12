@@ -1,32 +1,58 @@
 // Component configuration actions
 
 import { injectThemeVariables } from '../themeInjector';
-
-import type {
-  AlertsConfig,
-  BadgesConfig,
-  ButtonStateColors,
-  ButtonVariant,
-  CardsConfig,
-  DataGridConfig,
-  DatePickerConfig,
-  DialogConfig,
-  ErrorMessagesConfig,
-  FlexBoxConfig,
-  HeaderComponentConfig,
-  InputsConfig,
-  MessageConfig,
-  ModalsConfig,
-  SelectConfig,
-  SidebarComponentConfig,
-  ThemeConfig,
-  ToastConfig,
+import { type ButtonVariant ,
+  type AccordionConfig,
+  type AlertsConfig,
+  type BadgesConfig,
+  type BreadcrumbConfig,
+  type ButtonStateColors,
+  type CardsConfig,
+  type ChipConfig,
+  type DataGridConfig,
+  type DatePickerConfig,
+  type DialogConfig,
+  type ErrorMessagesConfig,
+  type FlexBoxConfig,
+  type HeaderComponentConfig,
+  type InputsConfig,
+  type MenuConfig,
+  type MessageConfig,
+  type ModalsConfig,
+  type SelectConfig,
+  type SidebarComponentConfig,
+  type ThemeConfig,
+  type ToastConfig,
+  type PaginationConfig,
+  type ToolbarConfig,
 } from '../types';
+
+
 import type { ComponentConfigActions, GetState, SetState } from './types';
 
-type ComponentKey = 'header' | 'sidebar' | 'inputs' | 'dataGrid' |
-  'cards' | 'modals' | 'badges' | 'select' | 'datePicker' | 'dialog' |
-  'errorMessages' | 'flexBox' | 'alerts' | 'toast' | 'message';
+const enum ComponentKey {
+  Header = 'header',
+  Sidebar = 'sidebar',
+  Inputs = 'inputs',
+  DataGrid = 'dataGrid',
+  Cards = 'cards',
+  Modals = 'modals',
+  Badges = 'badges',
+  Select = 'select',
+  DatePicker = 'datePicker',
+  Dialog = 'dialog',
+  ErrorMessages = 'errorMessages',
+  FlexBox = 'flexBox',
+  Alerts = 'alerts',
+  Toast = 'toast',
+  Message = 'message',
+  Chips = 'chips',
+  Accordion = 'accordion',
+  Toolbar = 'toolbar',
+  Menu = 'menu',
+  Breadcrumb = 'breadcrumb',
+  Pagination = 'pagination',
+}
 
 function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
   const { theme, mode } = get();
@@ -51,21 +77,27 @@ function updateButton(set: SetState, get: GetState, variant: ButtonVariant, upda
 
 export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
   return {
-    updateHeaderConfig: (u: Partial<HeaderComponentConfig>) => update(set, get, 'header', u),
-    updateSidebarConfig: (u: Partial<SidebarComponentConfig>) => update(set, get, 'sidebar', u),
-    updateInputConfig: (u: Partial<InputsConfig>) => update(set, get, 'inputs', u),
-    updateDataGridConfig: (u: Partial<DataGridConfig>) => update(set, get, 'dataGrid', u),
-    updateCardsConfig: (u: Partial<CardsConfig>) => update(set, get, 'cards', u),
-    updateModalsConfig: (u: Partial<ModalsConfig>) => update(set, get, 'modals', u),
-    updateBadgesConfig: (u: Partial<BadgesConfig>) => update(set, get, 'badges', u),
-    updateSelectConfig: (u: Partial<SelectConfig>) => update(set, get, 'select', u),
-    updateDatePickerConfig: (u: Partial<DatePickerConfig>) => update(set, get, 'datePicker', u),
-    updateDialogConfig: (u: Partial<DialogConfig>) => update(set, get, 'dialog', u),
-    updateErrorMessagesConfig: (u: Partial<ErrorMessagesConfig>) => update(set, get, 'errorMessages', u),
-    updateFlexBoxConfig: (u: Partial<FlexBoxConfig>) => update(set, get, 'flexBox', u),
-    updateAlertsConfig: (u: Partial<AlertsConfig>) => update(set, get, 'alerts', u),
-    updateToastConfig: (u: Partial<ToastConfig>) => update(set, get, 'toast', u),
-    updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, 'message', u),
+    updateHeaderConfig: (u: Partial<HeaderComponentConfig>) => update(set, get, ComponentKey.Header, u),
+    updateSidebarConfig: (u: Partial<SidebarComponentConfig>) => update(set, get, ComponentKey.Sidebar, u),
+    updateInputConfig: (u: Partial<InputsConfig>) => update(set, get, ComponentKey.Inputs, u),
+    updateDataGridConfig: (u: Partial<DataGridConfig>) => update(set, get, ComponentKey.DataGrid, u),
+    updateCardsConfig: (u: Partial<CardsConfig>) => update(set, get, ComponentKey.Cards, u),
+    updateModalsConfig: (u: Partial<ModalsConfig>) => update(set, get, ComponentKey.Modals, u),
+    updateBadgesConfig: (u: Partial<BadgesConfig>) => update(set, get, ComponentKey.Badges, u),
+    updateSelectConfig: (u: Partial<SelectConfig>) => update(set, get, ComponentKey.Select, u),
+    updateDatePickerConfig: (u: Partial<DatePickerConfig>) => update(set, get, ComponentKey.DatePicker, u),
+    updateDialogConfig: (u: Partial<DialogConfig>) => update(set, get, ComponentKey.Dialog, u),
+    updateErrorMessagesConfig: (u: Partial<ErrorMessagesConfig>) => update(set, get, ComponentKey.ErrorMessages, u),
+    updateFlexBoxConfig: (u: Partial<FlexBoxConfig>) => update(set, get, ComponentKey.FlexBox, u),
+    updateAlertsConfig: (u: Partial<AlertsConfig>) => update(set, get, ComponentKey.Alerts, u),
+    updateToastConfig: (u: Partial<ToastConfig>) => update(set, get, ComponentKey.Toast, u),
+    updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, ComponentKey.Message, u),
+    updateChipConfig: (u: Partial<ChipConfig>) => update(set, get, ComponentKey.Chips, u),
+    updateAccordionConfig: (u: Partial<AccordionConfig>) => update(set, get, ComponentKey.Accordion, u),
+    updateToolbarConfig: (u: Partial<ToolbarConfig>) => update(set, get, ComponentKey.Toolbar, u),
+    updateMenuConfig: (u: Partial<MenuConfig>) => update(set, get, ComponentKey.Menu, u),
+    updateBreadcrumbConfig: (u: Partial<BreadcrumbConfig>) => update(set, get, ComponentKey.Breadcrumb, u),
+    updatePaginationConfig: (u: Partial<PaginationConfig>) => update<PaginationConfig>(set, get, ComponentKey.Pagination, u),
     updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
   };
 }

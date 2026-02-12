@@ -1,34 +1,36 @@
-import { useState, useCallback, type ChangeEvent } from 'react';
+import { useState, useCallback, useEffect, type ChangeEvent } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonNative, InputNative } from '@/components/ui/native';
+import { preloadRoutePages } from '@/app/router';
+import { ButtonNative, ButtonVariant, InputNative } from '@/components/ui/native';
 import { preloadSyncfusionModules } from '@/config/syncfusionLazy';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
-import { useLicenseStore } from '@/stores/useLicenseStore';
+import { Mode } from '@/stores/mode';
 // Use lightweight mode store to avoid loading full theme system (~80KB)
 import { useModeStore } from '@/stores/useModeStore';
 
 const DEFAULT_EMAIL = 'demo@example.com';
 const DEFAULT_PASSWORD = 'demo123';
-const DEFAULT_LICENSE_KEY =
-  'Ngo9BigBOggjGyl/VkR+XU9Ff1RBQmJJYVF2R2VJflx6dFVMZV5BJAtUQF1hT35Rdk1iXHxWdHVVRWJaWkd0';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
   const { mode, toggleMode } = useModeStore();
-  const { licenseKey, setLicenseKey } = useLicenseStore();
   const [email, setEmail] = useState(DEFAULT_EMAIL);
   const [password, setPassword] = useState(DEFAULT_PASSWORD);
-  // Use stored key if available, otherwise use default
-  const [localLicenseKey, setLocalLicenseKey] = useState(
-    licenseKey !== '' ? licenseKey : DEFAULT_LICENSE_KEY,
-  );
+
+  // Preload route pages and Syncfusion modules in the background as soon as
+  // the login page mounts. Both functions internally use requestIdleCallback,
+  // so they will never block the main thread or delay user interaction.
+  useEffect(() => {
+    preloadRoutePages();
+    preloadSyncfusionModules();
+  }, []);
 
   const themeLabel =
-    mode === 'light' ? FM('login.themeSwitchDark') : FM('login.themeSwitchLight');
-  const themeIcon = mode === 'light' ? 'moon' : 'sun';
+    mode === Mode.Light ? FM('login.themeSwitchDark') : FM('login.themeSwitchLight');
+  const themeIcon = mode === Mode.Light ? 'moon' : 'sun';
 
   const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -38,23 +40,13 @@ const LoginPage = (): JSX.Element => {
     setPassword(e.target.value);
   }, []);
 
-  const handleLicenseKeyChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
-    setLocalLicenseKey(e.target.value);
-  }, []);
-
   const handleSubmit = useCallback(
     (e: React.FormEvent): void => {
       e.preventDefault();
-      // Save license key if provided
-      if (localLicenseKey !== '') setLicenseKey(localLicenseKey);
-
-      // Preload Syncfusion modules in background before navigation
-      preloadSyncfusionModules();
-
       // Demo login - redirect to dashboard (navigate may return Promise in React Router v7)
       Promise.resolve(navigate('/dashboard')).catch(() => undefined);
     },
-    [navigate, localLicenseKey, setLicenseKey],
+    [navigate],
   );
 
   return (
@@ -132,20 +124,7 @@ const LoginPage = (): JSX.Element => {
               onChange={handlePasswordChange}
             />
 
-            <div className="border-t border-border pt-4">
-              <InputNative
-                fullWidth
-                label={FM('login.licenseKey')}
-                placeholder={FM('login.licenseKeyPlaceholder')}
-                testId={TestIds.LOGIN_LICENSE_KEY}
-                type="text"
-                value={localLicenseKey}
-                onChange={handleLicenseKeyChange}
-              />
-              <p className="mt-1 text-xs text-text-muted">{FM('login.licenseKeyHint')}</p>
-            </div>
-
-            <ButtonNative fullWidth testId={TestIds.LOGIN_SUBMIT} type="submit" variant="primary">
+            <ButtonNative fullWidth testId={TestIds.LOGIN_SUBMIT} type="submit" variant={ButtonVariant.Primary}>
               {FM('login.submit')}
             </ButtonNative>
           </form>

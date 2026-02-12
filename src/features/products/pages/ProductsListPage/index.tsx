@@ -2,10 +2,12 @@ import { useState, useCallback, useMemo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
-import type { Product, Category } from '@/api/generated/models';
-import { useGetAllProducts, useGetCategories } from '@/api/generated/products/products';
+import type { Product, Category } from '@/api/generated/dummyjson/models';
+import { useGetAllProducts, useGetCategories } from '@/api/generated/dummyjson/products/products';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
-import { Button, DataGrid } from '@/components/ui/syncfusion';
+import { Button, ButtonVariant, DataGrid } from '@/components/ui/syncfusion';
+import type { GridConfig } from '@/lib/grid/types';
+import { FilterType, SortDirection } from '@/lib/grid/types';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
@@ -17,6 +19,30 @@ const PRICE_WIDTH = 100;
 const RATING_WIDTH = 100;
 const STOCK_WIDTH = 100;
 const VISIBLE_CATEGORIES_COUNT = 5;
+const PRODUCTS_LIMIT = 30;
+const DECIMAL_PLACES = 2;
+const RATING_DECIMAL_PLACES = 1;
+const DEFAULT_STOCK = 0;
+const PAGINATION_THRESHOLD = 20;
+const PAGE_SIZE_DEFAULT = 10;
+const PAGE_SIZE_SMALL = 25;
+const PAGE_SIZE_MEDIUM = 50;
+const PAGE_SIZE_LARGE = 100;
+
+const GRID_CONFIG: GridConfig = {
+  filter: {
+    enabled: true,
+    type: FilterType.Menu,
+    autoCreate: true,
+  },
+  defaultSort: [{ field: 'rating', direction: SortDirection.Descending }],
+  pagination: {
+    enabled: true,
+    threshold: PAGINATION_THRESHOLD,
+    pageSize: PAGE_SIZE_DEFAULT,
+    pageSizes: [PAGE_SIZE_DEFAULT, PAGE_SIZE_SMALL, PAGE_SIZE_MEDIUM, PAGE_SIZE_LARGE],
+  },
+};
 
 interface CategoryFilterProps {
   selectedCategory: string;
@@ -32,14 +58,14 @@ const CategoryFilter = ({
   <div className="flex flex-wrap gap-2" data-testid={TestIds.PRODUCTS_CATEGORY_FILTER}>
     <Button
       testId="category-filter-all"
-      variant={selectedCategory === 'all' ? 'primary' : 'secondary'}
+      variant={selectedCategory === 'all' ? ButtonVariant.Primary : ButtonVariant.Secondary}
       onClick={() => onCategoryChange('all')}
     >
       {FM('products.allCategories')}
     </Button>
     {categories.slice(0, VISIBLE_CATEGORIES_COUNT).map((cat) => {
       const isSelected = selectedCategory === cat.slug;
-      const variant = isSelected ? 'primary' : 'secondary';
+      const variant = isSelected ? ButtonVariant.Primary : ButtonVariant.Secondary;
 
       return (
         <Button
@@ -70,7 +96,7 @@ const ErrorMessage = ({ message, onRetry }: ErrorMessageProps): JSX.Element => (
           <p className="text-xs text-danger-600">{message}</p>
         </div>
       </div>
-      <Button testId="retry-button" variant="secondary" onClick={onRetry}>
+      <Button testId="retry-button" variant={ButtonVariant.Secondary} onClick={onRetry}>
         {FM('common.tryAgain')}
       </Button>
     </div>
@@ -90,8 +116,8 @@ const EmptyState = ({ category }: EmptyStateProps): JSX.Element => (
 
 /** Transform product data for grid display */
 function transformProductForGrid(product: Product): Record<string, unknown> {
-  const price = isValueDefined(product.price) ? `$${product.price.toFixed(2)}` : '-';
-  const rating = isValueDefined(product.rating) ? product.rating.toFixed(1) : '-';
+  const price = isValueDefined(product.price) ? `$${product.price.toFixed(DECIMAL_PLACES)}` : '-';
+  const rating = isValueDefined(product.rating) ? product.rating.toFixed(RATING_DECIMAL_PLACES) : '-';
 
   return {
     id: product.id,
@@ -99,7 +125,7 @@ function transformProductForGrid(product: Product): Record<string, unknown> {
     category: product.category ?? FM('common.unknown'),
     price,
     rating,
-    stock: product.stock ?? 0,
+    stock: product.stock ?? DEFAULT_STOCK,
   };
 }
 
@@ -112,7 +138,7 @@ const ProductsListPage = (): JSX.Element => {
     isError: isProductsError,
     error: productsError,
     refetch: refetchProducts,
-  } = useGetAllProducts({ limit: 30 });
+  } = useGetAllProducts({ limit: PRODUCTS_LIMIT });
 
   const { data: categoriesData } = useGetCategories();
   // Orval 8.x wraps response in { data, status, headers }
@@ -147,7 +173,7 @@ const ProductsListPage = (): JSX.Element => {
     return filteredProducts.map(transformProductForGrid);
   }, [filteredProducts]);
 
-  const errorMessage = isValueDefined(productsError) ? String(productsError) : 'An unexpected error occurred';
+  const errorMessage = isValueDefined(productsError) ? String(productsError) : FM('common.unexpectedError');
   const hasProducts = isNotEmptyArray(filteredProducts);
   const showEmptyState = !isLoadingProducts && !isProductsError && !hasProducts;
   const showDataGrid = !isLoadingProducts && !isProductsError && hasProducts;
@@ -174,10 +200,10 @@ const ProductsListPage = (): JSX.Element => {
       {showDataGrid ? (
         <div className="card p-0">
           <DataGrid
-            allowFiltering
             columns={gridColumns}
             data={gridData}
             emptyText={FM('products.noProductsFound')}
+            gridConfig={GRID_CONFIG}
             height="400"
             testId={TestIds.PRODUCTS_GRID}
           />

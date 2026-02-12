@@ -8,7 +8,7 @@
  * Usage:
  * ```typescript
  * useEffect(() => {
- *   loadSyncfusionCss('grids');
+ *   loadSyncfusionCss(SyncfusionCssModule.Grids);
  * }, []);
  * ```
  */
@@ -16,14 +16,15 @@
 import { isValueDefined } from './is';
 
 /** Syncfusion component CSS module types */
-export type SyncfusionCssModule =
-  | 'grids'
-  | 'calendars'
-  | 'navigations'
-  | 'popups'
-  | 'dropdowns'
-  | 'layouts'
-  | 'notifications';
+export const enum SyncfusionCssModule {
+  Grids = 'grids',
+  Calendars = 'calendars',
+  Navigations = 'navigations',
+  Popups = 'popups',
+  Dropdowns = 'dropdowns',
+  Layouts = 'layouts',
+  Notifications = 'notifications',
+}
 
 /** Set to track already-loaded CSS modules */
 const loadedCss = new Set<SyncfusionCssModule>();
@@ -64,25 +65,25 @@ export async function loadSyncfusionCss(module: SyncfusionCssModule): Promise<vo
  */
 async function loadCssModule(module: SyncfusionCssModule): Promise<void> {
   switch (module) {
-    case 'grids':
+    case SyncfusionCssModule.Grids:
       await import('@syncfusion/ej2-react-grids/styles/tailwind.css');
       break;
-    case 'calendars':
+    case SyncfusionCssModule.Calendars:
       await import('@syncfusion/ej2-react-calendars/styles/tailwind.css');
       break;
-    case 'navigations':
+    case SyncfusionCssModule.Navigations:
       await import('@syncfusion/ej2-react-navigations/styles/tailwind.css');
       break;
-    case 'popups':
+    case SyncfusionCssModule.Popups:
       await import('@syncfusion/ej2-react-popups/styles/tailwind.css');
       break;
-    case 'dropdowns':
+    case SyncfusionCssModule.Dropdowns:
       await import('@syncfusion/ej2-react-dropdowns/styles/tailwind.css');
       break;
-    case 'layouts':
+    case SyncfusionCssModule.Layouts:
       await import('@syncfusion/ej2-react-layouts/styles/tailwind.css');
       break;
-    case 'notifications':
+    case SyncfusionCssModule.Notifications:
       await import('@syncfusion/ej2-react-notifications/styles/tailwind.css');
       break;
     default:

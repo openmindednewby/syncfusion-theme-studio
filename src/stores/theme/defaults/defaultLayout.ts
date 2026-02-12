@@ -14,7 +14,7 @@ export const DEFAULT_LAYOUT: LayoutConfig = {
   sidebarCollapsedWidth: '64px',
   headerHeight: '64px',
   contentMaxWidth: '1440px',
-  contentFullWidth: false,
+  contentFullWidth: true,
 };
 
 export const DEFAULT_SPACING: SpacingConfig = {
@@ -45,6 +45,32 @@ export const DEFAULT_SHADOWS: ShadowConfig = {
 export const DEFAULT_TYPOGRAPHY: TypographyConfig = {
   fontSans: "ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji'",
   fontMono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace',
+  fontSize: {
+    xs: '0.75rem',
+    sm: '0.875rem',
+    base: '1rem',
+    lg: '1.125rem',
+    xl: '1.25rem',
+    '2xl': '1.5rem',
+    '3xl': '1.875rem',
+  },
+  fontWeight: {
+    light: '300',
+    normal: '400',
+    medium: '500',
+    semibold: '600',
+    bold: '700',
+  },
+  lineHeight: {
+    tight: '1.25',
+    normal: '1.5',
+    relaxed: '1.75',
+  },
+  letterSpacing: {
+    tight: '-0.025em',
+    normal: '0em',
+    wide: '0.025em',
+  },
 };
 
 export const DEFAULT_TRANSITIONS: TransitionConfig = {

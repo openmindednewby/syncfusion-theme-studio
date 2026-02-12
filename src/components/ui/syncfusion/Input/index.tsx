@@ -11,6 +11,7 @@ import { memo, forwardRef, useId, useMemo } from 'react';
 
 import { TextBoxComponent, type TextBoxModel } from '@syncfusion/ej2-react-inputs';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
@@ -58,7 +59,7 @@ const Input = forwardRef<TextBoxComponent, Props>(
     const hasHelperOrError = isValueDefined(helperText) || hasError;
 
     const inputCssClass = useMemo(() => {
-      const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+      const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
       const errorClass = hasError ? 'e-error sf-input-error' : '';
       const fullWidthClassStr = fullWidth ? 'e-block sf-input-full' : '';
       return cn('sf-input', modeClass, errorClass, fullWidthClassStr);

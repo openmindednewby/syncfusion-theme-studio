@@ -1,5 +1,6 @@
 import { FM } from '@/localization/helpers';
 import type { BackgroundColors, BorderColors, TextColors } from '@/stores/theme/types';
+import { Mode } from '@/stores/theme/types';
 import { useThemeStore } from '@/stores/useThemeStore';
 
 import { ColorPicker } from '../../ColorPicker';
@@ -29,15 +30,15 @@ export const DarkThemeSection = (): JSX.Element => {
   const darkConfig = theme.dark;
 
   const handleBackgroundChange = (key: keyof BackgroundColors, rgb: string): void => {
-    updateModeConfig('dark', { backgrounds: { ...darkConfig.backgrounds, [key]: rgb } });
+    updateModeConfig(Mode.Dark, { backgrounds: { ...darkConfig.backgrounds, [key]: rgb } });
   };
 
   const handleTextChange = (key: keyof TextColors, rgb: string): void => {
-    updateModeConfig('dark', { text: { ...darkConfig.text, [key]: rgb } });
+    updateModeConfig(Mode.Dark, { text: { ...darkConfig.text, [key]: rgb } });
   };
 
   const handleBorderChange = (key: keyof BorderColors, rgb: string): void => {
-    updateModeConfig('dark', { borders: { ...darkConfig.borders, [key]: rgb } });
+    updateModeConfig(Mode.Dark, { borders: { ...darkConfig.borders, [key]: rgb } });
   };
 
   return (

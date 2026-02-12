@@ -10,9 +10,9 @@ import { TestIds } from '../shared/testIds';
 test.describe('Native Alert Components', () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
-    await page.goto('/dashboard/components/native');
-    await page.waitForLoadState('domcontentloaded');
-    // Wait for the lazy-loaded page container to be visible (longer timeout for parallel runs)
+    // Use SPA navigation instead of page.goto() to avoid full page reload
+    await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
+    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
     await expect(page.getByTestId(TestIds.NATIVE_COMPONENTS_PAGE)).toBeVisible({ timeout: 15000 });
   });
 

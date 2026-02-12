@@ -11,7 +11,12 @@ import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
 /** Available alert style variants */
-type AlertVariant = 'success' | 'warning' | 'error' | 'info';
+const enum AlertVariant {
+  Success = 'success',
+  Warning = 'warning',
+  Error = 'error',
+  Info = 'info',
+}
 
 interface Props {
   /** Alert variant */
@@ -33,25 +38,25 @@ interface Props {
 }
 
 const VARIANT_CLASSES: Record<AlertVariant, string> = {
-  success: 'alert-success',
-  warning: 'alert-warning',
-  error: 'alert-error',
-  info: 'alert-info',
+  [AlertVariant.Success]: 'alert-success',
+  [AlertVariant.Warning]: 'alert-warning',
+  [AlertVariant.Error]: 'alert-error',
+  [AlertVariant.Info]: 'alert-info',
 };
 
 const ICON_PATHS: Record<AlertVariant, string> = {
-  success: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
-  warning:
+  [AlertVariant.Success]: 'M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z',
+  [AlertVariant.Warning]:
     'M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z',
-  error: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
-  info: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
+  [AlertVariant.Error]: 'M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z',
+  [AlertVariant.Info]: 'M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z',
 };
 
 const ICON_STROKE_WIDTH = 1.5;
 const CLOSE_ICON_SIZE = 'h-4 w-4';
 
 const AlertNative = ({
-  variant = 'info',
+  variant = AlertVariant.Info,
   title,
   children,
   dismissible = false,
@@ -78,7 +83,7 @@ const AlertNative = ({
       {showIcon ? (
         <svg
           aria-hidden="true"
-          className="alert-icon"
+          className="alert-icon h-5 w-5"
           fill="none"
           stroke="currentColor"
           strokeWidth={ICON_STROKE_WIDTH}
@@ -120,4 +125,5 @@ const AlertNative = ({
 AlertNative.displayName = 'AlertNative';
 
 export default memo(AlertNative);
-export type { Props as AlertNativeProps, AlertVariant };
+export { AlertVariant };
+export type { Props as AlertNativeProps };

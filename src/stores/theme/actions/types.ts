@@ -49,10 +49,20 @@ export interface ComponentConfigActions {
   updateAlertsConfig: ThemeState['updateAlertsConfig'];
   updateToastConfig: ThemeState['updateToastConfig'];
   updateMessageConfig: ThemeState['updateMessageConfig'];
+  updateChipConfig: ThemeState['updateChipConfig'];
+  updateAccordionConfig: ThemeState['updateAccordionConfig'];
+  updateToolbarConfig: ThemeState['updateToolbarConfig'];
+  updateMenuConfig: ThemeState['updateMenuConfig'];
+  updateBreadcrumbConfig: ThemeState['updateBreadcrumbConfig'];
+  updatePaginationConfig: ThemeState['updatePaginationConfig'];
 }
 
 export interface TypographyActions {
   updateFontFamily: ThemeState['updateFontFamily'];
+  updateFontSize: ThemeState['updateFontSize'];
+  updateFontWeight: ThemeState['updateFontWeight'];
+  updateLineHeight: ThemeState['updateLineHeight'];
+  updateLetterSpacing: ThemeState['updateLetterSpacing'];
   updateTransition: ThemeState['updateTransition'];
 }
 

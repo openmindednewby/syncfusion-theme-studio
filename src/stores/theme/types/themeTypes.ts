@@ -1,43 +1,53 @@
 // Main theme configuration and state types
 
-import type {
-  ColorScale,
-  ColorShade,
-  Mode,
-  StatusColors,
-  StatusKey,
-  StatusShade,
-  ThemeModeConfig,
-  ThemeModeConfigUpdate,
+import { type Mode, type StatusKey, type StatusShade ,
+  type ColorScale,
+  type ColorShade,
+  type StatusColors,
+  type ThemeModeConfig,
+  type ThemeModeConfigUpdate,
 } from './colorTypes';
-import type {
-  AlertsConfig,
-  BadgesConfig,
-  ButtonStateColors,
-  ButtonVariant,
-  CardsConfig,
-  ComponentsConfig,
-  DataGridConfig,
-  DatePickerConfig,
-  DialogConfig,
-  ErrorMessagesConfig,
-  FlexBoxConfig,
-  HeaderComponentConfig,
-  InputsConfig,
-  MessageConfig,
-  ModalsConfig,
-  SelectConfig,
-  SidebarComponentConfig,
-  ToastConfig,
+import { type ButtonVariant ,
+  type AccordionConfig,
+  type AlertsConfig,
+  type BadgesConfig,
+  type BreadcrumbConfig,
+  type ButtonStateColors,
+  type CardsConfig,
+  type ChipConfig,
+  type ComponentsConfig,
+  type DataGridConfig,
+  type DatePickerConfig,
+  type DialogConfig,
+  type ErrorMessagesConfig,
+  type FlexBoxConfig,
+  type HeaderComponentConfig,
+  type InputsConfig,
+  type MenuConfig,
+  type MessageConfig,
+  type ModalsConfig,
+  type SelectConfig,
+  type SidebarComponentConfig,
+  type ToastConfig,
+  type PaginationConfig,
+  type ToolbarConfig,
 } from './componentTypes';
-import type {
-  BorderRadiusConfig,
-  LayoutConfig,
-  ShadowConfig,
-  SpacingConfig,
-  TransitionConfig,
-  TypographyConfig,
+import { type FontFamilyType, type TransitionType ,
+  type BorderRadiusConfig,
+  type FontSizeScale,
+  type FontWeightScale,
+  type LayoutConfig,
+  type LetterSpacingScale,
+  type LineHeightScale,
+  type ShadowConfig,
+  type SpacingConfig,
+  type TransitionConfig,
+  type TypographyConfig,
 } from './layoutTypes';
+
+
+
+
 
 export interface ThemeConfig {
   id: string;
@@ -87,9 +97,19 @@ export interface ThemeState {
   updateAlertsConfig: (updates: Partial<AlertsConfig>) => void;
   updateToastConfig: (updates: Partial<ToastConfig>) => void;
   updateMessageConfig: (updates: Partial<MessageConfig>) => void;
+  updateChipConfig: (updates: Partial<ChipConfig>) => void;
+  updateAccordionConfig: (updates: Partial<AccordionConfig>) => void;
+  updateToolbarConfig: (updates: Partial<ToolbarConfig>) => void;
+  updateMenuConfig: (updates: Partial<MenuConfig>) => void;
+  updateBreadcrumbConfig: (updates: Partial<BreadcrumbConfig>) => void;
+  updatePaginationConfig: (updates: Partial<PaginationConfig>) => void;
   // Typography actions
-  updateFontFamily: (type: 'sans' | 'mono', value: string) => void;
-  updateTransition: (type: 'fast' | 'normal' | 'slow' | 'easing', value: string) => void;
+  updateFontFamily: (type: FontFamilyType, value: string) => void;
+  updateFontSize: (key: keyof FontSizeScale, value: string) => void;
+  updateFontWeight: (key: keyof FontWeightScale, value: string) => void;
+  updateLineHeight: (key: keyof LineHeightScale, value: string) => void;
+  updateLetterSpacing: (key: keyof LetterSpacingScale, value: string) => void;
+  updateTransition: (type: TransitionType, value: string) => void;
   // Layout actions
   updateLayoutDimension: (key: keyof LayoutConfig, value: string) => void;
   updateLayoutFullWidth: (value: boolean) => void;

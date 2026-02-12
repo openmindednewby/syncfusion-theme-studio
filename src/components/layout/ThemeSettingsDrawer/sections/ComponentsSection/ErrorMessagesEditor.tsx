@@ -1,5 +1,6 @@
 import { FM } from '@/localization/helpers';
-import type { ErrorAnimationType, ErrorMessagesConfig } from '@/stores/theme/types';
+import { ErrorAnimationType } from '@/stores/theme/types';
+import type { ErrorMessagesConfig } from '@/stores/theme/types';
 
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
@@ -11,10 +12,10 @@ interface ErrorMessagesEditorProps {
 }
 
 const ANIMATION_OPTIONS: Array<{ value: ErrorAnimationType; labelKey: string }> = [
-  { value: 'none', labelKey: 'themeSettings.components.errorMessages.animationNone' },
-  { value: 'fadeIn', labelKey: 'themeSettings.components.errorMessages.animationFadeIn' },
-  { value: 'slideDown', labelKey: 'themeSettings.components.errorMessages.animationSlideDown' },
-  { value: 'shake', labelKey: 'themeSettings.components.errorMessages.animationShake' },
+  { value: ErrorAnimationType.None, labelKey: 'themeSettings.components.errorMessages.animationNone' },
+  { value: ErrorAnimationType.FadeIn, labelKey: 'themeSettings.components.errorMessages.animationFadeIn' },
+  { value: ErrorAnimationType.SlideDown, labelKey: 'themeSettings.components.errorMessages.animationSlideDown' },
+  { value: ErrorAnimationType.Shake, labelKey: 'themeSettings.components.errorMessages.animationShake' },
 ];
 
 const ANIMATION_MAP = new Map<string, ErrorAnimationType>(
@@ -22,7 +23,7 @@ const ANIMATION_MAP = new Map<string, ErrorAnimationType>(
 );
 
 function toAnimation(value: string): ErrorAnimationType {
-  return ANIMATION_MAP.get(value) ?? 'none';
+  return ANIMATION_MAP.get(value) ?? ErrorAnimationType.None;
 }
 
 export const ErrorMessagesEditor = ({ config, onUpdate }: ErrorMessagesEditorProps): JSX.Element => {

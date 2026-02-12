@@ -1,6 +1,14 @@
 // Component-specific CSS variable injection utilities
 
+import { injectDataGridVariables } from './dataGridInjector';
+import { injectAlertVariables, injectChipVariables, injectDatePickerVariables, injectDialogVariables, injectErrorMessageVariables, injectFlexBoxVariables, injectMessageVariables, injectSelectVariables, injectToastVariables } from './feedbackInjector';
+import { injectPaginationVariables } from './paginationInjector';
+
 import type { ComponentConfigSingle } from '../types';
+
+export { injectAlertVariables, injectChipVariables, injectDatePickerVariables, injectDialogVariables, injectErrorMessageVariables, injectFlexBoxVariables, injectMessageVariables, injectSelectVariables, injectToastVariables };
+export { injectDataGridVariables };
+export { injectPaginationVariables };
 
 export function injectHeaderVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   root.style.setProperty('--component-header-background', `rgb(${c.header.background})`);
@@ -46,15 +54,6 @@ export function injectInputVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-input-focus-ring', `rgb(${c.inputs.focusRingColor} / 0.1)`);
 }
 
-export function injectDataGridVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-datagrid-header-bg', `rgb(${c.dataGrid.headerBackground})`);
-  root.style.setProperty('--component-datagrid-header-text', `rgb(${c.dataGrid.headerTextColor})`);
-  root.style.setProperty('--component-datagrid-row-even', `rgb(${c.dataGrid.rowEvenBackground})`);
-  root.style.setProperty('--component-datagrid-row-odd', `rgb(${c.dataGrid.rowOddBackground})`);
-  root.style.setProperty('--component-datagrid-row-hover', `rgb(${c.dataGrid.rowHoverBackground})`);
-  root.style.setProperty('--component-datagrid-row-selected', `rgb(${c.dataGrid.rowSelectedBackground})`);
-}
-
 export function injectCardVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   root.style.setProperty('--component-card-background', `rgb(${c.cards.background})`);
   root.style.setProperty('--component-card-border', `rgb(${c.cards.borderColor})`);
@@ -93,135 +92,50 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-badge-info-text', `rgb(${c.badges.info.textColor})`);
 }
 
-export function injectSelectVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-select-background', `rgb(${c.select.background})`);
-  root.style.setProperty('--component-select-border-default', `rgb(${c.select.borderDefault})`);
-  root.style.setProperty('--component-select-border-focus', `rgb(${c.select.borderFocus})`);
-  root.style.setProperty('--component-select-text-color', `rgb(${c.select.textColor})`);
-  root.style.setProperty('--component-select-icon-color', `rgb(${c.select.iconColor})`);
-  root.style.setProperty('--component-select-popup-bg', `rgb(${c.select.popupBackground})`);
-  root.style.setProperty('--component-select-popup-border', `rgb(${c.select.popupBorderColor})`);
-  root.style.setProperty('--component-select-item-hover', `rgb(${c.select.itemHoverBackground})`);
-  root.style.setProperty('--component-select-item-selected-bg', `rgb(${c.select.itemSelectedBackground})`);
-  root.style.setProperty('--component-select-item-selected-text', `rgb(${c.select.itemSelectedTextColor})`);
+export function injectAccordionVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  root.style.setProperty('--component-accordion-bg', `rgb(${c.accordion.background})`);
+  root.style.setProperty('--component-accordion-text', `rgb(${c.accordion.textColor})`);
+  root.style.setProperty('--component-accordion-header-bg', `rgb(${c.accordion.headerBackground})`);
+  root.style.setProperty('--component-accordion-header-text', `rgb(${c.accordion.headerTextColor})`);
+  root.style.setProperty('--component-accordion-header-hover-bg', `rgb(${c.accordion.headerHoverBackground})`);
+  root.style.setProperty('--component-accordion-border', `rgb(${c.accordion.borderColor})`);
+  root.style.setProperty('--component-accordion-expanded-bg', `rgb(${c.accordion.expandedBackground})`);
+  root.style.setProperty('--component-accordion-expanded-text', `rgb(${c.accordion.expandedTextColor})`);
+  root.style.setProperty('--component-accordion-icon', `rgb(${c.accordion.iconColor})`);
 }
 
-export function injectDatePickerVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-datepicker-background', `rgb(${c.datePicker.background})`);
-  root.style.setProperty('--component-datepicker-border-default', `rgb(${c.datePicker.borderDefault})`);
-  root.style.setProperty('--component-datepicker-border-focus', `rgb(${c.datePicker.borderFocus})`);
-  root.style.setProperty('--component-datepicker-text-color', `rgb(${c.datePicker.textColor})`);
-  root.style.setProperty('--component-datepicker-icon-color', `rgb(${c.datePicker.iconColor})`);
-  root.style.setProperty('--component-datepicker-calendar-bg', `rgb(${c.datePicker.calendarBackground})`);
-  root.style.setProperty('--component-datepicker-calendar-header-bg', `rgb(${c.datePicker.calendarHeaderBackground})`);
-  root.style.setProperty('--component-datepicker-calendar-header-text', `rgb(${c.datePicker.calendarHeaderTextColor})`);
-  root.style.setProperty('--component-datepicker-cell-hover', `rgb(${c.datePicker.calendarCellHoverBackground})`);
-  root.style.setProperty('--component-datepicker-selected-bg', `rgb(${c.datePicker.calendarSelectedBackground})`);
-  root.style.setProperty('--component-datepicker-selected-text', `rgb(${c.datePicker.calendarSelectedTextColor})`);
-  root.style.setProperty('--component-datepicker-today-border', `rgb(${c.datePicker.calendarTodayBorderColor})`);
-  root.style.setProperty('--component-datepicker-other-month-text', `rgb(${c.datePicker.calendarOtherMonthTextColor})`);
+export function injectToolbarVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  root.style.setProperty('--component-toolbar-bg', `rgb(${c.toolbar.background})`);
+  root.style.setProperty('--component-toolbar-text', `rgb(${c.toolbar.textColor})`);
+  root.style.setProperty('--component-toolbar-hover-bg', `rgb(${c.toolbar.hoverBackground})`);
+  root.style.setProperty('--component-toolbar-hover-text', `rgb(${c.toolbar.hoverTextColor})`);
+  root.style.setProperty('--component-toolbar-active-bg', `rgb(${c.toolbar.activeBackground})`);
+  root.style.setProperty('--component-toolbar-border', `rgb(${c.toolbar.borderColor})`);
+  root.style.setProperty('--component-toolbar-separator', `rgb(${c.toolbar.separatorColor})`);
+  root.style.setProperty('--component-toolbar-icon', `rgb(${c.toolbar.iconColor})`);
 }
 
-export function injectDialogVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-dialog-backdrop', c.dialog.backdropColor);
-  root.style.setProperty('--component-dialog-content-bg', `rgb(${c.dialog.contentBackground})`);
-  root.style.setProperty('--component-dialog-border', `rgb(${c.dialog.borderColor})`);
-  root.style.setProperty('--component-dialog-header-bg', `rgb(${c.dialog.headerBackground})`);
-  root.style.setProperty('--component-dialog-header-text', `rgb(${c.dialog.headerTextColor})`);
-  root.style.setProperty('--component-dialog-footer-bg', `rgb(${c.dialog.footerBackground})`);
-  root.style.setProperty('--component-dialog-close-btn-color', `rgb(${c.dialog.closeButtonColor})`);
-  root.style.setProperty('--component-dialog-close-btn-hover-bg', `rgb(${c.dialog.closeButtonHoverBackground})`);
+export function injectMenuVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  root.style.setProperty('--component-menu-bg', `rgb(${c.menu.background})`);
+  root.style.setProperty('--component-menu-text', `rgb(${c.menu.textColor})`);
+  root.style.setProperty('--component-menu-hover-bg', `rgb(${c.menu.hoverBackground})`);
+  root.style.setProperty('--component-menu-hover-text', `rgb(${c.menu.hoverTextColor})`);
+  root.style.setProperty('--component-menu-active-bg', `rgb(${c.menu.activeBackground})`);
+  root.style.setProperty('--component-menu-border', `rgb(${c.menu.borderColor})`);
+  root.style.setProperty('--component-menu-icon', `rgb(${c.menu.iconColor})`);
+  root.style.setProperty('--component-menu-popup-bg', `rgb(${c.menu.popupBackground})`);
+  root.style.setProperty('--component-menu-popup-border', `rgb(${c.menu.popupBorderColor})`);
+  root.style.setProperty('--component-menu-popup-text', `rgb(${c.menu.popupTextColor})`);
+  root.style.setProperty('--component-menu-separator', `rgb(${c.menu.separatorColor})`);
 }
 
-export function injectErrorMessageVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-error-msg-text-color', `rgb(${c.errorMessages.textColor})`);
-  root.style.setProperty('--component-error-msg-font-size', c.errorMessages.fontSize);
-  root.style.setProperty('--component-error-msg-font-weight', c.errorMessages.fontWeight);
-  root.style.setProperty('--component-error-msg-animation', c.errorMessages.animation);
-  root.style.setProperty('--component-error-msg-animation-duration', c.errorMessages.animationDuration);
-  root.style.setProperty('--component-error-msg-icon-color', `rgb(${c.errorMessages.iconColor})`);
-  root.style.setProperty('--component-error-msg-icon-size', c.errorMessages.iconSize);
-}
-
-export function injectFlexBoxVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-flexbox-container-bg', `rgb(${c.flexBox.containerBackground})`);
-  root.style.setProperty('--component-flexbox-container-border', `rgb(${c.flexBox.containerBorderColor})`);
-  root.style.setProperty('--component-flexbox-container-radius', c.flexBox.containerBorderRadius);
-  root.style.setProperty('--component-flexbox-container-padding', c.flexBox.containerPadding);
-  root.style.setProperty('--component-flexbox-gap', c.flexBox.gap);
-  root.style.setProperty('--component-flexbox-direction', c.flexBox.direction);
-  root.style.setProperty('--component-flexbox-wrap', c.flexBox.wrap);
-  root.style.setProperty('--component-flexbox-justify', c.flexBox.justifyContent);
-  root.style.setProperty('--component-flexbox-align', c.flexBox.alignItems);
-  root.style.setProperty('--component-flexbox-item-bg', `rgb(${c.flexBox.itemBackground})`);
-  root.style.setProperty('--component-flexbox-item-border', `rgb(${c.flexBox.itemBorderColor})`);
-  root.style.setProperty('--component-flexbox-item-radius', c.flexBox.itemBorderRadius);
-  root.style.setProperty('--component-flexbox-item-padding', c.flexBox.itemPadding);
-}
-
-export function injectAlertVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-alert-success-bg', `rgb(${c.alerts.success.background})`);
-  root.style.setProperty('--component-alert-success-text', `rgb(${c.alerts.success.textColor})`);
-  root.style.setProperty('--component-alert-success-border', `rgb(${c.alerts.success.borderColor})`);
-  root.style.setProperty('--component-alert-success-icon', `rgb(${c.alerts.success.iconColor})`);
-  root.style.setProperty('--component-alert-warning-bg', `rgb(${c.alerts.warning.background})`);
-  root.style.setProperty('--component-alert-warning-text', `rgb(${c.alerts.warning.textColor})`);
-  root.style.setProperty('--component-alert-warning-border', `rgb(${c.alerts.warning.borderColor})`);
-  root.style.setProperty('--component-alert-warning-icon', `rgb(${c.alerts.warning.iconColor})`);
-  root.style.setProperty('--component-alert-error-bg', `rgb(${c.alerts.error.background})`);
-  root.style.setProperty('--component-alert-error-text', `rgb(${c.alerts.error.textColor})`);
-  root.style.setProperty('--component-alert-error-border', `rgb(${c.alerts.error.borderColor})`);
-  root.style.setProperty('--component-alert-error-icon', `rgb(${c.alerts.error.iconColor})`);
-  root.style.setProperty('--component-alert-info-bg', `rgb(${c.alerts.info.background})`);
-  root.style.setProperty('--component-alert-info-text', `rgb(${c.alerts.info.textColor})`);
-  root.style.setProperty('--component-alert-info-border', `rgb(${c.alerts.info.borderColor})`);
-  root.style.setProperty('--component-alert-info-icon', `rgb(${c.alerts.info.iconColor})`);
-  root.style.setProperty('--component-alert-border-radius', `var(--radius-${c.alerts.borderRadius})`);
-  root.style.setProperty('--component-alert-border-width', c.alerts.borderWidth);
-  root.style.setProperty('--component-alert-padding', c.alerts.padding);
-}
-
-export function injectToastVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-toast-bg', `rgb(${c.toast.background})`);
-  root.style.setProperty('--component-toast-text', `rgb(${c.toast.textColor})`);
-  root.style.setProperty('--component-toast-title', `rgb(${c.toast.titleColor})`);
-  root.style.setProperty('--component-toast-border', `rgb(${c.toast.borderColor})`);
-  root.style.setProperty('--component-toast-border-radius', `var(--radius-${c.toast.borderRadius})`);
-  root.style.setProperty('--component-toast-shadow', c.toast.shadow);
-  root.style.setProperty('--component-toast-close-btn', `rgb(${c.toast.closeButtonColor})`);
-  root.style.setProperty('--component-toast-close-btn-hover', `rgb(${c.toast.closeButtonHoverColor})`);
-  root.style.setProperty('--component-toast-progress', `rgb(${c.toast.progressBarColor})`);
-  root.style.setProperty('--component-toast-success-bg', `rgb(${c.toast.successBackground})`);
-  root.style.setProperty('--component-toast-success-text', `rgb(${c.toast.successTextColor})`);
-  root.style.setProperty('--component-toast-success-icon', `rgb(${c.toast.successIconColor})`);
-  root.style.setProperty('--component-toast-warning-bg', `rgb(${c.toast.warningBackground})`);
-  root.style.setProperty('--component-toast-warning-text', `rgb(${c.toast.warningTextColor})`);
-  root.style.setProperty('--component-toast-warning-icon', `rgb(${c.toast.warningIconColor})`);
-  root.style.setProperty('--component-toast-error-bg', `rgb(${c.toast.errorBackground})`);
-  root.style.setProperty('--component-toast-error-text', `rgb(${c.toast.errorTextColor})`);
-  root.style.setProperty('--component-toast-error-icon', `rgb(${c.toast.errorIconColor})`);
-  root.style.setProperty('--component-toast-info-bg', `rgb(${c.toast.infoBackground})`);
-  root.style.setProperty('--component-toast-info-text', `rgb(${c.toast.infoTextColor})`);
-  root.style.setProperty('--component-toast-info-icon', `rgb(${c.toast.infoIconColor})`);
-}
-
-export function injectMessageVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-message-border-radius', `var(--radius-${c.message.borderRadius})`);
-  root.style.setProperty('--component-message-success-bg', `rgb(${c.message.successBackground})`);
-  root.style.setProperty('--component-message-success-text', `rgb(${c.message.successTextColor})`);
-  root.style.setProperty('--component-message-success-border', `rgb(${c.message.successBorderColor})`);
-  root.style.setProperty('--component-message-warning-bg', `rgb(${c.message.warningBackground})`);
-  root.style.setProperty('--component-message-warning-text', `rgb(${c.message.warningTextColor})`);
-  root.style.setProperty('--component-message-warning-border', `rgb(${c.message.warningBorderColor})`);
-  root.style.setProperty('--component-message-error-bg', `rgb(${c.message.errorBackground})`);
-  root.style.setProperty('--component-message-error-text', `rgb(${c.message.errorTextColor})`);
-  root.style.setProperty('--component-message-error-border', `rgb(${c.message.errorBorderColor})`);
-  root.style.setProperty('--component-message-info-bg', `rgb(${c.message.infoBackground})`);
-  root.style.setProperty('--component-message-info-text', `rgb(${c.message.infoTextColor})`);
-  root.style.setProperty('--component-message-info-border', `rgb(${c.message.infoBorderColor})`);
-  root.style.setProperty('--component-message-normal-bg', `rgb(${c.message.normalBackground})`);
-  root.style.setProperty('--component-message-normal-text', `rgb(${c.message.normalTextColor})`);
-  root.style.setProperty('--component-message-normal-border', `rgb(${c.message.normalBorderColor})`);
+export function injectBreadcrumbVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  root.style.setProperty('--component-breadcrumb-bg', `rgb(${c.breadcrumb.background})`);
+  root.style.setProperty('--component-breadcrumb-text', `rgb(${c.breadcrumb.textColor})`);
+  root.style.setProperty('--component-breadcrumb-hover-text', `rgb(${c.breadcrumb.hoverTextColor})`);
+  root.style.setProperty('--component-breadcrumb-active-text', `rgb(${c.breadcrumb.activeTextColor})`);
+  root.style.setProperty('--component-breadcrumb-separator', `rgb(${c.breadcrumb.separatorColor})`);
+  root.style.setProperty('--component-breadcrumb-icon', `rgb(${c.breadcrumb.iconColor})`);
 }
 
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {
@@ -241,4 +155,10 @@ export function injectComponentVariables(root: HTMLElement, components: Componen
   injectAlertVariables(root, components);
   injectToastVariables(root, components);
   injectMessageVariables(root, components);
+  injectChipVariables(root, components);
+  injectAccordionVariables(root, components);
+  injectToolbarVariables(root, components);
+  injectMenuVariables(root, components);
+  injectBreadcrumbVariables(root, components);
+  injectPaginationVariables(root, components);
 }

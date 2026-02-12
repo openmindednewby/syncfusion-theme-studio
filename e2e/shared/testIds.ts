@@ -28,7 +28,6 @@ export const TestIds = {
   // Login
   LOGIN_USERNAME: 'login-username',
   LOGIN_PASSWORD: 'login-password',
-  LOGIN_LICENSE_KEY: 'login-license-key',
   LOGIN_SUBMIT: 'login-submit',
   LOGIN_ERROR: 'login-error',
 
@@ -37,6 +36,8 @@ export const TestIds = {
   PRODUCTS_CATEGORY_FILTER: 'products-category-filter',
   PRODUCTS_ADD: 'products-add',
   BTN_RETRY: 'btn-retry',
+  NATIVE_PRODUCTS_PAGE: 'native-products-page',
+  NATIVE_PRODUCTS_GRID: 'native-products-grid',
 
   // Theme Settings Drawer
   THEME_SETTINGS_DRAWER: 'theme-settings-drawer',
@@ -89,7 +90,12 @@ export const TestIds = {
   // Syncfusion Components Page
   SYNCFUSION_COMPONENTS_PAGE: 'syncfusion-components-page',
 
-  // Sidebar Sub-menu
+  // Products Sidebar Sub-menu
+  NAV_PRODUCTS_NATIVE: 'nav-products-native',
+  NAV_PRODUCTS_SYNCFUSION: 'nav-products-syncfusion',
+  NAV_PRODUCTS_EXPAND: 'nav-products-expand',
+
+  // Components Sidebar Sub-menu
   NAV_COMPONENTS_NATIVE: 'nav-components-native',
   NAV_COMPONENTS_SYNCFUSION: 'nav-components-syncfusion',
   NAV_COMPONENTS_EXPAND: 'nav-components-expand',
@@ -134,6 +140,9 @@ export const TestIds = {
   NATIVE_ALERT_INFO: 'native-alert-info',
   NATIVE_ALERT_DISMISSIBLE: 'native-alert-dismissible',
   NATIVE_ALERT_NO_ICON: 'native-alert-no-icon',
+
+  // Toggle
+  TOGGLE_NATIVE: 'toggle-native',
 
   // PWA
   PWA_UPDATE_PROMPT: 'pwa-update-prompt',

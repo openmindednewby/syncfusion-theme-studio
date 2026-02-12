@@ -1,8 +1,9 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import { Mode } from '@/stores/mode';
 import { render, screen, fireEvent } from '@/test/utils';
 
-import Button from './index';
+import Button, { ButtonVariant, ButtonSize } from './index';
 
 // Mock Syncfusion ButtonComponent
 vi.mock('@syncfusion/ej2-react-buttons', () => ({
@@ -20,14 +21,14 @@ vi.mock('@syncfusion/ej2-react-buttons', () => ({
 }));
 
 // Mock useThemeStore
-const mockMode = { current: 'light' as 'light' | 'dark' };
+const mockMode = { current: Mode.Light as Mode };
 vi.mock('@/stores/useThemeStore', () => ({
   useThemeStore: () => ({ mode: mockMode.current }),
 }));
 
 describe('Button', () => {
   beforeEach(() => {
-    mockMode.current = 'light';
+    mockMode.current = Mode.Light;
   });
 
   describe('click behavior', () => {
@@ -47,13 +48,13 @@ describe('Button', () => {
 
   describe('theme integration', () => {
     it('applies sf-light class in light mode', () => {
-      mockMode.current = 'light';
+      mockMode.current = Mode.Light;
       render(<Button testId="btn">Light</Button>);
       expect(screen.getByTestId('btn').className).toContain('sf-light');
     });
 
     it('applies sf-dark class in dark mode', () => {
-      mockMode.current = 'dark';
+      mockMode.current = Mode.Dark;
       render(<Button testId="btn">Dark</Button>);
       expect(screen.getByTestId('btn').className).toContain('sf-dark');
     });
@@ -68,7 +69,7 @@ describe('Button', () => {
     });
 
     it('applies danger variant', () => {
-      render(<Button testId="btn" variant="danger">Danger</Button>);
+      render(<Button testId="btn" variant={ButtonVariant.Danger}>Danger</Button>);
       const cls = screen.getByTestId('btn').className;
       expect(cls).toContain('e-danger');
       expect(cls).toContain('sf-btn-danger');
@@ -77,12 +78,12 @@ describe('Button', () => {
 
   describe('sizes', () => {
     it('applies small size', () => {
-      render(<Button size="sm" testId="btn">Small</Button>);
+      render(<Button size={ButtonSize.Sm} testId="btn">Small</Button>);
       expect(screen.getByTestId('btn').className).toContain('e-small');
     });
 
     it('applies large size', () => {
-      render(<Button size="lg" testId="btn">Large</Button>);
+      render(<Button size={ButtonSize.Lg} testId="btn">Large</Button>);
       expect(screen.getByTestId('btn').className).toContain('e-large');
     });
   });

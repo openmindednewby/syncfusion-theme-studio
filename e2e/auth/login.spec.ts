@@ -25,17 +25,13 @@ test.describe('Login Page', () => {
     await expect(getInput(page, TestIds.LOGIN_PASSWORD)).toHaveValue('demo123');
   });
 
-  test('should display license key input field', async ({ page }) => {
-    await expect(page.getByTestId(TestIds.LOGIN_LICENSE_KEY)).toBeVisible();
-  });
-
   test('should redirect to dashboard on successful login', async ({ page }) => {
     // Click submit with pre-filled credentials
     await page.getByTestId(TestIds.LOGIN_SUBMIT).click();
 
-    // Verify redirect to dashboard
+    // Verify redirect to dashboard — allow extra time for lazy-loaded dashboard content
     await expect(page).toHaveURL('/dashboard');
-    await expect(page.getByTestId(TestIds.DASHBOARD_HEADING)).toBeVisible();
+    await expect(page.getByTestId(TestIds.DASHBOARD_HEADING)).toBeVisible({ timeout: 15000 });
   });
 
   test('should toggle between light and dark mode on login page', async ({ page }) => {

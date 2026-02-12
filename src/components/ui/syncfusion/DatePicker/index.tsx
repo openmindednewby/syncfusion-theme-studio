@@ -15,6 +15,7 @@ import {
   type ChangedEventArgs,
 } from '@syncfusion/ej2-react-calendars';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
@@ -65,7 +66,7 @@ const DatePicker = forwardRef<DatePickerComponent, Props>(
     const hasHelperOrError = isValueDefined(helperText) || hasError;
 
     const datePickerCssClass = useMemo(() => {
-      const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+      const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
       const errorClass = hasError ? 'e-error sf-datepicker-error' : '';
       const fullWidthClassStr = fullWidth ? 'e-block sf-datepicker-full' : '';
       return cn('sf-datepicker', modeClass, errorClass, fullWidthClassStr);

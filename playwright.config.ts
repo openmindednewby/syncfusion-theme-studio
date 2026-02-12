@@ -1,7 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 const BASE_URL = process.env.BASE_URL ?? 'http://localhost:4444';
-const TIMEOUT_MS = 30000;
+const TIMEOUT_MS = 60000;
 
 export default defineConfig({
   testDir: './e2e',

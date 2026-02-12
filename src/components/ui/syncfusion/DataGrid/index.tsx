@@ -1,123 +1,99 @@
 /**
  * DataGrid - Theme-aware Syncfusion GridComponent wrapper.
  *
- * Provides a configurable data grid with pagination, sorting, filtering,
- * row selection/deselection callbacks, loading overlay, and empty state.
- * Supports generic row types for type-safe data and event handling.
+ * Provides a fully configurable data grid exposing ALL Syncfusion EJ2 Grid
+ * features: pagination, sorting, filtering, grouping, aggregates, editing,
+ * column resize/reorder/freeze, toolbar, context menu, detail rows,
+ * row drag-and-drop, virtualization, clipboard, search, print, and export.
+ *
+ * All new props are optional; the existing API is fully backwards compatible.
  *
  * @see {@link https://ej2.syncfusion.com/react/documentation/grid/getting-started | Syncfusion Grid docs}
  */
-import { memo, useCallback, useMemo } from 'react';
+// Module-level CSS import ensures styles are loaded synchronously with the JS
+// chunk (before first render), preventing unstyled pager/grid flash. Since
+// DataGrid is always lazy-loaded, this does not affect login page performance.
+import '@syncfusion/ej2-react-grids/styles/tailwind.css';
 
-import type { ColumnModel } from '@syncfusion/ej2-grids';
+import { memo, useMemo, useRef } from 'react';
+
 import {
   GridComponent,
   ColumnsDirective,
   ColumnDirective,
-  Page,
-  Sort,
-  Filter,
   Inject,
+  AggregateColumnsDirective,
+  AggregateColumnDirective,
+  AggregatesDirective,
+  AggregateDirective,
 } from '@syncfusion/ej2-react-grids';
-import type { PageSettingsModel, RowSelectEventArgs } from '@syncfusion/ej2-react-grids';
 
+import { useSyncfusionDefaultSort } from '@/lib/grid/hooks/useSyncfusionDefaultSort';
+import { useSyncfusionFilters } from '@/lib/grid/hooks/useSyncfusionFilters';
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
-import { isValueDefined } from '@/utils/is';
+import { isNotEmptyArray } from '@/utils/is';
 
-const DEFAULT_PAGE_SIZE = 10;
-const PAGE_SIZE_SMALL = 25;
-const PAGE_SIZE_MEDIUM = 50;
-const PAGE_SIZE_LARGE = 100;
-const AVAILABLE_PAGE_SIZES = [DEFAULT_PAGE_SIZE, PAGE_SIZE_SMALL, PAGE_SIZE_MEDIUM, PAGE_SIZE_LARGE];
+import { DEFAULT_PAGE_SETTINGS } from './constants';
+import { useGridCallbacks } from './useGridCallbacks';
+import { computePageSettings, useGridFeatures } from './useGridFeatures';
 
-const DEFAULT_PAGE_SETTINGS: PageSettingsModel = {
-  pageSize: DEFAULT_PAGE_SIZE,
-  pageSizes: AVAILABLE_PAGE_SIZES,
-};
+import type { DataGridProps } from './types';
 
-interface Props<T extends object> {
-  /** Data source for the grid */
-  data: T[];
-  /** Column definitions */
-  columns: ColumnModel[];
-  /** Enable pagination (default: true) */
-  allowPaging?: boolean;
-  /** Enable sorting (default: true) */
-  allowSorting?: boolean;
-  /** Enable filtering (default: false) */
-  allowFiltering?: boolean;
-  /** Page settings configuration */
-  pageSettings?: PageSettingsModel;
-  /** Additional CSS classes */
-  className?: string;
-  /** Test ID for E2E testing */
-  testId?: string;
-  /** Height of the grid */
-  height?: string | number;
-  /** Callback when a row is selected */
-  onRowSelected?: (data: T) => void;
-  /** Callback when a row is deselected */
-  onRowDeselected?: (data: T) => void;
-  /** Loading state */
-  isLoading?: boolean;
-  /** Empty state message */
-  emptyText?: string;
-}
+const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Element => {
+  const {
+    data,
+    columns,
+    gridConfig,
+    pageSettings = DEFAULT_PAGE_SETTINGS,
+    className,
+    testId,
+    height = 'auto',
+    isLoading = false,
+    emptyText = 'No data available',
+    groupSettings,
+    aggregates,
+    selectionSettings,
+    editSettings,
+    frozenColumns,
+    frozenRows,
+    toolbar,
+    contextMenuItems,
+    detailTemplate,
+    childGrid,
+    rowDropSettings,
+    searchSettings,
+    rowHeight,
+    gridRef: externalGridRef,
+  } = props;
 
-const DataGridComponent = <T extends object>({
-  data,
-  columns,
-  allowPaging = true,
-  allowSorting = true,
-  allowFiltering = false,
-  pageSettings = DEFAULT_PAGE_SETTINGS,
-  className,
-  testId,
-  height = 'auto',
-  onRowSelected,
-  onRowDeselected,
-  isLoading = false,
-  emptyText = 'No data available',
-}: Props<T>): JSX.Element => {
   const { mode } = useThemeStore();
+  const internalGridRef = useRef<GridComponent | undefined>(undefined);
+  const gridRef = externalGridRef ?? internalGridRef;
 
-  const handleRowSelected = useCallback(
-    (args: RowSelectEventArgs) => {
-      // Type assertion needed: Syncfusion returns Object type
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const rowData = args.data as T | undefined;
-      if (isValueDefined(onRowSelected) && isValueDefined(rowData)) onRowSelected(rowData);
-    },
-    [onRowSelected],
+  const { features, services } = useGridFeatures(props);
+  const callbacks = useGridCallbacks(props);
+
+  const effectivePageSettings = useMemo(
+    () => computePageSettings(gridConfig, pageSettings, features.paging, data.length),
+    [gridConfig, pageSettings, features.paging, data.length],
   );
 
-  const handleRowDeselected = useCallback(
-    (args: RowSelectEventArgs) => {
-      // Type assertion needed: Syncfusion returns Object type
-      // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
-      const rowData = args.data as T | undefined;
-      if (isValueDefined(onRowDeselected) && isValueDefined(rowData)) onRowDeselected(rowData);
-    },
-    [onRowDeselected],
-  );
+  // Non-blocking filter/sort setup via gridConfig
+  useSyncfusionFilters(gridRef, gridConfig?.filter);
+  useSyncfusionDefaultSort(gridRef, gridConfig?.defaultSort);
 
-  // Determine which features to inject
-  const features = useMemo(() => {
-    const featureList = [];
-    if (allowPaging) featureList.push(Page);
-    if (allowSorting) featureList.push(Sort);
-    if (allowFiltering) featureList.push(Filter);
-    return featureList;
-  }, [allowPaging, allowSorting, allowFiltering]);
+  // Resolve aggregate rows from props or gridConfig
+  const effectiveAggregates = aggregates ?? gridConfig?.aggregates;
 
-  const gridCssClass = useMemo(() => {
-    const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
-    return cn('sf-datagrid', modeClass);
-  }, [mode]);
+  // Syncfusion Grid internally calls classList.add(cssClass) which cannot
+  // handle space-separated strings. Pass only a single class token here and
+  // apply 'sf-datagrid' to the wrapper div instead.
+  const gridCssClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
 
   const wrapperClass = cn(
-    'sf-datagrid-wrapper relative',
+    'sf-datagrid-wrapper sf-datagrid relative',
     isLoading && 'sf-datagrid-loading',
     className,
   );
@@ -138,23 +114,72 @@ const DataGridComponent = <T extends object>({
         </div>
       ) : null}
       <GridComponent
-        allowFiltering={allowFiltering}
-        allowPaging={allowPaging}
-        allowSorting={allowSorting}
+        ref={(g: GridComponent) => { gridRef.current = g; }}
+        actionBegin={callbacks.handleActionBegin}
+        actionComplete={callbacks.handleActionComplete}
+        allowFiltering={features.filtering}
+        allowGrouping={features.grouping}
+        allowPaging={features.paging}
+        allowReordering={features.reordering}
+        allowResizing={features.resizing}
+        allowRowDragAndDrop={features.rowDragDrop}
+        allowSorting={features.sorting}
+        allowTextWrap={props.allowTextWrap}
+        childGrid={childGrid}
+        contextMenuClick={callbacks.handleContextMenuClick}
+        contextMenuItems={contextMenuItems}
         cssClass={gridCssClass}
         dataSource={data}
+        detailTemplate={detailTemplate}
+        editSettings={editSettings}
         emptyRecordTemplate={renderEmptyRecord}
+        enableInfiniteScrolling={features.infiniteScroll}
+        enableVirtualization={features.virtualization}
+        frozenColumns={frozenColumns}
+        frozenRows={frozenRows}
+        groupSettings={groupSettings}
         height={height}
-        pageSettings={pageSettings}
-        rowDeselected={handleRowDeselected}
-        rowSelected={handleRowSelected}
+        pageSettings={effectivePageSettings}
+        rowDeselected={callbacks.handleRowDeselected}
+        rowDrag={callbacks.handleRowDrag}
+        rowDrop={callbacks.handleRowDrop}
+        rowDropSettings={rowDropSettings}
+        rowHeight={rowHeight}
+        rowSelected={callbacks.handleRowSelected}
+        searchSettings={searchSettings}
+        selectionSettings={selectionSettings}
+        showColumnChooser={features.columnChooser}
+        showColumnMenu={features.columnMenu}
+        toolbar={toolbar}
+        toolbarClick={callbacks.handleToolbarClick}
       >
         <ColumnsDirective>
           {columns.map((column) => (
             <ColumnDirective key={String(column.field)} {...column} />
           ))}
         </ColumnsDirective>
-        <Inject services={features} />
+        {isNotEmptyArray(effectiveAggregates) && (
+          <AggregatesDirective>
+            {effectiveAggregates.map((row) => (
+              <AggregateDirective key={row.columns.map((c) => c.field).join('-')}>
+                <AggregateColumnsDirective>
+                  {row.columns.map((col) => (
+                    <AggregateColumnDirective
+                      key={`${col.field}-${col.type}`}
+                      columnName={col.field}
+                      field={col.field}
+                      footerTemplate={col.footerTemplate}
+                      format={col.format}
+                      groupFooterTemplate={col.groupFooterTemplate}
+                      type={col.type}
+                    />
+                  ))}
+                </AggregateColumnsDirective>
+              </AggregateDirective>
+            ))}
+          </AggregatesDirective>
+        )}
+        <Inject services={services} />
       </GridComponent>
     </div>
   );
@@ -165,4 +190,4 @@ const DataGridComponent = <T extends object>({
 const DataGrid = memo(DataGridComponent) as typeof DataGridComponent;
 
 export default DataGrid;
-export type { Props as DataGridProps };
+export type { DataGridProps };

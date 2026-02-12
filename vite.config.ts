@@ -108,9 +108,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
         // These will load when actually needed (after App lazy loads)
         return deps.filter((dep) => {
           const isHeavyChunk =
-            dep.includes('syncfusion-grid') ||
-            dep.includes('react-vendor') ||
-            dep.includes('App-');
+            dep.includes('syncfusion-grid');
           return !isHeavyChunk;
         });
       },
@@ -287,10 +285,24 @@ export default defineConfig(({ mode }: ConfigEnv) => {
   },
   preview: {
     port: 4445,
+    proxy: {
+      '/dummyjson': {
+        target: 'https://dummyjson.com',
+        changeOrigin: true,
+        rewrite: (p: string) => p.replace(/^\/dummyjson/, ''),
+      },
+    },
   },
   server: {
     port: 4444,
     open: false,
+    proxy: {
+      '/dummyjson': {
+        target: 'https://dummyjson.com',
+        changeOrigin: true,
+        rewrite: (p: string) => p.replace(/^\/dummyjson/, ''),
+      },
+    },
     // Warmup critical files for faster initial load
     warmup: {
       clientFiles: [

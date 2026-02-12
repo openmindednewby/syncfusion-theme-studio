@@ -1,17 +1,30 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, it, expect, beforeEach } from 'vitest';
 
+import {
+  ButtonVariant,
+  FlexAlign,
+  FlexDirection,
+  FlexJustify,
+  FlexWrap,
+  FontFamilyType,
+  Mode,
+  ShadowScale,
+  StatusKey,
+  StatusShade,
+  TransitionType,
+} from './theme/types';
 import { useThemeStore } from './useThemeStore';
 import { createCustomTheme, createIncompleteTheme } from '../test/fixtures/themeFixtures';
 
-import type { ColorShade, StatusKey, StatusShade } from './theme/types';
+import type { ColorShade } from './theme/types';
 
 
 describe('useThemeStore', () => {
   beforeEach(() => {
     const { result } = renderHook(() => useThemeStore());
     act(() => {
-      result.current.setMode('light');
+      result.current.setMode(Mode.Light);
       result.current.resetTheme();
     });
   });
@@ -24,14 +37,14 @@ describe('useThemeStore', () => {
 
     it('sets mode to dark', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.setMode('dark'));
+      act(() => result.current.setMode(Mode.Dark));
       expect(result.current.mode).toBe('dark');
     });
 
     it('sets mode to light from dark', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.setMode('dark'));
-      act(() => result.current.setMode('light'));
+      act(() => result.current.setMode(Mode.Dark));
+      act(() => result.current.setMode(Mode.Light));
       expect(result.current.mode).toBe('light');
     });
 
@@ -43,7 +56,7 @@ describe('useThemeStore', () => {
 
     it('toggles from dark to light', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.setMode('dark'));
+      act(() => result.current.setMode(Mode.Dark));
       act(() => result.current.toggleMode());
       expect(result.current.mode).toBe('light');
     });
@@ -60,24 +73,24 @@ describe('useThemeStore', () => {
 
     it('preserves mode after theme update', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.setMode('dark'));
+      act(() => result.current.setMode(Mode.Dark));
       act(() => result.current.updateTheme({ name: 'Custom Theme' }));
       expect(result.current.mode).toBe('dark');
     });
   });
 
   describe('theme management', () => {
-    it('has default theme with id "fremen"', () => {
+    it('has default theme with id "default"', () => {
       const { result } = renderHook(() => useThemeStore());
-      expect(result.current.theme.id).toBe('fremen');
-      expect(result.current.theme.name).toBe('Fremen');
+      expect(result.current.theme.id).toBe('default');
+      expect(result.current.theme.name).toBe('Default Blue');
     });
 
     it('updates theme properties', () => {
       const { result } = renderHook(() => useThemeStore());
       act(() => result.current.updateTheme({ name: 'Custom Theme' }));
       expect(result.current.theme.name).toBe('Custom Theme');
-      expect(result.current.theme.id).toBe('fremen');
+      expect(result.current.theme.id).toBe('default');
     });
 
     it('updates primary color shade', () => {
@@ -92,8 +105,8 @@ describe('useThemeStore', () => {
       act(() => result.current.updateTheme({ name: 'Modified Theme' }));
       expect(result.current.theme.name).toBe('Modified Theme');
       act(() => result.current.resetTheme());
-      expect(result.current.theme.name).toBe('Fremen');
-      expect(result.current.theme.id).toBe('fremen');
+      expect(result.current.theme.name).toBe('Default Blue');
+      expect(result.current.theme.id).toBe('default');
     });
 
     it('updates multiple theme properties at once', () => {
@@ -191,8 +204,8 @@ describe('useThemeStore', () => {
     });
 
     describe('updateStatusColor', () => {
-      const statusKeys: StatusKey[] = ['success', 'warning', 'error', 'info'];
-      const statusShades: StatusShade[] = ['50', '100', '200', '500', '700'];
+      const statusKeys: StatusKey[] = [StatusKey.Success, StatusKey.Warning, StatusKey.Error, StatusKey.Info];
+      const statusShades: StatusShade[] = [StatusShade.S50, StatusShade.S100, StatusShade.S200, StatusShade.S500, StatusShade.S700];
 
       statusKeys.forEach((status) => {
         statusShades.forEach((shade) => {
@@ -208,14 +221,14 @@ describe('useThemeStore', () => {
       it('preserves other status colors when updating one', () => {
         const { result } = renderHook(() => useThemeStore());
         const originalWarning = result.current.theme.status.warning['500'];
-        act(() => result.current.updateStatusColor('success', '500', '0 255 0'));
+        act(() => result.current.updateStatusColor(StatusKey.Success, StatusShade.S500, '0 255 0'));
         expect(result.current.theme.status.warning['500']).toBe(originalWarning);
       });
 
       it('preserves other shades when updating one shade', () => {
         const { result } = renderHook(() => useThemeStore());
         const originalShade50 = result.current.theme.status.error['50'];
-        act(() => result.current.updateStatusColor('error', '500', '255 0 0'));
+        act(() => result.current.updateStatusColor(StatusKey.Error, StatusShade.S500, '255 0 0'));
         expect(result.current.theme.status.error['50']).toBe(originalShade50);
       });
     });
@@ -225,7 +238,7 @@ describe('useThemeStore', () => {
     describe('updateModeConfig for light mode', () => {
       it('updates light mode background page color', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateModeConfig('light', {
+        act(() => result.current.updateModeConfig(Mode.Light, {
           backgrounds: { page: '240 240 240' },
         }));
         expect(result.current.theme.light.backgrounds.page).toBe('240 240 240');
@@ -233,7 +246,7 @@ describe('useThemeStore', () => {
 
       it('updates light mode surface colors', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateModeConfig('light', {
+        act(() => result.current.updateModeConfig(Mode.Light, {
           backgrounds: {
             surface: '245 245 245',
             surfaceElevated: '250 250 250',
@@ -245,7 +258,7 @@ describe('useThemeStore', () => {
 
       it('updates light mode text colors', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateModeConfig('light', {
+        act(() => result.current.updateModeConfig(Mode.Light, {
           text: {
             primary: '0 0 0',
             secondary: '50 50 50',
@@ -257,7 +270,7 @@ describe('useThemeStore', () => {
 
       it('updates light mode border colors', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateModeConfig('light', {
+        act(() => result.current.updateModeConfig(Mode.Light, {
           borders: {
             default: '200 200 200',
             strong: '100 100 100',
@@ -270,7 +283,7 @@ describe('useThemeStore', () => {
       it('does not affect dark mode when updating light mode', () => {
         const { result } = renderHook(() => useThemeStore());
         const originalDarkPage = result.current.theme.dark.backgrounds.page;
-        act(() => result.current.updateModeConfig('light', {
+        act(() => result.current.updateModeConfig(Mode.Light, {
           backgrounds: { page: '255 255 255' },
         }));
         expect(result.current.theme.dark.backgrounds.page).toBe(originalDarkPage);
@@ -280,7 +293,7 @@ describe('useThemeStore', () => {
     describe('updateModeConfig for dark mode', () => {
       it('updates dark mode background page color', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateModeConfig('dark', {
+        act(() => result.current.updateModeConfig(Mode.Dark, {
           backgrounds: { page: '20 20 20' },
         }));
         expect(result.current.theme.dark.backgrounds.page).toBe('20 20 20');
@@ -288,7 +301,7 @@ describe('useThemeStore', () => {
 
       it('updates dark mode text colors', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateModeConfig('dark', {
+        act(() => result.current.updateModeConfig(Mode.Dark, {
           text: {
             primary: '255 255 255',
             muted: '150 150 150',
@@ -301,7 +314,7 @@ describe('useThemeStore', () => {
       it('does not affect light mode when updating dark mode', () => {
         const { result } = renderHook(() => useThemeStore());
         const originalLightPage = result.current.theme.light.backgrounds.page;
-        act(() => result.current.updateModeConfig('dark', {
+        act(() => result.current.updateModeConfig(Mode.Dark, {
           backgrounds: { page: '0 0 0' },
         }));
         expect(result.current.theme.light.backgrounds.page).toBe(originalLightPage);
@@ -331,7 +344,7 @@ describe('useThemeStore', () => {
 
       it('updates header shadow', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateHeaderConfig({ shadow: 'lg' }));
+        act(() => result.current.updateHeaderConfig({ shadow: ShadowScale.Lg }));
         expect(result.current.theme.components.light.header.shadow).toBe('lg');
       });
 
@@ -399,13 +412,13 @@ describe('useThemeStore', () => {
     describe('updateButtonConfig', () => {
       it('updates primary button background', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('primary', { background: '100 150 200' }));
+        act(() => result.current.updateButtonConfig(ButtonVariant.Primary, { background: '100 150 200' }));
         expect(result.current.theme.components.light.buttons.primary.background).toBe('100 150 200');
       });
 
       it('updates primary button hover state', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('primary', {
+        act(() => result.current.updateButtonConfig(ButtonVariant.Primary, {
           backgroundHover: '80 130 180',
           textColorHover: '255 255 255',
         }));
@@ -415,7 +428,7 @@ describe('useThemeStore', () => {
 
       it('updates secondary button colors', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('secondary', {
+        act(() => result.current.updateButtonConfig(ButtonVariant.Secondary, {
           background: '230 230 230',
           textColor: '50 50 50',
         }));
@@ -425,7 +438,7 @@ describe('useThemeStore', () => {
 
       it('updates outline button border', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('outline', {
+        act(() => result.current.updateButtonConfig(ButtonVariant.Outline, {
           borderColor: '59 130 246',
           borderWidth: '2px',
         }));
@@ -435,7 +448,7 @@ describe('useThemeStore', () => {
 
       it('updates ghost button transparency', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('ghost', {
+        act(() => result.current.updateButtonConfig(ButtonVariant.Ghost, {
           background: 'transparent',
           backgroundHover: '243 244 246',
         }));
@@ -445,7 +458,7 @@ describe('useThemeStore', () => {
 
       it('updates danger button colors', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('danger', {
+        act(() => result.current.updateButtonConfig(ButtonVariant.Danger, {
           background: '220 38 38',
           backgroundHover: '185 28 28',
         }));
@@ -456,19 +469,19 @@ describe('useThemeStore', () => {
       it('does not affect other button variants when updating one', () => {
         const { result } = renderHook(() => useThemeStore());
         const originalSecondary = result.current.theme.components.light.buttons.secondary.background;
-        act(() => result.current.updateButtonConfig('primary', { background: '100 100 100' }));
+        act(() => result.current.updateButtonConfig(ButtonVariant.Primary, { background: '100 100 100' }));
         expect(result.current.theme.components.light.buttons.secondary.background).toBe(originalSecondary);
       });
 
       it('updates button border radius', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('primary', { borderRadius: 'lg' }));
+        act(() => result.current.updateButtonConfig(ButtonVariant.Primary, { borderRadius: 'lg' }));
         expect(result.current.theme.components.light.buttons.primary.borderRadius).toBe('lg');
       });
 
       it('updates button shadow', () => {
         const { result } = renderHook(() => useThemeStore());
-        act(() => result.current.updateButtonConfig('primary', { shadow: 'md' }));
+        act(() => result.current.updateButtonConfig(ButtonVariant.Primary, { shadow: ShadowScale.Md }));
         expect(result.current.theme.components.light.buttons.primary.shadow).toBe('md');
       });
     });
@@ -480,8 +493,8 @@ describe('useThemeStore', () => {
       const exported = result.current.exportTheme();
       expect(typeof exported).toBe('string');
       const parsed = JSON.parse(exported) as { id: string; name: string };
-      expect(parsed.id).toBe('fremen');
-      expect(parsed.name).toBe('Fremen');
+      expect(parsed.id).toBe('default');
+      expect(parsed.name).toBe('Default Blue');
     });
 
     it('imports valid theme JSON successfully', () => {
@@ -503,7 +516,7 @@ describe('useThemeStore', () => {
         importResult = result.current.importTheme('invalid json');
       });
       expect(importResult).toBe(false);
-      expect(result.current.theme.id).toBe('fremen');
+      expect(result.current.theme.id).toBe('default');
     });
 
     it('returns false for JSON missing required fields', () => {
@@ -514,7 +527,7 @@ describe('useThemeStore', () => {
         importResult = result.current.importTheme(JSON.stringify(incompleteTheme));
       });
       expect(importResult).toBe(false);
-      expect(result.current.theme.id).toBe('fremen');
+      expect(result.current.theme.id).toBe('default');
     });
 
     it('returns false for JSON with empty id', () => {
@@ -582,7 +595,7 @@ describe('useThemeStore', () => {
       });
       const exported = result.current.exportTheme();
       act(() => result.current.resetTheme());
-      expect(result.current.theme.name).toBe('Fremen');
+      expect(result.current.theme.name).toBe('Default Blue');
       let importResult = false;
       act(() => {
         importResult = result.current.importTheme(exported);
@@ -598,7 +611,7 @@ describe('useThemeStore', () => {
         result.current.updatePrimaryColor('500', '100 100 100');
         result.current.updateSecondaryColor('500', '200 200 200');
         result.current.updateNeutralColor('500', '150 150 150');
-        result.current.updateStatusColor('success', '500', '0 255 0');
+        result.current.updateStatusColor(StatusKey.Success, StatusShade.S500, '0 255 0');
       });
       const exported = result.current.exportTheme();
       act(() => result.current.resetTheme());
@@ -614,10 +627,10 @@ describe('useThemeStore', () => {
     it('preserves mode config during roundtrip', () => {
       const { result } = renderHook(() => useThemeStore());
       act(() => {
-        result.current.updateModeConfig('light', {
+        result.current.updateModeConfig(Mode.Light, {
           backgrounds: { page: '240 240 240' },
         });
-        result.current.updateModeConfig('dark', {
+        result.current.updateModeConfig(Mode.Dark, {
           backgrounds: { page: '20 20 20' },
         });
       });
@@ -635,7 +648,7 @@ describe('useThemeStore', () => {
       act(() => {
         result.current.updateHeaderConfig({ height: '80px' });
         result.current.updateSidebarConfig({ widthExpanded: '320px' });
-        result.current.updateButtonConfig('primary', { borderRadius: 'xl' });
+        result.current.updateButtonConfig(ButtonVariant.Primary, { borderRadius: 'xl' });
       });
       const exported = result.current.exportTheme();
       act(() => result.current.resetTheme());
@@ -655,17 +668,17 @@ describe('useThemeStore', () => {
         result.current.updatePrimaryColor('500', '255 0 0');
         result.current.updateSecondaryColor('500', '0 255 0');
         result.current.updateNeutralColor('500', '0 0 255');
-        result.current.updateStatusColor('error', '500', '100 100 100');
+        result.current.updateStatusColor(StatusKey.Error, StatusShade.S500, '100 100 100');
       });
       act(() => result.current.resetTheme());
-      expect(result.current.theme.id).toBe('fremen');
-      expect(result.current.theme.name).toBe('Fremen');
+      expect(result.current.theme.id).toBe('default');
+      expect(result.current.theme.name).toBe('Default Blue');
     });
 
     it('resets mode config to default', () => {
       const { result } = renderHook(() => useThemeStore());
       act(() => {
-        result.current.updateModeConfig('light', {
+        result.current.updateModeConfig(Mode.Light, {
           backgrounds: { page: '100 100 100' },
         });
       });
@@ -684,7 +697,7 @@ describe('useThemeStore', () => {
 
     it('does not reset mode when resetting theme', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.setMode('dark'));
+      act(() => result.current.setMode(Mode.Dark));
       act(() => result.current.resetTheme());
       expect(result.current.mode).toBe('dark');
     });
@@ -696,8 +709,8 @@ describe('useThemeStore', () => {
       act(() => {
         result.current.updateTheme({ name: 'Step 1' });
         result.current.updatePrimaryColor('500', '100 100 100');
-        result.current.setMode('dark');
-        result.current.updateModeConfig('dark', {
+        result.current.setMode(Mode.Dark);
+        result.current.updateModeConfig(Mode.Dark, {
           backgrounds: { page: '10 10 10' },
         });
         result.current.updateHeaderConfig({ height: '72px' });
@@ -733,25 +746,25 @@ describe('useThemeStore', () => {
 
     it('updates flexBox direction', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateFlexBoxConfig({ direction: 'column' }));
+      act(() => result.current.updateFlexBoxConfig({ direction: FlexDirection.Column }));
       expect(result.current.theme.components.light.flexBox.direction).toBe('column');
     });
 
     it('updates flexBox wrap', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateFlexBoxConfig({ wrap: 'nowrap' }));
+      act(() => result.current.updateFlexBoxConfig({ wrap: FlexWrap.Nowrap }));
       expect(result.current.theme.components.light.flexBox.wrap).toBe('nowrap');
     });
 
     it('updates flexBox justifyContent', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateFlexBoxConfig({ justifyContent: 'space-between' }));
+      act(() => result.current.updateFlexBoxConfig({ justifyContent: FlexJustify.SpaceBetween }));
       expect(result.current.theme.components.light.flexBox.justifyContent).toBe('space-between');
     });
 
     it('updates flexBox alignItems', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateFlexBoxConfig({ alignItems: 'center' }));
+      act(() => result.current.updateFlexBoxConfig({ alignItems: FlexAlign.Center }));
       expect(result.current.theme.components.light.flexBox.alignItems).toBe('center');
     });
 
@@ -778,13 +791,13 @@ describe('useThemeStore', () => {
     it('preserves other flexBox properties when updating one', () => {
       const { result } = renderHook(() => useThemeStore());
       const originalGap = result.current.theme.components.light.flexBox.gap;
-      act(() => result.current.updateFlexBoxConfig({ direction: 'column-reverse' }));
+      act(() => result.current.updateFlexBoxConfig({ direction: FlexDirection.ColumnReverse }));
       expect(result.current.theme.components.light.flexBox.gap).toBe(originalGap);
     });
 
     it('updates dark mode flexBox when mode is dark', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.setMode('dark'));
+      act(() => result.current.setMode(Mode.Dark));
       act(() => result.current.updateFlexBoxConfig({ containerBackground: '50 50 50' }));
       expect(result.current.theme.components.dark.flexBox.containerBackground).toBe('50 50 50');
     });
@@ -800,37 +813,37 @@ describe('useThemeStore', () => {
   describe('typography actions', () => {
     it('updates font family for sans', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateFontFamily('sans', 'Arial, sans-serif'));
+      act(() => result.current.updateFontFamily(FontFamilyType.Sans, 'Arial, sans-serif'));
       expect(result.current.theme.typography.fontSans).toBe('Arial, sans-serif');
     });
 
     it('updates font family for mono', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateFontFamily('mono', 'Consolas, monospace'));
+      act(() => result.current.updateFontFamily(FontFamilyType.Mono, 'Consolas, monospace'));
       expect(result.current.theme.typography.fontMono).toBe('Consolas, monospace');
     });
 
     it('updates transition fast', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateTransition('fast', '100ms'));
+      act(() => result.current.updateTransition(TransitionType.Fast, '100ms'));
       expect(result.current.theme.transitions.fast).toBe('100ms');
     });
 
     it('updates transition normal', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateTransition('normal', '200ms'));
+      act(() => result.current.updateTransition(TransitionType.Normal, '200ms'));
       expect(result.current.theme.transitions.normal).toBe('200ms');
     });
 
     it('updates transition slow', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateTransition('slow', '400ms'));
+      act(() => result.current.updateTransition(TransitionType.Slow, '400ms'));
       expect(result.current.theme.transitions.slow).toBe('400ms');
     });
 
     it('updates transition easing', () => {
       const { result } = renderHook(() => useThemeStore());
-      act(() => result.current.updateTransition('easing', 'ease-in-out'));
+      act(() => result.current.updateTransition(TransitionType.Easing, 'ease-in-out'));
       expect(result.current.theme.transitions.easing).toBe('ease-in-out');
     });
   });

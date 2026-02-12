@@ -2,6 +2,15 @@
  * Component-related test fixtures for theme tests.
  */
 
+import {
+  ErrorAnimationType,
+  FlexAlign,
+  FlexDirection,
+  FlexJustify,
+  FlexWrap,
+  ShadowScale,
+} from '../../stores/theme/types';
+
 import type {
   ComponentsConfig,
   ComponentConfigSingle,
@@ -22,6 +31,12 @@ import type {
   AlertsConfig,
   ToastConfig,
   MessageConfig,
+  ChipConfig,
+  AccordionConfig,
+  ToolbarConfig,
+  MenuConfig,
+  BreadcrumbConfig,
+  PaginationConfig,
 } from '../../stores/theme/types';
 
 const createPrimaryButton = (): ButtonStateColors => ({
@@ -33,7 +48,7 @@ const createPrimaryButton = (): ButtonStateColors => ({
   borderColor: '59 130 246',
   borderWidth: '1px',
   borderRadius: 'md',
-  shadow: 'sm',
+  shadow: ShadowScale.Sm,
 });
 
 const createSecondaryButton = (): ButtonStateColors => ({
@@ -45,7 +60,7 @@ const createSecondaryButton = (): ButtonStateColors => ({
   borderColor: '229 231 235',
   borderWidth: '1px',
   borderRadius: 'md',
-  shadow: 'none',
+  shadow: ShadowScale.None,
 });
 
 const createOutlineButton = (): ButtonStateColors => ({
@@ -57,7 +72,7 @@ const createOutlineButton = (): ButtonStateColors => ({
   borderColor: '59 130 246',
   borderWidth: '1px',
   borderRadius: 'md',
-  shadow: 'none',
+  shadow: ShadowScale.None,
 });
 
 const createGhostButton = (): ButtonStateColors => ({
@@ -69,7 +84,7 @@ const createGhostButton = (): ButtonStateColors => ({
   borderColor: 'transparent',
   borderWidth: '1px',
   borderRadius: 'md',
-  shadow: 'none',
+  shadow: ShadowScale.None,
 });
 
 const createDangerButton = (): ButtonStateColors => ({
@@ -81,7 +96,7 @@ const createDangerButton = (): ButtonStateColors => ({
   borderColor: '239 68 68',
   borderWidth: '1px',
   borderRadius: 'md',
-  shadow: 'sm',
+  shadow: ShadowScale.Sm,
 });
 
 const createButtons = (): ButtonsComponentConfig => ({
@@ -97,7 +112,7 @@ const createHeader = (): HeaderComponentConfig => ({
   textColor: '17 24 39',
   borderBottom: '229 231 235',
   height: '64px',
-  shadow: 'sm',
+  shadow: ShadowScale.Sm,
 });
 
 const createSidebar = (): SidebarComponentConfig => ({
@@ -137,6 +152,39 @@ const createDataGrid = (): DataGridConfig => ({
   cellBorderColor: '229 231 235',
   cellPadding: '12px 16px',
   paginationBackground: '255 255 255',
+  toolbarBackground: '249 250 251',
+  toolbarTextColor: '55 65 81',
+  toolbarBorderColor: '229 231 235',
+  filterRowBackground: '255 255 255',
+  filterRowBorderColor: '229 231 235',
+  filterInputBackground: '255 255 255',
+  groupHeaderBackground: '243 244 246',
+  groupHeaderTextColor: '55 65 81',
+  groupDropAreaBackground: '249 250 251',
+  footerBackground: '249 250 251',
+  footerTextColor: '55 65 81',
+  editCellBackground: '255 255 255',
+  editCellBorderColor: '59 130 246',
+  editDirtyIndicatorColor: '245 158 11',
+  rowSelectedTextColor: '17 24 39',
+  cellSelectedBackground: '219 234 254',
+  sortIconColor: '107 114 128',
+  resizeHandleColor: '209 213 219',
+  paginationTextColor: '55 65 81',
+  paginationActiveBackground: '59 130 246',
+  paginationActiveTextColor: '255 255 255',
+  paginationHoverBackground: '243 244 246',
+  paginationBorderColor: '229 231 235',
+  paginationNavColor: '107 114 128',
+  paginationNavDisabledColor: '209 213 219',
+  paginationInfoTextColor: '107 114 128',
+  actionButtonColor: '59 130 246',
+  actionButtonHoverColor: '37 99 235',
+  detailRowBackground: '249 250 251',
+  dragHandleColor: '156 163 175',
+  defaultTextAlign: 'left',
+  headerTextAlign: 'left',
+  rowHeight: '42px',
 });
 
 const createCards = (): CardsConfig => ({
@@ -239,7 +287,7 @@ const createErrorMessages = (): ErrorMessagesConfig => ({
   textColor: '239 68 68',
   fontSize: '0.75rem',
   fontWeight: '400',
-  animation: 'fadeIn',
+  animation: ErrorAnimationType.FadeIn,
   animationDuration: '200ms',
   iconColor: '239 68 68',
   iconSize: '0.875rem',
@@ -251,10 +299,10 @@ const createFlexBox = (): FlexBoxConfig => ({
   containerBorderRadius: 'lg',
   containerPadding: '16px',
   gap: '12px',
-  direction: 'row',
-  wrap: 'wrap',
-  justifyContent: 'flex-start',
-  alignItems: 'stretch',
+  direction: FlexDirection.Row,
+  wrap: FlexWrap.Wrap,
+  justifyContent: FlexJustify.FlexStart,
+  alignItems: FlexAlign.Stretch,
   itemBackground: '249 250 251',
   itemBorderColor: '229 231 235',
   itemBorderRadius: 'md',
@@ -334,6 +382,92 @@ const createMessage = (): MessageConfig => ({
   normalBorderColor: '229 231 235',
 });
 
+const createChips = (): ChipConfig => ({
+  background: '243 244 246',
+  textColor: '55 65 81',
+  borderColor: '229 231 235',
+  borderRadius: 'full',
+  hoverBackground: '229 231 235',
+  hoverTextColor: '17 24 39',
+  primaryBackground: '59 130 246',
+  primaryTextColor: '255 255 255',
+  primaryBorderColor: '59 130 246',
+  successBackground: '34 197 94',
+  successTextColor: '255 255 255',
+  successBorderColor: '34 197 94',
+  warningBackground: '234 179 8',
+  warningTextColor: '255 255 255',
+  warningBorderColor: '234 179 8',
+  dangerBackground: '239 68 68',
+  dangerTextColor: '255 255 255',
+  dangerBorderColor: '239 68 68',
+});
+
+const createAccordion = (): AccordionConfig => ({
+  background: '255 255 255',
+  textColor: '55 65 81',
+  headerBackground: '249 250 251',
+  headerTextColor: '17 24 39',
+  headerHoverBackground: '243 244 246',
+  borderColor: '229 231 235',
+  expandedBackground: '255 255 255',
+  expandedTextColor: '55 65 81',
+  iconColor: '107 114 128',
+});
+
+const createToolbar = (): ToolbarConfig => ({
+  background: '255 255 255',
+  textColor: '55 65 81',
+  hoverBackground: '243 244 246',
+  hoverTextColor: '17 24 39',
+  activeBackground: '229 231 235',
+  borderColor: '229 231 235',
+  separatorColor: '209 213 219',
+  iconColor: '107 114 128',
+});
+
+const createMenu = (): MenuConfig => ({
+  background: '255 255 255',
+  textColor: '55 65 81',
+  hoverBackground: '243 244 246',
+  hoverTextColor: '17 24 39',
+  activeBackground: '229 231 235',
+  borderColor: '229 231 235',
+  iconColor: '107 114 128',
+  popupBackground: '255 255 255',
+  popupBorderColor: '229 231 235',
+  popupTextColor: '55 65 81',
+  separatorColor: '229 231 235',
+});
+
+const createBreadcrumb = (): BreadcrumbConfig => ({
+  background: '255 255 255',
+  textColor: '107 114 128',
+  hoverTextColor: '59 130 246',
+  activeTextColor: '17 24 39',
+  separatorColor: '156 163 175',
+  iconColor: '107 114 128',
+});
+
+const createPagination = (): PaginationConfig => ({
+  background: '255 255 255',
+  borderColor: '229 231 235',
+  textColor: '107 114 128',
+  buttonBackground: 'transparent',
+  buttonTextColor: '55 65 81',
+  buttonHoverBackground: '243 244 246',
+  buttonHoverTextColor: '55 65 81',
+  buttonActiveBackground: '59 130 246',
+  buttonActiveTextColor: '255 255 255',
+  buttonBorderRadius: '6px',
+  navTextColor: '55 65 81',
+  navDisabledColor: '209 213 219',
+  selectBackground: '255 255 255',
+  selectBorderColor: '229 231 235',
+  selectTextColor: '17 24 39',
+  infoTextColor: '107 114 128',
+});
+
 /** Create a single-mode component config (for light mode) */
 const createComponentConfigSingle = (): ComponentConfigSingle => ({
   header: createHeader(),
@@ -352,6 +486,12 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
   alerts: createAlerts(),
   toast: createToast(),
   message: createMessage(),
+  chips: createChips(),
+  accordion: createAccordion(),
+  toolbar: createToolbar(),
+  menu: createMenu(),
+  breadcrumb: createBreadcrumb(),
+  pagination: createPagination(),
 });
 
 /** Create mode-aware components config with light and dark variants */

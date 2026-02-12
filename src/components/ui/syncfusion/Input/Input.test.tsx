@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
 
+import { Mode } from '@/stores/mode';
 import { render, screen } from '@/test/utils';
 
 import Input from './index';
@@ -14,14 +15,14 @@ vi.mock('@syncfusion/ej2-react-inputs', () => ({
 }));
 
 // Mock useThemeStore
-const mockMode = { current: 'light' as 'light' | 'dark' };
+const mockMode = { current: Mode.Light as Mode };
 vi.mock('@/stores/useThemeStore', () => ({
   useThemeStore: () => ({ mode: mockMode.current }),
 }));
 
 describe('Input', () => {
   beforeEach(() => {
-    mockMode.current = 'light';
+    mockMode.current = Mode.Light;
   });
 
   describe('theme integration', () => {
@@ -32,7 +33,7 @@ describe('Input', () => {
     });
 
     it('applies sf-dark class in dark mode', () => {
-      mockMode.current = 'dark';
+      mockMode.current = Mode.Dark;
       render(<Input testId="input" />);
       const input = screen.getByTestId('input').querySelector('input');
       expect(input?.className).toContain('sf-dark');

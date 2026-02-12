@@ -7,9 +7,10 @@ import { useThemeStore } from '@/stores/useThemeStore';
 
 import { DrawerTabs } from './DrawerTabs';
 import { ImportExportSection } from './ImportExportSection';
+import { TabId } from './tabId';
 import { ThemeStudioLoader } from './ThemeStudioLoader';
 
-import type { TabId } from './DrawerTabs';
+
 
 const LOGO_LETTER = 'T';
 
@@ -36,7 +37,7 @@ const PresetsSection = lazy(async () => ({
   default: (await import('./sections/PresetsSection')).PresetsSection,
 }));
 
-const DEFAULT_TAB: TabId = 'colors';
+const DEFAULT_TAB: TabId = TabId.Colors;
 const PANEL_WIDTH_PX = 520;
 const COLLAPSED_WIDTH_PX = 52;
 
@@ -118,19 +119,19 @@ const SectionLoader = (): JSX.Element => <ThemeStudioLoader />;
 const renderTabContent = (activeTab: TabId): JSX.Element | null => {
   const content = (() => {
     switch (activeTab) {
-      case 'colors':
+      case TabId.Colors:
         return <ColorsSection />;
-      case 'typography':
+      case TabId.Typography:
         return <TypographySection />;
-      case 'layout':
+      case TabId.Layout:
         return <LayoutSection />;
-      case 'lightTheme':
+      case TabId.LightTheme:
         return <LightThemeSection />;
-      case 'darkTheme':
+      case TabId.DarkTheme:
         return <DarkThemeSection />;
-      case 'components':
+      case TabId.Components:
         return <ComponentsSection />;
-      case 'presets':
+      case TabId.Presets:
         return <PresetsSection />;
       default:
         return null;
@@ -181,7 +182,7 @@ export const ThemeSettingsDrawer = (): JSX.Element => {
       </button>
 
       {isOpen ? (
-        <div className="flex flex-1 flex-col overflow-hidden">
+        <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
           {/* Header with Logo and Title */}
           <header className="theme-panel-header flex items-center gap-3 border-b border-border bg-gradient-to-r from-surface to-surface-elevated px-5 py-4">
             <LogoIcon />

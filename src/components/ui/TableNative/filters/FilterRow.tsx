@@ -1,0 +1,54 @@
+/**
+ * Filter row container that renders the appropriate filter input
+ * per column based on auto-detected or overridden column types.
+ */
+import { memo } from 'react';
+
+import { ColumnType } from '@/lib/grid/types';
+
+import BooleanFilter from './BooleanFilter';
+import DateFilter from './DateFilter';
+import NumberFilter from './NumberFilter';
+import TextFilter from './TextFilter';
+
+interface Props {
+  fields: string[];
+  columnTypes: Record<string, ColumnType>;
+  filterValues: Record<string, string>;
+  onFilterChange: (field: string, value: string) => void;
+  cellPadding: string;
+}
+
+const FilterRow = ({
+  fields,
+  columnTypes,
+  filterValues,
+  onFilterChange,
+  cellPadding,
+}: Props): JSX.Element => (
+  <tr className="border-b border-border bg-surface" data-testid="filter-row">
+    {fields.map((field) => {
+      const type = columnTypes[field] ?? ColumnType.String;
+      const value = filterValues[field] ?? '';
+
+      return (
+        <td key={field} className={cellPadding}>
+          {type === ColumnType.Boolean && (
+            <BooleanFilter field={field} value={value} onChange={onFilterChange} />
+          )}
+          {type === ColumnType.Number && (
+            <NumberFilter field={field} value={value} onChange={onFilterChange} />
+          )}
+          {type === ColumnType.Date && (
+            <DateFilter field={field} value={value} onChange={onFilterChange} />
+          )}
+          {type === ColumnType.String && (
+            <TextFilter field={field} value={value} onChange={onFilterChange} />
+          )}
+        </td>
+      );
+    })}
+  </tr>
+);
+
+export default memo(FilterRow);

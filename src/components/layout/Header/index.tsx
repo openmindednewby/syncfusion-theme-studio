@@ -1,5 +1,6 @@
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
+import { Mode } from '@/stores/mode';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
 import { useThemeStore } from '@/stores/useThemeStore';
 
@@ -27,7 +28,7 @@ export const Header = (): JSX.Element => {
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
 
   const themeLabel =
-    mode === 'light' ? FM('header.themeSwitchDark') : FM('header.themeSwitchLight');
+    mode === Mode.Light ? FM('header.themeSwitchDark') : FM('header.themeSwitchLight');
 
   return (
     <header className="header flex items-center justify-between px-6">
@@ -53,7 +54,7 @@ export const Header = (): JSX.Element => {
           type="button"
           onClick={toggleMode}
         >
-          <span aria-hidden="true">{mode === 'light' ? '🌙' : '☀️'}</span>
+          <span aria-hidden="true">{mode === Mode.Light ? '🌙' : '☀️'}</span>
         </button>
       </div>
     </header>

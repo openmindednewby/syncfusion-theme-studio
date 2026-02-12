@@ -1,5 +1,6 @@
 import { FM } from '@/localization/helpers';
-import type { ButtonsComponentConfig, ButtonStateColors, ButtonVariant } from '@/stores/theme/types';
+import { ButtonVariant } from '@/stores/theme/types';
+import type { ButtonsComponentConfig, ButtonStateColors } from '@/stores/theme/types';
 
 
 import { CollapsibleSection } from './CollapsibleSection';
@@ -10,7 +11,13 @@ interface ButtonsEditorProps {
   onUpdate: (variant: ButtonVariant, updates: Partial<ButtonStateColors>) => void;
 }
 
-const BUTTON_VARIANTS: ButtonVariant[] = ['primary', 'secondary', 'outline', 'ghost', 'danger'];
+const BUTTON_VARIANTS: ButtonVariant[] = [
+  ButtonVariant.Primary,
+  ButtonVariant.Secondary,
+  ButtonVariant.Outline,
+  ButtonVariant.Ghost,
+  ButtonVariant.Danger,
+];
 
 interface VariantEditorProps {
   config: ButtonStateColors;

@@ -28,7 +28,6 @@ export const TestIds = {
   // Login
   LOGIN_USERNAME: 'login-username',
   LOGIN_PASSWORD: 'login-password',
-  LOGIN_LICENSE_KEY: 'login-license-key',
   LOGIN_SUBMIT: 'login-submit',
   LOGIN_ERROR: 'login-error',
 
@@ -37,6 +36,8 @@ export const TestIds = {
   PRODUCTS_CATEGORY_FILTER: 'products-category-filter',
   PRODUCTS_ADD: 'products-add',
   BTN_RETRY: 'btn-retry',
+  NATIVE_PRODUCTS_PAGE: 'native-products-page',
+  NATIVE_PRODUCTS_GRID: 'native-products-grid',
 
   // Theme Settings Drawer
   THEME_SETTINGS_DRAWER: 'theme-settings-drawer',
@@ -83,13 +84,25 @@ export const TestIds = {
   DATA_GRID_LINK_CARD: 'data-grid-link-card',
   DATA_GRID_VIEW_LINK: 'data-grid-view-link',
 
+  // Grid showcase pages
+  SYNCFUSION_GRID_SHOWCASE: 'syncfusion-grid-showcase',
+  NATIVE_GRID_SHOWCASE: 'native-grid-showcase',
+  NAV_GRID_SYNCFUSION: 'nav-grid-syncfusion',
+  NAV_GRID_NATIVE: 'nav-grid-native',
+  GRID_SHOWCASE_SECTION: 'grid-showcase-section',
+
   // Native Components Page
   NATIVE_COMPONENTS_PAGE: 'native-components-page',
 
   // Syncfusion Components Page
   SYNCFUSION_COMPONENTS_PAGE: 'syncfusion-components-page',
 
-  // Sidebar Sub-menu
+  // Products Sidebar Sub-menu
+  NAV_PRODUCTS_NATIVE: 'nav-products-native',
+  NAV_PRODUCTS_SYNCFUSION: 'nav-products-syncfusion',
+  NAV_PRODUCTS_EXPAND: 'nav-products-expand',
+
+  // Components Sidebar Sub-menu
   NAV_COMPONENTS_NATIVE: 'nav-components-native',
   NAV_COMPONENTS_SYNCFUSION: 'nav-components-syncfusion',
   NAV_COMPONENTS_EXPAND: 'nav-components-expand',
@@ -134,6 +147,24 @@ export const TestIds = {
   NATIVE_ALERT_INFO: 'native-alert-info',
   NATIVE_ALERT_DISMISSIBLE: 'native-alert-dismissible',
   NATIVE_ALERT_NO_ICON: 'native-alert-no-icon',
+
+  // Toggle
+  TOGGLE_NATIVE: 'toggle-native',
+
+  // Native Grid Showcase sections
+  NATIVE_GRID_BASIC: 'native-grid-basic',
+  NATIVE_GRID_PAGINATION: 'native-grid-pagination',
+  NATIVE_GRID_GROUPING: 'native-grid-grouping',
+  NATIVE_GRID_AGGREGATES: 'native-grid-aggregates',
+  NATIVE_GRID_EDIT_INLINE: 'native-grid-edit-inline',
+  NATIVE_GRID_EDIT_DIALOG: 'native-grid-edit-dialog',
+  NATIVE_GRID_EDIT_BATCH: 'native-grid-edit-batch',
+  NATIVE_GRID_EDIT_TABS: 'native-grid-edit-tabs',
+  NATIVE_GRID_SELECT_SINGLE: 'native-grid-select-single',
+  NATIVE_GRID_SELECT_MULTI: 'native-grid-select-multi',
+  NATIVE_GRID_SELECT_CHECKBOX: 'native-grid-select-checkbox',
+  NATIVE_GRID_SELECT_TABS: 'native-grid-select-tabs',
+  NATIVE_GRID_SELECTED_COUNT: 'native-grid-selected-count',
 
   // PWA
   PWA_UPDATE_PROMPT: 'pwa-update-prompt',

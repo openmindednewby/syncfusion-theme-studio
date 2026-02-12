@@ -2,6 +2,7 @@ import { describe, it, expect, beforeEach, type vi } from 'vitest';
 
 import { DEFAULT_THEME } from './defaultTheme';
 import { injectThemeVariables } from './themeInjector';
+import { Mode } from './types';
 
 import type { ThemeConfig } from './types';
 
@@ -22,7 +23,7 @@ describe('injectThemeVariables', () => {
 
   describe('color scale injection', () => {
     it('calls setProperty for all primary color shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
       shades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -33,7 +34,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('calls setProperty for all secondary color shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
       shades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -44,7 +45,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('calls setProperty for all neutral color shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const shades = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
       shades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -59,14 +60,14 @@ describe('injectThemeVariables', () => {
         ...DEFAULT_THEME,
         primary: { ...DEFAULT_THEME.primary, '500': '255 0 0' },
       };
-      injectThemeVariables(customTheme, 'light');
+      injectThemeVariables(customTheme, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-primary-500', '255 0 0');
     });
   });
 
   describe('status color injection', () => {
     it('injects success status colors for all shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const statusShades = ['50', '100', '200', '500', '700'];
       statusShades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -77,7 +78,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects warning status colors for all shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const statusShades = ['50', '100', '200', '500', '700'];
       statusShades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -88,7 +89,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects error status colors for all shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const statusShades = ['50', '100', '200', '500', '700'];
       statusShades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -99,7 +100,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects info status colors for all shades', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const statusShades = ['50', '100', '200', '500', '700'];
       statusShades.forEach((shade) => {
         expect(mockSetProperty).toHaveBeenCalledWith(
@@ -112,7 +113,7 @@ describe('injectThemeVariables', () => {
 
   describe('mode-specific color injection', () => {
     it('injects light mode background colors when mode is light', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-background', DEFAULT_THEME.light.backgrounds.page);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-surface', DEFAULT_THEME.light.backgrounds.surface);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-surface-elevated', DEFAULT_THEME.light.backgrounds.surfaceElevated);
@@ -121,14 +122,14 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects dark mode background colors when mode is dark', () => {
-      injectThemeVariables(DEFAULT_THEME, 'dark');
+      injectThemeVariables(DEFAULT_THEME, Mode.Dark);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-background', DEFAULT_THEME.dark.backgrounds.page);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-surface', DEFAULT_THEME.dark.backgrounds.surface);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-surface-elevated', DEFAULT_THEME.dark.backgrounds.surfaceElevated);
     });
 
     it('injects light mode text colors when mode is light', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-text-primary', DEFAULT_THEME.light.text.primary);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-text-secondary', DEFAULT_THEME.light.text.secondary);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-text-muted', DEFAULT_THEME.light.text.muted);
@@ -137,13 +138,13 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects dark mode text colors when mode is dark', () => {
-      injectThemeVariables(DEFAULT_THEME, 'dark');
+      injectThemeVariables(DEFAULT_THEME, Mode.Dark);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-text-primary', DEFAULT_THEME.dark.text.primary);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-text-secondary', DEFAULT_THEME.dark.text.secondary);
     });
 
     it('injects light mode border colors when mode is light', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-border', DEFAULT_THEME.light.borders.default);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-border-strong', DEFAULT_THEME.light.borders.strong);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-border-subtle', DEFAULT_THEME.light.borders.subtle);
@@ -152,13 +153,13 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects dark mode border colors when mode is dark', () => {
-      injectThemeVariables(DEFAULT_THEME, 'dark');
+      injectThemeVariables(DEFAULT_THEME, Mode.Dark);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-border', DEFAULT_THEME.dark.borders.default);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-border-focus', DEFAULT_THEME.dark.borders.focus);
     });
 
     it('injects link colors based on mode', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-link', DEFAULT_THEME.light.text.link);
       expect(mockSetProperty).toHaveBeenCalledWith('--color-link-hover', DEFAULT_THEME.light.text.linkHover);
     });
@@ -166,24 +167,24 @@ describe('injectThemeVariables', () => {
 
   describe('dark mode class management', () => {
     it('adds dark class when mode is dark', () => {
-      injectThemeVariables(DEFAULT_THEME, 'dark');
+      injectThemeVariables(DEFAULT_THEME, Mode.Dark);
       expect(mockClassListAdd).toHaveBeenCalledWith('dark');
     });
 
     it('removes dark class when mode is light', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockClassListRemove).toHaveBeenCalledWith('dark');
     });
 
     it('does not add dark class when mode is light', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockClassListAdd).not.toHaveBeenCalledWith('dark');
     });
   });
 
   describe('border radius injection', () => {
     it('injects all border radius values', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--radius-none', DEFAULT_THEME.borderRadius.none);
       expect(mockSetProperty).toHaveBeenCalledWith('--radius-xs', DEFAULT_THEME.borderRadius.xs);
       expect(mockSetProperty).toHaveBeenCalledWith('--radius-sm', DEFAULT_THEME.borderRadius.sm);
@@ -197,7 +198,7 @@ describe('injectThemeVariables', () => {
 
   describe('shadow injection', () => {
     it('injects all shadow values', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--shadow-none', DEFAULT_THEME.shadows.none);
       expect(mockSetProperty).toHaveBeenCalledWith('--shadow-xs', DEFAULT_THEME.shadows.xs);
       expect(mockSetProperty).toHaveBeenCalledWith('--shadow-sm', DEFAULT_THEME.shadows.sm);
@@ -210,7 +211,7 @@ describe('injectThemeVariables', () => {
 
   describe('spacing injection', () => {
     it('injects base unit spacing variable', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith(
         '--spacing-base-unit',
         `${DEFAULT_THEME.spacing.baseUnit}px`
@@ -218,7 +219,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects common spacing scale variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const baseUnit = DEFAULT_THEME.spacing.baseUnit;
       expect(mockSetProperty).toHaveBeenCalledWith('--space-0', `${baseUnit * 0}px`);
       expect(mockSetProperty).toHaveBeenCalledWith('--space-1', `${baseUnit}px`);
@@ -228,7 +229,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects larger spacing values correctly', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const baseUnit = DEFAULT_THEME.spacing.baseUnit;
       expect(mockSetProperty).toHaveBeenCalledWith('--space-16', `${baseUnit * 16}px`);
       expect(mockSetProperty).toHaveBeenCalledWith('--space-32', `${baseUnit * 32}px`);
@@ -237,7 +238,7 @@ describe('injectThemeVariables', () => {
 
     it('calculates spacing correctly with custom base unit', () => {
       const customTheme: ThemeConfig = { ...DEFAULT_THEME, spacing: { baseUnit: 8 } };
-      injectThemeVariables(customTheme, 'light');
+      injectThemeVariables(customTheme, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--space-4', '32px');
       expect(mockSetProperty).toHaveBeenCalledWith('--spacing-base-unit', '8px');
     });
@@ -245,13 +246,13 @@ describe('injectThemeVariables', () => {
 
   describe('layout injection', () => {
     it('injects sidebar width variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--sidebar-width', DEFAULT_THEME.layout.sidebarWidth);
       expect(mockSetProperty).toHaveBeenCalledWith('--sidebar-collapsed-width', DEFAULT_THEME.layout.sidebarCollapsedWidth);
     });
 
     it('injects header height variable', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--header-height', DEFAULT_THEME.layout.headerHeight);
     });
 
@@ -260,23 +261,23 @@ describe('injectThemeVariables', () => {
         ...DEFAULT_THEME,
         layout: { ...DEFAULT_THEME.layout, contentFullWidth: false, contentMaxWidth: '1440px' },
       };
-      injectThemeVariables(theme, 'light');
+      injectThemeVariables(theme, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--content-max-width', '1440px');
     });
 
-    it('injects 100% content max width when contentFullWidth is true', () => {
+    it('injects none content max width when contentFullWidth is true', () => {
       const theme: ThemeConfig = {
         ...DEFAULT_THEME,
         layout: { ...DEFAULT_THEME.layout, contentFullWidth: true, contentMaxWidth: '1440px' },
       };
-      injectThemeVariables(theme, 'light');
-      expect(mockSetProperty).toHaveBeenCalledWith('--content-max-width', '100%');
+      injectThemeVariables(theme, Mode.Light);
+      expect(mockSetProperty).toHaveBeenCalledWith('--content-max-width', 'none');
     });
   });
 
   describe('typography injection', () => {
     it('injects font family variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--font-sans', DEFAULT_THEME.typography.fontSans);
       expect(mockSetProperty).toHaveBeenCalledWith('--font-mono', DEFAULT_THEME.typography.fontMono);
     });
@@ -284,21 +285,21 @@ describe('injectThemeVariables', () => {
 
   describe('transition injection', () => {
     it('injects transition duration variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--transition-fast', DEFAULT_THEME.transitions.fast);
       expect(mockSetProperty).toHaveBeenCalledWith('--transition-normal', DEFAULT_THEME.transitions.normal);
       expect(mockSetProperty).toHaveBeenCalledWith('--transition-slow', DEFAULT_THEME.transitions.slow);
     });
 
     it('injects transition easing variable', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockSetProperty).toHaveBeenCalledWith('--transition-easing', DEFAULT_THEME.transitions.easing);
     });
   });
 
   describe('flexbox variable injection', () => {
     it('injects flexBox container CSS variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const lightFlex = DEFAULT_THEME.components.light.flexBox;
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-bg', `rgb(${lightFlex.containerBackground})`);
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-border', `rgb(${lightFlex.containerBorderColor})`);
@@ -307,7 +308,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects flexBox behavior CSS variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const lightFlex = DEFAULT_THEME.components.light.flexBox;
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-gap', lightFlex.gap);
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-direction', lightFlex.direction);
@@ -317,7 +318,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects flexBox item CSS variables', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const lightFlex = DEFAULT_THEME.components.light.flexBox;
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-bg', `rgb(${lightFlex.itemBackground})`);
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-border', `rgb(${lightFlex.itemBorderColor})`);
@@ -326,7 +327,7 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects dark mode flexBox variables when mode is dark', () => {
-      injectThemeVariables(DEFAULT_THEME, 'dark');
+      injectThemeVariables(DEFAULT_THEME, Mode.Dark);
       const darkFlex = DEFAULT_THEME.components.dark.flexBox;
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-container-bg', `rgb(${darkFlex.containerBackground})`);
       expect(mockSetProperty).toHaveBeenCalledWith('--component-flexbox-item-bg', `rgb(${darkFlex.itemBackground})`);
@@ -337,7 +338,7 @@ describe('injectThemeVariables', () => {
     it('uses requestAnimationFrame to batch DOM updates', () => {
       const mockRAF = global.requestAnimationFrame as ReturnType<typeof vi.fn>;
       mockRAF.mockClear();
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       expect(mockRAF).toHaveBeenCalledTimes(1);
       expect(mockRAF).toHaveBeenCalledWith(expect.any(Function));
     });
@@ -345,7 +346,7 @@ describe('injectThemeVariables', () => {
 
   describe('complete theme injection', () => {
     it('calls setProperty many times for a complete theme', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const colorScaleVars = 30; // 3 scales x 10 shades
       const statusVars = 20; // 4 statuses x 5 shades
       const borderRadiusVars = 8;
@@ -364,13 +365,13 @@ describe('injectThemeVariables', () => {
     });
 
     it('injects different values for light and dark modes', () => {
-      injectThemeVariables(DEFAULT_THEME, 'light');
+      injectThemeVariables(DEFAULT_THEME, Mode.Light);
       const allLightCalls = mockSetProperty.mock.calls as Array<[string, string]>;
       const lightCalls = allLightCalls.filter((call) => call[0] === '--color-background');
       expect(lightCalls[0]?.[1]).toBe(DEFAULT_THEME.light.backgrounds.page);
 
       mockSetProperty.mockClear();
-      injectThemeVariables(DEFAULT_THEME, 'dark');
+      injectThemeVariables(DEFAULT_THEME, Mode.Dark);
       const allDarkCalls = mockSetProperty.mock.calls as Array<[string, string]>;
       const darkCalls = allDarkCalls.filter((call) => call[0] === '--color-background');
       expect(darkCalls[0]?.[1]).toBe(DEFAULT_THEME.dark.backgrounds.page);

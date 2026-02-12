@@ -4,7 +4,7 @@ export {
   loadSyncfusionCss,
   preloadSyncfusionCss,
   isSyncfusionCssLoaded,
-  type SyncfusionCssModule,
+  SyncfusionCssModule,
 } from './loadSyncfusionCss';
 export {
   generatePaletteFromBase,

@@ -1,5 +1,6 @@
 import { FM } from '@/localization/helpers';
-import type { FlexAlign, FlexBoxConfig, FlexDirection, FlexJustify, FlexWrap } from '@/stores/theme/types';
+import { FlexAlign, FlexDirection, FlexJustify, FlexWrap } from '@/stores/theme/types';
+import type { FlexBoxConfig } from '@/stores/theme/types';
 
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
@@ -11,33 +12,33 @@ interface FlexBoxEditorProps {
 }
 
 const DIRECTION_OPTIONS: Array<{ value: FlexDirection; labelKey: string }> = [
-  { value: 'row', labelKey: 'themeSettings.components.flexBox.directionRow' },
-  { value: 'column', labelKey: 'themeSettings.components.flexBox.directionColumn' },
-  { value: 'row-reverse', labelKey: 'themeSettings.components.flexBox.directionRowReverse' },
-  { value: 'column-reverse', labelKey: 'themeSettings.components.flexBox.directionColumnReverse' },
+  { value: FlexDirection.Row, labelKey: 'themeSettings.components.flexBox.directionRow' },
+  { value: FlexDirection.Column, labelKey: 'themeSettings.components.flexBox.directionColumn' },
+  { value: FlexDirection.RowReverse, labelKey: 'themeSettings.components.flexBox.directionRowReverse' },
+  { value: FlexDirection.ColumnReverse, labelKey: 'themeSettings.components.flexBox.directionColumnReverse' },
 ];
 
 const WRAP_OPTIONS: Array<{ value: FlexWrap; labelKey: string }> = [
-  { value: 'nowrap', labelKey: 'themeSettings.components.flexBox.wrapNone' },
-  { value: 'wrap', labelKey: 'themeSettings.components.flexBox.wrapWrap' },
-  { value: 'wrap-reverse', labelKey: 'themeSettings.components.flexBox.wrapReverse' },
+  { value: FlexWrap.Nowrap, labelKey: 'themeSettings.components.flexBox.wrapNone' },
+  { value: FlexWrap.Wrap, labelKey: 'themeSettings.components.flexBox.wrapWrap' },
+  { value: FlexWrap.WrapReverse, labelKey: 'themeSettings.components.flexBox.wrapReverse' },
 ];
 
 const JUSTIFY_OPTIONS: Array<{ value: FlexJustify; labelKey: string }> = [
-  { value: 'flex-start', labelKey: 'themeSettings.components.flexBox.justifyStart' },
-  { value: 'center', labelKey: 'themeSettings.components.flexBox.justifyCenter' },
-  { value: 'flex-end', labelKey: 'themeSettings.components.flexBox.justifyEnd' },
-  { value: 'space-between', labelKey: 'themeSettings.components.flexBox.justifySpaceBetween' },
-  { value: 'space-around', labelKey: 'themeSettings.components.flexBox.justifySpaceAround' },
-  { value: 'space-evenly', labelKey: 'themeSettings.components.flexBox.justifySpaceEvenly' },
+  { value: FlexJustify.FlexStart, labelKey: 'themeSettings.components.flexBox.justifyStart' },
+  { value: FlexJustify.Center, labelKey: 'themeSettings.components.flexBox.justifyCenter' },
+  { value: FlexJustify.FlexEnd, labelKey: 'themeSettings.components.flexBox.justifyEnd' },
+  { value: FlexJustify.SpaceBetween, labelKey: 'themeSettings.components.flexBox.justifySpaceBetween' },
+  { value: FlexJustify.SpaceAround, labelKey: 'themeSettings.components.flexBox.justifySpaceAround' },
+  { value: FlexJustify.SpaceEvenly, labelKey: 'themeSettings.components.flexBox.justifySpaceEvenly' },
 ];
 
 const ALIGN_OPTIONS: Array<{ value: FlexAlign; labelKey: string }> = [
-  { value: 'flex-start', labelKey: 'themeSettings.components.flexBox.alignStart' },
-  { value: 'center', labelKey: 'themeSettings.components.flexBox.alignCenter' },
-  { value: 'flex-end', labelKey: 'themeSettings.components.flexBox.alignEnd' },
-  { value: 'stretch', labelKey: 'themeSettings.components.flexBox.alignStretch' },
-  { value: 'baseline', labelKey: 'themeSettings.components.flexBox.alignBaseline' },
+  { value: FlexAlign.FlexStart, labelKey: 'themeSettings.components.flexBox.alignStart' },
+  { value: FlexAlign.Center, labelKey: 'themeSettings.components.flexBox.alignCenter' },
+  { value: FlexAlign.FlexEnd, labelKey: 'themeSettings.components.flexBox.alignEnd' },
+  { value: FlexAlign.Stretch, labelKey: 'themeSettings.components.flexBox.alignStretch' },
+  { value: FlexAlign.Baseline, labelKey: 'themeSettings.components.flexBox.alignBaseline' },
 ];
 
 const DIRECTION_MAP = new Map<string, FlexDirection>(DIRECTION_OPTIONS.map((o) => [o.value, o.value]));
@@ -93,7 +94,7 @@ export const FlexBoxEditor = ({ config, onUpdate }: FlexBoxEditorProps): JSX.Ele
             aria-label={FM('themeSettings.components.flexBox.direction')}
             className="w-32 rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none"
             value={config.direction}
-            onChange={(e) => onUpdate({ direction: DIRECTION_MAP.get(e.target.value) ?? 'row' })}
+            onChange={(e) => onUpdate({ direction: DIRECTION_MAP.get(e.target.value) ?? FlexDirection.Row })}
           >
             {DIRECTION_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>
@@ -108,7 +109,7 @@ export const FlexBoxEditor = ({ config, onUpdate }: FlexBoxEditorProps): JSX.Ele
             aria-label={FM('themeSettings.components.flexBox.wrap')}
             className="w-32 rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none"
             value={config.wrap}
-            onChange={(e) => onUpdate({ wrap: WRAP_MAP.get(e.target.value) ?? 'wrap' })}
+            onChange={(e) => onUpdate({ wrap: WRAP_MAP.get(e.target.value) ?? FlexWrap.Wrap })}
           >
             {WRAP_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>
@@ -123,7 +124,7 @@ export const FlexBoxEditor = ({ config, onUpdate }: FlexBoxEditorProps): JSX.Ele
             aria-label={FM('themeSettings.components.flexBox.justifyContent')}
             className="w-32 rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none"
             value={config.justifyContent}
-            onChange={(e) => onUpdate({ justifyContent: JUSTIFY_MAP.get(e.target.value) ?? 'flex-start' })}
+            onChange={(e) => onUpdate({ justifyContent: JUSTIFY_MAP.get(e.target.value) ?? FlexJustify.FlexStart })}
           >
             {JUSTIFY_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>
@@ -138,7 +139,7 @@ export const FlexBoxEditor = ({ config, onUpdate }: FlexBoxEditorProps): JSX.Ele
             aria-label={FM('themeSettings.components.flexBox.alignItems')}
             className="w-32 rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none"
             value={config.alignItems}
-            onChange={(e) => onUpdate({ alignItems: ALIGN_MAP.get(e.target.value) ?? 'stretch' })}
+            onChange={(e) => onUpdate({ alignItems: ALIGN_MAP.get(e.target.value) ?? FlexAlign.Stretch })}
           >
             {ALIGN_OPTIONS.map((opt) => (
               <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>

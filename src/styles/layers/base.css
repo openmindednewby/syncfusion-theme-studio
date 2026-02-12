@@ -67,6 +67,23 @@
     --font-size-2xl: 1.5rem;
     --font-size-3xl: 1.875rem;
 
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line heights */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+
+    /* Letter spacing */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0em;
+    --letter-spacing-wide: 0.025em;
+
     /* ===== TRANSITIONS ===== */
     --transition-fast: 150ms;
     --transition-normal: 200ms;
@@ -176,6 +193,18 @@
     --component-card-border: rgb(75 85 99);
     --component-modal-content-bg: rgb(31 41 55);
     --component-modal-border: rgb(75 85 99);
+
+    /* Select / Dropdown */
+    --component-select-background: rgb(31 41 55);
+    --component-select-border-default: rgb(75 85 99);
+    --component-select-border-focus: rgb(96 165 250);
+    --component-select-text-color: rgb(249 250 251);
+    --component-select-icon-color: rgb(156 163 175);
+    --component-select-popup-bg: rgb(31 41 55);
+    --component-select-popup-border: rgb(75 85 99);
+    --component-select-item-hover: rgb(55 65 81);
+    --component-select-item-selected-bg: rgb(59 130 246);
+    --component-select-item-selected-text: rgb(255 255 255);
   }
 
   /* ===== BASE STYLES ===== */

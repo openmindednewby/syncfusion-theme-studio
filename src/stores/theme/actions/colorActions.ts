@@ -4,21 +4,24 @@ import { generateDerivedColors, generatePaletteFromBase } from '@/utils';
 import type { DerivedComponentColors } from '@/utils';
 
 import { injectThemeVariables } from '../themeInjector';
-
-import type {
-  ButtonsComponentConfig,
-  ColorShade,
-  ComponentConfigSingle,
-  ComponentsConfig,
-  InputsConfig,
-  SidebarComponentConfig,
-  StatusKey,
-  StatusShade,
-  ThemeConfig,
+import { type StatusKey, type StatusShade ,
+  type ButtonsComponentConfig,
+  type ColorShade,
+  type ComponentConfigSingle,
+  type ComponentsConfig,
+  type InputsConfig,
+  type SidebarComponentConfig,
+  type ThemeConfig,
 } from '../types';
+
+
 import type { ColorUpdateActions, GetState, SetState } from './types';
 
-type ColorScaleKey = 'primary' | 'secondary' | 'neutral';
+const enum ColorScaleKey {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Neutral = 'neutral',
+}
 
 interface ColorScaleUpdate {
   scaleKey: ColorScaleKey;
@@ -97,11 +100,11 @@ export function createColorUpdateActions(set: SetState, get: GetState): ColorUpd
 
   return {
     updatePrimaryColor: (shade, value) =>
-      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: 'primary', shade, value })),
+      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: ColorScaleKey.Primary, shade, value })),
     updateSecondaryColor: (shade, value) =>
-      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: 'secondary', shade, value })),
+      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: ColorScaleKey.Secondary, shade, value })),
     updateNeutralColor: (shade, value) =>
-      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: 'neutral', shade, value })),
+      applyAndInject(buildColorScaleTheme(get().theme, { scaleKey: ColorScaleKey.Neutral, shade, value })),
     updateStatusColor: (status, shade, value) =>
       applyAndInject(buildStatusColorTheme(get().theme, { status, shade, value })),
     updatePrimaryPalette: (baseColor, cascadeToComponents) => {

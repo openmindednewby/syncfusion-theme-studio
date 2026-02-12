@@ -15,9 +15,12 @@ test.describe('Navigation', () => {
     await dashboardPage.expectDashboardVisible();
   });
 
-  test('navigates to products page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_PRODUCTS).click();
-    await expect(page).toHaveURL('/dashboard/products');
+  test('navigates to products page via sidebar sub-menu', async ({ page }) => {
+    // Products is now an expandable sub-menu - expand it first
+    await page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND).click();
+    // Click on Native products (first sub-item)
+    await page.getByTestId(TestIds.NAV_PRODUCTS_NATIVE).click();
+    await expect(page).toHaveURL('/dashboard/products/native');
   });
 
   test('navigates to components page via sidebar sub-menu', async ({ page }) => {

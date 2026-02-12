@@ -12,6 +12,12 @@ import jsoncParser from 'jsonc-eslint-parser';
 import smartMaxLinesPlugin from './eslint-plugins/smart-max-lines.mjs';
 import noNullCheckPlugin from './eslint-plugins/no-null-check.mjs';
 import i18nInterpolationPlugin from './eslint-plugins/i18n-interpolation.mjs';
+import enforceLazyPreloadPlugin from './eslint-plugins/enforce-lazy-preload.mjs';
+import preferConstEnumPlugin from './eslint-plugins/prefer-const-enum.mjs';
+import enumFileIsolationPlugin from './eslint-plugins/enum-file-isolation.mjs';
+import reactCompilerPlugin from 'eslint-plugin-react-compiler';
+import requireStableHookArgsPlugin from './eslint-plugins/require-stable-hook-args.mjs';
+import noBarrelCompanionFilePlugin from './eslint-plugins/no-barrel-companion-file.mjs';
 
 export default [
   // =====================================================
@@ -21,6 +27,7 @@ export default [
     ignores: [
       'node_modules/**',
       'dist/**',
+      'dev-dist/**', // PWA service worker dev files
       '**/*.d.ts',
       'public/**',
       '*.config.js',
@@ -95,6 +102,11 @@ export default [
       'unused-imports': unusedImportsPlugin,
       'smart-max-lines': smartMaxLinesPlugin,
       'no-null-check': noNullCheckPlugin,
+      'prefer-const-enum': preferConstEnumPlugin,
+      'enum-file-isolation': enumFileIsolationPlugin,
+      'react-compiler': reactCompilerPlugin,
+      'require-stable-hook-args': requireStableHookArgsPlugin,
+      'no-barrel-companion-file': noBarrelCompanionFilePlugin,
     },
     settings: {
       react: { version: 'detect' },
@@ -263,7 +275,7 @@ export default [
       }],
       'react/hook-use-state': 'error',
       'react/no-unstable-nested-components': ['error', { allowAsProps: true }],
-      'react/no-array-index-key': 'warn',
+      'react/no-array-index-key': 'error',
       'react/jsx-no-leaked-render': 'error',
       'react/jsx-no-literals': ['warn', {
         noStrings: true,
@@ -280,6 +292,20 @@ export default [
       // =====================================================
       'react-hooks/rules-of-hooks': 'error',
       'react-hooks/exhaustive-deps': 'error',
+
+      // =====================================================
+      // REACT COMPILER & HOOK STABILITY RULES
+      // =====================================================
+      // React Compiler ESLint: catches violations of React's Rules
+      // (unstable refs in deps, conditional hooks, mutating props, etc.)
+      'react-compiler/react-compiler': 'warn',
+      // Custom: flags functions/objects/arrays passed to hooks without useCallback/useMemo
+      'require-stable-hook-args/require-stable-hook-args': ['warn', {
+        ignoreHookPatterns: [
+          // Auto-generated API hooks (safe - don't use args as deps)
+          '^useApi',
+        ],
+      }],
 
       // =====================================================
       // WEB ACCESSIBILITY RULES (jsx-a11y)
@@ -356,7 +382,7 @@ export default [
       // =====================================================
       // FILE AND FUNCTION SIZE LIMITS (custom plugins)
       // =====================================================
-      'max-lines': ['warn', {
+      'max-lines': ['error', {
         max: 200,
         skipBlankLines: true,
         skipComments: true,
@@ -373,6 +399,18 @@ export default [
       // NULL CHECK RULE (custom plugin)
       // =====================================================
       'no-null-check/no-null-check': 'error',
+
+      // =====================================================
+      // ENUM ENFORCEMENT (custom plugins)
+      // =====================================================
+      'prefer-const-enum/prefer-const-enum': 'warn',
+      'enum-file-isolation/enum-file-isolation': 'warn',
+
+      // =====================================================
+      // BARREL FILE CONFLICT PREVENTION
+      // =====================================================
+      // Flags foo.ts when foo/index.ts also exists (TS resolves to file, ignoring barrel)
+      'no-barrel-companion-file/no-barrel-companion-file': 'error',
 
       // =====================================================
       // GENERAL BEST PRACTICES
@@ -439,7 +477,7 @@ export default [
       }],
       'no-restricted-syntax': [
         'error',
-        { selector: 'TSEnumDeclaration:not([const])', message: 'Use const enum or union types instead of enum' },
+        { selector: 'TSEnumDeclaration:not([const])', message: 'Use const enum instead of enum. String literal union types should also use const enum.' },
         { selector: 'IfStatement > LogicalExpression[left.type="LogicalExpression"]', message: 'Condition has more than 2 expressions. Extract to a named variable' },
         { selector: 'IfStatement > LogicalExpression[right.type="LogicalExpression"]', message: 'Condition has more than 2 expressions. Extract to a named variable' },
         { selector: 'ConditionalExpression > LogicalExpression[left.type="LogicalExpression"]', message: 'Ternary condition has more than 2 expressions. Extract to a named variable' },
@@ -497,7 +535,7 @@ export default [
   // TEST FILE OVERRIDES
   // =====================================================
   {
-    files: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/__tests__/**'],
+    files: ['**/*.test.ts', '**/*.test.tsx', '**/*.spec.ts', '**/*.spec.tsx', '**/__tests__/**', '**/test/fixtures/**'],
     languageOptions: {
       globals: {
         describe: 'readonly',
@@ -523,14 +561,19 @@ export default [
         assertionStyle: 'as',
         objectLiteralTypeAssertions: 'allow-as-parameter',
       }],
+      'max-lines': 'off', // Test files can be longer due to setup/assertions/fixtures
       'max-nested-callbacks': 'off',
       'smart-max-lines/smart-max-lines': 'off',
       'no-magic-numbers': 'off',
       'no-console': 'off',
       'no-script-url': 'off',
       'no-null-check/no-null-check': 'off', // Allow null/undefined checks in test mocks
+      'prefer-const-enum/prefer-const-enum': 'off',
+      'enum-file-isolation/enum-file-isolation': 'off',
       'react/jsx-no-literals': 'off', // Tests often have hardcoded strings in assertions
       'i18next/no-literal-string': 'off', // Tests use hardcoded strings
+      'react-compiler/react-compiler': 'off',
+      'require-stable-hook-args/require-stable-hook-args': 'off',
     },
   },
 
@@ -555,6 +598,21 @@ export default [
     },
     rules: {
       'i18n-interpolation/i18n-interpolation': 'error',
+    },
+  },
+
+  // =====================================================
+  // ENFORCE LAZY ROUTE PRELOADING
+  // =====================================================
+  {
+    files: ['src/app/routes.tsx'],
+    plugins: {
+      'enforce-lazy-preload': enforceLazyPreloadPlugin,
+    },
+    rules: {
+      'enforce-lazy-preload/enforce-lazy-preload': ['error', {
+        preloadFunctionName: 'preloadRoutePages',
+      }],
     },
   },
 

@@ -1,16 +1,17 @@
 {
   "ci": {
     "collect": {
-      "url": ["http://localhost:4444/"],
+      "url": ["http://localhost:4445/"],
       "numberOfRuns": 3,
       "settings": {
-        "chromeFlags": "--headless --no-sandbox --disable-gpu",
+        "preset": "desktop",
+        "chromeFlags": "--headless=new --no-sandbox",
         "onlyCategories": ["performance", "accessibility", "best-practices", "seo", "pwa"]
       }
     },
     "assert": {
       "assertions": {
-        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:performance": ["error", { "minScore": 0.95 }],
         "categories:accessibility": ["error", { "minScore": 1 }],
         "categories:best-practices": ["error", { "minScore": 1 }],
         "categories:seo": ["error", { "minScore": 1 }],

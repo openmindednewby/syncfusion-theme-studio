@@ -1,16 +1,20 @@
 import { useState } from 'react';
 
+import AlertNative, { AlertVariant } from '@/components/ui/AlertNative';
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { rgbStringToHex, hexToRgbString } from '@/utils';
 
 import { ColorPicker } from './ColorPicker';
-import { InfoIcon, PaletteIcon, SlidersIcon, WandIcon } from './ColorsSectionIcons';
+import { PaletteIcon, SlidersIcon, WandIcon } from './ColorsSectionIcons';
 
 const COLOR_SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
 const DARK_SHADE_THRESHOLD = 500;
 
-type PaletteMode = 'auto' | 'manual';
+const enum PaletteMode {
+  Auto = 'auto',
+  Manual = 'manual',
+}
 
 interface ModeButtonProps {
   active: boolean;
@@ -34,7 +38,7 @@ const ModeButton = ({ active, icon, label, onClick }: ModeButtonProps): JSX.Elem
 
 export const ColorsSection = (): JSX.Element => {
   const { theme, updatePrimaryColor, updatePrimaryPalette } = useThemeStore();
-  const [paletteMode, setPaletteMode] = useState<PaletteMode>('auto');
+  const [paletteMode, setPaletteMode] = useState<PaletteMode>(PaletteMode.Auto);
 
   const baseColorHex = rgbStringToHex(theme.primary['500']);
 
@@ -64,21 +68,21 @@ export const ColorsSection = (): JSX.Element => {
       {/* Mode Toggle */}
       <div className="flex rounded-lg border border-border bg-surface p-1">
         <ModeButton
-          active={paletteMode === 'auto'}
+          active={paletteMode === PaletteMode.Auto}
           icon={<WandIcon />}
           label={FM('themeSettings.autoPalette')}
-          onClick={() => setPaletteMode('auto')}
+          onClick={() => setPaletteMode(PaletteMode.Auto)}
         />
         <ModeButton
-          active={paletteMode === 'manual'}
+          active={paletteMode === PaletteMode.Manual}
           icon={<SlidersIcon />}
           label={FM('themeSettings.manual')}
-          onClick={() => setPaletteMode('manual')}
+          onClick={() => setPaletteMode(PaletteMode.Manual)}
         />
       </div>
 
       {/* Auto Mode */}
-      {paletteMode === 'auto' && (
+      {paletteMode === PaletteMode.Auto && (
         <div className="space-y-4">
           <div className="rounded-xl border border-border bg-surface-elevated/30 p-4">
             <label className="text-sm font-medium text-text-primary" htmlFor="base-color">{FM('themeSettings.baseColor')}</label>
@@ -101,15 +105,9 @@ export const ColorsSection = (): JSX.Element => {
             </div>
           </div>
 
-          <div className="flex items-start gap-2 rounded-lg border border-info-500/20 bg-info-50/50 p-3">
-            <InfoIcon />
-            <div>
-              <p className="text-xs font-medium text-info-700">{FM('themeSettings.autoUpdatesTitle')}</p>
-              <p className="mt-0.5 text-[11px] text-info-700/80">
-                {FM('themeSettings.autoUpdatesDesc')}
-              </p>
-            </div>
-          </div>
+          <AlertNative title={FM('themeSettings.autoUpdatesTitle')} variant={AlertVariant.Info}>
+            {FM('themeSettings.autoUpdatesDesc')}
+          </AlertNative>
 
           <div className="rounded-xl border border-border bg-surface-elevated/30 p-4">
             <p className="mb-3 text-xs font-medium text-text-secondary">{FM('themeSettings.generatedPalette')}</p>
@@ -133,7 +131,7 @@ export const ColorsSection = (): JSX.Element => {
       )}
 
       {/* Manual Mode */}
-      {paletteMode === 'manual' && (
+      {paletteMode === PaletteMode.Manual && (
         <div className="space-y-4">
           <div className="rounded-xl border border-border bg-surface-elevated/30 p-4">
             <div className="mb-4 flex h-8 overflow-hidden rounded-lg shadow-sm">

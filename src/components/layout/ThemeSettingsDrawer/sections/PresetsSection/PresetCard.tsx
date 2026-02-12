@@ -11,6 +11,12 @@ function rgbToStyle(rgb: string): string {
   return `rgb(${parts.join(', ')})`;
 }
 
+/** Build unique keys for color swatches by appending occurrence index for duplicates. */
+function buildColorKey(colors: readonly string[], color: string, position: number): string {
+  const priorCount = colors.slice(0, position).filter((c) => c === color).length;
+  return priorCount > 0 ? `${color}-${priorCount}` : color;
+}
+
 interface PresetCardProps {
   preset: ThemePreset;
   isActive: boolean;
@@ -37,9 +43,9 @@ export const PresetCard = ({ isActive, onApply, preset }: PresetCardProps): JSX.
     >
       {/* Color Preview Strip */}
       <div className="mb-2 flex h-6 w-full overflow-hidden rounded">
-        {preset.previewColors.map((color) => (
+        {preset.previewColors.map((color, idx) => (
           <div
-            key={color}
+            key={buildColorKey(preset.previewColors, color, idx)}
             className="flex-1"
             style={{ backgroundColor: rgbToStyle(color) }}
           />

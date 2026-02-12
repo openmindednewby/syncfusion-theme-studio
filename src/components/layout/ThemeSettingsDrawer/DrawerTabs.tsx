@@ -1,16 +1,16 @@
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
-export type TabId = 'colors' | 'typography' | 'layout' | 'lightTheme' | 'darkTheme' | 'components' | 'presets';
+import { TabId } from './tabId';
 
 const TAB_TEST_ID_MAP: Record<TabId, string> = {
-  colors: TestIds.THEME_TAB_COLORS,
-  typography: TestIds.THEME_TAB_TYPOGRAPHY,
-  layout: TestIds.THEME_TAB_LAYOUT,
-  lightTheme: TestIds.THEME_TAB_LIGHT,
-  darkTheme: TestIds.THEME_TAB_DARK,
-  components: TestIds.THEME_TAB_COMPONENTS,
-  presets: TestIds.THEME_TAB_PRESETS,
+  [TabId.Colors]: TestIds.THEME_TAB_COLORS,
+  [TabId.Typography]: TestIds.THEME_TAB_TYPOGRAPHY,
+  [TabId.Layout]: TestIds.THEME_TAB_LAYOUT,
+  [TabId.LightTheme]: TestIds.THEME_TAB_LIGHT,
+  [TabId.DarkTheme]: TestIds.THEME_TAB_DARK,
+  [TabId.Components]: TestIds.THEME_TAB_COMPONENTS,
+  [TabId.Presets]: TestIds.THEME_TAB_PRESETS,
 };
 
 interface Tab {
@@ -81,13 +81,13 @@ const SwatchesIcon = (): JSX.Element => (
 );
 
 const TABS: Tab[] = [
-  { id: 'colors', labelKey: 'themeSettings.tabs.colors', icon: <PaletteIcon /> },
-  { id: 'typography', labelKey: 'themeSettings.tabs.typography', icon: <TextIcon /> },
-  { id: 'layout', labelKey: 'themeSettings.tabs.layout', icon: <GridIcon /> },
-  { id: 'lightTheme', labelKey: 'themeSettings.tabs.lightTheme', icon: <SunIcon /> },
-  { id: 'darkTheme', labelKey: 'themeSettings.tabs.darkTheme', icon: <MoonIcon /> },
-  { id: 'components', labelKey: 'themeSettings.tabs.components', icon: <PuzzleIcon /> },
-  { id: 'presets', labelKey: 'themeSettings.tabs.presets', icon: <SwatchesIcon /> },
+  { id: TabId.Colors, labelKey: 'themeSettings.tabs.colors', icon: <PaletteIcon /> },
+  { id: TabId.Typography, labelKey: 'themeSettings.tabs.typography', icon: <TextIcon /> },
+  { id: TabId.Layout, labelKey: 'themeSettings.tabs.layout', icon: <GridIcon /> },
+  { id: TabId.LightTheme, labelKey: 'themeSettings.tabs.lightTheme', icon: <SunIcon /> },
+  { id: TabId.DarkTheme, labelKey: 'themeSettings.tabs.darkTheme', icon: <MoonIcon /> },
+  { id: TabId.Components, labelKey: 'themeSettings.tabs.components', icon: <PuzzleIcon /> },
+  { id: TabId.Presets, labelKey: 'themeSettings.tabs.presets', icon: <SwatchesIcon /> },
 ];
 
 interface DrawerTabsProps {

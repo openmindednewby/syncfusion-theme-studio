@@ -12,7 +12,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-type Mode = 'light' | 'dark';
+import { Mode } from './mode';
 
 interface ModeState {
   mode: Mode;
@@ -23,7 +23,7 @@ interface ModeState {
 /** Apply mode to document (adds/removes 'dark' class) */
 function applyModeToDocument(mode: Mode): void {
   const root = document.documentElement;
-  if (mode === 'dark') root.classList.add('dark');
+  if (mode === Mode.Dark) root.classList.add('dark');
   else root.classList.remove('dark');
 }
 
@@ -31,13 +31,13 @@ export const useModeStore = create<ModeState>()(
   devtools(
     persist(
       (set, get) => ({
-        mode: 'light',
+        mode: Mode.Light,
         setMode: (mode) => {
           set({ mode }, false, 'setMode');
           applyModeToDocument(mode);
         },
         toggleMode: () => {
-          const newMode = get().mode === 'light' ? 'dark' : 'light';
+          const newMode = get().mode === Mode.Light ? Mode.Dark : Mode.Light;
           set({ mode: newMode }, false, 'toggleMode');
           applyModeToDocument(newMode);
         },

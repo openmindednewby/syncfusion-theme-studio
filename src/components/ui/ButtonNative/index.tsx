@@ -10,9 +10,19 @@ import { memo, forwardRef, type ButtonHTMLAttributes } from 'react';
 import { cn } from '@/utils/cn';
 
 /** Available button style variants */
-type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+const enum ButtonVariant {
+  Primary = 'primary',
+  Secondary = 'secondary',
+  Outline = 'outline',
+  Ghost = 'ghost',
+  Danger = 'danger',
+}
 /** Available button size presets */
-type ButtonSize = 'sm' | 'md' | 'lg';
+const enum ButtonSize {
+  Sm = 'sm',
+  Md = 'md',
+  Lg = 'lg',
+}
 
 interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   /** Button variant */
@@ -32,24 +42,24 @@ interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className
 }
 
 const VARIANT_CLASSES: Record<ButtonVariant, string> = {
-  primary: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800', // primary-600 for WCAG AA contrast
-  secondary: 'bg-surface-elevated text-text-primary hover:bg-surface-hover',
-  outline: 'border border-border bg-transparent text-text-primary hover:bg-surface',
-  ghost: 'bg-transparent text-text-primary hover:bg-surface',
-  danger: 'bg-error-500 text-white hover:bg-error-600 active:bg-error-700',
+  [ButtonVariant.Primary]: 'bg-primary-600 text-white hover:bg-primary-700 active:bg-primary-800', // primary-600 for WCAG AA contrast
+  [ButtonVariant.Secondary]: 'bg-surface-elevated text-text-primary hover:bg-surface-hover',
+  [ButtonVariant.Outline]: 'border border-border bg-transparent text-text-primary hover:bg-surface',
+  [ButtonVariant.Ghost]: 'bg-transparent text-text-primary hover:bg-surface',
+  [ButtonVariant.Danger]: 'bg-error-500 text-white hover:bg-error-600 active:bg-error-700',
 };
 
 const SIZE_CLASSES: Record<ButtonSize, string> = {
-  sm: 'h-8 px-3 text-xs',
-  md: 'h-10 px-4 text-sm',
-  lg: 'h-12 px-6 text-base',
+  [ButtonSize.Sm]: 'h-8 px-3 text-xs',
+  [ButtonSize.Md]: 'h-10 px-4 text-sm',
+  [ButtonSize.Lg]: 'h-12 px-6 text-base',
 };
 
 const ButtonNative = forwardRef<HTMLButtonElement, Props>(
   (
     {
-      variant = 'primary',
-      size = 'md',
+      variant = ButtonVariant.Primary,
+      size = ButtonSize.Md,
       className,
       testId,
       ariaLabel,
@@ -88,4 +98,5 @@ const ButtonNative = forwardRef<HTMLButtonElement, Props>(
 ButtonNative.displayName = 'ButtonNative';
 
 export default memo(ButtonNative);
-export type { Props as ButtonNativeProps, ButtonVariant, ButtonSize };
+export { ButtonVariant, ButtonSize };
+export type { Props as ButtonNativeProps };

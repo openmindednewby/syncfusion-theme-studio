@@ -12,7 +12,11 @@ import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
 /** Dialog style variants controlling button defaults and appearance */
-type DialogVariant = 'default' | 'confirm' | 'danger';
+const enum DialogVariant {
+  Default = 'default',
+  Confirm = 'confirm',
+  Danger = 'danger',
+}
 
 interface DialogButton {
   /** Button text */
@@ -65,7 +69,7 @@ const DialogNative = ({
   children,
   isOpen,
   onClose,
-  variant = 'default',
+  variant = DialogVariant.Default,
   primaryButton,
   secondaryButton,
   className,
@@ -113,7 +117,7 @@ const DialogNative = ({
     defaultVariant: string,
   ): 'primary' | 'secondary' | 'danger' => {
     if (isValueDefined(button.variant)) return button.variant;
-    if (variant === 'danger' && defaultVariant === 'primary') return 'danger';
+    if (variant === DialogVariant.Danger && defaultVariant === 'primary') return 'danger';
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return defaultVariant as 'primary' | 'secondary' | 'danger';
   };
@@ -208,4 +212,5 @@ const DialogNative = ({
 DialogNative.displayName = 'DialogNative';
 
 export default memo(DialogNative);
-export type { Props as DialogNativeProps, DialogButton as DialogNativeButton, DialogVariant };
+export { DialogVariant };
+export type { Props as DialogNativeProps, DialogButton as DialogNativeButton };

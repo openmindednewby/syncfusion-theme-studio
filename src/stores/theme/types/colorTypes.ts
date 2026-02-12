@@ -1,6 +1,8 @@
 // Color-related type definitions
 
-export type Mode = 'light' | 'dark';
+export { Mode } from '../../mode';
+export { StatusKey } from './statusKey';
+export { StatusShade } from './statusShade';
 
 export interface ColorScale {
   '50': string;
@@ -30,8 +32,6 @@ export interface StatusColors {
   info: StatusColor;
 }
 
-export type StatusKey = 'success' | 'warning' | 'error' | 'info';
-export type StatusShade = '50' | '100' | '200' | '500' | '700';
 export type ColorShade = keyof ColorScale;
 
 export interface BackgroundColors {

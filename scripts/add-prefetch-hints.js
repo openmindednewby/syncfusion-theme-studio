@@ -29,8 +29,9 @@ const PREFETCH_CHUNKS = [
 // These will still load when needed, just not preloaded immediately
 const REMOVE_FROM_MODULEPRELOAD = [
   'syncfusion-grid',
-  'react-vendor', // Contains React Router 7 (~75KB gzip) - defer until App loads
-  'query-vendor', // React Query - not needed for initial spinner render
+  // react-vendor is now on the critical path (App loaded synchronously)
+  // so its modulepreload is kept to allow early discovery.
+  'query-vendor', // React Query - not needed for login page render
 ];
 
 function addPrefetchHints() {

@@ -1,6 +1,9 @@
 // Default light mode component configurations
 
-import type { ComponentConfigSingle } from '../types';
+import { ShadowScale, type ComponentConfigSingle } from '../types';
+import { DEFAULT_FEEDBACK_LIGHT } from './defaultFeedbackLight';
+import { DEFAULT_NAVIGATION_LIGHT } from './defaultNavigationLight';
+import { DEFAULT_PAGINATION_LIGHT } from './defaultPaginationLight';
 
 export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
   header: {
@@ -8,7 +11,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     textColor: '17 24 39',
     borderBottom: '229 231 235',
     height: '64px',
-    shadow: 'sm',
+    shadow: ShadowScale.Sm,
   },
   sidebar: {
     background: '249 250 251',
@@ -30,7 +33,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
       borderColor: 'transparent',
       borderWidth: '0px',
       borderRadius: 'md',
-      shadow: 'sm',
+      shadow: ShadowScale.Sm,
     },
     secondary: {
       background: '243 244 246',
@@ -41,7 +44,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
       borderColor: 'transparent',
       borderWidth: '0px',
       borderRadius: 'md',
-      shadow: 'none',
+      shadow: ShadowScale.None,
     },
     outline: {
       background: 'transparent',
@@ -52,7 +55,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
       borderColor: '59 130 246',
       borderWidth: '1px',
       borderRadius: 'md',
-      shadow: 'none',
+      shadow: ShadowScale.None,
     },
     ghost: {
       background: 'transparent',
@@ -63,7 +66,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
       borderColor: 'transparent',
       borderWidth: '0px',
       borderRadius: 'md',
-      shadow: 'none',
+      shadow: ShadowScale.None,
     },
     danger: {
       background: '239 68 68',
@@ -74,7 +77,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
       borderColor: 'transparent',
       borderWidth: '0px',
       borderRadius: 'md',
-      shadow: 'sm',
+      shadow: ShadowScale.Sm,
     },
   },
   inputs: {
@@ -92,6 +95,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     borderRadius: 'md',
   },
   dataGrid: {
+    // Header & Rows
     headerBackground: '249 250 251',
     headerTextColor: '55 65 81',
     headerBorder: '229 231 235',
@@ -102,6 +106,63 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     cellBorderColor: '229 231 235',
     cellPadding: '12px 16px',
     paginationBackground: '255 255 255',
+
+    // Toolbar
+    toolbarBackground: '249 250 251',
+    toolbarTextColor: '55 65 81',
+    toolbarBorderColor: '229 231 235',
+
+    // Filter Row
+    filterRowBackground: '255 255 255',
+    filterRowBorderColor: '229 231 235',
+    filterInputBackground: '255 255 255',
+
+    // Grouping
+    groupHeaderBackground: '243 244 246',
+    groupHeaderTextColor: '55 65 81',
+    groupDropAreaBackground: '249 250 251',
+
+    // Footer / Aggregates
+    footerBackground: '249 250 251',
+    footerTextColor: '55 65 81',
+
+    // Editing
+    editCellBackground: '255 255 255',
+    editCellBorderColor: '59 130 246',
+    editDirtyIndicatorColor: '245 158 11',
+
+    // Selection
+    rowSelectedTextColor: '17 24 39',
+    cellSelectedBackground: '219 234 254',
+
+    // Sort & Resize
+    sortIconColor: '107 114 128',
+    resizeHandleColor: '209 213 219',
+
+    // Pagination extras
+    paginationTextColor: '55 65 81',
+    paginationActiveBackground: '59 130 246',
+    paginationActiveTextColor: '255 255 255',
+    paginationHoverBackground: '243 244 246',
+    paginationBorderColor: '229 231 235',
+    paginationNavColor: '107 114 128',
+    paginationNavDisabledColor: '209 213 219',
+    paginationInfoTextColor: '107 114 128',
+
+    // Action Column
+    actionButtonColor: '59 130 246',
+    actionButtonHoverColor: '37 99 235',
+
+    // Detail Row
+    detailRowBackground: '249 250 251',
+
+    // Drag Handle
+    dragHandleColor: '156 163 175',
+
+    // Column & Row Settings
+    defaultTextAlign: 'left',
+    headerTextAlign: 'left',
+    rowHeight: '42px',
   },
   cards: {
     background: '255 255 255',
@@ -161,146 +222,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     borderRadius: 'full',
     padding: '2px 8px',
   },
-  select: {
-    background: '255 255 255',
-    borderDefault: '209 213 219',
-    borderHover: '156 163 175',
-    borderFocus: '59 130 246',
-    borderError: '239 68 68',
-    textColor: '17 24 39',
-    placeholderColor: '156 163 175',
-    iconColor: '107 114 128',
-    popupBackground: '255 255 255',
-    popupBorderColor: '229 231 235',
-    itemHoverBackground: '249 250 251',
-    itemSelectedBackground: '239 246 255',
-    itemSelectedTextColor: '29 78 216',
-    borderRadius: 'md',
-  },
-  datePicker: {
-    background: '255 255 255',
-    borderDefault: '209 213 219',
-    borderHover: '156 163 175',
-    borderFocus: '59 130 246',
-    borderError: '239 68 68',
-    textColor: '17 24 39',
-    placeholderColor: '156 163 175',
-    iconColor: '107 114 128',
-    calendarBackground: '255 255 255',
-    calendarHeaderBackground: '249 250 251',
-    calendarHeaderTextColor: '17 24 39',
-    calendarCellHoverBackground: '249 250 251',
-    calendarSelectedBackground: '59 130 246',
-    calendarSelectedTextColor: '255 255 255',
-    calendarTodayBorderColor: '59 130 246',
-    calendarOtherMonthTextColor: '156 163 175',
-    borderRadius: 'md',
-  },
-  dialog: {
-    backdropColor: 'rgba(0, 0, 0, 0.5)',
-    backdropBlur: '4px',
-    contentBackground: '255 255 255',
-    borderColor: '229 231 235',
-    borderRadius: 'xl',
-    shadow: '0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)',
-    headerBackground: '255 255 255',
-    headerTextColor: '17 24 39',
-    footerBackground: '249 250 251',
-    closeButtonColor: '107 114 128',
-    closeButtonHoverBackground: '249 250 251',
-  },
-  errorMessages: {
-    textColor: '239 68 68',
-    fontSize: '0.75rem',
-    fontWeight: '400',
-    animation: 'fadeIn',
-    animationDuration: '200ms',
-    iconColor: '239 68 68',
-    iconSize: '0.875rem',
-  },
-  flexBox: {
-    containerBackground: '255 255 255',
-    containerBorderColor: '229 231 235',
-    containerBorderRadius: 'lg',
-    containerPadding: '16px',
-    gap: '16px',
-    direction: 'row',
-    wrap: 'wrap',
-    justifyContent: 'flex-start',
-    alignItems: 'stretch',
-    itemBackground: '249 250 251',
-    itemBorderColor: '229 231 235',
-    itemBorderRadius: 'md',
-    itemPadding: '12px',
-  },
-  alerts: {
-    success: {
-      background: '220 252 231',
-      textColor: '21 128 61',
-      borderColor: '187 247 208',
-      iconColor: '34 197 94',
-    },
-    warning: {
-      background: '254 249 195',
-      textColor: '161 98 7',
-      borderColor: '254 240 138',
-      iconColor: '234 179 8',
-    },
-    error: {
-      background: '254 226 226',
-      textColor: '185 28 28',
-      borderColor: '254 202 202',
-      iconColor: '239 68 68',
-    },
-    info: {
-      background: '219 234 254',
-      textColor: '29 78 216',
-      borderColor: '191 219 254',
-      iconColor: '59 130 246',
-    },
-    borderRadius: 'md',
-    borderWidth: '1px',
-    padding: '12px 16px',
-  },
-  toast: {
-    background: '255 255 255',
-    textColor: '55 65 81',
-    titleColor: '17 24 39',
-    borderColor: '229 231 235',
-    borderRadius: 'lg',
-    shadow: '0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1)',
-    closeButtonColor: '107 114 128',
-    closeButtonHoverColor: '55 65 81',
-    progressBarColor: '59 130 246',
-    successBackground: '240 253 244',
-    successTextColor: '21 128 61',
-    successIconColor: '34 197 94',
-    warningBackground: '255 251 235',
-    warningTextColor: '161 98 7',
-    warningIconColor: '234 179 8',
-    errorBackground: '254 242 242',
-    errorTextColor: '185 28 28',
-    errorIconColor: '239 68 68',
-    infoBackground: '239 246 255',
-    infoTextColor: '29 78 216',
-    infoIconColor: '59 130 246',
-  },
-  message: {
-    borderRadius: 'md',
-    successBackground: '220 252 231',
-    successTextColor: '21 128 61',
-    successBorderColor: '187 247 208',
-    warningBackground: '254 249 195',
-    warningTextColor: '161 98 7',
-    warningBorderColor: '254 240 138',
-    errorBackground: '254 226 226',
-    errorTextColor: '185 28 28',
-    errorBorderColor: '254 202 202',
-    infoBackground: '219 234 254',
-    infoTextColor: '29 78 216',
-    infoBorderColor: '191 219 254',
-    normalBackground: '249 250 251',
-    normalTextColor: '55 65 81',
-    normalBorderColor: '229 231 235',
-  },
+  pagination: DEFAULT_PAGINATION_LIGHT,
+  ...DEFAULT_FEEDBACK_LIGHT,
+  ...DEFAULT_NAVIGATION_LIGHT,
 };

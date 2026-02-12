@@ -12,8 +12,9 @@ import {
   injectTransitionVariables,
   injectTypographyVariables,
 } from './injectors';
+import { Mode } from './types';
 
-import type { Mode, ThemeConfig } from './types';
+import type { ThemeConfig } from './types';
 
 
 export function injectThemeVariables(theme: ThemeConfig, mode: Mode): void {
@@ -35,15 +36,15 @@ export function injectThemeVariables(theme: ThemeConfig, mode: Mode): void {
     injectTransitionVariables(root, theme);
 
     // Inject mode-specific colors
-    const modeConfig = mode === 'dark' ? theme.dark : theme.light;
+    const modeConfig = mode === Mode.Dark ? theme.dark : theme.light;
     injectModeColors(root, modeConfig);
 
     // Inject mode-specific component variables
-    const componentConfig = mode === 'dark' ? theme.components.dark : theme.components.light;
+    const componentConfig = mode === Mode.Dark ? theme.components.dark : theme.components.light;
     injectComponentVariables(root, componentConfig);
 
     // Toggle dark class
-    if (mode === 'dark') root.classList.add('dark');
+    if (mode === Mode.Dark) root.classList.add('dark');
     else root.classList.remove('dark');
   });
 }

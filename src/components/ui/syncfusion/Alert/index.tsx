@@ -11,28 +11,29 @@ import { memo, useMemo, useEffect } from 'react';
 
 import { MessageComponent } from '@syncfusion/ej2-react-notifications';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
-import { loadSyncfusionCss } from '@/utils';
+import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 import { cn } from '@/utils/cn';
 
-/** Alert severity/variant types */
-export type AlertSeverity = 'success' | 'warning' | 'error' | 'info';
-/** Alert display variants */
-export type AlertDisplayVariant = 'text' | 'outlined' | 'filled';
+import { AlertDisplayVariant } from './alertDisplayVariant';
+import { AlertSeverity } from './alertSeverity';
+
+export { AlertDisplayVariant, AlertSeverity };
 
 /** Map our variant names to Syncfusion Severity enum string values */
 const SEVERITY_MAP: Record<AlertSeverity, string> = {
-  info: 'Info',
-  success: 'Success',
-  warning: 'Warning',
-  error: 'Error',
+  [AlertSeverity.Info]: 'Info',
+  [AlertSeverity.Success]: 'Success',
+  [AlertSeverity.Warning]: 'Warning',
+  [AlertSeverity.Error]: 'Error',
 };
 
 /** Map our display variants to Syncfusion Variant enum string values */
 const DISPLAY_VARIANT_MAP: Record<AlertDisplayVariant, string> = {
-  text: 'Text',
-  outlined: 'Outlined',
-  filled: 'Filled',
+  [AlertDisplayVariant.Text]: 'Text',
+  [AlertDisplayVariant.Outlined]: 'Outlined',
+  [AlertDisplayVariant.Filled]: 'Filled',
 };
 
 export interface Props {
@@ -53,8 +54,8 @@ export interface Props {
 }
 
 const Alert = ({
-  severity = 'info',
-  displayVariant = 'filled',
+  severity = AlertSeverity.Info,
+  displayVariant = AlertDisplayVariant.Filled,
   showCloseIcon = false,
   showIcon = true,
   className,
@@ -65,11 +66,11 @@ const Alert = ({
 
   // Load notifications CSS on mount
   useEffect(() => {
-    loadSyncfusionCss('notifications').catch(() => {});
+    loadSyncfusionCss(SyncfusionCssModule.Notifications).catch(() => {});
   }, []);
 
   const cssClass = useMemo(() => {
-    const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+    const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
     return cn('sf-alert', modeClass, className);
   }, [mode, className]);
 

@@ -1,10 +1,14 @@
+// Side-effect: registers Syncfusion license synchronously at module load time.
+// Must precede any Syncfusion component imports to prevent trial-version banners on refresh.
+import '@/config/syncfusionInit';
+
 import { useEffect } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { initializeSyncfusionLazy } from '@/config/syncfusionLazy';
 import { FM } from '@/localization/helpers';
-import { useThemeInitializer } from '@/stores/useThemeStore';
+import { useThemeInitializer, useThemeStore } from '@/stores/useThemeStore';
+import { cn } from '@/utils/cn';
 
 import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
@@ -22,11 +26,11 @@ export const MainLayout = (): JSX.Element => {
   // Initialize full theme system when entering protected routes
   // This loads the heavy theme injectors (~80KB) only for dashboard pages
   useThemeInitializer();
+  const contentFullWidth = useThemeStore((s) => s.theme.layout.contentFullWidth);
 
-  // Initialize Syncfusion and load app CSS only when entering protected routes
+  // Load Syncfusion CSS dynamically - keeps login page bundle small
+  // License is already registered synchronously via the syncfusionInit side-effect import above.
   useEffect(() => {
-    initializeSyncfusionLazy();
-    // Load Syncfusion CSS dynamically - keeps login page bundle small
     import('@/styles/app.css').catch(() => undefined);
   }, []);
 
@@ -46,8 +50,8 @@ export const MainLayout = (): JSX.Element => {
       {/* Main Content Area */}
       <div className="flex flex-col overflow-hidden">
         <Header />
-        <main className="flex-1 overflow-auto p-6" id={MAIN_CONTENT_ID} tabIndex={-1}>
-          <div className="mx-auto max-w-content">
+        <main className={cn('flex-1 overflow-auto', contentFullWidth ? 'p-2' : 'p-6')} id={MAIN_CONTENT_ID} tabIndex={-1}>
+          <div className={cn('max-w-content', !contentFullWidth && 'mx-auto')}>
             <Outlet />
           </div>
         </main>

@@ -90,7 +90,7 @@
 - use react function components not class components
 - Keep consistency in the creation of the tables (there is a specific way to we create and structure a table) or for any other component. Follow the same approach as other components in the code base and keep the code base structured and consistent.
 
-### Don't use magic strings use Enums
+### Don't use magic strings use Const Enums
 
 Magic strings are hard-coded string values used directly in logic without:
 
@@ -100,30 +100,54 @@ Magic strings are hard-coded string values used directly in logic without:
 - or type–safety.
   They make code harder to maintain, refactor, and debug.
 
-**avoid**
+**Always use `const enum` — never regular `enum` or string literal union types.**
 
 ```ts
-if (linkType === "Ticket") {
-  //...
-} else if (linkType === "Article") {
-  //...
-}
-```
+// ❌ BAD: Magic strings
+if (linkType === "Ticket") { ... }
 
-**do**
+// ❌ BAD: String literal union type (no autocomplete, no refactoring support)
+type LinkType = 'Ticket' | 'Article';
 
-```ts
+// ❌ BAD: Regular enum (creates runtime object)
 enum LinkType {
   Ticket = "Ticket",
   Article = "Article",
 }
 
-if (linkType === "Ticket") {
+// ✅ GOOD: Const enum (inlined at compile time, full IDE support)
+const enum LinkType {
+  Ticket = 'Ticket',
+  Article = 'Article',
+}
+
+if (linkType === LinkType.Ticket) {
   //...
-} else if (linkType === "Article") {
+} else if (linkType === LinkType.Article) {
   //...
 }
 ```
+
+#### Enum File Isolation (ENFORCED BY LINTER)
+
+Each exported enum should live in its own dedicated file. Only related helpers (functions, types, or constants that reference the enum) may share the file.
+
+```ts
+// ❌ BAD: Enum mixed with unrelated exports in the same file
+export const enum ExportType { Csv = 'csv', Excel = 'excel' }
+export interface TableColumn { ... }  // Unrelated to ExportType
+
+// ❌ BAD: Multiple exported enums in one file
+export const enum ErrorActionType { Retry = 'retry', Dismiss = 'dismiss' }
+export const enum ErrorSeverity { Low = 'low', High = 'high' }
+
+// ✅ GOOD: Enum in its own file with related helper
+// file: exportType.ts
+export const enum ExportType { Csv = 'csv', Excel = 'excel' }
+export const exportTypeToLabel = (t: ExportType): string => { ... };
+```
+
+Both rules (`prefer-const-enum` and `enum-file-isolation`) are enforced as warnings by ESLint. They will be upgraded to errors after the existing codebase is migrated.
 
 ### Dont use the ternary conditional operator ? : in HTML
 

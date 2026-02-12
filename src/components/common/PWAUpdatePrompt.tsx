@@ -40,7 +40,7 @@ export const PWAUpdatePrompt = (): JSX.Element | null => {
     >
       <span className="text-sm text-text-primary">{FM('pwa.updateAvailable')}</span>
       <button
-        className="rounded bg-primary-500 px-3 py-1 text-sm text-white hover:bg-primary-600"
+        className="rounded bg-primary-700 px-3 py-1 text-sm text-white hover:bg-primary-800"
         data-testid={TestIds.PWA_UPDATE_BUTTON}
         type="button"
         onClick={handleUpdate}

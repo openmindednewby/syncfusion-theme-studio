@@ -49,15 +49,22 @@ test.describe('PWA', () => {
     // Wait for React app to fully render (login button proves the component tree is mounted)
     await page.getByTestId(TestIds.LOGIN_SUBMIT).waitFor({ state: 'visible', timeout: 15000 });
 
+    // OfflineIndicator is deferred via requestIdleCallback — wait for the idle callback
+    // to fire so the component mounts and attaches its offline/online event listeners
+    await page.waitForFunction(
+      () => new Promise((resolve) => requestIdleCallback(() => resolve(true))),
+      { timeout: 15000 },
+    );
+
     // Verify indicator is not shown when online
     await expect(page.getByTestId(TestIds.OFFLINE_INDICATOR)).not.toBeVisible();
 
     // Go offline
     await context.setOffline(true);
-    await expect(page.getByTestId(TestIds.OFFLINE_INDICATOR)).toBeVisible();
+    await expect(page.getByTestId(TestIds.OFFLINE_INDICATOR)).toBeVisible({ timeout: 10000 });
 
     // Go back online
     await context.setOffline(false);
-    await expect(page.getByTestId(TestIds.OFFLINE_INDICATOR)).not.toBeVisible();
+    await expect(page.getByTestId(TestIds.OFFLINE_INDICATOR)).not.toBeVisible({ timeout: 10000 });
   });
 });

@@ -15,6 +15,7 @@
 
   /* Apply theme font-family to all Syncfusion components */
   /* Note: !important is required to override Syncfusion's hardcoded font-family */
+  /* CRITICAL: .e-icons must be excluded — it uses the 'e-icons' icon font for glyphs */
   .e-control,
   .e-lib,
   .e-popup,
@@ -26,9 +27,22 @@
   .e-radio-wrapper,
   .e-switch-wrapper,
   .e-dropdown-popup,
-  [class^='e-'],
-  [class*=' e-'] {
+  [class^='e-']:not(.e-icons),
+  [class*=' e-']:not(.e-icons) {
     font-family: var(--font-sans) !important;
+  }
+
+  /* Preserve Syncfusion icon font — the 'e-icons' class uses a custom @font-face */
+  /* that maps Unicode code points to vector glyphs (chevrons, checks, arrows, etc.) */
+  .e-icons {
+    font-family: 'e-icons' !important;
+    color: inherit;
+  }
+
+  /* Global: ensure all Syncfusion icon containers are transparent */
+  .e-input-group-icon {
+    background-color: transparent !important;
+    border-left: none !important;
   }
 
   /* ===== BUTTON OVERRIDES ===== */
@@ -230,6 +244,7 @@
   .e-radio-wrapper .e-radio + label::before,
   .e-css.e-radio-wrapper .e-radio + label::before {
     border-color: rgb(var(--color-border)) !important;
+    background-color: transparent !important;
   }
 
   .e-radio-wrapper .e-radio:checked + label::before,
@@ -261,7 +276,7 @@
   /* Uses theme CSS variables for switch colors */
   .e-switch-wrapper .e-switch-inner,
   .e-css.e-switch-wrapper .e-switch-inner {
-    background-color: rgb(var(--color-neutral-300)) !important;
+    background-color: rgb(var(--color-border)) !important;
   }
 
   .e-switch-wrapper .e-switch-on,
@@ -290,33 +305,53 @@
   }
 
   /* ===== CHIP OVERRIDES ===== */
-  /* Uses theme CSS variables for chip colors */
+  /* Base chip styling using component CSS variables */
+  .e-chip,
+  .e-chip-list .e-chip {
+    background-color: var(--component-chip-bg) !important;
+    color: var(--component-chip-text) !important;
+    border-color: var(--component-chip-border) !important;
+    border-radius: var(--component-chip-border-radius) !important;
+    border: 1px solid var(--component-chip-border) !important;
+    font-size: var(--font-size-sm) !important;
+    font-weight: 500 !important;
+    padding: 4px 12px !important;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease !important;
+  }
+
+  .e-chip:hover,
+  .e-chip-list .e-chip:hover {
+    background-color: var(--component-chip-hover-bg) !important;
+    color: var(--component-chip-hover-text) !important;
+  }
+
+  /* Colored variants using theme variables */
   .e-chip.e-primary,
   .e-chip-list .e-chip.e-primary {
-    background-color: rgb(var(--color-primary-500)) !important;
-    border-color: rgb(var(--color-primary-500)) !important;
-    color: #fff !important;
+    background-color: var(--component-chip-primary-bg) !important;
+    border-color: var(--component-chip-primary-border) !important;
+    color: var(--component-chip-primary-text) !important;
   }
 
   .e-chip.e-success,
   .e-chip-list .e-chip.e-success {
-    background-color: rgb(var(--color-success-500)) !important;
-    border-color: rgb(var(--color-success-500)) !important;
-    color: #fff !important;
+    background-color: var(--component-chip-success-bg) !important;
+    border-color: var(--component-chip-success-border) !important;
+    color: var(--component-chip-success-text) !important;
   }
 
   .e-chip.e-warning,
   .e-chip-list .e-chip.e-warning {
-    background-color: rgb(var(--color-warning-500)) !important;
-    border-color: rgb(var(--color-warning-500)) !important;
-    color: #fff !important;
+    background-color: var(--component-chip-warning-bg) !important;
+    border-color: var(--component-chip-warning-border) !important;
+    color: var(--component-chip-warning-text) !important;
   }
 
   .e-chip.e-danger,
   .e-chip-list .e-chip.e-danger {
-    background-color: rgb(var(--color-error-500)) !important;
-    border-color: rgb(var(--color-error-500)) !important;
-    color: #fff !important;
+    background-color: var(--component-chip-danger-bg) !important;
+    border-color: var(--component-chip-danger-border) !important;
+    color: var(--component-chip-danger-text) !important;
   }
 
   /* ===== INPUT OVERRIDES ===== */
@@ -324,46 +359,49 @@
   /* Note: !important is required to override Syncfusion's hardcoded colors */
   /* Selector: Syncfusion renders TextBox as <span class="e-input-group e-control-wrapper"> */
   /* The e-textbox class is on the inner <input>, NOT the wrapper span */
-  /* Exclude dropdowns (.e-ddl) and datepickers (.e-date-wrapper) which have their own overrides */
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper) {
+  /* Exclude dropdowns (.e-ddl), multiselects (.e-multiselect), and datepickers (.e-date-wrapper) which have their own overrides */
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper) {
     background-color: var(--component-input-background) !important;
     border-color: var(--component-input-border-default) !important;
     border-radius: var(--radius-md) !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper):hover:not(.e-disabled) {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper):hover:not(.e-disabled) {
     border-color: var(--component-input-border-hover) !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-input-focus {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-input-focus {
     border-color: var(--component-input-border-focus) !important;
     box-shadow: 0 0 0 3px var(--component-input-focus-ring) !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper) .e-input {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper) .e-input {
     color: var(--component-input-text-color) !important;
     background-color: transparent !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper) .e-input::placeholder {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper) .e-input::placeholder {
     color: var(--component-input-placeholder) !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-disabled {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-disabled {
     opacity: 0.5 !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-error {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-error {
     border-color: var(--component-input-border-error) !important;
   }
 
-  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-date-wrapper).e-error.e-input-focus {
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-error.e-input-focus {
     box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
   }
 
   /* ===== DROPDOWN/SELECT OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
   /* Note: !important is required to override Syncfusion's hardcoded colors */
+  /* Covers: DropDownList (.e-ddl), ComboBox (.e-ddl), AutoComplete (.e-ddl), MultiSelect (.e-multiselect) */
+
+  /* --- Input wrapper: DropDownList / ComboBox / AutoComplete --- */
   .e-ddl.e-control-wrapper {
     background-color: var(--component-select-background) !important;
     border-color: var(--component-select-border-default) !important;
@@ -386,14 +424,68 @@
 
   .e-ddl.e-control-wrapper .e-input-group-icon {
     color: var(--component-select-icon-color) !important;
+    background-color: transparent !important;
+    border: none !important;
   }
 
   .e-ddl.e-control-wrapper.e-error {
     border-color: rgb(var(--color-error-500)) !important;
   }
 
-  /* Dropdown popup */
-  .e-popup.e-ddl {
+  /* --- Input wrapper: MultiSelect --- */
+  .e-multiselect.e-control-wrapper {
+    background-color: var(--component-select-background) !important;
+    border-color: var(--component-select-border-default) !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  .e-multiselect.e-control-wrapper:hover:not(.e-disabled) {
+    border-color: rgb(var(--color-primary-400)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper.e-input-focus {
+    border-color: var(--component-select-border-focus) !important;
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-multi-select-wrapper {
+    background-color: transparent !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-input {
+    color: var(--component-select-text-color) !important;
+    background-color: transparent !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-input-group-icon {
+    color: var(--component-select-icon-color) !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-chips .e-chipcontent {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-chips {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-chips .e-chips-close::before {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper.e-error {
+    border-color: rgb(var(--color-error-500)) !important;
+  }
+
+  /* --- Dropdown popup: all types --- */
+  /* DropDownList, ComboBox, AutoComplete all use .e-ddl on their popup */
+  /* MultiSelect uses .e-multiselect-list-wrapper or .e-popup with .e-multiselect */
+  .e-popup.e-ddl,
+  .e-popup.e-popup-open .e-dropdownbase,
+  .e-popup.e-multiselect {
     background-color: var(--component-select-popup-bg) !important;
     border-color: var(--component-select-popup-border) !important;
     border-radius: var(--radius-md) !important;
@@ -402,17 +494,82 @@
       0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
   }
 
-  .e-popup.e-ddl .e-list-item {
+  /* Popup content area background for all dropdown types */
+  .e-popup.e-ddl .e-content,
+  .e-popup.e-multiselect .e-content,
+  .e-dropdownbase .e-content {
+    background-color: var(--component-select-popup-bg) !important;
+    padding: 4px 0 !important;
+  }
+
+  /* List items in all dropdown popups */
+  .e-popup.e-ddl .e-list-item,
+  .e-popup.e-multiselect .e-list-item,
+  .e-dropdownbase .e-list-item {
+    color: rgb(var(--color-text-primary)) !important;
+    background-color: transparent !important;
+    padding: 8px 12px !important;
+    border-radius: var(--radius-sm) !important;
+    margin: 2px 4px !important;
+    transition: background-color 150ms ease, color 150ms ease !important;
+    font-size: var(--font-size-sm) !important;
+  }
+
+  /* Hover state for list items */
+  .e-popup.e-ddl .e-list-item.e-hover,
+  .e-popup.e-ddl .e-list-item:hover,
+  .e-popup.e-multiselect .e-list-item.e-hover,
+  .e-popup.e-multiselect .e-list-item:hover,
+  .e-dropdownbase .e-list-item.e-hover,
+  .e-dropdownbase .e-list-item:hover {
+    background-color: var(--component-select-item-hover) !important;
     color: rgb(var(--color-text-primary)) !important;
   }
 
-  .e-popup.e-ddl .e-list-item.e-hover {
-    background-color: var(--component-select-item-hover) !important;
-  }
-
-  .e-popup.e-ddl .e-list-item.e-active {
+  /* Active / selected state */
+  .e-popup.e-ddl .e-list-item.e-active,
+  .e-popup.e-ddl .e-list-item.e-item-focus,
+  .e-popup.e-multiselect .e-list-item.e-active,
+  .e-popup.e-multiselect .e-list-item.e-item-focus,
+  .e-dropdownbase .e-list-item.e-active,
+  .e-dropdownbase .e-list-item.e-item-focus {
     background-color: var(--component-select-item-selected-bg) !important;
     color: var(--component-select-item-selected-text) !important;
+    font-weight: 500 !important;
+  }
+
+  /* Filter input inside ComboBox / AutoComplete popups */
+  .e-popup.e-ddl .e-input-filter,
+  .e-popup.e-multiselect .e-input-filter,
+  .e-popup .e-filter-parent {
+    background-color: var(--component-select-popup-bg) !important;
+    border-color: var(--component-select-popup-border) !important;
+  }
+
+  .e-popup.e-ddl .e-input-filter input,
+  .e-popup.e-multiselect .e-input-filter input,
+  .e-popup .e-filter-parent input {
+    color: rgb(var(--color-text-primary)) !important;
+    background-color: transparent !important;
+  }
+
+  /* No records / no data message in popups */
+  .e-popup.e-ddl .e-list-nrt,
+  .e-popup.e-multiselect .e-list-nrt,
+  .e-dropdownbase .e-list-nrt {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* Popup scrollbar theming for dark mode */
+  .e-popup.e-ddl .e-content::-webkit-scrollbar-track,
+  .e-popup.e-multiselect .e-content::-webkit-scrollbar-track {
+    background: var(--component-select-popup-bg);
+  }
+
+  .e-popup.e-ddl .e-content::-webkit-scrollbar-thumb,
+  .e-popup.e-multiselect .e-content::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border));
+    border-radius: var(--radius-full);
   }
 
   /* ===== GRID OVERRIDES ===== */
@@ -456,23 +613,172 @@
     background-color: var(--component-datagrid-row-selected) !important;
   }
 
-  /* Grid pager */
+  /* ===== GRID PAGER OVERRIDES ===== */
+  /* Uses component-specific CSS variables from dataGridInjector.ts */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+
+  /* Main pager container */
   .e-grid .e-pager {
-    background-color: rgb(var(--color-surface)) !important;
-    border-color: rgb(var(--color-border)) !important;
+    background-color: var(--component-datagrid-pagination-bg) !important;
+    border-color: var(--component-datagrid-pagination-border) !important;
+    color: var(--component-datagrid-pagination-text) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 8px 16px !important;
+    gap: 8px !important;
   }
 
+  /* Numeric button group wrapper */
   .e-grid .e-pager .e-pagercontainer {
+    background-color: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  /* Numeric container */
+  .e-grid .e-pager .e-numericcontainer {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+  }
+
+  /* Individual page number buttons */
+  .e-grid .e-pager .e-numericitem {
+    color: var(--component-datagrid-pagination-text) !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    min-width: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    line-height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 6px !important;
+    cursor: pointer !important;
+    transition: background-color 150ms ease, color 150ms ease !important;
+    font-size: var(--font-size-sm) !important;
+    font-weight: 500 !important;
+  }
+
+  /* Hover state for page buttons */
+  .e-grid .e-pager .e-numericitem:hover:not(.e-currentitem) {
+    background-color: var(--component-datagrid-pagination-hover-bg) !important;
+  }
+
+  /* Active / current page button */
+  .e-grid .e-pager .e-numericitem.e-currentitem {
+    background-color: var(--component-datagrid-pagination-active-bg) !important;
+    color: var(--component-datagrid-pagination-active-text) !important;
+    border-color: var(--component-datagrid-pagination-active-bg) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Navigation arrow buttons (first, prev, next, last) */
+  .e-grid .e-pager .e-first,
+  .e-grid .e-pager .e-prev,
+  .e-grid .e-pager .e-next,
+  .e-grid .e-pager .e-last {
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    min-width: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: background-color 150ms ease !important;
+  }
+
+  .e-grid .e-pager .e-first:hover,
+  .e-grid .e-pager .e-prev:hover,
+  .e-grid .e-pager .e-next:hover,
+  .e-grid .e-pager .e-last:hover {
+    background-color: var(--component-datagrid-pagination-hover-bg) !important;
+  }
+
+  /* Navigation icon glyphs - active state */
+  .e-grid .e-pager .e-icon-first,
+  .e-grid .e-pager .e-icon-prev,
+  .e-grid .e-pager .e-icon-next,
+  .e-grid .e-pager .e-icon-last,
+  .e-grid .e-pager .e-firstpage,
+  .e-grid .e-pager .e-prevpage,
+  .e-grid .e-pager .e-nextpage,
+  .e-grid .e-pager .e-lastpage {
+    color: var(--component-datagrid-pagination-nav-color) !important;
+  }
+
+  /* Navigation icon glyphs - disabled state */
+  .e-grid .e-pager .e-firstpagedisabled,
+  .e-grid .e-pager .e-prevpagedisabled,
+  .e-grid .e-pager .e-nextpagedisabled,
+  .e-grid .e-pager .e-lastpagedisabled {
+    color: var(--component-datagrid-pagination-nav-disabled) !important;
+    cursor: default !important;
+  }
+
+  /* Disabled nav button container - prevent hover effect */
+  .e-grid .e-pager .e-first.e-disable,
+  .e-grid .e-pager .e-prev.e-disable,
+  .e-grid .e-pager .e-next.e-disable,
+  .e-grid .e-pager .e-last.e-disable {
+    cursor: default !important;
+  }
+
+  .e-grid .e-pager .e-first.e-disable:hover,
+  .e-grid .e-pager .e-prev.e-disable:hover,
+  .e-grid .e-pager .e-next.e-disable:hover,
+  .e-grid .e-pager .e-last.e-disable:hover {
     background-color: transparent !important;
   }
 
-  .e-grid .e-pager .e-numericitem {
-    color: rgb(var(--color-text-primary)) !important;
+  /* Ellipsis navigation dots */
+  .e-grid .e-pager .e-pp,
+  .e-grid .e-pager .e-np {
+    color: var(--component-datagrid-pagination-text) !important;
+    min-width: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    cursor: pointer !important;
   }
 
-  .e-grid .e-pager .e-numericitem.e-currentitem {
-    background-color: rgb(var(--color-primary-500)) !important;
-    color: white !important;
+  .e-grid .e-pager .e-pp:hover,
+  .e-grid .e-pager .e-np:hover {
+    background-color: var(--component-datagrid-pagination-hover-bg) !important;
+  }
+
+  /* Page size dropdown container */
+  .e-grid .e-pager .e-pagesizes {
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+  }
+
+  /* Page size dropdown */
+  .e-grid .e-pager .e-pagerdropdown {
+    background-color: var(--component-datagrid-pagination-bg) !important;
+    color: var(--component-datagrid-pagination-text) !important;
+    border-color: var(--component-datagrid-pagination-border) !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+  }
+
+  /* "X of Y pages" text */
+  .e-grid .e-pager .e-pagecountmsg {
+    color: var(--component-datagrid-pagination-info-text) !important;
+    font-size: var(--font-size-sm) !important;
+  }
+
+  /* "X to Y of Z items" info bar */
+  .e-grid .e-pager .e-parentmsgbar {
+    color: var(--component-datagrid-pagination-info-text) !important;
+    font-size: var(--font-size-sm) !important;
   }
 
   /* Grid sorting icon */
@@ -517,6 +823,8 @@
 
   .e-date-wrapper.e-control-wrapper .e-input-group-icon {
     color: var(--component-datepicker-icon-color) !important;
+    background-color: transparent !important;
+    border: none !important;
   }
 
   .e-date-wrapper.e-control-wrapper.e-error {
@@ -862,5 +1170,149 @@
     background-color: var(--component-message-normal-bg) !important;
     color: var(--component-message-normal-text) !important;
     border-color: var(--component-message-normal-border) !important;
+  }
+
+  /* ===== ACCORDION OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-accordion {
+    background-color: var(--component-accordion-bg) !important;
+    border-color: var(--component-accordion-border) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header {
+    background-color: var(--component-accordion-header-bg) !important;
+    border-color: var(--component-accordion-border) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header .e-acrdn-header-content {
+    color: var(--component-accordion-header-text) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header:hover {
+    background-color: var(--component-accordion-header-hover-bg) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header .e-toggle-icon .e-icons {
+    color: var(--component-accordion-icon) !important;
+  }
+
+  .e-accordion .e-acrdn-item.e-select > .e-acrdn-header {
+    background-color: var(--component-accordion-expanded-bg) !important;
+  }
+
+  .e-accordion .e-acrdn-item.e-select > .e-acrdn-header .e-acrdn-header-content {
+    color: var(--component-accordion-expanded-text) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-panel .e-acrdn-content {
+    background-color: var(--component-accordion-bg) !important;
+    color: var(--component-accordion-text) !important;
+    border-color: var(--component-accordion-border) !important;
+  }
+
+  /* ===== TOOLBAR OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-toolbar {
+    background-color: var(--component-toolbar-bg) !important;
+    border-color: var(--component-toolbar-border) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn {
+    background-color: transparent !important;
+    color: var(--component-toolbar-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-icons {
+    color: var(--component-toolbar-icon) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover {
+    background-color: var(--component-toolbar-hover-bg) !important;
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active {
+    background-color: var(--component-toolbar-active-bg) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-separator {
+    border-color: var(--component-toolbar-separator) !important;
+  }
+
+  /* ===== MENU OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-menu-wrapper,
+  .e-menu-wrapper .e-menu {
+    background-color: var(--component-menu-bg) !important;
+    border-color: var(--component-menu-border) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item {
+    color: var(--component-menu-text) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item .e-menu-icon {
+    color: var(--component-menu-icon) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item:hover {
+    background-color: var(--component-menu-hover-bg) !important;
+    color: var(--component-menu-hover-text) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item.e-selected {
+    background-color: var(--component-menu-active-bg) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-separator {
+    border-color: var(--component-menu-separator) !important;
+  }
+
+  /* Menu popup (submenu) */
+  .e-menu-wrapper .e-ul {
+    background-color: var(--component-menu-popup-bg) !important;
+    border-color: var(--component-menu-popup-border) !important;
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+  }
+
+  .e-menu-wrapper .e-ul .e-menu-item {
+    color: var(--component-menu-popup-text) !important;
+  }
+
+  .e-menu-wrapper .e-ul .e-menu-item:hover {
+    background-color: var(--component-menu-hover-bg) !important;
+    color: var(--component-menu-hover-text) !important;
+  }
+
+  .e-menu-wrapper .e-ul .e-separator {
+    border-color: var(--component-menu-separator) !important;
+  }
+
+  /* ===== BREADCRUMB OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-breadcrumb {
+    background-color: var(--component-breadcrumb-bg) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item .e-breadcrumb-text {
+    color: var(--component-breadcrumb-text) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item .e-breadcrumb-text:hover {
+    color: var(--component-breadcrumb-hover-text) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item:last-child .e-breadcrumb-text {
+    color: var(--component-breadcrumb-active-text) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-separator {
+    color: var(--component-breadcrumb-separator) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item .e-icons {
+    color: var(--component-breadcrumb-icon) !important;
   }
 }

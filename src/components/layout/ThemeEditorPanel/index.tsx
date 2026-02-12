@@ -4,8 +4,9 @@ import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeStore } from '@/stores/useThemeStore';
 
-import { DrawerTabs, type TabId } from '../ThemeSettingsDrawer/DrawerTabs';
+import { DrawerTabs } from '../ThemeSettingsDrawer/DrawerTabs';
 import { ImportExportSection } from '../ThemeSettingsDrawer/ImportExportSection';
+import { TabId } from '../ThemeSettingsDrawer/tabId';
 
 // Lazy load heavy tab sections for better initial load performance
 const ColorsSection = lazy(async () => ({
@@ -30,7 +31,7 @@ const PresetsSection = lazy(async () => ({
   default: (await import('../ThemeSettingsDrawer/sections/PresetsSection')).PresetsSection,
 }));
 
-const DEFAULT_TAB: TabId = 'colors';
+const DEFAULT_TAB: TabId = TabId.Colors;
 
 // Loading fallback for lazy-loaded sections
 const SectionLoader = (): JSX.Element => (
@@ -42,19 +43,19 @@ const SectionLoader = (): JSX.Element => (
 const renderTabContent = (activeTab: TabId): JSX.Element | null => {
   const content = (() => {
     switch (activeTab) {
-      case 'colors':
+      case TabId.Colors:
         return <ColorsSection />;
-      case 'typography':
+      case TabId.Typography:
         return <TypographySection />;
-      case 'layout':
+      case TabId.Layout:
         return <LayoutSection />;
-      case 'lightTheme':
+      case TabId.LightTheme:
         return <LightThemeSection />;
-      case 'darkTheme':
+      case TabId.DarkTheme:
         return <DarkThemeSection />;
-      case 'components':
+      case TabId.Components:
         return <ComponentsSection />;
-      case 'presets':
+      case TabId.Presets:
         return <PresetsSection />;
       default:
         return null;

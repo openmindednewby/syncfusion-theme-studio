@@ -463,6 +463,44 @@
     opacity: 1;
   }
 
+  /* ===== TOGGLE SWITCH ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .toggle-track {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    border-radius: 9999px;
+    transition-property: background-color;
+    transition-duration: var(--transition-fast, 150ms);
+    background-color: var(--component-toggle-inactive-bg, rgb(var(--color-border)));
+  }
+
+  .toggle-track[aria-checked='true'] {
+    background-color: var(--component-toggle-active-bg, rgb(var(--color-primary-500)));
+  }
+
+  .toggle-track:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .toggle-track:focus-visible {
+    outline: 2px solid rgb(var(--color-primary-500));
+    outline-offset: 2px;
+  }
+
+  .toggle-thumb {
+    display: inline-block;
+    border-radius: 9999px;
+    background-color: var(--component-toggle-thumb-bg, #fff);
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+    transition-property: transform;
+    transition-duration: var(--transition-fast, 150ms);
+    pointer-events: none;
+  }
+
   /* ===== NATIVE TOAST NOTIFICATIONS ===== */
   /* Uses component-specific CSS variables from theme editor */
   @keyframes toastSlideIn {
@@ -475,7 +513,24 @@
     to { opacity: 0; transform: translateX(100%); }
   }
 
+  @keyframes toastProgressShrink {
+    from { width: 100%; }
+    to { width: 0%; }
+  }
+
+  .native-toast-container {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    pointer-events: none;
+  }
+
   .native-toast {
+    position: relative;
     display: flex;
     align-items: flex-start;
     gap: 0.75rem;
@@ -488,30 +543,52 @@
     animation: toastSlideIn 0.3s ease-out;
     min-width: 280px;
     max-width: 400px;
+    overflow: hidden;
+    pointer-events: auto;
+  }
+
+  .native-toast-dismissing {
+    animation: toastSlideOut 0.3s ease-in forwards;
   }
 
   .native-toast-success {
     background-color: var(--component-toast-success-bg);
     color: var(--component-toast-success-text);
-    border-color: var(--component-toast-success-bg);
+    border-color: var(--component-toast-success-icon);
+  }
+
+  .native-toast-success .native-toast-icon {
+    color: var(--component-toast-success-icon);
   }
 
   .native-toast-warning {
     background-color: var(--component-toast-warning-bg);
     color: var(--component-toast-warning-text);
-    border-color: var(--component-toast-warning-bg);
+    border-color: var(--component-toast-warning-icon);
+  }
+
+  .native-toast-warning .native-toast-icon {
+    color: var(--component-toast-warning-icon);
   }
 
   .native-toast-error {
     background-color: var(--component-toast-error-bg);
     color: var(--component-toast-error-text);
-    border-color: var(--component-toast-error-bg);
+    border-color: var(--component-toast-error-icon);
+  }
+
+  .native-toast-error .native-toast-icon {
+    color: var(--component-toast-error-icon);
   }
 
   .native-toast-info {
     background-color: var(--component-toast-info-bg);
     color: var(--component-toast-info-text);
-    border-color: var(--component-toast-info-bg);
+    border-color: var(--component-toast-info-icon);
+  }
+
+  .native-toast-info .native-toast-icon {
+    color: var(--component-toast-info-icon);
   }
 
   .native-toast-icon {
@@ -529,6 +606,7 @@
   .native-toast-title {
     font-weight: 600;
     font-size: var(--font-size-sm);
+    color: var(--component-toast-title);
   }
 
   .native-toast-message {
@@ -542,7 +620,7 @@
     padding: 0.25rem;
     border: none;
     background: none;
-    color: inherit;
+    color: var(--component-toast-close-btn);
     opacity: 0.6;
     cursor: pointer;
     border-radius: var(--radius-sm);
@@ -550,7 +628,19 @@
   }
 
   .native-toast-close:hover {
+    color: var(--component-toast-close-btn-hover);
     opacity: 1;
+  }
+
+  .native-toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--component-toast-progress);
+    border-radius: 0 0 0 var(--component-toast-border-radius, var(--radius-lg));
+    animation: toastProgressShrink 5s linear forwards;
   }
 
   /* ===== NATIVE MESSAGES / ALERTS ===== */
@@ -605,5 +695,64 @@
   .native-message-content {
     flex: 1;
     min-width: 0;
+  }
+
+  /* ===== PAGINATION ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .pagination-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 1.75rem;
+    min-height: 1.75rem;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+    background-color: var(--component-pagination-btn-bg);
+    color: var(--component-pagination-btn-text);
+    border-radius: var(--component-pagination-btn-radius);
+    transition: background-color 150ms ease, color 150ms ease;
+    border: none;
+    cursor: pointer;
+  }
+
+  .pagination-btn:hover:not(:disabled) {
+    background-color: var(--component-pagination-btn-hover-bg);
+    color: var(--component-pagination-btn-hover-text);
+  }
+
+  .pagination-btn:disabled {
+    color: var(--component-pagination-nav-disabled);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  .pagination-btn-active {
+    background-color: var(--component-pagination-btn-active-bg) !important;
+    color: var(--component-pagination-btn-active-text) !important;
+  }
+
+  .pagination-nav {
+    color: var(--component-pagination-nav-text);
+  }
+
+  .pagination-nav:disabled {
+    color: var(--component-pagination-nav-disabled);
+  }
+
+  .pagination-select {
+    background-color: var(--component-pagination-select-bg);
+    border: 1px solid var(--component-pagination-select-border);
+    color: var(--component-pagination-select-text);
+    border-radius: 0.25rem;
+    padding: 0.125rem 0.25rem;
+    font-size: 0.75rem;
+  }
+
+  .pagination-select:focus {
+    outline: none;
+  }
+
+  .pagination-info {
+    color: var(--component-pagination-info-text);
   }
 }

@@ -11,6 +11,8 @@ interface SubNavItem {
   path: string;
   labelKey: string;
   testId: string;
+  /** When true the item is rendered with extra indentation as a sub-item. */
+  indent?: boolean;
 }
 
 interface NavExpandableItemProps {
@@ -78,7 +80,7 @@ export const NavExpandableItem = ({
                 className={({ isActive: childActive }) =>
                   `sidebar-item flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
                     childActive ? 'active' : ''
-                  }`
+                  } ${child.indent === true ? 'ml-4' : ''}`
                 }
                 data-testid={child.testId}
                 to={child.path}

@@ -4,6 +4,7 @@
 
 import { useMemo } from 'react';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 
 import {
@@ -67,7 +68,7 @@ export function useSyncfusionTheme(): SyncfusionTheme {
 
   return useMemo(
     () => ({
-      modeClass: mode === 'dark' ? SF_DARK_CLASS : SF_LIGHT_CLASS,
+      modeClass: mode === Mode.Dark ? SF_DARK_CLASS : SF_LIGHT_CLASS,
       baseClass: SF_THEME_PREFIX,
       button: BUTTON_MAP,
       buttonSize: SIZE_MAP,
@@ -87,9 +88,9 @@ export function useSyncfusionTheme(): SyncfusionTheme {
 export function getButtonClasses(
   variant: ButtonVariant,
   size: ComponentSize,
-  mode: 'light' | 'dark',
+  mode: Mode,
 ): string {
-  const modeClass = mode === 'dark' ? SF_DARK_CLASS : SF_LIGHT_CLASS;
+  const modeClass = mode === Mode.Dark ? SF_DARK_CLASS : SF_LIGHT_CLASS;
   return `${SF_THEME_PREFIX} ${modeClass} ${BUTTON_MAP[variant]} ${SIZE_MAP[size]}`;
 }
 

@@ -1,10 +1,14 @@
 import { FM } from '@/localization/helpers';
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 
+import { AccordionEditor } from './AccordionEditor';
 import { AlertsEditor } from './AlertsEditor';
 import { BadgesEditor } from './BadgesEditor';
+import { BreadcrumbEditor } from './BreadcrumbEditor';
 import { ButtonsEditor } from './ButtonsEditor';
 import { CardsEditor } from './CardsEditor';
+import { ChipsEditor } from './ChipsEditor';
 import { DataGridEditor } from './DataGridEditor';
 import { DatePickerEditor } from './DatePickerEditor';
 import { DialogEditor } from './DialogEditor';
@@ -12,11 +16,14 @@ import { ErrorMessagesEditor } from './ErrorMessagesEditor';
 import { FlexBoxEditor } from './FlexBoxEditor';
 import { HeaderEditor } from './HeaderEditor';
 import { InputsEditor } from './InputsEditor';
+import { MenuEditor } from './MenuEditor';
 import { MessageEditor } from './MessageEditor';
 import { ModalsEditor } from './ModalsEditor';
+import { PaginationEditor } from './PaginationEditor';
 import { SelectEditor } from './SelectEditor';
 import { SidebarEditor } from './SidebarEditor';
 import { ToastEditor } from './ToastEditor';
+import { ToolbarEditor } from './ToolbarEditor';
 
 export const ComponentsSection = (): JSX.Element => {
   const {
@@ -38,6 +45,12 @@ export const ComponentsSection = (): JSX.Element => {
     updateAlertsConfig,
     updateToastConfig,
     updateMessageConfig,
+    updateChipConfig,
+    updateAccordionConfig,
+    updateToolbarConfig,
+    updateMenuConfig,
+    updateBreadcrumbConfig,
+    updatePaginationConfig,
   } = useThemeStore();
 
   // Get the current mode's component configuration
@@ -53,7 +66,7 @@ export const ComponentsSection = (): JSX.Element => {
           {FM('themeSettings.components.description')}
         </p>
         <p className="mt-1 text-xs font-medium text-primary-600">
-          {FM('themeSettings.components.editingMode', mode === 'dark' ? 'Dark' : 'Light')}
+          {FM('themeSettings.components.editingMode', mode === Mode.Dark ? 'Dark' : 'Light')}
         </p>
       </div>
 
@@ -69,11 +82,17 @@ export const ComponentsSection = (): JSX.Element => {
         <CardsEditor config={components.cards} onUpdate={updateCardsConfig} />
         <ModalsEditor config={components.modals} onUpdate={updateModalsConfig} />
         <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />
+        <ChipsEditor config={components.chips} onUpdate={updateChipConfig} />
         <ErrorMessagesEditor config={components.errorMessages} onUpdate={updateErrorMessagesConfig} />
         <FlexBoxEditor config={components.flexBox} onUpdate={updateFlexBoxConfig} />
         <AlertsEditor config={components.alerts} onUpdate={updateAlertsConfig} />
         <ToastEditor config={components.toast} onUpdate={updateToastConfig} />
         <MessageEditor config={components.message} onUpdate={updateMessageConfig} />
+        <AccordionEditor config={components.accordion} onUpdate={updateAccordionConfig} />
+        <ToolbarEditor config={components.toolbar} onUpdate={updateToolbarConfig} />
+        <MenuEditor config={components.menu} onUpdate={updateMenuConfig} />
+        <BreadcrumbEditor config={components.breadcrumb} onUpdate={updateBreadcrumbConfig} />
+        <PaginationEditor config={components.pagination} onUpdate={updatePaginationConfig} />
       </div>
     </section>
   );

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@/test/utils';
 
-import AlertNative from './index';
+import AlertNative, { AlertVariant } from './index';
 
 const TEST_ID = 'test-alert';
 
@@ -94,7 +94,7 @@ describe('AlertNative', () => {
 
     it('applies success variant class when specified', () => {
       render(
-        <AlertNative testId={TEST_ID} variant="success">
+        <AlertNative testId={TEST_ID} variant={AlertVariant.Success}>
           Content
         </AlertNative>,
       );
@@ -103,7 +103,7 @@ describe('AlertNative', () => {
 
     it('applies warning variant class when specified', () => {
       render(
-        <AlertNative testId={TEST_ID} variant="warning">
+        <AlertNative testId={TEST_ID} variant={AlertVariant.Warning}>
           Content
         </AlertNative>,
       );
@@ -112,7 +112,7 @@ describe('AlertNative', () => {
 
     it('applies error variant class when specified', () => {
       render(
-        <AlertNative testId={TEST_ID} variant="error">
+        <AlertNative testId={TEST_ID} variant={AlertVariant.Error}>
           Content
         </AlertNative>,
       );

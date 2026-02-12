@@ -6,6 +6,8 @@ import { render, type RenderOptions, type RenderResult } from '@testing-library/
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
+import { ToastProvider } from '@/components/ui/native';
+
 interface WrapperProps {
   children: ReactNode;
 }
@@ -27,9 +29,11 @@ const AllProviders = ({ children }: WrapperProps): JSX.Element => {
   const queryClient = createTestQueryClient();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>{children}</BrowserRouter>
-    </QueryClientProvider>
+    <ToastProvider>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>{children}</BrowserRouter>
+      </QueryClientProvider>
+    </ToastProvider>
   );
 };
 

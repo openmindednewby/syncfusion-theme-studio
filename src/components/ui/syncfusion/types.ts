@@ -2,11 +2,8 @@
  * Shared types for Syncfusion component wrappers
  */
 
-/** Common size variants for components */
-export type ComponentSize = 'sm' | 'md' | 'lg';
-
-/** Common button variants */
-export type ButtonVariant = 'primary' | 'secondary' | 'outline' | 'ghost' | 'danger';
+export { ButtonVariant } from './buttonVariant';
+export { ComponentSize } from './componentSize';
 
 /** CSS class prefix for themed components */
 export const SF_THEME_PREFIX = 'sf-themed' as const;

@@ -15,12 +15,17 @@ import {
   type BeforeCloseEventArgs,
 } from '@syncfusion/ej2-react-popups';
 
+import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
 /** Dialog style variants controlling button defaults and appearance */
-type DialogVariant = 'default' | 'confirm' | 'danger';
+const enum DialogVariant {
+  Default = 'default',
+  Confirm = 'confirm',
+  Danger = 'danger',
+}
 
 interface DialogButton {
   /** Button text */
@@ -67,9 +72,9 @@ const BUTTON_VARIANTS: Record<string, string> = {
 };
 
 const VARIANT_CLASSES: Record<DialogVariant, string> = {
-  default: 'sf-dialog-default',
-  confirm: 'sf-dialog-confirm',
-  danger: 'sf-dialog-danger',
+  [DialogVariant.Default]: 'sf-dialog-default',
+  [DialogVariant.Confirm]: 'sf-dialog-confirm',
+  [DialogVariant.Danger]: 'sf-dialog-danger',
 };
 
 function buildButtonConfig(
@@ -97,7 +102,7 @@ const Dialog = ({
   children,
   isOpen,
   onClose,
-  variant = 'default',
+  variant = DialogVariant.Default,
   primaryButton,
   secondaryButton,
   className,
@@ -116,14 +121,14 @@ const Dialog = ({
     if (isValueDefined(secondaryButton))
       buttonList.push(buildButtonConfig(secondaryButton, 'secondary'));
     if (isValueDefined(primaryButton)) {
-      const defaultPrimaryVariant = variant === 'danger' ? 'danger' : 'primary';
+      const defaultPrimaryVariant = variant === DialogVariant.Danger ? 'danger' : 'primary';
       buttonList.push(buildButtonConfig(primaryButton, defaultPrimaryVariant));
     }
     return buttonList;
   }, [primaryButton, secondaryButton, variant]);
 
   const dialogCssClass = useMemo(() => {
-    const modeClass = mode === 'dark' ? 'sf-dark' : 'sf-light';
+    const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
     const variantClass = VARIANT_CLASSES[variant];
     return cn('sf-dialog', modeClass, variantClass, className);
   }, [mode, variant, className]);
@@ -176,4 +181,5 @@ const Dialog = ({
 Dialog.displayName = 'Dialog';
 
 export default memo(Dialog);
-export type { Props as DialogProps, DialogButton, DialogVariant };
+export { DialogVariant };
+export type { Props as DialogProps, DialogButton };

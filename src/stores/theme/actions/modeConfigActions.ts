@@ -1,8 +1,10 @@
 // Mode configuration actions
 
 import { injectThemeVariables } from '../themeInjector';
+import { type Mode , type ThemeModeConfigUpdate } from '../types';
 
-import type { Mode, ThemeModeConfigUpdate } from '../types';
+
+
 import type { GetState, ModeConfigActions, SetState } from './types';
 
 export function createModeConfigActions(set: SetState, get: GetState): ModeConfigActions {

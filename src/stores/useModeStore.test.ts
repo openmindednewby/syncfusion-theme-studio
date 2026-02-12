@@ -1,6 +1,7 @@
 import { act, renderHook } from '@testing-library/react';
 import { describe, it, expect, beforeEach, vi, afterEach } from 'vitest';
 
+import { Mode } from './mode';
 import { useModeStore } from './useModeStore';
 
 describe('useModeStore', () => {
@@ -11,7 +12,7 @@ describe('useModeStore', () => {
     // Reset store state
     const { result } = renderHook(() => useModeStore());
     act(() => {
-      result.current.setMode('light');
+      result.current.setMode(Mode.Light);
     });
 
     // Mock document.documentElement
@@ -35,7 +36,7 @@ describe('useModeStore', () => {
       const { result } = renderHook(() => useModeStore());
 
       act(() => {
-        result.current.setMode('dark');
+        result.current.setMode(Mode.Dark);
       });
 
       expect(result.current.mode).toBe('dark');
@@ -45,8 +46,8 @@ describe('useModeStore', () => {
       const { result } = renderHook(() => useModeStore());
 
       act(() => {
-        result.current.setMode('dark');
-        result.current.setMode('light');
+        result.current.setMode(Mode.Dark);
+        result.current.setMode(Mode.Light);
       });
 
       expect(result.current.mode).toBe('light');
@@ -56,7 +57,7 @@ describe('useModeStore', () => {
       const { result } = renderHook(() => useModeStore());
 
       act(() => {
-        result.current.setMode('dark');
+        result.current.setMode(Mode.Dark);
       });
 
       expect(document.documentElement.classList.add).toHaveBeenCalledWith('dark');
@@ -66,7 +67,7 @@ describe('useModeStore', () => {
       const { result } = renderHook(() => useModeStore());
 
       act(() => {
-        result.current.setMode('light');
+        result.current.setMode(Mode.Light);
       });
 
       expect(document.documentElement.classList.remove).toHaveBeenCalledWith('dark');
@@ -88,7 +89,7 @@ describe('useModeStore', () => {
       const { result } = renderHook(() => useModeStore());
 
       act(() => {
-        result.current.setMode('dark');
+        result.current.setMode(Mode.Dark);
         result.current.toggleMode();
       });
 
@@ -111,7 +112,7 @@ describe('useModeStore', () => {
       const { result } = renderHook(() => useModeStore());
 
       act(() => {
-        result.current.setMode('dark');
+        result.current.setMode(Mode.Dark);
       });
 
       const stored = JSON.parse(localStorage.getItem('theme-storage') ?? '{}');

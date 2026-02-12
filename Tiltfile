@@ -5,20 +5,23 @@
 # A standalone Tiltfile for the Syncfusion Theme Studio project.
 # Run with: tilt up
 #
-# Resources:
-#   - theme-studio-lint: ESLint check
-#   - theme-studio-unit-tests: Vitest unit tests
-#   - theme-studio-dev: Development server (port 4444)
-#   - theme-studio-e2e: Playwright E2E tests (manual)
-#   - theme-studio-build: Production build (manual)
+# Resource Groups:
+#   Dev       - Lint, unit tests, dev server (port 4444)
+#   Build     - TypeCheck, production build, preview server (port 4445)
+#   Testing   - Playwright E2E tests
+#   Quality   - Lighthouse, bundle analysis, security, dependency health
+#   CodeGen   - API hook generation (Orval)
 #
-# Port: 4444 (different from BaseClient which uses 8082)
+# ===============================================================================
+
+# ===============================================================================
+# 1. DEVELOPMENT
 # ===============================================================================
 
 # --- Linter ---
 local_resource(
     name='theme-studio-lint',
-    labels=['ThemeStudio'],
+    labels=['Dev'],
     cmd='npm run lint',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
@@ -26,16 +29,17 @@ local_resource(
 
 local_resource(
     name='theme-studio-lint-fix',
-    labels=['ThemeStudio'],
+    labels=['Dev'],
     cmd='npm run lint:fix',
     trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
     allow_parallel=True,
 )
 
 # --- Unit Tests (waits for Lint) ---
 local_resource(
     name='theme-studio-unit-tests',
-    labels=['ThemeStudio'],
+    labels=['Dev'],
     cmd='npm run test:coverage',
     resource_deps=['theme-studio-lint'],
     allow_parallel=True,
@@ -43,7 +47,7 @@ local_resource(
 
 local_resource(
     name='theme-studio-unit-tests-watch',
-    labels=['ThemeStudio'],
+    labels=['Dev'],
     serve_cmd='npm run test',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
@@ -52,7 +56,7 @@ local_resource(
 # --- Development Server (waits for Unit Tests) ---
 local_resource(
     name='theme-studio-dev',
-    labels=['ThemeStudio'],
+    labels=['Dev'],
     serve_cmd='npm run dev',
     resource_deps=['theme-studio-unit-tests'],
     links=[
@@ -64,110 +68,76 @@ local_resource(
     ],
 )
 
-# --- Production Build (manual) ---
-local_resource(
-    name='theme-studio-build',
-    labels=['ThemeStudio'],
-    cmd='npm run build',
-    trigger_mode=TRIGGER_MODE_MANUAL,
-    allow_parallel=True,
-)
+# ===============================================================================
+# 2. BUILD & PREVIEW
+# ===============================================================================
 
 # --- TypeCheck (manual) ---
 local_resource(
     name='theme-studio-typecheck',
-    labels=['ThemeStudio'],
+    labels=['Build'],
     cmd='npm run typecheck',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )
 
+# --- Production Build (manual) ---
+local_resource(
+    name='theme-studio-build',
+    labels=['Build'],
+    cmd='npm run build',
+    resource_deps=['theme-studio-generate-hooks'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Production Server (manual, builds then serves on port 4445) ---
+local_resource(
+    name='theme-studio-prod',
+    labels=['Build'],
+    serve_cmd='npm run preview',
+    resource_deps=['theme-studio-build'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    links=[
+        link('http://localhost:4445', 'Prod - Dashboard'),
+        link('http://localhost:4445/products', 'Prod - Products'),
+        link('http://localhost:4445/components/native', 'Prod - Native Components'),
+        link('http://localhost:4445/components/syncfusion', 'Prod - Syncfusion Components'),
+    ],
+)
+
+# ===============================================================================
+# 3. TESTING
+# ===============================================================================
+
 # --- E2E Tests (manual, depends on dev server) ---
 local_resource(
     name='theme-studio-e2e',
-    labels=['ThemeStudio'],
+    labels=['Testing'],
     cmd='npm run test:e2e',
     resource_deps=['theme-studio-dev'],
     trigger_mode=TRIGGER_MODE_MANUAL,
 )
 
-# local_resource(
-#     name='theme-studio-e2e-ui',
-#     labels=['ThemeStudio'],
-#     serve_cmd='npm run test:e2e:ui',
-#     resource_deps=['theme-studio-dev'],
-#     trigger_mode=TRIGGER_MODE_MANUAL,
-# )
-
-# --- API Hook Generation (manual) ---
-local_resource(
-    name='theme-studio-generate-hooks',
-    labels=['ThemeStudio'],
-    cmd='npm run api:generate',
-    trigger_mode=TRIGGER_MODE_MANUAL,
-    allow_parallel=True,
-)
-
-# --- Preview Production Build (manual) ---
-local_resource(
-    name='theme-studio-preview',
-    labels=['ThemeStudio'],
-    serve_cmd='npm run preview',
-    resource_deps=['theme-studio-build'],
-    trigger_mode=TRIGGER_MODE_MANUAL,
-    links=[
-        link('http://localhost:4445', 'Preview - Dashboard'),
-        link('http://localhost:4445/products', 'Preview - Products'),
-        link('http://localhost:4445/components/native', 'Preview - Native Components'),
-        link('http://localhost:4445/components/syncfusion', 'Preview - Syncfusion Components'),
-    ],
-)
 # ===============================================================================
-# QUALITY GATES - Performance & Bundle Analysis
+# 4. QUALITY GATES
 # ===============================================================================
 
-# --- Lighthouse Performance Audit (manual, runs after E2E tests) ---
-# Enforces 100% scores for performance, accessibility, best practices, SEO
-local_resource(
-    name='theme-studio-lighthouse',
-    labels=['ThemeStudio', 'QualityGate'],
-    cmd='npm run lighthouse:ci',
-    resource_deps=['theme-studio-e2e'],
-    trigger_mode=TRIGGER_MODE_MANUAL,
-    allow_parallel=True,
-)
-
-# --- Lighthouse Audit with HTML Report (manual) ---
-# NOTE: This runs against DEV server (unoptimized). For accurate metrics, use theme-studio-lighthouse-prod
-local_resource(
-    name='theme-studio-lighthouse-dev',
-    labels=['ThemeStudio', 'QualityGate'],
-    cmd='npm run lighthouse && npm run lighthouse:open',
-    resource_deps=['theme-studio-dev'],
-    trigger_mode=TRIGGER_MODE_MANUAL,
-    allow_parallel=True,
-)
-
-# --- Lighthouse on Production Build (manual) ---
-# Runs against production preview server for accurate performance metrics
+# --- Lighthouse on Prod (manual, HTML report + JSON score assertion) ---
+# Runs against production preview server (port 4445) for accurate performance metrics
 local_resource(
     name='theme-studio-lighthouse-prod',
-    labels=['ThemeStudio', 'QualityGate'],
-    cmd='npm run build && powershell -Command "Start-Process -NoNewWindow npm -ArgumentList \'run\',\'preview\',\'--\',\'--port\',\'4446\'; Start-Sleep -Seconds 3; npx lighthouse http://localhost:4446 --output html --output-path ./reports/lighthouse-prod.html; Start-Process ./reports/lighthouse-prod.html"',
+    labels=['Quality'],
+    cmd='npm run lighthouse:prod:ci && npm run lighthouse:prod:assert && npm run lighthouse:prod && npm run lighthouse:prod:open',
+    resource_deps=['theme-studio-prod'],
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
-    links=[
-        link('http://localhost:4446', 'Preview - Dashboard Prod'),
-        link('http://localhost:4446/products', 'Preview - Products Prod'),
-        link('http://localhost:4446/components/native', 'Preview - Native Components Prod')
-    ],
 )
 
 # --- Bundle Analyzer (manual) ---
-# Opens interactive visualization of bundle sizes
 local_resource(
     name='theme-studio-bundle-analyze',
-    labels=['ThemeStudio', 'QualityGate'],
+    labels=['Quality'],
     cmd='npm run analyze',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
@@ -176,7 +146,7 @@ local_resource(
 # --- Security Audit (manual) ---
 local_resource(
     name='theme-studio-security-audit',
-    labels=['ThemeStudio', 'QualityGate'],
+    labels=['Quality'],
     cmd='npm audit --audit-level=high',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
@@ -187,8 +157,21 @@ local_resource(
 # Using PowerShell to always succeed regardless of outdated packages
 local_resource(
     name='theme-studio-deps-health',
-    labels=['ThemeStudio', 'QualityGate'],
+    labels=['Quality'],
     cmd='powershell -Command "npm outdated; exit 0"',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# ===============================================================================
+# 5. CODE GENERATION
+# ===============================================================================
+
+# --- API Hook Generation (manual) ---
+local_resource(
+    name='theme-studio-generate-hooks',
+    labels=['CodeGen'],
+    cmd='npm run api:generate',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )

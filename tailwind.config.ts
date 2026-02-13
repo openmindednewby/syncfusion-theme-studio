@@ -111,6 +111,10 @@ const config: Config = {
       maxWidth: {
         content: 'var(--content-max-width)',
       },
+      ringOffsetColor: {
+        surface: 'rgb(var(--color-surface) / <alpha-value>)',
+        background: 'rgb(var(--color-background) / <alpha-value>)',
+      },
       spacing: {
         sidebar: 'var(--sidebar-width)',
         'sidebar-collapsed': 'var(--sidebar-collapsed-width)',

@@ -27,6 +27,9 @@
 @import '@syncfusion/ej2-react-inputs/styles/tailwind.css';
 @import '@syncfusion/ej2-react-buttons/styles/tailwind.css';
 
+/* Native component overrides (custom select dropdown) */
+@import './layers/native-overrides.css';
+
 /* Custom Syncfusion overrides to integrate with theme system */
 @import './layers/syncfusion-overrides.css';
 

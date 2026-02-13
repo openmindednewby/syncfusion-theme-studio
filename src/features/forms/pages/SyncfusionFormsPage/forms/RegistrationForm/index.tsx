@@ -77,7 +77,7 @@ export const RegistrationForm = ({ onSubmit }: Props): JSX.Element => {
         </div>
 
         <FormCheckbox<RegistrationFormData>
-          showRequired
+          required
           control={control}
           label={FM('forms.registration.acceptTerms')}
           name="acceptTerms"

@@ -7,22 +7,9 @@
  */
 import { memo, forwardRef, type ButtonHTMLAttributes } from 'react';
 
+import { ButtonSize } from '@/components/ui/shared/buttonSize';
+import { ButtonVariant } from '@/components/ui/shared/buttonTypes';
 import { cn } from '@/utils/cn';
-
-/** Available button style variants */
-const enum ButtonVariant {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Outline = 'outline',
-  Ghost = 'ghost',
-  Danger = 'danger',
-}
-/** Available button size presets */
-const enum ButtonSize {
-  Sm = 'sm',
-  Md = 'md',
-  Lg = 'lg',
-}
 
 interface Props extends Omit<ButtonHTMLAttributes<HTMLButtonElement>, 'className'> {
   /** Button variant */
@@ -77,7 +64,7 @@ const ButtonNative = forwardRef<HTMLButtonElement, Props>(
         aria-label={ariaLabel}
         className={cn(
           'inline-flex items-center justify-center rounded-md font-medium transition-colors',
-          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
+          'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
           'disabled:pointer-events-none disabled:opacity-50',
           VARIANT_CLASSES[variant],
           SIZE_CLASSES[size],

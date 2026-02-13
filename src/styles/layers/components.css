@@ -774,6 +774,10 @@
     background-color: var(--component-datagrid-row-selected) !important;
   }
 
+  .native-grid-row-selected.native-grid-row-hoverable:hover {
+    background-color: var(--component-datagrid-row-selected) !important;
+  }
+
   /* ===== NATIVE GRID INPUTS ===== */
   .native-grid-filter-input:focus {
     border-color: var(--component-datagrid-edit-cell-border) !important;

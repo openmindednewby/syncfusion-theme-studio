@@ -131,7 +131,7 @@ export const ImportExportSection = (): JSX.Element => {
       <div className="flex gap-3">
         <button
           aria-label={FM('themeSettings.exportTheme')}
-          className="theme-action-btn flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary-500 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-primary-600 hover:shadow-md active:scale-[0.98]"
+          className="theme-action-btn flex flex-1 items-center justify-center gap-2 rounded-lg bg-primary-700 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-primary-800 hover:shadow-md active:scale-[0.98]"
           data-testid={TestIds.THEME_EXPORT_BTN}
           type="button"
           onClick={handleExport}
@@ -193,7 +193,7 @@ export const ImportExportSection = (): JSX.Element => {
 
           <button
             aria-label={FM('themeSettings.importTheme')}
-            className="import-btn flex w-full items-center justify-center gap-2 rounded-lg bg-primary-500 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-primary-600 disabled:cursor-not-allowed disabled:opacity-50"
+            className="import-btn flex w-full items-center justify-center gap-2 rounded-lg bg-primary-700 px-4 py-2.5 text-sm font-medium text-white shadow-sm transition-all duration-200 hover:bg-primary-800 disabled:cursor-not-allowed disabled:opacity-50"
             data-testid={TestIds.THEME_IMPORT_BTN}
             disabled={isImportDisabled}
             type="button"

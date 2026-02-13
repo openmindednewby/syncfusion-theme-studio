@@ -1,6 +1,5 @@
-// Default dark mode component configurations
-
 import { ShadowScale, type ComponentConfigSingle } from '../types';
+import { DEFAULT_DATA_DISPLAY_DARK } from './defaultDataDisplayDark';
 import { DEFAULT_FEEDBACK_DARK } from './defaultFeedbackDark';
 import { DEFAULT_NAVIGATION_DARK } from './defaultNavigationDark';
 import { DEFAULT_PAGINATION_DARK } from './defaultPaginationDark';
@@ -95,7 +94,6 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     borderRadius: 'md',
   },
   dataGrid: {
-    // Header & Rows
     headerBackground: '31 41 55',
     headerTextColor: '209 213 219',
     headerBorder: '55 65 81',
@@ -106,40 +104,24 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     cellBorderColor: '55 65 81',
     cellPadding: '12px 16px',
     paginationBackground: '17 24 39',
-
-    // Toolbar
     toolbarBackground: '31 41 55',
     toolbarTextColor: '209 213 219',
     toolbarBorderColor: '55 65 81',
-
-    // Filter Row
     filterRowBackground: '17 24 39',
     filterRowBorderColor: '55 65 81',
     filterInputBackground: '31 41 55',
-
-    // Grouping
     groupHeaderBackground: '55 65 81',
     groupHeaderTextColor: '209 213 219',
     groupDropAreaBackground: '31 41 55',
-
-    // Footer / Aggregates
     footerBackground: '31 41 55',
     footerTextColor: '209 213 219',
-
-    // Editing
     editCellBackground: '31 41 55',
     editCellBorderColor: '96 165 250',
     editDirtyIndicatorColor: '251 191 36',
-
-    // Selection
     rowSelectedTextColor: '249 250 251',
     cellSelectedBackground: '30 58 138',
-
-    // Sort & Resize
     sortIconColor: '156 163 175',
     resizeHandleColor: '75 85 99',
-
-    // Pagination extras
     paginationTextColor: '209 213 219',
     paginationActiveBackground: '96 165 250',
     paginationActiveTextColor: '255 255 255',
@@ -148,18 +130,10 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     paginationNavColor: '156 163 175',
     paginationNavDisabledColor: '75 85 99',
     paginationInfoTextColor: '156 163 175',
-
-    // Action Column
     actionButtonColor: '96 165 250',
     actionButtonHoverColor: '147 197 253',
-
-    // Detail Row
     detailRowBackground: '31 41 55',
-
-    // Drag Handle
     dragHandleColor: '107 114 128',
-
-    // Column & Row Settings
     defaultTextAlign: 'left',
     headerTextAlign: 'left',
     rowHeight: '42px',
@@ -222,7 +196,6 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     borderRadius: 'full',
     padding: '2px 8px',
   },
-  pagination: DEFAULT_PAGINATION_DARK,
-  ...DEFAULT_FEEDBACK_DARK,
-  ...DEFAULT_NAVIGATION_DARK,
+  pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK,
+  ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,
 };

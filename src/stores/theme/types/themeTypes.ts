@@ -10,6 +10,7 @@ import { type Mode, type StatusKey, type StatusShade ,
 import { type ButtonVariant ,
   type AccordionConfig,
   type AlertsConfig,
+  type AvatarConfig,
   type BadgesConfig,
   type BreadcrumbConfig,
   type ButtonStateColors,
@@ -26,11 +27,15 @@ import { type ButtonVariant ,
   type MenuConfig,
   type MessageConfig,
   type ModalsConfig,
+  type PaginationConfig,
+  type ProgressBarConfig,
   type SelectConfig,
   type SidebarComponentConfig,
+  type TabsConfig,
+  type TimelineConfig,
   type ToastConfig,
-  type PaginationConfig,
   type ToolbarConfig,
+  type TooltipConfig,
 } from './componentTypes';
 import { type FontFamilyType, type TransitionType ,
   type BorderRadiusConfig,
@@ -103,6 +108,11 @@ export interface ThemeState {
   updateMenuConfig: (updates: Partial<MenuConfig>) => void;
   updateBreadcrumbConfig: (updates: Partial<BreadcrumbConfig>) => void;
   updatePaginationConfig: (updates: Partial<PaginationConfig>) => void;
+  updateTabsConfig: (updates: Partial<TabsConfig>) => void;
+  updateTimelineConfig: (updates: Partial<TimelineConfig>) => void;
+  updateAvatarConfig: (updates: Partial<AvatarConfig>) => void;
+  updateProgressBarConfig: (updates: Partial<ProgressBarConfig>) => void;
+  updateTooltipConfig: (updates: Partial<TooltipConfig>) => void;
   // Typography actions
   updateFontFamily: (type: FontFamilyType, value: string) => void;
   updateFontSize: (key: keyof FontSizeScale, value: string) => void;

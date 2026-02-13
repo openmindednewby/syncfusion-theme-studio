@@ -5,7 +5,8 @@
  * chunks never compete with the initial render on the critical path:
  *
  *   Phase 1 (idle):  MainLayout + DashboardPage — the user's next destination
- *   Phase 2 (+gap):  Remaining route pages
+ *   Phase 2a (+gap): Core route pages (products, components overview, forms)
+ *   Phase 2b (+gap): Component showcase pages
  *   Phase 3 (+gap):  Heavy Syncfusion vendor modules (~415 KiB+)
  *
  * Each phase waits for the previous one to settle before starting the next,
@@ -23,8 +24,8 @@ const preloadCriticalRoutes = async (): Promise<unknown[]> =>
     import('@/features/dashboard/pages/DashboardPage').catch(() => undefined),
   ]);
 
-// Phase 2 – Remaining route pages (lighter native pages + Syncfusion pages)
-const preloadRemainingRoutes = async (): Promise<unknown[]> =>
+// Phase 2a – Core route pages (products, components overview, forms)
+const preloadCoreRoutes = async (): Promise<unknown[]> =>
   Promise.all([
     import('@/features/auth/pages/LoginPage').catch(() => undefined),
     import('@/features/products/pages/NativeProductsPage').catch(() => undefined),
@@ -35,6 +36,30 @@ const preloadRemainingRoutes = async (): Promise<unknown[]> =>
     import('@/features/components/pages/SyncfusionGridShowcase').catch(() => undefined),
     import('@/features/forms/pages/SyncfusionFormsPage').catch(() => undefined),
     import('@/features/forms/pages/NativeFormsPage').catch(() => undefined),
+  ]);
+
+// Phase 2b – Component showcase pages
+const preloadShowcasePages = async (): Promise<unknown[]> =>
+  Promise.all([
+    import('@/features/components/pages/NativeButtonShowcase').catch(() => undefined),
+    import('@/features/components/pages/SyncfusionButtonShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeInputShowcase').catch(() => undefined),
+    import('@/features/components/pages/SyncfusionInputShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeSelectShowcase').catch(() => undefined),
+    import('@/features/components/pages/SyncfusionSelectShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeDatePickerShowcase').catch(() => undefined),
+    import('@/features/components/pages/SyncfusionDatePickerShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeDialogShowcase').catch(() => undefined),
+    import('@/features/components/pages/SyncfusionDialogShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeAlertShowcase').catch(() => undefined),
+    import('@/features/components/pages/SyncfusionAlertShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeCheckboxShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeToastShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeToggleShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeToolbarShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeMenuShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeAccordionShowcase').catch(() => undefined),
+    import('@/features/components/pages/NativeBreadcrumbShowcase').catch(() => undefined),
   ]);
 
 // Phase 3 – Heavy Syncfusion vendor modules
@@ -51,14 +76,17 @@ const delay = async (ms: number): Promise<void> =>
   });
 
 /**
- * Runs the three-phase preload pipeline sequentially, with a
+ * Runs the four-phase preload pipeline sequentially, with a
  * {@link PHASE_GAP_MS} pause between each phase.
  */
 const runPhases = async (): Promise<void> => {
   await preloadCriticalRoutes();
 
   await delay(PHASE_GAP_MS);
-  await preloadRemainingRoutes();
+  await preloadCoreRoutes();
+
+  await delay(PHASE_GAP_MS);
+  await preloadShowcasePages();
 
   await delay(PHASE_GAP_MS);
   await preloadSyncfusionModules();

@@ -8,6 +8,7 @@
  */
 import { memo, useEffect, useRef, useCallback, type ReactNode } from 'react';
 
+import type { BaseDialogButton } from '@/components/ui/shared/dialogTypes';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
@@ -18,16 +19,7 @@ const enum DialogVariant {
   Danger = 'danger',
 }
 
-interface DialogButton {
-  /** Button text */
-  text: string;
-  /** Button variant */
-  variant?: 'primary' | 'secondary' | 'danger';
-  /** Click handler */
-  onClick?: () => void;
-  /** Test ID for E2E testing */
-  testId?: string;
-}
+type DialogButton = BaseDialogButton;
 
 interface Props {
   /** Dialog title */
@@ -49,7 +41,7 @@ interface Props {
   /** Test ID for E2E testing */
   testId?: string;
   /** Width of the dialog */
-  width?: string;
+  width?: string | number;
   /** Whether to show close button */
   showCloseIcon?: boolean;
   /** Whether clicking overlay closes dialog */
@@ -57,7 +49,7 @@ interface Props {
 }
 
 const BUTTON_CLASSES: Record<string, string> = {
-  primary: 'bg-primary-500 text-white hover:bg-primary-600 active:bg-primary-700',
+  primary: 'bg-primary-700 text-white hover:bg-primary-800 active:bg-primary-900',
   secondary: 'bg-surface-elevated text-text-primary hover:bg-surface-hover border border-border',
   danger: 'bg-error-500 text-white hover:bg-error-600 active:bg-error-700',
 };
@@ -122,6 +114,8 @@ const DialogNative = ({
     return defaultVariant as 'primary' | 'secondary' | 'danger';
   };
 
+  const resolvedWidth = typeof width === 'number' ? `${String(width)}px` : width;
+
   return (
     // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-noninteractive-element-interactions
     <dialog
@@ -134,7 +128,7 @@ const DialogNative = ({
         className,
       )}
       data-testid={testId}
-      style={{ width, maxWidth: '90vw' }}
+      style={{ width: resolvedWidth, maxWidth: '90vw' }}
       onClick={handleOverlayClick}
     >
       {/* Header */}
@@ -179,7 +173,7 @@ const DialogNative = ({
             <button
               className={cn(
                 'px-4 py-2 rounded-md font-medium transition-colors',
-                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
+                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
                 BUTTON_CLASSES[getButtonVariant(secondaryButton, 'secondary')],
               )}
               data-testid={secondaryButton.testId}
@@ -193,7 +187,7 @@ const DialogNative = ({
             <button
               className={cn(
                 'px-4 py-2 rounded-md font-medium transition-colors',
-                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
+                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
                 BUTTON_CLASSES[getButtonVariant(primaryButton, 'primary')],
               )}
               data-testid={primaryButton.testId}

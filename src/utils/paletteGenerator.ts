@@ -172,8 +172,13 @@ export function generatePaletteFromBase(baseColor: string): ColorScale {
  * Convert hex color to RGB string format
  * @param hex - Hex color (e.g., "#3b82f6" or "3b82f6")
  */
+const VALID_HEX_LENGTH = 6;
+const VALID_HEX_PATTERN = /^[0-9a-f]{6}$/i;
+const FALLBACK_RGB = '0 0 0';
+
 export function hexToRgbString(hex: string): string {
   const cleanHex = hex.replace('#', '');
+  if (cleanHex.length !== VALID_HEX_LENGTH || !VALID_HEX_PATTERN.test(cleanHex)) return FALLBACK_RGB;
   const r = parseInt(cleanHex.substring(HEX_R_START, HEX_R_END), HEX_BASE);
   const g = parseInt(cleanHex.substring(HEX_G_START, HEX_G_END), HEX_BASE);
   const b = parseInt(cleanHex.substring(HEX_B_START, HEX_B_END), HEX_BASE);
@@ -205,6 +210,10 @@ export interface DerivedComponentColors {
   };
   inputs: {
     borderFocus: string;
+    focusRingColor: string;
+  };
+  dataGrid: {
+    paginationActiveBackground: string;
   };
 }
 
@@ -215,17 +224,21 @@ export function generateDerivedColors(primaryPalette: ColorScale): DerivedCompon
   return {
     buttons: {
       primary: {
-        background: primaryPalette['600'],
-        backgroundHover: primaryPalette['700'],
+        background: primaryPalette['700'],
+        backgroundHover: primaryPalette['800'],
         textColor: '255 255 255',
       },
     },
     sidebar: {
-      activeBg: primaryPalette['500'],
+      activeBg: primaryPalette['700'],
       activeText: '255 255 255',
     },
     inputs: {
       borderFocus: primaryPalette['500'],
+      focusRingColor: primaryPalette['500'],
+    },
+    dataGrid: {
+      paginationActiveBackground: primaryPalette['500'],
     },
   };
 }

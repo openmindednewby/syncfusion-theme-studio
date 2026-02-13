@@ -114,7 +114,7 @@ export const DrawerTabs = ({ activeTab, onTabChange }: DrawerTabsProps): JSX.Ele
               text-[11px] font-medium transition-all duration-200
               ${
                 isActive
-                  ? 'bg-primary-500 text-white shadow-sm'
+                  ? 'bg-primary-700 text-white shadow-sm'
                   : 'text-text-secondary hover:bg-surface-elevated hover:text-text-primary'
               }
             `}

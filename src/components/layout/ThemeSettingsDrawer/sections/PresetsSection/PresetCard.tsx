@@ -28,7 +28,7 @@ export const PresetCard = ({ isActive, onApply, preset }: PresetCardProps): JSX.
     onApply(preset);
   };
 
-  const activeClass = isActive ? 'ring-2 ring-primary-500 ring-offset-2' : '';
+  const activeClass = isActive ? 'ring-2 ring-primary-500 ring-offset-2 ring-offset-surface' : '';
   const hoverClass = 'hover:shadow-md hover:border-primary-300';
 
   return (

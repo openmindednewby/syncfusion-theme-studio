@@ -141,6 +141,19 @@
     --component-datagrid-row-even: rgb(255 255 255);
     --component-datagrid-row-odd: rgb(249 250 251);
     --component-datagrid-row-hover: rgb(243 244 246);
+    --component-datagrid-row-selected: rgb(219 234 254);
+
+    /* DataGrid Pagination */
+    --component-datagrid-pagination-bg: rgb(255 255 255);
+    --component-datagrid-pagination-border: rgb(229 231 235);
+    --component-datagrid-pagination-text: rgb(55 65 81);
+    --component-datagrid-pagination-active-bg: rgb(59 130 246);
+    --component-datagrid-pagination-active-text: rgb(255 255 255);
+    --component-datagrid-pagination-hover-bg: rgb(243 244 246);
+    --component-datagrid-pagination-nav-color: rgb(107 114 128);
+    --component-datagrid-pagination-nav-disabled: rgb(209 213 219);
+    --component-datagrid-pagination-info-text: rgb(107 114 128);
+    --component-datagrid-pagination-btn-radius: 6px;
 
     /* Cards */
     --component-card-background: rgb(255 255 255);
@@ -189,6 +202,17 @@
     --component-datagrid-row-even: rgb(17 24 39);
     --component-datagrid-row-odd: rgb(31 41 55);
     --component-datagrid-row-hover: rgb(55 65 81);
+    --component-datagrid-row-selected: rgb(30 58 138);
+    --component-datagrid-pagination-bg: rgb(17 24 39);
+    --component-datagrid-pagination-border: rgb(75 85 99);
+    --component-datagrid-pagination-text: rgb(156 163 175);
+    --component-datagrid-pagination-active-bg: rgb(59 130 246);
+    --component-datagrid-pagination-active-text: rgb(255 255 255);
+    --component-datagrid-pagination-hover-bg: rgb(55 65 81);
+    --component-datagrid-pagination-nav-color: rgb(156 163 175);
+    --component-datagrid-pagination-nav-disabled: rgb(75 85 99);
+    --component-datagrid-pagination-info-text: rgb(107 114 128);
+    --component-datagrid-pagination-btn-radius: 6px;
     --component-card-background: rgb(31 41 55);
     --component-card-border: rgb(75 85 99);
     --component-modal-content-bg: rgb(31 41 55);

@@ -31,6 +31,30 @@ export type { DialogProps, DialogButton } from './Dialog';
 export { default as Alert, AlertSeverity, AlertDisplayVariant } from './Alert';
 export type { AlertProps } from './Alert';
 
+export { default as SyncfusionTabs } from './Tabs';
+export type { SyncfusionTabsProps } from './Tabs';
+
+export { default as SyncfusionTimeline } from './Timeline';
+export type { SyncfusionTimelineProps } from './Timeline';
+
+export { default as SyncfusionTag, TagVariant as SfTagVariant } from './Tag';
+export type { SyncfusionTagProps } from './Tag';
+
+export { default as SyncfusionBadge, BadgeVariant as SfBadgeVariant } from './Badge';
+export type { SyncfusionBadgeProps } from './Badge';
+
+export { default as SyncfusionAvatar, AvatarSize as SfAvatarSize } from './Avatar';
+export type { SyncfusionAvatarProps } from './Avatar';
+
+export { default as SyncfusionCard } from './Card';
+export type { SyncfusionCardProps } from './Card';
+
+export { default as SyncfusionProgressBar, ProgressBarVariant as SfProgressBarVariant } from './ProgressBar';
+export type { SyncfusionProgressBarProps } from './ProgressBar';
+
+export { default as SyncfusionTooltip, TooltipPlacement as SfTooltipPlacement } from './Tooltip';
+export type { SyncfusionTooltipProps } from './Tooltip';
+
 // Re-export hooks
 export {
   useSyncfusionTheme,

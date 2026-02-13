@@ -17,10 +17,29 @@ docs/Tasks/
 
 ### TODO
 
-| Task | Description | Priority |
-|------|-------------|----------|
-| [Syncfusion Forms Showcase](./TODO/syncfusion-forms-showcase-page.md) | Create forms page with Syncfusion components | High |
-| [Native Forms Showcase](./TODO/native-forms-showcase-page.md) | Create lightweight forms page with native HTML | Medium |
+No tasks pending.
+
+### COMPLETED — Forms Showcase API Integration (9 tasks)
+
+| # | Task | Status |
+|---|------|--------|
+| - | [Master Plan](./COMPLETED/forms-api-master-plan.md) | Done |
+| SF-01 | [Product CRUD](./COMPLETED/sf-01-product-crud.md) | Done |
+| SF-02 | [User Management](./COMPLETED/sf-02-user-management.md) | Done |
+| SF-03 | [Product Search](./COMPLETED/sf-03-product-search.md) | Done |
+| SF-04 | [Page Layout](./COMPLETED/sf-04-page-layout.md) | Done |
+| NF-05 | [User Lookup](./COMPLETED/nf-05-user-lookup.md) | Done |
+| NF-06 | [User Creation](./COMPLETED/nf-06-user-creation.md) | Done |
+| NF-07 | [Order Form](./COMPLETED/nf-07-order-form.md) | Done |
+| NF-08 | [Page Layout](./COMPLETED/nf-08-page-layout.md) | Done |
+| 09 | [Quality Gate + Review](./COMPLETED/09-quality-gate-review.md) | Done |
+
+### COMPLETED — Forms Showcase (static, original)
+
+| Task | Status |
+|------|--------|
+| [Syncfusion Forms Showcase](./COMPLETED/syncfusion-forms-showcase-page.md) | Done |
+| [Native Forms Showcase](./COMPLETED/native-forms-showcase-page.md) | Done |
 
 ### COMPLETED — Mock Server (10 tasks)
 

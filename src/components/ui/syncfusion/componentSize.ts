@@ -1,6 +1,2 @@
-/** Common size variants for components */
-export const enum ComponentSize {
-  Sm = 'sm',
-  Md = 'md',
-  Lg = 'lg',
-}
+/** Common size variants for components - re-exported from shared */
+export { ButtonSize as ComponentSize } from '@/components/ui/shared/buttonSize';

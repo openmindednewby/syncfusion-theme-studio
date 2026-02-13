@@ -1,12 +1,14 @@
 /**
  * Search Form Component
  *
- * Inline/horizontal layout for search and filter functionality.
- * Demonstrates optional fields and date range selection.
+ * Inline/horizontal layout for product search with category filter.
+ * Accepts dynamic categories from the API and loading state.
  */
+import { useMemo } from 'react';
+
 import { FormProvider } from 'react-hook-form';
 
-import { FormInput, FormSelect, FormDatePicker } from '@/components/ui/form-fields';
+import { FormInput, FormSelect } from '@/components/ui/form-fields';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
 import { FM } from '@/localization/helpers';
@@ -14,7 +16,7 @@ import { FM } from '@/localization/helpers';
 import {
   searchFormSchema,
   defaultSearchFormValues,
-  searchCategoryOptions,
+  ALL_CATEGORIES_VALUE,
   type SearchFormData,
 } from './schema';
 
@@ -22,13 +24,23 @@ const FORM_CONFIG = { schema: searchFormSchema, defaultValues: defaultSearchForm
 
 interface Props {
   onSubmit: (data: SearchFormData) => void;
+  /** Available product categories from the API */
+  categories: string[];
+  /** Whether a search is currently in progress */
+  isSearching: boolean;
 }
 
-export const SearchForm = ({ onSubmit }: Props): JSX.Element => {
+export const SearchForm = ({ onSubmit, categories, isSearching }: Props): JSX.Element => {
   const form = useFormWithSchema(FORM_CONFIG);
 
   const { handleSubmit, control, reset, formState } = form;
-  const { isSubmitting, isDirty } = formState;
+  const { isDirty } = formState;
+
+  const categoryOptions = useMemo(() => {
+    const allOption = { value: ALL_CATEGORIES_VALUE, label: FM('forms.search.allCategories') };
+    const apiOptions = categories.map((cat) => ({ value: cat, label: cat }));
+    return [allOption, ...apiOptions];
+  }, [categories]);
 
   function handleFormSubmit(data: SearchFormData): void {
     onSubmit(data);
@@ -59,28 +71,8 @@ export const SearchForm = ({ onSubmit }: Props): JSX.Element => {
               control={control}
               label={FM('forms.search.category')}
               name="category"
-              options={searchCategoryOptions}
+              options={categoryOptions}
               testId="search-form-category"
-            />
-          </div>
-
-          <div className="min-w-[140px]">
-            <FormDatePicker<SearchFormData>
-              fullWidth
-              control={control}
-              label={FM('forms.search.dateFrom')}
-              name="dateFrom"
-              testId="search-form-date-from"
-            />
-          </div>
-
-          <div className="min-w-[140px]">
-            <FormDatePicker<SearchFormData>
-              fullWidth
-              control={control}
-              label={FM('forms.search.dateTo')}
-              name="dateTo"
-              testId="search-form-date-to"
             />
           </div>
 
@@ -95,16 +87,16 @@ export const SearchForm = ({ onSubmit }: Props): JSX.Element => {
               {FM('common.reset')}
             </ButtonNative>
             <ButtonNative
-              disabled={isSubmitting}
+              disabled={isSearching}
               testId="search-form-submit"
               type="submit"
               variant={ButtonVariant.Primary}
             >
-              {FM('forms.search.submit')}
+              {isSearching ? FM('common.loading') : FM('forms.search.submit')}
             </ButtonNative>
           </div>
         </div>
       </form>
     </FormProvider>
   );
-}
+};

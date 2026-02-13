@@ -1,21 +1,28 @@
 /**
  * Product Form Schema
  *
- * Form with select dropdown and date picker.
- * Demonstrates positive number validation and future date validation.
+ * Form with select dropdown, text inputs, and number validation.
+ * Maps to CreateProductRequest/UpdateProductRequest API models.
  */
 import { z } from 'zod';
 
-import { requiredString, futureDateSchema } from '@/lib/forms/schemas';
+import { optionalString, requiredString } from '@/lib/forms/schemas';
+
+const MIN_STOCK = 0;
 
 // Price schema that coerces string to number
 const priceSchema = z.coerce.number().positive('validation.mustBePositive');
+
+// Stock schema that coerces string to number, minimum 0
+const stockSchema = z.coerce.number().min(MIN_STOCK, 'validation.mustBePositive');
 
 export const productFormSchema = z.object({
   productName: requiredString,
   category: requiredString,
   price: priceSchema,
-  releaseDate: futureDateSchema.optional(),
+  description: optionalString,
+  brand: optionalString,
+  stock: stockSchema,
 });
 
 export type ProductFormData = z.infer<typeof productFormSchema>;
@@ -24,13 +31,7 @@ export const defaultProductFormValues: ProductFormData = {
   productName: '',
   category: '',
   price: 0,
-  releaseDate: undefined,
+  description: undefined,
+  brand: undefined,
+  stock: 0,
 };
-
-export const categoryOptions = [
-  { value: 'electronics', label: 'Electronics' },
-  { value: 'clothing', label: 'Clothing' },
-  { value: 'home', label: 'Home & Garden' },
-  { value: 'sports', label: 'Sports & Outdoors' },
-  { value: 'books', label: 'Books' },
-];

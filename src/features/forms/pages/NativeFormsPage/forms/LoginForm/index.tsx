@@ -12,9 +12,13 @@ const FORM_CONFIG = { schema: loginSchema };
 
 interface Props {
   onSubmit: (data: LoginFormData) => void;
+  /** Whether a search is in progress (disables submit button) */
+  isSearching?: boolean;
+  /** Optional override for the submit button label */
+  submitLabel?: string;
 }
 
-export const LoginForm = ({ onSubmit }: Props): JSX.Element => {
+export const LoginForm = ({ onSubmit, isSearching, submitLabel }: Props): JSX.Element => {
   const { control, handleSubmit, formState } = useFormWithSchema(FORM_CONFIG);
   const { isSubmitting } = formState;
 
@@ -22,18 +26,18 @@ export const LoginForm = ({ onSubmit }: Props): JSX.Element => {
     <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
       <FormNativeInput
         fullWidth
-        showRequired
+        required
         control={control}
         label={FM('forms.fields.email')}
         name="email"
-        placeholder="email@example.com"
+        placeholder={FM('forms.login.emailPlaceholder')}
         testId="login-email"
         type="email"
       />
 
       <FormNativeInput
         fullWidth
-        showRequired
+        required
         control={control}
         label={FM('forms.fields.password')}
         name="password"
@@ -50,12 +54,12 @@ export const LoginForm = ({ onSubmit }: Props): JSX.Element => {
 
       <ButtonNative
         fullWidth
-        disabled={isSubmitting}
+        disabled={isSubmitting || isSearching}
         testId="login-submit"
         type="submit"
         variant={ButtonVariant.Primary}
       >
-        {FM('forms.actions.login')}
+        {submitLabel ?? FM('forms.actions.login')}
       </ButtonNative>
     </form>
   );

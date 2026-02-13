@@ -9,6 +9,7 @@ import { type StatusKey, type StatusShade ,
   type ColorShade,
   type ComponentConfigSingle,
   type ComponentsConfig,
+  type DataGridConfig,
   type InputsConfig,
   type SidebarComponentConfig,
   type ThemeConfig,
@@ -73,7 +74,18 @@ export function buildDerivedSidebar(sidebar: SidebarComponentConfig, derived: De
 }
 
 export function buildDerivedInputs(inputs: InputsConfig, derived: DerivedComponentColors): InputsConfig {
-  return { ...inputs, borderFocus: derived.inputs.borderFocus };
+  return {
+    ...inputs,
+    borderFocus: derived.inputs.borderFocus,
+    focusRingColor: derived.inputs.focusRingColor,
+  };
+}
+
+export function buildDerivedDataGrid(dataGrid: DataGridConfig, derived: DerivedComponentColors): DataGridConfig {
+  return {
+    ...dataGrid,
+    paginationActiveBackground: derived.dataGrid.paginationActiveBackground,
+  };
 }
 
 export function buildDerivedModeConfig(config: ComponentConfigSingle, derived: DerivedComponentColors): ComponentConfigSingle {
@@ -82,6 +94,7 @@ export function buildDerivedModeConfig(config: ComponentConfigSingle, derived: D
     buttons: buildDerivedButtons(config.buttons, derived),
     sidebar: buildDerivedSidebar(config.sidebar, derived),
     inputs: buildDerivedInputs(config.inputs, derived),
+    dataGrid: buildDerivedDataGrid(config.dataGrid, derived),
   };
 }
 

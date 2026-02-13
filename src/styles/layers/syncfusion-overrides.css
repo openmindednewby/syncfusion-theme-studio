@@ -39,6 +39,14 @@
     color: inherit;
   }
 
+  /* Global: hide Syncfusion popups in their closed state.
+     Syncfusion normally hides these via JS, but when they render
+     inside the document flow (e.g. grid edit/delete confirm dialogs,
+     column chooser), they can be visible without this rule. */
+  .e-popup-close {
+    display: none !important;
+  }
+
   /* Global: ensure all Syncfusion icon containers are transparent */
   .e-input-group-icon {
     background-color: transparent !important;
@@ -401,25 +409,44 @@
   /* Note: !important is required to override Syncfusion's hardcoded colors */
   /* Covers: DropDownList (.e-ddl), ComboBox (.e-ddl), AutoComplete (.e-ddl), MultiSelect (.e-multiselect) */
 
+  /* Hidden native <select> used by Syncfusion for form submission compatibility.
+     The Syncfusion base CSS rule for this is stripped during build (CSS tree-shaking),
+     so we must replicate it here to prevent the native select from appearing visually. */
+  .e-ddl .e-ddl-hidden {
+    -webkit-appearance: initial !important;
+    border: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    position: absolute !important;
+    overflow: hidden !important;
+  }
+
   /* --- Input wrapper: DropDownList / ComboBox / AutoComplete --- */
   .e-ddl.e-control-wrapper {
     background-color: var(--component-select-background) !important;
     border-color: var(--component-select-border-default) !important;
-    border-radius: var(--radius-md) !important;
+    border-radius: var(--component-select-border-radius) !important;
+    transition: border-color var(--component-select-transition) ease, box-shadow var(--component-select-transition) ease !important;
   }
 
   .e-ddl.e-control-wrapper:hover:not(.e-disabled) {
-    border-color: rgb(var(--color-primary-400)) !important;
+    border-color: var(--component-select-border-hover) !important;
   }
 
   .e-ddl.e-control-wrapper.e-input-focus {
     border-color: var(--component-select-border-focus) !important;
-    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1) !important;
+    box-shadow: 0 0 0 var(--component-select-focus-ring-width) var(--component-select-focus-ring) !important;
   }
 
   .e-ddl.e-control-wrapper .e-input {
     color: var(--component-select-text-color) !important;
     background-color: transparent !important;
+  }
+
+  .e-ddl.e-control-wrapper .e-input::placeholder {
+    color: var(--component-select-placeholder-color) !important;
   }
 
   .e-ddl.e-control-wrapper .e-input-group-icon {
@@ -428,24 +455,29 @@
     border: none !important;
   }
 
+  .e-ddl.e-control-wrapper.e-disabled {
+    opacity: var(--component-select-disabled-opacity) !important;
+  }
+
   .e-ddl.e-control-wrapper.e-error {
-    border-color: rgb(var(--color-error-500)) !important;
+    border-color: var(--component-select-border-error) !important;
   }
 
   /* --- Input wrapper: MultiSelect --- */
   .e-multiselect.e-control-wrapper {
     background-color: var(--component-select-background) !important;
     border-color: var(--component-select-border-default) !important;
-    border-radius: var(--radius-md) !important;
+    border-radius: var(--component-select-border-radius) !important;
+    transition: border-color var(--component-select-transition) ease, box-shadow var(--component-select-transition) ease !important;
   }
 
   .e-multiselect.e-control-wrapper:hover:not(.e-disabled) {
-    border-color: rgb(var(--color-primary-400)) !important;
+    border-color: var(--component-select-border-hover) !important;
   }
 
   .e-multiselect.e-control-wrapper.e-input-focus {
     border-color: var(--component-select-border-focus) !important;
-    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1) !important;
+    box-shadow: 0 0 0 var(--component-select-focus-ring-width) var(--component-select-focus-ring) !important;
   }
 
   .e-multiselect.e-control-wrapper .e-multi-select-wrapper {
@@ -455,6 +487,10 @@
   .e-multiselect.e-control-wrapper .e-input {
     color: var(--component-select-text-color) !important;
     background-color: transparent !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-input::placeholder {
+    color: var(--component-select-placeholder-color) !important;
   }
 
   .e-multiselect.e-control-wrapper .e-input-group-icon {
@@ -476,8 +512,12 @@
     color: rgb(var(--color-text-secondary)) !important;
   }
 
+  .e-multiselect.e-control-wrapper.e-disabled {
+    opacity: var(--component-select-disabled-opacity) !important;
+  }
+
   .e-multiselect.e-control-wrapper.e-error {
-    border-color: rgb(var(--color-error-500)) !important;
+    border-color: var(--component-select-border-error) !important;
   }
 
   /* --- Dropdown popup: all types --- */
@@ -488,10 +528,9 @@
   .e-popup.e-multiselect {
     background-color: var(--component-select-popup-bg) !important;
     border-color: var(--component-select-popup-border) !important;
-    border-radius: var(--radius-md) !important;
-    box-shadow:
-      0 10px 15px -3px rgb(0 0 0 / 0.1),
-      0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+    border-radius: var(--component-select-popup-border-radius) !important;
+    box-shadow: var(--component-select-popup-shadow) !important;
+    max-height: var(--component-select-popup-max-height) !important;
   }
 
   /* Popup content area background for all dropdown types */
@@ -506,13 +545,13 @@
   .e-popup.e-ddl .e-list-item,
   .e-popup.e-multiselect .e-list-item,
   .e-dropdownbase .e-list-item {
-    color: rgb(var(--color-text-primary)) !important;
+    color: var(--component-select-item-text) !important;
     background-color: transparent !important;
-    padding: 8px 12px !important;
+    padding: var(--component-select-item-padding) !important;
     border-radius: var(--radius-sm) !important;
     margin: 2px 4px !important;
-    transition: background-color 150ms ease, color 150ms ease !important;
-    font-size: var(--font-size-sm) !important;
+    transition: background-color var(--component-select-transition) ease, color var(--component-select-transition) ease !important;
+    font-size: var(--component-select-item-font-size) !important;
   }
 
   /* Hover state for list items */
@@ -523,7 +562,7 @@
   .e-dropdownbase .e-list-item.e-hover,
   .e-dropdownbase .e-list-item:hover {
     background-color: var(--component-select-item-hover) !important;
-    color: rgb(var(--color-text-primary)) !important;
+    color: var(--component-select-item-text) !important;
   }
 
   /* Active / selected state */
@@ -542,14 +581,14 @@
   .e-popup.e-ddl .e-input-filter,
   .e-popup.e-multiselect .e-input-filter,
   .e-popup .e-filter-parent {
-    background-color: var(--component-select-popup-bg) !important;
-    border-color: var(--component-select-popup-border) !important;
+    background-color: var(--component-select-search-bg) !important;
+    border-color: var(--component-select-search-border) !important;
   }
 
   .e-popup.e-ddl .e-input-filter input,
   .e-popup.e-multiselect .e-input-filter input,
   .e-popup .e-filter-parent input {
-    color: rgb(var(--color-text-primary)) !important;
+    color: var(--component-select-item-text) !important;
     background-color: transparent !important;
   }
 
@@ -587,7 +626,9 @@
     border-color: rgb(var(--color-border)) !important;
   }
 
-  .e-grid .e-headercell {
+  .e-grid .e-headercell,
+  .e-grid .e-detailheadercell {
+    background-color: var(--component-datagrid-header-bg) !important;
     color: var(--component-datagrid-header-text) !important;
     font-weight: 600;
   }
@@ -611,6 +652,20 @@
 
   .e-grid .e-row.e-selectionbackground .e-rowcell {
     background-color: var(--component-datagrid-row-selected) !important;
+  }
+
+  /* Grid table elements — strip Syncfusion's default white background
+     so the themed container backgrounds (header-bg / row-even) show through */
+  .e-grid .e-gridheader table,
+  .e-grid .e-gridcontent table {
+    background-color: transparent !important;
+  }
+
+  /* Grid content area — must match row-even so the gap below
+     short pages (when table height < container height) is themed */
+  .e-grid .e-gridcontent,
+  .e-grid .e-gridcontent .e-content {
+    background-color: var(--component-datagrid-row-even) !important;
   }
 
   /* ===== GRID PAGER OVERRIDES ===== */
@@ -967,55 +1022,56 @@
 
   /* ===== CARD OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded card styles */
   .e-card,
   .theme-card {
-    background-color: var(--component-card-background);
-    border-color: var(--component-card-border);
-    color: var(--component-card-text);
+    background-color: var(--component-card-background) !important;
+    border-color: var(--component-card-border) !important;
+    color: var(--component-card-text) !important;
     transition: border-color var(--transition-fast);
   }
 
   .e-card:hover,
   .theme-card:hover {
-    border-color: var(--component-card-hover-border);
+    border-color: var(--component-card-hover-border) !important;
   }
 
   .e-card .e-card-header,
   .theme-card-header {
-    background-color: var(--component-card-header-bg);
-    border-bottom: 1px solid var(--component-card-header-border);
-    color: var(--component-card-header-text);
+    background-color: var(--component-card-header-bg) !important;
+    border-bottom: 1px solid var(--component-card-header-border) !important;
+    color: var(--component-card-header-text) !important;
   }
 
   .e-card .e-card-header .e-card-header-title,
   .e-card .e-card-header-title {
-    color: var(--component-card-title);
+    color: var(--component-card-title) !important;
   }
 
   .e-card .e-card-header .e-card-sub-title {
-    color: var(--component-card-subtitle);
+    color: var(--component-card-subtitle) !important;
   }
 
   .e-card .e-card-content {
-    color: var(--component-card-text);
+    color: var(--component-card-text) !important;
     padding: var(--component-card-content-padding);
   }
 
   .e-card .e-card-actions,
   .e-card .e-card-footer,
   .theme-card-footer {
-    background-color: var(--component-card-footer-bg);
-    border-top: 1px solid var(--component-card-footer-border);
+    background-color: var(--component-card-footer-bg) !important;
+    border-top: 1px solid var(--component-card-footer-border) !important;
   }
 
   .e-card .e-card-actions .e-card-btn,
   .e-card .e-card-actions .e-btn {
-    color: var(--component-card-action-text);
+    color: var(--component-card-action-text) !important;
   }
 
   .e-card .e-card-actions .e-card-btn:hover,
   .e-card .e-card-actions .e-btn:hover {
-    color: var(--component-card-action-hover);
+    color: var(--component-card-action-hover) !important;
   }
 
   /* ===== BADGE OVERRIDES ===== */
@@ -1342,5 +1398,195 @@
 
   .e-breadcrumb .e-breadcrumb-item .e-icons {
     color: var(--component-breadcrumb-icon) !important;
+  }
+
+  /* ===== SLIDER OVERRIDES ===== */
+  /* Uses theme CSS variables for slider colors */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+
+  /* Slider track background (unfilled portion) */
+  .e-slider-container .e-slider .e-slider-track {
+    background-color: rgb(var(--color-border)) !important;
+  }
+
+  /* Slider filled range bar */
+  .e-slider-container .e-slider .e-range {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Slider handle (thumb) */
+  .e-slider-container .e-slider .e-handle {
+    background-color: rgb(var(--color-primary-500)) !important;
+    border-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Slider handle hover */
+  .e-slider-container .e-slider .e-handle:hover {
+    background-color: rgb(var(--color-primary-600)) !important;
+    border-color: rgb(var(--color-primary-600)) !important;
+  }
+
+  /* Slider handle active/pressed */
+  .e-slider-container .e-slider .e-handle.e-handle-active,
+  .e-slider-container .e-slider .e-handle:active {
+    background-color: rgb(var(--color-primary-700)) !important;
+    border-color: rgb(var(--color-primary-700)) !important;
+  }
+
+  /* Slider handle focus ring */
+  .e-slider-container .e-slider .e-handle.e-handle-active::after,
+  .e-slider-container .e-slider .e-handle:focus::after {
+    background-color: rgb(var(--color-primary-500) / 0.2) !important;
+  }
+
+  /* Slider tick marks */
+  .e-slider-container .e-scale .e-tick .e-tick-value {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* Slider tooltip */
+  .e-slider-container .e-slider-tooltip.e-tooltip-wrap {
+    background-color: rgb(var(--color-primary-700)) !important;
+    border-color: rgb(var(--color-primary-700)) !important;
+    color: #fff !important;
+  }
+
+  .e-slider-container .e-slider-tooltip.e-tooltip-wrap .e-arrow-tip-inner {
+    color: rgb(var(--color-primary-700)) !important;
+  }
+
+  /* Disabled slider */
+  .e-slider-container.e-disabled .e-slider .e-range {
+    background-color: rgb(var(--color-primary-300)) !important;
+  }
+
+  .e-slider-container.e-disabled .e-slider .e-handle {
+    background-color: rgb(var(--color-primary-300)) !important;
+    border-color: rgb(var(--color-primary-300)) !important;
+  }
+
+  /* ===== TAB OVERRIDES ===== */
+  /* Uses theme CSS variables for tab colors */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+
+  /* Tab header background */
+  .e-tab .e-tab-header {
+    background-color: transparent !important;
+    border-bottom-color: rgb(var(--color-border)) !important;
+  }
+
+  /* Tab item text */
+  .e-tab .e-tab-header .e-toolbar-item .e-tab-text {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* Active tab text */
+  .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-text {
+    color: rgb(var(--color-primary-500)) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Tab hover text */
+  .e-tab .e-tab-header .e-toolbar-item:hover:not(.e-active) .e-tab-text {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  /* Active tab indicator line */
+  .e-tab .e-tab-header .e-indicator {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Tab content area */
+  .e-tab .e-content {
+    background-color: transparent !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  /* Tab header item background */
+  .e-tab .e-tab-header .e-toolbar-item .e-tab-wrap {
+    background-color: transparent !important;
+  }
+
+  /* Tab header item hover background */
+  .e-tab .e-tab-header .e-toolbar-item:hover .e-tab-wrap {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  /* Tab focus ring */
+  .e-tab .e-tab-header .e-toolbar-item .e-tab-wrap:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-primary-500)) !important;
+  }
+
+  /* ===== RATING OVERRIDES ===== */
+  /* Syncfusion's tailwind theme hardcodes dark colors (#111827) for selected stars, */
+  /* which are invisible on dark backgrounds. Override with theme-aware colors. */
+
+  /* Unrated star outline and fill - use muted text color */
+  .e-rating-container .e-rating-item-container .e-rating-icon {
+    -webkit-text-stroke: 1px rgb(var(--color-text-muted)) !important;
+    background: rgb(var(--color-text-muted)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+  }
+
+  /* Selected/filled star - use amber/gold for visibility in both modes */
+  .e-rating-container .e-rating-item-container.e-rating-selected .e-rating-icon,
+  .e-rating-container .e-rating-item-container.e-rating-intermediate .e-rating-icon {
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-warning-500)) var(--rating-value),
+      transparent var(--rating-value)
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-stroke: 1px rgb(var(--color-warning-500)) !important;
+  }
+
+  /* Hover state - use primary color for interactive feedback */
+  .e-rating-container .e-rating-item-list:hover .e-rating-item-container.e-rating-selected .e-rating-icon,
+  .e-rating-container .e-rating-item-list:hover .e-rating-item-container.e-rating-intermediate .e-rating-icon {
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-primary-500)) var(--rating-value),
+      transparent var(--rating-value)
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-stroke: 1px rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Currently hovered star indicator */
+  .e-rating-container .e-rating-item-container.e-selected-value .e-rating-icon {
+    -webkit-text-stroke: 1px rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Disabled unrated star */
+  .e-rating-container.e-disabled .e-rating-item-container .e-rating-icon {
+    -webkit-text-stroke: 1px rgb(var(--color-border)) !important;
+    background: rgb(var(--color-border)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+  }
+
+  /* Disabled selected star - muted version */
+  .e-rating-container.e-disabled .e-rating-item-container.e-rating-selected .e-rating-icon,
+  .e-rating-container.e-disabled .e-rating-item-container.e-rating-intermediate .e-rating-icon {
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-text-muted)) var(--rating-value),
+      transparent var(--rating-value)
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-stroke: 1px rgb(var(--color-text-muted)) !important;
+  }
+
+  /* Reset button */
+  .e-rating-container .e-reset {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-rating-container .e-reset:hover {
+    color: rgb(var(--color-text-secondary)) !important;
   }
 }

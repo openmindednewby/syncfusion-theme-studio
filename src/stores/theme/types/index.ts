@@ -86,5 +86,14 @@ export type {
   ChipConfig,
 } from './feedbackComponentTypes';
 
+// Re-export data display component types
+export type {
+  TabsConfig,
+  TimelineConfig,
+  AvatarConfig,
+  ProgressBarConfig,
+  TooltipConfig,
+} from './componentTypes';
+
 // Re-export theme config and state types
 export type { ThemeConfig, ThemeState } from './themeTypes';

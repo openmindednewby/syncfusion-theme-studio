@@ -3,6 +3,7 @@
 import type { ComponentConfigSingle } from '../types';
 
 export function injectSelectVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  // Existing (10)
   root.style.setProperty('--component-select-background', `rgb(${c.select.background})`);
   root.style.setProperty('--component-select-border-default', `rgb(${c.select.borderDefault})`);
   root.style.setProperty('--component-select-border-focus', `rgb(${c.select.borderFocus})`);
@@ -13,6 +14,24 @@ export function injectSelectVariables(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-select-item-hover', `rgb(${c.select.itemHoverBackground})`);
   root.style.setProperty('--component-select-item-selected-bg', `rgb(${c.select.itemSelectedBackground})`);
   root.style.setProperty('--component-select-item-selected-text', `rgb(${c.select.itemSelectedTextColor})`);
+  // Previously missing (4)
+  root.style.setProperty('--component-select-border-hover', `rgb(${c.select.borderHover})`);
+  root.style.setProperty('--component-select-border-error', `rgb(${c.select.borderError})`);
+  root.style.setProperty('--component-select-placeholder-color', `rgb(${c.select.placeholderColor})`);
+  root.style.setProperty('--component-select-border-radius', `var(--radius-${c.select.borderRadius})`);
+  // New (12)
+  root.style.setProperty('--component-select-item-text', `rgb(${c.select.itemTextColor})`);
+  root.style.setProperty('--component-select-item-font-size', c.select.itemFontSize);
+  root.style.setProperty('--component-select-item-padding', c.select.itemPadding);
+  root.style.setProperty('--component-select-popup-shadow', c.select.popupShadow);
+  root.style.setProperty('--component-select-popup-max-height', c.select.popupMaxHeight);
+  root.style.setProperty('--component-select-popup-border-radius', `var(--radius-${c.select.popupBorderRadius})`);
+  root.style.setProperty('--component-select-search-bg', `rgb(${c.select.searchInputBackground})`);
+  root.style.setProperty('--component-select-search-border', `rgb(${c.select.searchInputBorderColor})`);
+  root.style.setProperty('--component-select-transition', c.select.transitionDuration);
+  root.style.setProperty('--component-select-focus-ring', `rgb(${c.select.focusRingColor})`);
+  root.style.setProperty('--component-select-focus-ring-width', c.select.focusRingWidth);
+  root.style.setProperty('--component-select-disabled-opacity', c.select.disabledOpacity);
 }
 
 export function injectDatePickerVariables(root: HTMLElement, c: ComponentConfigSingle): void {

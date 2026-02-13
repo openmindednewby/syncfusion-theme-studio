@@ -14,6 +14,111 @@ export const enum RouteSegment {
   ComponentsGridNative = 'components/grid/native',
   ComponentsGridSyncfusion = 'components/grid/syncfusion',
 
+  // Button
+  ComponentsButton = 'components/button',
+  ComponentsButtonNative = 'components/button/native',
+  ComponentsButtonSyncfusion = 'components/button/syncfusion',
+
+  // Input
+  ComponentsInput = 'components/input',
+  ComponentsInputNative = 'components/input/native',
+  ComponentsInputSyncfusion = 'components/input/syncfusion',
+
+  // Select
+  ComponentsSelect = 'components/select',
+  ComponentsSelectNative = 'components/select/native',
+  ComponentsSelectSyncfusion = 'components/select/syncfusion',
+
+  // DatePicker
+  ComponentsDatePicker = 'components/datepicker',
+  ComponentsDatePickerNative = 'components/datepicker/native',
+  ComponentsDatePickerSyncfusion = 'components/datepicker/syncfusion',
+
+  // Dialog
+  ComponentsDialog = 'components/dialog',
+  ComponentsDialogNative = 'components/dialog/native',
+  ComponentsDialogSyncfusion = 'components/dialog/syncfusion',
+
+  // Alert
+  ComponentsAlert = 'components/alert',
+  ComponentsAlertNative = 'components/alert/native',
+  ComponentsAlertSyncfusion = 'components/alert/syncfusion',
+
+  // Checkbox
+  ComponentsCheckbox = 'components/checkbox',
+  ComponentsCheckboxNative = 'components/checkbox/native',
+  ComponentsCheckboxSyncfusion = 'components/checkbox/syncfusion',
+
+  // Toast
+  ComponentsToast = 'components/toast',
+  ComponentsToastNative = 'components/toast/native',
+  ComponentsToastSyncfusion = 'components/toast/syncfusion',
+
+  // Toggle
+  ComponentsToggle = 'components/toggle',
+  ComponentsToggleNative = 'components/toggle/native',
+  ComponentsToggleSyncfusion = 'components/toggle/syncfusion',
+
+  // Toolbar
+  ComponentsToolbar = 'components/toolbar',
+  ComponentsToolbarNative = 'components/toolbar/native',
+  ComponentsToolbarSyncfusion = 'components/toolbar/syncfusion',
+
+  // Menu
+  ComponentsMenu = 'components/menu',
+  ComponentsMenuNative = 'components/menu/native',
+  ComponentsMenuSyncfusion = 'components/menu/syncfusion',
+
+  // Accordion
+  ComponentsAccordion = 'components/accordion',
+  ComponentsAccordionNative = 'components/accordion/native',
+  ComponentsAccordionSyncfusion = 'components/accordion/syncfusion',
+
+  // Breadcrumb
+  ComponentsBreadcrumb = 'components/breadcrumb',
+  ComponentsBreadcrumbNative = 'components/breadcrumb/native',
+  ComponentsBreadcrumbSyncfusion = 'components/breadcrumb/syncfusion',
+
+  // Tabs
+  ComponentsTabs = 'components/tabs',
+  ComponentsTabsNative = 'components/tabs/native',
+  ComponentsTabsSyncfusion = 'components/tabs/syncfusion',
+
+  // Timeline
+  ComponentsTimeline = 'components/timeline',
+  ComponentsTimelineNative = 'components/timeline/native',
+  ComponentsTimelineSyncfusion = 'components/timeline/syncfusion',
+
+  // Tag
+  ComponentsTag = 'components/tag',
+  ComponentsTagNative = 'components/tag/native',
+  ComponentsTagSyncfusion = 'components/tag/syncfusion',
+
+  // Badge
+  ComponentsBadge = 'components/badge',
+  ComponentsBadgeNative = 'components/badge/native',
+  ComponentsBadgeSyncfusion = 'components/badge/syncfusion',
+
+  // Avatar
+  ComponentsAvatar = 'components/avatar',
+  ComponentsAvatarNative = 'components/avatar/native',
+  ComponentsAvatarSyncfusion = 'components/avatar/syncfusion',
+
+  // Card
+  ComponentsCard = 'components/card',
+  ComponentsCardNative = 'components/card/native',
+  ComponentsCardSyncfusion = 'components/card/syncfusion',
+
+  // ProgressBar
+  ComponentsProgressBar = 'components/progressbar',
+  ComponentsProgressBarNative = 'components/progressbar/native',
+  ComponentsProgressBarSyncfusion = 'components/progressbar/syncfusion',
+
+  // Tooltip
+  ComponentsTooltip = 'components/tooltip',
+  ComponentsTooltipNative = 'components/tooltip/native',
+  ComponentsTooltipSyncfusion = 'components/tooltip/syncfusion',
+
   // Forms
   Forms = 'forms',
   FormsSyncfusion = 'forms/syncfusion',

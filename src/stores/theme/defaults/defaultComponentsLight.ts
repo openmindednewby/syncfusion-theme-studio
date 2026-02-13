@@ -1,6 +1,5 @@
-// Default light mode component configurations
-
 import { ShadowScale, type ComponentConfigSingle } from '../types';
+import { DEFAULT_DATA_DISPLAY_LIGHT } from './defaultDataDisplayLight';
 import { DEFAULT_FEEDBACK_LIGHT } from './defaultFeedbackLight';
 import { DEFAULT_NAVIGATION_LIGHT } from './defaultNavigationLight';
 import { DEFAULT_PAGINATION_LIGHT } from './defaultPaginationLight';
@@ -95,7 +94,6 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     borderRadius: 'md',
   },
   dataGrid: {
-    // Header & Rows
     headerBackground: '249 250 251',
     headerTextColor: '55 65 81',
     headerBorder: '229 231 235',
@@ -106,40 +104,24 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     cellBorderColor: '229 231 235',
     cellPadding: '12px 16px',
     paginationBackground: '255 255 255',
-
-    // Toolbar
     toolbarBackground: '249 250 251',
     toolbarTextColor: '55 65 81',
     toolbarBorderColor: '229 231 235',
-
-    // Filter Row
     filterRowBackground: '255 255 255',
     filterRowBorderColor: '229 231 235',
     filterInputBackground: '255 255 255',
-
-    // Grouping
     groupHeaderBackground: '243 244 246',
     groupHeaderTextColor: '55 65 81',
     groupDropAreaBackground: '249 250 251',
-
-    // Footer / Aggregates
     footerBackground: '249 250 251',
     footerTextColor: '55 65 81',
-
-    // Editing
     editCellBackground: '255 255 255',
     editCellBorderColor: '59 130 246',
     editDirtyIndicatorColor: '245 158 11',
-
-    // Selection
     rowSelectedTextColor: '17 24 39',
     cellSelectedBackground: '219 234 254',
-
-    // Sort & Resize
     sortIconColor: '107 114 128',
     resizeHandleColor: '209 213 219',
-
-    // Pagination extras
     paginationTextColor: '55 65 81',
     paginationActiveBackground: '59 130 246',
     paginationActiveTextColor: '255 255 255',
@@ -148,18 +130,10 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     paginationNavColor: '107 114 128',
     paginationNavDisabledColor: '209 213 219',
     paginationInfoTextColor: '107 114 128',
-
-    // Action Column
     actionButtonColor: '59 130 246',
     actionButtonHoverColor: '37 99 235',
-
-    // Detail Row
     detailRowBackground: '249 250 251',
-
-    // Drag Handle
     dragHandleColor: '156 163 175',
-
-    // Column & Row Settings
     defaultTextAlign: 'left',
     headerTextAlign: 'left',
     rowHeight: '42px',
@@ -222,7 +196,6 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     borderRadius: 'full',
     padding: '2px 8px',
   },
-  pagination: DEFAULT_PAGINATION_LIGHT,
-  ...DEFAULT_FEEDBACK_LIGHT,
-  ...DEFAULT_NAVIGATION_LIGHT,
+  pagination: DEFAULT_PAGINATION_LIGHT, ...DEFAULT_FEEDBACK_LIGHT,
+  ...DEFAULT_NAVIGATION_LIGHT, ...DEFAULT_DATA_DISPLAY_LIGHT,
 };

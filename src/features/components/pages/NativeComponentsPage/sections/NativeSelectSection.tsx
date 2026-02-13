@@ -17,8 +17,8 @@ export const NativeSelectSection = memo((): JSX.Element => {
     return options;
   }, []);
 
-  const handleSelectChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectValue(e.target.value);
+  const handleSelectChange = useCallback((value: string | number) => {
+    setSelectValue(String(value));
   }, []);
 
   return (

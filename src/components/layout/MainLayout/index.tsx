@@ -40,7 +40,7 @@ export const MainLayout = (): JSX.Element => {
     <div className="grid h-screen grid-cols-[auto_1fr_auto] bg-background">
       {/* Skip link for keyboard navigation */}
       <a
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary-500 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary-700 focus:px-4 focus:py-2 focus:text-white focus:outline-none"
         href={`#${MAIN_CONTENT_ID}`}
       >
         {FM('accessibility.skipToMainContent')}
@@ -52,7 +52,7 @@ export const MainLayout = (): JSX.Element => {
       {/* Main Content Area */}
       <div className="flex flex-col overflow-hidden">
         <Header />
-        <main className={cn('flex-1 overflow-auto', contentFullWidth ? 'p-2' : 'p-6')} id={MAIN_CONTENT_ID} tabIndex={-1}>
+        <main className={cn('flex-1 overflow-auto [scrollbar-gutter:stable]', contentFullWidth ? 'p-2' : 'p-6')} id={MAIN_CONTENT_ID} tabIndex={-1}>
           <div className={cn('max-w-content', !contentFullWidth && 'mx-auto')}>
             <Outlet />
           </div>

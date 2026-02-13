@@ -4,6 +4,7 @@ import { injectThemeVariables } from '../themeInjector';
 import { type ButtonVariant ,
   type AccordionConfig,
   type AlertsConfig,
+  type AvatarConfig,
   type BadgesConfig,
   type BreadcrumbConfig,
   type ButtonStateColors,
@@ -19,14 +20,17 @@ import { type ButtonVariant ,
   type MenuConfig,
   type MessageConfig,
   type ModalsConfig,
+  type PaginationConfig,
+  type ProgressBarConfig,
   type SelectConfig,
   type SidebarComponentConfig,
+  type TabsConfig,
   type ThemeConfig,
+  type TimelineConfig,
   type ToastConfig,
-  type PaginationConfig,
   type ToolbarConfig,
+  type TooltipConfig,
 } from '../types';
-
 
 import type { ComponentConfigActions, GetState, SetState } from './types';
 
@@ -52,6 +56,11 @@ const enum ComponentKey {
   Menu = 'menu',
   Breadcrumb = 'breadcrumb',
   Pagination = 'pagination',
+  Tabs = 'tabs',
+  Timeline = 'timeline',
+  Avatar = 'avatar',
+  ProgressBar = 'progressBar',
+  Tooltip = 'tooltip',
 }
 
 function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
@@ -75,7 +84,12 @@ function updateButton(set: SetState, get: GetState, variant: ButtonVariant, upda
   injectThemeVariables(newTheme, mode);
 }
 
-export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
+function createCoreComponentActions(set: SetState, get: GetState): Pick<ComponentConfigActions,
+  'updateHeaderConfig' | 'updateSidebarConfig' | 'updateInputConfig' | 'updateDataGridConfig' |
+  'updateCardsConfig' | 'updateModalsConfig' | 'updateBadgesConfig' | 'updateSelectConfig' |
+  'updateDatePickerConfig' | 'updateDialogConfig' | 'updateErrorMessagesConfig' |
+  'updateFlexBoxConfig' | 'updateAlertsConfig' | 'updateToastConfig'
+> {
   return {
     updateHeaderConfig: (u: Partial<HeaderComponentConfig>) => update(set, get, ComponentKey.Header, u),
     updateSidebarConfig: (u: Partial<SidebarComponentConfig>) => update(set, get, ComponentKey.Sidebar, u),
@@ -91,6 +105,12 @@ export function createComponentConfigActions(set: SetState, get: GetState): Comp
     updateFlexBoxConfig: (u: Partial<FlexBoxConfig>) => update(set, get, ComponentKey.FlexBox, u),
     updateAlertsConfig: (u: Partial<AlertsConfig>) => update(set, get, ComponentKey.Alerts, u),
     updateToastConfig: (u: Partial<ToastConfig>) => update(set, get, ComponentKey.Toast, u),
+  };
+}
+
+export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
+  return {
+    ...createCoreComponentActions(set, get),
     updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, ComponentKey.Message, u),
     updateChipConfig: (u: Partial<ChipConfig>) => update(set, get, ComponentKey.Chips, u),
     updateAccordionConfig: (u: Partial<AccordionConfig>) => update(set, get, ComponentKey.Accordion, u),
@@ -98,6 +118,11 @@ export function createComponentConfigActions(set: SetState, get: GetState): Comp
     updateMenuConfig: (u: Partial<MenuConfig>) => update(set, get, ComponentKey.Menu, u),
     updateBreadcrumbConfig: (u: Partial<BreadcrumbConfig>) => update(set, get, ComponentKey.Breadcrumb, u),
     updatePaginationConfig: (u: Partial<PaginationConfig>) => update<PaginationConfig>(set, get, ComponentKey.Pagination, u),
+    updateTabsConfig: (u: Partial<TabsConfig>) => update(set, get, ComponentKey.Tabs, u),
+    updateTimelineConfig: (u: Partial<TimelineConfig>) => update(set, get, ComponentKey.Timeline, u),
+    updateAvatarConfig: (u: Partial<AvatarConfig>) => update(set, get, ComponentKey.Avatar, u),
+    updateProgressBarConfig: (u: Partial<ProgressBarConfig>) => update(set, get, ComponentKey.ProgressBar, u),
+    updateTooltipConfig: (u: Partial<TooltipConfig>) => update(set, get, ComponentKey.Tooltip, u),
     updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
   };
 }

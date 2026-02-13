@@ -115,8 +115,24 @@ describe('useModeStore', () => {
         result.current.setMode(Mode.Dark);
       });
 
-      const stored = JSON.parse(localStorage.getItem('theme-storage') ?? '{}');
+      const stored = JSON.parse(localStorage.getItem('mode-storage') ?? '{}');
       expect(stored.state.mode).toBe('dark');
+    });
+
+    it('uses a storage key that does not collide with useThemeStore', () => {
+      const { result } = renderHook(() => useModeStore());
+
+      act(() => {
+        result.current.setMode(Mode.Dark);
+      });
+
+      // useModeStore uses 'mode-storage', useThemeStore uses 'theme-storage'
+      // They must not share the same key or they will overwrite each other
+      const modeData = localStorage.getItem('mode-storage');
+      const themeData = localStorage.getItem('theme-storage');
+
+      expect(modeData).not.toBeNull();
+      expect(themeData).toBeNull();
     });
   });
 });

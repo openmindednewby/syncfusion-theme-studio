@@ -43,12 +43,11 @@ export const useModeStore = create<ModeState>()(
         },
       }),
       {
-        name: 'theme-storage',
-        // Must match useThemeStore's version since they share the same storage key
+        name: 'mode-storage',
         version: 1,
         partialize: (state) => ({ mode: state.mode }),
         onRehydrateStorage: () => (state) => {
-          // Apply mode on hydration (must match useThemeStore's storage key)
+          // Apply mode on hydration
           if (state) applyModeToDocument(state.mode);
         },
       },

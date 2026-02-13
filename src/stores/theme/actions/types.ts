@@ -55,6 +55,11 @@ export interface ComponentConfigActions {
   updateMenuConfig: ThemeState['updateMenuConfig'];
   updateBreadcrumbConfig: ThemeState['updateBreadcrumbConfig'];
   updatePaginationConfig: ThemeState['updatePaginationConfig'];
+  updateTabsConfig: ThemeState['updateTabsConfig'];
+  updateTimelineConfig: ThemeState['updateTimelineConfig'];
+  updateAvatarConfig: ThemeState['updateAvatarConfig'];
+  updateProgressBarConfig: ThemeState['updateProgressBarConfig'];
+  updateTooltipConfig: ThemeState['updateTooltipConfig'];
 }
 
 export interface TypographyActions {

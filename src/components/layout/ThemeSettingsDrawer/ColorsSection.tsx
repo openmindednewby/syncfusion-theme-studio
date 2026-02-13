@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import AlertNative, { AlertVariant } from '@/components/ui/native/AlertNative';
+import AlertNative, { AlertSeverity } from '@/components/ui/native/AlertNative';
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { rgbStringToHex, hexToRgbString } from '@/utils';
@@ -26,7 +26,7 @@ interface ModeButtonProps {
 const ModeButton = ({ active, icon, label, onClick }: ModeButtonProps): JSX.Element => (
   <button
     className={`flex flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
-      active ? 'bg-primary-500 text-white' : 'text-text-secondary hover:bg-surface-elevated'
+      active ? 'bg-primary-700 text-white' : 'text-text-secondary hover:bg-surface-elevated'
     }`}
     type="button"
     onClick={onClick}
@@ -105,7 +105,7 @@ export const ColorsSection = (): JSX.Element => {
             </div>
           </div>
 
-          <AlertNative title={FM('themeSettings.autoUpdatesTitle')} variant={AlertVariant.Info}>
+          <AlertNative severity={AlertSeverity.Info} title={FM('themeSettings.autoUpdatesTitle')}>
             {FM('themeSettings.autoUpdatesDesc')}
           </AlertNative>
 

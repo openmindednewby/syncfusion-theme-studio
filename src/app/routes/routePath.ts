@@ -21,6 +21,111 @@ export const enum RoutePath {
   ComponentsGridNative = '/dashboard/components/grid/native',
   ComponentsGridSyncfusion = '/dashboard/components/grid/syncfusion',
 
+  // Button
+  ComponentsButton = '/dashboard/components/button',
+  ComponentsButtonNative = '/dashboard/components/button/native',
+  ComponentsButtonSyncfusion = '/dashboard/components/button/syncfusion',
+
+  // Input
+  ComponentsInput = '/dashboard/components/input',
+  ComponentsInputNative = '/dashboard/components/input/native',
+  ComponentsInputSyncfusion = '/dashboard/components/input/syncfusion',
+
+  // Select
+  ComponentsSelect = '/dashboard/components/select',
+  ComponentsSelectNative = '/dashboard/components/select/native',
+  ComponentsSelectSyncfusion = '/dashboard/components/select/syncfusion',
+
+  // DatePicker
+  ComponentsDatePicker = '/dashboard/components/datepicker',
+  ComponentsDatePickerNative = '/dashboard/components/datepicker/native',
+  ComponentsDatePickerSyncfusion = '/dashboard/components/datepicker/syncfusion',
+
+  // Dialog
+  ComponentsDialog = '/dashboard/components/dialog',
+  ComponentsDialogNative = '/dashboard/components/dialog/native',
+  ComponentsDialogSyncfusion = '/dashboard/components/dialog/syncfusion',
+
+  // Alert
+  ComponentsAlert = '/dashboard/components/alert',
+  ComponentsAlertNative = '/dashboard/components/alert/native',
+  ComponentsAlertSyncfusion = '/dashboard/components/alert/syncfusion',
+
+  // Checkbox
+  ComponentsCheckbox = '/dashboard/components/checkbox',
+  ComponentsCheckboxNative = '/dashboard/components/checkbox/native',
+  ComponentsCheckboxSyncfusion = '/dashboard/components/checkbox/syncfusion',
+
+  // Toast
+  ComponentsToast = '/dashboard/components/toast',
+  ComponentsToastNative = '/dashboard/components/toast/native',
+  ComponentsToastSyncfusion = '/dashboard/components/toast/syncfusion',
+
+  // Toggle
+  ComponentsToggle = '/dashboard/components/toggle',
+  ComponentsToggleNative = '/dashboard/components/toggle/native',
+  ComponentsToggleSyncfusion = '/dashboard/components/toggle/syncfusion',
+
+  // Toolbar
+  ComponentsToolbar = '/dashboard/components/toolbar',
+  ComponentsToolbarNative = '/dashboard/components/toolbar/native',
+  ComponentsToolbarSyncfusion = '/dashboard/components/toolbar/syncfusion',
+
+  // Menu
+  ComponentsMenu = '/dashboard/components/menu',
+  ComponentsMenuNative = '/dashboard/components/menu/native',
+  ComponentsMenuSyncfusion = '/dashboard/components/menu/syncfusion',
+
+  // Accordion
+  ComponentsAccordion = '/dashboard/components/accordion',
+  ComponentsAccordionNative = '/dashboard/components/accordion/native',
+  ComponentsAccordionSyncfusion = '/dashboard/components/accordion/syncfusion',
+
+  // Breadcrumb
+  ComponentsBreadcrumb = '/dashboard/components/breadcrumb',
+  ComponentsBreadcrumbNative = '/dashboard/components/breadcrumb/native',
+  ComponentsBreadcrumbSyncfusion = '/dashboard/components/breadcrumb/syncfusion',
+
+  // Tabs
+  ComponentsTabs = '/dashboard/components/tabs',
+  ComponentsTabsNative = '/dashboard/components/tabs/native',
+  ComponentsTabsSyncfusion = '/dashboard/components/tabs/syncfusion',
+
+  // Timeline
+  ComponentsTimeline = '/dashboard/components/timeline',
+  ComponentsTimelineNative = '/dashboard/components/timeline/native',
+  ComponentsTimelineSyncfusion = '/dashboard/components/timeline/syncfusion',
+
+  // Tag
+  ComponentsTag = '/dashboard/components/tag',
+  ComponentsTagNative = '/dashboard/components/tag/native',
+  ComponentsTagSyncfusion = '/dashboard/components/tag/syncfusion',
+
+  // Badge
+  ComponentsBadge = '/dashboard/components/badge',
+  ComponentsBadgeNative = '/dashboard/components/badge/native',
+  ComponentsBadgeSyncfusion = '/dashboard/components/badge/syncfusion',
+
+  // Avatar
+  ComponentsAvatar = '/dashboard/components/avatar',
+  ComponentsAvatarNative = '/dashboard/components/avatar/native',
+  ComponentsAvatarSyncfusion = '/dashboard/components/avatar/syncfusion',
+
+  // Card
+  ComponentsCard = '/dashboard/components/card',
+  ComponentsCardNative = '/dashboard/components/card/native',
+  ComponentsCardSyncfusion = '/dashboard/components/card/syncfusion',
+
+  // ProgressBar
+  ComponentsProgressBar = '/dashboard/components/progressbar',
+  ComponentsProgressBarNative = '/dashboard/components/progressbar/native',
+  ComponentsProgressBarSyncfusion = '/dashboard/components/progressbar/syncfusion',
+
+  // Tooltip
+  ComponentsTooltip = '/dashboard/components/tooltip',
+  ComponentsTooltipNative = '/dashboard/components/tooltip/native',
+  ComponentsTooltipSyncfusion = '/dashboard/components/tooltip/syncfusion',
+
   // Forms
   Forms = '/dashboard/forms',
   FormsSyncfusion = '/dashboard/forms/syncfusion',

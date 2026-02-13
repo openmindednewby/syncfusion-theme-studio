@@ -6,8 +6,6 @@
  *
  * Note: React 19 handles memoization automatically via the React Compiler.
  */
-import type { ChangeEvent } from 'react';
-
 import { Controller, type Control, type FieldPath, type FieldValues } from 'react-hook-form';
 
 import SelectNative from '@/components/ui/native/SelectNative';
@@ -41,8 +39,8 @@ export const FormNativeSelect = <T extends FieldValues>({
       const hasError = fieldState.isTouched && isValueDefined(fieldState.error);
       const errorMessage = hasError ? resolveTranslationError(fieldState.error?.message ?? '') : '';
 
-      function handleChange(e: ChangeEvent<HTMLSelectElement>): void {
-        field.onChange(e.target.value);
+      function handleChange(value: string | number): void {
+        field.onChange(value);
       }
 
       // Build props conditionally to satisfy exactOptionalPropertyTypes

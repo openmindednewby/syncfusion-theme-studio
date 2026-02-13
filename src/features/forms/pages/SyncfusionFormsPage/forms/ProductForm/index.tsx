@@ -1,49 +1,74 @@
 /**
  * Product Form Component
  *
- * Demonstrates select dropdown and date picker integration.
- * Includes number input with positive value validation.
+ * Demonstrates select dropdown and text input integration.
+ * Supports create and edit modes with external category options.
  */
+import { useEffect, useMemo } from 'react';
+
 import { type Control, FormProvider, type FieldValues } from 'react-hook-form';
 
-import { FormDatePicker, FormInput, FormSelect } from '@/components/ui/form-fields';
+import { FormInput, FormSelect } from '@/components/ui/form-fields';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
+import type { SelectOption } from '@/components/ui/syncfusion';
 import { useFormWithSchema } from '@/lib/forms';
 import { FM } from '@/localization/helpers';
 
 import {
-  categoryOptions,
   defaultProductFormValues,
   productFormSchema,
   type ProductFormData,
 } from './schema';
 
-const FORM_CONFIG = { schema: productFormSchema, defaultValues: defaultProductFormValues };
-
 interface Props {
   onSubmit: (data: ProductFormData) => void;
+  categories: SelectOption[];
+  defaultValues?: Partial<ProductFormData>;
+  isSubmitting?: boolean;
+  isEditing?: boolean;
 }
 
-export const ProductForm = ({ onSubmit }: Props): JSX.Element => {
-  const form = useFormWithSchema(FORM_CONFIG);
+export const ProductForm = ({
+  onSubmit,
+  categories,
+  defaultValues,
+  isSubmitting = false,
+  isEditing = false,
+}: Props): JSX.Element => {
+  const formConfig = useMemo(
+    () => ({
+      schema: productFormSchema,
+      defaultValues: { ...defaultProductFormValues, ...defaultValues },
+    }),
+    [defaultValues],
+  );
+  const form = useFormWithSchema(formConfig);
 
   const { handleSubmit, control, reset, formState } = form;
-  const { isSubmitting, isDirty } = formState;
+  const { isDirty } = formState;
+
+  // Reset form when defaultValues change (edit mode toggle)
+  useEffect(() => {
+    reset({ ...defaultProductFormValues, ...defaultValues });
+  }, [defaultValues, reset]);
 
   // Cast data to the expected type - validation ensures fields are present
   function handleFormSubmit(data: FieldValues): void {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     onSubmit(data as ProductFormData);
-    reset();
   }
 
   function handleReset(): void {
-    reset();
+    reset({ ...defaultProductFormValues });
   }
 
   // Cast control for use with form fields
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const formControl = control as Control<ProductFormData>;
+
+  const submitLabel = isEditing
+    ? FM('forms.product.updateProduct')
+    : FM('forms.product.submit');
 
   return (
     <FormProvider {...form}>
@@ -65,7 +90,7 @@ export const ProductForm = ({ onSubmit }: Props): JSX.Element => {
             control={formControl}
             label={FM('forms.product.category')}
             name="category"
-            options={categoryOptions}
+            options={categories}
             placeholder={FM('forms.product.categoryPlaceholder')}
             testId="product-form-category"
           />
@@ -82,19 +107,39 @@ export const ProductForm = ({ onSubmit }: Props): JSX.Element => {
           />
         </div>
 
-        <FormDatePicker
+        <FormInput
           fullWidth
           control={formControl}
-          helperText={FM('forms.product.releaseDateHelper')}
-          label={FM('forms.product.releaseDate')}
-          min={new Date()}
-          name="releaseDate"
-          testId="product-form-release-date"
+          label={FM('forms.product.description')}
+          name="description"
+          placeholder={FM('forms.product.descriptionPlaceholder')}
+          testId="product-form-description"
         />
+
+        <div className="grid gap-4 md:grid-cols-2">
+          <FormInput
+            fullWidth
+            control={formControl}
+            label={FM('forms.product.brand')}
+            name="brand"
+            placeholder={FM('forms.product.brandPlaceholder')}
+            testId="product-form-brand"
+          />
+          <FormInput
+            fullWidth
+            control={formControl}
+            helperText={FM('forms.product.stockHelper')}
+            label={FM('forms.product.stock')}
+            name="stock"
+            placeholder={FM('forms.product.stockPlaceholder')}
+            testId="product-form-stock"
+            type="number"
+          />
+        </div>
 
         <div className="flex justify-end gap-2 pt-2">
           <ButtonNative
-            disabled={!isDirty}
+            disabled={!isDirty || isSubmitting}
             testId="product-form-reset"
             type="button"
             variant={ButtonVariant.Outline}
@@ -108,7 +153,7 @@ export const ProductForm = ({ onSubmit }: Props): JSX.Element => {
             type="submit"
             variant={ButtonVariant.Primary}
           >
-            {FM('forms.product.submit')}
+            {isSubmitting ? FM('common.loading') : submitLabel}
           </ButtonNative>
         </div>
       </form>

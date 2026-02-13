@@ -124,7 +124,7 @@ const EditDialog = ({
             {FM('common.cancel')}
           </button>
           <button
-            className="rounded bg-primary-500 px-4 py-2 text-sm text-white hover:bg-primary-600 transition-colors"
+            className="rounded bg-primary-700 px-4 py-2 text-sm text-white hover:bg-primary-800 transition-colors"
             data-testid="edit-dialog-save"
             type="button"
             onClick={onSave}

@@ -2,7 +2,7 @@ import { describe, it, expect, vi } from 'vitest';
 
 import { render, screen, fireEvent } from '@/test/utils';
 
-import AlertNative, { AlertVariant } from './index';
+import AlertNative, { AlertSeverity } from './index';
 
 const TEST_ID = 'test-alert';
 
@@ -86,7 +86,7 @@ describe('AlertNative', () => {
     });
   });
 
-  describe('default variant', () => {
+  describe('default severity', () => {
     it('applies info variant class by default', () => {
       render(<AlertNative testId={TEST_ID}>Content</AlertNative>);
       expect(screen.getByTestId(TEST_ID).className).toContain('alert-info');
@@ -94,7 +94,7 @@ describe('AlertNative', () => {
 
     it('applies success variant class when specified', () => {
       render(
-        <AlertNative testId={TEST_ID} variant={AlertVariant.Success}>
+        <AlertNative severity={AlertSeverity.Success} testId={TEST_ID}>
           Content
         </AlertNative>,
       );
@@ -103,7 +103,7 @@ describe('AlertNative', () => {
 
     it('applies warning variant class when specified', () => {
       render(
-        <AlertNative testId={TEST_ID} variant={AlertVariant.Warning}>
+        <AlertNative severity={AlertSeverity.Warning} testId={TEST_ID}>
           Content
         </AlertNative>,
       );
@@ -112,7 +112,7 @@ describe('AlertNative', () => {
 
     it('applies error variant class when specified', () => {
       render(
-        <AlertNative testId={TEST_ID} variant={AlertVariant.Error}>
+        <AlertNative severity={AlertSeverity.Error} testId={TEST_ID}>
           Content
         </AlertNative>,
       );

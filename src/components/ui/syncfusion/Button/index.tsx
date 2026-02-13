@@ -12,25 +12,13 @@ import { memo, forwardRef, useMemo } from 'react';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import type { ButtonModel } from '@syncfusion/ej2-react-buttons';
 
+import { ButtonSize } from '@/components/ui/shared/buttonSize';
+import { ButtonVariant } from '@/components/ui/shared/buttonTypes';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
-/** Available button style variants */
-const enum ButtonVariant {
-  Primary = 'primary',
-  Secondary = 'secondary',
-  Outline = 'outline',
-  Ghost = 'ghost',
-  Danger = 'danger',
-}
-/** Available button size presets */
-const enum ButtonSize {
-  Sm = 'sm',
-  Md = 'md',
-  Lg = 'lg',
-}
 
 interface Props extends Omit<ButtonModel, 'cssClass'> {
   /** Button variant */

@@ -15,37 +15,18 @@ import {
   type ChangeEventArgs,
 } from '@syncfusion/ej2-react-dropdowns';
 
+import type { BaseSelectOption, BaseSelectProps } from '@/components/ui/shared/selectTypes';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
-/** Option item for the dropdown. Index signature required for Syncfusion dataSource compatibility. */
-interface SelectOption {
-  [key: string]: object | string | number;
-  value: string | number;
-  label: string;
-}
+/** Option item for the dropdown. Record type required for Syncfusion dataSource compatibility. */
+type SelectOption = BaseSelectOption & Record<string, object | string | number>;
 
-interface Props extends Omit<DropDownListModel, 'cssClass' | 'dataSource' | 'fields'> {
-  /** Select options */
+interface Props extends BaseSelectProps, Omit<DropDownListModel, 'cssClass' | 'dataSource' | 'fields' | 'value' | 'placeholder'> {
+  /** Select options (extended with index signature for Syncfusion) */
   options: SelectOption[];
-  /** Select label */
-  label?: string;
-  /** Helper text below select */
-  helperText?: string;
-  /** Error message */
-  error?: string;
-  /** Additional CSS classes */
-  className?: string;
-  /** Test ID for E2E testing */
-  testId?: string;
-  /** Full width select */
-  fullWidth?: boolean;
-  /** Show required indicator (*) */
-  required?: boolean;
-  /** Change handler */
-  onChange?: (value: string | number) => void;
 }
 
 const FIELD_MAPPING = { text: 'label', value: 'value' };

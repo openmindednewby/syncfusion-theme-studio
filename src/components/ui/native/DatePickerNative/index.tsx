@@ -8,28 +8,15 @@
  */
 import { memo, forwardRef, useId, type InputHTMLAttributes } from 'react';
 
+import type { BaseDatePickerProps } from '@/components/ui/shared/datePickerTypes';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
-interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'type'> {
-  /** DatePicker label */
-  label?: string;
-  /** Helper text below input */
-  helperText?: string;
-  /** Error message */
-  error?: string;
-  /** Additional CSS classes */
-  className?: string;
-  /** Test ID for E2E testing */
-  testId?: string;
-  /** Full width input */
-  fullWidth?: boolean;
+interface Props extends BaseDatePickerProps, Omit<InputHTMLAttributes<HTMLInputElement>, 'className' | 'type'> {
   /** Minimum date (YYYY-MM-DD format) */
   minDate?: string;
   /** Maximum date (YYYY-MM-DD format) */
   maxDate?: string;
-  /** Show required indicator (*) - visual only, use HTML required for validation */
-  showRequired?: boolean;
 }
 
 const DatePickerNative = forwardRef<HTMLInputElement, Props>(
@@ -41,7 +28,7 @@ const DatePickerNative = forwardRef<HTMLInputElement, Props>(
       className,
       testId,
       fullWidth = false,
-      showRequired = false,
+      required = false,
       minDate,
       maxDate,
       disabled,
@@ -62,7 +49,7 @@ const DatePickerNative = forwardRef<HTMLInputElement, Props>(
         {isValueDefined(label) && (
           <label className="text-sm font-medium text-text-primary" htmlFor={id}>
             {label}
-            {showRequired ? <span className="ml-0.5 text-error-500">*</span> : null}
+            {required ? <span className="ml-0.5 text-error-500">*</span> : null}
           </label>
         )}
         <input
@@ -72,7 +59,7 @@ const DatePickerNative = forwardRef<HTMLInputElement, Props>(
           className={cn(
             'h-10 rounded-md border px-3 py-2 text-sm transition-colors',
             'bg-surface text-text-primary',
-            'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
+            'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
             hasError
               ? 'border-error-500 focus:ring-error-500'
               : 'border-border hover:border-primary-300',

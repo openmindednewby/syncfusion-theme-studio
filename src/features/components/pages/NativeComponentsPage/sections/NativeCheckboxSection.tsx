@@ -4,7 +4,7 @@ import { CheckboxNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
 export const NativeCheckboxSection = memo((): JSX.Element => {
-  const [checkboxChecked, setCheckboxChecked] = useState(false);
+  const [checkboxChecked, setCheckboxChecked] = useState(true);
 
   const handleCheckboxChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckboxChecked(e.target.checked);

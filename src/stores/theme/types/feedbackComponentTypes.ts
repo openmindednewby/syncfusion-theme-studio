@@ -27,6 +27,30 @@ export interface SelectConfig {
   itemSelectedBackground: string;
   itemSelectedTextColor: string;
   borderRadius: string;
+  /** Text color for dropdown items */
+  itemTextColor: string;
+  /** Font size for dropdown items */
+  itemFontSize: string;
+  /** Padding for dropdown items */
+  itemPadding: string;
+  /** Box shadow for popup */
+  popupShadow: string;
+  /** Max height for popup dropdown */
+  popupMaxHeight: string;
+  /** Border radius for popup */
+  popupBorderRadius: string;
+  /** Background for search input in searchable select */
+  searchInputBackground: string;
+  /** Border color for search input */
+  searchInputBorderColor: string;
+  /** Transition duration for animations */
+  transitionDuration: string;
+  /** Focus ring color */
+  focusRingColor: string;
+  /** Focus ring width */
+  focusRingWidth: string;
+  /** Opacity when disabled */
+  disabledOpacity: string;
 }
 
 export interface DatePickerConfig {

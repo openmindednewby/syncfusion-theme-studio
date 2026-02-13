@@ -17,6 +17,7 @@ import { isValueDefined } from './is';
 
 /** Syncfusion component CSS module types */
 export const enum SyncfusionCssModule {
+  Buttons = 'buttons',
   Grids = 'grids',
   Calendars = 'calendars',
   Navigations = 'navigations',
@@ -65,6 +66,9 @@ export async function loadSyncfusionCss(module: SyncfusionCssModule): Promise<vo
  */
 async function loadCssModule(module: SyncfusionCssModule): Promise<void> {
   switch (module) {
+    case SyncfusionCssModule.Buttons:
+      await import('@syncfusion/ej2-react-buttons/styles/tailwind.css');
+      break;
     case SyncfusionCssModule.Grids:
       await import('@syncfusion/ej2-react-grids/styles/tailwind.css');
       break;

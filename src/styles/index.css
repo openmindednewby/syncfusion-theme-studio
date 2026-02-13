@@ -28,6 +28,7 @@
 /* Import custom styles (they contain @layer directives) */
 @import './layers/base.css';
 @import './layers/components.css';
+@import './layers/native-overrides.css';
 @import './layers/syncfusion-overrides.css';
 @import './layers/syncfusion-themed.css';
 

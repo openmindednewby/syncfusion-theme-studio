@@ -24,13 +24,13 @@ interface Props extends Omit<InputHTMLAttributes<HTMLInputElement>, 'className' 
   testId?: string;
   /** Indeterminate state */
   indeterminate?: boolean;
-  /** Show required indicator (*) - visual only, use HTML required for validation */
-  showRequired?: boolean;
+  /** Show required indicator (*) */
+  required?: boolean;
 }
 
 const CheckboxNative = forwardRef<HTMLInputElement, Props>(
   (
-    { label, helperText, error, className, testId, indeterminate = false, showRequired = false, disabled, ...rest },
+    { label, helperText, error, className, testId, indeterminate = false, required = false, disabled, ...rest },
     ref,
   ): JSX.Element => {
     const id = useId();
@@ -40,15 +40,15 @@ const CheckboxNative = forwardRef<HTMLInputElement, Props>(
 
     // Handle indeterminate state via ref callback
     const handleRef = (el: HTMLInputElement | null): void => {
-      if (isValueDefined(el)) 
+      if (isValueDefined(el))
         // Use Object.assign to avoid no-param-reassign lint error
         Object.assign(el, { indeterminate });
-      
+
       if (typeof ref === 'function') ref(el);
-      else if (isValueDefined(ref) && isValueDefined(ref)) 
+      else if (isValueDefined(ref) && isValueDefined(ref))
         // Use Object.assign to avoid no-param-reassign lint error
         Object.assign(ref, { current: el });
-      
+
     };
 
     return (
@@ -60,7 +60,7 @@ const CheckboxNative = forwardRef<HTMLInputElement, Props>(
             aria-invalid={hasError}
             className={cn(
               'size-4 shrink-0 rounded border transition-colors cursor-pointer',
-              'text-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-offset-1',
+              'text-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
               'accent-primary-500',
               hasError ? 'border-error-500' : 'border-border',
               disabled === true && 'cursor-not-allowed opacity-50',
@@ -79,7 +79,7 @@ const CheckboxNative = forwardRef<HTMLInputElement, Props>(
               htmlFor={id}
             >
               {label}
-              {showRequired ? <span className="ml-0.5 text-error-500">*</span> : null}
+              {required ? <span className="ml-0.5 text-error-500">*</span> : null}
             </label>
           )}
         </div>

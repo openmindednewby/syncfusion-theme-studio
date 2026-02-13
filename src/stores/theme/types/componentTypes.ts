@@ -1,27 +1,12 @@
 // Component-specific type definitions
 
-import type {
-  AlertsConfig,
-  ChipConfig,
-  DatePickerConfig,
-  DialogConfig,
-  ErrorMessagesConfig,
-  FlexBoxConfig,
-  MessageConfig,
-  SelectConfig,
-  ToastConfig,
-} from './feedbackComponentTypes';
-import type {
-  AccordionConfig,
-  BreadcrumbConfig,
-  MenuConfig,
-  ToolbarConfig,
-} from './navigationComponentTypes';
+import type { AvatarConfig, ProgressBarConfig, TabsConfig, TimelineConfig, TooltipConfig } from './dataDisplayComponentTypes';
+import type { AlertsConfig, ChipConfig, DatePickerConfig, DialogConfig, ErrorMessagesConfig, FlexBoxConfig, MessageConfig, SelectConfig, ToastConfig } from './feedbackComponentTypes';
+import type { AccordionConfig, BreadcrumbConfig, MenuConfig, ToolbarConfig } from './navigationComponentTypes';
 import type { PaginationConfig } from './paginationTypes';
 import type { ShadowScale } from './shadowScale';
 
 export { ShadowScale } from './shadowScale';
-
 export interface HeaderComponentConfig {
   background: string;
   textColor: string;
@@ -29,7 +14,6 @@ export interface HeaderComponentConfig {
   height: string;
   shadow: ShadowScale;
 }
-
 export interface SidebarComponentConfig {
   background: string;
   textColor: string;
@@ -40,7 +24,6 @@ export interface SidebarComponentConfig {
   widthExpanded: string;
   widthCollapsed: string;
 }
-
 export interface ButtonStateColors {
   background: string;
   backgroundHover: string;
@@ -52,9 +35,7 @@ export interface ButtonStateColors {
   borderRadius: string;
   shadow: ShadowScale;
 }
-
 export { ButtonVariant } from './buttonVariant';
-
 export interface ButtonsComponentConfig {
   primary: ButtonStateColors;
   secondary: ButtonStateColors;
@@ -62,7 +43,6 @@ export interface ButtonsComponentConfig {
   ghost: ButtonStateColors;
   danger: ButtonStateColors;
 }
-
 export interface InputsConfig {
   background: string;
   borderDefault: string;
@@ -77,7 +57,6 @@ export interface InputsConfig {
   focusRingColor: string;
   borderRadius: string;
 }
-
 export interface DataGridConfig {
   headerBackground: string;
   headerTextColor: string;
@@ -201,6 +180,11 @@ export interface ComponentConfigSingle {
   menu: MenuConfig;
   breadcrumb: BreadcrumbConfig;
   pagination: PaginationConfig;
+  tabs: TabsConfig;
+  timeline: TimelineConfig;
+  avatar: AvatarConfig;
+  progressBar: ProgressBarConfig;
+  tooltip: TooltipConfig;
 }
 
 /** Mode-aware components configuration with light and dark variants */
@@ -211,3 +195,4 @@ export interface ComponentsConfig {
 
 export type { SelectConfig, DatePickerConfig, DialogConfig, FlexDirection, FlexWrap, FlexJustify, FlexAlign, FlexBoxConfig, ErrorAnimationType, ErrorMessagesConfig, AlertVariantConfig, AlertsConfig, ToastConfig, MessageConfig, ChipConfig } from './feedbackComponentTypes';
 export type { AccordionConfig, ToolbarConfig, MenuConfig, BreadcrumbConfig } from './navigationComponentTypes';
+export type { TabsConfig, TimelineConfig, AvatarConfig, ProgressBarConfig, TooltipConfig } from './dataDisplayComponentTypes';

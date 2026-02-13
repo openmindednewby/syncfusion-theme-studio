@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { AlertNative, AlertVariant } from '@/components/ui/native';
+import { AlertNative, AlertSeverity } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
 export const NativeAlertsSection = memo((): JSX.Element => (
@@ -9,22 +9,22 @@ export const NativeAlertsSection = memo((): JSX.Element => (
       {FM('components.sections.nativeAlerts')}
     </h3>
     <div className="space-y-3">
-      <AlertNative testId="native-alert-success" title={FM('components.alerts.nativeSuccessTitle')} variant={AlertVariant.Success}>
+      <AlertNative severity={AlertSeverity.Success} testId="native-alert-success" title={FM('components.alerts.nativeSuccessTitle')}>
         {FM('components.alerts.nativeSuccessMessage')}
       </AlertNative>
-      <AlertNative testId="native-alert-warning" title={FM('components.alerts.nativeWarningTitle')} variant={AlertVariant.Warning}>
+      <AlertNative severity={AlertSeverity.Warning} testId="native-alert-warning" title={FM('components.alerts.nativeWarningTitle')}>
         {FM('components.alerts.nativeWarningMessage')}
       </AlertNative>
-      <AlertNative testId="native-alert-error" title={FM('components.alerts.nativeErrorTitle')} variant={AlertVariant.Error}>
+      <AlertNative severity={AlertSeverity.Error} testId="native-alert-error" title={FM('components.alerts.nativeErrorTitle')}>
         {FM('components.alerts.nativeErrorMessage')}
       </AlertNative>
-      <AlertNative testId="native-alert-info" title={FM('components.alerts.nativeInfoTitle')} variant={AlertVariant.Info}>
+      <AlertNative severity={AlertSeverity.Info} testId="native-alert-info" title={FM('components.alerts.nativeInfoTitle')}>
         {FM('components.alerts.nativeInfoMessage')}
       </AlertNative>
-      <AlertNative dismissible testId="native-alert-dismissible" variant={AlertVariant.Info}>
+      <AlertNative dismissible severity={AlertSeverity.Info} testId="native-alert-dismissible">
         {FM('components.alerts.nativeDismissibleMessage')}
       </AlertNative>
-      <AlertNative showIcon={false} testId="native-alert-no-icon" variant={AlertVariant.Success}>
+      <AlertNative severity={AlertSeverity.Success} showIcon={false} testId="native-alert-no-icon">
         {FM('components.alerts.nativeNoIconMessage')}
       </AlertNative>
     </div>

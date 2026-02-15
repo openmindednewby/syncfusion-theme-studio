@@ -13,6 +13,7 @@ import {
   NativeFormsPage,
   NativeGridShowcase,
   NativeProductsPage,
+  NotImplementedPage,
   ProductsListPage,
   SyncfusionComponentsPage,
   SyncfusionFormsPage,
@@ -63,6 +64,8 @@ const routes: RouteObject[] = [
       { path: RouteSegment.ComponentsGridSyncfusion, element: <LazyPage component={SyncfusionGridShowcase} /> },
       // Component showcase pages (Button, Input, Select, DatePicker, Dialog, Alert, etc.)
       ...componentShowcaseRoutes,
+      // Not Implemented placeholder
+      { path: RouteSegment.NotImplemented, element: <LazyPage component={NotImplementedPage} /> },
       // Forms
       { path: RouteSegment.Forms, element: <Navigate replace to={RouteRedirectTarget.Syncfusion} /> },
       { path: RouteSegment.FormsSyncfusion, element: <LazyPage component={SyncfusionFormsPage} /> },

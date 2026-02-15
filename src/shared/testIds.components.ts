@@ -154,4 +154,21 @@ export const ComponentTestIds = {
   NAV_TOOLBAR_GROUP_EXPAND: 'nav-toolbar-group-expand',
   NAV_TOOLTIP_GROUP: 'nav-tooltip-group',
   NAV_TOOLTIP_GROUP_EXPAND: 'nav-tooltip-group-expand',
+
+  // Table Action Menu
+  ACTION_MENU_VIEW: 'alert-action-view',
+  ACTION_MENU_MORE: 'alert-action-more',
+  ACTION_MENU_DROPDOWN: 'alert-action-dropdown',
+  ACTION_IGNORE: 'alert-action-ignore',
+  ACTION_MERGE: 'alert-action-merge',
+  ACTION_RAISE: 'alert-action-raise',
+  ACTION_ADD_FILTER: 'alert-action-add-filter',
+
+  // Table Column Filter
+  COLUMN_FILTER_BUTTON: 'column-filter-button',
+  COLUMN_FILTER_POPUP: 'column-filter-popup',
+  COLUMN_FILTER_OPERATOR: 'column-filter-operator',
+  COLUMN_FILTER_VALUE: 'column-filter-value',
+  COLUMN_FILTER_APPLY: 'column-filter-apply',
+  COLUMN_FILTER_CLEAR: 'column-filter-clear',
 } as const;

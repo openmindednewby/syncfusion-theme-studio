@@ -201,6 +201,11 @@ export const NativeThemeToggleShowcase = lazy(
   async () => import('@/features/components/pages/NativeThemeToggleShowcase'),
 );
 
+// Not Implemented placeholder
+export const NotImplementedPage = lazy(
+  async () => import('@/features/dashboard/pages/NotImplementedPage'),
+);
+
 // Forms
 export const SyncfusionFormsPage = lazy(
   async () => import('@/features/forms/pages/SyncfusionFormsPage'),

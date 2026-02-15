@@ -38,8 +38,8 @@ describe('AlertBadgeTemplates', () => {
       expect(getSlaClass('Within SLA')).toContain('badge-success');
     });
 
-    it('returns warning for At Risk', () => {
-      expect(getSlaClass('At Risk')).toContain('badge-warning');
+    it('returns error for At Risk', () => {
+      expect(getSlaClass('At Risk')).toContain('badge-error');
     });
 
     it('returns error for Breached', () => {

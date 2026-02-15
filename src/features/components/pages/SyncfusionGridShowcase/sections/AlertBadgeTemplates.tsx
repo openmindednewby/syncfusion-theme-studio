@@ -3,8 +3,7 @@
  * Template functions return JSX for Syncfusion ColumnDirective rendering.
  * Class-resolution helpers are exported separately for unit testing.
  */
-import { IconMoreVertical } from '@/components/layout/Sidebar/SidebarIcons';
-import { FM } from '@/localization/helpers';
+import { TableActionMenu } from '@/features/components/shared/TableActionMenu';
 
 const SEVERITY_CLASSES: Record<string, string> = {
   Critical: 'badge badge-error',
@@ -16,7 +15,7 @@ const SEVERITY_CLASSES: Record<string, string> = {
 
 const SLA_CLASSES: Record<string, string> = {
   'Within SLA': 'badge badge-success',
-  'At Risk': 'badge badge-warning',
+  'At Risk': 'badge badge-error',
   Breached: 'badge badge-error',
 };
 
@@ -53,7 +52,7 @@ export function getScoreClass(score?: number): string {
 
 /** Syncfusion column template functions (return JSX) */
 export function severityTemplate(data: TemplateData): JSX.Element {
-  return <span className={getSeverityClass(data.severity)}>{data.severity ?? ''}</span>;
+  return <span className={`${getSeverityClass(data.severity)} uppercase`}>{data.severity ?? ''}</span>;
 }
 
 export function statusTemplate(data: TemplateData): JSX.Element {
@@ -63,7 +62,7 @@ export function statusTemplate(data: TemplateData): JSX.Element {
 export function slaTemplate(data: TemplateData): JSX.Element {
   return (
     <div className="flex flex-col gap-0.5">
-      <span className={getSlaClass(data.slaStatus)}>{data.slaStatus ?? ''}</span>
+      <span className={`${getSlaClass(data.slaStatus)} uppercase`}>{data.slaStatus ?? ''}</span>
       <span className="text-xs text-text-muted">{data.slaRemaining ?? ''}</span>
     </div>
   );
@@ -83,28 +82,18 @@ export function scoreTemplate(data: TemplateData): JSX.Element {
         fontSize: SCORE_FONT_SIZE,
       }}
     >
-      {String(data.score ?? 0)}
+      {(data.score ?? 0).toFixed(1)}
     </span>
   );
 }
 
+const ALERT_ACTIONS = [
+  { labelKey: 'gridShowcase.ignoreAlerts', testId: 'alert-action-ignore' },
+  { labelKey: 'gridShowcase.mergeAlerts', testId: 'alert-action-merge' },
+  { labelKey: 'gridShowcase.raiseIncident', testId: 'alert-action-raise' },
+  { labelKey: 'gridShowcase.addAlertFilter', testId: 'alert-action-add-filter' },
+];
+
 export function actionsTemplate(): JSX.Element {
-  return (
-    <div className="flex items-center gap-1">
-      <button
-        className="btn-ghost rounded border border-border-default px-2 py-1 text-xs text-text-secondary hover:text-text-primary"
-        data-testid="alert-action-view"
-        type="button"
-      >
-        {FM('gridShowcase.view')}
-      </button>
-      <button
-        className="px-1 py-1 text-text-muted hover:text-text-primary"
-        data-testid="alert-action-more"
-        type="button"
-      >
-        <IconMoreVertical />
-      </button>
-    </div>
-  );
+  return <TableActionMenu actions={ALERT_ACTIONS} />;
 }

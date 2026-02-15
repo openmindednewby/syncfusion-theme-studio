@@ -106,6 +106,8 @@ const SLA_MEDIUM_HOURS = 8;
 const SLA_LOW_HOURS = 24;
 const SLA_INFO_HOURS = 72;
 const SLA_HOURS = [SLA_CRITICAL_HOURS, SLA_HIGH_HOURS, SLA_MEDIUM_HOURS, SLA_LOW_HOURS, SLA_INFO_HOURS];
+const SCORE_DECIMAL_FACTOR = 0.1;
+const SCORE_ROUND_PRECISION = 10;
 const ID_OFFSET = 26077000;
 
 function pickFromArray<T>(arr: T[], index: number): T {
@@ -118,9 +120,9 @@ export const SECURITY_ALERTS: SecurityAlert[] = Array.from(
   { length: ALERT_COUNT },
   (_, i) => {
     const severityIndex = i % SEVERITIES.length;
-    const score = SCORE_CRITICAL - Math.round(
-      (severityIndex * SCORE_RANGE) / SEVERITIES.length,
-    ) + (i % SCORE_JITTER);
+    const scoreRaw = SCORE_CRITICAL - (severityIndex * SCORE_RANGE) / SEVERITIES.length
+      + (i % SCORE_JITTER) * SCORE_DECIMAL_FACTOR;
+    const score = Math.round(scoreRaw * SCORE_ROUND_PRECISION) / SCORE_ROUND_PRECISION;
     const date = new Date(BASE_YEAR, BASE_MONTH, BASE_DAY, BASE_HOUR, 0, 0);
     date.setTime(
       date.getTime() - i * HOUR_MS * HOUR_MULTIPLIER - (i % DAY_MODULO) * DAY_MS,
@@ -140,7 +142,7 @@ export const SECURITY_ALERTS: SecurityAlert[] = Array.from(
       technique: pickFromArray(TECHNIQUES, i),
       assignee: pickFromArray(ASSIGNEES, i + ASSIGNEE_OFFSET),
       slaStatus: pickFromArray(SLA_STATUSES, i),
-      slaRemaining: remaining > 0 ? `${String(remaining)}h remaining` : 'Breached',
+      slaRemaining: remaining > 0 ? `${String(remaining)} min remaining` : 'Breached',
       automationStatus: pickFromArray(AUTOMATION_STATUSES, i + AUTOMATION_OFFSET),
     };
   },

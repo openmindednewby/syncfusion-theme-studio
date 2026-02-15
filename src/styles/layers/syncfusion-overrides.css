@@ -631,11 +631,15 @@
     background-color: var(--component-datagrid-header-bg) !important;
     color: var(--component-datagrid-header-text) !important;
     font-weight: 600;
+    text-align: var(--component-datagrid-header-text-align) !important;
+    vertical-align: var(--component-datagrid-header-vertical-align) !important;
   }
 
   .e-grid .e-rowcell {
     color: rgb(var(--color-text-primary)) !important;
     border-color: rgb(var(--color-border)) !important;
+    text-align: var(--component-datagrid-default-text-align) !important;
+    vertical-align: var(--component-datagrid-default-vertical-align) !important;
   }
 
   .e-grid .e-row:hover .e-rowcell {
@@ -679,7 +683,7 @@
     color: var(--component-datagrid-pagination-text) !important;
     display: flex !important;
     align-items: center !important;
-    justify-content: center !important;
+    justify-content: space-between !important;
     padding: 8px 16px !important;
     gap: 8px !important;
   }

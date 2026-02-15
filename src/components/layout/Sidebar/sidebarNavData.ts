@@ -1,14 +1,22 @@
 /**
  * Navigation data configuration for the sidebar.
- * Mirrors the features/ directory structure:
- *   dashboard, products, forms, components.
+ * Matches the Figma mainSideBar.png design with themed SIEM menu items.
  */
 import { RoutePath, RoutePrefix } from '@/app/routePaths';
 import { TestIds } from '@/shared/testIds';
 
 import { IconName } from './iconName';
 import { COMPONENTS_CHILDREN } from './sidebarComponentGroups';
-import { FORMS_CHILDREN, PRODUCTS_CHILDREN } from './sidebarNavChildren';
+import {
+  FORMS_CHILDREN,
+  PRODUCTS_CHILDREN,
+  ALERTS_CHILDREN,
+  ATTACK_SURFACE_CHILDREN,
+  COMPLIANCE_CHILDREN,
+  PERFORMANCE_CHILDREN,
+  SAMPLE_MANAGER_CHILDREN,
+  THREAT_INTEL_CHILDREN,
+} from './sidebarNavChildren';
 import { SubNavId } from './subNavId';
 
 import type { NavChild } from './NavExpandableItem';
@@ -78,17 +86,94 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
     children: COMPONENTS_CHILDREN,
   },
   {
+    id: 'sample-manager',
+    labelKey: 'sidebar.nav.sampleManager',
+    testId: TestIds.NAV_SAMPLE_MANAGER,
+    expandTestId: TestIds.NAV_PRODUCTS_EXPAND,
+    pathPrefix: RoutePrefix.Products,
+    iconName: IconName.Folder,
+    children: SAMPLE_MANAGER_CHILDREN,
+  },
+  {
+    id: 'user-rank',
+    labelKey: 'sidebar.nav.userRank',
+    testId: TestIds.NAV_USER_RANK,
+    path: RoutePath.NotImplemented,
+    iconName: IconName.User,
+  },
+  {
+    id: 'real-time-analysis',
+    labelKey: 'sidebar.nav.realTimeAnalysis',
+    testId: TestIds.NAV_REAL_TIME_ANALYSIS,
+    path: RoutePath.NotImplemented,
+    iconName: IconName.Activity,
+  },
+  {
+    id: 'threat-detection',
+    labelKey: 'sidebar.nav.threatDetection',
+    testId: TestIds.NAV_THREAT_DETECTION,
+    expandTestId: TestIds.NAV_THREAT_DETECTION_EXPAND,
+    pathPrefix: RoutePrefix.Components,
+    iconName: IconName.ShieldAlert,
+    children: COMPONENTS_CHILDREN,
+  },
+  {
+    id: 'alerts-incidents',
+    labelKey: 'sidebar.nav.alertsIncidents',
+    testId: TestIds.NAV_ALERTS_INCIDENTS,
+    expandTestId: TestIds.NAV_ALERTS_EXPAND,
+    pathPrefix: RoutePrefix.ComponentsGrid,
+    iconName: IconName.Bell,
+    children: ALERTS_CHILDREN,
+  },
+  {
+    id: 'attack-surface',
+    labelKey: 'sidebar.nav.attackSurface',
+    testId: TestIds.NAV_ATTACK_SURFACE,
+    expandTestId: TestIds.NAV_ATTACK_SURFACE_EXPAND,
+    pathPrefix: RoutePrefix.ComponentsButton,
+    iconName: IconName.Globe,
+    children: ATTACK_SURFACE_CHILDREN,
+  },
+  {
+    id: 'threat-intel',
+    labelKey: 'sidebar.nav.threatIntelligence',
+    testId: TestIds.NAV_THREAT_INTEL,
+    expandTestId: TestIds.NAV_THREAT_INTEL_EXPAND,
+    pathPrefix: RoutePrefix.ComponentsInput,
+    iconName: IconName.Signal,
+    children: THREAT_INTEL_CHILDREN,
+  },
+  {
+    id: 'performance',
+    labelKey: 'sidebar.nav.performance',
+    testId: TestIds.NAV_PERFORMANCE,
+    expandTestId: TestIds.NAV_PERFORMANCE_EXPAND,
+    pathPrefix: RoutePrefix.ComponentsSelect,
+    iconName: IconName.Zap,
+    children: PERFORMANCE_CHILDREN,
+  },
+  {
+    id: 'compliance',
+    labelKey: 'sidebar.nav.compliance',
+    testId: TestIds.NAV_COMPLIANCE,
+    expandTestId: TestIds.NAV_COMPLIANCE_EXPAND,
+    pathPrefix: RoutePrefix.ComponentsCheckbox,
+    iconName: IconName.ShieldCheck,
+    children: COMPLIANCE_CHILDREN,
+  },
+  {
     id: 'analytics',
     labelKey: 'sidebar.nav.analyticsReporting',
     testId: TestIds.NAV_ANALYTICS,
-    path: RoutePath.Dashboard,
+    path: RoutePath.NotImplemented,
     iconName: IconName.BarChart,
   },
   {
     id: 'soar',
     labelKey: 'sidebar.nav.soar',
     testId: TestIds.NAV_SOAR,
-    path: RoutePath.Dashboard,
+    path: RoutePath.NotImplemented,
     iconName: IconName.Cog,
   },
 ];
@@ -105,7 +190,7 @@ export const BOTTOM_NAV_ITEMS: SidebarNavItem[] = [
     id: 'marketplace',
     labelKey: 'sidebar.nav.marketplace',
     testId: TestIds.NAV_MARKETPLACE,
-    path: RoutePath.Dashboard,
+    path: RoutePath.NotImplemented,
     iconName: IconName.Store,
   },
 ];

@@ -127,4 +127,7 @@ export const enum RouteSegment {
   Forms = 'forms',
   FormsSyncfusion = 'forms/syncfusion',
   FormsNative = 'forms/native',
+
+  // Placeholder
+  NotImplemented = 'not-implemented',
 }

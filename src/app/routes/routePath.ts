@@ -134,4 +134,7 @@ export const enum RoutePath {
   Forms = '/dashboard/forms',
   FormsSyncfusion = '/dashboard/forms/syncfusion',
   FormsNative = '/dashboard/forms/native',
+
+  // Placeholder
+  NotImplemented = '/dashboard/not-implemented',
 }

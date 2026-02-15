@@ -1,6 +1,7 @@
 import { FM } from '@/localization/helpers';
 import type { AlertsConfig, AlertVariantConfig } from '@/stores/theme/types';
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -70,6 +71,14 @@ export const AlertsEditor = ({ config, onUpdate }: AlertsEditorProps): JSX.Eleme
             onUpdate={(updates) => handleVariantUpdate(variant, updates)}
           />
         ))}
+
+        {/* Animation Settings */}
+        <AnimationSubsection
+          animationDuration={config.animationDuration}
+          animationEffect={config.animationEffect}
+          onDurationChange={(duration) => onUpdate({ animationDuration: duration })}
+          onEffectChange={(effect) => onUpdate({ animationEffect: effect })}
+        />
       </div>
     </CollapsibleSection>
   );

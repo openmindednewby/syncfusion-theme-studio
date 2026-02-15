@@ -88,6 +88,7 @@ const COMPONENTS_CHILDREN: NavChild[] = [
       { path: RoutePath.ComponentsCardNative, labelKey: 'menu.cardNative', testId: TestIds.NAV_CARD_NATIVE },
       { path: RoutePath.ComponentsProgressBarNative, labelKey: 'menu.progressbarNative', testId: TestIds.NAV_PROGRESSBAR_NATIVE },
       { path: RoutePath.ComponentsTooltipNative, labelKey: 'menu.tooltipNative', testId: TestIds.NAV_TOOLTIP_NATIVE },
+      { path: RoutePath.ComponentsThemeToggleNative, labelKey: 'menu.themeToggleNative', testId: TestIds.NAV_THEMETOGGLE_NATIVE },
     ],
   },
 ];

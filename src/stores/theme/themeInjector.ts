@@ -1,6 +1,7 @@
 // Main theme injector - orchestrates CSS variable injection
 
 import {
+  injectAnimationVariables,
   injectBorderRadius,
   injectColorScale,
   injectComponentVariables,
@@ -34,6 +35,7 @@ export function injectThemeVariables(theme: ThemeConfig, mode: Mode): void {
     injectLayoutVariables(root, theme);
     injectTypographyVariables(root, theme);
     injectTransitionVariables(root, theme);
+    injectAnimationVariables(root, theme.animations);
 
     // Inject mode-specific colors
     const modeConfig = mode === Mode.Dark ? theme.dark : theme.light;

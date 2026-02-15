@@ -2,6 +2,7 @@ import { FM } from '@/localization/helpers';
 import type { SidebarComponentConfig } from '@/stores/theme/types';
 
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -37,6 +38,11 @@ export const SidebarEditor = ({ config, onUpdate }: SidebarEditorProps): JSX.Ele
         label={FM('themeSettings.components.sidebar.hoverItemBg')}
         value={config.hoverItemBackground}
         onChange={(value) => onUpdate({ hoverItemBackground: value })}
+      />
+      <AnimationSubsection
+        animationDuration={config.transitionDuration}
+        showEffectSelector={false}
+        onDurationChange={(duration) => onUpdate({ transitionDuration: duration })}
       />
     </CollapsibleSection>
   );

@@ -21,6 +21,7 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     borderRight: '55 65 81',
     widthExpanded: '280px',
     widthCollapsed: '64px',
+    transitionDuration: '200ms',
   },
   buttons: {
     primary: {
@@ -78,6 +79,7 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
       borderRadius: 'md',
       shadow: ShadowScale.Sm,
     },
+    transitionDuration: '150ms',
   },
   inputs: {
     background: '31 41 55',
@@ -92,6 +94,7 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     errorTextColor: '248 113 113',
     focusRingColor: '96 165 250',
     borderRadius: 'md',
+    transitionDuration: '150ms',
   },
   dataGrid: {
     headerBackground: '31 41 55',
@@ -161,6 +164,7 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     imageOverlayColor: '0 0 0',
     actionTextColor: '96 165 250',
     actionHoverColor: '147 197 253',
+    transitionDuration: '200ms',
   },
   modals: {
     backdropColor: 'rgba(0, 0, 0, 0.7)',
@@ -188,14 +192,8 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
       textColor: '254 202 202',
       borderColor: '239 68 68',
     },
-    info: {
-      background: '29 78 216',
-      textColor: '191 219 254',
-      borderColor: '59 130 246',
-    },
-    borderRadius: 'full',
-    padding: '2px 8px',
+    info: { background: '29 78 216', textColor: '191 219 254', borderColor: '59 130 246' },
+    borderRadius: 'full', padding: '2px 8px',
   },
-  pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK,
-  ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,
+  pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK, ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,
 };

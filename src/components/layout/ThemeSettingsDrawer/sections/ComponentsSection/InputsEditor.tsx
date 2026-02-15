@@ -2,6 +2,7 @@ import { FM } from '@/localization/helpers';
 import type { InputsConfig } from '@/stores/theme/types';
 
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -37,6 +38,11 @@ export const InputsEditor = ({ config, onUpdate }: InputsEditorProps): JSX.Eleme
         label={FM('themeSettings.components.inputs.placeholderColor')}
         value={config.placeholderColor}
         onChange={(value) => onUpdate({ placeholderColor: value })}
+      />
+      <AnimationSubsection
+        animationDuration={config.transitionDuration}
+        showEffectSelector={false}
+        onDurationChange={(duration) => onUpdate({ transitionDuration: duration })}
       />
     </CollapsibleSection>
   );

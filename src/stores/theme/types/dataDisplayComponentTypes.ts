@@ -1,5 +1,7 @@
 // Data display component type definitions
 
+import type { AnimationEffect } from './animationEffect';
+
 export interface TabsConfig {
   background: string;
   activeBg: string;
@@ -8,6 +10,7 @@ export interface TabsConfig {
   borderColor: string;
   hoverBg: string;
   indicatorColor: string;
+  transitionDuration: string;
 }
 
 export interface TimelineConfig {
@@ -42,4 +45,6 @@ export interface TooltipConfig {
   textColor: string;
   borderColor: string;
   arrowColor: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }

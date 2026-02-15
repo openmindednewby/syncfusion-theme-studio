@@ -14,7 +14,8 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 // Schema version -- bump when ThemeConfig shape changes to invalidate stale data
 // v2: Added ChipConfig to component configurations
 // v3: Added fontSize, fontWeight, lineHeight, letterSpacing to TypographyConfig
-const THEME_SCHEMA_VERSION = 3;
+// v4: Added AnimationConfig to ThemeConfig + per-component animation fields
+const THEME_SCHEMA_VERSION = 4;
 
 export const useThemeStore = create<ThemeState>()(
   devtools(

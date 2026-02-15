@@ -89,6 +89,14 @@
     --transition-normal: 200ms;
     --transition-slow: 300ms;
 
+    /* ===== ANIMATIONS ===== */
+    --animation-enabled: 1;
+    --animation-default-effect: anim-fade-zoom;
+    --animation-default-duration: 200ms;
+    --animation-default-easing: ease-out;
+    --animation-intensity: normal;
+    --animation-respect-reduced-motion: 1;
+
     /* ===== LIGHT MODE (Default) ===== */
     --color-background: 255 255 255;
     --color-surface: 249 250 251;
@@ -311,5 +319,19 @@
 
   ::-webkit-scrollbar-thumb:hover {
     background: rgb(var(--color-text-muted));
+  }
+
+  /* When animations are globally disabled via theme settings */
+  :root[style*="--animation-enabled: 0"] * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Respect prefers-reduced-motion when the setting is enabled */
+  @media (prefers-reduced-motion: reduce) {
+    :root[style*="--animation-respect-reduced-motion: 1"] * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

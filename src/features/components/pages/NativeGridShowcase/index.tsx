@@ -3,6 +3,7 @@ import { TestIds } from '@/shared/testIds';
 
 import {
   AggregatesSection,
+  AlertManagementSection,
   BasicGridSection,
   EditingSection,
   GroupingSection,
@@ -22,6 +23,7 @@ const NativeGridShowcase = (): JSX.Element => (
         </p>
       </div>
 
+      <AlertManagementSection />
       <BasicGridSection />
       <PaginationSection />
       <SelectionSection />

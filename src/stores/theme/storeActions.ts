@@ -1,6 +1,7 @@
 // Theme store actions - assembled from split action files
 
 import {
+  createAnimationActions,
   createColorUpdateActions,
   createComponentConfigActions,
   createExportImportActions,
@@ -19,7 +20,7 @@ import type { ThemeState } from './types';
 
 export function createThemeActions(set: SetState, get: GetState): ThemeState {
   return {
-    mode: Mode.Light,
+    mode: Mode.Dark,
     theme: DEFAULT_THEME,
     ...createModeActions(set, get),
     ...createColorUpdateActions(set, get),
@@ -29,5 +30,6 @@ export function createThemeActions(set: SetState, get: GetState): ThemeState {
     ...createComponentConfigActions(set, get),
     ...createTypographyActions(set, get),
     ...createLayoutActions(set, get),
+    ...createAnimationActions(set, get),
   };
 }

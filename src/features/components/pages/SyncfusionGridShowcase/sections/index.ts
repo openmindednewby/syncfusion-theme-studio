@@ -1,6 +1,10 @@
 /**
  * Barrel export for all grid showcase section components.
  */
+export { AlertManagementSection } from './AlertManagementSection';
+export { AlertKpiCards } from './AlertKpiCards';
+export { AlertShiftLeader } from './AlertShiftLeader';
+export { AlertToolbar } from './AlertToolbar';
 export { BasicGridSection } from './BasicGridSection';
 export { PaginationSection } from './PaginationSection';
 export { GroupingSection } from './GroupingSection';

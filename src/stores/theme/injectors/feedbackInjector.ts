@@ -1,5 +1,7 @@
 // Feedback component CSS variable injection utilities
 
+import { toKeyframeName } from '@/utils/animationUtils';
+
 import type { ComponentConfigSingle } from '../types';
 
 export function injectSelectVariables(root: HTMLElement, c: ComponentConfigSingle): void {
@@ -32,6 +34,8 @@ export function injectSelectVariables(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-select-focus-ring', `rgb(${c.select.focusRingColor})`);
   root.style.setProperty('--component-select-focus-ring-width', c.select.focusRingWidth);
   root.style.setProperty('--component-select-disabled-opacity', c.select.disabledOpacity);
+  root.style.setProperty('--component-select-animation-effect', toKeyframeName(c.select.animationEffect));
+  root.style.setProperty('--component-select-animation-duration', c.select.animationDuration);
 }
 
 export function injectDatePickerVariables(root: HTMLElement, c: ComponentConfigSingle): void {
@@ -59,6 +63,8 @@ export function injectDialogVariables(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-dialog-footer-bg', `rgb(${c.dialog.footerBackground})`);
   root.style.setProperty('--component-dialog-close-btn-color', `rgb(${c.dialog.closeButtonColor})`);
   root.style.setProperty('--component-dialog-close-btn-hover-bg', `rgb(${c.dialog.closeButtonHoverBackground})`);
+  root.style.setProperty('--component-dialog-animation-effect', toKeyframeName(c.dialog.animationEffect));
+  root.style.setProperty('--component-dialog-animation-duration', c.dialog.animationDuration);
 }
 
 export function injectErrorMessageVariables(root: HTMLElement, c: ComponentConfigSingle): void {
@@ -107,6 +113,8 @@ export function injectAlertVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-alert-border-radius', `var(--radius-${c.alerts.borderRadius})`);
   root.style.setProperty('--component-alert-border-width', c.alerts.borderWidth);
   root.style.setProperty('--component-alert-padding', c.alerts.padding);
+  root.style.setProperty('--component-alert-animation-effect', toKeyframeName(c.alerts.animationEffect));
+  root.style.setProperty('--component-alert-animation-duration', c.alerts.animationDuration);
 }
 
 export function injectToastVariables(root: HTMLElement, c: ComponentConfigSingle): void {
@@ -131,6 +139,8 @@ export function injectToastVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-toast-info-bg', `rgb(${c.toast.infoBackground})`);
   root.style.setProperty('--component-toast-info-text', `rgb(${c.toast.infoTextColor})`);
   root.style.setProperty('--component-toast-info-icon', `rgb(${c.toast.infoIconColor})`);
+  root.style.setProperty('--component-toast-animation-effect', toKeyframeName(c.toast.animationEffect));
+  root.style.setProperty('--component-toast-animation-duration', c.toast.animationDuration);
 }
 
 export function injectChipVariables(root: HTMLElement, c: ComponentConfigSingle): void {

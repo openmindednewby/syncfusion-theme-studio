@@ -1,5 +1,6 @@
 // Default light mode navigation component configurations
 
+import { AnimationEffect } from '../types';
 import { type NavigationKeys } from './defaultKeys';
 
 import type { ComponentConfigSingle } from '../types';
@@ -18,6 +19,8 @@ export const DEFAULT_NAVIGATION_LIGHT: Pick<ComponentConfigSingle, NavigationKey
     expandedBackground: '255 255 255',
     expandedTextColor: '55 65 81',
     iconColor: '107 114 128',
+    animationEffect: AnimationEffect.SlideDown,
+    animationDuration: '200ms',
   },
   toolbar: {
     background: '255 255 255',
@@ -41,6 +44,8 @@ export const DEFAULT_NAVIGATION_LIGHT: Pick<ComponentConfigSingle, NavigationKey
     popupBorderColor: '229 231 235',
     popupTextColor: '55 65 81',
     separatorColor: '229 231 235',
+    animationEffect: AnimationEffect.SlideDown,
+    animationDuration: '150ms',
   },
   breadcrumb: {
     background: '255 255 255',
@@ -49,5 +54,6 @@ export const DEFAULT_NAVIGATION_LIGHT: Pick<ComponentConfigSingle, NavigationKey
     activeTextColor: '17 24 39',
     separatorColor: '156 163 175',
     iconColor: '107 114 128',
+    transitionDuration: '150ms',
   },
 };

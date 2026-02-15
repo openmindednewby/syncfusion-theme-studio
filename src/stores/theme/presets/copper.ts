@@ -3,6 +3,7 @@
 // Sophisticated and warm, perfect for craft, artisan, or premium applications
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -152,6 +153,7 @@ export const COPPER_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: DEFAULT_ANIMATIONS,
   light: COPPER_LIGHT_MODE,
   dark: COPPER_DARK_MODE,
   components: DEFAULT_COMPONENTS,

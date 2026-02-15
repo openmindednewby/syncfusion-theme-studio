@@ -1,5 +1,6 @@
 // Feedback and interaction component type definitions
 
+import type { AnimationEffect } from './animationEffect';
 import type { ErrorAnimationType } from './errorAnimationType';
 import type { FlexAlign } from './flexAlign';
 import type { FlexDirection } from './flexDirection';
@@ -51,6 +52,8 @@ export interface SelectConfig {
   focusRingWidth: string;
   /** Opacity when disabled */
   disabledOpacity: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }
 
 export interface DatePickerConfig {
@@ -85,6 +88,8 @@ export interface DialogConfig {
   footerBackground: string;
   closeButtonColor: string;
   closeButtonHoverBackground: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }
 
 export interface FlexBoxConfig {
@@ -128,6 +133,8 @@ export interface AlertsConfig {
   borderRadius: string;
   borderWidth: string;
   padding: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }
 
 export interface ToastConfig {
@@ -152,6 +159,8 @@ export interface ToastConfig {
   infoBackground: string;
   infoTextColor: string;
   infoIconColor: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }
 
 export interface MessageConfig {

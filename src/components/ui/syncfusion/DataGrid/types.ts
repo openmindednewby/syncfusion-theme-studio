@@ -10,6 +10,7 @@ import type {
 import type { ItemModel } from '@syncfusion/ej2-navigations';
 import type {
   EditSettingsModel,
+  FilterSettingsModel,
   GridComponent,
   GroupSettingsModel,
   PageSettingsModel,
@@ -33,6 +34,8 @@ export interface DataGridProps<T extends object> {
   allowSorting?: boolean;
   /** Enable filtering (default: false) */
   allowFiltering?: boolean;
+  /** Filter settings configuration (type, columns, etc.) */
+  filterSettings?: FilterSettingsModel;
   /** Page settings configuration */
   pageSettings?: PageSettingsModel;
   /** Additional CSS classes */

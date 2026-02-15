@@ -33,6 +33,7 @@ import {
   SyncfusionCardShowcase,
   NativeProgressBarShowcase,
   SyncfusionProgressBarShowcase,
+  NativeThemeToggleShowcase,
   NativeTooltipShowcase,
   SyncfusionTooltipShowcase,
   SyncfusionAccordionShowcase,
@@ -151,4 +152,7 @@ export const componentShowcaseRoutes: RouteObject[] = [
   { path: RouteSegment.ComponentsTooltip, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsTooltipNative, element: <LazyShowcase component={NativeTooltipShowcase} /> },
   { path: RouteSegment.ComponentsTooltipSyncfusion, element: <LazyShowcase component={SyncfusionTooltipShowcase} /> },
+  // ThemeToggle
+  { path: RouteSegment.ComponentsThemeToggle, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsThemeToggleNative, element: <LazyShowcase component={NativeThemeToggleShowcase} /> },
 ];

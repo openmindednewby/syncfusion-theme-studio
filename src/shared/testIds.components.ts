@@ -6,6 +6,8 @@ export const ComponentTestIds = {
   NAV_GRID_SYNCFUSION: 'nav-grid-syncfusion',
   NAV_GRID_NATIVE: 'nav-grid-native',
   GRID_SHOWCASE_SECTION: 'grid-showcase-section',
+  GRID_ALERT_MANAGEMENT: 'grid-alert-management',
+  GRID_ALERT_MANAGEMENT_TABLE: 'grid-alert-management-table',
 
   // Component Showcase Pages
   NATIVE_BUTTON_SHOWCASE: 'native-button-showcase',
@@ -84,6 +86,7 @@ export const ComponentTestIds = {
   SYNCFUSION_PROGRESSBAR_SHOWCASE: 'syncfusion-progressbar-showcase',
   NATIVE_TOOLTIP_SHOWCASE: 'native-tooltip-showcase',
   SYNCFUSION_TOOLTIP_SHOWCASE: 'syncfusion-tooltip-showcase',
+  NATIVE_THEMETOGGLE_SHOWCASE: 'native-themetoggle-showcase',
 
   // New navigation test IDs
   NAV_TABS_NATIVE: 'nav-tabs-native',
@@ -102,4 +105,5 @@ export const ComponentTestIds = {
   NAV_PROGRESSBAR_SYNCFUSION: 'nav-progressbar-syncfusion',
   NAV_TOOLTIP_NATIVE: 'nav-tooltip-native',
   NAV_TOOLTIP_SYNCFUSION: 'nav-tooltip-syncfusion',
+  NAV_THEMETOGGLE_NATIVE: 'nav-themetoggle-native',
 } as const;

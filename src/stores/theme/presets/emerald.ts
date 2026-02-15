@@ -3,6 +3,7 @@
 // Luxurious and vibrant, perfect for finance, luxury, or premium applications
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -11,6 +12,8 @@ import {
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
 } from '../defaults';
+import { AnimationIntensity } from '../types/animationIntensity';
+
 
 import type { ThemeConfig } from '../types';
 
@@ -152,6 +155,7 @@ export const EMERALD_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: { ...DEFAULT_ANIMATIONS, intensity: AnimationIntensity.Playful },
   light: EMERALD_LIGHT_MODE,
   dark: EMERALD_DARK_MODE,
   components: DEFAULT_COMPONENTS,

@@ -23,3 +23,5 @@ export {
   DEFAULT_COMPONENTS_LIGHT,
   DEFAULT_COMPONENTS_DARK,
 } from './defaultComponents';
+
+export { DEFAULT_ANIMATIONS } from './defaultAnimations';

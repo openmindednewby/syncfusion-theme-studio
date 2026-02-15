@@ -38,7 +38,8 @@
     "firstName": "First Name",
     "lastName": "Last Name",
     "phone": "Phone",
-    "username": "Username"
+    "username": "Username",
+    "settings": "Settings"
   },
   "validation": {
     "required": "This field is required",
@@ -162,6 +163,7 @@
     "progressbarSyncfusion": "ProgressBar",
     "tooltipNative": "Tooltip",
     "tooltipSyncfusion": "Tooltip",
+    "themeToggleNative": "Theme Toggle",
     "themeEditor": "Theme Editor",
     "themeEditorLabel": "Open theme editor",
     "login": "Login",
@@ -241,7 +243,31 @@
       "borderRadius": "Border Radius",
       "shadows": "Shadows",
       "spacing": "Spacing",
-      "transitions": "Transitions"
+      "transitions": "Transitions",
+      "animations": {
+        "title": "Animations",
+        "description": "Configure global animation behavior for all components.",
+        "enabled": "Enable Animations",
+        "defaultEffect": "Default Effect",
+        "defaultDuration": "Default Duration",
+        "defaultEasing": "Default Easing",
+        "intensity": "Intensity",
+        "respectReducedMotion": "Respect Reduced Motion",
+        "effectNone": "None",
+        "effectFade": "Fade",
+        "effectSlideUp": "Slide Up",
+        "effectSlideDown": "Slide Down",
+        "effectSlideLeft": "Slide Left",
+        "effectSlideRight": "Slide Right",
+        "effectZoom": "Zoom",
+        "effectFadeZoom": "Fade + Zoom",
+        "intensityNone": "None",
+        "intensitySubtle": "Subtle",
+        "intensityNormal": "Normal",
+        "intensityPlayful": "Playful",
+        "animationEffect": "Animation Effect",
+        "animationDuration": "Animation Duration"
+      }
     },
     "lightTheme": {
       "title": "Light Theme",
@@ -817,7 +843,9 @@
         "aggregates": "Aggregates",
         "aggregatesDesc": "Footer summaries showing Sum, Average, Count, Min, and Max computed across all rows for numeric columns.",
         "pagination": "Pagination",
-        "paginationDesc": "Client-side pagination with configurable page sizes. Use the page size dropdown and navigation buttons to browse data."
+        "paginationDesc": "Client-side pagination with configurable page sizes. Use the page size dropdown and navigation buttons to browse data.",
+        "alertManagement": "Alert Management",
+        "alertManagementDesc": "SIEM-style alert management grid with severity badges, SLA tracking, and checkbox selection."
       },
       "editModes": {
         "normal": "Inline",
@@ -1376,6 +1404,25 @@
       "syncfusionTitle": "Syncfusion Tooltip",
       "syncfusionDescription": "Syncfusion-styled tooltip component"
     },
+    "themeToggleShowcase": {
+      "nativeTitle": "Native Theme Toggle",
+      "nativeDescription": "Animated light/dark mode toggle with sun/moon iconography",
+      "sections": {
+        "variants": "Size Variants",
+        "variantsDesc": "Available toggle sizes: small, medium, and large.",
+        "interactive": "Interactive Demo",
+        "interactiveDesc": "Connected to the real theme store - toggles actual light/dark mode."
+      },
+      "labels": {
+        "small": "Small",
+        "medium": "Medium",
+        "large": "Large",
+        "disabled": "Disabled",
+        "currentMode": "Current mode: {{p1}}",
+        "lightMode": "Light",
+        "darkMode": "Dark"
+      }
+    },
     "cards": {
       "default": "Default Card",
       "defaultDesc": "A basic card with background and border styling.",
@@ -1827,7 +1874,37 @@
     "contextAutoFit": "Auto Fit",
     "contextAutoFitAll": "Auto Fit All",
     "contextSortAsc": "Sort Ascending",
-    "contextSortDesc": "Sort Descending"
+    "contextSortDesc": "Sort Descending",
+    "alertManagement": "Alert Management",
+    "alertManagementDesc": "SIEM-style alert management grid with severity badges, SLA tracking, checkbox selection, and searchable toolbar.",
+    "alertSeverity": "Severity",
+    "alertScore": "Score",
+    "alertCorrelation": "Correlation Name",
+    "alertDateCreated": "Date Created",
+    "alertAsset": "Affected Asset",
+    "alertTactic": "Tactic",
+    "alertTechnique": "Technique",
+    "alertAssignee": "Assignee",
+    "alertSlaStatus": "SLA Status",
+    "alertSlaRemaining": "SLA Remaining",
+    "alertAutomation": "Automation Status",
+    "alertId": "ID",
+    "alertActions": "Actions",
+    "shiftLeader": "SHIFT LEADER",
+    "noActiveShiftLeader": "No Active Shift Leader",
+    "keywordSearch": "Keyword Search ...",
+    "showFilter": "SHOW FILTER",
+    "view": "View",
+    "kpiCritical": "Critical",
+    "kpiHigh": "High",
+    "kpiAwaitingAnalysts": "Awaiting Analysts",
+    "kpiTriageRunning": "Triage Running",
+    "kpiAutomationsRunning": "Automations Running",
+    "kpiSlaAtRisk": "SLA at Risk",
+    "kpiSlaExpired": "SLA Expired",
+    "kpiTotalActiveAlerts": "Total Active Alerts",
+    "kpiStable": "Stable",
+    "dateRangeLabel": "Thu, Feb 12 - Fri, Feb 13"
   },
   "errors": {
     "errorTitle": "Error",

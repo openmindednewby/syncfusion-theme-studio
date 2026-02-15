@@ -3,6 +3,7 @@
 // Calming, organic feel perfect for eco-friendly or wellness applications
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -11,6 +12,8 @@ import {
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
 } from '../defaults';
+import { AnimationIntensity } from '../types/animationIntensity';
+
 
 import type { ThemeConfig } from '../types';
 
@@ -152,6 +155,7 @@ export const FOREST_GREEN_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: { ...DEFAULT_ANIMATIONS, intensity: AnimationIntensity.Playful },
   light: FOREST_GREEN_LIGHT_MODE,
   dark: FOREST_GREEN_DARK_MODE,
   components: DEFAULT_COMPONENTS,

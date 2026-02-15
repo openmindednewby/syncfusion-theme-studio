@@ -1,5 +1,6 @@
 // Actions barrel export
 
+export { createAnimationActions } from './animationActions';
 export { buildDerivedComponents, createColorUpdateActions } from './colorActions';
 export { createComponentConfigActions } from './componentActions';
 export { createLayoutActions } from './layoutActions';

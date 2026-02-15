@@ -1,8 +1,9 @@
-// Odyssey Theme Preset
+// Voyager Theme Preset
 // Professional corporate blue theme inspired by consulting/technology companies
 // Deep navy primary with teal accents for a modern, trustworthy look
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -15,7 +16,7 @@ import {
 import type { ThemeConfig } from '../types';
 
 // Deep Navy/Indigo primary - professional, trustworthy
-const ODYSSEY_PRIMARY = {
+const VOYAGER_PRIMARY = {
   '50': '238 242 255',
   '100': '224 231 255',
   '200': '199 210 254',
@@ -29,7 +30,7 @@ const ODYSSEY_PRIMARY = {
 };
 
 // Teal/Cyan secondary - modern, innovative
-const ODYSSEY_SECONDARY = {
+const VOYAGER_SECONDARY = {
   '50': '240 253 250',
   '100': '204 251 241',
   '200': '153 246 228',
@@ -43,7 +44,7 @@ const ODYSSEY_SECONDARY = {
 };
 
 // Slate neutral - professional, clean
-const ODYSSEY_NEUTRAL = {
+const VOYAGER_NEUTRAL = {
   '50': '248 250 252',
   '100': '241 245 249',
   '200': '226 232 240',
@@ -56,7 +57,7 @@ const ODYSSEY_NEUTRAL = {
   '900': '15 23 42',
 };
 
-const ODYSSEY_STATUS = {
+const VOYAGER_STATUS = {
   success: {
     '50': '236 253 245',
     '100': '209 250 229',
@@ -87,7 +88,7 @@ const ODYSSEY_STATUS = {
   },
 };
 
-const ODYSSEY_LIGHT_MODE = {
+const VOYAGER_LIGHT_MODE = {
   backgrounds: {
     page: '255 255 255',
     surface: '248 250 252',
@@ -113,7 +114,7 @@ const ODYSSEY_LIGHT_MODE = {
   },
 };
 
-const ODYSSEY_DARK_MODE = {
+const VOYAGER_DARK_MODE = {
   backgrounds: {
     page: '15 23 42',
     surface: '30 41 59',
@@ -139,20 +140,21 @@ const ODYSSEY_DARK_MODE = {
   },
 };
 
-export const ODYSSEY_THEME: ThemeConfig = {
-  id: 'odyssey',
-  name: 'Odyssey',
-  primary: ODYSSEY_PRIMARY,
-  secondary: ODYSSEY_SECONDARY,
-  neutral: ODYSSEY_NEUTRAL,
-  status: ODYSSEY_STATUS,
+export const VOYAGER_THEME: ThemeConfig = {
+  id: 'voyager',
+  name: 'Voyager',
+  primary: VOYAGER_PRIMARY,
+  secondary: VOYAGER_SECONDARY,
+  neutral: VOYAGER_NEUTRAL,
+  status: VOYAGER_STATUS,
   layout: DEFAULT_LAYOUT,
   spacing: DEFAULT_SPACING,
   borderRadius: DEFAULT_BORDER_RADIUS,
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
-  light: ODYSSEY_LIGHT_MODE,
-  dark: ODYSSEY_DARK_MODE,
+  animations: DEFAULT_ANIMATIONS,
+  light: VOYAGER_LIGHT_MODE,
+  dark: VOYAGER_DARK_MODE,
   components: DEFAULT_COMPONENTS,
 };

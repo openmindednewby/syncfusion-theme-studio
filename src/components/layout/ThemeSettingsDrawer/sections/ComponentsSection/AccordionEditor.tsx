@@ -1,6 +1,7 @@
 import { FM } from '@/localization/helpers';
 import type { AccordionConfig } from '@/stores/theme/types';
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -56,6 +57,12 @@ export const AccordionEditor = ({ config, onUpdate }: AccordionEditorProps): JSX
         label={FM('themeSettings.components.accordion.iconColor')}
         value={config.iconColor}
         onChange={(value) => onUpdate({ iconColor: value })}
+      />
+      <AnimationSubsection
+        animationDuration={config.animationDuration}
+        animationEffect={config.animationEffect}
+        onDurationChange={(duration) => onUpdate({ animationDuration: duration })}
+        onEffectChange={(effect) => onUpdate({ animationEffect: effect })}
       />
     </CollapsibleSection>
   );

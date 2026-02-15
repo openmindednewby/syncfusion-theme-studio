@@ -1,6 +1,7 @@
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 
+import { AnimationsEditor } from './AnimationsEditor';
 import { BorderRadiusEditor } from './BorderRadiusEditor';
 import { DimensionsEditor } from './DimensionsEditor';
 import { ShadowsEditor } from './ShadowsEditor';
@@ -28,6 +29,7 @@ const LayoutIcon = (): JSX.Element => (
 export const LayoutSection = (): JSX.Element => {
   const {
     theme,
+    updateAnimationConfig,
     updateBorderRadius,
     updateLayoutDimension,
     updateLayoutFullWidth,
@@ -70,6 +72,11 @@ export const LayoutSection = (): JSX.Element => {
         <ShadowsEditor
           shadows={theme.shadows}
           onChange={updateShadow}
+        />
+
+        <AnimationsEditor
+          animations={theme.animations}
+          onUpdate={updateAnimationConfig}
         />
       </div>
     </section>

@@ -1,5 +1,7 @@
 // Navigation component type definitions
 
+import type { AnimationEffect } from './animationEffect';
+
 export interface AccordionConfig {
   background: string;
   textColor: string;
@@ -10,6 +12,8 @@ export interface AccordionConfig {
   expandedBackground: string;
   expandedTextColor: string;
   iconColor: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }
 
 export interface ToolbarConfig {
@@ -35,6 +39,8 @@ export interface MenuConfig {
   popupBorderColor: string;
   popupTextColor: string;
   separatorColor: string;
+  animationEffect: AnimationEffect;
+  animationDuration: string;
 }
 
 export interface BreadcrumbConfig {
@@ -44,4 +50,5 @@ export interface BreadcrumbConfig {
   activeTextColor: string;
   separatorColor: string;
   iconColor: string;
+  transitionDuration: string;
 }

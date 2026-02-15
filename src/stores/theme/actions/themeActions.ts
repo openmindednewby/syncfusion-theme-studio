@@ -21,6 +21,21 @@ function isValidThemeConfig(value: unknown): value is ThemeConfig {
   return hasId && hasPrimary;
 }
 
+/** Deep-merge imported theme with defaults so missing keys (e.g. animations) get filled in */
+function deepMerge<T>(defaults: T, imported: T): T {
+  if (!isPlainObject(defaults) || !isPlainObject(imported)) return imported;
+  const result: Record<string, unknown> = { ...defaults };
+  for (const key of Object.keys(imported)) {
+    const importedVal = imported[key];
+    const defaultVal = result[key];
+    result[key] = isPlainObject(defaultVal) && isPlainObject(importedVal)
+      ? deepMerge(defaultVal, importedVal)
+      : importedVal;
+  }
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- deep-merge returns same shape
+  return result as T;
+}
+
 export function createThemeUpdateActions(set: SetState, get: GetState): ThemeUpdateActions {
   return {
     updateTheme: (updates) => {
@@ -42,8 +57,9 @@ export function createExportImportActions(set: SetState, get: GetState): ExportI
       try {
         const parsed: unknown = JSON.parse(json);
         if (!isValidThemeConfig(parsed)) return false;
-        set({ theme: parsed });
-        injectThemeVariables(parsed, get().mode);
+        const merged = deepMerge(DEFAULT_THEME, parsed);
+        set({ theme: merged });
+        injectThemeVariables(merged, get().mode);
         return true;
       } catch {
         return false;

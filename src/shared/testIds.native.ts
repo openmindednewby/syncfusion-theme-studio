@@ -78,4 +78,5 @@ export const NativeTestIds = {
   NATIVE_GRID_SELECT_CHECKBOX: 'native-grid-select-checkbox',
   NATIVE_GRID_SELECT_TABS: 'native-grid-select-tabs',
   NATIVE_GRID_SELECTED_COUNT: 'native-grid-selected-count',
+  NATIVE_GRID_ALERT_MANAGEMENT: 'native-grid-alert-management',
 } as const;

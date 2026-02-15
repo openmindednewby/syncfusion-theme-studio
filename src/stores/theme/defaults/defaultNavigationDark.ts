@@ -1,5 +1,6 @@
 // Default dark mode navigation component configurations
 
+import { AnimationEffect } from '../types';
 import { type NavigationKeys } from './defaultKeys';
 
 import type { ComponentConfigSingle } from '../types';
@@ -18,6 +19,8 @@ export const DEFAULT_NAVIGATION_DARK: Pick<ComponentConfigSingle, NavigationKeys
     expandedBackground: '17 24 39',
     expandedTextColor: '209 213 219',
     iconColor: '156 163 175',
+    animationEffect: AnimationEffect.SlideDown,
+    animationDuration: '200ms',
   },
   toolbar: {
     background: '17 24 39',
@@ -41,6 +44,8 @@ export const DEFAULT_NAVIGATION_DARK: Pick<ComponentConfigSingle, NavigationKeys
     popupBorderColor: '55 65 81',
     popupTextColor: '209 213 219',
     separatorColor: '55 65 81',
+    animationEffect: AnimationEffect.SlideDown,
+    animationDuration: '150ms',
   },
   breadcrumb: {
     background: '17 24 39',
@@ -49,5 +54,6 @@ export const DEFAULT_NAVIGATION_DARK: Pick<ComponentConfigSingle, NavigationKeys
     activeTextColor: '249 250 251',
     separatorColor: '107 114 128',
     iconColor: '156 163 175',
+    transitionDuration: '150ms',
   },
 };

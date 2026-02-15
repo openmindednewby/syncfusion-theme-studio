@@ -23,6 +23,7 @@ export interface SidebarComponentConfig {
   borderRight: string;
   widthExpanded: string;
   widthCollapsed: string;
+  transitionDuration: string;
 }
 export interface ButtonStateColors {
   background: string;
@@ -42,6 +43,7 @@ export interface ButtonsComponentConfig {
   outline: ButtonStateColors;
   ghost: ButtonStateColors;
   danger: ButtonStateColors;
+  transitionDuration: string;
 }
 export interface InputsConfig {
   background: string;
@@ -56,6 +58,7 @@ export interface InputsConfig {
   errorTextColor: string;
   focusRingColor: string;
   borderRadius: string;
+  transitionDuration: string;
 }
 export interface DataGridConfig {
   headerBackground: string;
@@ -126,6 +129,7 @@ export interface CardsConfig {
   imageOverlayColor: string;
   actionTextColor: string;
   actionHoverColor: string;
+  transitionDuration: string;
 }
 
 export interface ModalsConfig {

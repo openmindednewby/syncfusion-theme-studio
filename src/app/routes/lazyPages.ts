@@ -196,6 +196,11 @@ export const SyncfusionTooltipShowcase = lazy(
   async () => import('@/features/components/pages/SyncfusionTooltipShowcase'),
 );
 
+// ThemeToggle showcase
+export const NativeThemeToggleShowcase = lazy(
+  async () => import('@/features/components/pages/NativeThemeToggleShowcase'),
+);
+
 // Forms
 export const SyncfusionFormsPage = lazy(
   async () => import('@/features/forms/pages/SyncfusionFormsPage'),

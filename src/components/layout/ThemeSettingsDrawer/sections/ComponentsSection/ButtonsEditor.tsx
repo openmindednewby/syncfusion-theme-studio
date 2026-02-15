@@ -2,13 +2,14 @@ import { FM } from '@/localization/helpers';
 import { ButtonVariant } from '@/stores/theme/types';
 import type { ButtonsComponentConfig, ButtonStateColors } from '@/stores/theme/types';
 
-
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
 interface ButtonsEditorProps {
   config: ButtonsComponentConfig;
   onUpdate: (variant: ButtonVariant, updates: Partial<ButtonStateColors>) => void;
+  onUpdateConfig: (updates: Partial<ButtonsComponentConfig>) => void;
 }
 
 const BUTTON_VARIANTS: ButtonVariant[] = [
@@ -48,7 +49,7 @@ const VariantEditor = ({ config, onUpdate, variant }: VariantEditorProps): JSX.E
   </div>
 );
 
-export const ButtonsEditor = ({ config, onUpdate }: ButtonsEditorProps): JSX.Element => {
+export const ButtonsEditor = ({ config, onUpdate, onUpdateConfig }: ButtonsEditorProps): JSX.Element => {
   return (
     <CollapsibleSection title={FM('themeSettings.components.buttons.title')}>
       <div className="space-y-4">
@@ -60,6 +61,11 @@ export const ButtonsEditor = ({ config, onUpdate }: ButtonsEditorProps): JSX.Ele
             onUpdate={(updates) => onUpdate(variant, updates)}
           />
         ))}
+        <AnimationSubsection
+          animationDuration={config.transitionDuration}
+          showEffectSelector={false}
+          onDurationChange={(duration) => onUpdateConfig({ transitionDuration: duration })}
+        />
       </div>
     </CollapsibleSection>
   );

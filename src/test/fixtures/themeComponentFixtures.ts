@@ -10,6 +10,7 @@ import {
   FlexWrap,
   ShadowScale,
 } from '../../stores/theme/types';
+import { AnimationEffect } from '../../stores/theme/types/animationEffect';
 
 import type {
   ComponentsConfig,
@@ -105,6 +106,7 @@ const createButtons = (): ButtonsComponentConfig => ({
   outline: createOutlineButton(),
   ghost: createGhostButton(),
   danger: createDangerButton(),
+  transitionDuration: '150ms',
 });
 
 const createHeader = (): HeaderComponentConfig => ({
@@ -124,6 +126,7 @@ const createSidebar = (): SidebarComponentConfig => ({
   borderRight: '229 231 235',
   widthExpanded: '280px',
   widthCollapsed: '64px',
+  transitionDuration: '200ms',
 });
 
 const createInputs = (): InputsConfig => ({
@@ -139,6 +142,7 @@ const createInputs = (): InputsConfig => ({
   errorTextColor: '239 68 68',
   focusRingColor: '59 130 246',
   borderRadius: 'md',
+  transitionDuration: '150ms',
 });
 
 const createDataGrid = (): DataGridConfig => ({
@@ -210,6 +214,7 @@ const createCards = (): CardsConfig => ({
   imageOverlayColor: '0 0 0',
   actionTextColor: '59 130 246',
   actionHoverColor: '37 99 235',
+  transitionDuration: '200ms',
 });
 
 const createModals = (): ModalsConfig => ({
@@ -259,6 +264,8 @@ const createSelect = (): SelectConfig => ({
   focusRingColor: '59 130 246',
   focusRingWidth: '2px',
   disabledOpacity: '0.5',
+  animationEffect: AnimationEffect.Fade,
+  animationDuration: '150ms',
 });
 
 const createDatePicker = (): DatePickerConfig => ({
@@ -293,6 +300,8 @@ const createDialog = (): DialogConfig => ({
   footerBackground: '249 250 251',
   closeButtonColor: '107 114 128',
   closeButtonHoverBackground: '249 250 251',
+  animationEffect: AnimationEffect.FadeZoom,
+  animationDuration: '200ms',
 });
 
 const createErrorMessages = (): ErrorMessagesConfig => ({
@@ -349,6 +358,8 @@ const createAlerts = (): AlertsConfig => ({
   borderRadius: 'md',
   borderWidth: '1px',
   padding: '12px 16px',
+  animationEffect: AnimationEffect.Fade,
+  animationDuration: '200ms',
 });
 
 const createToast = (): ToastConfig => ({
@@ -373,6 +384,8 @@ const createToast = (): ToastConfig => ({
   infoBackground: '219 234 254',
   infoTextColor: '29 78 216',
   infoIconColor: '59 130 246',
+  animationEffect: AnimationEffect.SlideRight,
+  animationDuration: '300ms',
 });
 
 const createMessage = (): MessageConfig => ({
@@ -425,6 +438,8 @@ const createAccordion = (): AccordionConfig => ({
   expandedBackground: '255 255 255',
   expandedTextColor: '55 65 81',
   iconColor: '107 114 128',
+  animationEffect: AnimationEffect.SlideDown,
+  animationDuration: '200ms',
 });
 
 const createToolbar = (): ToolbarConfig => ({
@@ -450,6 +465,8 @@ const createMenu = (): MenuConfig => ({
   popupBorderColor: '229 231 235',
   popupTextColor: '55 65 81',
   separatorColor: '229 231 235',
+  animationEffect: AnimationEffect.SlideDown,
+  animationDuration: '150ms',
 });
 
 const createBreadcrumb = (): BreadcrumbConfig => ({
@@ -459,6 +476,7 @@ const createBreadcrumb = (): BreadcrumbConfig => ({
   activeTextColor: '17 24 39',
   separatorColor: '156 163 175',
   iconColor: '107 114 128',
+  transitionDuration: '150ms',
 });
 
 const createPagination = (): PaginationConfig => ({
@@ -504,11 +522,11 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
   menu: createMenu(),
   breadcrumb: createBreadcrumb(),
   pagination: createPagination(),
-  tabs: { background: '255 255 255', activeBg: '255 255 255', activeText: '59 130 246', inactiveText: '107 114 128', borderColor: '229 231 235', hoverBg: '249 250 251', indicatorColor: '59 130 246' },
+  tabs: { background: '255 255 255', activeBg: '255 255 255', activeText: '59 130 246', inactiveText: '107 114 128', borderColor: '229 231 235', hoverBg: '249 250 251', indicatorColor: '59 130 246', transitionDuration: '150ms' },
   timeline: { trackColor: '229 231 235', activeColor: '59 130 246', markerBg: '255 255 255', markerBorder: '59 130 246', labelText: '55 65 81', connectorColor: '209 213 219' },
   avatar: { background: '219 234 254', textColor: '29 78 216', borderColor: '255 255 255', statusIndicatorColor: '34 197 94', fallbackBg: '229 231 235' },
   progressBar: { trackBg: '229 231 235', fillColor: '59 130 246', textColor: '55 65 81', borderRadius: 'full', successFillColor: '34 197 94', warningFillColor: '245 158 11', dangerFillColor: '239 68 68' },
-  tooltip: { background: '17 24 39', textColor: '249 250 251', borderColor: '55 65 81', arrowColor: '17 24 39' },
+  tooltip: { background: '17 24 39', textColor: '249 250 251', borderColor: '55 65 81', arrowColor: '17 24 39', animationEffect: AnimationEffect.Fade, animationDuration: '150ms' },
 });
 
 /** Create mode-aware components config with light and dark variants */

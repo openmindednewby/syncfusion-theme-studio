@@ -1,6 +1,8 @@
 import { FM } from '@/localization/helpers';
-import type { DialogConfig } from '@/stores/theme/types';
+import type {  DialogConfig } from '@/stores/theme/types';
 
+
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -125,6 +127,14 @@ export const DialogEditor = ({ config, onUpdate }: DialogEditorProps): JSX.Eleme
             />
           </div>
         </div>
+
+        {/* Animation Settings */}
+        <AnimationSubsection
+          animationDuration={config.animationDuration}
+          animationEffect={config.animationEffect}
+          onDurationChange={(duration) => onUpdate({ animationDuration: duration })}
+          onEffectChange={(effect) => onUpdate({ animationEffect: effect })}
+        />
       </div>
     </CollapsibleSection>
   );

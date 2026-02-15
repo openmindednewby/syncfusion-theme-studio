@@ -1,6 +1,6 @@
 // Default dark mode feedback component configurations
 
-import { ErrorAnimationType, FlexAlign, FlexDirection, FlexJustify, FlexWrap } from '../types';
+import { AnimationEffect, ErrorAnimationType, FlexAlign, FlexDirection, FlexJustify, FlexWrap } from '../types';
 import { type FeedbackKeys } from './defaultKeys';
 
 import type { ComponentConfigSingle } from '../types';
@@ -36,6 +36,8 @@ export const DEFAULT_FEEDBACK_DARK: Pick<ComponentConfigSingle, FeedbackKeysType
     focusRingColor: '96 165 250',
     focusRingWidth: '2px',
     disabledOpacity: '0.5',
+    animationEffect: AnimationEffect.Fade,
+    animationDuration: '150ms',
   },
   datePicker: {
     background: '31 41 55',
@@ -68,6 +70,8 @@ export const DEFAULT_FEEDBACK_DARK: Pick<ComponentConfigSingle, FeedbackKeysType
     footerBackground: '17 24 39',
     closeButtonColor: '156 163 175',
     closeButtonHoverBackground: '55 65 81',
+    animationEffect: AnimationEffect.FadeZoom,
+    animationDuration: '200ms',
   },
   errorMessages: {
     textColor: '248 113 113',
@@ -121,6 +125,8 @@ export const DEFAULT_FEEDBACK_DARK: Pick<ComponentConfigSingle, FeedbackKeysType
     borderRadius: 'md',
     borderWidth: '1px',
     padding: '12px 16px',
+    animationEffect: AnimationEffect.Fade,
+    animationDuration: '200ms',
   },
   toast: {
     background: '31 41 55',
@@ -144,6 +150,8 @@ export const DEFAULT_FEEDBACK_DARK: Pick<ComponentConfigSingle, FeedbackKeysType
     infoBackground: '29 78 216',
     infoTextColor: '191 219 254',
     infoIconColor: '96 165 250',
+    animationEffect: AnimationEffect.SlideRight,
+    animationDuration: '300ms',
   },
   message: {
     borderRadius: 'md',

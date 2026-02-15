@@ -1,6 +1,7 @@
 import { DEFAULT_THEME } from '../defaultTheme';
 import { ARCTIC_THEME } from './arctic';
 import { COPPER_THEME } from './copper';
+import { CYBERWATCH_THEME } from './cyberWatch';
 import { EMERALD_THEME } from './emerald';
 import { FOREST_GREEN_THEME } from './forestGreen';
 import { FREMEN_THEME } from './fremen';
@@ -9,11 +10,11 @@ import { LAVENDER_THEME } from './lavender';
 import { MIDNIGHT_THEME } from './midnight';
 import { OCEAN_BLUE_THEME } from './oceanBlue';
 import { OCEANUS_THEME } from './oceanus';
-import { ODYSSEY_THEME } from './odyssey';
 import { ROSE_PINK_THEME } from './rosePink';
 import { ROYAL_PURPLE_THEME } from './royalPurple';
 import { SLATE_THEME } from './slate';
 import { SUNSET_ORANGE_THEME } from './sunsetOrange';
+import { VOYAGER_THEME } from './voyager';
 
 import type { ThemeConfig } from '../types';
 
@@ -32,8 +33,9 @@ function previewColors(theme: ThemeConfig): string[] {
 export const themePresets: ThemePreset[] = [
   { id: 'fremen', name: 'Fremen', description: 'Cybersecurity-inspired teal with deep navy', previewColors: previewColors(FREMEN_THEME), theme: FREMEN_THEME },
   { id: 'oceanus', name: 'Oceanus', description: 'SOAR/SIEM dark navy with teal accents', previewColors: previewColors(OCEANUS_THEME), theme: OCEANUS_THEME },
+  { id: 'cyberWatch', name: 'CyberWatch', description: 'SIEM dashboard with cyan accents and deep navy', previewColors: previewColors(CYBERWATCH_THEME), theme: CYBERWATCH_THEME },
   { id: 'default', name: 'Default Blue', description: 'Classic blue theme with purple accents', previewColors: previewColors(DEFAULT_THEME), theme: DEFAULT_THEME },
-  { id: 'odyssey', name: 'Odyssey', description: 'Professional indigo with teal accents', previewColors: previewColors(ODYSSEY_THEME), theme: ODYSSEY_THEME },
+  { id: 'voyager', name: 'Voyager', description: 'Professional indigo with teal accents', previewColors: previewColors(VOYAGER_THEME), theme: VOYAGER_THEME },
   { id: 'ocean-blue', name: 'Ocean Blue', description: 'Professional blue like Salesforce', previewColors: previewColors(OCEAN_BLUE_THEME), theme: OCEAN_BLUE_THEME },
   { id: 'forest-green', name: 'Forest Green', description: 'Nature-inspired green with amber', previewColors: previewColors(FOREST_GREEN_THEME), theme: FOREST_GREEN_THEME },
   { id: 'royal-purple', name: 'Royal Purple', description: 'Elegant purple with rose gold', previewColors: previewColors(ROYAL_PURPLE_THEME), theme: ROYAL_PURPLE_THEME },

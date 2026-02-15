@@ -1,6 +1,7 @@
 import { FM } from '@/localization/helpers';
 import type { MenuConfig } from '@/stores/theme/types';
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -66,6 +67,12 @@ export const MenuEditor = ({ config, onUpdate }: MenuEditorProps): JSX.Element =
         label={FM('themeSettings.components.menu.separatorColor')}
         value={config.separatorColor}
         onChange={(value) => onUpdate({ separatorColor: value })}
+      />
+      <AnimationSubsection
+        animationDuration={config.animationDuration}
+        animationEffect={config.animationEffect}
+        onDurationChange={(duration) => onUpdate({ animationDuration: duration })}
+        onEffectChange={(effect) => onUpdate({ animationEffect: effect })}
       />
     </CollapsibleSection>
   );

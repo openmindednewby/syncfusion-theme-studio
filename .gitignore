@@ -85,3 +85,8 @@ sidebarFamilies.png
 alertsmanagement.png
 .gitignore
 TABLEFILTERING.png
+syncfusionMissingDarkTheme.png
+**/obj/**
+MockServer/src/MockServer.Core/bin/**
+MockServer/src/MockServer.Core/bin/*
+*Debug*

@@ -1,6 +1,8 @@
 import { FM } from '@/localization/helpers';
-import type { ToastConfig } from '@/stores/theme/types';
+import type {  ToastConfig } from '@/stores/theme/types';
 
+
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -137,6 +139,14 @@ export const ToastEditor = ({ config, onUpdate }: ToastEditorProps): JSX.Element
           onTextChange={(v) => onUpdate({ infoTextColor: v })}
         />
       </div>
+
+      {/* Animation Settings */}
+      <AnimationSubsection
+        animationDuration={config.animationDuration}
+        animationEffect={config.animationEffect}
+        onDurationChange={(duration) => onUpdate({ animationDuration: duration })}
+        onEffectChange={(effect) => onUpdate({ animationEffect: effect })}
+      />
     </div>
   </CollapsibleSection>
 );

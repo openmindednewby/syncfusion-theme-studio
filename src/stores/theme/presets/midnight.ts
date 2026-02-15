@@ -3,6 +3,7 @@
 // Perfect for premium apps, developer tools, or luxury brands
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -152,6 +153,7 @@ export const MIDNIGHT_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: DEFAULT_ANIMATIONS,
   light: MIDNIGHT_LIGHT_MODE,
   dark: MIDNIGHT_DARK_MODE,
   components: DEFAULT_COMPONENTS,

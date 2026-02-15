@@ -3,6 +3,7 @@
 import { injectThemeVariables } from '../themeInjector';
 import { type ButtonVariant ,
   type AccordionConfig,
+  type ButtonsComponentConfig,
   type AlertsConfig,
   type AvatarConfig,
   type BadgesConfig,
@@ -61,6 +62,7 @@ const enum ComponentKey {
   Avatar = 'avatar',
   ProgressBar = 'progressBar',
   Tooltip = 'tooltip',
+  Buttons = 'buttons',
 }
 
 function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
@@ -124,5 +126,6 @@ export function createComponentConfigActions(set: SetState, get: GetState): Comp
     updateProgressBarConfig: (u: Partial<ProgressBarConfig>) => update(set, get, ComponentKey.ProgressBar, u),
     updateTooltipConfig: (u: Partial<TooltipConfig>) => update(set, get, ComponentKey.Tooltip, u),
     updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
+    updateButtonsConfig: (u: Partial<ButtonsComponentConfig>) => update(set, get, ComponentKey.Buttons, u),
   };
 }

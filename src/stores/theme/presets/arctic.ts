@@ -3,6 +3,7 @@
 // Clean and refreshing, perfect for medical, tech, or minimal applications
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -152,6 +153,7 @@ export const ARCTIC_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: DEFAULT_ANIMATIONS,
   light: ARCTIC_LIGHT_MODE,
   dark: ARCTIC_DARK_MODE,
   components: DEFAULT_COMPONENTS,

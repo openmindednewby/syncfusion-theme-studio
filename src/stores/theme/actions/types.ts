@@ -36,6 +36,7 @@ export interface ComponentConfigActions {
   updateHeaderConfig: ThemeState['updateHeaderConfig'];
   updateSidebarConfig: ThemeState['updateSidebarConfig'];
   updateButtonConfig: ThemeState['updateButtonConfig'];
+  updateButtonsConfig: ThemeState['updateButtonsConfig'];
   updateInputConfig: ThemeState['updateInputConfig'];
   updateDataGridConfig: ThemeState['updateDataGridConfig'];
   updateCardsConfig: ThemeState['updateCardsConfig'];
@@ -69,6 +70,10 @@ export interface TypographyActions {
   updateLineHeight: ThemeState['updateLineHeight'];
   updateLetterSpacing: ThemeState['updateLetterSpacing'];
   updateTransition: ThemeState['updateTransition'];
+}
+
+export interface AnimationActions {
+  updateAnimationConfig: ThemeState['updateAnimationConfig'];
 }
 
 export interface LayoutActions {

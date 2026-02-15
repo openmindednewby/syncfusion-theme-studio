@@ -1,6 +1,7 @@
 import { FM } from '@/localization/helpers';
 import type { SelectConfig } from '@/stores/theme/types';
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { SelectBorderSection } from './SelectEditorSections/SelectBorderSection';
 import { SelectInputSection } from './SelectEditorSections/SelectInputSection';
@@ -25,6 +26,12 @@ export const SelectEditor = ({ config, onUpdate }: SelectEditorProps): JSX.Eleme
       <SelectPopupLayoutSection config={config} onUpdate={onUpdate} />
       <SelectSearchSection config={config} onUpdate={onUpdate} />
       <SelectInteractionSection config={config} onUpdate={onUpdate} />
+      <AnimationSubsection
+        animationDuration={config.animationDuration}
+        animationEffect={config.animationEffect}
+        onDurationChange={(duration) => onUpdate({ animationDuration: duration })}
+        onEffectChange={(effect) => onUpdate({ animationEffect: effect })}
+      />
     </div>
   </CollapsibleSection>
 );

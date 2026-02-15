@@ -95,5 +95,18 @@ export type {
   TooltipConfig,
 } from './componentTypes';
 
+// Re-export animation types (const enums + interfaces)
+export {
+  AnimationEffect,
+} from './animationEffect';
+
+export {
+  AnimationIntensity,
+} from './animationIntensity';
+
+export type {
+  AnimationConfig,
+} from './animationTypes';
+
 // Re-export theme config and state types
 export type { ThemeConfig, ThemeState } from './themeTypes';

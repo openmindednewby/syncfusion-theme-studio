@@ -1,6 +1,7 @@
 import { FM } from '@/localization/helpers';
 import type { CardsConfig } from '@/stores/theme/types';
 
+import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 
@@ -161,6 +162,12 @@ export const CardsEditor = ({ config, onUpdate }: CardsEditorProps): JSX.Element
           />
         </div>
       </div>
+
+      <AnimationSubsection
+        animationDuration={config.transitionDuration}
+        showEffectSelector={false}
+        onDurationChange={(duration) => onUpdate({ transitionDuration: duration })}
+      />
     </div>
   </CollapsibleSection>
 );

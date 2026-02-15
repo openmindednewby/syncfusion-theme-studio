@@ -1,3 +1,4 @@
+export { AlertManagementSection } from './AlertManagementSection';
 export { BasicGridSection } from './BasicGridSection';
 export { GroupingSection } from './GroupingSection';
 export { EditingSection } from './EditingSection';

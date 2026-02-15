@@ -3,6 +3,7 @@
 // Opulent and premium, perfect for luxury, finance, or VIP applications
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -152,6 +153,7 @@ export const GOLD_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: DEFAULT_ANIMATIONS,
   light: GOLD_LIGHT_MODE,
   dark: GOLD_DARK_MODE,
   components: DEFAULT_COMPONENTS,

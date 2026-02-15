@@ -1,3 +1,6 @@
+import { useCallback } from 'react';
+
+import { ThemeToggleNative, ThemeToggleSize } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { Mode } from '@/stores/mode';
@@ -30,6 +33,10 @@ export const Header = (): JSX.Element => {
   const themeLabel =
     mode === Mode.Light ? FM('header.themeSwitchDark') : FM('header.themeSwitchLight');
 
+  const handleToggle = useCallback(() => {
+    toggleMode();
+  }, [toggleMode]);
+
   return (
     <header className="header flex items-center justify-between px-6">
       <h1 className="text-lg font-semibold text-text-primary">{FM('app.title')}</h1>
@@ -47,15 +54,13 @@ export const Header = (): JSX.Element => {
         </button>
 
         {/* Theme toggle */}
-        <button
-          aria-label={themeLabel}
-          className="rounded-md p-2 hover:bg-surface"
-          data-testid={TestIds.THEME_TOGGLE}
-          type="button"
-          onClick={toggleMode}
-        >
-          <span aria-hidden="true">{mode === Mode.Light ? '🌙' : '☀️'}</span>
-        </button>
+        <ThemeToggleNative
+          checked={mode === Mode.Dark}
+          label={themeLabel}
+          size={ThemeToggleSize.Sm}
+          testId={TestIds.THEME_TOGGLE}
+          onChange={handleToggle}
+        />
       </div>
     </header>
   );

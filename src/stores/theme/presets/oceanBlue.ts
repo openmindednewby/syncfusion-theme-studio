@@ -3,6 +3,7 @@
 // Deep ocean blues with subtle cyan accents for a trustworthy, modern look
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -11,6 +12,8 @@ import {
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
 } from '../defaults';
+import { AnimationIntensity } from '../types/animationIntensity';
+
 
 import type { ThemeConfig } from '../types';
 
@@ -152,6 +155,7 @@ export const OCEAN_BLUE_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: { ...DEFAULT_ANIMATIONS, intensity: AnimationIntensity.Subtle },
   light: OCEAN_BLUE_LIGHT_MODE,
   dark: OCEAN_BLUE_DARK_MODE,
   components: DEFAULT_COMPONENTS,

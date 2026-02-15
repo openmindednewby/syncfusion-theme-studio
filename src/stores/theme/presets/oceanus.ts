@@ -3,6 +3,7 @@
 // Dark mode optimized for security operations dashboards
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -153,6 +154,7 @@ export const OCEANUS_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: DEFAULT_ANIMATIONS,
   light: OCEANUS_LIGHT_MODE,
   dark: OCEANUS_DARK_MODE,
   components: DEFAULT_COMPONENTS,

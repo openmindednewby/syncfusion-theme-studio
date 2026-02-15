@@ -870,6 +870,11 @@
     color: rgb(var(--color-primary-500)) !important;
   }
 
+  /* Sorted header text — keep readable in dark mode */
+  .e-grid .e-headercell[aria-sort] .e-headertext {
+    color: var(--component-datagrid-header-text) !important;
+  }
+
   /* Grid filter */
   .e-grid .e-filterbar .e-filterbarcell {
     background-color: rgb(var(--color-surface)) !important;

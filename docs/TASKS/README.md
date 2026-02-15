@@ -15,9 +15,25 @@ docs/Tasks/
 
 ## Current Tasks
 
-### TODO
+### TODO — Culture Settings (14 tasks)
 
-No tasks pending.
+| # | Task | Agent | Status |
+|---|------|-------|--------|
+| - | [Master Plan](./TODO/culture-settings-master-plan.md) | — | TODO |
+| CUL-01 | [Types & Enums](./TODO/CUL-01-culture-type-enums.md) | `frontend-dev` | TODO |
+| CUL-02 | [Default Culture Presets](./TODO/CUL-02-default-culture-presets.md) | `frontend-dev` | TODO |
+| CUL-03 | [Store Actions & Schema](./TODO/CUL-03-store-actions-schema.md) | `frontend-dev` | TODO |
+| CUL-04 | [Culture Resolver](./TODO/CUL-04-culture-resolver.md) | `frontend-dev` | TODO |
+| CUL-05 | [Syncfusion CLDR](./TODO/CUL-05-syncfusion-cldr.md) | `frontend-dev` | TODO |
+| CUL-06 | [FD() & useCultureFormat](./TODO/CUL-06-fd-helper-culture-hook.md) | `frontend-dev` | TODO |
+| CUL-07 | [Component Wrappers](./TODO/CUL-07-component-wrappers.md) | `frontend-dev` | TODO |
+| CUL-08 | [i18n & Test IDs](./TODO/CUL-08-i18n-test-ids.md) | `frontend-dev` | TODO |
+| CUL-09 | [Settings UI](./TODO/CUL-09-settings-ui.md) | `frontend-dev` | TODO |
+| CUL-10 | [Unit Tests](./TODO/CUL-10-unit-tests.md) | `frontend-dev` | TODO |
+| CUL-11 | [Quality Gate](./TODO/CUL-11-quality-gate.md) | `quality-gate` | TODO |
+| CUL-12 | [Code Review](./TODO/CUL-12-code-review.md) | `code-reviewer` | TODO |
+| CUL-13 | [E2E Tests](./TODO/CUL-13-e2e-tests.md) | `regression-tester` | TODO |
+| CUL-14 | [Visual QA](./TODO/CUL-14-visual-qa.md) | `visual-qa` | TODO |
 
 ### COMPLETED — Forms Showcase API Integration (9 tasks)
 

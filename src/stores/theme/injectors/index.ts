@@ -1,5 +1,7 @@
 // Theme injector utilities - barrel export
 
+export { injectAnimationVariables } from './animationInjector';
+
 export {
   injectColorScale,
   injectStatusColors,

@@ -9,6 +9,7 @@ import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import {
+  AlertManagementSection,
   BasicGridSection,
   PaginationSection,
   GroupingSection,
@@ -33,6 +34,7 @@ const SyncfusionGridShowcase = (): JSX.Element => (
       </p>
     </div>
 
+    <AlertManagementSection />
     <BasicGridSection />
     <PaginationSection />
     <GroupingSection />

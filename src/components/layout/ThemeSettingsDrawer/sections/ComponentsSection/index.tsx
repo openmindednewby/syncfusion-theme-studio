@@ -32,6 +32,7 @@ export const ComponentsSection = (): JSX.Element => {
     updateHeaderConfig,
     updateSidebarConfig,
     updateButtonConfig,
+    updateButtonsConfig,
     updateInputConfig,
     updateDataGridConfig,
     updateCardsConfig,
@@ -73,7 +74,7 @@ export const ComponentsSection = (): JSX.Element => {
       <div className="space-y-2">
         <HeaderEditor config={components.header} onUpdate={updateHeaderConfig} />
         <SidebarEditor config={components.sidebar} onUpdate={updateSidebarConfig} />
-        <ButtonsEditor config={components.buttons} onUpdate={updateButtonConfig} />
+        <ButtonsEditor config={components.buttons} onUpdate={updateButtonConfig} onUpdateConfig={updateButtonsConfig} />
         <InputsEditor config={components.inputs} onUpdate={updateInputConfig} />
         <SelectEditor config={components.select} onUpdate={updateSelectConfig} />
         <DatePickerEditor config={components.datePicker} onUpdate={updateDatePickerConfig} />

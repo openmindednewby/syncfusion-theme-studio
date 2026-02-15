@@ -14,6 +14,7 @@ import { type ButtonVariant ,
   type BadgesConfig,
   type BreadcrumbConfig,
   type ButtonStateColors,
+  type ButtonsComponentConfig,
   type CardsConfig,
   type ChipConfig,
   type ComponentsConfig,
@@ -50,6 +51,8 @@ import { type FontFamilyType, type TransitionType ,
   type TypographyConfig,
 } from './layoutTypes';
 
+import type { AnimationConfig } from './animationTypes';
+
 
 
 
@@ -67,6 +70,7 @@ export interface ThemeConfig {
   shadows: ShadowConfig;
   typography: TypographyConfig;
   transitions: TransitionConfig;
+  animations: AnimationConfig;
   light: ThemeModeConfig;
   dark: ThemeModeConfig;
   components: ComponentsConfig;
@@ -89,6 +93,7 @@ export interface ThemeState {
   updateHeaderConfig: (updates: Partial<HeaderComponentConfig>) => void;
   updateSidebarConfig: (updates: Partial<SidebarComponentConfig>) => void;
   updateButtonConfig: (variant: ButtonVariant, updates: Partial<ButtonStateColors>) => void;
+  updateButtonsConfig: (updates: Partial<ButtonsComponentConfig>) => void;
   updateInputConfig: (updates: Partial<InputsConfig>) => void;
   updateDataGridConfig: (updates: Partial<DataGridConfig>) => void;
   updateCardsConfig: (updates: Partial<CardsConfig>) => void;
@@ -120,6 +125,8 @@ export interface ThemeState {
   updateLineHeight: (key: keyof LineHeightScale, value: string) => void;
   updateLetterSpacing: (key: keyof LetterSpacingScale, value: string) => void;
   updateTransition: (type: TransitionType, value: string) => void;
+  // Animation actions
+  updateAnimationConfig: (updates: Partial<AnimationConfig>) => void;
   // Layout actions
   updateLayoutDimension: (key: keyof LayoutConfig, value: string) => void;
   updateLayoutFullWidth: (value: boolean) => void;

@@ -1,5 +1,6 @@
 // Default light mode data display component configurations
 
+import { AnimationEffect } from '../types';
 import { type DataDisplayKeys } from './defaultKeys';
 
 import type { ComponentConfigSingle } from '../types';
@@ -15,6 +16,7 @@ export const DEFAULT_DATA_DISPLAY_LIGHT: Pick<ComponentConfigSingle, DataDisplay
     borderColor: '229 231 235',
     hoverBg: '249 250 251',
     indicatorColor: '59 130 246',
+    transitionDuration: '150ms',
   },
   timeline: {
     trackColor: '229 231 235',
@@ -45,5 +47,7 @@ export const DEFAULT_DATA_DISPLAY_LIGHT: Pick<ComponentConfigSingle, DataDisplay
     textColor: '249 250 251',
     borderColor: '55 65 81',
     arrowColor: '17 24 39',
+    animationEffect: AnimationEffect.Fade,
+    animationDuration: '150ms',
   },
 };

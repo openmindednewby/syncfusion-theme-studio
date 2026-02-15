@@ -141,6 +141,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
         emptyRecordTemplate={renderEmptyRecord}
         enableInfiniteScrolling={features.infiniteScroll}
         enableVirtualization={features.virtualization}
+        filterSettings={props.filterSettings}
         frozenColumns={frozenColumns}
         frozenRows={frozenRows}
         groupSettings={groupSettings}

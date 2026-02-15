@@ -90,6 +90,8 @@ export const TestIds = {
   NAV_GRID_SYNCFUSION: 'nav-grid-syncfusion',
   NAV_GRID_NATIVE: 'nav-grid-native',
   GRID_SHOWCASE_SECTION: 'grid-showcase-section',
+  GRID_ALERT_MANAGEMENT: 'grid-alert-management',
+  GRID_ALERT_MANAGEMENT_TABLE: 'grid-alert-management-table',
 
   // Component Showcase Pages
   NATIVE_BUTTON_SHOWCASE: 'native-button-showcase',
@@ -250,6 +252,7 @@ export const TestIds = {
   NATIVE_GRID_SELECT_CHECKBOX: 'native-grid-select-checkbox',
   NATIVE_GRID_SELECT_TABS: 'native-grid-select-tabs',
   NATIVE_GRID_SELECTED_COUNT: 'native-grid-selected-count',
+  NATIVE_GRID_ALERT_MANAGEMENT: 'native-grid-alert-management',
 
   // Product Search Section
   PRODUCT_SEARCH_SECTION: 'product-search-section',

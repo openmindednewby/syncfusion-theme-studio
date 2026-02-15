@@ -3,7 +3,7 @@ import { describe, it, expect, beforeEach, type vi } from 'vitest';
 import { injectAlertVariables } from './componentInjector';
 import { DEFAULT_COMPONENTS_LIGHT } from '../defaults/defaultComponentsLight';
 
-const EXPECTED_ALERT_CSS_VARS = 19;
+const EXPECTED_ALERT_CSS_VARS = 21;
 
 describe('injectAlertVariables', () => {
   let mockSetProperty: ReturnType<typeof vi.fn>;

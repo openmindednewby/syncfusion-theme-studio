@@ -31,7 +31,7 @@ export const useModeStore = create<ModeState>()(
   devtools(
     persist(
       (set, get) => ({
-        mode: Mode.Light,
+        mode: Mode.Dark,
         setMode: (mode) => {
           set({ mode }, false, 'setMode');
           applyModeToDocument(mode);

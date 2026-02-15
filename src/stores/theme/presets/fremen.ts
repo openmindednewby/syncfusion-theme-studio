@@ -4,6 +4,7 @@
 // and immersive dark mode for security operations
 
 import {
+  DEFAULT_ANIMATIONS,
   DEFAULT_BORDER_RADIUS,
   DEFAULT_COMPONENTS,
   DEFAULT_LAYOUT,
@@ -154,6 +155,7 @@ export const FREMEN_THEME: ThemeConfig = {
   shadows: DEFAULT_SHADOWS,
   typography: DEFAULT_TYPOGRAPHY,
   transitions: DEFAULT_TRANSITIONS,
+  animations: DEFAULT_ANIMATIONS,
   light: FREMEN_LIGHT_MODE,
   dark: FREMEN_DARK_MODE,
   components: DEFAULT_COMPONENTS,

@@ -5,8 +5,10 @@
 import { createPrimaryColors, createSecondaryColors, createNeutralColors, createStatusColors } from './themeColorFixtures';
 import { createComponents } from './themeComponentFixtures';
 import { createLightMode, createDarkMode } from './themeModeFixtures';
+import { AnimationEffect } from '../../stores/theme/types/animationEffect';
+import { AnimationIntensity } from '../../stores/theme/types/animationIntensity';
 
-import type { ThemeConfig, BorderRadiusConfig, ShadowConfig } from '../../stores/theme/types';
+import type { ThemeConfig, BorderRadiusConfig, ShadowConfig, AnimationConfig } from '../../stores/theme/types';
 
 const createBorderRadius = (): BorderRadiusConfig => ({
   none: '0px',
@@ -49,6 +51,14 @@ export const createCustomTheme = (): ThemeConfig => ({
     letterSpacing: { tight: '-0.025em', normal: '0em', wide: '0.025em' },
   },
   transitions: { fast: '100ms', normal: '200ms', slow: '400ms', easing: 'ease-in-out' },
+  animations: {
+    enabled: true,
+    defaultEffect: AnimationEffect.Fade,
+    defaultDuration: '200ms',
+    defaultEasing: 'ease-out',
+    intensity: AnimationIntensity.Normal,
+    respectReducedMotion: true,
+  } satisfies AnimationConfig,
   light: createLightMode(),
   dark: createDarkMode(),
   components: createComponents(),

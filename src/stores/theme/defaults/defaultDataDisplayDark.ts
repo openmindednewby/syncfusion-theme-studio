@@ -1,5 +1,6 @@
 // Default dark mode data display component configurations
 
+import { AnimationEffect } from '../types';
 import { type DataDisplayKeys } from './defaultKeys';
 
 import type { ComponentConfigSingle } from '../types';
@@ -15,6 +16,7 @@ export const DEFAULT_DATA_DISPLAY_DARK: Pick<ComponentConfigSingle, DataDisplayK
     borderColor: '55 65 81',
     hoverBg: '31 41 55',
     indicatorColor: '96 165 250',
+    transitionDuration: '150ms',
   },
   timeline: {
     trackColor: '55 65 81',
@@ -45,5 +47,7 @@ export const DEFAULT_DATA_DISPLAY_DARK: Pick<ComponentConfigSingle, DataDisplayK
     textColor: '17 24 39',
     borderColor: '229 231 235',
     arrowColor: '249 250 251',
+    animationEffect: AnimationEffect.Fade,
+    animationDuration: '150ms',
   },
 };

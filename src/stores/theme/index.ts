@@ -1,6 +1,7 @@
 export { DEFAULT_THEME } from './defaultTheme';
 export { injectThemeVariables } from './themeInjector';
 export type {
+  AnimationConfig,
   BorderRadiusConfig,
   ColorScale,
   LayoutConfig,

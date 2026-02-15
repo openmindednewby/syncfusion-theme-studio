@@ -72,3 +72,7 @@ export type { ProgressBarNativeProps } from './ProgressBarNative';
 
 export { default as TooltipNative, TooltipPlacement } from './TooltipNative';
 export type { TooltipNativeProps } from './TooltipNative';
+
+export { default as ThemeToggleNative } from './ThemeToggleNative';
+export { ThemeToggleSize } from './ThemeToggleNative/themeToggleSize';
+export type { ThemeToggleNativeProps } from './ThemeToggleNative';

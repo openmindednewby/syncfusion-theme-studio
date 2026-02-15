@@ -102,18 +102,18 @@ test.describe('Theme Editor', () => {
 
     test('displays preset cards in presets tab', async ({ page }) => {
       const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
-      // There are 16 presets defined in presets.ts
-      await expect(presetCards).toHaveCount(16);
+      // There are 17 presets defined in presets.ts
+      await expect(presetCards).toHaveCount(17);
     });
 
     test('default preset is active initially', async () => {
       await themeSettingsPage.expectPresetActive('default');
-      await themeSettingsPage.expectPresetInactive('odyssey');
+      await themeSettingsPage.expectPresetInactive('voyager');
     });
 
-    test('applies Odyssey preset when clicked', async () => {
-      await themeSettingsPage.applyPreset('odyssey');
-      await themeSettingsPage.expectPresetActive('odyssey');
+    test('applies Voyager preset when clicked', async () => {
+      await themeSettingsPage.applyPreset('voyager');
+      await themeSettingsPage.expectPresetActive('voyager');
       await themeSettingsPage.expectPresetInactive('default');
     });
 
@@ -121,8 +121,8 @@ test.describe('Theme Editor', () => {
       // Get initial primary color
       const initialPrimary = await themeSettingsPage.getCssVariableValue('--color-primary-500');
 
-      // Apply Odyssey preset
-      await themeSettingsPage.applyPreset('odyssey');
+      // Apply Voyager preset
+      await themeSettingsPage.applyPreset('voyager');
 
       // Verify color changed
       const newPrimary = await themeSettingsPage.getCssVariableValue('--color-primary-500');
@@ -130,12 +130,12 @@ test.describe('Theme Editor', () => {
     });
 
     test('can switch back to default preset', async () => {
-      await themeSettingsPage.applyPreset('odyssey');
-      await themeSettingsPage.expectPresetActive('odyssey');
+      await themeSettingsPage.applyPreset('voyager');
+      await themeSettingsPage.expectPresetActive('voyager');
 
       await themeSettingsPage.applyPreset('default');
       await themeSettingsPage.expectPresetActive('default');
-      await themeSettingsPage.expectPresetInactive('odyssey');
+      await themeSettingsPage.expectPresetInactive('voyager');
     });
   });
 
@@ -241,13 +241,13 @@ test.describe('Theme Editor', () => {
     });
 
     test('resets theme after applying a preset', async () => {
-      // Navigate to presets and apply Odyssey
+      // Navigate to presets and apply Voyager
       await themeSettingsPage.selectTab('presets');
-      await themeSettingsPage.applyPreset('odyssey');
-      await themeSettingsPage.expectPresetActive('odyssey');
+      await themeSettingsPage.applyPreset('voyager');
+      await themeSettingsPage.expectPresetActive('voyager');
 
-      // Get the Odyssey primary color
-      const odysseyPrimary = await themeSettingsPage.getCssVariableValue('--color-primary-500');
+      // Get the Voyager primary color
+      const voyagerPrimary = await themeSettingsPage.getCssVariableValue('--color-primary-500');
 
       // Reset to defaults
       await themeSettingsPage.resetTheme();
@@ -257,7 +257,7 @@ test.describe('Theme Editor', () => {
 
       // Verify color changed
       const defaultPrimary = await themeSettingsPage.getCssVariableValue('--color-primary-500');
-      expect(defaultPrimary).not.toBe(odysseyPrimary);
+      expect(defaultPrimary).not.toBe(voyagerPrimary);
     });
   });
 
@@ -266,9 +266,9 @@ test.describe('Theme Editor', () => {
       await themeSettingsPage.openDrawer();
       await themeSettingsPage.selectTab('presets');
 
-      // Apply Odyssey preset
-      await themeSettingsPage.applyPreset('odyssey');
-      await themeSettingsPage.expectPresetActive('odyssey');
+      // Apply Voyager preset
+      await themeSettingsPage.applyPreset('voyager');
+      await themeSettingsPage.expectPresetActive('voyager');
 
       // Reload page
       await page.reload();
@@ -276,7 +276,7 @@ test.describe('Theme Editor', () => {
       // Re-open drawer and check preset is still active
       await themeSettingsPage.openDrawer();
       await themeSettingsPage.selectTab('presets');
-      await themeSettingsPage.expectPresetActive('odyssey');
+      await themeSettingsPage.expectPresetActive('voyager');
     });
 
     test('dark mode persists after page reload', async ({ page }) => {

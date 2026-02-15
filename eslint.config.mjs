@@ -18,6 +18,7 @@ import enumFileIsolationPlugin from './eslint-plugins/enum-file-isolation.mjs';
 import reactCompilerPlugin from 'eslint-plugin-react-compiler';
 import requireStableHookArgsPlugin from './eslint-plugins/require-stable-hook-args.mjs';
 import noBarrelCompanionFilePlugin from './eslint-plugins/no-barrel-companion-file.mjs';
+import noDuplicateNavPrefixPlugin from './eslint-plugins/no-duplicate-nav-prefix.mjs';
 
 export default [
   // =====================================================
@@ -642,6 +643,19 @@ export default [
           message: 'Import from barrel exports (@/components/ui/native, @/components/ui/syncfusion, or @/components/ui/form-fields) instead of directly from component folders.',
         }],
       }],
+    },
+  },
+
+  // =====================================================
+  // SIDEBAR NAV PREFIX UNIQUENESS
+  // =====================================================
+  {
+    files: ['src/components/layout/Sidebar/sidebarNavData.ts'],
+    plugins: {
+      'no-duplicate-nav-prefix': noDuplicateNavPrefixPlugin,
+    },
+    rules: {
+      'no-duplicate-nav-prefix/no-duplicate-nav-prefix': 'error',
     },
   },
 

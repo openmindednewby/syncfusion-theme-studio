@@ -27,4 +27,6 @@ export const enum RoutePrefix {
   ComponentsThemeToggle = '/dashboard/components/themetoggle',
   Forms = '/dashboard/forms',
   Products = '/dashboard/products',
+  ThreatDetection = '/dashboard/threat-detection',
+  SampleManager = '/dashboard/sample-manager',
 }

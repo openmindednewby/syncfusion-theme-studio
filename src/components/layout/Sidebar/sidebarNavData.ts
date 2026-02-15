@@ -37,7 +37,7 @@ export interface SidebarExpandableItem {
   labelKey: string;
   testId: string;
   expandTestId: string;
-  pathPrefix: string;
+  pathPrefix: RoutePrefix;
   iconName: IconName;
   children: NavChild[];
 }
@@ -90,7 +90,7 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
     labelKey: 'sidebar.nav.sampleManager',
     testId: TestIds.NAV_SAMPLE_MANAGER,
     expandTestId: TestIds.NAV_PRODUCTS_EXPAND,
-    pathPrefix: RoutePrefix.Products,
+    pathPrefix: RoutePrefix.SampleManager,
     iconName: IconName.Folder,
     children: SAMPLE_MANAGER_CHILDREN,
   },
@@ -113,7 +113,7 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
     labelKey: 'sidebar.nav.threatDetection',
     testId: TestIds.NAV_THREAT_DETECTION,
     expandTestId: TestIds.NAV_THREAT_DETECTION_EXPAND,
-    pathPrefix: RoutePrefix.Components,
+    pathPrefix: RoutePrefix.ThreatDetection,
     iconName: IconName.ShieldAlert,
     children: COMPONENTS_CHILDREN,
   },

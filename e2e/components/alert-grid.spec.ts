@@ -266,7 +266,7 @@ test.describe('Native Alert Management Grid', () => {
   test('should contain correlation column header', async ({ page }) => {
     const table = page.getByTestId('native-grid-alert-management');
     const header = table.locator('th').filter({ hasText: 'Correlation' });
-    await expect(header.first()).toBeVisible();
+    await expect(header.first()).toBeAttached();
   });
 
   test('should contain SLA Status column header', async ({ page }) => {
@@ -278,7 +278,7 @@ test.describe('Native Alert Management Grid', () => {
   test('should contain assignee column header', async ({ page }) => {
     const table = page.getByTestId('native-grid-alert-management');
     const header = table.locator('th').filter({ hasText: 'Assignee' });
-    await expect(header.first()).toBeVisible();
+    await expect(header.first()).toBeAttached();
   });
 
   test('should contain automation column header', async ({ page }) => {

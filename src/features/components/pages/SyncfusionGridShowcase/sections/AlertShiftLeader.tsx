@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { IconUser } from '@/components/layout/Sidebar/SidebarIcons';
 import { FM } from '@/localization/helpers';
 
 const AMBER_COLOR = '#F59E0B';
@@ -18,7 +19,7 @@ export const AlertShiftLeader = memo((): JSX.Element => (
     }}
   >
     <span aria-hidden="true" className="mr-2 text-text-secondary">
-      &#128100;
+      <IconUser />
     </span>
     <span className="font-semibold text-text-primary">
       {FM('gridShowcase.shiftLeader')}

@@ -54,6 +54,8 @@ function injectDataGridPaginationVars(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-datagrid-drag-handle', `rgb(${dg.dragHandleColor})`);
   root.style.setProperty('--component-datagrid-default-text-align', dg.defaultTextAlign);
   root.style.setProperty('--component-datagrid-header-text-align', dg.headerTextAlign);
+  root.style.setProperty('--component-datagrid-default-vertical-align', dg.defaultVerticalAlign);
+  root.style.setProperty('--component-datagrid-header-vertical-align', dg.headerVerticalAlign);
   root.style.setProperty('--component-datagrid-row-height', dg.rowHeight);
 }
 

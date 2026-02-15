@@ -31,7 +31,7 @@ export function isSubNavGroup(child: NavChild): child is SubNavGroup {
 
 interface NavExpandableItemProps {
   labelKey: string;
-  icon: string;
+  icon: React.ReactNode;
   expandTestId: string;
   pathPrefix: string;
   children: NavChild[];

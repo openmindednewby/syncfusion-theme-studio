@@ -116,23 +116,26 @@ function useSortState(defaultSort?: SortColumnConfig[]): {
   onSort: (field: string) => void;
 } {
   const initialSort = isNotEmptyArray(defaultSort) ? defaultSort[0] : undefined;
-  const [sortField, setSortField] = useState<string | undefined>(initialSort?.field);
-  const [sortDirection, setSortDirection] = useState<'ascending' | 'descending' | undefined>(
-    mapSortDirection(initialSort),
-  );
+  const [sortState, setSortState] = useState<{
+    field: string | undefined;
+    direction: 'ascending' | 'descending' | undefined;
+  }>({
+    field: initialSort?.field,
+    direction: mapSortDirection(initialSort),
+  });
 
   const onSort = useCallback((field: string) => {
-    setSortField((prevField) => {
-      setSortDirection((prevDir) => {
-        const isSameField = prevField === field;
-        const isCurrentlyAsc = isSameField && prevDir === 'ascending';
-        return isCurrentlyAsc ? 'descending' : 'ascending';
-      });
-      return field;
+    setSortState((prev) => {
+      const isSameField = prev.field === field;
+      const isCurrentlyAsc = isSameField && prev.direction === 'ascending';
+      return {
+        field,
+        direction: isCurrentlyAsc ? 'descending' : 'ascending',
+      };
     });
   }, []);
 
-  return { sortField, sortDirection, onSort };
+  return { sortField: sortState.field, sortDirection: sortState.direction, onSort };
 }
 
 /** Manages pagination state for native grid */

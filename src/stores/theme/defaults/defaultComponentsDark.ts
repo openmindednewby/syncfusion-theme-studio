@@ -139,6 +139,8 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     dragHandleColor: '107 114 128',
     defaultTextAlign: 'left',
     headerTextAlign: 'left',
+    defaultVerticalAlign: 'middle',
+    headerVerticalAlign: 'middle',
     rowHeight: '42px',
   },
   cards: {

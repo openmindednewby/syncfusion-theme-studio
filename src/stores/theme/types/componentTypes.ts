@@ -103,6 +103,8 @@ export interface DataGridConfig {
   dragHandleColor: string;
   defaultTextAlign: string;
   headerTextAlign: string;
+  defaultVerticalAlign: string;
+  headerVerticalAlign: string;
   rowHeight: string;
 }
 

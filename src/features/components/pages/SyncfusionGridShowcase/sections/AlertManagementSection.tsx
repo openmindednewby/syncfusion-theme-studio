@@ -2,7 +2,7 @@
  * Alert Management section: SIEM-style grid with shift leader bar,
  * KPI cards, toolbar, severity badges, SLA tracking, and checkbox selection.
  */
-import { memo, useMemo } from 'react';
+import { memo, useCallback, useMemo, useState } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 import type {
@@ -12,6 +12,7 @@ import type {
 } from '@syncfusion/ej2-react-grids';
 
 import { DataGrid } from '@/components/ui/syncfusion';
+import { TestIds } from '@/shared/testIds';
 
 import {
   severityTemplate,
@@ -47,6 +48,12 @@ const ALERT_GRID_COLUMNS: ColumnModel[] = [
 ];
 
 export const AlertManagementSection = memo((): JSX.Element => {
+  const [isFilterVisible, setIsFilterVisible] = useState(false);
+
+  const handleToggleFilter = useCallback(() => {
+    setIsFilterVisible((prev) => !prev);
+  }, []);
+
   const selectionSettings = useMemo(
     (): SelectionSettingsModel => ({
       type: 'Multiple',
@@ -57,8 +64,10 @@ export const AlertManagementSection = memo((): JSX.Element => {
   );
 
   const filterSettings = useMemo(
-    (): FilterSettingsModel => ({ type: 'Menu' }),
-    [],
+    (): FilterSettingsModel => ({
+      type: isFilterVisible ? 'FilterBar' : 'Menu',
+    }),
+    [isFilterVisible],
   );
 
   const pageSettings = useMemo(
@@ -73,12 +82,15 @@ export const AlertManagementSection = memo((): JSX.Element => {
   return (
     <ShowcaseSection
       descriptionKey="gridShowcase.alertManagementDesc"
-      testId="grid-showcase-alert-management"
+      testId={TestIds.GRID_SHOWCASE_ALERT_MANAGEMENT}
       titleKey="gridShowcase.alertManagement"
     >
       <AlertShiftLeader />
       <AlertKpiCards />
-      <AlertToolbar />
+      <AlertToolbar
+        isFilterVisible={isFilterVisible}
+        onToggleFilter={handleToggleFilter}
+      />
       <DataGrid
         allowFiltering
         allowPaging
@@ -89,7 +101,7 @@ export const AlertManagementSection = memo((): JSX.Element => {
         filterSettings={filterSettings}
         pageSettings={pageSettings}
         selectionSettings={selectionSettings}
-        testId="grid-alert-management"
+        testId={TestIds.GRID_ALERT_MANAGEMENT}
       />
     </ShowcaseSection>
   );

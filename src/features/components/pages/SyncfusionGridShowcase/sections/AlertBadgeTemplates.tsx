@@ -3,6 +3,7 @@
  * Template functions return JSX for Syncfusion ColumnDirective rendering.
  * Class-resolution helpers are exported separately for unit testing.
  */
+import { IconMoreVertical } from '@/components/layout/Sidebar/SidebarIcons';
 import { FM } from '@/localization/helpers';
 
 const SEVERITY_CLASSES: Record<string, string> = {
@@ -102,7 +103,7 @@ export function actionsTemplate(): JSX.Element {
         data-testid="alert-action-more"
         type="button"
       >
-        &#8942;
+        <IconMoreVertical />
       </button>
     </div>
   );

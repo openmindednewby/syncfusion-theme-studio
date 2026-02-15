@@ -15,6 +15,12 @@ const ALIGN_OPTIONS = [
   { value: 'right', labelKey: 'themeSettings.components.dataGrid.alignRight' },
 ] as const;
 
+const VERTICAL_ALIGN_OPTIONS = [
+  { value: 'top', labelKey: 'themeSettings.components.dataGrid.alignTop' },
+  { value: 'middle', labelKey: 'themeSettings.components.dataGrid.alignMiddle' },
+  { value: 'bottom', labelKey: 'themeSettings.components.dataGrid.alignBottom' },
+] as const;
+
 const ROW_HEIGHT_COMPACT = '36px';
 const ROW_HEIGHT_DEFAULT = '42px';
 const ROW_HEIGHT_COMFORTABLE = '52px';
@@ -63,6 +69,40 @@ export const DataGridColumnRowEditor = ({
           onChange={(e) => onUpdate({ headerTextAlign: e.target.value })}
         >
           {ALIGN_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Default Vertical Align */}
+      <div className="flex items-center justify-between gap-2 rounded bg-surface-sunken px-3 py-2">
+        <span className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.dataGrid.defaultVerticalAlign')}
+        </span>
+        <select
+          aria-label={FM('themeSettings.components.dataGrid.defaultVerticalAlign')}
+          className={SELECT_CLASSES}
+          value={config.defaultVerticalAlign}
+          onChange={(e) => onUpdate({ defaultVerticalAlign: e.target.value })}
+        >
+          {VERTICAL_ALIGN_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Header Vertical Align */}
+      <div className="flex items-center justify-between gap-2 rounded bg-surface-sunken px-3 py-2">
+        <span className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.dataGrid.headerVerticalAlign')}
+        </span>
+        <select
+          aria-label={FM('themeSettings.components.dataGrid.headerVerticalAlign')}
+          className={SELECT_CLASSES}
+          value={config.headerVerticalAlign}
+          onChange={(e) => onUpdate({ headerVerticalAlign: e.target.value })}
+        >
+          {VERTICAL_ALIGN_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>{FM(opt.labelKey)}</option>
           ))}
         </select>

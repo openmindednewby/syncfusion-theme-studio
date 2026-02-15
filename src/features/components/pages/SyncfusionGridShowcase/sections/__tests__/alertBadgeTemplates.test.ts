@@ -1,83 +1,85 @@
 import { describe, it, expect } from 'vitest';
 
+import { BadgeNativeVariant as BadgeVariant } from '@/components/ui/native';
+
 import {
-  getSeverityClass,
-  getSlaClass,
-  getScoreClass,
+  getSeverityVariant,
+  getSlaVariant,
+  getScoreVariant,
 } from '../AlertBadgeTemplates';
 
 describe('AlertBadgeTemplates', () => {
-  describe('getSeverityClass', () => {
-    it('returns error badge for Critical', () => {
-      expect(getSeverityClass('Critical')).toContain('badge-error');
+  describe('getSeverityVariant', () => {
+    it('returns Error for Critical', () => {
+      expect(getSeverityVariant('Critical')).toBe(BadgeVariant.Error);
     });
 
-    it('returns warning badge for High', () => {
-      expect(getSeverityClass('High')).toContain('badge-warning');
+    it('returns Warning for High', () => {
+      expect(getSeverityVariant('High')).toBe(BadgeVariant.Warning);
     });
 
-    it('returns info badge for Medium', () => {
-      expect(getSeverityClass('Medium')).toContain('badge-info');
+    it('returns Info for Medium', () => {
+      expect(getSeverityVariant('Medium')).toBe(BadgeVariant.Info);
     });
 
-    it('returns success badge for Low', () => {
-      expect(getSeverityClass('Low')).toContain('badge-success');
+    it('returns Success for Low', () => {
+      expect(getSeverityVariant('Low')).toBe(BadgeVariant.Success);
     });
 
-    it('returns default badge for unknown severity', () => {
-      expect(getSeverityClass('Unknown')).toContain('badge-info');
+    it('returns Info for unknown severity', () => {
+      expect(getSeverityVariant('Unknown')).toBe(BadgeVariant.Info);
     });
 
-    it('returns default badge for undefined', () => {
-      expect(getSeverityClass(undefined)).toContain('badge-info');
-    });
-  });
-
-  describe('getSlaClass', () => {
-    it('returns success for Within SLA', () => {
-      expect(getSlaClass('Within SLA')).toContain('badge-success');
-    });
-
-    it('returns error for At Risk', () => {
-      expect(getSlaClass('At Risk')).toContain('badge-error');
-    });
-
-    it('returns error for Breached', () => {
-      expect(getSlaClass('Breached')).toContain('badge-error');
-    });
-
-    it('returns default for unknown SLA', () => {
-      expect(getSlaClass('Unknown')).toContain('badge-info');
+    it('returns Info for undefined', () => {
+      expect(getSeverityVariant(undefined)).toBe(BadgeVariant.Info);
     });
   });
 
-  describe('getScoreClass', () => {
-    it('returns error badge for high scores', () => {
-      expect(getScoreClass(90)).toContain('badge-error');
+  describe('getSlaVariant', () => {
+    it('returns Success for Within SLA', () => {
+      expect(getSlaVariant('Within SLA')).toBe(BadgeVariant.Success);
     });
 
-    it('returns warning badge for medium scores', () => {
-      expect(getScoreClass(60)).toContain('badge-warning');
+    it('returns Error for At Risk', () => {
+      expect(getSlaVariant('At Risk')).toBe(BadgeVariant.Error);
     });
 
-    it('returns success badge for low scores', () => {
-      expect(getScoreClass(30)).toContain('badge-success');
+    it('returns Error for Breached', () => {
+      expect(getSlaVariant('Breached')).toBe(BadgeVariant.Error);
     });
 
-    it('returns error badge at threshold of 80', () => {
-      expect(getScoreClass(80)).toContain('badge-error');
+    it('returns Info for unknown SLA', () => {
+      expect(getSlaVariant('Unknown')).toBe(BadgeVariant.Info);
+    });
+  });
+
+  describe('getScoreVariant', () => {
+    it('returns Error for high scores', () => {
+      expect(getScoreVariant(90)).toBe(BadgeVariant.Error);
     });
 
-    it('returns warning badge at threshold of 50', () => {
-      expect(getScoreClass(50)).toContain('badge-warning');
+    it('returns Warning for medium scores', () => {
+      expect(getScoreVariant(60)).toBe(BadgeVariant.Warning);
     });
 
-    it('returns success badge for zero', () => {
-      expect(getScoreClass(0)).toContain('badge-success');
+    it('returns Success for low scores', () => {
+      expect(getScoreVariant(30)).toBe(BadgeVariant.Success);
     });
 
-    it('returns success badge for undefined', () => {
-      expect(getScoreClass(undefined)).toContain('badge-success');
+    it('returns Error at threshold of 80', () => {
+      expect(getScoreVariant(80)).toBe(BadgeVariant.Error);
+    });
+
+    it('returns Warning at threshold of 50', () => {
+      expect(getScoreVariant(50)).toBe(BadgeVariant.Warning);
+    });
+
+    it('returns Success for zero', () => {
+      expect(getScoreVariant(0)).toBe(BadgeVariant.Success);
+    });
+
+    it('returns Success for undefined', () => {
+      expect(getScoreVariant(undefined)).toBe(BadgeVariant.Success);
     });
   });
 });

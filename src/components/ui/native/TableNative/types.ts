@@ -1,5 +1,7 @@
 /** Shared type definitions for TableNative components */
 
+import type { ReactNode } from 'react';
+
 /** Text alignment options matching Syncfusion convention */
 const enum TextAlign {
   Left = 'Left',
@@ -23,6 +25,8 @@ interface TableColumn {
   textAlign?: TextAlign;
   /** Custom formatter for cell values */
   format?: (value: unknown) => string;
+  /** Custom JSX template for cell rendering */
+  template?: (row: Record<string, unknown>) => ReactNode;
 }
 
 interface SelectionConfig {

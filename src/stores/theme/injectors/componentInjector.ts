@@ -92,12 +92,16 @@ export function injectModalVariables(root: HTMLElement, c: ComponentConfigSingle
 export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   root.style.setProperty('--component-badge-success-bg', `rgb(${c.badges.success.background})`);
   root.style.setProperty('--component-badge-success-text', `rgb(${c.badges.success.textColor})`);
+  root.style.setProperty('--component-badge-success-border', `rgb(${c.badges.success.borderColor})`);
   root.style.setProperty('--component-badge-warning-bg', `rgb(${c.badges.warning.background})`);
   root.style.setProperty('--component-badge-warning-text', `rgb(${c.badges.warning.textColor})`);
+  root.style.setProperty('--component-badge-warning-border', `rgb(${c.badges.warning.borderColor})`);
   root.style.setProperty('--component-badge-error-bg', `rgb(${c.badges.error.background})`);
   root.style.setProperty('--component-badge-error-text', `rgb(${c.badges.error.textColor})`);
+  root.style.setProperty('--component-badge-error-border', `rgb(${c.badges.error.borderColor})`);
   root.style.setProperty('--component-badge-info-bg', `rgb(${c.badges.info.background})`);
   root.style.setProperty('--component-badge-info-text', `rgb(${c.badges.info.textColor})`);
+  root.style.setProperty('--component-badge-info-border', `rgb(${c.badges.info.borderColor})`);
 }
 
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {

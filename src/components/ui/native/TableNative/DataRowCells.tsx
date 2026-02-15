@@ -133,7 +133,7 @@ const ReadOnlyCell = memo(({
           editing.startEdit(rowId);
       }}
     >
-      {displayValue}
+      {isValueDefined(column.template) ? column.template(row) : displayValue}
     </td>
   );
 });

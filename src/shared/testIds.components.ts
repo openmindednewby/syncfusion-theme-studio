@@ -164,6 +164,9 @@ export const ComponentTestIds = {
   ACTION_RAISE: 'alert-action-raise',
   ACTION_ADD_FILTER: 'alert-action-add-filter',
 
+  // Alert Badge
+  ALERT_BADGE: 'alert-badge',
+
   // Table Column Filter
   COLUMN_FILTER_BUTTON: 'column-filter-button',
   COLUMN_FILTER_POPUP: 'column-filter-popup',

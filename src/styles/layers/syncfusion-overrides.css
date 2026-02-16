@@ -413,7 +413,8 @@
      The Syncfusion base CSS rule for this is stripped during build (CSS tree-shaking),
      so we must replicate it here to prevent the native select from appearing visually. */
   .e-ddl .e-ddl-hidden {
-    -webkit-appearance: initial !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
     border: 0 !important;
     height: 0 !important;
     padding: 0 !important;
@@ -704,19 +705,24 @@
     background-color: var(--component-datagrid-pagination-bg) !important;
     border-color: var(--component-datagrid-pagination-border) !important;
     color: var(--component-datagrid-pagination-text) !important;
-    display: flex !important;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
     align-items: center !important;
-    justify-content: space-between !important;
-    padding: 8px 16px !important;
-    gap: 8px !important;
+    padding: 10px 16px !important;
+    gap: 0 !important;
+    border-top: 1px solid var(--component-datagrid-pagination-border) !important;
   }
 
-  /* Numeric button group wrapper */
+  /* Numeric button group wrapper - Align to LEFT */
   .e-grid .e-pager .e-pagercontainer {
     background-color: transparent !important;
     display: flex !important;
     align-items: center !important;
     gap: 4px !important;
+    justify-content: flex-start !important;
+    float: none !important;
+    margin: 0 !important;
+    width: 100% !important;
   }
 
   /* Numeric container */
@@ -812,6 +818,14 @@
     content: "\e7a9" !important;
   }
 
+  /* Restore pager dropdown icon glyph - match Figma chevron */
+  .e-grid .e-pager .e-pagerdropdown .e-input-group-icon::before {
+    content: "\e729" !important;
+    font-family: 'e-icons' !important;
+    font-size: 11px !important;
+    opacity: 0.8;
+  }
+
   /* Ensure nav icon elements are visible */
   .e-grid .e-pager .e-first .e-icons,
   .e-grid .e-pager .e-prev .e-icons,
@@ -864,11 +878,14 @@
     background-color: var(--component-datagrid-pagination-hover-bg) !important;
   }
 
-  /* Page size dropdown container */
+  /* Page size dropdown container - Aligned to CENTER */
   .e-grid .e-pager .e-pagesizes {
     display: flex !important;
     align-items: center !important;
-    gap: 4px !important;
+    gap: 8px !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+    width: 100% !important;
   }
 
   /* Page size dropdown */
@@ -877,18 +894,41 @@
     color: var(--component-datagrid-pagination-text) !important;
     border-color: var(--component-datagrid-pagination-border) !important;
     border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    min-width: 54px !important;
+    order: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-top: 0px !important;
   }
 
-  /* "X of Y pages" text */
-  .e-grid .e-pager .e-pagecountmsg {
+  /* "Items per page" label alignment */
+  .e-grid .e-pager .e-pagerconstant {
     color: var(--component-datagrid-pagination-info-text) !important;
     font-size: var(--font-size-sm) !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    order: 2 !important;
+    white-space: nowrap;
   }
 
-  /* "X to Y of Z items" info bar */
+  /* Hide redundant page count msg */
+  .e-grid .e-pager .e-pagecountmsg {
+    display: none !important;
+  }
+
+  /* "X to Y of Z items" info bar - Align to RIGHT */
   .e-grid .e-pager .e-parentmsgbar {
     color: var(--component-datagrid-pagination-info-text) !important;
     font-size: var(--font-size-sm) !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    text-align: right !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
   }
 
   /* Grid sorting icon */

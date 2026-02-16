@@ -58,6 +58,7 @@ const POPUP_VERTICAL_GAP_PX = 4;
 const FILTER_POPUP_Z_INDEX = '10001';
 const MENU_SUBPOPUP_MIN_WIDTH_PX = 220;
 const SUBMENU_POPUP_Z_INDEX = '10002';
+const FALLBACK_FILTER_LEFT_THRESHOLD = 0.05;
 type PopupAnchor = HTMLElement | DOMRect;
 
 function setStyleIfChanged(element: HTMLElement, property: string, value: string): void {
@@ -143,8 +144,29 @@ function repositionPagerDropdownPopup(root: HTMLDivElement): void {
   applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, '10000');
 }
 
+function isColumnMenuPopup(element: HTMLElement): boolean {
+  return isValueDefined(element.querySelector('ul[id$="_columnmenu"]'));
+}
+
 function getVisibleColumnMenuPopup(): HTMLElement | undefined {
-  return getVisibleElement('.e-grid-menu.e-contextmenu-wrapper, .e-grid-menu.e-popup, .e-grid-menu');
+  const candidates = Array.from(
+    document.querySelectorAll<HTMLElement>('.e-grid-menu.e-contextmenu-wrapper, .e-grid-menu.e-popup, .e-grid-menu'),
+  );
+  return candidates.find((element) => isPopupVisible(element) && isColumnMenuPopup(element));
+}
+
+function getColumnMenuPopupFromMenuItem(menuItem: HTMLElement): HTMLElement | undefined {
+  const popup = menuItem.closest<HTMLElement>('.e-grid-menu');
+  if (!isValueDefined(popup) || !isColumnMenuPopup(popup)) return undefined;
+  return popup;
+}
+
+function getColumnMenuSidePreferenceFromDom(): boolean | undefined {
+  const popup = getVisibleColumnMenuPopup();
+  if (!isValueDefined(popup)) return undefined;
+  if (popup.classList.contains('sf-submenu-left')) return true;
+  if (popup.classList.contains('sf-submenu-right')) return false;
+  return undefined;
 }
 
 function getFilterAnchorFromMenuItem(menuItem: HTMLElement): HTMLElement | undefined {
@@ -163,7 +185,10 @@ function getSubmenuAnchorFromMenuItem(menuItem: HTMLElement): HTMLElement | unde
 
 function getActiveSubmenuAnchor(): HTMLElement | undefined {
   const activeItems = Array.from(document.querySelectorAll<HTMLElement>('.e-grid-menu .e-menu-item.e-focused, .e-grid-menu .e-menu-item.e-selected'));
-  return activeItems.find((item) => isValueDefined(getSubmenuAnchorFromMenuItem(item)));
+  return activeItems.find((item) => {
+    if (!isValueDefined(getSubmenuAnchorFromMenuItem(item))) return false;
+    return isValueDefined(getColumnMenuPopupFromMenuItem(item));
+  });
 }
 
 function resolveHorizontalPosition(anchorRect: DOMRect, popupWidth: number): { left: number; openToLeft: boolean } {
@@ -209,7 +234,35 @@ function getVisibleFilterPopup(): HTMLElement | undefined {
   );
 }
 
-function repositionFilterPopup(anchor: PopupAnchor): boolean {
+function injectDropdownChevronIcons(root: ParentNode): void {
+  const icons = Array.from(root.querySelectorAll<HTMLElement>('.e-input-group-icon.e-ddl-icon.e-search-icon'));
+  for (const icon of icons) {
+    if (isValueDefined(icon.querySelector('svg.sf-ddl-chevron'))) continue;
+    icon.classList.add('sf-ddl-chevron-host');
+
+    while (isValueDefined(icon.firstChild)) {
+      icon.removeChild(icon.firstChild);
+    }
+
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.classList.add('sf-ddl-chevron');
+    svg.setAttribute('aria-hidden', 'true');
+    svg.setAttribute('fill', 'none');
+    svg.setAttribute('stroke', 'currentColor');
+    svg.setAttribute('viewBox', '0 0 16 16');
+
+    const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+    path.setAttribute('d', 'M4 6l4 4 4-4');
+    path.setAttribute('stroke-linecap', 'round');
+    path.setAttribute('stroke-linejoin', 'round');
+    path.setAttribute('stroke-width', '1.5');
+
+    svg.appendChild(path);
+    icon.appendChild(svg);
+  }
+}
+
+function repositionFilterPopup(anchor: PopupAnchor, preferredOpenToLeft?: boolean): boolean {
   const anchorRect = resolveAnchorRect(anchor);
   if (!isValueDefined(anchorRect)) return false;
   const filterPopup = getVisibleFilterPopup();
@@ -225,7 +278,19 @@ function repositionFilterPopup(anchor: PopupAnchor): boolean {
   const popupWidth = Math.max(MENU_SUBPOPUP_MIN_WIDTH_PX, popupRect.width || filterPopup.offsetWidth || 0);
   const popupHeight = Math.max(120, popupRect.height || filterPopup.offsetHeight || 0);
   
-  const { left } = resolveHorizontalPosition(anchorRect, popupWidth);
+  const defaultHorizontal = resolveHorizontalPosition(anchorRect, popupWidth);
+  let left = defaultHorizontal.left;
+  const effectivePreferredOpenToLeft = preferredOpenToLeft
+    ?? getColumnMenuSidePreferenceFromDom()
+    ?? (anchorRect.left > window.innerWidth * FALLBACK_FILTER_LEFT_THRESHOLD);
+  if (isValueDefined(effectivePreferredOpenToLeft)) {
+    const requiredSpace = popupWidth + POPUP_VERTICAL_GAP_PX;
+    const unclamped = effectivePreferredOpenToLeft
+      ? anchorRect.left - requiredSpace
+      : anchorRect.right + POPUP_VERTICAL_GAP_PX;
+    const maxLeft = Math.max(POPUP_VERTICAL_GAP_PX, window.innerWidth - popupWidth - POPUP_VERTICAL_GAP_PX);
+    left = Math.min(Math.max(POPUP_VERTICAL_GAP_PX, unclamped), maxLeft);
+  }
   const top = resolveVerticalPosition(anchorRect, popupHeight);
 
   const absoluteLeft = left + window.scrollX;
@@ -269,9 +334,9 @@ function repositionColumnSubmenuPopup(anchorItem: HTMLElement): boolean {
   return true;
 }
 
-function repositionColumnMenuPopup(trigger: HTMLElement): void {
+function repositionColumnMenuPopup(trigger: HTMLElement): boolean | undefined {
   const popup = getVisibleColumnMenuPopup();
-  if (!isValueDefined(popup)) return;
+  if (!isValueDefined(popup)) return undefined;
 
   if (popup.parentElement !== document.body) {
     document.body.appendChild(popup);
@@ -291,6 +356,7 @@ function repositionColumnMenuPopup(trigger: HTMLElement): void {
   const openSubmenuLeft = spaceLeft > spaceRight;
   popup.classList.toggle('sf-submenu-left', openSubmenuLeft);
   popup.classList.toggle('sf-submenu-right', !openSubmenuLeft);
+  return openSubmenuLeft;
 }
 
 const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Element => {
@@ -327,6 +393,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   const columnMenuTriggerRef = useRef<HTMLElement | null>(null);
   const columnMenuFilterAnchorRef = useRef<DOMRect | null>(null);
   const columnMenuSubmenuAnchorRef = useRef<HTMLElement | null>(null);
+  const columnMenuOpenToLeftRef = useRef<boolean | undefined>(undefined);
   const [responsivePageCount, setResponsivePageCount] = useState<number | undefined>(undefined);
 
   const { features, services } = useGridFeatures(props);
@@ -345,6 +412,25 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   }, [features.paging]);
 
   useEffect(() => {
+    injectDropdownChevronIcons(document);
+    if (!isValueDefined(globalThis.MutationObserver)) return;
+    const observer = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of Array.from(record.addedNodes)) {
+          if (!(node instanceof Element)) continue;
+          if (node.matches('.e-input-group-icon.e-ddl-icon.e-search-icon')) {
+            injectDropdownChevronIcons(node.parentElement ?? document);
+            continue;
+          }
+          injectDropdownChevronIcons(node);
+        }
+      }
+    });
+    observer.observe(document.body, { childList: true, subtree: true });
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
     if (!features.columnMenu || !isValueDefined(wrapperRef.current)) return;
     const root = wrapperRef.current;
     let hoverRafId: number | null = null;
@@ -360,7 +446,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       
       const tick = (): void => {
         attempt += 1;
-        const positioned = repositionFilterPopup(anchor);
+        const positioned = repositionFilterPopup(anchor, columnMenuOpenToLeftRef.current);
         if (positioned) successCount += 1;
 
         // Stop if we hit max attempts OR if we've successfully positioned for long enough
@@ -400,8 +486,14 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       const trigger = target.closest('.e-columnmenu') as HTMLElement | null;
       if (isValueDefined(trigger)) {
         columnMenuTriggerRef.current = trigger;
-        setTimeout(() => repositionColumnMenuPopup(trigger), POPUP_REPOSITION_DELAY_MS);
-        requestAnimationFrame(() => repositionColumnMenuPopup(trigger));
+        setTimeout(() => {
+          const openToLeft = repositionColumnMenuPopup(trigger);
+          if (isValueDefined(openToLeft)) columnMenuOpenToLeftRef.current = openToLeft;
+        }, POPUP_REPOSITION_DELAY_MS);
+        requestAnimationFrame(() => {
+          const openToLeft = repositionColumnMenuPopup(trigger);
+          if (isValueDefined(openToLeft)) columnMenuOpenToLeftRef.current = openToLeft;
+        });
       }
     };
 
@@ -410,6 +502,10 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (!isValueDefined(target)) return;
       const menuItem = target.closest('.e-grid-menu .e-menu-item') as HTMLElement | null;
       if (!isValueDefined(menuItem)) return;
+      const menuPopup = getColumnMenuPopupFromMenuItem(menuItem);
+      if (!isValueDefined(menuPopup)) return;
+      if (menuPopup.classList.contains('sf-submenu-left')) columnMenuOpenToLeftRef.current = true;
+      if (menuPopup.classList.contains('sf-submenu-right')) columnMenuOpenToLeftRef.current = false;
 
       const filterAnchor = getFilterAnchorFromMenuItem(menuItem);
       if (isValueDefined(filterAnchor)) {
@@ -432,6 +528,10 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (!isValueDefined(target)) return;
       const menuItem = target.closest('.e-grid-menu .e-menu-item') as HTMLElement | null;
       if (!isValueDefined(menuItem)) return;
+      const menuPopup = getColumnMenuPopupFromMenuItem(menuItem);
+      if (!isValueDefined(menuPopup)) return;
+      if (menuPopup.classList.contains('sf-submenu-left')) columnMenuOpenToLeftRef.current = true;
+      if (menuPopup.classList.contains('sf-submenu-right')) columnMenuOpenToLeftRef.current = false;
 
       const filterAnchor = getFilterAnchorFromMenuItem(menuItem);
       if (isValueDefined(filterAnchor)) {
@@ -455,7 +555,8 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     const onWindowMove = (): void => {
       const trigger = columnMenuTriggerRef.current;
       if (isValueDefined(trigger)) {
-        repositionColumnMenuPopup(trigger);
+        const openToLeft = repositionColumnMenuPopup(trigger);
+        if (isValueDefined(openToLeft)) columnMenuOpenToLeftRef.current = openToLeft;
       }
       const submenuAnchor = columnMenuSubmenuAnchorRef.current ?? getActiveSubmenuAnchor();
       if (isValueDefined(submenuAnchor)) {
@@ -464,7 +565,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       }
       const filterAnchor = columnMenuFilterAnchorRef.current;
       if (isValueDefined(filterAnchor)) {
-        repositionFilterPopup(filterAnchor);
+        repositionFilterPopup(filterAnchor, columnMenuOpenToLeftRef.current);
       }
     };
 

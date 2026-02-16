@@ -5,6 +5,7 @@
 import { memo } from 'react';
 
 import { IconDownload, IconFilter, IconRefresh, IconSearch, IconSettings } from '@/components/layout/Sidebar/SidebarIcons';
+import { SearchInput } from '@/components/ui/shared/SearchInput';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
@@ -29,21 +30,15 @@ export const AlertToolbar = memo(({
       data-testid={TestIds.ALERT_TOOLBAR}
     >
       {/* Left: Search input */}
-      <div className="relative" style={{ maxWidth: `${String(SEARCH_MAX_WIDTH)}px` }}>
-        <span
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-text-muted"
-        >
-          <IconSearch />
-        </span>
-        <input
-          aria-label={FM('gridShowcase.keywordSearch')}
-          className="w-full rounded border border-border-default bg-transparent py-1.5 pl-9 pr-3 text-sm text-text-primary placeholder:text-text-muted"
-          data-testid={TestIds.ALERT_TOOLBAR_SEARCH}
-          placeholder={FM('gridShowcase.keywordSearch')}
-          type="text"
-        />
-      </div>
+      <SearchInput
+        aria-label={FM('gridShowcase.keywordSearch')}
+        containerClassName="w-full"
+        iconClassName="left-3"
+        placeholder={FM('gridShowcase.keywordSearch')}
+        renderIcon={() => <IconSearch />}
+        style={{ maxWidth: `${String(SEARCH_MAX_WIDTH)}px` }}
+        testId={TestIds.ALERT_TOOLBAR_SEARCH}
+      />
 
       {/* Center: Show/Hide Filter toggle */}
       <button

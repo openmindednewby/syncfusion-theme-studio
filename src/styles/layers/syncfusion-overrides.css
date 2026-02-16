@@ -456,6 +456,21 @@
     border: none !important;
   }
 
+  /* Dropdown chevron fallback: when Syncfusion icon glyphs fail to render,
+     DataGrid injects an inline SVG in the same icon host. */
+  .e-input-group-icon.e-ddl-icon.e-search-icon.sf-ddl-chevron-host::before {
+    content: none !important;
+  }
+
+  .e-input-group-icon.e-ddl-icon.e-search-icon .sf-ddl-chevron {
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    transform: rotate(180deg);
+    transition: transform 150ms ease;
+    pointer-events: none;
+  }
+
   .e-ddl.e-control-wrapper.e-disabled {
     opacity: var(--component-select-disabled-opacity) !important;
   }

@@ -724,6 +724,7 @@
     float: none !important;
     margin: 0 !important;
     width: 100% !important;
+    overflow: clip !important;
   }
 
   /* Numeric container */

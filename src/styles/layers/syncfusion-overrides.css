@@ -1067,6 +1067,15 @@
     overflow: hidden !important;
   }
 
+  /* Force menu filter popups to use absolute positioning.
+     Syncfusion may rewrite inline top/left during open; keeping position
+     absolute avoids viewport-fixed drift seen in themed grid layouts. */
+  .e-dialog.e-filter-popup.e-col-menu,
+  .e-flmenu.e-dialog.e-filter-popup,
+  .e-col-menu.e-dialog.e-filter-popup {
+    position: absolute !important;
+  }
+
   .e-grid .e-dialog.e-flmenu .e-dlg-content,
   .e-grid-popup .e-dialog.e-flmenu .e-dlg-content {
     background-color: var(--component-datagrid-colmenu-bg) !important;

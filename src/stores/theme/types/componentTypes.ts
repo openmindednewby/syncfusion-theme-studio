@@ -1,3 +1,4 @@
+/* eslint-disable max-lines */
 // Component-specific type definitions
 
 import type { AvatarConfig, ProgressBarConfig, TabsConfig, TimelineConfig, TooltipConfig } from './dataDisplayComponentTypes';

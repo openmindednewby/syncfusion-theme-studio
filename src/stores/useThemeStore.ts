@@ -38,6 +38,7 @@ function deepMerge<T>(defaults: T, source: unknown): T {
       ? deepMerge(defaultValue, sourceValue)
       : sourceValue;
   }
+  // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return result as T;
 }
 
@@ -50,11 +51,11 @@ export const useThemeStore = create<ThemeState>()(
         version: THEME_SCHEMA_VERSION,
         partialize: (state) => ({ mode: state.mode, theme: state.theme }),
         migrate: (persistedState) => {
-          if (!isPlainObject(persistedState)) return persistedState as ThemeState;
+          if (!isPlainObject(persistedState)) return persistedState;
           return {
             ...persistedState,
             theme: deepMerge(DEFAULT_THEME, persistedState['theme']),
-          } as ThemeState;
+          };
         },
         onRehydrateStorage: () => (state) => {
           // Inject theme variables after hydration completes

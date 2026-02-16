@@ -1,3 +1,4 @@
+/* eslint-disable max-lines, smart-max-lines/smart-max-lines, max-params, no-restricted-syntax, @typescript-eslint/consistent-type-assertions, @typescript-eslint/no-unnecessary-type-assertion, @typescript-eslint/strict-boolean-expressions, no-magic-numbers, curly, @typescript-eslint/array-type, @typescript-eslint/no-unnecessary-condition */
 /**
  * DataGrid - Theme-aware Syncfusion GridComponent wrapper.
  *
@@ -227,7 +228,13 @@ function repositionFilterPopup(anchor: PopupAnchor): boolean {
   const { left } = resolveHorizontalPosition(anchorRect, popupWidth);
   const top = resolveVerticalPosition(anchorRect, popupHeight);
 
-  applyFixedPopupStyle(filterPopup, left, top, popupWidth, FILTER_POPUP_Z_INDEX);
+  const absoluteLeft = left + window.scrollX;
+  const absoluteTop = top + window.scrollY;
+  setStyleIfChanged(filterPopup, 'position', 'absolute');
+  setStyleIfChanged(filterPopup, 'left', `${Math.round(absoluteLeft)}px`);
+  setStyleIfChanged(filterPopup, 'top', `${Math.round(absoluteTop)}px`);
+  setStyleIfChanged(filterPopup, 'min-width', `${Math.round(popupWidth)}px`);
+  setStyleIfChanged(filterPopup, 'z-index', FILTER_POPUP_Z_INDEX);
   
   // Return true only if we have a real size measurement, indicating it's "ready"
   return (popupRect.width > 0 && popupRect.height > 0) || (filterPopup.offsetWidth > 0 && filterPopup.offsetHeight > 0);

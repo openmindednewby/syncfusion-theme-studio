@@ -971,6 +971,117 @@
     background-color: rgb(var(--color-surface)) !important;
   }
 
+  /* ===== GRID COLUMN MENU + FILTER POPUP ===== */
+  /* Column menu trigger in header cell (3 dots) */
+  .e-grid .e-gridheader .e-columnmenu {
+    color: var(--component-datagrid-colmenu-trigger) !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+    transition: color 140ms ease, background-color 140ms ease !important;
+  }
+
+  .e-grid .e-gridheader .e-columnmenu:hover,
+  .e-grid .e-gridheader .e-columnmenu.e-columnmenu-open {
+    color: var(--component-datagrid-colmenu-trigger-hover) !important;
+    background-color: var(--component-datagrid-colmenu-hover) !important;
+  }
+
+  /* Main column menu popup */
+  .e-grid-menu.e-contextmenu-wrapper {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    border: 1px solid var(--component-datagrid-colmenu-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
+    overflow: hidden !important;
+    min-width: 196px !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-contextmenu-container,
+  .e-grid-menu.e-contextmenu-wrapper .e-ul,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-parent {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item {
+    color: var(--component-datagrid-colmenu-text) !important;
+    min-height: 34px !important;
+    padding: 7px 12px !important;
+    line-height: 1.2 !important;
+    border: 0 !important;
+    transition: background-color 140ms ease, color 140ms ease !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item .e-menu-icon,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item .e-caret {
+    color: var(--component-datagrid-colmenu-text) !important;
+    opacity: 0.92;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item.e-focused,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item:hover,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item.e-selected {
+    background-color: var(--component-datagrid-colmenu-hover) !important;
+    color: var(--component-datagrid-colmenu-text) !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-separator {
+    border-top: 1px solid var(--component-datagrid-colmenu-separator) !important;
+    margin: 4px 0 !important;
+  }
+
+  /* Filter popup panel launched from column menu */
+  .e-grid .e-col-menu.e-filter-popup,
+  .e-grid-popup .e-col-menu.e-filter-popup,
+  .e-grid .e-dialog.e-flmenu,
+  .e-grid-popup .e-dialog.e-flmenu {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    border: 1px solid var(--component-datagrid-colmenu-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
+    overflow: hidden !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-dlg-content,
+  .e-grid-popup .e-dialog.e-flmenu .e-dlg-content {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    color: var(--component-datagrid-colmenu-text) !important;
+    padding: 12px !important;
+  }
+
+  .e-grid .e-flmenu-valuediv,
+  .e-grid-popup .e-flmenu-valuediv {
+    margin-top: 8px !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-dropdownlist,
+  .e-grid .e-dialog.e-flmenu .e-input,
+  .e-grid .e-dialog.e-flmenu .e-ddl.e-control-wrapper,
+  .e-grid-popup .e-dialog.e-flmenu .e-dropdownlist,
+  .e-grid-popup .e-dialog.e-flmenu .e-input,
+  .e-grid-popup .e-dialog.e-flmenu .e-ddl.e-control-wrapper {
+    background-color: var(--component-datagrid-filter-input-bg) !important;
+    color: var(--component-datagrid-colmenu-text) !important;
+    border-color: var(--component-datagrid-colmenu-border) !important;
+    border-radius: 6px !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-footer-content,
+  .e-grid-popup .e-dialog.e-flmenu .e-footer-content {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    border-top: 1px solid var(--component-datagrid-colmenu-border) !important;
+    padding: 10px 12px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-footer-content .e-btn,
+  .e-grid-popup .e-dialog.e-flmenu .e-footer-content .e-btn {
+    border-radius: 6px !important;
+    min-height: 30px !important;
+    padding: 0 14px !important;
+  }
+
   /* ===== DATEPICKER OVERRIDES ===== */
   /* Uses component-specific CSS variables from theme editor */
   /* Note: !important is required to override Syncfusion's hardcoded colors */

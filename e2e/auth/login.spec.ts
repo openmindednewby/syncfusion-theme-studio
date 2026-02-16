@@ -94,23 +94,15 @@ test.describe('Login Page', () => {
   });
 
   test('should preserve theme preference after navigation', async ({ page }) => {
-    // Switch to dark mode
-    const isDark = await page.evaluate(() =>
-      document.documentElement.classList.contains('dark')
-    );
-
-    if (!isDark) {
-      await page.getByTestId(TestIds.THEME_TOGGLE).click();
-    }
+    // Default is dark mode — verify it's active on login page
+    await expect(page.locator('html')).toHaveClass(/dark/);
 
     // Login and navigate to dashboard
     await page.getByTestId(TestIds.LOGIN_SUBMIT).click();
     await expect(page).toHaveURL('/dashboard');
+    await expect(page.getByTestId(TestIds.DASHBOARD_HEADING)).toBeVisible({ timeout: 15000 });
 
-    // Verify dark mode is preserved
-    const stillDark = await page.evaluate(() =>
-      document.documentElement.classList.contains('dark')
-    );
-    expect(stillDark).toBe(true);
+    // Verify dark mode is preserved (web-first assertion auto-retries)
+    await expect(page.locator('html')).toHaveClass(/dark/);
   });
 });

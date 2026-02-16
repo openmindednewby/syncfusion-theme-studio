@@ -2,6 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 import { vi, describe, it, expect, beforeEach } from 'vitest';
 
 import { apiEventBus } from '../apiEventBus';
+import { useApiEvents } from '../useApiEvents';
 
 import type { ApiEvent } from '../apiEventTypes';
 
@@ -27,15 +28,8 @@ describe('useApiEvents', () => {
     apiEventBus.clear();
   });
 
-  // eslint-disable-next-line @typescript-eslint/consistent-type-imports
-  let useApiEventsModule: typeof import('../useApiEvents');
-
-  beforeEach(async () => {
-    useApiEventsModule = await import('../useApiEvents');
-  });
-
   it('calls addToast when toast event is emitted', () => {
-    renderHook(() => useApiEventsModule.useApiEvents());
+    renderHook(() => useApiEvents());
 
     act(() => {
       const event: ApiEvent = {
@@ -56,13 +50,13 @@ describe('useApiEvents', () => {
   });
 
   it('returns activeModal as null initially', () => {
-    const { result } = renderHook(() => useApiEventsModule.useApiEvents());
+    const { result } = renderHook(() => useApiEvents());
 
     expect(result.current.activeModal).toBeNull();
   });
 
   it('sets activeModal when modal event is emitted', () => {
-    const { result } = renderHook(() => useApiEventsModule.useApiEvents());
+    const { result } = renderHook(() => useApiEvents());
 
     act(() => {
       const event: ApiEvent = {
@@ -79,7 +73,7 @@ describe('useApiEvents', () => {
   });
 
   it('dismissModal clears activeModal', () => {
-    const { result } = renderHook(() => useApiEventsModule.useApiEvents());
+    const { result } = renderHook(() => useApiEvents());
 
     act(() => {
       apiEventBus.emit({
@@ -100,7 +94,7 @@ describe('useApiEvents', () => {
   });
 
   it('unsubscribes on unmount', () => {
-    const { unmount } = renderHook(() => useApiEventsModule.useApiEvents());
+    const { unmount } = renderHook(() => useApiEvents());
 
     unmount();
 

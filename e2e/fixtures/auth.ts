@@ -82,7 +82,7 @@ export async function getCSSVariable(page: Page, variableName: string): Promise<
  */
 export async function clearThemeStorage(page: Page): Promise<void> {
   await page.evaluate(() => {
-    localStorage.removeItem('theme-store');
-    localStorage.removeItem('theme-mode');
+    localStorage.removeItem('mode-storage');
+    localStorage.removeItem('theme-storage');
   });
 }

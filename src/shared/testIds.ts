@@ -96,7 +96,6 @@ export const TestIds = {
   ALERT_TOOLBAR_EXPORT: 'alert-toolbar-export',
   ALERT_TOOLBAR_SETTINGS: 'alert-toolbar-settings',
   GRID_SHOWCASE_ALERT_MANAGEMENT: 'grid-showcase-alert-management',
-  GRID_ALERT_MANAGEMENT: 'grid-alert-management',
 
   // Sidebar Navigation (CyberWatch)
   SIDEBAR_SEARCH: 'sidebar-search',

@@ -31,8 +31,8 @@
     "test:e2e:headed": "playwright test --headed",
     "api:generate": "orval --config orval.config.ts",
     "typecheck": "tsc --noEmit",
-    "lighthouse:prod": "lighthouse http://localhost:4445 --output html --output-path ./reports/lighthouse-prod.html --budget-path=./lighthouse-budget.json --preset=desktop --chrome-flags=\"--headless=new\"",
-    "lighthouse:prod:ci": "lighthouse http://localhost:4445 --output json --output-path ./reports/lighthouse-prod.json --preset=desktop --chrome-flags=\"--headless=new --no-sandbox\" --budget-path=./lighthouse-budget.json",
+    "lighthouse:prod": "node scripts/run-lighthouse.js http://localhost:4445 --output html --output-path ./reports/lighthouse-prod.html --budget-path=./lighthouse-budget.json --preset=desktop --chrome-flags=\"--headless=new\"",
+    "lighthouse:prod:ci": "node scripts/run-lighthouse.js http://localhost:4445 --output json --output-path ./reports/lighthouse-prod.json --preset=desktop --chrome-flags=\"--headless=new --no-sandbox\" --budget-path=./lighthouse-budget.json",
     "lighthouse:prod:open": "start ./reports/lighthouse-prod.html",
     "lighthouse:prod:assert": "node scripts/lighthouse-assert.js reports/lighthouse-prod.json",
     "analyze": "vite build --mode analyze"

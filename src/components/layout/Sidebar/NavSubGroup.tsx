@@ -5,7 +5,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
-const EXPAND_ARROW = '\u25B8';
+const EXPAND_ARROW = '\u25BC';
 const BULLET = '\u2022';
 
 interface SubNavItem {
@@ -18,7 +18,7 @@ interface NavSubGroupProps {
   labelKey: string;
   testId: string;
   expandTestId: string;
-  /** Optional path to make the group header a navigable link */
+  /** Optional path used for active-state detection */
   path?: string | undefined;
   items: SubNavItem[];
 }
@@ -51,45 +51,25 @@ export const NavSubGroup = ({
 
   return (
     <li>
-      <div className="flex items-center">
-        {isValueDefined(path) && path !== '' ? (
-          <NavLink
-            aria-label={FM(labelKey)}
-            className={({ isActive: linkActive }) =>
-              `sidebar-item flex flex-1 items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
-                linkActive ? 'active' : ''
-              }`
-            }
-            data-testid={testId}
-            to={path}
-          >
-            <span>{FM(labelKey)}</span>
-          </NavLink>
-        ) : (
-          <span
-            className="sidebar-item flex flex-1 items-center gap-2 px-3 py-1.5 text-sm"
-            data-testid={testId}
-          >
-            {FM(labelKey)}
-          </span>
-        )}
-        <button
-          aria-controls={`subgroup-${testId}`}
-          aria-expanded={isExpanded}
-          aria-label={expandLabel}
-          className="sidebar-item rounded p-1 text-xs transition-colors"
-          data-testid={expandTestId}
-          type="button"
-          onClick={handleToggle}
+      <button
+        aria-controls={`subgroup-${testId}`}
+        aria-expanded={isExpanded}
+        aria-label={expandLabel}
+        className={`sidebar-item flex w-full items-center gap-3 rounded-md px-3 py-1.5 text-sm transition-colors ${
+          isChildActive || isHeaderActive ? 'active' : ''
+        }`}
+        data-testid={expandTestId}
+        type="button"
+        onClick={handleToggle}
+      >
+        <span className="flex-1 text-left">{sectionName}</span>
+        <span
+          aria-hidden="true"
+          className={`text-xs transition-transform ${isExpanded ? 'rotate-180' : ''}`}
         >
-          <span
-            aria-hidden="true"
-            className={`inline-block transition-transform ${isExpanded ? 'rotate-90' : ''}`}
-          >
-            {EXPAND_ARROW}
-          </span>
-        </button>
-      </div>
+          {EXPAND_ARROW}
+        </span>
+      </button>
 
       {isExpanded ? (
         <ul className="ml-4 mt-1 space-y-0.5" id={`subgroup-${testId}`}>

@@ -140,29 +140,29 @@ test.describe('Theme Editor', () => {
   });
 
   test.describe('Light/Dark Mode Toggle', () => {
-    test('starts in light mode by default', async () => {
-      await themeSettingsPage.expectLightMode();
-    });
-
-    test('toggles from light to dark mode', async () => {
-      await themeSettingsPage.toggleDarkMode();
+    test('starts in dark mode by default', async () => {
       await themeSettingsPage.expectDarkMode();
     });
 
-    test('toggles from dark back to light mode', async () => {
-      await themeSettingsPage.toggleDarkMode();
-      await themeSettingsPage.expectDarkMode();
-
+    test('toggles from dark to light mode', async () => {
       await themeSettingsPage.toggleDarkMode();
       await themeSettingsPage.expectLightMode();
+    });
+
+    test('toggles from light back to dark mode', async () => {
+      await themeSettingsPage.toggleDarkMode();
+      await themeSettingsPage.expectLightMode();
+
+      await themeSettingsPage.toggleDarkMode();
+      await themeSettingsPage.expectDarkMode();
     });
 
     test('theme toggle persists when drawer is opened', async () => {
       await themeSettingsPage.toggleDarkMode();
-      await themeSettingsPage.expectDarkMode();
+      await themeSettingsPage.expectLightMode();
 
       await themeSettingsPage.openDrawer();
-      await themeSettingsPage.expectDarkMode();
+      await themeSettingsPage.expectLightMode();
     });
   });
 
@@ -279,13 +279,14 @@ test.describe('Theme Editor', () => {
       await themeSettingsPage.expectPresetActive('voyager');
     });
 
-    test('dark mode persists after page reload', async ({ page }) => {
+    test('light mode persists after page reload', async ({ page }) => {
+      // Toggle from dark default to light
       await themeSettingsPage.toggleDarkMode();
-      await themeSettingsPage.expectDarkMode();
+      await themeSettingsPage.expectLightMode();
 
       await page.reload();
 
-      await themeSettingsPage.expectDarkMode();
+      await themeSettingsPage.expectLightMode();
     });
   });
 });

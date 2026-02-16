@@ -111,40 +111,38 @@ test.describe('Light/Dark Mode Toggle', () => {
     expect(lightText).not.toBe(darkText);
   });
 
-  test('should update toggle button icon based on mode', async ({ page }) => {
+  test('should update toggle button aria attributes based on mode', async ({ page }) => {
     const toggleBtn = page.getByTestId(TestIds.THEME_TOGGLE);
 
-    // In light mode, should show moon icon (to switch to dark)
-    if (await getThemeMode(page) === 'dark') {
-      await toggleBtn.click();
-    }
-    await expect(toggleBtn).toContainText(/🌙/);
+    // Default is dark mode — aria-checked should be true
+    await expect(toggleBtn).toHaveAttribute('aria-checked', 'true');
+    await expect(toggleBtn).toHaveAttribute('aria-label', /light/i);
 
-    // Switch to dark mode
+    // Switch to light mode
     await toggleBtn.click();
-    // In dark mode, should show sun icon (to switch to light)
-    await expect(toggleBtn).toContainText(/☀️/);
+
+    // In light mode — aria-checked should be false
+    await expect(toggleBtn).toHaveAttribute('aria-checked', 'false');
+    await expect(toggleBtn).toHaveAttribute('aria-label', /dark/i);
   });
 
   test('should maintain mode when navigating between pages', async ({ page }) => {
-    // Get the current mode (whatever it is from storage)
-    const initialMode = await getThemeMode(page);
+    // Default is dark mode — use web-first assertion
+    await expect(page.locator('html')).toHaveClass(/dark/);
 
     // Navigate to products page using URL directly
     await page.goto('/dashboard/products');
     await page.waitForLoadState('domcontentloaded');
 
-    // Verify mode is preserved
-    const modeAfterNav1 = await getThemeMode(page);
-    expect(modeAfterNav1).toBe(initialMode);
+    // Verify dark mode is preserved (auto-retries)
+    await expect(page.locator('html')).toHaveClass(/dark/);
 
     // Navigate back to dashboard using URL
     await page.goto('/dashboard');
     await page.waitForLoadState('domcontentloaded');
 
-    // Verify mode is still preserved
-    const modeAfterNav2 = await getThemeMode(page);
-    expect(modeAfterNav2).toBe(initialMode);
+    // Verify dark mode is still preserved
+    await expect(page.locator('html')).toHaveClass(/dark/);
   });
 
   test('should apply dark mode class to document element', async ({ page }) => {

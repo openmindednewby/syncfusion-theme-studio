@@ -57,10 +57,11 @@ const POPUP_VERTICAL_GAP_PX = 4;
 const FILTER_POPUP_Z_INDEX = '10001';
 const MENU_SUBPOPUP_MIN_WIDTH_PX = 220;
 const SUBMENU_POPUP_Z_INDEX = '10002';
+type PopupAnchor = HTMLElement | DOMRect;
 
 function setStyleIfChanged(element: HTMLElement, property: string, value: string): void {
   if (element.style.getPropertyValue(property) === value) return;
-  element.style.setProperty(property, value);
+  element.style.setProperty(property, value, 'important');
 }
 
 function applyFixedPopupStyle(
@@ -195,24 +196,41 @@ function resolveVerticalPosition(anchorRect: DOMRect, popupHeight: number): numb
   return Math.min(Math.max(POPUP_VERTICAL_GAP_PX, anchorRect.top), maxTop);
 }
 
-function repositionFilterPopup(anchorItem: HTMLElement): boolean {
-  if (!anchorItem.isConnected) return false;
-  const filterPopup = getVisibleElement('.e-filter-popup, .e-col-menu.e-filter-popup, .e-dialog.e-flmenu, .e-grid-popup .e-dialog.e-flmenu');
+function resolveAnchorRect(anchor: PopupAnchor): DOMRect | undefined {
+  if (anchor instanceof DOMRect) return anchor;
+  if (!anchor.isConnected) return undefined;
+  return anchor.getBoundingClientRect();
+}
+
+function getVisibleFilterPopup(): HTMLElement | undefined {
+  return getVisibleElement(
+    '.e-dialog.e-filter-popup.e-popup-open[role="dialog"], .e-flmenu.e-dialog.e-filter-popup[role="dialog"], .e-col-menu.e-dialog.e-filter-popup[role="dialog"]',
+  );
+}
+
+function repositionFilterPopup(anchor: PopupAnchor): boolean {
+  const anchorRect = resolveAnchorRect(anchor);
+  if (!isValueDefined(anchorRect)) return false;
+  const filterPopup = getVisibleFilterPopup();
   if (!isValueDefined(filterPopup)) return false;
 
   if (filterPopup.parentElement !== document.body) {
     document.body.appendChild(filterPopup);
   }
 
-  const anchorRect = anchorItem.getBoundingClientRect();
   const popupRect = filterPopup.getBoundingClientRect();
+  
+  // Use offsetWidth/Height if getBoundingClientRect returns zero (e.g. before first paint)
   const popupWidth = Math.max(MENU_SUBPOPUP_MIN_WIDTH_PX, popupRect.width || filterPopup.offsetWidth || 0);
   const popupHeight = Math.max(120, popupRect.height || filterPopup.offsetHeight || 0);
+  
   const { left } = resolveHorizontalPosition(anchorRect, popupWidth);
   const top = resolveVerticalPosition(anchorRect, popupHeight);
 
   applyFixedPopupStyle(filterPopup, left, top, popupWidth, FILTER_POPUP_Z_INDEX);
-  return true;
+  
+  // Return true only if we have a real size measurement, indicating it's "ready"
+  return (popupRect.width > 0 && popupRect.height > 0) || (filterPopup.offsetWidth > 0 && filterPopup.offsetHeight > 0);
 }
 
 function repositionColumnSubmenuPopup(anchorItem: HTMLElement): void {
@@ -299,7 +317,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   const gridRef = externalGridRef ?? internalGridRef;
   const wrapperRef = useRef<HTMLDivElement | null>(null);
   const columnMenuTriggerRef = useRef<HTMLElement | null>(null);
-  const columnMenuFilterAnchorRef = useRef<HTMLElement | null>(null);
+  const columnMenuFilterAnchorRef = useRef<DOMRect | null>(null);
   const columnMenuSubmenuAnchorRef = useRef<HTMLElement | null>(null);
   const [responsivePageCount, setResponsivePageCount] = useState<number | undefined>(undefined);
 
@@ -325,13 +343,19 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     let filterRafId: number | null = null;
     let queuedHoverAnchor: HTMLElement | null = null;
 
-    const scheduleFilterPopupReposition = (anchor: HTMLElement): void => {
-      const MAX_ATTEMPTS = 20;
+    const scheduleFilterPopupReposition = (anchor: DOMRect): void => {
+      const MAX_ATTEMPTS = 120;
+      const MIN_REPOSITION_FRAMES = 20;
       let attempt = 0;
+      let successCount = 0;
+      
       const tick = (): void => {
         attempt += 1;
         const positioned = repositionFilterPopup(anchor);
-        if (positioned || attempt >= MAX_ATTEMPTS) {
+        if (positioned) successCount += 1;
+
+        // Stop if we hit max attempts OR if we've successfully positioned for long enough
+        if (attempt >= MAX_ATTEMPTS || (positioned && successCount >= MIN_REPOSITION_FRAMES)) {
           filterRafId = null;
           return;
         }
@@ -359,9 +383,10 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
 
       const filterAnchor = getFilterAnchorFromMenuItem(menuItem);
       if (isValueDefined(filterAnchor)) {
-        columnMenuFilterAnchorRef.current = filterAnchor;
-        setTimeout(() => scheduleFilterPopupReposition(filterAnchor), POPUP_REPOSITION_DELAY_MS);
-        scheduleFilterPopupReposition(filterAnchor);
+        const filterAnchorRect = filterAnchor.getBoundingClientRect();
+        columnMenuFilterAnchorRef.current = filterAnchorRect;
+        setTimeout(() => scheduleFilterPopupReposition(filterAnchorRect), POPUP_REPOSITION_DELAY_MS);
+        scheduleFilterPopupReposition(filterAnchorRect);
       }
 
       const submenuAnchor = getSubmenuAnchorFromMenuItem(menuItem);
@@ -377,6 +402,14 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (!isValueDefined(target)) return;
       const menuItem = target.closest('.e-grid-menu .e-menu-item') as HTMLElement | null;
       if (!isValueDefined(menuItem)) return;
+
+      const filterAnchor = getFilterAnchorFromMenuItem(menuItem);
+      if (isValueDefined(filterAnchor)) {
+        const filterAnchorRect = filterAnchor.getBoundingClientRect();
+        columnMenuFilterAnchorRef.current = filterAnchorRect;
+        scheduleFilterPopupReposition(filterAnchorRect);
+      }
+
       const submenuAnchor = getSubmenuAnchorFromMenuItem(menuItem);
       if (!isValueDefined(submenuAnchor)) return;
       columnMenuSubmenuAnchorRef.current = submenuAnchor;

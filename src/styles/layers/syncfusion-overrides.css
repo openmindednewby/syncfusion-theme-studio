@@ -727,6 +727,7 @@
     min-width: max-content !important;
     flex: 0 1 auto !important;
     overflow: visible !important;
+    order: 1 !important;
   }
 
   /* Numeric container */
@@ -893,10 +894,11 @@
     display: flex !important;
     align-items: center !important;
     gap: 8px !important;
-    justify-content: center !important;
+    justify-content: flex-start !important;
     margin: 0 !important;
     width: auto !important;
     flex: 0 0 auto !important;
+    order: 2 !important;
   }
 
   /* Page size dropdown */
@@ -943,6 +945,8 @@
     flex: 1 1 auto !important;
     min-width: 0 !important;
     white-space: nowrap !important;
+    order: 3 !important;
+    margin-left: auto !important;
   }
 
   /* Grid sorting icon */

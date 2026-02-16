@@ -43,7 +43,7 @@
      Syncfusion normally hides these via JS, but when they render
      inside the document flow (e.g. grid edit/delete confirm dialogs,
      column chooser), they can be visible without this rule. */
-  .e-popup-close {
+  .e-popup-close:not(.e-popup-open):not(.e-ddl):not(.e-dropdown-popup) {
     display: none !important;
   }
 
@@ -631,7 +631,7 @@
 
   .e-grid > .e-pager {
     border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
-    overflow: hidden;
+    overflow: visible;
   }
 
   .e-grid .e-gridheader {
@@ -705,12 +705,13 @@
     background-color: var(--component-datagrid-pagination-bg) !important;
     border-color: var(--component-datagrid-pagination-border) !important;
     color: var(--component-datagrid-pagination-text) !important;
-    display: flex !important;
+    display: grid !important;
+    grid-template-columns: max-content max-content minmax(0, 1fr) !important;
     align-items: center !important;
     padding: 10px 16px !important;
-    gap: 12px !important;
+    column-gap: 12px !important;
+    row-gap: 0 !important;
     border-top: 1px solid var(--component-datagrid-pagination-border) !important;
-    flex-wrap: nowrap !important;
   }
 
   /* Numeric button group wrapper - Align to LEFT */
@@ -895,7 +896,7 @@
     align-items: center !important;
     gap: 8px !important;
     justify-content: flex-start !important;
-    margin: 0 !important;
+    margin: 0 0 0 4px !important;
     width: auto !important;
     flex: 0 0 auto !important;
     order: 2 !important;
@@ -946,12 +947,12 @@
     text-align: right !important;
     padding: 0 !important;
     margin: 0 !important;
-    width: auto !important;
-    flex: 1 1 auto !important;
+    width: 100% !important;
+    flex: 0 0 auto !important;
     min-width: 0 !important;
     white-space: nowrap !important;
     order: 3 !important;
-    margin-left: auto !important;
+    margin-left: 0 !important;
   }
 
   /* Grid sorting icon */

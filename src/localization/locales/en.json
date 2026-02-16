@@ -515,6 +515,8 @@
         "paginationHoverBackground": "Page Hover Background",
         "paginationBorderColor": "Pagination Border",
         "pagerContainerBorderColor": "Pager Container Border",
+        "paginationDefaultPageSize": "Default Page Size",
+        "paginationPageSizeOptions": "Page Size Options (CSV)",
         "paginationNavColor": "Nav Arrow Color",
         "paginationNavDisabledColor": "Nav Arrow Disabled",
         "paginationInfoTextColor": "Info Text Color",

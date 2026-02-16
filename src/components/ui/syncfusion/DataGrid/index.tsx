@@ -40,7 +40,7 @@ import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 
-import { DEFAULT_PAGE_SETTINGS } from './constants';
+import { AVAILABLE_PAGE_SIZES, DEFAULT_PAGE_SETTINGS } from './constants';
 import { useGridCallbacks } from './useGridCallbacks';
 import { computePageSettings, useGridFeatures } from './useGridFeatures';
 
@@ -49,10 +49,48 @@ import type { DataGridProps } from './types';
 const PAGER_BUTTON_APPROX_WIDTH = 40;
 const PAGER_SIDE_CONTENT_APPROX_WIDTH = 260;
 const MIN_RESPONSIVE_PAGE_COUNT = 3;
+const PAGE_SIZE_OPTIONS_SEPARATOR = ',';
+const POPUP_REPOSITION_DELAY_MS = 0;
+
+function parsePageSizeOptions(input: string): number[] {
+  const parsed = input
+    .split(PAGE_SIZE_OPTIONS_SEPARATOR)
+    .map((part) => Number.parseInt(part.trim(), 10))
+    .filter((n) => Number.isFinite(n) && n > 0);
+  return parsed.length > 0 ? Array.from(new Set(parsed)) : AVAILABLE_PAGE_SIZES;
+}
+
+function parsePageSizesFromSettings(input: boolean | (number | string)[] | undefined): number[] | undefined {
+  if (!Array.isArray(input)) return undefined;
+  const parsed = input
+    .map((value) => Number.parseInt(String(value), 10))
+    .filter((n) => Number.isFinite(n) && n > 0);
+  return parsed.length > 0 ? Array.from(new Set(parsed)) : undefined;
+}
 
 function normalizeResponsivePageCount(count: number): number {
   const bounded = Math.max(MIN_RESPONSIVE_PAGE_COUNT, count);
   return bounded % 2 === 0 ? bounded - 1 : bounded;
+}
+
+function repositionPagerDropdownPopup(root: HTMLDivElement): void {
+  const input = root.querySelector<HTMLInputElement>('.e-pager .e-pagerdropdown input.e-input[aria-controls]');
+  const wrapper = root.querySelector<HTMLElement>('.e-pager .e-pagerdropdown .e-ddl.e-control-wrapper');
+  const popupId = input?.getAttribute('aria-controls');
+  if (!isValueDefined(input) || !isValueDefined(wrapper) || !isValueDefined(popupId) || popupId === '') return;
+  const popup = document.getElementById(popupId);
+  if (!isValueDefined(popup) || !popup.classList.contains('e-popup-open')) return;
+
+  if (popup.parentElement !== document.body) {
+    document.body.appendChild(popup);
+  }
+
+  const rect = wrapper.getBoundingClientRect();
+  popup.style.position = 'fixed';
+  popup.style.left = `${Math.round(rect.left)}px`;
+  popup.style.top = `${Math.round(rect.bottom)}px`;
+  popup.style.minWidth = `${Math.round(rect.width)}px`;
+  popup.style.zIndex = '10000';
 }
 
 const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Element => {
@@ -82,7 +120,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     gridRef: externalGridRef,
   } = props;
 
-  const { mode } = useThemeStore();
+  const { mode, theme } = useThemeStore();
   const internalGridRef = useRef<GridComponent | undefined>(undefined);
   const gridRef = externalGridRef ?? internalGridRef;
   const wrapperRef = useRef<HTMLDivElement | null>(null);
@@ -103,16 +141,64 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     return () => observer.disconnect();
   }, [features.paging]);
 
+  useEffect(() => {
+    if (!features.paging || !isValueDefined(wrapperRef.current)) return;
+    const root = wrapperRef.current;
+    const onPointerDown = (event: Event): void => {
+      const target = event.target as Element | null;
+      if (!isValueDefined(target)) return;
+      if (!target.closest('.e-pager .e-pagerdropdown')) return;
+      setTimeout(() => repositionPagerDropdownPopup(root), POPUP_REPOSITION_DELAY_MS);
+      requestAnimationFrame(() => repositionPagerDropdownPopup(root));
+    };
+
+    const onWindowMove = (): void => {
+      repositionPagerDropdownPopup(root);
+    };
+
+    root.addEventListener('pointerdown', onPointerDown, true);
+    window.addEventListener('resize', onWindowMove);
+    window.addEventListener('scroll', onWindowMove, true);
+    return () => {
+      root.removeEventListener('pointerdown', onPointerDown, true);
+      window.removeEventListener('resize', onWindowMove);
+      window.removeEventListener('scroll', onWindowMove, true);
+    };
+  }, [features.paging]);
+
+  const themePageSettings = useMemo<{ pageSize: number; pageCount: number; pageSizes: number[] }>(() => {
+    const dataGridTheme = theme.components[mode].dataGrid;
+    const defaultPageSize = dataGridTheme.paginationDefaultPageSize;
+    const parsedSizes = parsePageSizeOptions(dataGridTheme.paginationPageSizeOptions);
+    const normalizedSizes = parsedSizes.includes(defaultPageSize)
+      ? parsedSizes
+      : [defaultPageSize, ...parsedSizes];
+    return {
+      pageSize: defaultPageSize,
+      pageCount: DEFAULT_PAGE_SETTINGS.pageCount ?? 5,
+      pageSizes: normalizedSizes,
+    };
+  }, [theme, mode]);
+
+  const fallbackPageSettings = useMemo(() => {
+    const merged = { ...themePageSettings };
+    if (isValueDefined(pageSettings.pageSize)) merged.pageSize = pageSettings.pageSize;
+    if (isValueDefined(pageSettings.pageCount)) merged.pageCount = pageSettings.pageCount;
+    const parsedPageSizes = parsePageSizesFromSettings(pageSettings.pageSizes);
+    if (isValueDefined(parsedPageSizes)) merged.pageSizes = parsedPageSizes;
+    return merged;
+  }, [themePageSettings, pageSettings.pageSize, pageSettings.pageCount, pageSettings.pageSizes]);
+
   const effectivePageSettings = useMemo(() => {
-    const base = computePageSettings(gridConfig, pageSettings, features.paging, data.length);
+    const base = computePageSettings(gridConfig, fallbackPageSettings, features.paging, data.length);
     const hasExplicitPageCount = isValueDefined(pageSettings.pageCount) || isValueDefined(gridConfig?.pagination?.pageCount);
     if (!isValueDefined(responsivePageCount) || hasExplicitPageCount || !features.paging) return base;
-    const pageSize = base.pageSize ?? DEFAULT_PAGE_SETTINGS.pageSize ?? 10;
+    const pageSize = base.pageSize ?? fallbackPageSettings.pageSize ?? DEFAULT_PAGE_SETTINGS.pageSize ?? 10;
     const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
     const nextPageCount = Math.min(totalPages, responsivePageCount);
     if (base.pageCount === nextPageCount) return base;
     return { ...base, pageCount: nextPageCount };
-  }, [gridConfig, pageSettings, features.paging, data.length, responsivePageCount]);
+  }, [gridConfig, pageSettings.pageCount, fallbackPageSettings, features.paging, data.length, responsivePageCount]);
 
   // Non-blocking filter/sort setup via gridConfig
   useSyncfusionFilters(gridRef, gridConfig?.filter);

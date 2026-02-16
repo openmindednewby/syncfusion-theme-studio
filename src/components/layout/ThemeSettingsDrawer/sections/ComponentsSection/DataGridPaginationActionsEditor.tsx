@@ -1,8 +1,10 @@
 import { FM } from '@/localization/helpers';
 import type { DataGridConfig } from '@/stores/theme/types';
+import { isValueDefined } from '@/utils/is';
 
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
+import { TextInputRow } from '../../TextInputRow';
 
 interface DataGridPaginationActionsEditorProps {
   config: DataGridConfig;
@@ -49,6 +51,24 @@ export const DataGridPaginationActionsEditor = ({
         label={FM('themeSettings.components.dataGrid.pagerContainerBorderColor')}
         value={config.pagerContainerBorderColor}
         onChange={(value) => onUpdate({ pagerContainerBorderColor: value })}
+      />
+      <TextInputRow
+        label={FM('themeSettings.components.dataGrid.paginationDefaultPageSize')}
+        value={String(config.paginationDefaultPageSize)}
+        onChange={(value) => {
+          const parsed = Number.parseInt(value, 10);
+          if (Number.isNaN(parsed) || parsed <= 0) return;
+          onUpdate({ paginationDefaultPageSize: parsed });
+        }}
+      />
+      <TextInputRow
+        label={FM('themeSettings.components.dataGrid.paginationPageSizeOptions')}
+        value={config.paginationPageSizeOptions}
+        onChange={(value) => {
+          const normalized = value.replace(/\s+/g, '');
+          if (!isValueDefined(normalized) || normalized === '') return;
+          onUpdate({ paginationPageSizeOptions: normalized });
+        }}
       />
       <ColorPicker
         label={FM('themeSettings.components.dataGrid.paginationNavColor')}

@@ -5,7 +5,7 @@ import type { PageSettingsModel } from '@syncfusion/ej2-react-grids';
 
 const DEFAULT_PAGE_SIZE = 10;
 const DEFAULT_PAGE_COUNT = 5;
-const PAGE_SIZE_SMALL = 25;
+const PAGE_SIZE_SMALL = 20;
 const PAGE_SIZE_MEDIUM = 50;
 const PAGE_SIZE_LARGE = 100;
 

@@ -927,9 +927,13 @@
     white-space: nowrap;
   }
 
-  /* Hide redundant page count msg */
+  /* Page count text (e.g. "(592 items)") */
   .e-grid .e-pager .e-pagecountmsg {
-    display: none !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    color: var(--component-datagrid-pagination-info-text) !important;
+    font-size: var(--font-size-sm) !important;
+    white-space: nowrap !important;
   }
 
   /* "X to Y of Z items" info bar - Align to RIGHT */

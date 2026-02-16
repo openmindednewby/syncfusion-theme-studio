@@ -54,13 +54,26 @@ function injectDataGridPaginationVars(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-datagrid-drag-handle', `rgb(${dg.dragHandleColor})`);
   root.style.setProperty('--component-datagrid-default-text-align', dg.defaultTextAlign);
   root.style.setProperty('--component-datagrid-header-text-align', dg.headerTextAlign);
+  root.style.setProperty('--component-datagrid-header-text-padding', dg.headerTextPadding);
   root.style.setProperty('--component-datagrid-default-vertical-align', dg.defaultVerticalAlign);
   root.style.setProperty('--component-datagrid-header-vertical-align', dg.headerVerticalAlign);
   root.style.setProperty('--component-datagrid-row-height', dg.rowHeight);
+}
+
+function injectDataGridColumnMenuVars(root: HTMLElement, c: ComponentConfigSingle): void {
+  const dg = c.dataGrid;
+  root.style.setProperty('--component-datagrid-colmenu-bg', `rgb(${dg.columnMenuBackground})`);
+  root.style.setProperty('--component-datagrid-colmenu-text', `rgb(${dg.columnMenuTextColor})`);
+  root.style.setProperty('--component-datagrid-colmenu-border', `rgb(${dg.columnMenuBorderColor})`);
+  root.style.setProperty('--component-datagrid-colmenu-hover', `rgb(${dg.columnMenuHoverBackground})`);
+  root.style.setProperty('--component-datagrid-colmenu-separator', `rgb(${dg.columnMenuSeparatorColor})`);
+  root.style.setProperty('--component-datagrid-colmenu-trigger', `rgb(${dg.columnMenuTriggerColor})`);
+  root.style.setProperty('--component-datagrid-colmenu-trigger-hover', `rgb(${dg.columnMenuTriggerHoverColor})`);
 }
 
 export function injectDataGridVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   injectDataGridCoreVars(root, c);
   injectDataGridFeatureVars(root, c);
   injectDataGridPaginationVars(root, c);
+  injectDataGridColumnMenuVars(root, c);
 }

@@ -318,7 +318,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
       clientFiles: [
         './src/main.tsx',
         './src/app/App.tsx',
-        './src/app/routes.tsx',
+        './src/app/router.tsx',
         './src/stores/useThemeStore.ts',
         './src/localization/i18n.ts',
         './src/components/common/LoadingSpinner.tsx',

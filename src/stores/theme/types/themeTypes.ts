@@ -52,6 +52,7 @@ import { type FontFamilyType, type TransitionType ,
 } from './layoutTypes';
 
 import type { AnimationConfig } from './animationTypes';
+import type { TypographyComponentsConfig } from './typographyComponentTypes';
 
 
 
@@ -74,6 +75,7 @@ export interface ThemeConfig {
   light: ThemeModeConfig;
   dark: ThemeModeConfig;
   components: ComponentsConfig;
+  typographyComponents: TypographyComponentsConfig;
 }
 
 export interface ThemeState {
@@ -118,6 +120,8 @@ export interface ThemeState {
   updateAvatarConfig: (updates: Partial<AvatarConfig>) => void;
   updateProgressBarConfig: (updates: Partial<ProgressBarConfig>) => void;
   updateTooltipConfig: (updates: Partial<TooltipConfig>) => void;
+  // Typography component actions
+  updateTypographyComponentLevel: (level: keyof TypographyComponentsConfig, updates: Record<string, string>) => void;
   // Typography actions
   updateFontFamily: (type: FontFamilyType, value: string) => void;
   updateFontSize: (key: keyof FontSizeScale, value: string) => void;

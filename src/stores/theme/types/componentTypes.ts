@@ -103,9 +103,17 @@ export interface DataGridConfig {
   dragHandleColor: string;
   defaultTextAlign: string;
   headerTextAlign: string;
+  headerTextPadding: string;
   defaultVerticalAlign: string;
   headerVerticalAlign: string;
   rowHeight: string;
+  columnMenuBackground: string;
+  columnMenuTextColor: string;
+  columnMenuBorderColor: string;
+  columnMenuHoverBackground: string;
+  columnMenuSeparatorColor: string;
+  columnMenuTriggerColor: string;
+  columnMenuTriggerHoverColor: string;
 }
 
 export interface CardsConfig {

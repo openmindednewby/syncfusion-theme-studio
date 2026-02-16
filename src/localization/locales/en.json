@@ -161,6 +161,8 @@
     "avatarSyncfusion": "Avatar",
     "cardNative": "Card",
     "cardSyncfusion": "Card",
+    "chipNative": "Chip",
+    "chipSyncfusion": "Chip",
     "progressbarNative": "ProgressBar",
     "progressbarSyncfusion": "ProgressBar",
     "tooltipNative": "Tooltip",
@@ -171,12 +173,14 @@
     "componentsOverview": "Overview",
     "accordion": "Accordion",
     "alert": "Alert",
+    "alertBadge": "Alert Badge",
     "avatar": "Avatar",
     "badge": "Badge",
     "breadcrumb": "Breadcrumb",
     "button": "Button",
     "card": "Card",
     "checkbox": "Checkbox",
+    "chip": "Chip",
     "datepicker": "DatePicker",
     "dialog": "Dialog",
     "grid": "Grid",
@@ -195,7 +199,9 @@
     "themeEditor": "Theme Editor",
     "themeEditorLabel": "Open theme editor",
     "login": "Login",
-    "loginLabel": "Go to login page"
+    "loginLabel": "Go to login page",
+    "threatDetectionOverview": "Threat Detection Overview",
+    "threatDetectionSample": "Threat Detection Sample"
   },
   "sidebar": {
     "expand": "Expand sidebar",
@@ -374,6 +380,14 @@
       "properties": "properties",
       "editHint": "Click on a component to edit its styles.",
       "editingMode": "Editing: {{p1}} Mode",
+      "typographyComponents": {
+        "title": "Typography Components",
+        "fontSize": "Font Size",
+        "fontWeight": "Font Weight",
+        "lineHeight": "Line Height",
+        "letterSpacing": "Letter Spacing",
+        "color": "Color"
+      },
       "header": {
         "title": "Header",
         "background": "Background",
@@ -511,6 +525,7 @@
         "columnRowSection": "Column & Row Settings",
         "defaultTextAlign": "Default Text Align",
         "headerTextAlign": "Header Text Align",
+        "headerTextPadding": "Header Text Padding",
         "rowHeight": "Row Height",
         "alignLeft": "Left",
         "alignCenter": "Center",
@@ -522,7 +537,15 @@
         "headerVerticalAlign": "Header Vertical Align",
         "heightCompact": "Compact",
         "heightDefault": "Default",
-        "heightComfortable": "Comfortable"
+        "heightComfortable": "Comfortable",
+        "columnMenuSection": "Column Menu",
+        "columnMenuBackground": "Menu Background",
+        "columnMenuTextColor": "Menu Text",
+        "columnMenuBorderColor": "Menu Border",
+        "columnMenuHoverBackground": "Menu Hover",
+        "columnMenuSeparatorColor": "Menu Separator",
+        "columnMenuTriggerColor": "Trigger Icon",
+        "columnMenuTriggerHoverColor": "Trigger Icon Hover"
       },
       "dialog": {
         "title": "Dialog",
@@ -825,7 +848,11 @@
     "removeGroup": "Remove {{p1}} grouping",
     "editRecord": "Edit Record",
     "editField": "Edit {{p1}} field",
-    "actions": "Actions"
+    "actions": "Actions",
+    "columnMenu": "Column menu for {{p1}}",
+    "sortAscending": "Sort Ascending",
+    "sortDescending": "Sort Descending",
+    "columns": "Columns"
   },
   "components": {
     "title": "Components Showcase",
@@ -1464,11 +1491,21 @@
       "syncfusionTitle": "Syncfusion Tag",
       "syncfusionDescription": "Syncfusion-styled chip/tag component"
     },
+    "chipShowcase": {
+      "nativeTitle": "Native Chip",
+      "nativeDescription": "Zero-dependency chip component with variants, icons, and removable support",
+      "syncfusionTitle": "Syncfusion Chip",
+      "syncfusionDescription": "Syncfusion-styled chip component with variants and sizes"
+    },
     "badgeShowcase": {
       "nativeTitle": "Native Badge",
       "nativeDescription": "Zero-dependency badge component with dot, count, and text modes",
       "syncfusionTitle": "Syncfusion Badge",
       "syncfusionDescription": "Syncfusion-styled badge component"
+    },
+    "alertBadgeShowcase": {
+      "title": "Alert Badge",
+      "description": "Themed badge component for security alerts, severity levels, SLA status, and risk scores"
     },
     "avatarShowcase": {
       "nativeTitle": "Native Avatar",

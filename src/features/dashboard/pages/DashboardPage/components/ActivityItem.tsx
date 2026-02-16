@@ -1,5 +1,7 @@
 import { memo } from 'react';
 
+import { TextNative, TextVariant } from '@/components/ui/native';
+
 interface ActivityItemProps {
   title: string;
   time: string;
@@ -33,8 +35,8 @@ export const ActivityItem = memo(({ title, time, icon }: ActivityItemProps): JSX
         </svg>
       </div>
       <div className="flex-1">
-        <p className="text-sm font-medium text-text-primary">{title}</p>
-        <p className="text-xs text-text-muted">{time}</p>
+        <TextNative variant={TextVariant.Label}>{title}</TextNative>
+        <TextNative variant={TextVariant.Caption}>{time}</TextNative>
       </div>
     </div>
   );

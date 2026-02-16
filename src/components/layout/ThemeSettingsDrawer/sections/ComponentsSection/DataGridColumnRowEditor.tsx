@@ -108,6 +108,13 @@ export const DataGridColumnRowEditor = ({
         </select>
       </div>
 
+      {/* Header Text Padding */}
+      <TextInputRow
+        label={FM('themeSettings.components.dataGrid.headerTextPadding')}
+        value={config.headerTextPadding}
+        onChange={(value) => onUpdate({ headerTextPadding: value })}
+      />
+
       {/* Cell Padding */}
       <TextInputRow
         label={FM('themeSettings.components.dataGrid.cellPadding')}

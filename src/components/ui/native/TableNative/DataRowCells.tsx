@@ -13,6 +13,8 @@ import { TextAlign } from './types';
 
 import type { TableColumn } from './types';
 
+const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
+
 const ALIGN_CLASSES: Record<TextAlign, string> = {
   [TextAlign.Left]: 'text-left',
   [TextAlign.Center]: 'text-center',
@@ -79,7 +81,7 @@ interface EditableCellProps {
 const EditableCell = memo(({ column, cellPadding, editing, isDirty, row }: EditableCellProps): JSX.Element => {
   const align = column.textAlign ?? TextAlign.Left;
   return (
-    <td className={cn(cellPadding, ALIGN_CLASSES[align], 'overflow-hidden')}>
+    <td className={cn(cellPadding, ALIGN_CLASSES[align], 'overflow-hidden')} style={CELL_PADDING_STYLE}>
       <EditCell
         field={column.field}
         isDirty={isDirty}
@@ -124,6 +126,7 @@ const ReadOnlyCell = memo(({
         isDirty && DIRTY_CELL_BG,
       )}
       data-testid={`cell-${String(rowId)}-${column.field}`}
+      style={CELL_PADDING_STYLE}
       onClick={(e) => {
         if (selectionEnabled && isValueDefined(selection))
           selection.handleCellClick(row, column.field, e);

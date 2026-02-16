@@ -10,6 +10,7 @@ import {
   createModeConfigActions,
   createThemeUpdateActions,
   createTypographyActions,
+  createTypographyComponentActions,
 } from './actions';
 import { DEFAULT_THEME } from './defaultTheme';
 import { Mode } from './types';
@@ -30,6 +31,7 @@ export function createThemeActions(set: SetState, get: GetState): ThemeState {
     ...createComponentConfigActions(set, get),
     ...createTypographyActions(set, get),
     ...createLayoutActions(set, get),
+    ...createTypographyComponentActions(set, get),
     ...createAnimationActions(set, get),
   };
 }

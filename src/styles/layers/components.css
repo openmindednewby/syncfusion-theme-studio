@@ -857,4 +857,28 @@
   .native-grid-action-btn:hover {
     background-color: var(--component-datagrid-action-btn-hover) !important;
   }
+
+  /* ===== NATIVE GRID COLUMN MENU ===== */
+  .native-grid-colmenu-trigger {
+    color: var(--component-datagrid-colmenu-trigger);
+    transition: color 150ms ease;
+  }
+
+  .native-grid-colmenu-trigger:hover {
+    color: var(--component-datagrid-colmenu-trigger-hover);
+  }
+
+  .native-grid-colmenu-popup {
+    background-color: var(--component-datagrid-colmenu-bg);
+    border: 1px solid var(--component-datagrid-colmenu-border);
+    color: var(--component-datagrid-colmenu-text);
+  }
+
+  .native-grid-colmenu-item:hover {
+    background-color: var(--component-datagrid-colmenu-hover);
+  }
+
+  .native-grid-colmenu-separator {
+    border-color: var(--component-datagrid-colmenu-separator);
+  }
 }

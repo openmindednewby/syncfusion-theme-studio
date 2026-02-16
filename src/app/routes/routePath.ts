@@ -51,6 +51,10 @@ export const enum RoutePath {
   ComponentsAlertNative = '/dashboard/components/alert/native',
   ComponentsAlertSyncfusion = '/dashboard/components/alert/syncfusion',
 
+  // AlertBadge
+  ComponentsAlertBadge = '/dashboard/components/alertbadge',
+  ComponentsAlertBadgeNative = '/dashboard/components/alertbadge/native',
+
   // Checkbox
   ComponentsCheckbox = '/dashboard/components/checkbox',
   ComponentsCheckboxNative = '/dashboard/components/checkbox/native',
@@ -116,6 +120,11 @@ export const enum RoutePath {
   ComponentsCardNative = '/dashboard/components/card/native',
   ComponentsCardSyncfusion = '/dashboard/components/card/syncfusion',
 
+  // Chip
+  ComponentsChip = '/dashboard/components/chip',
+  ComponentsChipNative = '/dashboard/components/chip/native',
+  ComponentsChipSyncfusion = '/dashboard/components/chip/syncfusion',
+
   // ProgressBar
   ComponentsProgressBar = '/dashboard/components/progressbar',
   ComponentsProgressBarNative = '/dashboard/components/progressbar/native',
@@ -137,4 +146,8 @@ export const enum RoutePath {
 
   // Placeholder
   NotImplemented = '/dashboard/not-implemented',
+
+  // ThreatDetectionSample
+  ThreatDetectionSample = '/threatDetection/sample',
+
 }

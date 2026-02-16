@@ -76,3 +76,9 @@ export type { TooltipNativeProps } from './TooltipNative';
 export { default as ThemeToggleNative } from './ThemeToggleNative';
 export { ThemeToggleSize } from './ThemeToggleNative/themeToggleSize';
 export type { ThemeToggleNativeProps } from './ThemeToggleNative';
+
+export { default as HeadingNative, HeadingLevel } from './HeadingNative';
+export type { HeadingNativeProps } from './HeadingNative';
+
+export { default as TextNative, TextVariant } from './TextNative';
+export type { TextNativeProps } from './TextNative';

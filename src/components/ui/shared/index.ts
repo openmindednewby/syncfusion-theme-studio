@@ -21,3 +21,6 @@ export { ProgressBarVariant } from './progressBarTypes';
 export type { BaseProgressBarProps } from './progressBarTypes';
 export { TooltipPlacement } from './tooltipTypes';
 export type { BaseTooltipProps } from './tooltipTypes';
+
+export { HeadingLevel } from './headingLevel';
+export { TextVariant } from './textVariant';

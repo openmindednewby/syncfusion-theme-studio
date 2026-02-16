@@ -18,3 +18,5 @@ export {
 } from './layoutInjector';
 
 export { injectComponentVariables } from './componentInjector';
+
+export { injectTypographyComponentVariables } from './typographyComponentInjector';

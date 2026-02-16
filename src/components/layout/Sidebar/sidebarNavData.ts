@@ -17,6 +17,7 @@ import {
   SAMPLE_MANAGER_CHILDREN,
   THREAT_INTEL_CHILDREN,
 } from './sidebarNavChildren';
+import { THREAT_DETECTION_CHILDREN } from './sidebarThreatDetectionGroups';
 import { SubNavId } from './subNavId';
 
 import type { NavChild } from './NavExpandableItem';
@@ -115,7 +116,7 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
     expandTestId: TestIds.NAV_THREAT_DETECTION_EXPAND,
     pathPrefix: RoutePrefix.ThreatDetection,
     iconName: IconName.ShieldAlert,
-    children: COMPONENTS_CHILDREN,
+    children: THREAT_DETECTION_CHILDREN,
   },
   {
     id: 'alerts-incidents',

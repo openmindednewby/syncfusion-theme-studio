@@ -56,6 +56,7 @@ export const AlertManagementSection = memo((): JSX.Element => {
       />
       <TableNative
         hoverable
+        showColumnMenu
         striped
         ariaLabel={FM('components.gridShowcase.sections.alertManagement')}
         columns={NATIVE_ALERT_COLUMNS}

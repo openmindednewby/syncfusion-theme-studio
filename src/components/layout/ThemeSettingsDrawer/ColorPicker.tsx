@@ -8,6 +8,7 @@ const DEFAULT_RGB = '0 0 0';
 const DEFAULT_HEX = '#000000';
 
 function rgbToHex(rgb: string): string {
+  if (rgb === '') return DEFAULT_HEX;
   const parts = rgb.split(' ').map(Number);
   const r = parts[0];
   const g = parts[1];

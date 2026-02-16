@@ -57,6 +57,10 @@ interface Props {
   onDelete?: (row: Record<string, unknown>) => void;
   onAdd?: (row: Record<string, unknown>) => void;
   onBatchSave?: (changes: { added: Array<Record<string, unknown>>; edited: Array<Record<string, unknown>>; deleted: Array<Record<string, unknown>> }) => void;
+
+  // Column Menu
+  /** Show column menu trigger (⋮) in each header cell */
+  showColumnMenu?: boolean;
 }
 
 const TableNative = forwardRef<HTMLTableElement, Props>(

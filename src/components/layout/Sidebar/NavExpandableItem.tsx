@@ -6,9 +6,6 @@ import { FM } from '@/localization/helpers';
 
 import { NavSubGroup } from './NavSubGroup';
 
-const EXPAND_ARROW = '\u25BC';
-const BULLET = '\u2022';
-
 export interface SubNavItem {
   path: string;
   labelKey: string;
@@ -77,16 +74,19 @@ export const NavExpandableItem = ({
         type="button"
         onClick={handleToggle}
       >
-        <span aria-hidden="true" className="text-lg">{icon}</span>
         {!isCollapsed && (
           <>
-            <span className="flex-1 text-left">{sectionName}</span>
-            <span
+            <span aria-hidden="true" className="text-lg">{icon}</span>
+            <svg
               aria-hidden="true"
-              className={`text-xs transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+              className={`size-4 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 16 16"
             >
-              {EXPAND_ARROW}
-            </span>
+              <path d="M4 6l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+            </svg>
+            <span className="flex-1 text-left">{sectionName}</span>
           </>
         )}
       </button>
@@ -115,7 +115,7 @@ export const NavExpandableItem = ({
                   data-testid={child.testId}
                   to={child.path}
                 >
-                  <span aria-hidden="true" className="text-xs">{BULLET}</span>
+                  <span aria-hidden="true" className="text-xs" />
                   <span>{FM(child.labelKey)}</span>
                 </NavLink>
               </li>

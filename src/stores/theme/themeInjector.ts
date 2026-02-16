@@ -11,6 +11,7 @@ import {
   injectSpacingVariables,
   injectStatusColors,
   injectTransitionVariables,
+  injectTypographyComponentVariables,
   injectTypographyVariables,
 } from './injectors';
 import { Mode } from './types';
@@ -34,6 +35,7 @@ export function injectThemeVariables(theme: ThemeConfig, mode: Mode): void {
     injectShadowVariables(root, theme.shadows);
     injectLayoutVariables(root, theme);
     injectTypographyVariables(root, theme);
+    injectTypographyComponentVariables(root, theme);
     injectTransitionVariables(root, theme);
     injectAnimationVariables(root, theme.animations);
 

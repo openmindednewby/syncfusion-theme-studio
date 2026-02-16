@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 import { AnimationIntensity } from '../types/animationIntensity';
 
@@ -159,4 +160,5 @@ export const OCEAN_BLUE_THEME: ThemeConfig = {
   light: OCEAN_BLUE_LIGHT_MODE,
   dark: OCEAN_BLUE_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

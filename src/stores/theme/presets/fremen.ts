@@ -12,6 +12,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 
 import type { ThemeConfig } from '../types';
@@ -159,4 +160,5 @@ export const FREMEN_THEME: ThemeConfig = {
   light: FREMEN_LIGHT_MODE,
   dark: FREMEN_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

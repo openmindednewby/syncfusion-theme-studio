@@ -618,6 +618,18 @@
     background-color: rgb(var(--color-surface)) !important;
     border-color: rgb(var(--color-border)) !important;
     border-radius: var(--radius-lg) !important;
+  }
+
+  /* Clip content at rounded corners on inner containers only.
+     overflow:hidden on .e-grid itself blocks column-menu / filter popups
+     that Syncfusion renders inside the grid DOM. */
+  .e-grid > .e-gridheader {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+    overflow: hidden;
+  }
+
+  .e-grid > .e-pager {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
     overflow: hidden;
   }
 
@@ -633,6 +645,17 @@
     font-weight: 600;
     text-align: var(--component-datagrid-header-text-align) !important;
     vertical-align: var(--component-datagrid-header-vertical-align) !important;
+    padding: var(--component-datagrid-header-text-padding) !important;
+  }
+
+  /* Syncfusion's inner header div uses flexbox — text-align on the parent
+     .e-headercell has no effect on flex children.  Mirror the configured
+     alignment with justify-content so headers actually center / align.
+     text-align is set as a fallback for non-flex rendering modes. */
+  .e-grid .e-headercell .e-headercelldiv,
+  .e-grid .e-detailheadercell .e-headercelldiv {
+    text-align: var(--component-datagrid-header-text-align) !important;
+    justify-content: var(--component-datagrid-header-text-align) !important;
   }
 
   .e-grid .e-rowcell {

@@ -24,6 +24,7 @@ import { SelectEditor } from './SelectEditor';
 import { SidebarEditor } from './SidebarEditor';
 import { ToastEditor } from './ToastEditor';
 import { ToolbarEditor } from './ToolbarEditor';
+import { TypographyComponentEditor } from './TypographyComponentEditor';
 
 export const ComponentsSection = (): JSX.Element => {
   const {
@@ -52,6 +53,7 @@ export const ComponentsSection = (): JSX.Element => {
     updateMenuConfig,
     updateBreadcrumbConfig,
     updatePaginationConfig,
+    updateTypographyComponentLevel,
   } = useThemeStore();
 
   // Get the current mode's component configuration
@@ -94,6 +96,7 @@ export const ComponentsSection = (): JSX.Element => {
         <MenuEditor config={components.menu} onUpdate={updateMenuConfig} />
         <BreadcrumbEditor config={components.breadcrumb} onUpdate={updateBreadcrumbConfig} />
         <PaginationEditor config={components.pagination} onUpdate={updatePaginationConfig} />
+        <TypographyComponentEditor config={theme.typographyComponents} onUpdate={updateTypographyComponentLevel} />
       </div>
     </section>
   );

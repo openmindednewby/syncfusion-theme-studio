@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 import { AnimationIntensity } from '../types/animationIntensity';
 
@@ -159,4 +160,5 @@ export const ROYAL_PURPLE_THEME: ThemeConfig = {
   light: ROYAL_PURPLE_LIGHT_MODE,
   dark: ROYAL_PURPLE_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

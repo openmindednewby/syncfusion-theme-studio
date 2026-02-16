@@ -44,6 +44,10 @@ export const enum RouteSegment {
   ComponentsAlertNative = 'components/alert/native',
   ComponentsAlertSyncfusion = 'components/alert/syncfusion',
 
+  // AlertBadge
+  ComponentsAlertBadge = 'components/alertbadge',
+  ComponentsAlertBadgeNative = 'components/alertbadge/native',
+
   // Checkbox
   ComponentsCheckbox = 'components/checkbox',
   ComponentsCheckboxNative = 'components/checkbox/native',
@@ -108,6 +112,11 @@ export const enum RouteSegment {
   ComponentsCard = 'components/card',
   ComponentsCardNative = 'components/card/native',
   ComponentsCardSyncfusion = 'components/card/syncfusion',
+
+  // Chip
+  ComponentsChip = 'components/chip',
+  ComponentsChipNative = 'components/chip/native',
+  ComponentsChipSyncfusion = 'components/chip/syncfusion',
 
   // ProgressBar
   ComponentsProgressBar = 'components/progressbar',

@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 import { AnimationIntensity } from '../types/animationIntensity';
 
@@ -159,4 +160,5 @@ export const LAVENDER_THEME: ThemeConfig = {
   light: LAVENDER_LIGHT_MODE,
   dark: LAVENDER_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

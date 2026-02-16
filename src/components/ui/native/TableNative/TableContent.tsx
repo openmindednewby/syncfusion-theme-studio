@@ -11,6 +11,8 @@ import type { GridConfig } from '@/lib/grid/types';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
+import { useColumnMenu } from './columnMenu/useColumnMenu';
+import { useColumnVisibility } from './columnMenu/useColumnVisibility';
 import EditDialog from './EditDialog';
 import GroupDropArea from './GroupDropArea';
 import { useTableFeatures } from './hooks/useTableFeatures';
@@ -26,8 +28,8 @@ import type { EditingConfig, GroupingConfig, SelectionConfig, TableColumn } from
 const EXTRA_COLS_NONE = 0;
 const CHECKBOX_COL = 1;
 const COMMAND_COL = 1;
-const COMPACT_PADDING = 'px-3 py-1.5 text-xs';
-const DEFAULT_PADDING = 'px-4 py-3 text-sm';
+const COMPACT_TEXT = 'text-xs';
+const DEFAULT_TEXT = 'text-sm';
 
 /** Calculate total column span including extra columns */
 function calcColSpan(columnCount: number, flags: FeatureFlags): number {
@@ -70,6 +72,7 @@ interface Props {
   onAdd?: (row: Record<string, unknown>) => void;
   onBatchSave?: (changes: { added: Array<Record<string, unknown>>; edited: Array<Record<string, unknown>>; deleted: Array<Record<string, unknown>> }) => void;
   tableRef: React.Ref<HTMLTableElement>;
+  showColumnMenu?: boolean;
 }
 
 const TableContent = ({
@@ -80,21 +83,25 @@ const TableContent = ({
   aggregates,
   editConfig, onSave, onDelete, onAdd, onBatchSave,
   tableRef,
+  showColumnMenu = false,
   // eslint-disable-next-line complexity -- conditional rendering for grid features (filter/group/edit/aggregate/paginate)
 }: Props): JSX.Element => {
-  const fields = useMemo(() => columns.map((c) => c.field), [columns]);
+  const columnMenu = useColumnMenu();
+  const columnVisibility = useColumnVisibility(columns);
+  const activeColumns = showColumnMenu ? columnVisibility.visibleColumns : columns;
+  const fields = useMemo(() => activeColumns.map((c) => c.field), [activeColumns]);
   const gridState = useNativeGridState(data, fields, gridConfig);
 
   const { flags, selection, grouping, aggregateResult, editing } = useTableFeatures({
-    processedData: gridState.processedData, columns,
+    processedData: gridState.processedData, columns: activeColumns,
     selectionConfig, onRowSelected, onRowDeselected, onSelectionChange,
     groupConfig, onGroupChange, aggregates,
     editConfig, onSave, onDelete, onAdd, onBatchSave,
   });
 
-  const colSpan = calcColSpan(columns.length, flags);
+  const colSpan = calcColSpan(activeColumns.length, flags);
   const isFilterEnabled = shouldShowFilter(gridConfig);
-  const cellPadding = compact ? COMPACT_PADDING : DEFAULT_PADDING;
+  const cellPadding = compact ? COMPACT_TEXT : DEFAULT_TEXT;
   const tableLayoutClass = gridConfig?.tableLayout === 'auto' ? '' : 'table-fixed';
   const showGroupDropArea = flags.groupingEnabled && flags.showDropArea;
   const isDialogMode = flags.editingEnabled && editConfig?.mode === 'Dialog';
@@ -115,27 +122,34 @@ const TableContent = ({
         data-testid={testId}
       >
         <TableHeader
+          allColumns={showColumnMenu ? columns : undefined}
           cellPadding={cellPadding}
-          columns={columns}
+          columns={activeColumns}
           columnTypes={gridState.columnTypes}
           draggableHeaders={showGroupDropArea}
           fields={fields}
           filterValues={gridState.filterValues}
+          hiddenFields={showColumnMenu ? columnVisibility.hiddenFields : undefined}
           isAllSelected={selection.isAllSelected}
           isFilterEnabled={isFilterEnabled}
+          openMenuField={showColumnMenu ? columnMenu.openField : undefined}
           showCheckbox={flags.showCheckbox}
+          showColumnMenu={showColumnMenu}
           sortDirection={gridState.sortDirection}
           sortField={gridState.sortField}
           onFilterChange={gridState.onFilterChange}
+          onMenuClose={showColumnMenu ? columnMenu.close : undefined}
+          onMenuToggle={showColumnMenu ? columnMenu.toggle : undefined}
           onSelectAll={selection.handleSelectAll}
           onSort={gridState.onSort}
+          onToggleColumnVisibility={showColumnMenu ? columnVisibility.toggleColumn : undefined}
         />
         <TableBody
           allowDeleting={flags.allowDeleting}
           allowEditing={flags.allowEditing}
           cellPadding={cellPadding}
           colSpan={colSpan}
-          columns={columns}
+          columns={activeColumns}
           data={gridState.processedData}
           editing={resolveOptionalHandlers(flags.editingEnabled, editing)}
           editingEnabled={flags.editingEnabled}
@@ -152,7 +166,7 @@ const TableContent = ({
           <TableFooter
             aggregateRows={aggregateResult.aggregateRows}
             cellPadding={cellPadding}
-            columns={columns}
+            columns={activeColumns}
             hasCheckboxColumn={flags.showCheckbox}
           />
         ) : null}
@@ -173,7 +187,7 @@ const TableContent = ({
       ) : null}
       {isDialogMode ? (
         <EditDialog
-          columns={columns}
+          columns={activeColumns}
           editValues={editing.editValues}
           isOpen={editing.isDialogOpen}
           onCancel={editing.cancelEdit}

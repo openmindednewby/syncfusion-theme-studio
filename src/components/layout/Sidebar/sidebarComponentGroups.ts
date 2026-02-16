@@ -31,6 +31,7 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
       { path: RoutePath.ComponentsAlertSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_ALERT_SYNCFUSION },
     ],
   },
+  { path: RoutePath.ComponentsAlertBadgeNative, labelKey: 'menu.alertBadge', testId: ComponentTestIds.NAV_ALERTBADGE_GROUP },
   {
     labelKey: 'menu.avatar', testId: ComponentTestIds.NAV_AVATAR_GROUP,
     expandTestId: ComponentTestIds.NAV_AVATAR_GROUP_EXPAND, items: [
@@ -71,6 +72,13 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
     expandTestId: ComponentTestIds.NAV_CHECKBOX_GROUP_EXPAND, items: [
       { path: RoutePath.ComponentsCheckboxNative, labelKey: 'menu.native', testId: ComponentTestIds.NAV_CHECKBOX_NATIVE },
       { path: RoutePath.ComponentsCheckboxSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_CHECKBOX_SYNCFUSION },
+    ],
+  },
+  {
+    labelKey: 'menu.chip', testId: ComponentTestIds.NAV_CHIP_GROUP,
+    expandTestId: ComponentTestIds.NAV_CHIP_GROUP_EXPAND, items: [
+      { path: RoutePath.ComponentsChipNative, labelKey: 'menu.native', testId: ComponentTestIds.NAV_CHIP_NATIVE },
+      { path: RoutePath.ComponentsChipSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_CHIP_SYNCFUSION },
     ],
   },
   {

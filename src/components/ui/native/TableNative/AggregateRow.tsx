@@ -8,6 +8,8 @@ import { cn } from '@/utils/cn';
 
 import type { ComputedAggregate } from './hooks/useTableAggregates';
 
+const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
+
 interface ColumnDef {
   field: string;
 }
@@ -38,7 +40,7 @@ const AggregateRow = ({
         borderColor: 'var(--component-datagrid-cell-border)',
       }}
     >
-      {hasCheckboxColumn ? <td className={cellPadding} /> : null}
+      {hasCheckboxColumn ? <td className={cellPadding} style={CELL_PADDING_STYLE} /> : null}
       {columns.map((col) => {
         const agg = getAggregateForField(col.field);
         return (
@@ -46,7 +48,7 @@ const AggregateRow = ({
             key={col.field}
             className={cn(cellPadding, 'text-sm')}
             data-testid={`aggregate-cell-${col.field}`}
-            style={{ color: 'var(--component-datagrid-footer-text)' }}
+            style={{ padding: 'var(--component-datagrid-cell-padding)', color: 'var(--component-datagrid-footer-text)' }}
           >
             {agg?.formatted ?? ''}
           </td>

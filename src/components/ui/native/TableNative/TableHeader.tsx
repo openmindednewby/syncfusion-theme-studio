@@ -9,11 +9,14 @@ import { FM } from '@/localization/helpers';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
 
+import ColumnMenuPopup from './columnMenu/ColumnMenuPopup';
+import ColumnMenuTrigger from './columnMenu/ColumnMenuTrigger';
 import FilterRow from './filters/FilterRow';
 import { TextAlign } from './types';
 
 import type { TableColumn } from './types';
 
+const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
 const SORT_ASCENDING_INDICATOR = '\u25B2';
 const SORT_DESCENDING_INDICATOR = '\u25BC';
 
@@ -65,6 +68,13 @@ interface Props {
   isAllSelected?: boolean | undefined;
   onSelectAll?: (() => void) | undefined;
   draggableHeaders?: boolean | undefined;
+  showColumnMenu?: boolean | undefined;
+  openMenuField?: string | null | undefined;
+  onMenuToggle?: ((field: string) => void) | undefined;
+  onMenuClose?: (() => void) | undefined;
+  allColumns?: TableColumn[] | undefined;
+  hiddenFields?: Set<string> | undefined;
+  onToggleColumnVisibility?: ((field: string) => void) | undefined;
 }
 
 const TableHeader = ({
@@ -82,6 +92,13 @@ const TableHeader = ({
   isAllSelected = false,
   onSelectAll,
   draggableHeaders = false,
+  showColumnMenu = false,
+  openMenuField = null,
+  onMenuToggle,
+  onMenuClose,
+  allColumns,
+  hiddenFields,
+  onToggleColumnVisibility,
 }: Props): JSX.Element => {
   const handleDragStart = useCallback(
     (e: React.DragEvent, field: string) => {
@@ -90,6 +107,24 @@ const TableHeader = ({
     },
     [draggableHeaders],
   );
+
+  const renderColumnMenuPopup = (field: string): JSX.Element | null => {
+    if (!showColumnMenu || openMenuField !== field) return null;
+    if (!onMenuClose || !allColumns) return null;
+    if (!hiddenFields || !onToggleColumnVisibility) return null;
+    return (
+      <ColumnMenuPopup
+        allColumns={allColumns}
+        field={field}
+        hiddenFields={hiddenFields}
+        sortDirection={sortDirection}
+        sortField={sortField}
+        onClose={onMenuClose}
+        onSort={onSort}
+        onToggleColumn={onToggleColumnVisibility}
+      />
+    );
+  };
 
   return (
     <thead>
@@ -101,7 +136,7 @@ const TableHeader = ({
         }}
       >
         {showCheckbox ? (
-          <th className={cn(cellPadding, 'w-10 text-center')} scope="col">
+          <th className={cn(cellPadding, 'w-10 text-center')} scope="col" style={CELL_PADDING_STYLE}>
             <input
               aria-label={FM('table.selectAll')}
               checked={isAllSelected}
@@ -121,14 +156,15 @@ const TableHeader = ({
               aria-sort={isSorted ? sortDirection : undefined}
               className={cn(
                 cellPadding,
-                'native-grid-header-cell cursor-pointer select-none font-semibold',
+                'native-grid-header-cell group/th relative cursor-pointer select-none font-semibold',
                 'border-b transition-colors',
-                'overflow-hidden text-ellipsis whitespace-nowrap',
+                'overflow-visible whitespace-nowrap',
                 ALIGN_CLASSES[align],
               )}
               draggable={draggableHeaders}
               scope="col"
               style={{
+                padding: 'var(--component-datagrid-cell-padding)',
                 color: 'var(--component-datagrid-header-text)',
                 borderColor: 'var(--component-datagrid-header-border)',
                 ...buildColumnStyle(column),
@@ -136,12 +172,14 @@ const TableHeader = ({
               onClick={() => onSort(column.field)}
               onDragStart={(e) => handleDragStart(e, column.field)}
             >
-              <span className="inline-flex items-center gap-1">
-                {column.headerText}
+              <span className="inline-flex w-full items-center gap-1">
+                <span className="overflow-hidden text-ellipsis">
+                  {column.headerText}
+                </span>
                 {isSorted ? (
                   <span
                     aria-hidden="true"
-                    className="text-xs"
+                    className="shrink-0 text-xs"
                     style={{ color: 'var(--component-datagrid-sort-icon)' }}
                   >
                     {sortDirection === 'ascending'
@@ -149,7 +187,16 @@ const TableHeader = ({
                       : SORT_DESCENDING_INDICATOR}
                   </span>
                 ) : null}
+                {showColumnMenu && onMenuToggle ? (
+                  <ColumnMenuTrigger
+                    field={column.field}
+                    headerText={column.headerText}
+                    isOpen={openMenuField === column.field}
+                    onToggle={onMenuToggle}
+                  />
+                ) : null}
               </span>
+              {renderColumnMenuPopup(column.field)}
             </th>
           );
         })}

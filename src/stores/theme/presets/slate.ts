@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 import { AnimationIntensity } from '../types/animationIntensity';
 
@@ -159,4 +160,5 @@ export const SLATE_THEME: ThemeConfig = {
   light: SLATE_LIGHT_MODE,
   dark: SLATE_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

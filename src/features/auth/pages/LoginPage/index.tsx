@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, type ChangeEvent } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import { ButtonNative, ButtonVariant, InputNative } from '@/components/ui/native';
+import { ButtonNative, ButtonVariant, HeadingNative, HeadingLevel, InputNative, TextNative, TextVariant } from '@/components/ui/native';
 import { startPhasedPreload } from '@/config/preloadOrchestrator';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -96,8 +96,8 @@ const LoginPage = (): JSX.Element => {
 
         <div className="card">
           <div className="mb-6 text-center">
-            <h1 className="text-2xl font-bold text-text-primary">{FM('login.title')}</h1>
-            <p className="mt-1 text-text-secondary">{FM('login.subtitle')}</p>
+            <HeadingNative level={HeadingLevel.H1}>{FM('login.title')}</HeadingNative>
+            <TextNative className="mt-1" variant={TextVariant.Secondary}>{FM('login.subtitle')}</TextNative>
           </div>
 
           <form className="space-y-4" onSubmit={handleSubmit}>
@@ -126,7 +126,7 @@ const LoginPage = (): JSX.Element => {
             </ButtonNative>
           </form>
 
-          <p className="mt-4 text-center text-sm text-text-muted">{FM('login.demoHint')}</p>
+          <TextNative className="mt-4 text-center" variant={TextVariant.Muted}>{FM('login.demoHint')}</TextNative>
         </div>
       </div>
     </div>

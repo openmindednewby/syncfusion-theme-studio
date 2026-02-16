@@ -15,7 +15,9 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 // v2: Added ChipConfig to component configurations
 // v3: Added fontSize, fontWeight, lineHeight, letterSpacing to TypographyConfig
 // v4: Added AnimationConfig to ThemeConfig + per-component animation fields
-const THEME_SCHEMA_VERSION = 4;
+// v5: Added TypographyComponentsConfig to ThemeConfig
+// v6: Added headerTextPadding to DataGridConfig
+const THEME_SCHEMA_VERSION = 6;
 
 export const useThemeStore = create<ThemeState>()(
   devtools(

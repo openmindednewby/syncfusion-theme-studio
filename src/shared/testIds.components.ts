@@ -10,6 +10,7 @@ export const ComponentTestIds = {
   GRID_ALERT_MANAGEMENT_TABLE: 'grid-alert-management-table',
 
   // Component Showcase Pages
+  ALERT_BADGE_SHOWCASE: 'alert-badge-showcase',
   NATIVE_BUTTON_SHOWCASE: 'native-button-showcase',
   SYNCFUSION_BUTTON_SHOWCASE: 'syncfusion-button-showcase',
   NATIVE_INPUT_SHOWCASE: 'native-input-showcase',
@@ -86,6 +87,8 @@ export const ComponentTestIds = {
   SYNCFUSION_PROGRESSBAR_SHOWCASE: 'syncfusion-progressbar-showcase',
   NATIVE_TOOLTIP_SHOWCASE: 'native-tooltip-showcase',
   SYNCFUSION_TOOLTIP_SHOWCASE: 'syncfusion-tooltip-showcase',
+  NATIVE_CHIP_SHOWCASE: 'native-chip-showcase',
+  SYNCFUSION_CHIP_SHOWCASE: 'syncfusion-chip-showcase',
   NATIVE_THEMETOGGLE_SHOWCASE: 'native-themetoggle-showcase',
 
   // New navigation test IDs
@@ -105,9 +108,12 @@ export const ComponentTestIds = {
   NAV_PROGRESSBAR_SYNCFUSION: 'nav-progressbar-syncfusion',
   NAV_TOOLTIP_NATIVE: 'nav-tooltip-native',
   NAV_TOOLTIP_SYNCFUSION: 'nav-tooltip-syncfusion',
+  NAV_CHIP_NATIVE: 'nav-chip-native',
+  NAV_CHIP_SYNCFUSION: 'nav-chip-syncfusion',
   NAV_THEMETOGGLE_NATIVE: 'nav-themetoggle-native',
 
   // Component SubNavGroup test IDs
+  NAV_ALERTBADGE_GROUP: 'nav-alertbadge-group',
   NAV_OVERVIEW_GROUP: 'nav-overview-group',
   NAV_OVERVIEW_GROUP_EXPAND: 'nav-overview-group-expand',
   NAV_ACCORDION_GROUP: 'nav-accordion-group',
@@ -126,6 +132,8 @@ export const ComponentTestIds = {
   NAV_CARD_GROUP_EXPAND: 'nav-card-group-expand',
   NAV_CHECKBOX_GROUP: 'nav-checkbox-group',
   NAV_CHECKBOX_GROUP_EXPAND: 'nav-checkbox-group-expand',
+  NAV_CHIP_GROUP: 'nav-chip-group',
+  NAV_CHIP_GROUP_EXPAND: 'nav-chip-group-expand',
   NAV_DATEPICKER_GROUP: 'nav-datepicker-group',
   NAV_DATEPICKER_GROUP_EXPAND: 'nav-datepicker-group-expand',
   NAV_DIALOG_GROUP: 'nav-dialog-group',
@@ -154,6 +162,10 @@ export const ComponentTestIds = {
   NAV_TOOLBAR_GROUP_EXPAND: 'nav-toolbar-group-expand',
   NAV_TOOLTIP_GROUP: 'nav-tooltip-group',
   NAV_TOOLTIP_GROUP_EXPAND: 'nav-tooltip-group-expand',
+
+  // Threat Detection & Analysis
+  NAV_THREAT_DETECTION_GROUP: 'nav-threat-detection-group',
+  NAV_THREAT_DETECTION_GROUP_EXPAND: 'nav-threat-detection-group-expand',
 
   // Table Action Menu
   ACTION_MENU_VIEW: 'alert-action-view',

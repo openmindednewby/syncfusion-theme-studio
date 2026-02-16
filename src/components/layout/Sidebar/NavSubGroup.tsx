@@ -5,7 +5,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
-const EXPAND_ARROW = '\u25BC';
 const BULLET = '\u2022';
 
 interface SubNavItem {
@@ -62,13 +61,16 @@ export const NavSubGroup = ({
         type="button"
         onClick={handleToggle}
       >
-        <span className="flex-1 text-left">{sectionName}</span>
-        <span
+        <svg
           aria-hidden="true"
-          className={`text-xs transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          className={`size-4 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 16 16"
         >
-          {EXPAND_ARROW}
-        </span>
+          <path d="M4 6l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+        </svg>
+        <span className="flex-1 text-left">{sectionName}</span>
       </button>
 
       {isExpanded ? (

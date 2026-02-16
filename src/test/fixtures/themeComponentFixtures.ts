@@ -188,9 +188,17 @@ const createDataGrid = (): DataGridConfig => ({
   dragHandleColor: '156 163 175',
   defaultTextAlign: 'left',
   headerTextAlign: 'left',
+  headerTextPadding: '0px 0px 0px 34px',
   defaultVerticalAlign: 'middle',
   headerVerticalAlign: 'middle',
   rowHeight: '42px',
+  columnMenuBackground: '255 255 255',
+  columnMenuTextColor: '55 65 81',
+  columnMenuBorderColor: '229 231 235',
+  columnMenuHoverBackground: '243 244 246',
+  columnMenuSeparatorColor: '229 231 235',
+  columnMenuTriggerColor: '156 163 175',
+  columnMenuTriggerHoverColor: '55 65 81',
 });
 
 const createCards = (): CardsConfig => ({

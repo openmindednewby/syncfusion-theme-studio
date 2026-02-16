@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
 import { RoutePath } from '@/app/routePaths';
+import { HeadingNative, HeadingLevel, TextNative, TextVariant } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
@@ -18,7 +19,7 @@ const DashboardPage = (): JSX.Element => {
 
   return (
     <div className="space-y-6" data-testid={TestIds.DASHBOARD_HEADING}>
-      <h2 className="text-2xl font-bold text-text-primary">{FM('dashboard.title')}</h2>
+      <HeadingNative level={HeadingLevel.H2}>{FM('dashboard.title')}</HeadingNative>
 
       {/* Stats Grid */}
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
@@ -57,8 +58,8 @@ const DashboardPage = (): JSX.Element => {
       {/* Welcome Card and Activity */}
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="card lg:col-span-2">
-          <h3 className="mb-4 text-lg font-semibold text-text-primary">{FM('dashboard.welcome')}</h3>
-          <p className="text-text-secondary">{FM('dashboard.welcomeDescription')}</p>
+          <HeadingNative className="mb-4" level={HeadingLevel.H3}>{FM('dashboard.welcome')}</HeadingNative>
+          <TextNative variant={TextVariant.Secondary}>{FM('dashboard.welcomeDescription')}</TextNative>
 
           {/* Quick Actions */}
           <div className="mt-6 flex flex-wrap gap-3">
@@ -83,7 +84,7 @@ const DashboardPage = (): JSX.Element => {
 
         {/* Recent Activity */}
         <div className="card">
-          <h3 className="mb-4 text-lg font-semibold text-text-primary">{FM('dashboard.recentActivity')}</h3>
+          <HeadingNative className="mb-4" level={HeadingLevel.H3}>{FM('dashboard.recentActivity')}</HeadingNative>
           <div className="divide-y divide-border">
             <ActivityItem icon="success" time={FM('dashboard.activity.twoMinutesAgo')} title={FM('dashboard.activity.newUserRegistered')} />
             <ActivityItem icon="info" time={FM('dashboard.activity.oneHourAgo')} title={FM('dashboard.activity.themeUpdated')} />
@@ -95,7 +96,7 @@ const DashboardPage = (): JSX.Element => {
 
       {/* Color Showcase */}
       <div className="card">
-        <h3 className="mb-4 text-lg font-semibold text-text-primary">{FM('dashboard.colorsInAction')}</h3>
+        <HeadingNative className="mb-4" level={HeadingLevel.H3}>{FM('dashboard.colorsInAction')}</HeadingNative>
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
           <div className="rounded-lg bg-primary-500 p-4 text-white">
             <p className="font-semibold">{FM('dashboard.colorPrimary')}</p>

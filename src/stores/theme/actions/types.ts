@@ -83,3 +83,7 @@ export interface LayoutActions {
   updateBorderRadius: ThemeState['updateBorderRadius'];
   updateShadow: ThemeState['updateShadow'];
 }
+
+export interface TypographyComponentActions {
+  updateTypographyComponentLevel: ThemeState['updateTypographyComponentLevel'];
+}

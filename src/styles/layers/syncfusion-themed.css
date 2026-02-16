@@ -154,7 +154,6 @@
 
   .sf-datagrid-wrapper {
     position: relative;
-    overflow: hidden;
   }
 
   .sf-datagrid-loading {

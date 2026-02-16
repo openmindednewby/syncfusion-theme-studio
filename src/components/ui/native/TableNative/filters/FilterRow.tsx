@@ -11,6 +11,8 @@ import DateFilter from './DateFilter';
 import NumberFilter from './NumberFilter';
 import TextFilter from './TextFilter';
 
+const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
+
 interface Props {
   fields: string[];
   columnTypes: Record<string, ColumnType>;
@@ -36,7 +38,7 @@ const FilterRow = ({
       const value = filterValues[field] ?? '';
 
       return (
-        <td key={field} className={cellPadding}>
+        <td key={field} className={cellPadding} style={CELL_PADDING_STYLE}>
           {type === ColumnType.Boolean && (
             <BooleanFilter field={field} value={value} onChange={onFilterChange} />
           )}

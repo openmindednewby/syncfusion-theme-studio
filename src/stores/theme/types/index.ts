@@ -108,5 +108,13 @@ export type {
   AnimationConfig,
 } from './animationTypes';
 
+// Re-export typography component types
+export { TypographyTextColor } from './typographyTextColor';
+
+export type {
+  TypographyLevelConfig,
+  TypographyComponentsConfig,
+} from './typographyComponentTypes';
+
 // Re-export theme config and state types
 export type { ThemeConfig, ThemeState } from './themeTypes';

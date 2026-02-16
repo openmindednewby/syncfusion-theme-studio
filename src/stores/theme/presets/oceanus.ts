@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 
 import type { ThemeConfig } from '../types';
@@ -158,4 +159,5 @@ export const OCEANUS_THEME: ThemeConfig = {
   light: OCEANUS_LIGHT_MODE,
   dark: OCEANUS_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

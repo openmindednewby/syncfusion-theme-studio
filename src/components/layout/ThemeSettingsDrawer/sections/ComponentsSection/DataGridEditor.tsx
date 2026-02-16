@@ -2,6 +2,7 @@ import { FM } from '@/localization/helpers';
 import type { DataGridConfig } from '@/stores/theme/types';
 
 import { CollapsibleSection } from './CollapsibleSection';
+import { DataGridColumnMenuEditor } from './DataGridColumnMenuEditor';
 import { DataGridColumnRowEditor } from './DataGridColumnRowEditor';
 import { DataGridDetailDragEditor } from './DataGridDetailDragEditor';
 import { DataGridEditSelectionEditor } from './DataGridEditSelectionEditor';
@@ -15,7 +16,7 @@ interface DataGridEditorProps {
   onUpdate: (updates: Partial<DataGridConfig>) => void;
 }
 
-const DATAGRID_PROPERTY_COUNT = 38;
+const DATAGRID_PROPERTY_COUNT = 53;
 
 const TableIcon = (): JSX.Element => (
   <svg
@@ -91,6 +92,7 @@ export const DataGridEditor = ({ config, onUpdate }: DataGridEditorProps): JSX.E
       <HeaderRowsSubSection config={config} onUpdate={onUpdate} />
       <DataGridColumnRowEditor config={config} onUpdate={onUpdate} />
       <DataGridToolbarFilterEditor config={config} onUpdate={onUpdate} />
+      <DataGridColumnMenuEditor config={config} onUpdate={onUpdate} />
       <DataGridGroupAggregateEditor config={config} onUpdate={onUpdate} />
       <DataGridEditSelectionEditor config={config} onUpdate={onUpdate} />
       <DataGridPaginationActionsEditor config={config} onUpdate={onUpdate} />

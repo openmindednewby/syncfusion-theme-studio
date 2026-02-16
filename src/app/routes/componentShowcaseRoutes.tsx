@@ -6,6 +6,7 @@ import { Navigate, type RouteObject } from 'react-router-dom';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 
 import {
+  AlertBadgeShowcase,
   NativeAlertShowcase,
   NativeButtonShowcase,
   NativeCheckboxShowcase,
@@ -31,6 +32,8 @@ import {
   SyncfusionAvatarShowcase,
   NativeCardShowcase,
   SyncfusionCardShowcase,
+  NativeChipShowcase,
+  SyncfusionChipShowcase,
   NativeProgressBarShowcase,
   SyncfusionProgressBarShowcase,
   NativeThemeToggleShowcase,
@@ -92,6 +95,9 @@ export const componentShowcaseRoutes: RouteObject[] = [
   { path: RouteSegment.ComponentsAlert, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsAlertNative, element: <LazyShowcase component={NativeAlertShowcase} /> },
   { path: RouteSegment.ComponentsAlertSyncfusion, element: <LazyShowcase component={SyncfusionAlertShowcase} /> },
+  // AlertBadge
+  { path: RouteSegment.ComponentsAlertBadge, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsAlertBadgeNative, element: <LazyShowcase component={AlertBadgeShowcase} /> },
   // Checkbox
   { path: RouteSegment.ComponentsCheckbox, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsCheckboxNative, element: <LazyShowcase component={NativeCheckboxShowcase} /> },
@@ -144,6 +150,10 @@ export const componentShowcaseRoutes: RouteObject[] = [
   { path: RouteSegment.ComponentsCard, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsCardNative, element: <LazyShowcase component={NativeCardShowcase} /> },
   { path: RouteSegment.ComponentsCardSyncfusion, element: <LazyShowcase component={SyncfusionCardShowcase} /> },
+  // Chip
+  { path: RouteSegment.ComponentsChip, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsChipNative, element: <LazyShowcase component={NativeChipShowcase} /> },
+  { path: RouteSegment.ComponentsChipSyncfusion, element: <LazyShowcase component={SyncfusionChipShowcase} /> },
   // ProgressBar
   { path: RouteSegment.ComponentsProgressBar, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsProgressBarNative, element: <LazyShowcase component={NativeProgressBarShowcase} /> },

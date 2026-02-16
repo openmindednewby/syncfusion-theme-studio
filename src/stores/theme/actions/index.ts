@@ -8,4 +8,5 @@ export { createModeActions } from './modeActions';
 export { createModeConfigActions } from './modeConfigActions';
 export { createExportImportActions, createThemeUpdateActions } from './themeActions';
 export { createTypographyActions } from './typographyActions';
+export { createTypographyComponentActions } from './typographyComponentActions';
 export type { GetState, SetState } from './types';

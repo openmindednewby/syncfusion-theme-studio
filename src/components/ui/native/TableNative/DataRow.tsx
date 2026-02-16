@@ -13,6 +13,7 @@ import { EditableCell, ReadOnlyCell, isCellInEditMode } from './DataRowCells';
 import type { EditingHandlers, SelectionHandlers, CellEditContext } from './DataRowCells';
 import type { TableColumn } from './types';
 
+const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
 const EVEN_ROW_INDEX_DIVISOR = 2;
 const DELETED_ROW_OPACITY = 'opacity-40 line-through';
 
@@ -76,7 +77,7 @@ const DataRow = ({
       onClick={handleRowClick}
     >
       {showCheckbox ? (
-        <td className={cn(cellPadding, 'text-center')}>
+        <td className={cn(cellPadding, 'text-center')} style={CELL_PADDING_STYLE}>
           <input
             checked={isSelected}
             className="h-4 w-4"
@@ -121,7 +122,7 @@ const DataRow = ({
         );
       })}
       {showCommand ? (
-        <td className={cn(cellPadding, 'text-right')}>
+        <td className={cn(cellPadding, 'text-right')} style={CELL_PADDING_STYLE}>
           <CommandCell
             allowDeleting={allowDeleting}
             allowEditing={allowEditing}

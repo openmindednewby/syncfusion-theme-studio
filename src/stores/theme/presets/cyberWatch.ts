@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 import { DEFAULT_COMPONENTS_DARK } from '../defaults/defaultComponentsDark';
 import { DEFAULT_COMPONENTS_LIGHT } from '../defaults/defaultComponentsLight';
@@ -197,4 +198,5 @@ export const CYBERWATCH_THEME: ThemeConfig = {
   light: CYBERWATCH_LIGHT_MODE,
   dark: CYBERWATCH_DARK_MODE,
   components: CYBERWATCH_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

@@ -79,4 +79,11 @@ export const NativeTestIds = {
   NATIVE_GRID_SELECT_TABS: 'native-grid-select-tabs',
   NATIVE_GRID_SELECTED_COUNT: 'native-grid-selected-count',
   NATIVE_GRID_ALERT_MANAGEMENT: 'native-grid-alert-management',
+
+  // Column Menu
+  NATIVE_GRID_COLUMN_MENU_TRIGGER: 'native-grid-colmenu-trigger',
+  NATIVE_GRID_COLUMN_MENU_POPUP: 'native-grid-colmenu-popup',
+  NATIVE_GRID_COLUMN_MENU_SORT_ASC: 'native-grid-colmenu-sort-asc',
+  NATIVE_GRID_COLUMN_MENU_SORT_DESC: 'native-grid-colmenu-sort-desc',
+  NATIVE_GRID_COLUMN_MENU_COLUMNS: 'native-grid-colmenu-columns',
 } as const;

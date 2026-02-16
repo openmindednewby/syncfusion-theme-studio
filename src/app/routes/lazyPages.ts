@@ -76,6 +76,11 @@ export const SyncfusionAlertShowcase = lazy(
   async () => import('@/features/components/pages/SyncfusionAlertShowcase'),
 );
 
+// AlertBadge showcase
+export const AlertBadgeShowcase = lazy(
+  async () => import('@/features/components/pages/AlertBadgeShowcase'),
+);
+
 // Checkbox showcase
 export const NativeCheckboxShowcase = lazy(
   async () => import('@/features/components/pages/NativeCheckboxShowcase'),
@@ -178,6 +183,14 @@ export const NativeCardShowcase = lazy(
 );
 export const SyncfusionCardShowcase = lazy(
   async () => import('@/features/components/pages/SyncfusionCardShowcase'),
+);
+
+// Chip showcase
+export const NativeChipShowcase = lazy(
+  async () => import('@/features/components/pages/NativeChipShowcase'),
+);
+export const SyncfusionChipShowcase = lazy(
+  async () => import('@/features/components/pages/SyncfusionChipShowcase'),
 );
 
 // ProgressBar showcase

@@ -25,3 +25,5 @@ export {
 } from './defaultComponents';
 
 export { DEFAULT_ANIMATIONS } from './defaultAnimations';
+
+export { DEFAULT_TYPOGRAPHY_COMPONENTS } from './defaultTypographyComponents';

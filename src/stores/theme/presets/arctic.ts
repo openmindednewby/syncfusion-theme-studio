@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 
 import type { ThemeConfig } from '../types';
@@ -157,4 +158,5 @@ export const ARCTIC_THEME: ThemeConfig = {
   light: ARCTIC_LIGHT_MODE,
   dark: ARCTIC_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

@@ -5,8 +5,10 @@
 import { createPrimaryColors, createSecondaryColors, createNeutralColors, createStatusColors } from './themeColorFixtures';
 import { createComponents } from './themeComponentFixtures';
 import { createLightMode, createDarkMode } from './themeModeFixtures';
+import { DEFAULT_TYPOGRAPHY_COMPONENTS } from '../../stores/theme/defaults';
 import { AnimationEffect } from '../../stores/theme/types/animationEffect';
 import { AnimationIntensity } from '../../stores/theme/types/animationIntensity';
+
 
 import type { ThemeConfig, BorderRadiusConfig, ShadowConfig, AnimationConfig } from '../../stores/theme/types';
 
@@ -62,6 +64,7 @@ export const createCustomTheme = (): ThemeConfig => ({
   light: createLightMode(),
   dark: createDarkMode(),
   components: createComponents(),
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 });
 
 export const createIncompleteTheme = (): { name: string } => ({

@@ -11,6 +11,7 @@ import {
   DEFAULT_SPACING,
   DEFAULT_TRANSITIONS,
   DEFAULT_TYPOGRAPHY,
+  DEFAULT_TYPOGRAPHY_COMPONENTS,
 } from '../defaults';
 import { AnimationIntensity } from '../types/animationIntensity';
 
@@ -159,4 +160,5 @@ export const FOREST_GREEN_THEME: ThemeConfig = {
   light: FOREST_GREEN_LIGHT_MODE,
   dark: FOREST_GREEN_DARK_MODE,
   components: DEFAULT_COMPONENTS,
+  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,
 };

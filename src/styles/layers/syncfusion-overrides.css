@@ -877,6 +877,12 @@
     cursor: pointer !important;
   }
 
+  /* Hide inactive ellipsis controls (common for 1-2 pages or edge pages) */
+  .e-grid .e-pager .e-pp.e-disable,
+  .e-grid .e-pager .e-np.e-disable {
+    display: none !important;
+  }
+
   .e-grid .e-pager .e-pp:hover,
   .e-grid .e-pager .e-np:hover {
     background-color: var(--component-datagrid-pagination-hover-bg) !important;

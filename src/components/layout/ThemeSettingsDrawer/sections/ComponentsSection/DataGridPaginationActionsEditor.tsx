@@ -46,6 +46,11 @@ export const DataGridPaginationActionsEditor = ({
         onChange={(value) => onUpdate({ paginationBorderColor: value })}
       />
       <ColorPicker
+        label={FM('themeSettings.components.dataGrid.pagerContainerBorderColor')}
+        value={config.pagerContainerBorderColor}
+        onChange={(value) => onUpdate({ pagerContainerBorderColor: value })}
+      />
+      <ColorPicker
         label={FM('themeSettings.components.dataGrid.paginationNavColor')}
         value={config.paginationNavColor}
         onChange={(value) => onUpdate({ paginationNavColor: value })}

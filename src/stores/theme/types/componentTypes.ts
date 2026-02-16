@@ -94,6 +94,7 @@ export interface DataGridConfig {
   paginationActiveTextColor: string;
   paginationHoverBackground: string;
   paginationBorderColor: string;
+  pagerContainerBorderColor: string;
   paginationNavColor: string;
   paginationNavDisabledColor: string;
   paginationInfoTextColor: string;

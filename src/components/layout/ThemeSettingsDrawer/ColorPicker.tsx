@@ -8,6 +8,7 @@ const DEFAULT_RGB = '0 0 0';
 const DEFAULT_HEX = '#000000';
 
 function rgbToHex(rgb: string): string {
+  if (!isValueDefined(rgb)) return DEFAULT_HEX;
   if (rgb === '') return DEFAULT_HEX;
   const parts = rgb.split(' ').map(Number);
   const r = parts[0];
@@ -30,13 +31,13 @@ function hexToRgb(hex: string): string {
 
 interface ColorPickerProps {
   label: string;
-  value: string;
+  value?: string;
   onChange: (rgb: string) => void;
   compact?: boolean;
 }
 
 export const ColorPicker = ({ compact = false, label, onChange, value }: ColorPickerProps): JSX.Element => {
-  const [hexValue, setHexValue] = useState(rgbToHex(value));
+  const [hexValue, setHexValue] = useState(rgbToHex(value ?? ''));
   const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
 
   const handleChange = useCallback(

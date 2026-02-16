@@ -158,6 +158,7 @@
     --component-datagrid-pagination-active-bg: rgb(59 130 246);
     --component-datagrid-pagination-active-text: rgb(255 255 255);
     --component-datagrid-pagination-hover-bg: rgb(243 244 246);
+    --component-datagrid-pager-container-border: rgb(229 231 235);
     --component-datagrid-pagination-nav-color: rgb(107 114 128);
     --component-datagrid-pagination-nav-disabled: rgb(209 213 219);
     --component-datagrid-pagination-info-text: rgb(107 114 128);
@@ -217,6 +218,7 @@
     --component-datagrid-pagination-active-bg: rgb(59 130 246);
     --component-datagrid-pagination-active-text: rgb(255 255 255);
     --component-datagrid-pagination-hover-bg: rgb(55 65 81);
+    --component-datagrid-pager-container-border: rgb(75 85 99);
     --component-datagrid-pagination-nav-color: rgb(156 163 175);
     --component-datagrid-pagination-nav-disabled: rgb(75 85 99);
     --component-datagrid-pagination-info-text: rgb(107 114 128);

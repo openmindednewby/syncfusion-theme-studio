@@ -3,6 +3,9 @@ import { useEffect } from 'react';
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
+import { isValueDefined } from '@/utils/is';
+
+import { DEFAULT_THEME } from './theme/defaultTheme';
 import { createThemeActions } from './theme/storeActions';
 import { injectThemeVariables } from './theme/themeInjector';
 
@@ -17,7 +20,25 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 // v4: Added AnimationConfig to ThemeConfig + per-component animation fields
 // v5: Added TypographyComponentsConfig to ThemeConfig
 // v6: Added headerTextPadding to DataGridConfig
-const THEME_SCHEMA_VERSION = 6;
+// v7: Added pagerContainerBorderColor to DataGridConfig
+const THEME_SCHEMA_VERSION = 7;
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return isValueDefined(value) && typeof value === 'object' && !Array.isArray(value);
+}
+
+function deepMerge<T>(defaults: T, source: unknown): T {
+  if (!isPlainObject(defaults) || !isPlainObject(source)) return defaults;
+  const result: Record<string, unknown> = { ...defaults };
+  for (const key of Object.keys(source)) {
+    const sourceValue = source[key];
+    const defaultValue = result[key];
+    result[key] = isPlainObject(defaultValue) && isPlainObject(sourceValue)
+      ? deepMerge(defaultValue, sourceValue)
+      : sourceValue;
+  }
+  return result as T;
+}
 
 export const useThemeStore = create<ThemeState>()(
   devtools(
@@ -27,6 +48,13 @@ export const useThemeStore = create<ThemeState>()(
         name: 'theme-storage',
         version: THEME_SCHEMA_VERSION,
         partialize: (state) => ({ mode: state.mode, theme: state.theme }),
+        migrate: (persistedState) => {
+          if (!isPlainObject(persistedState)) return persistedState as ThemeState;
+          return {
+            ...persistedState,
+            theme: deepMerge(DEFAULT_THEME, persistedState['theme']),
+          } as ThemeState;
+        },
         onRehydrateStorage: () => (state) => {
           // Inject theme variables after hydration completes
           if (state) injectThemeVariables(state.theme, state.mode);

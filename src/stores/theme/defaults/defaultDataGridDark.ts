@@ -34,6 +34,7 @@ export const DEFAULT_DATAGRID_DARK: DataGridConfig = {
   paginationActiveTextColor: '255 255 255',
   paginationHoverBackground: '55 65 81',
   paginationBorderColor: '55 65 81',
+  pagerContainerBorderColor: '55 65 81',
   paginationNavColor: '156 163 175',
   paginationNavDisabledColor: '75 85 99',
   paginationInfoTextColor: '156 163 175',

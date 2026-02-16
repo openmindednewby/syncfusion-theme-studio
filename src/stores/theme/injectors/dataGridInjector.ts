@@ -45,6 +45,7 @@ function injectDataGridPaginationVars(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-datagrid-pagination-active-bg', `rgb(${dg.paginationActiveBackground})`);
   root.style.setProperty('--component-datagrid-pagination-active-text', `rgb(${dg.paginationActiveTextColor})`);
   root.style.setProperty('--component-datagrid-pagination-hover-bg', `rgb(${dg.paginationHoverBackground})`);
+  root.style.setProperty('--component-datagrid-pager-container-border', `rgb(${dg.pagerContainerBorderColor})`);
   root.style.setProperty('--component-datagrid-pagination-nav-color', `rgb(${dg.paginationNavColor})`);
   root.style.setProperty('--component-datagrid-pagination-nav-disabled', `rgb(${dg.paginationNavDisabledColor})`);
   root.style.setProperty('--component-datagrid-pagination-info-text', `rgb(${dg.paginationInfoTextColor})`);

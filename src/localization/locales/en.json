@@ -514,6 +514,7 @@
         "paginationActiveTextColor": "Active Page Text",
         "paginationHoverBackground": "Page Hover Background",
         "paginationBorderColor": "Pagination Border",
+        "pagerContainerBorderColor": "Pager Container Border",
         "paginationNavColor": "Nav Arrow Color",
         "paginationNavDisabledColor": "Nav Arrow Disabled",
         "paginationInfoTextColor": "Info Text Color",

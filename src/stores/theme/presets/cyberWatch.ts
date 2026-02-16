@@ -131,6 +131,7 @@ const CYBERWATCH_COMPONENTS: ComponentsConfig = {
     dataGrid: {
       ...DEFAULT_COMPONENTS_LIGHT.dataGrid,
       paginationActiveBackground: '0 188 212',
+      pagerContainerBorderColor: '209 213 219',
     },
   },
   dark: {
@@ -172,6 +173,7 @@ const CYBERWATCH_COMPONENTS: ComponentsConfig = {
       cellPadding: '8px 12px',
       rowHeight: '48px',
       paginationBackground: '11 17 32',
+      pagerContainerBorderColor: '209 213 219',
       paginationActiveBackground: '0 188 212',
       toolbarBackground: '17 24 39',
       filterRowBackground: '11 17 32',

@@ -240,17 +240,17 @@ function repositionFilterPopup(anchor: PopupAnchor): boolean {
   return (popupRect.width > 0 && popupRect.height > 0) || (filterPopup.offsetWidth > 0 && filterPopup.offsetHeight > 0);
 }
 
-function repositionColumnSubmenuPopup(anchorItem: HTMLElement): void {
-  if (!anchorItem.isConnected) return;
+function repositionColumnSubmenuPopup(anchorItem: HTMLElement): boolean {
+  if (!anchorItem.isConnected) return false;
   const mainList = anchorItem.closest('ul.e-menu-parent') as HTMLElement | null;
-  if (!isValueDefined(mainList)) return;
+  if (!isValueDefined(mainList)) return false;
   const popupRoot = mainList.closest('.e-grid-menu') as HTMLElement | null;
-  if (!isValueDefined(popupRoot)) return;
+  if (!isValueDefined(popupRoot)) return false;
 
   const visibleSubmenus = Array.from(popupRoot.querySelectorAll<HTMLElement>('ul.e-menu-parent'))
     .filter((ul) => ul !== mainList && isPopupVisible(ul));
   const submenu = visibleSubmenus.length > 0 ? visibleSubmenus[visibleSubmenus.length - 1] : undefined;
-  if (!isValueDefined(submenu)) return;
+  if (!isValueDefined(submenu)) return false;
 
   const anchorRect = anchorItem.getBoundingClientRect();
   const submenuRect = submenu.getBoundingClientRect();
@@ -266,6 +266,7 @@ function repositionColumnSubmenuPopup(anchorItem: HTMLElement): void {
     rootPopup.classList.toggle('sf-submenu-left', openToLeft);
     rootPopup.classList.toggle('sf-submenu-right', !openToLeft);
   }
+  return true;
 }
 
 function repositionColumnMenuPopup(trigger: HTMLElement): void {
@@ -348,6 +349,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     const root = wrapperRef.current;
     let hoverRafId: number | null = null;
     let filterRafId: number | null = null;
+    let submenuRafId: number | null = null;
     let queuedHoverAnchor: HTMLElement | null = null;
 
     const scheduleFilterPopupReposition = (anchor: DOMRect): void => {
@@ -370,6 +372,27 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       };
       if (isValueDefined(filterRafId)) cancelAnimationFrame(filterRafId);
       filterRafId = requestAnimationFrame(tick);
+    };
+
+    const scheduleSubmenuPopupReposition = (anchor: HTMLElement): void => {
+      const MAX_ATTEMPTS = 24;
+      const MIN_STABLE_FRAMES = 4;
+      let attempt = 0;
+      let successCount = 0;
+
+      const tick = (): void => {
+        attempt += 1;
+        const positioned = repositionColumnSubmenuPopup(anchor);
+        if (positioned) successCount += 1;
+        if (attempt >= MAX_ATTEMPTS || (positioned && successCount >= MIN_STABLE_FRAMES)) {
+          submenuRafId = null;
+          return;
+        }
+        submenuRafId = requestAnimationFrame(tick);
+      };
+
+      if (isValueDefined(submenuRafId)) cancelAnimationFrame(submenuRafId);
+      submenuRafId = requestAnimationFrame(tick);
     };
     const onGridPointerDown = (event: Event): void => {
       const target = event.target as Element | null;
@@ -399,8 +422,8 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       const submenuAnchor = getSubmenuAnchorFromMenuItem(menuItem);
       if (isValueDefined(submenuAnchor)) {
         columnMenuSubmenuAnchorRef.current = submenuAnchor;
-        setTimeout(() => repositionColumnSubmenuPopup(submenuAnchor), POPUP_REPOSITION_DELAY_MS);
-        requestAnimationFrame(() => repositionColumnSubmenuPopup(submenuAnchor));
+        setTimeout(() => scheduleSubmenuPopupReposition(submenuAnchor), POPUP_REPOSITION_DELAY_MS);
+        scheduleSubmenuPopupReposition(submenuAnchor);
       }
     };
 
@@ -425,7 +448,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       hoverRafId = requestAnimationFrame(() => {
         hoverRafId = null;
         if (!isValueDefined(queuedHoverAnchor)) return;
-        repositionColumnSubmenuPopup(queuedHoverAnchor);
+        scheduleSubmenuPopupReposition(queuedHoverAnchor);
       });
     };
 
@@ -437,7 +460,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       const submenuAnchor = columnMenuSubmenuAnchorRef.current ?? getActiveSubmenuAnchor();
       if (isValueDefined(submenuAnchor)) {
         columnMenuSubmenuAnchorRef.current = submenuAnchor;
-        repositionColumnSubmenuPopup(submenuAnchor);
+        scheduleSubmenuPopupReposition(submenuAnchor);
       }
       const filterAnchor = columnMenuFilterAnchorRef.current;
       if (isValueDefined(filterAnchor)) {
@@ -458,6 +481,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       window.removeEventListener('scroll', onWindowMove, true);
       if (isValueDefined(hoverRafId)) cancelAnimationFrame(hoverRafId);
       if (isValueDefined(filterRafId)) cancelAnimationFrame(filterRafId);
+      if (isValueDefined(submenuRafId)) cancelAnimationFrame(submenuRafId);
     };
   }, [features.columnMenu]);
 

@@ -5,6 +5,7 @@
 import { useMemo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
+import { Resize as GridResize } from '@syncfusion/ej2-grids';
 import {
   Page,
   Sort,
@@ -14,7 +15,6 @@ import {
   Selection,
   Edit,
   CommandColumn,
-  Resize,
   Reorder,
   Freeze,
   ColumnChooser,
@@ -167,7 +167,9 @@ const SERVICE_MAP: ReadonlyArray<[keyof ResolvedGridFeatures, Object]> = [
   ['hasSelection', Selection],
   ['editing', Edit],
   ['hasCommandColumn', CommandColumn],
-  ['resizing', Resize],
+  // Import Resize directly from ej2-grids runtime; ej2-react-grids re-export
+  // can be undefined in some builds and triggers "Module Resize is not available".
+  ['resizing', GridResize],
   ['reordering', Reorder],
   ['freezing', Freeze],
   ['columnChooser', ColumnChooser],
@@ -189,7 +191,8 @@ const SERVICE_MAP: ReadonlyArray<[keyof ResolvedGridFeatures, Object]> = [
 function buildServiceList(features: ResolvedGridFeatures): Object[] {
   return SERVICE_MAP
     .filter(([key]) => features[key])
-    .map(([, service]) => service);
+    .map(([, service]) => service)
+    .filter((service) => isValueDefined(service));
 }
 
 /**

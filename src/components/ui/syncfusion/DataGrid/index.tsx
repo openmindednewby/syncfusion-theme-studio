@@ -58,6 +58,27 @@ const FILTER_POPUP_Z_INDEX = '10001';
 const MENU_SUBPOPUP_MIN_WIDTH_PX = 220;
 const SUBMENU_POPUP_Z_INDEX = '10002';
 
+function setStyleIfChanged(element: HTMLElement, property: string, value: string): void {
+  if (element.style.getPropertyValue(property) === value) return;
+  element.style.setProperty(property, value);
+}
+
+function applyFixedPopupStyle(
+  element: HTMLElement,
+  left: number,
+  top: number,
+  minWidth: number | undefined,
+  zIndex: string,
+): void {
+  setStyleIfChanged(element, 'position', 'fixed');
+  setStyleIfChanged(element, 'left', `${Math.round(left)}px`);
+  setStyleIfChanged(element, 'top', `${Math.round(top)}px`);
+  if (isValueDefined(minWidth)) {
+    setStyleIfChanged(element, 'min-width', `${Math.round(minWidth)}px`);
+  }
+  setStyleIfChanged(element, 'z-index', zIndex);
+}
+
 function isPopupVisible(element: HTMLElement): boolean {
   const style = getComputedStyle(element);
   if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
@@ -69,7 +90,21 @@ function getVisibleElement(selectors: string): HTMLElement | undefined {
   return candidates.find((element) => isPopupVisible(element));
 }
 
-function parsePageSizeOptions(input: string): number[] {
+function normalizePositiveInt(value: unknown, fallback: number): number {
+  const n = typeof value === 'number' ? value : Number.parseInt(String(value), 10);
+  return Number.isFinite(n) && n > 0 ? n : fallback;
+}
+
+function parsePageSizeOptions(input: unknown): number[] {
+  if (Array.isArray(input)) {
+    const parsedArray = input
+      .map((value) => Number.parseInt(String(value), 10))
+      .filter((n) => Number.isFinite(n) && n > 0);
+    return parsedArray.length > 0 ? Array.from(new Set(parsedArray)) : AVAILABLE_PAGE_SIZES;
+  }
+
+  if (typeof input !== 'string') return AVAILABLE_PAGE_SIZES;
+
   const parsed = input
     .split(PAGE_SIZE_OPTIONS_SEPARATOR)
     .map((part) => Number.parseInt(part.trim(), 10))
@@ -103,11 +138,7 @@ function repositionPagerDropdownPopup(root: HTMLDivElement): void {
   }
 
   const rect = wrapper.getBoundingClientRect();
-  popup.style.position = 'fixed';
-  popup.style.left = `${Math.round(rect.left)}px`;
-  popup.style.top = `${Math.round(rect.bottom + POPUP_VERTICAL_GAP_PX)}px`;
-  popup.style.minWidth = `${Math.round(rect.width)}px`;
-  popup.style.zIndex = '10000';
+  applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, '10000');
 }
 
 function getVisibleColumnMenuPopup(): HTMLElement | undefined {
@@ -136,9 +167,21 @@ function getActiveSubmenuAnchor(): HTMLElement | undefined {
 function resolveHorizontalPosition(anchorRect: DOMRect, popupWidth: number): { left: number; openToLeft: boolean } {
   const spaceRight = window.innerWidth - anchorRect.right;
   const spaceLeft = anchorRect.left;
-  const openToLeft = spaceLeft > spaceRight;
+  const requiredSpace = popupWidth + POPUP_VERTICAL_GAP_PX;
+
+  // Prefer a side that fully fits the popup first.
+  let openToLeft: boolean;
+  if (spaceRight >= requiredSpace) {
+    openToLeft = false;
+  } else if (spaceLeft >= requiredSpace) {
+    openToLeft = true;
+  } else {
+    // If neither side fully fits, pick the larger side and clamp.
+    openToLeft = spaceLeft > spaceRight;
+  }
+
   const unclamped = openToLeft
-    ? anchorRect.left - popupWidth - POPUP_VERTICAL_GAP_PX
+    ? anchorRect.left - requiredSpace
     : anchorRect.right + POPUP_VERTICAL_GAP_PX;
   const maxLeft = Math.max(POPUP_VERTICAL_GAP_PX, window.innerWidth - popupWidth - POPUP_VERTICAL_GAP_PX);
   return {
@@ -152,9 +195,10 @@ function resolveVerticalPosition(anchorRect: DOMRect, popupHeight: number): numb
   return Math.min(Math.max(POPUP_VERTICAL_GAP_PX, anchorRect.top), maxTop);
 }
 
-function repositionFilterPopup(anchorItem: HTMLElement): void {
+function repositionFilterPopup(anchorItem: HTMLElement): boolean {
+  if (!anchorItem.isConnected) return false;
   const filterPopup = getVisibleElement('.e-filter-popup, .e-col-menu.e-filter-popup, .e-dialog.e-flmenu, .e-grid-popup .e-dialog.e-flmenu');
-  if (!isValueDefined(filterPopup)) return;
+  if (!isValueDefined(filterPopup)) return false;
 
   if (filterPopup.parentElement !== document.body) {
     document.body.appendChild(filterPopup);
@@ -167,14 +211,12 @@ function repositionFilterPopup(anchorItem: HTMLElement): void {
   const { left } = resolveHorizontalPosition(anchorRect, popupWidth);
   const top = resolveVerticalPosition(anchorRect, popupHeight);
 
-  filterPopup.style.position = 'fixed';
-  filterPopup.style.left = `${Math.round(left)}px`;
-  filterPopup.style.top = `${Math.round(top)}px`;
-  filterPopup.style.minWidth = `${Math.round(popupWidth)}px`;
-  filterPopup.style.zIndex = FILTER_POPUP_Z_INDEX;
+  applyFixedPopupStyle(filterPopup, left, top, popupWidth, FILTER_POPUP_Z_INDEX);
+  return true;
 }
 
 function repositionColumnSubmenuPopup(anchorItem: HTMLElement): void {
+  if (!anchorItem.isConnected) return;
   const mainList = anchorItem.closest('ul.e-menu-parent') as HTMLElement | null;
   if (!isValueDefined(mainList)) return;
   const popupRoot = mainList.closest('.e-grid-menu') as HTMLElement | null;
@@ -192,11 +234,7 @@ function repositionColumnSubmenuPopup(anchorItem: HTMLElement): void {
   const { left, openToLeft } = resolveHorizontalPosition(anchorRect, popupWidth);
   const top = resolveVerticalPosition(anchorRect, popupHeight);
 
-  submenu.style.position = 'fixed';
-  submenu.style.left = `${Math.round(left)}px`;
-  submenu.style.top = `${Math.round(top)}px`;
-  submenu.style.minWidth = `${Math.round(popupWidth)}px`;
-  submenu.style.zIndex = SUBMENU_POPUP_Z_INDEX;
+  applyFixedPopupStyle(submenu, left, top, popupWidth, SUBMENU_POPUP_Z_INDEX);
 
   const rootPopup = popupRoot.closest('.e-grid-menu.e-contextmenu-wrapper');
   if (isValueDefined(rootPopup)) {
@@ -219,10 +257,7 @@ function repositionColumnMenuPopup(trigger: HTMLElement): void {
   const maxLeft = Math.max(0, window.innerWidth - popupWidth - POPUP_VERTICAL_GAP_PX);
   const targetLeft = Math.min(Math.max(POPUP_VERTICAL_GAP_PX, triggerRect.right - popupWidth), maxLeft);
 
-  popup.style.position = 'fixed';
-  popup.style.left = `${Math.round(targetLeft)}px`;
-  popup.style.top = `${Math.round(triggerRect.bottom + POPUP_VERTICAL_GAP_PX)}px`;
-  popup.style.zIndex = '10000';
+  applyFixedPopupStyle(popup, targetLeft, triggerRect.bottom + POPUP_VERTICAL_GAP_PX, undefined, '10000');
 
   // Tell nested submenus to open where there's more viewport space.
   const spaceRight = window.innerWidth - (targetLeft + popupWidth);
@@ -286,6 +321,25 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   useEffect(() => {
     if (!features.columnMenu || !isValueDefined(wrapperRef.current)) return;
     const root = wrapperRef.current;
+    let hoverRafId: number | null = null;
+    let filterRafId: number | null = null;
+    let queuedHoverAnchor: HTMLElement | null = null;
+
+    const scheduleFilterPopupReposition = (anchor: HTMLElement): void => {
+      const MAX_ATTEMPTS = 20;
+      let attempt = 0;
+      const tick = (): void => {
+        attempt += 1;
+        const positioned = repositionFilterPopup(anchor);
+        if (positioned || attempt >= MAX_ATTEMPTS) {
+          filterRafId = null;
+          return;
+        }
+        filterRafId = requestAnimationFrame(tick);
+      };
+      if (isValueDefined(filterRafId)) cancelAnimationFrame(filterRafId);
+      filterRafId = requestAnimationFrame(tick);
+    };
     const onGridPointerDown = (event: Event): void => {
       const target = event.target as Element | null;
       if (!isValueDefined(target)) return;
@@ -306,8 +360,8 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       const filterAnchor = getFilterAnchorFromMenuItem(menuItem);
       if (isValueDefined(filterAnchor)) {
         columnMenuFilterAnchorRef.current = filterAnchor;
-        setTimeout(() => repositionFilterPopup(filterAnchor), POPUP_REPOSITION_DELAY_MS);
-        requestAnimationFrame(() => repositionFilterPopup(filterAnchor));
+        setTimeout(() => scheduleFilterPopupReposition(filterAnchor), POPUP_REPOSITION_DELAY_MS);
+        scheduleFilterPopupReposition(filterAnchor);
       }
 
       const submenuAnchor = getSubmenuAnchorFromMenuItem(menuItem);
@@ -318,7 +372,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       }
     };
 
-    const onDocumentPointerMove = (event: Event): void => {
+    const onDocumentPointerOver = (event: Event): void => {
       const target = event.target as Element | null;
       if (!isValueDefined(target)) return;
       const menuItem = target.closest('.e-grid-menu .e-menu-item') as HTMLElement | null;
@@ -326,10 +380,16 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       const submenuAnchor = getSubmenuAnchorFromMenuItem(menuItem);
       if (!isValueDefined(submenuAnchor)) return;
       columnMenuSubmenuAnchorRef.current = submenuAnchor;
-      requestAnimationFrame(() => repositionColumnSubmenuPopup(submenuAnchor));
+      queuedHoverAnchor = submenuAnchor;
+      if (isValueDefined(hoverRafId)) return;
+      hoverRafId = requestAnimationFrame(() => {
+        hoverRafId = null;
+        if (!isValueDefined(queuedHoverAnchor)) return;
+        repositionColumnSubmenuPopup(queuedHoverAnchor);
+      });
     };
 
-    const observer = new MutationObserver(() => {
+    const onWindowMove = (): void => {
       const trigger = columnMenuTriggerRef.current;
       if (isValueDefined(trigger)) {
         repositionColumnMenuPopup(trigger);
@@ -343,22 +403,21 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (isValueDefined(filterAnchor)) {
         repositionFilterPopup(filterAnchor);
       }
-    });
-    observer.observe(document.body, {
-      subtree: true,
-      childList: true,
-      attributes: true,
-      attributeFilter: ['class', 'style'],
-    });
+    };
 
     root.addEventListener('pointerdown', onGridPointerDown, true);
     document.addEventListener('pointerdown', onDocumentPointerDown, true);
-    document.addEventListener('pointermove', onDocumentPointerMove, true);
+    document.addEventListener('pointerover', onDocumentPointerOver, true);
+    window.addEventListener('resize', onWindowMove);
+    window.addEventListener('scroll', onWindowMove, true);
     return () => {
       root.removeEventListener('pointerdown', onGridPointerDown, true);
       document.removeEventListener('pointerdown', onDocumentPointerDown, true);
-      document.removeEventListener('pointermove', onDocumentPointerMove, true);
-      observer.disconnect();
+      document.removeEventListener('pointerover', onDocumentPointerOver, true);
+      window.removeEventListener('resize', onWindowMove);
+      window.removeEventListener('scroll', onWindowMove, true);
+      if (isValueDefined(hoverRafId)) cancelAnimationFrame(hoverRafId);
+      if (isValueDefined(filterRafId)) cancelAnimationFrame(filterRafId);
     };
   }, [features.columnMenu]);
 
@@ -388,9 +447,10 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   }, [features.paging]);
 
   const themePageSettings = useMemo<{ pageSize: number; pageCount: number; pageSizes: number[] }>(() => {
-    const dataGridTheme = theme.components[mode].dataGrid;
-    const defaultPageSize = dataGridTheme.paginationDefaultPageSize;
-    const parsedSizes = parsePageSizeOptions(dataGridTheme.paginationPageSizeOptions);
+    const dataGridTheme = theme.components?.[mode]?.dataGrid;
+    const fallbackPageSize = DEFAULT_PAGE_SETTINGS.pageSize ?? 10;
+    const defaultPageSize = normalizePositiveInt(dataGridTheme?.paginationDefaultPageSize, fallbackPageSize);
+    const parsedSizes = parsePageSizeOptions(dataGridTheme?.paginationPageSizeOptions);
     const normalizedSizes = parsedSizes.includes(defaultPageSize)
       ? parsedSizes
       : [defaultPageSize, ...parsedSizes];

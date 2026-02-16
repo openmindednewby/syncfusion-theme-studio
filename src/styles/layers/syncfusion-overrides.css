@@ -934,6 +934,7 @@
     color: var(--component-datagrid-pagination-info-text) !important;
     font-size: var(--font-size-sm) !important;
     white-space: nowrap !important;
+    margin-left: 8px !important;
   }
 
   /* "X to Y of Z items" info bar - Align to RIGHT */

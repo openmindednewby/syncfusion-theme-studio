@@ -992,7 +992,7 @@
     border: 1px solid var(--component-datagrid-colmenu-border) !important;
     border-radius: var(--radius-md) !important;
     box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
-    overflow: hidden !important;
+    overflow: visible !important;
     min-width: 196px !important;
   }
 
@@ -1000,6 +1000,32 @@
   .e-grid-menu.e-contextmenu-wrapper .e-ul,
   .e-grid-menu.e-contextmenu-wrapper .e-menu-parent {
     background-color: var(--component-datagrid-colmenu-bg) !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-contextmenu-container > .e-ul {
+    border-radius: var(--radius-md) !important;
+    overflow: hidden !important;
+  }
+
+  /* Submenus (e.g. Columns list) should open to the side, with direction set by JS class */
+  .e-grid-menu.e-contextmenu-wrapper.sf-submenu-right .e-menu-item > .e-ul {
+    left: 100% !important;
+    right: auto !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper.sf-submenu-left .e-menu-item > .e-ul {
+    left: auto !important;
+    right: 100% !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item > .e-ul {
+    margin-left: 6px !important;
+    margin-right: 6px !important;
+    border: 1px solid var(--component-datagrid-colmenu-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
+    overflow: hidden !important;
+    z-index: 10002 !important;
   }
 
   .e-grid-menu.e-contextmenu-wrapper .e-menu-item {

@@ -20,7 +20,7 @@ import '@syncfusion/ej2-react-grids/styles/tailwind.css';
 // The grid CSS does NOT include pager styles — they ship in ej2-navigations.
 import '@syncfusion/ej2-navigations/styles/pager/tailwind.css';
 
-import { memo, useMemo, useRef } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   GridComponent,
@@ -38,13 +38,22 @@ import { useSyncfusionFilters } from '@/lib/grid/hooks/useSyncfusionFilters';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
-import { isNotEmptyArray } from '@/utils/is';
+import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 
 import { DEFAULT_PAGE_SETTINGS } from './constants';
 import { useGridCallbacks } from './useGridCallbacks';
 import { computePageSettings, useGridFeatures } from './useGridFeatures';
 
 import type { DataGridProps } from './types';
+
+const PAGER_BUTTON_APPROX_WIDTH = 40;
+const PAGER_SIDE_CONTENT_APPROX_WIDTH = 260;
+const MIN_RESPONSIVE_PAGE_COUNT = 3;
+
+function normalizeResponsivePageCount(count: number): number {
+  const bounded = Math.max(MIN_RESPONSIVE_PAGE_COUNT, count);
+  return bounded % 2 === 0 ? bounded - 1 : bounded;
+}
 
 const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Element => {
   const {
@@ -76,14 +85,34 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   const { mode } = useThemeStore();
   const internalGridRef = useRef<GridComponent | undefined>(undefined);
   const gridRef = externalGridRef ?? internalGridRef;
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+  const [responsivePageCount, setResponsivePageCount] = useState<number | undefined>(undefined);
 
   const { features, services } = useGridFeatures(props);
   const callbacks = useGridCallbacks(props);
 
-  const effectivePageSettings = useMemo(
-    () => computePageSettings(gridConfig, pageSettings, features.paging, data.length),
-    [gridConfig, pageSettings, features.paging, data.length],
-  );
+  useEffect(() => {
+    if (!features.paging || !isValueDefined(wrapperRef.current) || !isValueDefined(globalThis.ResizeObserver)) return;
+    const element = wrapperRef.current;
+    const observer = new ResizeObserver((entries) => {
+      const width = entries[0]?.contentRect.width ?? 0;
+      const rawCount = Math.floor((width - PAGER_SIDE_CONTENT_APPROX_WIDTH) / PAGER_BUTTON_APPROX_WIDTH);
+      setResponsivePageCount(normalizeResponsivePageCount(rawCount));
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [features.paging]);
+
+  const effectivePageSettings = useMemo(() => {
+    const base = computePageSettings(gridConfig, pageSettings, features.paging, data.length);
+    const hasExplicitPageCount = isValueDefined(pageSettings.pageCount) || isValueDefined(gridConfig?.pagination?.pageCount);
+    if (!isValueDefined(responsivePageCount) || hasExplicitPageCount || !features.paging) return base;
+    const pageSize = base.pageSize ?? DEFAULT_PAGE_SETTINGS.pageSize ?? 10;
+    const totalPages = Math.max(1, Math.ceil(data.length / pageSize));
+    const nextPageCount = Math.min(totalPages, responsivePageCount);
+    if (base.pageCount === nextPageCount) return base;
+    return { ...base, pageCount: nextPageCount };
+  }, [gridConfig, pageSettings, features.paging, data.length, responsivePageCount]);
 
   // Non-blocking filter/sort setup via gridConfig
   useSyncfusionFilters(gridRef, gridConfig?.filter);
@@ -108,7 +137,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   );
 
   return (
-    <div className={wrapperClass} data-testid={testId}>
+    <div ref={wrapperRef} className={wrapperClass} data-testid={testId}>
       {isLoading ? (
         <div className="sf-datagrid-loader absolute inset-0 z-10 flex items-center justify-center bg-surface/80">
           <div

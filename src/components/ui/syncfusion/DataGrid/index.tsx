@@ -51,6 +51,7 @@ const PAGER_SIDE_CONTENT_APPROX_WIDTH = 260;
 const MIN_RESPONSIVE_PAGE_COUNT = 3;
 const PAGE_SIZE_OPTIONS_SEPARATOR = ',';
 const POPUP_REPOSITION_DELAY_MS = 0;
+const POPUP_VERTICAL_GAP_PX = 4;
 
 function parsePageSizeOptions(input: string): number[] {
   const parsed = input
@@ -88,8 +89,40 @@ function repositionPagerDropdownPopup(root: HTMLDivElement): void {
   const rect = wrapper.getBoundingClientRect();
   popup.style.position = 'fixed';
   popup.style.left = `${Math.round(rect.left)}px`;
-  popup.style.top = `${Math.round(rect.bottom)}px`;
+  popup.style.top = `${Math.round(rect.bottom + POPUP_VERTICAL_GAP_PX)}px`;
   popup.style.minWidth = `${Math.round(rect.width)}px`;
+  popup.style.zIndex = '10000';
+}
+
+function getVisibleColumnMenuPopup(): HTMLElement | undefined {
+  const candidates = Array.from(
+    document.querySelectorAll<HTMLElement>('.e-grid-menu.e-contextmenu-wrapper, .e-grid-menu.e-popup, .e-grid-menu'),
+  );
+  return candidates.find((element) => {
+    const hasMenuItems = isValueDefined(element.querySelector('.e-menu-item'));
+    const isVisible = element.classList.contains('e-popup-open')
+      || element.style.visibility === 'visible'
+      || getComputedStyle(element).visibility === 'visible';
+    return hasMenuItems && isVisible;
+  });
+}
+
+function repositionColumnMenuPopup(trigger: HTMLElement): void {
+  const popup = getVisibleColumnMenuPopup();
+  if (!isValueDefined(popup)) return;
+
+  if (popup.parentElement !== document.body) {
+    document.body.appendChild(popup);
+  }
+
+  const triggerRect = trigger.getBoundingClientRect();
+  const popupRect = popup.getBoundingClientRect();
+  const maxLeft = Math.max(0, window.innerWidth - popupRect.width - POPUP_VERTICAL_GAP_PX);
+  const targetLeft = Math.min(Math.max(POPUP_VERTICAL_GAP_PX, triggerRect.right - popupRect.width), maxLeft);
+
+  popup.style.position = 'fixed';
+  popup.style.left = `${Math.round(targetLeft)}px`;
+  popup.style.top = `${Math.round(triggerRect.bottom + POPUP_VERTICAL_GAP_PX)}px`;
   popup.style.zIndex = '10000';
 }
 
@@ -140,6 +173,24 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     observer.observe(element);
     return () => observer.disconnect();
   }, [features.paging]);
+
+  useEffect(() => {
+    if (!features.columnMenu || !isValueDefined(wrapperRef.current)) return;
+    const root = wrapperRef.current;
+    const onPointerDown = (event: Event): void => {
+      const target = event.target as Element | null;
+      if (!isValueDefined(target)) return;
+      const trigger = target.closest('.e-columnmenu') as HTMLElement | null;
+      if (!isValueDefined(trigger)) return;
+      setTimeout(() => repositionColumnMenuPopup(trigger), POPUP_REPOSITION_DELAY_MS);
+      requestAnimationFrame(() => repositionColumnMenuPopup(trigger));
+    };
+
+    root.addEventListener('pointerdown', onPointerDown, true);
+    return () => {
+      root.removeEventListener('pointerdown', onPointerDown, true);
+    };
+  }, [features.columnMenu]);
 
   useEffect(() => {
     if (!features.paging || !isValueDefined(wrapperRef.current)) return;

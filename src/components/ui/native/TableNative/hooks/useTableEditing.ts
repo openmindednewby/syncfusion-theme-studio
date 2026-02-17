@@ -6,6 +6,8 @@
  * - Dialog: modal form with auto-generated fields
  * - Batch: edit multiple cells, save/cancel all at once
  */
+import { isValueDefined } from '@/utils/is';
+
 import { DEFAULT_KEY_FIELD } from './editingUtils';
 import { useEditActions } from './useEditActions';
 import { useEditingState } from './useEditingState';
@@ -17,15 +19,30 @@ import type {
 interface UseTableEditingProps {
   data: Array<Record<string, unknown>>;
   columns: TableColumnDef[];
-  editMode?: 'Normal' | 'Dialog' | 'Batch' | undefined;
-  allowAdding?: boolean | undefined;
-  allowEditing?: boolean | undefined;
-  allowDeleting?: boolean | undefined;
-  rowKeyField?: string | undefined;
-  onSave?: ((editedRow: Record<string, unknown>, originalRow: Record<string, unknown>) => void) | undefined;
-  onDelete?: ((row: Record<string, unknown>) => void) | undefined;
-  onAdd?: ((newRow: Record<string, unknown>) => void) | undefined;
-  onBatchSave?: ((changes: BatchChanges) => void) | undefined;
+  editMode?: 'Normal' | 'Dialog' | 'Batch';
+  allowAdding?: boolean;
+  allowEditing?: boolean;
+  allowDeleting?: boolean;
+  rowKeyField?: string;
+  onSave?: (editedRow: Record<string, unknown>, originalRow: Record<string, unknown>) => void;
+  onDelete?: (row: Record<string, unknown>) => void;
+  onAdd?: (newRow: Record<string, unknown>) => void;
+  onBatchSave?: (changes: BatchChanges) => void;
+}
+
+/** Build optional callback props, omitting undefined keys */
+function buildCallbackProps(
+  onSave: UseTableEditingProps['onSave'],
+  onDelete: UseTableEditingProps['onDelete'],
+  onAdd: UseTableEditingProps['onAdd'],
+  onBatchSave: UseTableEditingProps['onBatchSave'],
+): Record<string, unknown> {
+  return {
+    ...(isValueDefined(onSave) ? { onSave } : {}),
+    ...(isValueDefined(onDelete) ? { onDelete } : {}),
+    ...(isValueDefined(onAdd) ? { onAdd } : {}),
+    ...(isValueDefined(onBatchSave) ? { onBatchSave } : {}),
+  };
 }
 
 export function useTableEditing({
@@ -36,29 +53,14 @@ export function useTableEditing({
   onSave, onDelete, onAdd, onBatchSave,
 }: UseTableEditingProps): UseTableEditingResult {
   const state = useEditingState({ data, rowKeyField });
+  const callbacks = buildCallbackProps(onSave, onDelete, onAdd, onBatchSave);
 
   const actions = useEditActions({
     data, columns, editMode, allowAdding, allowEditing, allowDeleting,
-    rowKeyField, onSave, onDelete, onAdd, onBatchSave,
-    editingRowId: state.editingRowId, editingCell: state.editingCell,
-    editValues: state.editValues, dirtyCells: state.dirtyCells,
-    dirtyRows: state.dirtyRows, batchAdded: state.batchAdded,
-    batchDeleted: state.batchDeleted,
-    setEditingRowId: state.setEditingRowId, setEditingCell: state.setEditingCell,
-    setEditValues: state.setEditValues, setIsDialogOpen: state.setIsDialogOpen,
-    setDirtyCells: state.setDirtyCells, setDirtyRows: state.setDirtyRows,
-    setBatchAdded: state.setBatchAdded, setBatchDeleted: state.setBatchDeleted,
+    rowKeyField, ...callbacks, ...state,
   });
 
-  return {
-    editingRowId: state.editingRowId, editingCell: state.editingCell,
-    editValues: state.editValues, dirtyRows: state.dirtyRows,
-    dirtyCells: state.dirtyCells, isEditing: state.isEditing,
-    isDialogOpen: state.isDialogOpen, batchAdded: state.batchAdded,
-    batchDeleted: state.batchDeleted,
-    ...actions, getCellValue: state.getCellValue,
-    isCellDirty: state.isCellDirty, isRowDeleted: state.isRowDeleted,
-  };
+  return { ...state, ...actions };
 }
 
 export type { UseTableEditingProps, UseTableEditingResult, BatchChanges, EditingCell };

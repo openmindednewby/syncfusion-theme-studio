@@ -1039,25 +1039,29 @@
     background-color: var(--component-datagrid-colmenu-hover) !important;
   }
 
-  /* Main column menu popup */
+  /* Column menu wrapper — keep transparent so the wrapper itself never renders
+     a visible ghost box when Syncfusion hides the inner list (display:none). */
   .e-grid-menu.e-contextmenu-wrapper {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  /* Visual styling lives on the inner list, which Syncfusion hides/shows. */
+  .e-grid-menu.e-contextmenu-wrapper > .e-menu-parent,
+  .e-grid-menu.e-contextmenu-wrapper .e-contextmenu-container > .e-ul {
     background-color: var(--component-datagrid-colmenu-bg) !important;
     border: 1px solid var(--component-datagrid-colmenu-border) !important;
     border-radius: var(--radius-md) !important;
     box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
-    overflow: visible !important;
     min-width: 196px !important;
+    overflow: hidden !important;
   }
 
-  .e-grid-menu.e-contextmenu-wrapper .e-contextmenu-container,
   .e-grid-menu.e-contextmenu-wrapper .e-ul,
   .e-grid-menu.e-contextmenu-wrapper .e-menu-parent {
     background-color: var(--component-datagrid-colmenu-bg) !important;
-  }
-
-  .e-grid-menu.e-contextmenu-wrapper .e-contextmenu-container > .e-ul {
-    border-radius: var(--radius-md) !important;
-    overflow: hidden !important;
   }
 
   /* Syncfusion _cmenu list needs absolute positioning base styles.

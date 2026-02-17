@@ -12,7 +12,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.alertBadgeShowcase.description')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Solid Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.solidVariants')}</h3>
         <div className="flex flex-wrap gap-3">
           <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-success" text="Success" variant={BadgeVariant.Success} />
           <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-warning" text="Warning" variant={BadgeVariant.Warning} />
@@ -21,7 +21,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Outline Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.outlineVariants')}</h3>
         <div className="flex flex-wrap gap-3">
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-outline-success" text="Success" variant={BadgeVariant.Success} />
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-outline-warning" text="Warning" variant={BadgeVariant.Warning} />
@@ -30,7 +30,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Security Alert Examples</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.securityAlertExamples')}</h3>
         <div className="flex flex-wrap gap-3">
           <AlertBadge testId="alert-badge-critical" text="Critical" variant={BadgeVariant.Error} />
           <AlertBadge testId="alert-badge-high" text="High" variant={BadgeVariant.Warning} />
@@ -39,7 +39,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">SLA Status</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.slaStatus')}</h3>
         <div className="flex flex-wrap gap-3">
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-ok" text="Within SLA" variant={BadgeVariant.Success} />
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-risk" text="At Risk" variant={BadgeVariant.Error} />
@@ -47,7 +47,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Risk Scores</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.riskScores')}</h3>
         <div className="flex flex-wrap gap-3">
           <AlertBadge testId="alert-badge-score-high" text="92" variant={BadgeVariant.Error} />
           <AlertBadge testId="alert-badge-score-med" text="65" variant={BadgeVariant.Warning} />

@@ -25,12 +25,12 @@ interface RowRenderConfig {
   rowKeyField: string;
   showCheckbox: boolean;
   selectionEnabled: boolean;
-  selection?: SelectionHandlers | undefined;
-  editingEnabled?: boolean | undefined;
-  editing?: EditingHandlers | undefined;
-  allowEditing?: boolean | undefined;
-  allowDeleting?: boolean | undefined;
-  showCommandColumn?: boolean | undefined;
+  selection?: SelectionHandlers;
+  editingEnabled?: boolean;
+  editing?: EditingHandlers;
+  allowEditing?: boolean;
+  allowDeleting?: boolean;
+  showCommandColumn?: boolean;
 }
 
 /** Render a single data row for a grouped item */
@@ -44,17 +44,17 @@ function renderGroupItem(
       allowEditing={config.allowEditing ?? false}
       cellPadding={config.cellPadding}
       columns={config.columns}
-      editing={config.editing}
       editingEnabled={config.editingEnabled ?? false}
       hoverable={config.hoverable}
       row={item}
       rowIndex={flatIndex}
       rowKeyField={config.rowKeyField}
-      selection={config.selection}
       selectionEnabled={config.selectionEnabled}
       showCheckbox={config.showCheckbox}
       showCommandColumn={config.showCommandColumn ?? false}
       striped={config.striped}
+      {...(isValueDefined(config.selection) ? { selection: config.selection } : {})}
+      {...(isValueDefined(config.editing) ? { editing: config.editing } : {})}
     />
   );
 }
@@ -117,15 +117,15 @@ interface Props {
   hoverable: boolean;
   emptyText: string;
   colSpan: number;
-  rowKeyField?: string | undefined;
-  showCheckbox?: boolean | undefined;
-  selectionEnabled?: boolean | undefined;
-  selection?: SelectionHandlers | undefined;
-  editingEnabled?: boolean | undefined;
-  editing?: EditingHandlers | undefined;
-  allowEditing?: boolean | undefined;
-  allowDeleting?: boolean | undefined;
-  showCommandColumn?: boolean | undefined;
+  rowKeyField?: string;
+  showCheckbox?: boolean;
+  selectionEnabled?: boolean;
+  selection?: SelectionHandlers;
+  editingEnabled?: boolean;
+  editing?: EditingHandlers;
+  allowEditing?: boolean;
+  allowDeleting?: boolean;
+  showCommandColumn?: boolean;
 }
 
 const TableBody = ({
@@ -147,8 +147,11 @@ const TableBody = ({
 
   const config: RowRenderConfig = {
     columns, colSpan, cellPadding, striped, hoverable, rowKeyField,
-    showCheckbox, selectionEnabled, selection,
-    editingEnabled, editing, allowEditing, allowDeleting, showCommandColumn,
+    showCheckbox, selectionEnabled,
+    allowEditing, allowDeleting, showCommandColumn,
+    ...(isValueDefined(selection) ? { selection } : {}),
+    ...(isValueDefined(editing) ? { editing } : {}),
+    ...(isValueDefined(editingEnabled) ? { editingEnabled } : {}),
   };
 
   if (isValueDefined(groupedData))
@@ -178,17 +181,17 @@ const TableBody = ({
           allowEditing={allowEditing}
           cellPadding={cellPadding}
           columns={columns}
-          editing={editing}
           editingEnabled={editingEnabled}
           hoverable={hoverable}
           row={row}
           rowIndex={rowIndex}
           rowKeyField={rowKeyField}
-          selection={selection}
           selectionEnabled={selectionEnabled}
           showCheckbox={showCheckbox}
           showCommandColumn={showCommandColumn}
           striped={striped}
+          {...(isValueDefined(selection) ? { selection } : {})}
+          {...(isValueDefined(editing) ? { editing } : {})}
         />
       ))}
     </tbody>

@@ -33,10 +33,10 @@ interface UseEditActionsProps extends EditSetters {
   allowEditing: boolean;
   allowDeleting: boolean;
   rowKeyField: string;
-  onSave?: ((e: Record<string, unknown>, o: Record<string, unknown>) => void) | undefined;
-  onDelete?: ((row: Record<string, unknown>) => void) | undefined;
-  onAdd?: ((row: Record<string, unknown>) => void) | undefined;
-  onBatchSave?: ((changes: BatchChanges) => void) | undefined;
+  onSave?: (e: Record<string, unknown>, o: Record<string, unknown>) => void;
+  onDelete?: (row: Record<string, unknown>) => void;
+  onAdd?: (row: Record<string, unknown>) => void;
+  onBatchSave?: (changes: BatchChanges) => void;
   editingRowId: unknown;
   editingCell: EditingCell | null;
   editValues: Record<string, unknown>;

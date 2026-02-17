@@ -24,11 +24,11 @@ const NativeTimelineShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.timelineShowcase.nativeDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Vertical Timeline</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.verticalTimeline')}</h3>
         <TimelineNative items={VERTICAL_ITEMS} testId="native-timeline-vertical" />
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Horizontal Timeline</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.horizontalTimeline')}</h3>
         <TimelineNative items={HORIZONTAL_ITEMS} orientation="horizontal" testId="native-timeline-horizontal" />
       </section>
     </div>

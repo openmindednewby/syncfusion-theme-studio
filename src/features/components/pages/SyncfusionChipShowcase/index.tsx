@@ -10,7 +10,7 @@ const SyncfusionChipShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.chipShowcase.syncfusionDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.variants')}</h3>
         <div className="flex flex-wrap gap-2">
           <SyncfusionTag label="Default" testId="sf-chip-default" />
           <SyncfusionTag label="Primary" testId="sf-chip-primary" variant={TagVariant.Primary} />
@@ -20,7 +20,7 @@ const SyncfusionChipShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Removable</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.removable')}</h3>
         <div className="flex flex-wrap gap-2">
           <SyncfusionTag removable label="JavaScript" testId="sf-chip-removable-1" variant={TagVariant.Primary} />
           <SyncfusionTag removable label="React" testId="sf-chip-removable-2" variant={TagVariant.Success} />
@@ -28,7 +28,7 @@ const SyncfusionChipShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Sizes</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
         <div className="flex flex-wrap items-center gap-2">
           <SyncfusionTag label="Small" size="sm" testId="sf-chip-sm" variant={TagVariant.Primary} />
           <SyncfusionTag label="Medium" testId="sf-chip-md" variant={TagVariant.Primary} />

@@ -10,7 +10,7 @@ const NativeAvatarShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.avatarShowcase.nativeDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Sizes</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
         <div className="flex items-end gap-3">
           <AvatarNative initials="XS" size={AvatarSize.Xs} testId="avatar-xs" />
           <AvatarNative initials="SM" size={AvatarSize.Sm} testId="avatar-sm" />
@@ -20,7 +20,7 @@ const NativeAvatarShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">With Status</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.withStatus')}</h3>
         <div className="flex gap-3">
           <AvatarNative showStatus initials="JD" testId="avatar-status-1" />
           <AvatarNative showStatus initials="AB" testId="avatar-status-2" />
@@ -28,7 +28,7 @@ const NativeAvatarShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Avatar Group</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.avatarGroup')}</h3>
         <div className="flex -space-x-2">
           <AvatarNative initials="A" testId="avatar-group-1" />
           <AvatarNative initials="B" testId="avatar-group-2" />

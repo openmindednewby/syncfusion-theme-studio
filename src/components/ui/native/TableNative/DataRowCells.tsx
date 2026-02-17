@@ -13,13 +13,26 @@ import { TextAlign } from './types';
 
 import type { TableColumn } from './types';
 
-const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
+// eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- CSS var() strings need double assertion
+const CELL_STYLE_DEFAULT = {
+  padding: 'var(--component-datagrid-cell-padding)',
+  textAlign: 'var(--component-datagrid-default-text-align)',
+  verticalAlign: 'var(--component-datagrid-default-vertical-align)',
+  lineHeight: 1.25,
+} as unknown as React.CSSProperties;
 
-const ALIGN_CLASSES: Record<TextAlign, string> = {
-  [TextAlign.Left]: 'text-left',
-  [TextAlign.Center]: 'text-center',
-  [TextAlign.Right]: 'text-right',
+/** Pre-computed cell styles for explicit per-column alignment overrides */
+const CELL_STYLE_BY_ALIGN: Record<TextAlign, React.CSSProperties> = {
+  [TextAlign.Left]: { ...CELL_STYLE_DEFAULT, textAlign: 'left' },
+  [TextAlign.Center]: { ...CELL_STYLE_DEFAULT, textAlign: 'center' },
+  [TextAlign.Right]: { ...CELL_STYLE_DEFAULT, textAlign: 'right' },
 };
+
+/** Get cell style – uses theme CSS variable by default, explicit value when column specifies one */
+function getCellStyle(column: TableColumn): React.CSSProperties {
+  if (isValueDefined(column.textAlign)) return CELL_STYLE_BY_ALIGN[column.textAlign];
+  return CELL_STYLE_DEFAULT;
+}
 
 const DIRTY_CELL_BG = 'bg-yellow-50 dark:bg-yellow-900/20';
 
@@ -79,9 +92,8 @@ interface EditableCellProps {
 
 /** Render an editable cell with inline input */
 const EditableCell = memo(({ column, cellPadding, editing, isDirty, row }: EditableCellProps): JSX.Element => {
-  const align = column.textAlign ?? TextAlign.Left;
   return (
-    <td className={cn(cellPadding, ALIGN_CLASSES[align], 'overflow-hidden')} style={CELL_PADDING_STYLE}>
+    <td className={cn(cellPadding, 'overflow-hidden')} style={getCellStyle(column)}>
       <EditCell
         field={column.field}
         isDirty={isDirty}
@@ -115,18 +127,17 @@ const ReadOnlyCell = memo(({
   column, row, rowId, cellPadding, isDirty,
   editing, editingEnabled, selectionEnabled, selection,
 }: ReadOnlyCellProps): JSX.Element => {
-  const align = column.textAlign ?? TextAlign.Left;
   const displayValue = getDirtyAwareDisplayValue({ isDirty, editing, rowId }, row, column);
 
   return (
     <td
       className={cn(
-        cellPadding, 'text-text-primary', ALIGN_CLASSES[align],
+        cellPadding, 'text-text-primary',
         'overflow-hidden text-ellipsis whitespace-nowrap',
         isDirty && DIRTY_CELL_BG,
       )}
       data-testid={`cell-${String(rowId)}-${column.field}`}
-      style={CELL_PADDING_STYLE}
+      style={getCellStyle(column)}
       onClick={(e) => {
         if (selectionEnabled && isValueDefined(selection))
           selection.handleCellClick(row, column.field, e);

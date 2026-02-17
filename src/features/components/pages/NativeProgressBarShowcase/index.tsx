@@ -10,7 +10,7 @@ const NativeProgressBarShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.progressBarShowcase.nativeDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.variants')}</h3>
         <div className="space-y-3">
           <ProgressBarNative showLabel label="Default" testId="progress-default" value={60} />
           <ProgressBarNative showLabel label="Success" testId="progress-success" value={80} variant={ProgressBarVariant.Success} />
@@ -19,7 +19,7 @@ const NativeProgressBarShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Sizes</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
         <div className="space-y-3">
           <ProgressBarNative size="sm" testId="progress-sm" value={70} />
           <ProgressBarNative size="md" testId="progress-md" value={70} />
@@ -27,7 +27,7 @@ const NativeProgressBarShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Indeterminate</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.indeterminate')}</h3>
         <ProgressBarNative indeterminate testId="progress-indeterminate" value={0} />
       </section>
     </div>

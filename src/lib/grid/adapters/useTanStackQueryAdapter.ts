@@ -60,10 +60,10 @@ export function buildQueryParams<TParams = Record<string, unknown>>(
 ): TParams {
   const params: ServerQueryParams = {
     filters: gridState.filters ?? {},
-    sortField: gridState.sortField,
-    sortDirection: gridState.sortDirection,
     page: gridState.page ?? DEFAULT_PAGE,
     pageSize: gridState.pageSize ?? DEFAULT_PAGE_SIZE,
+    ...(isValueDefined(gridState.sortField) ? { sortField: gridState.sortField } : {}),
+    ...(isValueDefined(gridState.sortDirection) ? { sortDirection: gridState.sortDirection } : {}),
   };
 
   if (isValueDefined(config.paramsBuilder)) return config.paramsBuilder(params);

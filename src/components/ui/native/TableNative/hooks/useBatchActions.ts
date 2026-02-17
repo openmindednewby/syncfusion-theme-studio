@@ -26,7 +26,7 @@ interface UseBatchActionsProps extends BatchSetters {
   editMode: 'Normal' | 'Dialog' | 'Batch';
   data: Array<Record<string, unknown>>;
   rowKeyField: string;
-  onBatchSave?: ((changes: BatchChanges) => void) | undefined;
+  onBatchSave?: (changes: BatchChanges) => void;
   dirtyRows: Set<unknown>;
   dirtyCells: Map<string, unknown>;
   batchAdded: Array<Record<string, unknown>>;

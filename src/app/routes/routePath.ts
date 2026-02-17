@@ -135,6 +135,10 @@ export const enum RoutePath {
   ComponentsTooltipNative = '/dashboard/components/tooltip/native',
   ComponentsTooltipSyncfusion = '/dashboard/components/tooltip/syncfusion',
 
+  // Icons
+  ComponentsIcons = '/dashboard/components/icons',
+  ComponentsIconsNative = '/dashboard/components/icons/native',
+
   // ThemeToggle
   ComponentsThemeToggle = '/dashboard/components/themetoggle',
   ComponentsThemeToggleNative = '/dashboard/components/themetoggle/native',

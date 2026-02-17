@@ -10,7 +10,7 @@ const SyncfusionProgressBarShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.progressBarShowcase.syncfusionDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.variants')}</h3>
         <div className="space-y-3">
           <SyncfusionProgressBar showLabel testId="sf-progress-default" value={60} />
           <SyncfusionProgressBar showLabel testId="sf-progress-success" value={80} variant={ProgressBarVariant.Success} />

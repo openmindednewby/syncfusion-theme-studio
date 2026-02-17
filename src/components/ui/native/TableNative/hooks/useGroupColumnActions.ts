@@ -29,7 +29,7 @@ interface GroupColumnActions {
 
 export function useGroupColumnActions(
   initialGroupColumns: string[],
-  onGroupChange?: ((columns: string[]) => void) | undefined,
+  onGroupChange?: (columns: string[]) => void,
 ): GroupColumnActions {
   const [groupColumns, setGroupColumns] = useState<string[]>(initialGroupColumns);
 

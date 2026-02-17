@@ -16,41 +16,29 @@ import { TextAlign } from './types';
 
 import type { TableColumn } from './types';
 
-const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
+const HEADER_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-header-text-padding)' };
 const SORT_ASCENDING_INDICATOR = '\u25B2';
 const SORT_DESCENDING_INDICATOR = '\u25BC';
 
-const ALIGN_CLASSES: Record<TextAlign, string> = {
-  [TextAlign.Left]: 'text-left',
-  [TextAlign.Center]: 'text-center',
-  [TextAlign.Right]: 'text-right',
+/** Maps column TextAlign to CSS textAlign values for explicit per-column overrides */
+const HEADER_ALIGN_CSS: Record<TextAlign, React.CSSProperties['textAlign']> = {
+  [TextAlign.Left]: 'left',
+  [TextAlign.Center]: 'center',
+  [TextAlign.Right]: 'right',
 };
 
 /** Format a column width value to a CSS-compatible string */
 function formatWidth(width: number | string): string {
-  if (typeof width === 'number') return `${String(width)}px`;
-  return width;
+  return typeof width === 'number' ? `${String(width)}px` : width;
 }
 
 /** Build the style object for column width constraints */
 function buildColumnStyle(column: TableColumn): React.CSSProperties | undefined {
   const style: React.CSSProperties = {};
-  let hasStyle = false;
-
-  if (isValueDefined(column.width)) {
-    style.width = formatWidth(column.width);
-    hasStyle = true;
-  }
-  if (isValueDefined(column.minWidth)) {
-    style.minWidth = formatWidth(column.minWidth);
-    hasStyle = true;
-  }
-  if (isValueDefined(column.maxWidth)) {
-    style.maxWidth = formatWidth(column.maxWidth);
-    hasStyle = true;
-  }
-
-  return hasStyle ? style : undefined;
+  if (isValueDefined(column.width)) style.width = formatWidth(column.width);
+  if (isValueDefined(column.minWidth)) style.minWidth = formatWidth(column.minWidth);
+  if (isValueDefined(column.maxWidth)) style.maxWidth = formatWidth(column.maxWidth);
+  return Object.keys(style).length > 0 ? style : undefined;
 }
 
 interface Props {
@@ -64,17 +52,17 @@ interface Props {
   filterValues: Record<string, string>;
   columnTypes: Record<string, ColumnType>;
   onFilterChange: (field: string, value: string) => void;
-  showCheckbox?: boolean | undefined;
-  isAllSelected?: boolean | undefined;
-  onSelectAll?: (() => void) | undefined;
-  draggableHeaders?: boolean | undefined;
-  showColumnMenu?: boolean | undefined;
-  openMenuField?: string | null | undefined;
-  onMenuToggle?: ((field: string) => void) | undefined;
-  onMenuClose?: (() => void) | undefined;
-  allColumns?: TableColumn[] | undefined;
-  hiddenFields?: Set<string> | undefined;
-  onToggleColumnVisibility?: ((field: string) => void) | undefined;
+  showCheckbox?: boolean;
+  isAllSelected?: boolean;
+  onSelectAll?: () => void;
+  draggableHeaders?: boolean;
+  showColumnMenu?: boolean;
+  openMenuField?: string | null;
+  onMenuToggle?: (field: string) => void;
+  onMenuClose?: () => void;
+  allColumns?: TableColumn[];
+  hiddenFields?: Set<string>;
+  onToggleColumnVisibility?: (field: string) => void;
 }
 
 const TableHeader = ({
@@ -136,7 +124,7 @@ const TableHeader = ({
         }}
       >
         {showCheckbox ? (
-          <th className={cn(cellPadding, 'w-10 text-center')} scope="col" style={CELL_PADDING_STYLE}>
+          <th className={cn(cellPadding, 'w-10 text-center')} scope="col" style={HEADER_PADDING_STYLE}>
             <input
               aria-label={FM('table.selectAll')}
               checked={isAllSelected}
@@ -149,7 +137,10 @@ const TableHeader = ({
         ) : null}
         {columns.map((column) => {
           const isSorted = sortField === column.field;
-          const align = column.textAlign ?? TextAlign.Left;
+          // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- CSS var() for theme-driven default
+          const headerTextAlign = (isValueDefined(column.textAlign)
+            ? HEADER_ALIGN_CSS[column.textAlign]
+            : 'var(--component-datagrid-header-text-align)') as React.CSSProperties['textAlign'];
           return (
             <th
               key={column.field}
@@ -160,24 +151,25 @@ const TableHeader = ({
                 'border-b transition-colors',
                 'overflow-visible whitespace-nowrap',
                 'border-r border-r-border/30 last:border-r-0',
-                ALIGN_CLASSES[align],
               )}
               draggable={draggableHeaders}
               scope="col"
               style={{
-                padding: 'var(--component-datagrid-cell-padding)',
+                padding: 'var(--component-datagrid-header-text-padding)',
                 color: 'var(--component-datagrid-header-text)',
                 borderColor: 'var(--component-datagrid-header-border)',
                 textTransform: 'var(--component-datagrid-header-transform)',
+                textAlign: headerTextAlign,
                 fontSize: 'var(--component-datagrid-header-font-size)',
                 fontWeight: 'var(--component-datagrid-header-font-weight)',
                 letterSpacing: 'var(--component-datagrid-header-letter-spacing)',
+                verticalAlign: 'var(--component-datagrid-header-vertical-align)',
                 ...buildColumnStyle(column),
               }}
               onClick={() => onSort(column.field)}
               onDragStart={(e) => handleDragStart(e, column.field)}
             >
-              <span className="inline-flex w-full items-center gap-1">
+              <span className="inline-flex w-full items-center gap-1" style={{ justifyContent: headerTextAlign }}>
                 <span className="overflow-hidden text-ellipsis">
                   {column.headerText}
                 </span>

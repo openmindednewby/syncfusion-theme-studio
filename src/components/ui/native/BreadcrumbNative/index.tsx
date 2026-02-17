@@ -31,6 +31,8 @@ interface Props {
   testId?: string;
   /** Additional CSS classes */
   className?: string;
+  /** Callback when a non-current breadcrumb item is clicked */
+  onItemClick?: (item: BreadcrumbItem, event: React.MouseEvent<HTMLAnchorElement>) => void;
 }
 
 const DEFAULT_SEPARATOR = '/';
@@ -41,6 +43,7 @@ const BreadcrumbNative = ({
   ariaLabel = 'Breadcrumb',
   testId,
   className,
+  onItemClick,
 }: Props): JSX.Element => {
   const lastIndex = items.length - 1;
 
@@ -80,7 +83,10 @@ const BreadcrumbNative = ({
                     'hover:text-primary-500 focus:outline-none focus:text-primary-500',
                   )}
                   href={item.url ?? '#'}
-                  onClick={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onItemClick?.(item, e);
+                  }}
                 >
                   {isValueDefined(item.icon) ? (
                     <span aria-hidden="true" className="h-4 w-4">

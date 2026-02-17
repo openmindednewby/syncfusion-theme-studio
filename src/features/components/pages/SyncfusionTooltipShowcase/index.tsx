@@ -10,19 +10,19 @@ const SyncfusionTooltipShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.tooltipShowcase.syncfusionDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Positions</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.positions')}</h3>
         <div className="flex flex-wrap items-center gap-6 py-8">
           <SyncfusionTooltip content="Top tooltip" placement={TooltipPlacement.Top} testId="sf-tooltip-top">
-            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">Top</button>
+            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">{FM('showcase.labels.top')}</button>
           </SyncfusionTooltip>
           <SyncfusionTooltip content="Bottom tooltip" placement={TooltipPlacement.Bottom} testId="sf-tooltip-bottom">
-            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">Bottom</button>
+            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">{FM('showcase.labels.bottom')}</button>
           </SyncfusionTooltip>
           <SyncfusionTooltip content="Left tooltip" placement={TooltipPlacement.Left} testId="sf-tooltip-left">
-            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">Left</button>
+            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">{FM('showcase.labels.left')}</button>
           </SyncfusionTooltip>
           <SyncfusionTooltip content="Right tooltip" placement={TooltipPlacement.Right} testId="sf-tooltip-right">
-            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">Right</button>
+            <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">{FM('showcase.labels.right')}</button>
           </SyncfusionTooltip>
         </div>
       </section>

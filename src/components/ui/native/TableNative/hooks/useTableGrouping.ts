@@ -12,8 +12,8 @@ import type { UseTableGroupingResult } from './useGroupColumnActions';
 
 interface UseTableGroupingProps {
   data: Array<Record<string, unknown>>;
-  groupColumns?: string[] | undefined;
-  onGroupChange?: ((columns: string[]) => void) | undefined;
+  groupColumns?: string[];
+  onGroupChange?: (columns: string[]) => void;
 }
 
 export function useTableGrouping({

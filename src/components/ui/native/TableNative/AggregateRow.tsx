@@ -18,7 +18,7 @@ interface Props {
   columns: ColumnDef[];
   aggregateColumns: ComputedAggregate[];
   cellPadding: string;
-  hasCheckboxColumn?: boolean | undefined;
+  hasCheckboxColumn?: boolean;
 }
 
 const AggregateRow = ({

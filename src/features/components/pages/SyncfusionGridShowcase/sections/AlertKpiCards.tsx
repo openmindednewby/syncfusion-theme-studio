@@ -51,7 +51,7 @@ export const AlertKpiCards = memo((): JSX.Element => (
           {FM(card.labelKey)}
         </div>
         <div className="mt-0.5 text-xs text-text-muted">
-          &rarr; {FM('gridShowcase.kpiStable')}
+          {'\u2192'} {FM('gridShowcase.kpiStable')}
         </div>
       </div>
     ))}

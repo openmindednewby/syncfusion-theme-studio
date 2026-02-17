@@ -42,16 +42,8 @@ const InteractiveBreadcrumb = memo((): JSX.Element => {
 
   const items = useMemo(() => buildTrail(depth), [depth]);
 
-  const handleItemClick = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
-    const target = e.target;
-    if (!(target instanceof HTMLElement)) return;
-
-    const anchor = target.closest('a');
-    if (!anchor) return;
-
-    e.preventDefault();
-    const label = anchor.textContent;
-    if (isValueDefined(label)) setNavigatedTo(label);
+  const handleItemClick = useCallback((item: BreadcrumbItem) => {
+    setNavigatedTo(item.text);
   }, []);
 
   const statusText = isValueDefined(navigatedTo)
@@ -89,14 +81,12 @@ const InteractiveBreadcrumb = memo((): JSX.Element => {
         </span>
         {depthButtons}
       </div>
-      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
-      <div onClick={handleItemClick}>
-        <BreadcrumbNative
-          ariaLabel={FM('components.breadcrumbShowcase.ariaLabel')}
-          items={items}
-          testId="breadcrumb-interactive"
-        />
-      </div>
+      <BreadcrumbNative
+        ariaLabel={FM('components.breadcrumbShowcase.ariaLabel')}
+        items={items}
+        testId="breadcrumb-interactive"
+        onItemClick={handleItemClick}
+      />
       <div
         className="rounded-md border border-border bg-surface-variant px-4 py-2.5 text-sm"
         data-testid={TestIds.NATIVE_BREADCRUMB_NAV_STATUS}

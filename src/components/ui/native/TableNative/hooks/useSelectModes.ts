@@ -9,8 +9,8 @@ import type { RowKeyFn } from './selectionUtils';
 
 interface SelectCallbacks {
   setSelectedRowIds: (ids: Set<unknown>) => void;
-  onRowSelected?: ((row: Record<string, unknown>) => void) | undefined;
-  onRowDeselected?: ((row: Record<string, unknown>) => void) | undefined;
+  onRowSelected?: (row: Record<string, unknown>) => void;
+  onRowDeselected?: (row: Record<string, unknown>) => void;
   notifyChange: (ids: Set<unknown>) => void;
   setLastIndex: (idx: number) => void;
 }

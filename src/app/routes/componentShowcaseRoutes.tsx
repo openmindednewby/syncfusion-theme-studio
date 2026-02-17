@@ -6,6 +6,7 @@ import { Navigate, type RouteObject } from 'react-router-dom';
 import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 
 import {
+  IconsShowcase,
   AlertBadgeShowcase,
   NativeAlertShowcase,
   NativeButtonShowcase,
@@ -162,6 +163,9 @@ export const componentShowcaseRoutes: RouteObject[] = [
   { path: RouteSegment.ComponentsTooltip, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsTooltipNative, element: <LazyShowcase component={NativeTooltipShowcase} /> },
   { path: RouteSegment.ComponentsTooltipSyncfusion, element: <LazyShowcase component={SyncfusionTooltipShowcase} /> },
+  // Icons
+  { path: RouteSegment.ComponentsIcons, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsIconsNative, element: <LazyShowcase component={IconsShowcase} /> },
   // ThemeToggle
   { path: RouteSegment.ComponentsThemeToggle, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsThemeToggleNative, element: <LazyShowcase component={NativeThemeToggleShowcase} /> },

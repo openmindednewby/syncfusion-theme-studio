@@ -170,10 +170,10 @@ export const UserManagementSection = (): JSX.Element => {
         ) : null}
 
         <UserForm
-          defaultValues={formDefaults}
           isEditing={isEditing}
           isSubmitting={isMutating}
           onSubmit={handleFormSubmit}
+          {...(isValueDefined(formDefaults) ? { defaultValues: formDefaults } : {})}
         />
       </FormSection>
 

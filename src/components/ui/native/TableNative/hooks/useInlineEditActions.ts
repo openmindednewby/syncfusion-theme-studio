@@ -26,8 +26,8 @@ interface InlineEditProps extends InlineSetters {
   editMode: 'Normal' | 'Dialog' | 'Batch';
   allowEditing: boolean;
   rowKeyField: string;
-  onSave?: ((e: Record<string, unknown>, o: Record<string, unknown>) => void) | undefined;
-  onDelete?: ((row: Record<string, unknown>) => void) | undefined;
+  onSave?: (e: Record<string, unknown>, o: Record<string, unknown>) => void;
+  onDelete?: (row: Record<string, unknown>) => void;
   editingRowId: unknown;
   editingCell: EditingCell | null;
   editValues: Record<string, unknown>;

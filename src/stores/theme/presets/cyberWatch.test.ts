@@ -63,8 +63,8 @@ describe('CyberWatch Theme Preset', () => {
   });
 
   it('has custom sidebar activeItemBackground', () => {
-    expect(CYBERWATCH_THEME.components.dark.sidebar.activeItemBackground).toBe('0 188 212');
-    expect(CYBERWATCH_THEME.components.light.sidebar.activeItemBackground).toBe('0 188 212');
+    expect(CYBERWATCH_THEME.components.dark.sidebar.activeItemBackground).toBe('59 130 246');
+    expect(CYBERWATCH_THEME.components.light.sidebar.activeItemBackground).toBe('59 130 246');
   });
 
   it('has custom dark dataGrid colors', () => {

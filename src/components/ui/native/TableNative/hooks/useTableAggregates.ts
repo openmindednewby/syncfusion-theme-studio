@@ -34,7 +34,7 @@ interface ComputedAggregateRow {
 
 interface UseTableAggregatesProps {
   data: Array<Record<string, unknown>>;
-  aggregates?: AggregateRowDef[] | undefined;
+  aggregates?: AggregateRowDef[];
 }
 
 interface UseTableAggregatesResult {

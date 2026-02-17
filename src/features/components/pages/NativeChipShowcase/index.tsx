@@ -10,7 +10,7 @@ const NativeChipShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.chipShowcase.nativeDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.variants')}</h3>
         <div className="flex flex-wrap gap-2">
           <TagNative label="Default" testId="chip-default" />
           <TagNative label="Primary" testId="chip-primary" variant={TagVariant.Primary} />
@@ -20,7 +20,7 @@ const NativeChipShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Removable</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.removable')}</h3>
         <div className="flex flex-wrap gap-2">
           <TagNative removable label="React" testId="chip-removable-1" variant={TagVariant.Primary} />
           <TagNative removable label="TypeScript" testId="chip-removable-2" variant={TagVariant.Success} />
@@ -28,14 +28,14 @@ const NativeChipShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Sizes</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
         <div className="flex flex-wrap items-center gap-2">
           <TagNative label="Small" size="sm" testId="chip-sm" variant={TagVariant.Primary} />
           <TagNative label="Medium" testId="chip-md" variant={TagVariant.Primary} />
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">With Icons</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.withIcons')}</h3>
         <div className="flex flex-wrap gap-2">
           <TagNative
             icon={<svg aria-hidden="true" className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} /></svg>}

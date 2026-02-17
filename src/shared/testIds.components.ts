@@ -90,6 +90,7 @@ export const ComponentTestIds = {
   NATIVE_CHIP_SHOWCASE: 'native-chip-showcase',
   SYNCFUSION_CHIP_SHOWCASE: 'syncfusion-chip-showcase',
   NATIVE_THEMETOGGLE_SHOWCASE: 'native-themetoggle-showcase',
+  ICONS_SHOWCASE: 'icons-showcase',
 
   // New navigation test IDs
   NAV_TABS_NATIVE: 'nav-tabs-native',
@@ -111,6 +112,7 @@ export const ComponentTestIds = {
   NAV_CHIP_NATIVE: 'nav-chip-native',
   NAV_CHIP_SYNCFUSION: 'nav-chip-syncfusion',
   NAV_THEMETOGGLE_NATIVE: 'nav-themetoggle-native',
+  NAV_ICONS_GROUP: 'nav-icons-group',
 
   // Component SubNavGroup test IDs
   NAV_ALERTBADGE_GROUP: 'nav-alertbadge-group',

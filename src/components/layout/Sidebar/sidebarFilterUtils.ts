@@ -53,8 +53,10 @@ export function filterMainNavItems(
     }
 
     const filteredChildren = filterNavChildren(entry.children, q);
-    if (filteredChildren.length > 0)
-      acc.push({ ...entry, children: filteredChildren } as SidebarExpandableItem);
+    if (filteredChildren.length > 0) {
+      const narrowed: SidebarExpandableItem = { ...entry, children: filteredChildren };
+      acc.push(narrowed);
+    }
 
     return acc;
   }, []);

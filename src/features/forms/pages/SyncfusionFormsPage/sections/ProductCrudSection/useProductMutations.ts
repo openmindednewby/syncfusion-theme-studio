@@ -39,48 +39,79 @@ function toApiPayload(data: ProductFormData): UpdateProductRequest {
   return payload;
 }
 
-// eslint-disable-next-line smart-max-lines/smart-max-lines -- combines 3 mutations with invalidation
-export function useProductMutations(
+/** Returns a stable callback that invalidates the products list query */
+function useInvalidateProducts(): () => void {
+  const queryClient = useQueryClient();
+
+  return useCallback((): void => {
+    queryClient
+      .invalidateQueries({
+        queryKey: getMockServerWebProductsListQueryKey(),
+      })
+      .catch(() => {
+        /* fire-and-forget */
+      });
+  }, [queryClient]);
+}
+
+/** Handles delete mutation with editing state cleanup */
+function useProductDelete(
   editingProduct: ProductDto | null,
   setEditingProduct: (p: ProductDto | null) => void,
+  invalidate: () => void
+): {
+  deleteMutation: ReturnType<typeof useMockServerWebProductsDelete>;
+  handleDelete: (id: number) => void;
+} {
+  const deleteMutation = useMockServerWebProductsDelete();
+
+  const handleDelete = useCallback(
+    (id: number) => {
+      deleteMutation.mutate(
+        { id },
+        {
+          onSuccess: () => {
+            if (editingProduct?.id === id) setEditingProduct(null);
+            invalidate();
+          },
+        }
+      );
+    },
+    [deleteMutation, editingProduct, invalidate, setEditingProduct]
+  );
+
+  return { deleteMutation, handleDelete };
+}
+
+export function useProductMutations(
+  editingProduct: ProductDto | null,
+  setEditingProduct: (p: ProductDto | null) => void
 ): ProductMutationResult {
-  const queryClient = useQueryClient();
   const createMutation = useMockServerWebProductsCreate();
   const updateMutation = useMockServerWebProductsUpdate();
-  const deleteMutation = useMockServerWebProductsDelete();
+  const invalidate = useInvalidateProducts();
+  const { deleteMutation, handleDelete } = useProductDelete(
+    editingProduct,
+    setEditingProduct,
+    invalidate
+  );
 
   const isMutating =
     createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
 
-  const invalidate = useCallback((): void => {
-    queryClient.invalidateQueries({
-      queryKey: getMockServerWebProductsListQueryKey(),
-    }).catch(() => { /* fire-and-forget */ });
-  }, [queryClient]);
-
   const handleFormSubmit = useCallback(
     (data: ProductFormData) => {
       const payload = toApiPayload(data);
-      const onDone = (): void => { setEditingProduct(null); invalidate(); };
+      const onDone = (): void => {
+        setEditingProduct(null);
+        invalidate();
+      };
 
       if (isValueDefined(editingProduct?.id))
         updateMutation.mutate({ id: editingProduct.id, data: payload }, { onSuccess: onDone });
-      else
-        createMutation.mutate({ data: payload }, { onSuccess: invalidate });
+      else createMutation.mutate({ data: payload }, { onSuccess: invalidate });
     },
-    [editingProduct, createMutation, updateMutation, invalidate, setEditingProduct],
-  );
-
-  const handleDelete = useCallback(
-    (id: number) => {
-      deleteMutation.mutate({ id }, {
-        onSuccess: () => {
-          if (editingProduct?.id === id) setEditingProduct(null);
-          invalidate();
-        },
-      });
-    },
-    [deleteMutation, editingProduct, invalidate, setEditingProduct],
+    [editingProduct, createMutation, updateMutation, invalidate, setEditingProduct]
   );
 
   return { isMutating, handleFormSubmit, handleDelete };

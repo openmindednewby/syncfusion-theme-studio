@@ -3,7 +3,7 @@
  * Composes SidebarHeader, SidebarSearch, SidebarMainNav/SidebarSubNav,
  * and SidebarBottomItems based on current navigation state.
  */
-import { useCallback, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
@@ -19,24 +19,31 @@ export const Sidebar = (): JSX.Element => {
   const { isCollapsed, toggle, activeSubNav } = useSidebarStore();
   const [isHovered, setIsHovered] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const sidebarRef = useRef<HTMLElement>(null);
 
   const effectivelyCollapsed = isCollapsed && !isHovered;
   const collapsedClass = effectivelyCollapsed ? 'collapsed' : '';
   const hasSubNav = isValueDefined(activeSubNav);
 
-  const handleMouseEnter = useCallback(() => {
-    if (isCollapsed) setIsHovered(true);
+  useEffect(() => {
+    const el = sidebarRef.current;
+    if (!isValueDefined(el)) return;
+    const enter = (): void => { if (isCollapsed) setIsHovered(true); };
+    const leave = (): void => setIsHovered(false);
+    el.addEventListener('mouseenter', enter);
+    el.addEventListener('mouseleave', leave);
+    return () => {
+      el.removeEventListener('mouseenter', enter);
+      el.removeEventListener('mouseleave', leave);
+    };
   }, [isCollapsed]);
-
-  const handleMouseLeave = useCallback(() => setIsHovered(false), []);
 
   return (
     <aside
+      ref={sidebarRef}
       className={`sidebar ${collapsedClass} flex flex-col transition-all duration-normal`}
       data-collapsed={effectivelyCollapsed ? 'true' : 'false'}
       data-testid={TestIds.SIDEBAR}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <SidebarHeader isCollapsed={effectivelyCollapsed} onToggle={toggle} />
       <SidebarSearch

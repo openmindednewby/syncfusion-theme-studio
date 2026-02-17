@@ -90,8 +90,8 @@ interface ServerCallbacks {
 /** Parameters sent to the server on state change */
 interface ServerQueryParams {
   filters: Record<string, string | number | boolean>;
-  sortField?: string | undefined;
-  sortDirection?: SortDirection | undefined;
+  sortField?: string;
+  sortDirection?: SortDirection;
   page: number;
   pageSize: number;
 }

@@ -26,11 +26,11 @@ interface Props {
   currentPage: number;
   totalPages: number;
   pageSize: number;
-  pageSizes?: number[] | undefined;
+  pageSizes?: number[];
   totalItems: number;
-  pageCount?: number | undefined;
-  showFirstLastButtons?: boolean | undefined;
-  showPageInfo?: boolean | undefined;
+  pageCount?: number;
+  showFirstLastButtons?: boolean;
+  showPageInfo?: boolean;
   onPageChange: (page: number) => void;
   onPageSizeChange: (size: number) => void;
 }

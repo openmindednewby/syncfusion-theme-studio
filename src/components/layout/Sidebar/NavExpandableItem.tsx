@@ -3,6 +3,7 @@ import { useState, useCallback, useEffect } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
+import { isValueDefined } from '@/utils/is';
 
 import { HighlightMatch } from './HighlightMatch';
 import { NavSubGroup } from './NavSubGroup';
@@ -112,9 +113,9 @@ export const NavExpandableItem = ({
                   forceExpanded={forceExpanded}
                   items={child.items}
                   labelKey={child.labelKey}
-                  path={child.path}
                   searchQuery={searchQuery}
                   testId={child.testId}
+                  {...(isValueDefined(child.path) ? { path: child.path } : {})}
                 />
               ) : (
                 <li key={child.path}>

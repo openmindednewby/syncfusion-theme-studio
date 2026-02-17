@@ -15,7 +15,7 @@ interface Props {
   columns: ColumnDef[];
   aggregateRows: ComputedAggregateRow[];
   cellPadding: string;
-  hasCheckboxColumn?: boolean | undefined;
+  hasCheckboxColumn?: boolean;
 }
 
 const TableFooter = ({

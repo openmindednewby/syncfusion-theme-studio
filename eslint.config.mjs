@@ -20,6 +20,7 @@ import requireStableHookArgsPlugin from './eslint-plugins/require-stable-hook-ar
 import noBarrelCompanionFilePlugin from './eslint-plugins/no-barrel-companion-file.mjs';
 import noDuplicateNavPrefixPlugin from './eslint-plugins/no-duplicate-nav-prefix.mjs';
 import noInlineSvgIconsPlugin from './eslint-plugins/no-inline-svg-icons.mjs';
+import noOptionalUndefinedPlugin from './eslint-plugins/no-optional-undefined.mjs';
 
 export default [
   // =====================================================
@@ -110,6 +111,7 @@ export default [
       'require-stable-hook-args': requireStableHookArgsPlugin,
       'no-barrel-companion-file': noBarrelCompanionFilePlugin,
       'no-inline-svg-icons': noInlineSvgIconsPlugin,
+      'no-optional-undefined': noOptionalUndefinedPlugin,
     },
     settings: {
       react: { version: 'detect' },
@@ -284,7 +286,7 @@ export default [
         noStrings: true,
         allowedStrings: [
           '/', '-', '>', '<', '|', ':', '.', ',', '+', '=', '(', ')',
-          '*', '%', '$', '#', '&', '@', '~', '^', '!', '?', ';',
+          '*', '%', '$', '#', '&', '@', '~', '^', '!', '?', ';', '\u2192', '\u2715',
         ],
         ignoreProps: true,
         noAttributeStrings: false,
@@ -426,6 +428,12 @@ export default [
       // =====================================================
       // All SVG icon components must live in src/components/icons/
       'no-inline-svg-icons/no-inline-svg-icons': 'error',
+
+      // =====================================================
+      // OPTIONAL + UNDEFINED TYPE PREVENTION
+      // =====================================================
+      // Prohibit `?: T | undefined` — use `?: T` and omit the key instead
+      'no-optional-undefined/no-optional-undefined': 'error',
 
       // =====================================================
       // GENERAL BEST PRACTICES

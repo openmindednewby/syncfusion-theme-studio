@@ -19,7 +19,7 @@ interface NavSubGroupProps {
   testId: string;
   expandTestId: string;
   /** Optional path used for active-state detection */
-  path?: string | undefined;
+  path?: string;
   items: SubNavItem[];
   /** Force expand when search is active */
   forceExpanded?: boolean;

@@ -15,7 +15,7 @@ interface RowClickDeps {
   selectionType: 'Single' | 'Multiple';
   selectionMode: 'Row' | 'Cell' | 'Both';
   checkboxEnabled: boolean;
-  onRowSelected?: ((row: Record<string, unknown>) => void) | undefined;
+  onRowSelected?: (row: Record<string, unknown>) => void;
   notifyChange: (ids: Set<unknown>) => void;
   handleSingleSelect: (row: Record<string, unknown>, rowIndex: number) => void;
   handleMultiToggle: (row: Record<string, unknown>, rowIndex: number) => void;

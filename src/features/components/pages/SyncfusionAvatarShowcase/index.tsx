@@ -10,7 +10,7 @@ const SyncfusionAvatarShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.avatarShowcase.syncfusionDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Sizes</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
         <div className="flex items-end gap-3">
           <SyncfusionAvatar initials="XS" size={AvatarSize.Xs} testId="sf-avatar-xs" />
           <SyncfusionAvatar initials="SM" size={AvatarSize.Sm} testId="sf-avatar-sm" />
@@ -20,7 +20,7 @@ const SyncfusionAvatarShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Fallback</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.fallback')}</h3>
         <div className="flex gap-3">
           <SyncfusionAvatar initials="JD" testId="sf-avatar-initials" />
           <SyncfusionAvatar testId="sf-avatar-fallback" />

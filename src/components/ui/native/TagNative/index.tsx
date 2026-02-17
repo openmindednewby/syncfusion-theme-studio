@@ -79,7 +79,7 @@ const TagNative = memo(({
           type="button"
           onClick={handleRemove}
         >
-          ✕
+          {'\u2715'}
         </button> : null}
     </Tag>
   );

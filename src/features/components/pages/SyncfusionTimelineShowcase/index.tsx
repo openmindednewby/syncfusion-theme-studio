@@ -17,11 +17,11 @@ const SyncfusionTimelineShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.timelineShowcase.syncfusionDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Vertical Timeline</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.verticalTimeline')}</h3>
         <SyncfusionTimeline items={ITEMS} testId="sf-timeline-vertical" />
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Horizontal Timeline</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.horizontalTimeline')}</h3>
         <SyncfusionTimeline items={ITEMS} orientation="horizontal" testId="sf-timeline-horizontal" />
       </section>
     </div>

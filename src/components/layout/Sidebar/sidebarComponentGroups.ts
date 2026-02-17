@@ -95,6 +95,7 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
       { path: RoutePath.ComponentsDialogSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_DIALOG_SYNCFUSION },
     ],
   },
+  { path: RoutePath.ComponentsIconsNative, labelKey: 'menu.icons', testId: ComponentTestIds.NAV_ICONS_GROUP },
   {
     labelKey: 'menu.grid', testId: ComponentTestIds.NAV_GRID_GROUP,
     expandTestId: ComponentTestIds.NAV_GRID_GROUP_EXPAND, items: [

@@ -12,13 +12,13 @@ export const HighlightMatch = ({
   text,
   query,
 }: HighlightMatchProps): JSX.Element => {
-  if (query === '') return <>{text}</>;
+  if (query === '') return <span>{text}</span>;
 
   const lowerText = text.toLowerCase();
   const lowerQuery = query.toLowerCase().trim();
   const idx = lowerText.indexOf(lowerQuery);
 
-  if (idx === -1 || lowerQuery === '') return <>{text}</>;
+  if (idx === -1 || lowerQuery === '') return <span>{text}</span>;
 
   const before = text.slice(0, idx);
   const match = text.slice(idx, idx + lowerQuery.length);

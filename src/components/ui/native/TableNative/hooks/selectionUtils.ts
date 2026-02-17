@@ -28,13 +28,13 @@ function getSelectedRows(
 
 interface UseTableSelectionProps {
   data: Array<Record<string, unknown>>;
-  selectionType?: 'Single' | 'Multiple' | undefined;
-  selectionMode?: 'Row' | 'Cell' | 'Both' | undefined;
-  checkboxEnabled?: boolean | undefined;
-  rowKeyAccessor?: RowKeyFn | undefined;
-  onRowSelected?: ((row: Record<string, unknown>) => void) | undefined;
-  onRowDeselected?: ((row: Record<string, unknown>) => void) | undefined;
-  onSelectionChange?: ((selectedRows: Array<Record<string, unknown>>) => void) | undefined;
+  selectionType?: 'Single' | 'Multiple';
+  selectionMode?: 'Row' | 'Cell' | 'Both';
+  checkboxEnabled?: boolean;
+  rowKeyAccessor?: RowKeyFn;
+  onRowSelected?: (row: Record<string, unknown>) => void;
+  onRowDeselected?: (row: Record<string, unknown>) => void;
+  onSelectionChange?: (selectedRows: Array<Record<string, unknown>>) => void;
 }
 
 interface ModifierKeys {

@@ -128,6 +128,10 @@ export const enum RouteSegment {
   ComponentsTooltipNative = 'components/tooltip/native',
   ComponentsTooltipSyncfusion = 'components/tooltip/syncfusion',
 
+  // Icons
+  ComponentsIcons = 'components/icons',
+  ComponentsIconsNative = 'components/icons/native',
+
   // ThemeToggle
   ComponentsThemeToggle = 'components/themetoggle',
   ComponentsThemeToggleNative = 'components/themetoggle/native',

@@ -92,18 +92,19 @@ function resolveStatus(error: AxiosError): number {
  */
 function classifyError(error: AxiosError): ClassifiedError {
   const errorCode = extractErrorCode(error.response?.data);
-  const timeoutCode = error.code === TIMEOUT_ERROR_CODE ? TIMEOUT_ERROR_CODE : undefined;
+  const resolvedCode = errorCode ?? (error.code === TIMEOUT_ERROR_CODE ? TIMEOUT_ERROR_CODE : undefined);
+  const requestId = extractRequestId(error.response);
 
   return {
     status: resolveStatus(error),
     url: error.config?.url ?? '',
     method: resolveHttpMethod(error),
-    errorCode: errorCode ?? timeoutCode,
     message: extractErrorMessage(error),
     body: error.response?.data,
     originalError: error,
     timestamp: Date.now(),
-    requestId: extractRequestId(error.response),
+    ...(isValueDefined(resolvedCode) ? { errorCode: resolvedCode } : {}),
+    ...(isValueDefined(requestId) ? { requestId } : {}),
   };
 }
 

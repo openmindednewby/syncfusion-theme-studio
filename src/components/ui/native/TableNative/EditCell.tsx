@@ -14,7 +14,7 @@ const DIRTY_CELL_BG = 'bg-yellow-50 dark:bg-yellow-900/20';
 interface Props {
   value: unknown;
   field: string;
-  isDirty?: boolean | undefined;
+  isDirty?: boolean;
   onValueChange: (field: string, value: unknown) => void;
   onSave: () => void;
   onCancel: () => void;

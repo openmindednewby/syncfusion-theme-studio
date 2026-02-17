@@ -90,11 +90,11 @@ interface GridColumn {
 interface NativeTableColumn {
   field: string;
   headerText: string;
-  width?: number | string | undefined;
-  minWidth?: number | string | undefined;
-  maxWidth?: number | string | undefined;
-  textAlign?: TextAlign | undefined;
-  format?: ((value: unknown) => string) | undefined;
+  width?: number | string;
+  minWidth?: number | string;
+  maxWidth?: number | string;
+  textAlign?: TextAlign;
+  format?: (value: unknown) => string;
 }
 
 /**
@@ -157,18 +157,17 @@ function gridColumnToSyncfusion(col: GridColumn): ColumnModel {
 
 /** Convert a unified GridColumn to the native TableColumn format */
 function gridColumnToNative(col: GridColumn): NativeTableColumn {
-  const native: NativeTableColumn = {
+  return {
     field: col.field,
     headerText: col.headerText,
-    width: col.width,
-    minWidth: col.minWidth,
-    maxWidth: col.maxWidth,
-    textAlign: col.textAlign,
+    ...defined({
+      width: col.width,
+      minWidth: col.minWidth,
+      maxWidth: col.maxWidth,
+      textAlign: col.textAlign,
+    }),
+    ...(typeof col.format === 'function' ? { format: col.format } : {}),
   };
-
-  if (typeof col.format === 'function') native.format = col.format;
-
-  return native;
 }
 
 export { GridColumnType, GridEditType, FreezeDirection, ClipMode, TextAlign, gridColumnToSyncfusion, gridColumnToNative };

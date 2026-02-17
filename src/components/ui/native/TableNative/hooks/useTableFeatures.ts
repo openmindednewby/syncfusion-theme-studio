@@ -46,18 +46,18 @@ function computeFeatureFlags(
 interface UseTableFeaturesProps {
   processedData: Array<Record<string, unknown>>;
   columns: TableColumn[];
-  selectionConfig?: SelectionConfig | undefined;
-  onRowSelected?: ((row: Record<string, unknown>) => void) | undefined;
-  onRowDeselected?: ((row: Record<string, unknown>) => void) | undefined;
-  onSelectionChange?: ((rows: Array<Record<string, unknown>>) => void) | undefined;
-  groupConfig?: GroupingConfig | undefined;
-  onGroupChange?: ((columns: string[]) => void) | undefined;
-  aggregates?: AggregateRowDef[] | undefined;
-  editConfig?: EditingConfig | undefined;
-  onSave?: ((edited: Record<string, unknown>, original: Record<string, unknown>) => void) | undefined;
-  onDelete?: ((row: Record<string, unknown>) => void) | undefined;
-  onAdd?: ((row: Record<string, unknown>) => void) | undefined;
-  onBatchSave?: ((changes: { added: Array<Record<string, unknown>>; edited: Array<Record<string, unknown>>; deleted: Array<Record<string, unknown>> }) => void) | undefined;
+  selectionConfig?: SelectionConfig;
+  onRowSelected?: (row: Record<string, unknown>) => void;
+  onRowDeselected?: (row: Record<string, unknown>) => void;
+  onSelectionChange?: (rows: Array<Record<string, unknown>>) => void;
+  groupConfig?: GroupingConfig;
+  onGroupChange?: (columns: string[]) => void;
+  aggregates?: AggregateRowDef[];
+  editConfig?: EditingConfig;
+  onSave?: (edited: Record<string, unknown>, original: Record<string, unknown>) => void;
+  onDelete?: (row: Record<string, unknown>) => void;
+  onAdd?: (row: Record<string, unknown>) => void;
+  onBatchSave?: (changes: { added: Array<Record<string, unknown>>; edited: Array<Record<string, unknown>>; deleted: Array<Record<string, unknown>> }) => void;
 }
 
 interface UseTableFeaturesResult {
@@ -68,34 +68,50 @@ interface UseTableFeaturesResult {
   editing: ReturnType<typeof useTableEditing>;
 }
 
+/** Build optional selection props, omitting undefined keys */
+function buildSelectionProps(props: UseTableFeaturesProps, showCheckbox: boolean): Parameters<typeof useTableSelection>[0] {
+  const selCfg = props.selectionConfig;
+  return {
+    data: props.processedData,
+    checkboxEnabled: showCheckbox,
+    ...(isValueDefined(selCfg?.type) ? { selectionType: selCfg.type } : {}),
+    ...(isValueDefined(selCfg?.mode) ? { selectionMode: selCfg.mode } : {}),
+    ...(isValueDefined(props.onRowSelected) ? { onRowSelected: props.onRowSelected } : {}),
+    ...(isValueDefined(props.onRowDeselected) ? { onRowDeselected: props.onRowDeselected } : {}),
+    ...(isValueDefined(props.onSelectionChange) ? { onSelectionChange: props.onSelectionChange } : {}),
+  };
+}
+
+/** Build optional editing props, omitting undefined keys */
+function buildEditingProps(props: UseTableFeaturesProps, flags: FeatureFlags): Parameters<typeof useTableEditing>[0] {
+  const editCfg = props.editConfig;
+  return {
+    data: props.processedData, columns: props.columns,
+    allowEditing: flags.allowEditing, allowDeleting: flags.allowDeleting,
+    ...(isValueDefined(editCfg?.mode) ? { editMode: editCfg.mode } : {}),
+    ...(isValueDefined(editCfg?.allowAdding) ? { allowAdding: editCfg.allowAdding } : {}),
+    ...(isValueDefined(props.onSave) ? { onSave: props.onSave } : {}),
+    ...(isValueDefined(props.onDelete) ? { onDelete: props.onDelete } : {}),
+    ...(isValueDefined(props.onAdd) ? { onAdd: props.onAdd } : {}),
+    ...(isValueDefined(props.onBatchSave) ? { onBatchSave: props.onBatchSave } : {}),
+  };
+}
+
 /** Wire up all table feature hooks from config */
 export function useTableFeatures(props: UseTableFeaturesProps): UseTableFeaturesResult {
   const flags = computeFeatureFlags(props.selectionConfig, props.editConfig, props.groupConfig);
-  const selection = useTableSelection({
-    data: props.processedData,
-    selectionType: props.selectionConfig?.type,
-    selectionMode: props.selectionConfig?.mode,
-    checkboxEnabled: flags.showCheckbox,
-    onRowSelected: props.onRowSelected,
-    onRowDeselected: props.onRowDeselected,
-    onSelectionChange: props.onSelectionChange,
-  });
+  const selection = useTableSelection(buildSelectionProps(props, flags.showCheckbox));
   const grouping = useTableGrouping({
     data: props.processedData,
-    groupColumns: props.groupConfig?.columns,
-    onGroupChange: props.onGroupChange,
+    ...(isValueDefined(props.groupConfig?.columns) ? { groupColumns: props.groupConfig.columns } : {}),
+    ...(isValueDefined(props.onGroupChange) ? { onGroupChange: props.onGroupChange } : {}),
   });
   const aggregateResult = useTableAggregates({
-    data: props.processedData, aggregates: props.aggregates,
+    data: props.processedData,
+    ...(isValueDefined(props.aggregates) ? { aggregates: props.aggregates } : {}),
   });
-  const editing = useTableEditing({
-    data: props.processedData, columns: props.columns,
-    editMode: props.editConfig?.mode, allowAdding: props.editConfig?.allowAdding,
-    allowEditing: flags.allowEditing, allowDeleting: flags.allowDeleting,
-    onSave: props.onSave, onDelete: props.onDelete,
-    onAdd: props.onAdd, onBatchSave: props.onBatchSave,
-  });
+  const editing = useTableEditing(buildEditingProps(props, flags));
   return { flags, selection, grouping, aggregateResult, editing };
 }
 
-export type { FeatureFlags };
+export type { FeatureFlags, UseTableFeaturesProps };

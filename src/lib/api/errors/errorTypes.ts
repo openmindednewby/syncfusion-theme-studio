@@ -36,7 +36,7 @@ interface ClassifiedError {
   /** Request HTTP method */
   method: HttpMethod;
   /** API-specific error code from response body */
-  errorCode?: string | undefined;
+  errorCode?: string;
   /** Extracted error message */
   message: string;
   /** Raw response body */
@@ -46,7 +46,7 @@ interface ClassifiedError {
   /** Timestamp when the error occurred */
   timestamp: number;
   /** Correlation ID if available */
-  requestId?: string | undefined;
+  requestId?: string;
 }
 
 /** Status match: a single code, array of codes, or a range */

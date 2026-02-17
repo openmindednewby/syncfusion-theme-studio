@@ -24,6 +24,7 @@ export const enum RoutePrefix {
   ComponentsTimeline = '/dashboard/components/timeline',
   ComponentsDatePicker = '/dashboard/components/datepicker',
   ComponentsToggle = '/dashboard/components/toggle',
+  ComponentsIcons = '/dashboard/components/icons',
   ComponentsThemeToggle = '/dashboard/components/themetoggle',
   Forms = '/dashboard/forms',
   Products = '/dashboard/products',

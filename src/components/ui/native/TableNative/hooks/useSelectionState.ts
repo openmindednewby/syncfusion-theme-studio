@@ -11,8 +11,8 @@ import type { RowKeyFn } from './selectionUtils';
 
 interface SelectionStateConfig {
   data: Array<Record<string, unknown>>;
-  rowKeyAccessor?: RowKeyFn | undefined;
-  onSelectionChange?: ((rows: Array<Record<string, unknown>>) => void) | undefined;
+  rowKeyAccessor?: RowKeyFn;
+  onSelectionChange?: (rows: Array<Record<string, unknown>>) => void;
 }
 
 interface SelectionStateResult {

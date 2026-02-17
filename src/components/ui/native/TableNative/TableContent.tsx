@@ -9,7 +9,6 @@ import { memo, useMemo } from 'react';
 import { useNativeGridState } from '@/lib/grid/hooks/useNativeGridState';
 import type { GridConfig } from '@/lib/grid/types';
 import { cn } from '@/utils/cn';
-import { isValueDefined } from '@/utils/is';
 
 import { useColumnMenu } from './columnMenu/useColumnMenu';
 import { useColumnVisibility } from './columnMenu/useColumnVisibility';
@@ -18,35 +17,17 @@ import GroupDropArea from './GroupDropArea';
 import { useTableFeatures } from './hooks/useTableFeatures';
 import TablePagination from './pagination/TablePagination';
 import TableBody from './TableBody';
+import {
+  buildBodyOptionalProps, buildColumnMenuProps, buildFeatureProps,
+  calcColSpan, COMPACT_TEXT, DEFAULT_TEXT,
+  extractPaginationConfig, isDialogEditing,
+  resolveTableLayout, shouldShowFilter,
+} from './tableContentUtils';
 import TableFooter from './TableFooter';
 import TableHeader from './TableHeader';
 
 import type { AggregateRowDef } from './hooks/useTableAggregates';
-import type { FeatureFlags } from './hooks/useTableFeatures';
 import type { EditingConfig, GroupingConfig, SelectionConfig, TableColumn } from './types';
-
-const EXTRA_COLS_NONE = 0;
-const CHECKBOX_COL = 1;
-const COMMAND_COL = 1;
-const COMPACT_TEXT = 'text-xs';
-const DEFAULT_TEXT = 'text-sm';
-
-/** Calculate total column span including extra columns */
-function calcColSpan(columnCount: number, flags: FeatureFlags): number {
-  const checkboxCols = flags.showCheckbox ? CHECKBOX_COL : EXTRA_COLS_NONE;
-  const commandCols = flags.showCommandColumn ? COMMAND_COL : EXTRA_COLS_NONE;
-  return columnCount + checkboxCols + commandCols;
-}
-
-/** Determine if filter row should be shown */
-function shouldShowFilter(gridConfig?: GridConfig): boolean {
-  return isValueDefined(gridConfig?.filter) && gridConfig.filter.enabled;
-}
-
-/** Resolve editing/selection handlers based on feature flags */
-function resolveOptionalHandlers<T>(enabled: boolean, handlers: T): T | undefined {
-  return enabled ? handlers : undefined;
-}
 
 interface Props {
   columns: TableColumn[];
@@ -84,7 +65,6 @@ const TableContent = ({
   editConfig, onSave, onDelete, onAdd, onBatchSave,
   tableRef,
   showColumnMenu = false,
-  // eslint-disable-next-line complexity -- conditional rendering for grid features (filter/group/edit/aggregate/paginate)
 }: Props): JSX.Element => {
   const columnMenu = useColumnMenu();
   const columnVisibility = useColumnVisibility(columns);
@@ -92,19 +72,24 @@ const TableContent = ({
   const fields = useMemo(() => activeColumns.map((c) => c.field), [activeColumns]);
   const gridState = useNativeGridState(data, fields, gridConfig);
 
-  const { flags, selection, grouping, aggregateResult, editing } = useTableFeatures({
-    processedData: gridState.processedData, columns: activeColumns,
+  const featureProps = buildFeatureProps(gridState.processedData, activeColumns, {
     selectionConfig, onRowSelected, onRowDeselected, onSelectionChange,
     groupConfig, onGroupChange, aggregates,
     editConfig, onSave, onDelete, onAdd, onBatchSave,
   });
+  const { flags, selection, grouping, aggregateResult, editing } = useTableFeatures(featureProps);
 
   const colSpan = calcColSpan(activeColumns.length, flags);
   const isFilterEnabled = shouldShowFilter(gridConfig);
   const cellPadding = compact ? COMPACT_TEXT : DEFAULT_TEXT;
-  const tableLayoutClass = gridConfig?.tableLayout === 'auto' ? '' : 'table-fixed';
+  const tableLayoutClass = resolveTableLayout(gridConfig);
   const showGroupDropArea = flags.groupingEnabled && flags.showDropArea;
-  const isDialogMode = flags.editingEnabled && editConfig?.mode === 'Dialog';
+  const isDialogMode = isDialogEditing(flags.editingEnabled, editConfig);
+  const columnMenuProps = showColumnMenu
+    ? buildColumnMenuProps(columns, columnVisibility, columnMenu)
+    : {};
+  const paginationConfig = extractPaginationConfig(gridConfig);
+  const bodyOptionalProps = buildBodyOptionalProps(flags, selection, editing);
 
   return (
     <div className={cn('overflow-x-auto rounded-md border border-border', className)}>
@@ -122,27 +107,22 @@ const TableContent = ({
         data-testid={testId}
       >
         <TableHeader
-          allColumns={showColumnMenu ? columns : undefined}
           cellPadding={cellPadding}
           columns={activeColumns}
           columnTypes={gridState.columnTypes}
           draggableHeaders={showGroupDropArea}
           fields={fields}
           filterValues={gridState.filterValues}
-          hiddenFields={showColumnMenu ? columnVisibility.hiddenFields : undefined}
           isAllSelected={selection.isAllSelected}
           isFilterEnabled={isFilterEnabled}
-          openMenuField={showColumnMenu ? columnMenu.openField : undefined}
           showCheckbox={flags.showCheckbox}
           showColumnMenu={showColumnMenu}
           sortDirection={gridState.sortDirection}
           sortField={gridState.sortField}
           onFilterChange={gridState.onFilterChange}
-          onMenuClose={showColumnMenu ? columnMenu.close : undefined}
-          onMenuToggle={showColumnMenu ? columnMenu.toggle : undefined}
           onSelectAll={selection.handleSelectAll}
           onSort={gridState.onSort}
-          onToggleColumnVisibility={showColumnMenu ? columnVisibility.toggleColumn : undefined}
+          {...columnMenuProps}
         />
         <TableBody
           allowDeleting={flags.allowDeleting}
@@ -151,16 +131,15 @@ const TableContent = ({
           colSpan={colSpan}
           columns={activeColumns}
           data={gridState.processedData}
-          editing={resolveOptionalHandlers(flags.editingEnabled, editing)}
           editingEnabled={flags.editingEnabled}
           emptyText={emptyText}
           groupedData={grouping.groupedData}
           hoverable={hoverable}
-          selection={resolveOptionalHandlers(flags.selectionEnabled, selection)}
           selectionEnabled={flags.selectionEnabled}
           showCheckbox={flags.showCheckbox}
           showCommandColumn={flags.showCommandColumn}
           striped={striped}
+          {...bodyOptionalProps}
         />
         {aggregateResult.hasAggregates ? (
           <TableFooter
@@ -174,11 +153,8 @@ const TableContent = ({
       {gridState.shouldShowPagination ? (
         <TablePagination
           currentPage={gridState.currentPage}
-          pageCount={gridConfig?.pagination?.pageCount}
           pageSize={gridState.pageSize}
-          pageSizes={gridConfig?.pagination?.pageSizes}
-          showFirstLastButtons={gridConfig?.pagination?.showFirstLastButtons}
-          showPageInfo={gridConfig?.pagination?.showPageInfo}
+          {...paginationConfig}
           totalItems={gridState.totalItems}
           totalPages={gridState.totalPages}
           onPageChange={gridState.onPageChange}

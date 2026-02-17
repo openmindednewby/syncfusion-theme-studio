@@ -20,7 +20,7 @@ const FORM_CONFIG = { schema: userFormSchema, defaultValues: defaultUserFormValu
 
 interface Props {
   onSubmit: (data: UserFormData) => void;
-  defaultValues?: Partial<UserFormData> | undefined;
+  defaultValues?: Partial<UserFormData>;
   isSubmitting: boolean;
   isEditing: boolean;
 }

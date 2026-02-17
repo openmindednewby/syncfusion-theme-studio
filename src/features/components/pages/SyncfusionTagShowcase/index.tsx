@@ -10,7 +10,7 @@ const SyncfusionTagShowcase = (): JSX.Element => (
         <p className="mt-1 text-text-secondary">{FM('components.tagShowcase.syncfusionDescription')}</p>
       </div>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Variants</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.variants')}</h3>
         <div className="flex flex-wrap gap-2">
           <SyncfusionTag label="Default" testId="sf-tag-default" />
           <SyncfusionTag label="Primary" testId="sf-tag-primary" variant={TagVariant.Primary} />
@@ -20,7 +20,7 @@ const SyncfusionTagShowcase = (): JSX.Element => (
         </div>
       </section>
       <section className="card space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Removable</h3>
+        <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.removable')}</h3>
         <div className="flex flex-wrap gap-2">
           <SyncfusionTag removable label="JavaScript" testId="sf-tag-removable-1" variant={TagVariant.Primary} />
           <SyncfusionTag removable label="React" testId="sf-tag-removable-2" variant={TagVariant.Success} />

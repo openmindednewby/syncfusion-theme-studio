@@ -52,7 +52,7 @@ const ControlledAccordionItem = memo(
     index: number;
     isOpen: boolean;
     onToggle: (index: number) => void;
-    testId?: string | undefined;
+    testId?: string;
   }): JSX.Element => {
     const handleClick = useCallback(
       (e: React.MouseEvent) => {

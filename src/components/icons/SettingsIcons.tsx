@@ -49,8 +49,7 @@ export const PuzzleIcon = ({ className }: IconProps): JSX.Element => (
   <svg aria-hidden="true" className={className ?? 'h-4 w-4'} fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
     <path
       d="M19.439 7.85c-.049.322.059.648.289.878l1.568 1.568c.47.47.706 1.087.706 1.704s-.235 1.233-.706 1.704l-1.611 1.611a.98.98 0 01-.837.276c-.47-.07-.802-.48-.743-.95.059-.47-.01-.932-.265-1.328A2.5 2.5 0 0015 12.5a2.5 2.5 0 00-2.5 2.5c0 .883.51 1.652 1.25 2.039.371.194.654.485.761.878.107.392.054.822-.161 1.182l-1.65 2.201a2.405 2.405 0 01-3.4 0l-1.568-1.568a.98.98 0 01-.276-.837c.07-.47.48-.802.95-.743.47.059.932-.01 1.328-.265A2.5 2.5 0 0010.5 15a2.5 2.5 0 00-2.5-2.5c-.883 0-1.652.51-2.039 1.25-.194.371-.485.654-.878.761-.392.107-.822.054-1.182-.161L1.7 12.7a2.405 2.405 0 010-3.4l1.568-1.568c.23-.23.556-.338.878-.289.47.07.802.48.743.95-.059.47.01.932.265 1.328A2.5 2.5 0 007.5 10.5 2.5 2.5 0 0010 8c0-.883-.51-1.652-1.25-2.039-.371-.194-.654-.485-.761-.878-.107-.392-.054-.822.161-1.182l1.65-2.201a2.405 2.405 0 013.4 0l1.568 1.568c.23.23.338.556.289.878-.07.47-.48.802-.95.743-.47-.059-.932.01-1.328.265A2.5 2.5 0 0012 7.5a2.5 2.5 0 002.5 2.5c.883 0 1.652-.51 2.039-1.25.194-.371.485-.654.878-.761.392-.107.822-.054 1.182.161l1.84 1.35z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap="round" strokeLinejoin="round"
     />
   </svg>
 );
@@ -69,8 +68,7 @@ export const WandIcon = ({ className }: IconProps): JSX.Element => (
   <svg aria-hidden="true" className={className ?? 'h-4 w-4'} fill="none" stroke="currentColor" strokeWidth={1.75} viewBox="0 0 24 24">
     <path
       d="M15 4V2m0 2v2m0-2h2m-2 0h-2m-2.586 6.586L4.707 19.293a1 1 0 000 1.414l.586.586a1 1 0 001.414 0l6.707-6.707m-6.707 0l-.707.707a1 1 0 000 1.414l.586.586a1 1 0 001.414 0l.707-.707m-2 2l6.586-6.586a2 2 0 012.828 0l.586.586a2 2 0 010 2.828l-6.586 6.586"
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      strokeLinecap="round" strokeLinejoin="round"
     />
   </svg>
 );
@@ -127,6 +125,8 @@ export const CollapseIcon = ({ isCollapsed }: { isCollapsed: boolean }): JSX.Ele
   </svg>
 );
 
+const LOGO_LETTER = 'T';
+
 export const DrawerLogoIcon = (): JSX.Element => (
   <svg
     aria-hidden="true"
@@ -151,7 +151,7 @@ export const DrawerLogoIcon = (): JSX.Element => (
       x="16"
       y="22"
     >
-      T
+      {LOGO_LETTER}
     </text>
   </svg>
 );

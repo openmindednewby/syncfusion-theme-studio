@@ -69,7 +69,7 @@ const SubNavSectionItem = ({
           />
         </svg>
         <span aria-hidden="true" className="shrink-0">
-          <IconComp className="shrink-0" />
+          <IconComp className="sidebar-nav-icon shrink-0" />
         </span>
         <span className="flex-1 text-left">{sectionName}</span>
       </button>

@@ -64,7 +64,7 @@ export function statusTemplate(data: TemplateData): JSX.Element {
 export function slaTemplate(data: TemplateData): JSX.Element {
   const text = (data.slaStatus ?? '').toUpperCase();
   return (
-    <div className="flex flex-col gap-0.5">
+    <div className="flex flex-col items-start gap-0.5">
       <AlertBadge appearance={AlertBadgeAppearance.Outline} text={text} variant={getSlaVariant(data.slaStatus)} />
       <span className="text-xs text-text-muted">{data.slaRemaining ?? ''}</span>
     </div>

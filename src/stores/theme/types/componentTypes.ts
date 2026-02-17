@@ -27,6 +27,11 @@ export interface SidebarComponentConfig {
   transitionDuration: string;
   fontSize: string;
   fontWeight: string;
+  iconSize: string;
+  iconStrokeWidth: string;
+  expandAnimationEnabled: boolean;
+  expandAnimationDuration: string;
+  showScrollbar: boolean;
   searchBackground: string;
   searchBorder: string;
   searchBorderRadius: string;

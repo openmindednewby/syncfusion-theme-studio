@@ -123,16 +123,6 @@ const CYBERWATCH_DARK_MODE = {
 const CYBERWATCH_COMPONENTS: ComponentsConfig = {
   light: {
     ...DEFAULT_COMPONENTS_LIGHT,
-    sidebar: {
-      ...DEFAULT_COMPONENTS_LIGHT.sidebar,
-      activeItemBackground: '0 188 212',
-      activeItemTextColor: '255 255 255',
-      searchBackground: 'rgba(0, 0, 0, 0.04)',
-      searchBorder: 'rgba(0, 188, 212, 0.15)',
-      searchPlaceholderColor: 'rgba(100, 116, 139, 0.7)',
-      searchFocusBackground: 'rgba(0, 0, 0, 0.06)',
-      searchFocusBorder: 'rgba(0, 188, 212, 0.4)',
-    },
     dataGrid: {
       ...DEFAULT_COMPONENTS_LIGHT.dataGrid,
       paginationActiveBackground: '0 188 212',
@@ -141,21 +131,6 @@ const CYBERWATCH_COMPONENTS: ComponentsConfig = {
   },
   dark: {
     ...DEFAULT_COMPONENTS_DARK,
-    sidebar: {
-      ...DEFAULT_COMPONENTS_DARK.sidebar,
-      background: '11 17 32',
-      activeItemBackground: '0 188 212',
-      activeItemTextColor: '255 255 255',
-      textColor: '148 163 184',
-      hoverItemBackground: '17 24 39',
-      borderRight: '26 34 56',
-      searchBackground: 'rgba(255, 255, 255, 0.04)',
-      searchBorder: 'rgba(0, 188, 212, 0.15)',
-      searchTextColor: '148 163 184',
-      searchPlaceholderColor: 'rgba(100, 116, 139, 0.6)',
-      searchFocusBackground: 'rgba(255, 255, 255, 0.07)',
-      searchFocusBorder: 'rgba(0, 188, 212, 0.4)',
-    },
     badges: {
       success: { background: '16 185 129', textColor: '255 255 255', borderColor: '16 185 129' },
       warning: { background: '245 158 11', textColor: '255 255 255', borderColor: '245 158 11' },

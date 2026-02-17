@@ -412,7 +412,15 @@
         "searchPadding": "Padding",
         "typographyTitle": "Typography",
         "fontSize": "Font Size",
-        "fontWeight": "Font Weight"
+        "fontWeight": "Font Weight",
+        "iconsTitle": "Icons",
+        "iconSize": "Icon Size",
+        "iconStrokeWidth": "Icon Stroke Width",
+        "expandAnimationTitle": "Expand/Collapse Animation",
+        "expandAnimationEnabled": "Enable Animation",
+        "expandAnimationDuration": "Animation Duration",
+        "scrollbarTitle": "Scrollbar",
+        "showScrollbar": "Show Scrollbar"
       },
       "buttons": {
         "title": "Buttons",

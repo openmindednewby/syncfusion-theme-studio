@@ -31,6 +31,11 @@ export function injectSidebarVariables(root: HTMLElement, c: ComponentConfigSing
   root.style.setProperty('--component-sidebar-transition', c.sidebar.transitionDuration);
   root.style.setProperty('--component-sidebar-font-size', c.sidebar.fontSize);
   root.style.setProperty('--component-sidebar-font-weight', c.sidebar.fontWeight);
+  root.style.setProperty('--component-sidebar-icon-size', c.sidebar.iconSize);
+  root.style.setProperty('--component-sidebar-icon-stroke-width', c.sidebar.iconStrokeWidth);
+  root.style.setProperty('--component-sidebar-expand-animation', c.sidebar.expandAnimationEnabled ? c.sidebar.expandAnimationDuration : '0ms');
+  root.style.setProperty('--component-sidebar-scrollbar', c.sidebar.showScrollbar ? 'thin' : 'none');
+  root.style.setProperty('--component-sidebar-scrollbar-width', c.sidebar.showScrollbar ? '4px' : '0px');
 
   // Search input variables
   root.style.setProperty('--component-sidebar-search-bg', c.sidebar.searchBackground);

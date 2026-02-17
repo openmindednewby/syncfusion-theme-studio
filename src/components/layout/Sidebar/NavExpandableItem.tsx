@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect, useRef } from 'react';
 
 import { NavLink, useLocation } from 'react-router-dom';
 
@@ -64,6 +64,7 @@ export const NavExpandableItem = ({
 
   const effectiveExpanded = forceExpanded || isExpanded;
   const showChildren = effectiveExpanded && !isCollapsed;
+  const childrenRef = useRef<HTMLUListElement>(null);
   const sectionName = FM(labelKey);
   const expandLabel = effectiveExpanded
     ? FM('accessibility.collapseSection', sectionName)
@@ -101,41 +102,46 @@ export const NavExpandableItem = ({
         )}
       </button>
 
-      {showChildren ? (
-        <ul className="ml-6 mt-1 space-y-1" id={`nav-children-${expandTestId}`}>
-          {children.map((child) =>
-            isSubNavGroup(child) ? (
-              <NavSubGroup
-                key={child.testId}
-                expandTestId={child.expandTestId}
-                forceExpanded={forceExpanded}
-                items={child.items}
-                labelKey={child.labelKey}
-                path={child.path}
-                searchQuery={searchQuery}
-                testId={child.testId}
-              />
-            ) : (
-              <li key={child.path}>
-                <NavLink
-                  aria-label={FM(child.labelKey)}
-                  className={({ isActive: childActive }) =>
-                    `sidebar-item flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
-                      childActive ? 'active' : ''
-                    }`
-                  }
-                  data-testid={child.testId}
-                  to={child.path}
-                >
-                  <span>
-                    <HighlightMatch query={searchQuery} text={FM(child.labelKey)} />
-                  </span>
-                </NavLink>
-              </li>
-            )
-          )}
-        </ul>
-      ) : null}
+      {!isCollapsed && (
+        <div
+          className={`sidebar-expandable-children ${showChildren ? 'expanded' : 'collapsed'}`}
+          style={showChildren && childrenRef.current ? { '--sidebar-children-height': `${childrenRef.current.scrollHeight}px` } as React.CSSProperties : undefined}
+        >
+          <ul ref={childrenRef} className="ml-6 mt-1 space-y-1" id={`nav-children-${expandTestId}`}>
+            {children.map((child) =>
+              isSubNavGroup(child) ? (
+                <NavSubGroup
+                  key={child.testId}
+                  expandTestId={child.expandTestId}
+                  forceExpanded={forceExpanded}
+                  items={child.items}
+                  labelKey={child.labelKey}
+                  path={child.path}
+                  searchQuery={searchQuery}
+                  testId={child.testId}
+                />
+              ) : (
+                <li key={child.path}>
+                  <NavLink
+                    aria-label={FM(child.labelKey)}
+                    className={({ isActive: childActive }) =>
+                      `sidebar-item flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
+                        childActive ? 'active' : ''
+                      }`
+                    }
+                    data-testid={child.testId}
+                    to={child.path}
+                  >
+                    <span>
+                      <HighlightMatch query={searchQuery} text={FM(child.labelKey)} />
+                    </span>
+                  </NavLink>
+                </li>
+              )
+            )}
+          </ul>
+        </div>
+      )}
     </li>
   );
 };

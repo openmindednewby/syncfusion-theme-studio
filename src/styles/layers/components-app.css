@@ -43,6 +43,12 @@
     color var(--component-sidebar-transition, var(--transition-normal));
 }
 
+.sidebar-nav-icon {
+  width: var(--component-sidebar-icon-size, 18px);
+  height: var(--component-sidebar-icon-size, 18px);
+  stroke-width: var(--component-sidebar-icon-stroke-width, 1.8);
+}
+
 .sidebar-item:hover {
   background-color: var(--component-sidebar-hover-bg);
 }
@@ -81,14 +87,31 @@
   box-shadow: none !important;
 }
 
+/* ===== SIDEBAR EXPAND/COLLAPSE ANIMATION ===== */
+.sidebar-expandable-children {
+  overflow: hidden;
+  transition: max-height var(--component-sidebar-expand-animation, 200ms) ease-out,
+    opacity var(--component-sidebar-expand-animation, 200ms) ease-out;
+}
+
+.sidebar-expandable-children.expanded {
+  max-height: var(--sidebar-children-height, 500px);
+  opacity: 1;
+}
+
+.sidebar-expandable-children.collapsed {
+  max-height: 0;
+  opacity: 0;
+}
+
 /* ===== SIDEBAR MAIN NAV ===== */
 .sidebar-main-nav {
-  scrollbar-width: thin;
+  scrollbar-width: var(--component-sidebar-scrollbar, thin);
   scrollbar-color: rgb(var(--color-border)) transparent;
 }
 
 .sidebar-main-nav::-webkit-scrollbar {
-  width: 4px;
+  width: var(--component-sidebar-scrollbar-width, 4px);
 }
 
 .sidebar-main-nav::-webkit-scrollbar-track {

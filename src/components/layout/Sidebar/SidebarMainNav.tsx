@@ -38,7 +38,7 @@ export const SidebarMainNav = ({
       <ul className="space-y-0.5">
         {filteredItems.map((entry) => {
           const IconComp = getIcon(entry.iconName);
-          const iconNode = <IconComp className="shrink-0" />;
+          const iconNode = <IconComp className="sidebar-nav-icon shrink-0" />;
 
           if (isExpandableEntry(entry))
             return (

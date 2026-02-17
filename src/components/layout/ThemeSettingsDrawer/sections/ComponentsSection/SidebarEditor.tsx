@@ -75,6 +75,86 @@ export const SidebarEditor = ({ config, onUpdate }: SidebarEditorProps): JSX.Ele
         </div>
       </div>
 
+      {/* Icons Subsection */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.sidebar.iconsTitle')}
+        </p>
+        <div className="space-y-2 pl-2">
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.iconSize')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="18px"
+              type="text"
+              value={config.iconSize}
+              onChange={(e) => onUpdate({ iconSize: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.iconStrokeWidth')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="1.8"
+              type="text"
+              value={config.iconStrokeWidth}
+              onChange={(e) => onUpdate({ iconStrokeWidth: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Expand/Collapse Animation Subsection */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.sidebar.expandAnimationTitle')}
+        </p>
+        <div className="space-y-2 pl-2">
+          <label className="flex items-center gap-2 text-xs text-text-muted">
+            <input
+              checked={config.expandAnimationEnabled}
+              type="checkbox"
+              onChange={(e) => onUpdate({ expandAnimationEnabled: e.target.checked })}
+            />
+            {FM('themeSettings.components.sidebar.expandAnimationEnabled')}
+          </label>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.expandAnimationDuration')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              disabled={!config.expandAnimationEnabled}
+              placeholder="200ms"
+              type="text"
+              value={config.expandAnimationDuration}
+              onChange={(e) => onUpdate({ expandAnimationDuration: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
+      {/* Scrollbar Subsection */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.sidebar.scrollbarTitle')}
+        </p>
+        <div className="space-y-2 pl-2">
+          <label className="flex items-center gap-2 text-xs text-text-muted">
+            <input
+              checked={config.showScrollbar}
+              type="checkbox"
+              onChange={(e) => onUpdate({ showScrollbar: e.target.checked })}
+            />
+            {FM('themeSettings.components.sidebar.showScrollbar')}
+          </label>
+        </div>
+      </div>
+
       {/* Search Input Subsection */}
       <div className="space-y-2">
         <p className="text-xs font-medium text-text-secondary">

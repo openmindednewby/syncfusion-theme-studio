@@ -34,7 +34,7 @@ export const SidebarBottomItems = ({
       <ul className="space-y-0.5">
         {filteredItems.map((item) => {
           const IconComp = getIcon(item.iconName);
-          const iconNode = <IconComp className="shrink-0" />;
+          const iconNode = <IconComp className="sidebar-nav-icon shrink-0" />;
           const isActive =
             isValueDefined(item.subNavId) &&
             activeSubNav === item.subNavId;

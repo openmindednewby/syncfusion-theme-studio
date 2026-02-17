@@ -319,60 +319,56 @@ function getVisibleFilterPopup(): HTMLElement | undefined {
   return popup;
 }
 
-function repositionFilterOperatorDropdownPopup(): boolean {
-  // Target the operator dropdown specifically by its known ID pattern
-  const popup = getVisibleElement('.e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"], .e-ddl.e-popup.e-popup-open[id$="-floptr_popup"]');
-  if (!isValueDefined(popup) || popup.id === '') {
-    // console.log('[DataGrid] Operator popup not found or not open');
-    return false;
-  }
+function repositionFilterDropdownPopups(): boolean {
+  // Target all types of dropdowns that appear inside filter menus:
+  // - Operators: [id$="-floptr_popup"]
+  // - Values (Autocomplete/ComboBox): [id$="-flvalue_popup"], [id$="_flv_popup"], etc.
+  const popups = Array.from(document.querySelectorAll<HTMLElement>(
+    '.e-ddl.e-popup.e-popup-open, .e-autocomplete.e-popup.e-popup-open, .e-combobox.e-popup.e-popup-open'
+  )).filter(p => p.id.includes('-floptr') || p.id.includes('-flvalue') || p.id.includes('_flv') || p.classList.contains('e-popup-flmenu'));
 
-  // Attempt to find the anchor element:
-  // 1. Common pattern: the popup ID is derived from the anchor ID
-  const anchorId = popup.getAttribute('aria-label') || popup.id.replace(/_popup$/, '');
-  let anchor = document.getElementById(anchorId);
-  console.log(`[DataGrid] Repositioning operator popup: ${popup.id}, initial anchor ID search: ${anchorId}, found: ${!!anchor}`);
-  
-  // 2. Fallback: find by aria-controls
-  if (!isValueDefined(anchor)) {
-    anchor = document.querySelector<HTMLElement>(`[aria-controls="${popup.id}"]`);
-    if (anchor) console.log(`[DataGrid] Found anchor via aria-controls: ${anchor.id || 'unnamed'}`);
-  }
+  if (popups.length === 0) return false;
 
-  // 3. Fallback: look inside the currently visible filter popup
-  if (!isValueDefined(anchor)) {
-    const visibleFilterPopup = getVisibleFilterPopup();
-    if (isValueDefined(visibleFilterPopup)) {
-      const escapedId = typeof CSS !== 'undefined' && isValueDefined(CSS.escape) ? CSS.escape(anchorId) : anchorId;
-      anchor = visibleFilterPopup.querySelector<HTMLElement>(`#${escapedId}`) 
-        ?? visibleFilterPopup.querySelector<HTMLElement>('.e-flm_optrdiv .e-ddl.e-control-wrapper');
-      if (anchor) console.log(`[DataGrid] Found anchor inside filter popup: ${anchor.id || 'unnamed'}`);
+  let anyPositioned = false;
+  for (const popup of popups) {
+    if (popup.id === '') continue;
+
+    // Attempt to find the anchor element
+    const anchorId = popup.getAttribute('aria-label') || popup.id.replace(/_popup$/, '');
+    let anchor = document.getElementById(anchorId);
+    
+    if (!isValueDefined(anchor)) {
+      anchor = document.querySelector<HTMLElement>(`[aria-controls="${popup.id}"]`);
     }
+
+    if (!isValueDefined(anchor)) {
+      const visibleFilterPopup = getVisibleFilterPopup();
+      if (isValueDefined(visibleFilterPopup)) {
+        const escapedId = typeof CSS !== 'undefined' && isValueDefined(CSS.escape) ? CSS.escape(anchorId) : anchorId;
+        anchor = visibleFilterPopup.querySelector<HTMLElement>(`#${escapedId}`) 
+          ?? visibleFilterPopup.querySelector<HTMLElement>('.e-flm_optrdiv .e-ddl.e-control-wrapper')
+          ?? visibleFilterPopup.querySelector<HTMLElement>('.e-flm_valuediv .e-control-wrapper');
+      }
+    }
+
+    if (!isValueDefined(anchor)) continue;
+
+    const wrapper = anchor.closest<HTMLElement>('.e-control-wrapper') ?? anchor;
+    if (!isValueDefined(wrapper)) continue;
+
+    if (popup.parentElement !== document.body) {
+      document.body.appendChild(popup);
+    }
+
+    const rect = wrapper.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) continue;
+
+    applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, OPERATOR_POPUP_Z_INDEX, true);
+    setStyleIfChanged(popup, 'margin-top', '0');
+    anyPositioned = true;
   }
-
-  if (!isValueDefined(anchor)) {
-    console.warn(`[DataGrid] FAILED to find anchor for operator popup: ${popup.id}`);
-    return false;
-  }
-
-  const wrapper = anchor.closest<HTMLElement>('.e-ddl.e-control-wrapper') ?? anchor;
-  if (!isValueDefined(wrapper)) return false;
-
-  if (popup.parentElement !== document.body) {
-    console.log(`[DataGrid] Appending operator popup to body: ${popup.id}`);
-    document.body.appendChild(popup);
-  }
-
-  const rect = wrapper.getBoundingClientRect();
-  if (rect.width === 0 || rect.height === 0) {
-    console.log(`[DataGrid] Anchor wrapper has no size: ${wrapper.id || 'unnamed'}`);
-    return false;
-  }
-
-  console.log(`[DataGrid] Positioning operator popup at [${Math.round(rect.left)}, ${Math.round(rect.bottom + POPUP_VERTICAL_GAP_PX)}]`);
-  applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, OPERATOR_POPUP_Z_INDEX, true);
-  setStyleIfChanged(popup, 'margin-top', '0');
-  return true;
+  
+  return anyPositioned;
 }
 
 function repositionFilterPopup(anchor: PopupAnchor, preferredOpenToLeft?: boolean): boolean {
@@ -600,7 +596,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       submenuRafId = requestAnimationFrame(tick);
     };
 
-    const scheduleFilterOperatorDropdownReposition = (): void => {
+    const scheduleFilterDropdownReposition = (): void => {
       const MAX_ATTEMPTS = 24;
       const MIN_STABLE_FRAMES = 4;
       let attempt = 0;
@@ -608,7 +604,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
 
       const tick = (): void => {
         attempt += 1;
-        const positioned = repositionFilterOperatorDropdownPopup();
+        const positioned = repositionFilterDropdownPopups();
         if (positioned) successCount += 1;
         if (attempt >= MAX_ATTEMPTS || (positioned && successCount >= MIN_STABLE_FRAMES)) {
           filterDropdownRafId = null;
@@ -665,9 +661,9 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (isValueDefined(target.closest('.e-grid .e-rowcell, .e-grid .e-headercell'))) {
         setTimeout(() => scheduleGridContextMenuReposition(), POPUP_REPOSITION_DELAY_MS);
       }
-      if (isValueDefined(target.closest('.e-dialog.e-flmenu .e-flm_optrdiv .e-ddl.e-control-wrapper'))) {
-        setTimeout(() => scheduleFilterOperatorDropdownReposition(), POPUP_REPOSITION_DELAY_MS);
-        scheduleFilterOperatorDropdownReposition();
+      if (isValueDefined(target.closest('.e-dialog.e-flmenu .e-control-wrapper'))) {
+        setTimeout(() => scheduleFilterDropdownReposition(), POPUP_REPOSITION_DELAY_MS);
+        scheduleFilterDropdownReposition();
       }
       
       // When clicking anywhere on the document, check for hidden popups to prune
@@ -737,7 +733,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (isValueDefined(filterAnchor)) {
         repositionFilterPopup(filterAnchor, columnMenuOpenToLeftRef.current);
       }
-      scheduleFilterOperatorDropdownReposition();
+      scheduleFilterDropdownReposition();
       scheduleGridContextMenuReposition();
       cleanupZombies();
     };
@@ -745,8 +741,8 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     const onDocumentFocusIn = (event: Event): void => {
       const target = event.target as Element | null;
       if (!isValueDefined(target)) return;
-      if (!isValueDefined(target.closest('.e-dialog.e-flmenu .e-flm_optrdiv .e-ddl.e-control-wrapper'))) return;
-      scheduleFilterOperatorDropdownReposition();
+      if (!isValueDefined(target.closest('.e-dialog.e-flmenu .e-control-wrapper'))) return;
+      scheduleFilterDropdownReposition();
     };
 
     const onDocumentContextMenu = (): void => {
@@ -761,12 +757,10 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       for (const mutation of mutations) {
         if (mutation.type === 'childList') {
           const addedNodes = Array.from(mutation.addedNodes).filter((node): node is HTMLElement => node instanceof HTMLElement);
-          if (addedNodes.some((node) => isValueDefined(node.matches) && node.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]'))) {
-            console.log('[DataGrid] MutationObserver: Operator popup added directly');
+          if (addedNodes.some((node) => isValueDefined(node.matches) && (node.matches('.e-ddl.e-popup') || node.matches('.e-autocomplete.e-popup')))) {
             shouldReposition = true;
           }
-          if (addedNodes.some((node) => isValueDefined(node.querySelector) && isValueDefined(node.querySelector('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')))) {
-            console.log('[DataGrid] MutationObserver: Container with operator popup added');
+          if (addedNodes.some((node) => isValueDefined(node.querySelector) && isValueDefined(node.querySelector('.e-ddl.e-popup, .e-autocomplete.e-popup')))) {
             shouldReposition = true;
           }
           
@@ -779,8 +773,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
             // Attribute change (likely hidden/style) on a popup means we should check if it's a zombie now
             shouldCleanup = true;
           }
-          if (mutation.target.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')) {
-            console.log(`[DataGrid] MutationObserver: Operator popup attribute change: ${mutation.attributeName}`);
+          if (mutation.target.matches('.e-ddl.e-popup, .e-autocomplete.e-popup')) {
             shouldReposition = true;
           }
         }
@@ -790,7 +783,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
         // Use a longer delay for cleanup to avoid racing with popup initialization
         setTimeout(() => cleanupZombies(), 500);
       }
-      if (shouldReposition) scheduleFilterOperatorDropdownReposition();
+      if (shouldReposition) scheduleFilterDropdownReposition();
     });
     filterDropdownObserver.observe(document.body, {
       childList: true,

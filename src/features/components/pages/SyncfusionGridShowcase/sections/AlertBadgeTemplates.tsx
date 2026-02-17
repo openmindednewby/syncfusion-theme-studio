@@ -31,6 +31,8 @@ interface TemplateData {
   slaStatus?: string;
   slaRemaining?: string;
   score?: number;
+  assignee?: string;
+  automationStatus?: string;
 }
 
 /** Pure variant-resolution helpers (exported for unit testing) */
@@ -83,4 +85,23 @@ const ALERT_ACTIONS = [
 
 export function actionsTemplate(): JSX.Element {
   return <TableActionMenu actions={ALERT_ACTIONS} />;
+}
+
+export function assigneeTemplate(data: TemplateData): JSX.Element {
+  const isUnassigned = data.assignee === 'Unassigned';
+  return (
+    <span className={isUnassigned ? 'italic text-text-muted' : 'text-text-primary'}>
+      {data.assignee ?? ''}
+    </span>
+  );
+}
+
+export function automationStatusTemplate(data: TemplateData): JSX.Element {
+  const status = data.automationStatus ?? '';
+  let variant = BadgeVariant.Info;
+
+  if (status.includes('Auto')) variant = BadgeVariant.Success;
+  else if (status.includes('Pending')) variant = BadgeVariant.Warning;
+
+  return <AlertBadge text={status.toUpperCase()} variant={variant} />;
 }

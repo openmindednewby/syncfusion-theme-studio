@@ -202,6 +202,10 @@ const createDataGrid = (): DataGridConfig => ({
   columnMenuSeparatorColor: '229 231 235',
   columnMenuTriggerColor: '156 163 175',
   columnMenuTriggerHoverColor: '55 65 81',
+  headerTextTransform: 'none',
+  headerFontSize: '14px',
+  headerFontWeight: '600',
+  headerLetterSpacing: '0',
 });
 
 const createCards = (): CardsConfig => ({

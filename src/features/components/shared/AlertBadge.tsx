@@ -34,22 +34,22 @@ const SOLID_STYLES: Record<BadgeVariant, CSSProperties> = {
 
 const OUTLINE_STYLES: Record<BadgeVariant, CSSProperties> = {
   [BadgeVariant.Success]: {
-    background: 'transparent',
+    background: 'var(--component-badge-success-outline-bg)',
     color: 'var(--component-badge-success-border)',
     border: '1px solid var(--component-badge-success-border)',
   },
   [BadgeVariant.Warning]: {
-    background: 'transparent',
+    background: 'var(--component-badge-warning-outline-bg)',
     color: 'var(--component-badge-warning-border)',
     border: '1px solid var(--component-badge-warning-border)',
   },
   [BadgeVariant.Error]: {
-    background: 'transparent',
+    background: 'var(--component-badge-error-outline-bg)',
     color: 'var(--component-badge-error-border)',
     border: '1px solid var(--component-badge-error-border)',
   },
   [BadgeVariant.Info]: {
-    background: 'transparent',
+    background: 'var(--component-badge-info-outline-bg)',
     color: 'var(--component-badge-info-border)',
     border: '1px solid var(--component-badge-info-border)',
   },
@@ -71,7 +71,7 @@ const BASE_STYLE: CSSProperties = {
 };
 
 const AlertBadge = memo(({
-  text, variant, appearance = AlertBadgeAppearance.Solid, testId,
+  text, variant, appearance = AlertBadgeAppearance.Outline, testId,
 }: AlertBadgeProps): JSX.Element => {
   const variantStyle = appearance === AlertBadgeAppearance.Outline
     ? OUTLINE_STYLES[variant]

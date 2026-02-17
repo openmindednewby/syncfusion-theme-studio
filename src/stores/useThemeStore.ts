@@ -24,7 +24,8 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 // v8: Added paginationDefaultPageSize + paginationPageSizeOptions to DataGridConfig
 // v9: Added iconSize, iconStrokeWidth, expandAnimation, showScrollbar to SidebarComponentConfig
 // v10: Added searchHighlightColor, searchHighlightScale to SidebarComponentConfig
-const THEME_SCHEMA_VERSION = 10;
+// v11: Updated badge colors to match severity design (CRITICAL/HIGH/MEDIUM/LOW)
+const THEME_SCHEMA_VERSION = 11;
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return isValueDefined(value) && typeof value === 'object' && !Array.isArray(value);

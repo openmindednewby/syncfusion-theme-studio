@@ -264,10 +264,10 @@ const createModals = (): ModalsConfig => ({
 });
 
 const createBadges = (): BadgesConfig => ({
-  success: { background: '220 252 231', textColor: '21 128 61', borderColor: '134 239 172' },
-  warning: { background: '254 249 195', textColor: '161 98 7', borderColor: '253 224 71' },
-  error: { background: '254 226 226', textColor: '185 28 28', borderColor: '252 165 165' },
-  info: { background: '219 234 254', textColor: '29 78 216', borderColor: '147 197 253' },
+  success: { background: '237 246 248', textColor: '75 115 128', borderColor: '123 164 175' },
+  warning: { background: '255 237 213', textColor: '194 65 12', borderColor: '249 115 22' },
+  error: { background: '254 226 226', textColor: '185 28 28', borderColor: '239 68 68' },
+  info: { background: '254 249 235', textColor: '146 107 33', borderColor: '245 202 128' },
   borderRadius: 'full',
   padding: '4px 12px',
 });

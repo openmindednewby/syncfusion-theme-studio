@@ -14,10 +14,10 @@ const AlertBadgeShowcase = (): JSX.Element => (
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">Solid Variants</h3>
         <div className="flex flex-wrap gap-3">
-          <AlertBadge testId="alert-badge-success" text="Success" variant={BadgeVariant.Success} />
-          <AlertBadge testId="alert-badge-warning" text="Warning" variant={BadgeVariant.Warning} />
-          <AlertBadge testId="alert-badge-error" text="Error" variant={BadgeVariant.Error} />
-          <AlertBadge testId="alert-badge-info" text="Info" variant={BadgeVariant.Info} />
+          <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-success" text="Success" variant={BadgeVariant.Success} />
+          <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-warning" text="Warning" variant={BadgeVariant.Warning} />
+          <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-error" text="Error" variant={BadgeVariant.Error} />
+          <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-info" text="Info" variant={BadgeVariant.Info} />
         </div>
       </section>
       <section className="card space-y-4">

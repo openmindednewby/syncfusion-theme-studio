@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 
 import { NavLink, useLocation } from 'react-router-dom';
 
@@ -51,7 +51,6 @@ export const NavSubGroup = ({
   }, []);
 
   const effectiveExpanded = forceExpanded || isExpanded;
-  const childrenRef = useRef<HTMLUListElement>(null);
   const sectionName = FM(labelKey);
   const expandLabel = effectiveExpanded
     ? FM('accessibility.collapseSection', sectionName)
@@ -84,11 +83,8 @@ export const NavSubGroup = ({
         </span>
       </button>
 
-      <div
-        className={`sidebar-expandable-children ${effectiveExpanded ? 'expanded' : 'collapsed'}`}
-        style={effectiveExpanded && childrenRef.current ? { '--sidebar-children-height': `${childrenRef.current.scrollHeight}px` } as React.CSSProperties : undefined}
-      >
-        <ul ref={childrenRef} className="ml-4 mt-1 space-y-0.5" id={`subgroup-${testId}`}>
+      <div className={`sidebar-expandable-children ${effectiveExpanded ? 'expanded' : 'collapsed'}`}>
+        <ul className="ml-4 mt-1 space-y-0.5" id={`subgroup-${testId}`}>
           {items.map((item) => (
             <li key={item.path}>
               <NavLink

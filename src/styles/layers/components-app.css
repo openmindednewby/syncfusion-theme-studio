@@ -89,19 +89,23 @@
 
 /* ===== SIDEBAR EXPAND/COLLAPSE ANIMATION ===== */
 .sidebar-expandable-children {
-  overflow: hidden;
-  transition: max-height var(--component-sidebar-expand-animation, 200ms) ease-out,
+  display: grid;
+  transition: grid-template-rows var(--component-sidebar-expand-animation, 200ms) ease-out,
     opacity var(--component-sidebar-expand-animation, 200ms) ease-out;
 }
 
 .sidebar-expandable-children.expanded {
-  max-height: var(--sidebar-children-height, 500px);
+  grid-template-rows: 1fr;
   opacity: 1;
 }
 
 .sidebar-expandable-children.collapsed {
-  max-height: 0;
+  grid-template-rows: 0fr;
   opacity: 0;
+}
+
+.sidebar-expandable-children > * {
+  overflow: hidden;
 }
 
 /* ===== SIDEBAR MAIN NAV ===== */

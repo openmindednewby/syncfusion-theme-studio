@@ -130,7 +130,7 @@ const createSidebar = (): SidebarComponentConfig => ({
   fontSize: '14px',
   fontWeight: '500',
   iconSize: '18px',
-  iconStrokeWidth: '1.8',
+  iconStrokeWidth: '2.2',
   expandAnimationEnabled: true,
   expandAnimationDuration: '200ms',
   showScrollbar: true,

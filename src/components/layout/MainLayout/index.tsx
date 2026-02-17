@@ -37,7 +37,7 @@ export const MainLayout = (): JSX.Element => {
   }, []);
 
   return (
-    <div className="grid h-screen grid-cols-[auto_1fr_auto] bg-background">
+    <div className="grid h-screen w-full grid-cols-[auto_1fr_auto] bg-background">
       {/* Skip link for keyboard navigation */}
       <a
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-primary-700 focus:px-4 focus:py-2 focus:text-white focus:outline-none"

@@ -26,10 +26,12 @@ export const SearchInput = memo(({
       {renderIcon?.()}
     </span>
     <input
-      className={cn(
-        'w-full rounded-md border border-border bg-transparent py-1.5 pl-9 pr-3 text-sm text-text-primary placeholder:text-text-muted',
-        inputClassName,
-      )}
+      className={
+        inputClassName ||
+        cn(
+          'w-full rounded-md border border-border bg-transparent py-1.5 pl-9 pr-3 text-sm text-text-primary placeholder:text-text-muted',
+        )
+      }
       data-testid={testId}
       type="text"
       {...inputProps}

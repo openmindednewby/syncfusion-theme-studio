@@ -127,6 +127,17 @@ const createSidebar = (): SidebarComponentConfig => ({
   widthExpanded: '280px',
   widthCollapsed: '64px',
   transitionDuration: '200ms',
+  fontSize: '14px',
+  fontWeight: '500',
+  searchBackground: 'rgba(0, 0, 0, 0.2)',
+  searchBorder: 'rgba(255, 255, 255, 0.1)',
+  searchBorderRadius: '8px',
+  searchTextColor: '55 65 81',
+  searchPlaceholderColor: 'rgba(55, 65, 81, 0.5)',
+  searchFocusBackground: 'rgba(0, 0, 0, 0.3)',
+  searchFocusBorder: 'rgba(255, 255, 255, 0.2)',
+  searchFontSize: '13px',
+  searchPadding: '8px 12px 8px 36px',
 });
 
 const createInputs = (): InputsConfig => ({

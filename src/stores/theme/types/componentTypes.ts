@@ -25,6 +25,17 @@ export interface SidebarComponentConfig {
   widthExpanded: string;
   widthCollapsed: string;
   transitionDuration: string;
+  fontSize: string;
+  fontWeight: string;
+  searchBackground: string;
+  searchBorder: string;
+  searchBorderRadius: string;
+  searchTextColor: string;
+  searchPlaceholderColor: string;
+  searchFocusBackground: string;
+  searchFocusBorder: string;
+  searchFontSize: string;
+  searchPadding: string;
 }
 export interface ButtonStateColors {
   background: string;

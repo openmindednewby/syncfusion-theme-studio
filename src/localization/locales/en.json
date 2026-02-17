@@ -400,7 +400,17 @@
         "textColor": "Text Color",
         "activeItemBg": "Active Item Background",
         "activeItemText": "Active Item Text",
-        "hoverItemBg": "Hover Item Background"
+        "hoverItemBg": "Hover Item Background",
+        "searchTitle": "Search Input",
+        "searchBackground": "Background",
+        "searchBorder": "Border Color",
+        "searchBorderRadius": "Border Radius",
+        "searchTextColor": "Text Color",
+        "searchPlaceholderColor": "Placeholder Color",
+        "searchFocusBackground": "Focus Background",
+        "searchFocusBorder": "Focus Border",
+        "searchFontSize": "Font Size",
+        "searchPadding": "Padding"
       },
       "buttons": {
         "title": "Buttons",

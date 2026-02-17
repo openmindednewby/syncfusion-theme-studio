@@ -23,6 +23,17 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     widthExpanded: '280px',
     widthCollapsed: '64px',
     transitionDuration: '200ms',
+    fontSize: '14px',
+    fontWeight: '500',
+    searchBackground: 'rgba(0, 0, 0, 0.04)',
+    searchBorder: 'rgba(0, 0, 0, 0.12)',
+    searchBorderRadius: '6px',
+    searchTextColor: '55 65 81',
+    searchPlaceholderColor: 'rgba(107, 114, 128, 0.7)',
+    searchFocusBackground: 'rgba(0, 0, 0, 0.06)',
+    searchFocusBorder: 'rgba(59, 130, 246, 0.4)',
+    searchFontSize: '13px',
+    searchPadding: '8px 12px 8px 32px',
   },
   buttons: {
     primary: {

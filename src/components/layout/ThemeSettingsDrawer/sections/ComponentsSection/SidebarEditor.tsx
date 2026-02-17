@@ -11,6 +11,8 @@ interface SidebarEditorProps {
   onUpdate: (updates: Partial<SidebarComponentConfig>) => void;
 }
 
+const TEXT_INPUT_CLASS = 'w-full rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary';
+
 export const SidebarEditor = ({ config, onUpdate }: SidebarEditorProps): JSX.Element => {
   return (
     <CollapsibleSection title={FM('themeSettings.components.sidebar.title')}>
@@ -39,6 +41,117 @@ export const SidebarEditor = ({ config, onUpdate }: SidebarEditorProps): JSX.Ele
         value={config.hoverItemBackground}
         onChange={(value) => onUpdate({ hoverItemBackground: value })}
       />
+
+      {/* Search Input Subsection */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.sidebar.searchTitle')}
+        </p>
+        <div className="space-y-2 pl-2">
+          <ColorPicker
+            label={FM('themeSettings.components.sidebar.searchTextColor')}
+            value={config.searchTextColor}
+            onChange={(value) => onUpdate({ searchTextColor: value })}
+          />
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchBackground')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="rgba(0, 0, 0, 0.3)"
+              type="text"
+              value={config.searchBackground}
+              onChange={(e) => onUpdate({ searchBackground: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchBorder')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="rgba(255, 255, 255, 0.1)"
+              type="text"
+              value={config.searchBorder}
+              onChange={(e) => onUpdate({ searchBorder: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchPlaceholderColor')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="rgba(209, 213, 219, 0.5)"
+              type="text"
+              value={config.searchPlaceholderColor}
+              onChange={(e) => onUpdate({ searchPlaceholderColor: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchFocusBackground')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="rgba(0, 0, 0, 0.4)"
+              type="text"
+              value={config.searchFocusBackground}
+              onChange={(e) => onUpdate({ searchFocusBackground: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchFocusBorder')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="rgba(255, 255, 255, 0.2)"
+              type="text"
+              value={config.searchFocusBorder}
+              onChange={(e) => onUpdate({ searchFocusBorder: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchBorderRadius')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="8px"
+              type="text"
+              value={config.searchBorderRadius}
+              onChange={(e) => onUpdate({ searchBorderRadius: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchFontSize')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="13px"
+              type="text"
+              value={config.searchFontSize}
+              onChange={(e) => onUpdate({ searchFontSize: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchPadding')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="8px 12px 8px 36px"
+              type="text"
+              value={config.searchPadding}
+              onChange={(e) => onUpdate({ searchPadding: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
       <AnimationSubsection
         animationDuration={config.transitionDuration}
         showEffectSelector={false}

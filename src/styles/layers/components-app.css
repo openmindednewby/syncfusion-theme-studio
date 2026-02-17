@@ -56,13 +56,25 @@
 
 /* ===== SIDEBAR SEARCH ===== */
 .sidebar-search-input {
-  background-color: var(--component-sidebar-background);
-  transition: border-color var(--transition-fast);
+  width: 100% !important;
+  background-color: var(--component-sidebar-search-bg) !important;
+  border: 1px solid var(--component-sidebar-search-border) !important;
+  border-radius: var(--component-sidebar-search-radius) !important;
+  color: var(--component-sidebar-search-text) !important;
+  transition: all var(--transition-fast);
+  font-size: var(--component-sidebar-search-font-size) !important;
+  padding: var(--component-sidebar-search-padding) !important;
+}
+
+.sidebar-search-input::placeholder {
+  color: var(--component-sidebar-search-placeholder) !important;
 }
 
 .sidebar-search-input:focus {
-  border-color: rgb(var(--color-primary-500));
+  background-color: var(--component-sidebar-search-focus-bg) !important;
+  border-color: var(--component-sidebar-search-focus-border) !important;
   outline: none;
+  box-shadow: none !important;
 }
 
 /* ===== SIDEBAR MAIN NAV ===== */

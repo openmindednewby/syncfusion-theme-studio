@@ -20,7 +20,9 @@ export const SidebarSearch = ({
     <div className="px-3 py-2">
       <SearchInput
         aria-label={FM('sidebar.searchNavigation')}
-        inputClassName="sidebar-search-input"
+        inputClassName="sidebar-search-input w-full"
+        containerClassName="relative"
+        iconClassName="pointer-events-none absolute inset-y-0 left-2.5 flex items-center"
         placeholder={FM('sidebar.searchNavigation')}
         renderIcon={() => <IconSearch />}
         testId={TestIds.SIDEBAR_SEARCH}

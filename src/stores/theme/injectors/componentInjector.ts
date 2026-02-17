@@ -29,6 +29,17 @@ export function injectSidebarVariables(root: HTMLElement, c: ComponentConfigSing
   root.style.setProperty('--component-sidebar-hover-bg', `rgb(${c.sidebar.hoverItemBackground})`);
   root.style.setProperty('--component-sidebar-border-right', `rgb(${c.sidebar.borderRight})`);
   root.style.setProperty('--component-sidebar-transition', c.sidebar.transitionDuration);
+  
+  // Search input variables
+  root.style.setProperty('--component-sidebar-search-bg', c.sidebar.searchBackground);
+  root.style.setProperty('--component-sidebar-search-border', c.sidebar.searchBorder);
+  root.style.setProperty('--component-sidebar-search-radius', c.sidebar.searchBorderRadius);
+  root.style.setProperty('--component-sidebar-search-text', `rgb(${c.sidebar.searchTextColor})`);
+  root.style.setProperty('--component-sidebar-search-placeholder', c.sidebar.searchPlaceholderColor);
+  root.style.setProperty('--component-sidebar-search-focus-bg', c.sidebar.searchFocusBackground);
+  root.style.setProperty('--component-sidebar-search-focus-border', c.sidebar.searchFocusBorder);
+  root.style.setProperty('--component-sidebar-search-font-size', c.sidebar.searchFontSize);
+  root.style.setProperty('--component-sidebar-search-padding', c.sidebar.searchPadding);
 }
 
 export function injectButtonVariables(root: HTMLElement, c: ComponentConfigSingle): void {

@@ -21,7 +21,7 @@ export const SearchInput = memo(({
   <div className={cn('relative', containerClassName)}>
     <span
       aria-hidden="true"
-      className={cn('pointer-events-none absolute inset-y-0 left-2.5 flex items-center text-text-muted', iconClassName)}
+      className={cn('pointer-events-none absolute inset-y-0 left-2.5 flex items-center pt-[5px] text-text-muted', iconClassName)}
     >
       {renderIcon?.()}
     </span>

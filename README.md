@@ -181,6 +181,54 @@ This project follows strict coding standards:
 - Comprehensive accessibility support
 - Unit test coverage > 80%
 
+## Common Functionality & References
+
+### Tailwind CSS Spacing Scale
+
+Used for padding (`p-`), margin (`m-`), width (`w-`), height (`h-`), gap, etc.
+
+| Class suffix | CSS value | Pixels |
+|-------------|-----------|--------|
+| `0` | `0px` | 0 |
+| `px` | `1px` | 1 |
+| `0.5` | `0.125rem` | 2 |
+| `1` | `0.25rem` | 4 |
+| `1.5` | `0.375rem` | 6 |
+| `2` | `0.5rem` | 8 |
+| `2.5` | `0.625rem` | 10 |
+| `3` | `0.75rem` | 12 |
+| `4` | `1rem` | 16 |
+| `5` | `1.25rem` | 20 |
+| `6` | `1.5rem` | 24 |
+| `8` | `2rem` | 32 |
+| `[3px]` | `3px` | Arbitrary value syntax |
+
+**Direction prefixes:** `t` (top), `b` (bottom), `l` (left), `r` (right), `x` (horizontal), `y` (vertical), none (all sides).
+
+Example: `pt-2` = `padding-top: 0.5rem` (8px), `mx-4` = `margin-left: 1rem; margin-right: 1rem` (16px).
+
+Full reference: https://tailwindcss.com/docs/padding
+
+### Where to Find Things
+
+| What | Location |
+|------|----------|
+| **Shared UI components** | `src/components/ui/shared/` (SearchInput, etc.) |
+| **Layout components** | `src/components/layout/` (Sidebar, Header, MainLayout) |
+| **Theme store & types** | `src/stores/theme/` |
+| **Theme presets** | `src/stores/theme/presets/` |
+| **Default component styles** | `src/stores/theme/defaults/` (light & dark) |
+| **CSS variable injection** | `src/stores/theme/injectors/` |
+| **Theme settings UI editors** | `src/components/layout/ThemeSettingsDrawer/sections/ComponentsSection/` |
+| **CSS layers & component styles** | `src/styles/layers/` |
+| **Localization strings** | `src/localization/locales/en.json` |
+| **Syncfusion wrappers** | `src/components/ui/` (DataGrid, Select, DatePicker, etc.) |
+| **Feature pages** | `src/features/` (auth, dashboard, showcase, etc.) |
+| **API hooks (Orval-generated)** | `src/api/` |
+| **Utility functions** | `src/utils/` (cn, is, etc.) |
+
+---
+
 ## Performance Optimization Details
 
 This project underwent extensive performance optimization to achieve a **98/100 Lighthouse score**. Below are the detailed fixes and techniques implemented.

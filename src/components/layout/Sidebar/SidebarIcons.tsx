@@ -140,7 +140,7 @@ export const IconChevronLeft = ({ className }: IconProps): JSX.Element => (
 );
 
 export const IconSearch = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className} height="16" width="16">
+  <svg {...defaults} className={className} height="20" strokeWidth={2.2} width="20">
     <circle cx="7.5" cy="7.5" r="5.5" />
     <line x1="12" x2="15" y1="12" y2="15" />
   </svg>

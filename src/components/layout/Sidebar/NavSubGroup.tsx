@@ -5,7 +5,6 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
-const BULLET = '\u2022';
 
 interface SubNavItem {
   path: string;
@@ -87,7 +86,6 @@ export const NavSubGroup = ({
                 data-testid={item.testId}
                 to={item.path}
               >
-                <span aria-hidden="true" className="text-xs">{BULLET}</span>
                 <span>{FM(item.labelKey)}</span>
               </NavLink>
             </li>

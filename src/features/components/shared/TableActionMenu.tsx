@@ -73,9 +73,9 @@ export const TableActionMenu = ({
   }, [isOpen, updateMenuPosition]);
 
   return (
-    <div ref={menuRef} className="relative flex items-center gap-1">
+    <div ref={menuRef} className="relative flex items-center gap-1.5">
       <button
-        className="btn-ghost rounded border border-border-default px-2 py-1 text-xs text-text-secondary hover:text-text-primary"
+        className="flex items-center justify-center rounded border border-border-default bg-surface px-3 py-1 text-[11px] font-semibold text-text-primary transition-all duration-200 hover:border-border-strong hover:bg-surface-hover active:scale-95"
         data-testid="alert-action-view"
         type="button"
       >
@@ -83,17 +83,19 @@ export const TableActionMenu = ({
       </button>
       <button
         ref={triggerRef}
-        className="px-1 py-1 text-text-muted hover:text-text-primary"
+        className="flex h-[26px] w-[26px] items-center justify-center rounded border border-border-default bg-surface text-text-muted transition-all duration-200 hover:border-border-strong hover:bg-surface-hover hover:text-text-primary active:scale-95"
         data-testid="alert-action-more"
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
       >
-        <IconMoreVertical />
+        <span className="scale-90">
+          <IconMoreVertical />
+        </span>
       </button>
       {isOpen && menuPos ? createPortal(
         <div
           ref={dropdownRef}
-          className="fixed z-[10050] min-w-[160px] rounded border border-border-default bg-surface-elevated py-1 shadow-md"
+          className="fixed z-[10050] min-w-[180px] overflow-hidden rounded-md border border-border-strong bg-surface-elevated py-1 shadow-2xl animate-in fade-in zoom-in-95 duration-100"
           data-testid="alert-action-dropdown"
           style={{
             left: `${String(menuPos.left)}px`,
@@ -106,7 +108,7 @@ export const TableActionMenu = ({
           {actions.map((action) => (
             <button
               key={action.testId}
-              className="w-full px-3 py-1.5 text-left text-xs text-text-secondary hover:bg-surface-hover hover:text-text-primary"
+              className="w-full px-4 py-2.5 text-left text-[11px] font-medium text-text-secondary transition-colors duration-150 hover:bg-surface-hover hover:text-text-primary"
               data-testid={action.testId}
               type="button"
               onClick={() => {

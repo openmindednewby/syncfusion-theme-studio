@@ -115,7 +115,6 @@ export const NavExpandableItem = ({
                   data-testid={child.testId}
                   to={child.path}
                 >
-                  <span aria-hidden="true" className="text-xs" />
                   <span>{FM(child.labelKey)}</span>
                 </NavLink>
               </li>

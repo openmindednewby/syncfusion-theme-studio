@@ -16,7 +16,6 @@ import { SubNavId } from './subNavId';
 import type { SubNavSection } from './sidebarSubNavData';
 
 const EXPAND_ARROW = '\u25B8';
-const BULLET = '\u2022';
 
 interface SubNavSectionItemProps {
   section: SubNavSection;
@@ -62,9 +61,6 @@ const SubNavSectionItem = ({
                 data-testid={child.testId}
                 to={child.path}
               >
-                <span aria-hidden="true" className="text-xs">
-                  {BULLET}
-                </span>
                 <span>{FM(child.labelKey)}</span>
               </NavLink>
             </li>

@@ -1,21 +1,21 @@
 /**
  * Sub-navigation view shown when a bottom item (e.g. Administration Hub) is active.
  * Displays "< Main Menu" back link and expandable sub-sections.
+ * Uses the same chevron, icon, and styling patterns as the main sidebar.
  */
 import { useState, useCallback } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 
+import { getIcon } from './iconMap';
 import { ADMIN_HUB_SECTIONS } from './sidebarSubNavData';
 import { SubNavId } from './subNavId';
 
 import type { SubNavSection } from './sidebarSubNavData';
-
-const EXPAND_ARROW = '\u25B8';
 
 interface SubNavSectionItemProps {
   section: SubNavSection;
@@ -24,37 +24,67 @@ interface SubNavSectionItemProps {
 const SubNavSectionItem = ({
   section,
 }: SubNavSectionItemProps): JSX.Element => {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const location = useLocation();
+  const isChildActive = section.children.some(
+    (child) => location.pathname === child.path,
+  );
+  const [isExpanded, setIsExpanded] = useState(isChildActive);
 
   const handleToggle = useCallback(() => {
     setIsExpanded((prev) => !prev);
   }, []);
 
+  const IconComp = getIcon(section.iconName);
+  const sectionName = FM(section.labelKey);
+
   return (
     <li>
       <button
+        aria-controls={`subnav-${section.testId}`}
         aria-expanded={isExpanded}
-        className="sidebar-item flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm transition-colors"
+        aria-label={
+          isExpanded
+            ? FM('accessibility.collapseSection', sectionName)
+            : FM('accessibility.expandSection', sectionName)
+        }
+        className={`sidebar-item flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors ${
+          isChildActive ? 'active' : ''
+        }`}
         data-testid={section.expandTestId}
         type="button"
         onClick={handleToggle}
       >
-        <span
+        <svg
           aria-hidden="true"
-          className={`text-xs transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+          className={`size-3.5 shrink-0 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 16 16"
         >
-          {EXPAND_ARROW}
+          <path
+            d="M6 4l4 4-4 4"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="1.5"
+          />
+        </svg>
+        <span aria-hidden="true" className="shrink-0">
+          <IconComp className="shrink-0" />
         </span>
-        <span className="flex-1 text-left">{FM(section.labelKey)}</span>
+        <span className="flex-1 text-left">{sectionName}</span>
       </button>
 
-      {isExpanded ? <ul className="ml-6 mt-1 space-y-0.5">
+      {isExpanded ? (
+        <ul
+          className="ml-6 mt-1 space-y-1"
+          id={`subnav-${section.testId}`}
+        >
           {section.children.map((child) => (
             <li key={child.testId}>
               <NavLink
                 aria-label={FM(child.labelKey)}
                 className={({ isActive }) =>
-                  `sidebar-item flex items-center gap-2 rounded-md px-3 py-1 text-xs transition-colors ${
+                  `sidebar-item flex items-center gap-2 rounded-md px-3 py-1.5 text-sm transition-colors ${
                     isActive ? 'active' : ''
                   }`
                 }
@@ -65,7 +95,8 @@ const SubNavSectionItem = ({
               </NavLink>
             </li>
           ))}
-        </ul> : null}
+        </ul>
+      ) : null}
     </li>
   );
 };
@@ -86,10 +117,10 @@ export const SidebarSubNav = ({
   const sections = isAdminHub ? ADMIN_HUB_SECTIONS : [];
 
   return (
-    <nav className="flex-1 overflow-y-auto p-2">
+    <nav className="sidebar-main-nav flex-1 overflow-y-auto p-2">
       {/* Header with back link */}
       <div className="mb-2 flex items-center justify-between px-3 py-1">
-        <span className="text-sm font-semibold text-text-primary">
+        <span className="text-sm font-semibold">
           {title}
         </span>
         <button

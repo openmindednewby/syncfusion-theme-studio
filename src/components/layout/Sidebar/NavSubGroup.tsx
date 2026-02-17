@@ -34,19 +34,20 @@ export const NavSubGroup = ({
   const location = useLocation();
   const isChildActive = items.some((item) => location.pathname === item.path);
   const isHeaderActive = isValueDefined(path) && path !== '' ? location.pathname === path : false;
-  const [isExpanded, setIsExpanded] = useState(isChildActive || isHeaderActive || forceExpanded);
+  const [isExpanded, setIsExpanded] = useState(isChildActive || isHeaderActive);
 
-  // Auto-expand when navigating to a child or header route, or when search forces it
+  // Auto-expand when navigating to a child or header route (never auto-collapse)
   useEffect(() => {
-    if (isChildActive || isHeaderActive || forceExpanded) setIsExpanded(true);
-  }, [isChildActive, isHeaderActive, forceExpanded]);
+    if (isChildActive || isHeaderActive) setIsExpanded(true);
+  }, [isChildActive, isHeaderActive]);
 
   const handleToggle = useCallback(() => {
     setIsExpanded((prev) => !prev);
   }, []);
 
+  const effectiveExpanded = forceExpanded || isExpanded;
   const sectionName = FM(labelKey);
-  const expandLabel = isExpanded
+  const expandLabel = effectiveExpanded
     ? FM('accessibility.collapseSection', sectionName)
     : FM('accessibility.expandSection', sectionName);
 
@@ -54,7 +55,7 @@ export const NavSubGroup = ({
     <li>
       <button
         aria-controls={`subgroup-${testId}`}
-        aria-expanded={isExpanded}
+        aria-expanded={effectiveExpanded}
         aria-label={expandLabel}
         className={`sidebar-item flex w-full items-center gap-3 rounded-md px-3 py-1.5 text-sm transition-colors ${
           isChildActive || isHeaderActive ? 'active' : ''
@@ -65,7 +66,7 @@ export const NavSubGroup = ({
       >
         <svg
           aria-hidden="true"
-          className={`size-3.5 shrink-0 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+          className={`size-3.5 shrink-0 transition-transform ${effectiveExpanded ? 'rotate-90' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 16 16"
@@ -75,7 +76,7 @@ export const NavSubGroup = ({
         <span className="flex-1 text-left">{sectionName}</span>
       </button>
 
-      {isExpanded ? (
+      {effectiveExpanded ? (
         <ul className="ml-4 mt-1 space-y-0.5" id={`subgroup-${testId}`}>
           {items.map((item) => (
             <li key={item.path}>

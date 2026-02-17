@@ -48,19 +48,20 @@ export const NavExpandableItem = ({
 }: NavExpandableItemProps): JSX.Element => {
   const location = useLocation();
   const isActive = location.pathname.startsWith(pathPrefix);
-  const [isExpanded, setIsExpanded] = useState(isActive || forceExpanded);
+  const [isExpanded, setIsExpanded] = useState(isActive);
 
   useEffect(() => {
-    if (isActive || forceExpanded) setIsExpanded(true);
-  }, [isActive, forceExpanded]);
+    if (isActive) setIsExpanded(true);
+  }, [isActive]);
 
   const handleToggle = useCallback(() => {
     setIsExpanded((prev) => !prev);
   }, []);
 
-  const showChildren = isExpanded && !isCollapsed;
+  const effectiveExpanded = forceExpanded || isExpanded;
+  const showChildren = effectiveExpanded && !isCollapsed;
   const sectionName = FM(labelKey);
-  const expandLabel = isExpanded
+  const expandLabel = effectiveExpanded
     ? FM('accessibility.collapseSection', sectionName)
     : FM('accessibility.expandSection', sectionName);
 
@@ -68,7 +69,7 @@ export const NavExpandableItem = ({
     <li>
       <button
         aria-controls={`nav-children-${expandTestId}`}
-        aria-expanded={isExpanded}
+        aria-expanded={effectiveExpanded}
         aria-label={expandLabel}
         className={`sidebar-item flex w-full items-center gap-3 rounded-md px-3 py-2 transition-colors ${
           isActive ? 'active' : ''
@@ -80,7 +81,7 @@ export const NavExpandableItem = ({
         {!isCollapsed && (
           <svg
             aria-hidden="true"
-            className={`size-3.5 shrink-0 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+            className={`size-3.5 shrink-0 transition-transform ${effectiveExpanded ? 'rotate-90' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 16 16"

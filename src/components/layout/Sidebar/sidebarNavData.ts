@@ -14,7 +14,6 @@ import {
   ATTACK_SURFACE_CHILDREN,
   COMPLIANCE_CHILDREN,
   PERFORMANCE_CHILDREN,
-  SAMPLE_MANAGER_CHILDREN,
   THREAT_INTEL_CHILDREN,
 } from './sidebarNavChildren';
 import { THREAT_DETECTION_CHILDREN } from './sidebarThreatDetectionGroups';
@@ -85,15 +84,6 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
     pathPrefix: RoutePrefix.Components,
     iconName: IconName.Layout,
     children: COMPONENTS_CHILDREN,
-  },
-  {
-    id: 'sample-manager',
-    labelKey: 'sidebar.nav.sampleManager',
-    testId: TestIds.NAV_SAMPLE_MANAGER,
-    expandTestId: TestIds.NAV_PRODUCTS_EXPAND,
-    pathPrefix: RoutePrefix.SampleManager,
-    iconName: IconName.Folder,
-    children: SAMPLE_MANAGER_CHILDREN,
   },
   {
     id: 'user-rank',

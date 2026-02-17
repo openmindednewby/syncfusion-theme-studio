@@ -212,7 +212,6 @@
     "mainMenu": "Main Menu",
     "nav": {
       "dashboard": "Dashboard",
-      "sampleManager": "Sample Manager",
       "licenseOverview": "License Overview",
       "portalVersionMgr": "Portal Version Manager",
       "userRank": "User Rank",

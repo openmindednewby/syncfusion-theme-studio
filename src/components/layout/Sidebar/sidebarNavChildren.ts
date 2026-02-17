@@ -18,11 +18,6 @@ export const FORMS_CHILDREN: SubNavItem[] = [
   { path: RoutePath.FormsSyncfusion, labelKey: 'menu.formsSyncfusion', testId: TestIds.NAV_FORMS_SYNCFUSION },
 ];
 
-export const SAMPLE_MANAGER_CHILDREN: SubNavItem[] = [
-  { path: RoutePath.ProductsNative, labelKey: 'sidebar.nav.licenseOverview', testId: TestIds.NAV_PRODUCTS_NATIVE },
-  { path: RoutePath.ProductsSyncfusion, labelKey: 'sidebar.nav.portalVersionMgr', testId: TestIds.NAV_PRODUCTS_SYNCFUSION },
-];
-
 export const ALERTS_CHILDREN: SubNavItem[] = [
   { path: RoutePath.ComponentsGridSyncfusion, labelKey: 'sidebar.nav.alertsManagement', testId: TestIds.NAV_FORMS_SYNCFUSION },
   { path: RoutePath.ComponentsGridNative, labelKey: 'sidebar.nav.incidentsManagement', testId: TestIds.NAV_FORMS_NATIVE },

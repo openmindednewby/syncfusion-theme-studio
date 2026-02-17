@@ -1119,6 +1119,12 @@
     position: absolute !important;
   }
 
+  /* When Syncfusion appends filter operator popup to <body>, the scoped selectors
+     above no longer match. Keep this global to enforce absolute positioning. */
+  .e-ddl.e-popup.e-popup-flmenu {
+    position: absolute !important;
+  }
+
   /* Filter operator/value dropdown toggle icon should be chevron, not search glyph. */
   .e-grid .e-dialog.e-flmenu .e-input-group-icon.e-ddl-icon::before,
   .e-grid .e-dialog.e-flmenu .e-input-group-icon.e-search-icon::before,

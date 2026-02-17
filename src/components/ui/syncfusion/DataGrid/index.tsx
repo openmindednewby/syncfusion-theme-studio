@@ -251,14 +251,13 @@ function getVisibleFilterPopup(): HTMLElement | undefined {
 }
 
 function repositionFilterOperatorDropdownPopup(): boolean {
-  const filterPopup = getVisibleFilterPopup();
-  if (!isValueDefined(filterPopup)) return false;
-  const operatorInput = filterPopup.querySelector<HTMLInputElement>('input[id$="-floptr"]');
-  if (!isValueDefined(operatorInput) || operatorInput.id === '') return false;
+  const popup = getVisibleElement('.e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"]');
+  if (!isValueDefined(popup) || popup.id === '') return false;
+  const operatorInputId = popup.id.replace(/_popup$/, '');
+  const operatorInput = document.getElementById(operatorInputId) as HTMLElement | null;
+  if (!isValueDefined(operatorInput)) return false;
   const wrapper = operatorInput.closest<HTMLElement>('.e-ddl.e-control-wrapper');
   if (!isValueDefined(wrapper)) return false;
-  const popup = document.getElementById(`${operatorInput.id}_popup`);
-  if (!isValueDefined(popup) || !popup.classList.contains('e-popup-open')) return false;
 
   if (popup.parentElement !== document.body) {
     document.body.appendChild(popup);
@@ -457,6 +456,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
     let filterDropdownRafId: number | null = null;
     let contextMenuRafId: number | null = null;
     let submenuRafId: number | null = null;
+    let filterDropdownObserver: MutationObserver | null = null;
     let queuedHoverAnchor: HTMLElement | null = null;
 
     const scheduleFilterPopupReposition = (anchor: DOMRect): void => {
@@ -640,14 +640,53 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       scheduleGridContextMenuReposition();
     };
 
+    const onDocumentFocusIn = (event: Event): void => {
+      const target = event.target as Element | null;
+      if (!isValueDefined(target)) return;
+      if (!isValueDefined(target.closest('.e-dialog.e-flmenu .e-flm_optrdiv .e-ddl.e-control-wrapper'))) return;
+      scheduleFilterOperatorDropdownReposition();
+    };
+
     const onDocumentContextMenu = (): void => {
       setTimeout(() => scheduleGridContextMenuReposition(), POPUP_REPOSITION_DELAY_MS);
       scheduleGridContextMenuReposition();
     };
 
+    filterDropdownObserver = new MutationObserver((mutations) => {
+      let shouldReposition = false;
+      for (const mutation of mutations) {
+        if (mutation.type === 'childList') {
+          const addedNodes = Array.from(mutation.addedNodes).filter((node): node is HTMLElement => node instanceof HTMLElement);
+          if (addedNodes.some((node) => isValueDefined(node.matches) && node.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]'))) {
+            shouldReposition = true;
+            break;
+          }
+          if (addedNodes.some((node) => isValueDefined(node.querySelector) && isValueDefined(node.querySelector('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')))) {
+            shouldReposition = true;
+            break;
+          }
+        }
+        if (mutation.type === 'attributes' && mutation.target instanceof HTMLElement) {
+          if (mutation.target.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')) {
+            shouldReposition = true;
+            break;
+          }
+        }
+      }
+      if (!shouldReposition) return;
+      scheduleFilterOperatorDropdownReposition();
+    });
+    filterDropdownObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['class', 'style'],
+    });
+
     root.addEventListener('pointerdown', onGridPointerDown, true);
     document.addEventListener('pointerdown', onDocumentPointerDown, true);
     document.addEventListener('pointerover', onDocumentPointerOver, true);
+    document.addEventListener('focusin', onDocumentFocusIn, true);
     document.addEventListener('contextmenu', onDocumentContextMenu, true);
     window.addEventListener('resize', onWindowMove);
     window.addEventListener('scroll', onWindowMove, true);
@@ -655,9 +694,11 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       root.removeEventListener('pointerdown', onGridPointerDown, true);
       document.removeEventListener('pointerdown', onDocumentPointerDown, true);
       document.removeEventListener('pointerover', onDocumentPointerOver, true);
+      document.removeEventListener('focusin', onDocumentFocusIn, true);
       document.removeEventListener('contextmenu', onDocumentContextMenu, true);
       window.removeEventListener('resize', onWindowMove);
       window.removeEventListener('scroll', onWindowMove, true);
+      filterDropdownObserver?.disconnect();
       if (isValueDefined(hoverRafId)) cancelAnimationFrame(hoverRafId);
       if (isValueDefined(filterRafId)) cancelAnimationFrame(filterRafId);
       if (isValueDefined(filterDropdownRafId)) cancelAnimationFrame(filterDropdownRafId);

@@ -72,6 +72,7 @@ function applyFixedPopupStyle(
   top: number,
   minWidth: number | undefined,
   zIndex: string,
+  protect: boolean = false,
 ): void {
   setStyleIfChanged(element, 'position', 'fixed');
   setStyleIfChanged(element, 'left', `${Math.round(left)}px`);
@@ -84,17 +85,24 @@ function applyFixedPopupStyle(
   // Prevent interactions inside this popup from bubbling to document level.
   // This avoids Syncfusion's "click outside" listeners (e.g. on the main filter dialog)
   // from closing the parent menu when the user interacts with the operator dropdown.
-  // Using capture phase and multiple event types for maximum reliability.
-  if (!element.hasAttribute('data-sf-stop-prop')) {
-    const stopProp = (e: Event): void => e.stopPropagation();
+  // Only applied if 'protect' is true to avoid breaking menu items (like Sort).
+  if (protect && !element.hasAttribute('data-sf-stop-prop')) {
+    const stopProp = (e: Event): void => {
+      // If the user clicks the "Filter" or "Clear" buttons, we MUST let the event
+      // bubble so Syncfusion can detect the submission and update the grid.
+      const isFilterButton = e.target instanceof HTMLElement && 
+        (e.target.closest('.e-filterbtn') || e.target.closest('.e-clearbtn'));
+      
+      if (isFilterButton) return;
+      
+      e.stopPropagation();
+    };
     const events = ['pointerdown', 'mousedown', 'click', 'mouseup', 'pointerup'];
     for (const eventName of events) {
-      // Use bubbling phase (capture: false) so that children (like list items)
-      // receive the events first and can execute their selection logic.
       element.addEventListener(eventName, stopProp, { capture: false, passive: false });
     }
     element.setAttribute('data-sf-stop-prop', 'true');
-    console.log(`[DataGrid] Applied stopPropagation (bubbling) to popup: ${element.id || 'unnamed'}`);
+    console.log(`[DataGrid] Applied selective stopPropagation (bubbling) to popup: ${element.id || 'unnamed'}`);
   }
 }
 
@@ -329,7 +337,7 @@ function repositionFilterOperatorDropdownPopup(): boolean {
   }
 
   console.log(`[DataGrid] Positioning operator popup at [${Math.round(rect.left)}, ${Math.round(rect.bottom + POPUP_VERTICAL_GAP_PX)}]`);
-  applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, OPERATOR_POPUP_Z_INDEX);
+  applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, OPERATOR_POPUP_Z_INDEX, true);
   setStyleIfChanged(popup, 'margin-top', '0');
   return true;
 }
@@ -363,7 +371,7 @@ function repositionFilterPopup(anchor: PopupAnchor, preferredOpenToLeft?: boolea
   }
   const targetTop = resolveVerticalPosition(anchorRect, popupHeight);
 
-  applyFixedPopupStyle(filterPopup, targetLeft, targetTop, popupWidth, FILTER_POPUP_Z_INDEX);
+  applyFixedPopupStyle(filterPopup, targetLeft, targetTop, popupWidth, FILTER_POPUP_Z_INDEX, true);
   
   // Return true only if we have a real size measurement, indicating it's "ready"
   return (popupRect.width > 0 && popupRect.height > 0) || (filterPopup.offsetWidth > 0 && filterPopup.offsetHeight > 0);

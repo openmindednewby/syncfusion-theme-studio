@@ -5,7 +5,7 @@
 import { memo } from 'react';
 
 import { IconDownload, IconFilter, IconRefresh, IconSearch, IconSettings } from '@/components/layout/Sidebar/SidebarIcons';
-import { SearchInput } from '@/components/ui/shared/SearchInput';
+import { SearchInput } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 

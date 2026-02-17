@@ -82,3 +82,4 @@ export type { HeadingNativeProps } from './HeadingNative';
 
 export { default as TextNative, TextVariant } from './TextNative';
 export type { TextNativeProps } from './TextNative';
+export { SearchInput } from '@/components/ui/shared/SearchInput';

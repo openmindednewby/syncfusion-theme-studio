@@ -1,9 +1,9 @@
 /**
  * Sidebar search input with magnifying glass icon.
  */
+import { SearchInput } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
-import { SearchInput } from '@/components/ui/shared/SearchInput';
 
 import { IconSearch } from './SidebarIcons';
 

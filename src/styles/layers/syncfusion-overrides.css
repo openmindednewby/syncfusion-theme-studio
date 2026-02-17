@@ -456,19 +456,10 @@
     border: none !important;
   }
 
-  /* Dropdown chevron fallback: when Syncfusion icon glyphs fail to render,
-     DataGrid injects an inline SVG in the same icon host. */
-  .e-input-group-icon.e-ddl-icon.e-search-icon.sf-ddl-chevron-host::before {
-    content: none !important;
-  }
-
-  .e-input-group-icon.e-ddl-icon.e-search-icon .sf-ddl-chevron {
-    width: 16px;
-    height: 16px;
-    display: inline-block;
-    transform: rotate(180deg);
-    transition: transform 150ms ease;
-    pointer-events: none;
+  /* Ensure Syncfusion dropdown glyph icons always use the icon font. */
+  .e-input-group-icon.e-ddl-icon::before,
+  .e-input-group-icon.e-search-icon::before {
+    font-family: 'e-icons' !important;
   }
 
   .e-ddl.e-control-wrapper.e-disabled {
@@ -1022,6 +1013,13 @@
     overflow: hidden !important;
   }
 
+  /* Syncfusion _cmenu list needs absolute positioning base styles.
+     Without context-menu base CSS this can render inline and get clipped. */
+  .e-grid-menu.e-contextmenu-wrapper ul[id$="_cmenu"] {
+    position: absolute !important;
+    min-width: 160px !important;
+  }
+
   /* Submenus (e.g. Columns list) should open to the side, with direction set by JS class */
   .e-grid-menu.e-contextmenu-wrapper.sf-submenu-right .e-menu-item > .e-ul {
     left: 100% !important;
@@ -1113,6 +1111,21 @@
     color: var(--component-datagrid-colmenu-text) !important;
     border-color: var(--component-datagrid-colmenu-border) !important;
     border-radius: 6px !important;
+  }
+
+  /* Filter operator dropdown popup must stay absolute to avoid off-screen/fixed drift. */
+  .e-grid .e-ddl.e-popup.e-popup-flmenu,
+  .e-grid-popup .e-ddl.e-popup.e-popup-flmenu {
+    position: absolute !important;
+  }
+
+  /* Filter operator/value dropdown toggle icon should be chevron, not search glyph. */
+  .e-grid .e-dialog.e-flmenu .e-input-group-icon.e-ddl-icon::before,
+  .e-grid .e-dialog.e-flmenu .e-input-group-icon.e-search-icon::before,
+  .e-grid-popup .e-dialog.e-flmenu .e-input-group-icon.e-ddl-icon::before,
+  .e-grid-popup .e-dialog.e-flmenu .e-input-group-icon.e-search-icon::before {
+    content: "\e729" !important;
+    font-family: 'e-icons' !important;
   }
 
   .e-grid .e-dialog.e-flmenu .e-footer-content,

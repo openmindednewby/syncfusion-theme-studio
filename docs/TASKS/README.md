@@ -15,6 +15,19 @@ docs/Tasks/
 
 ## Current Tasks
 
+### TODO — ESLint Debt Remediation (7 tasks)
+
+| # | Task | Agent | Priority | Status |
+|---|------|-------|----------|--------|
+| - | [Master Plan](./TODO/eslint-debt-master-plan.md) | — | — | TODO |
+| ELD-01 | [Decompose DataGrid](./TODO/ELD-01-decompose-datagrid.md) | `frontend-dev` | Critical | TODO |
+| ELD-02 | [Split componentTypes](./TODO/ELD-02-split-component-types.md) | `frontend-dev` | Low | TODO |
+| ELD-03 | [Fix Form Schema Typing](./TODO/ELD-03-fix-form-schema-typing.md) | `frontend-dev` | Medium | TODO |
+| ELD-04 | [Reduce TableContent Complexity](./TODO/ELD-04-reduce-table-content-complexity.md) | `frontend-dev` | Medium | TODO |
+| ELD-05 | [Reduce DataRow Complexity](./TODO/ELD-05-reduce-datarow-complexity.md) | `frontend-dev` | Medium | TODO |
+| ELD-06 | [Fix Breadcrumb a11y](./TODO/ELD-06-fix-breadcrumb-a11y.md) | `frontend-dev` | Low | TODO |
+| ELD-07 | [Split Product Mutations](./TODO/ELD-07-split-product-mutations.md) | `frontend-dev` | Low | TODO |
+
 ### TODO — Culture Settings (14 tasks)
 
 | # | Task | Agent | Status |

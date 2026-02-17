@@ -10,6 +10,7 @@ import { NavLink } from 'react-router-dom';
 import { FM } from '@/localization/helpers';
 
 import { getIcon } from './iconMap';
+import { HighlightMatch } from './HighlightMatch';
 import { NavExpandableItem } from './NavExpandableItem';
 import { filterMainNavItems } from './sidebarFilterUtils';
 import {
@@ -49,6 +50,7 @@ export const SidebarMainNav = ({
                 isCollapsed={isCollapsed}
                 labelKey={entry.labelKey}
                 pathPrefix={entry.pathPrefix}
+                searchQuery={searchQuery}
               >
                 {entry.children}
               </NavExpandableItem>
@@ -68,7 +70,11 @@ export const SidebarMainNav = ({
                 to={entry.path ?? '#'}
               >
                 {iconNode}
-                {!isCollapsed && <span>{FM(entry.labelKey)}</span>}
+                {!isCollapsed && (
+                <span>
+                  <HighlightMatch query={searchQuery} text={FM(entry.labelKey)} />
+                </span>
+              )}
               </NavLink>
             </li>
           );

@@ -10,6 +10,7 @@ import { useSidebarStore } from '@/stores/useSidebarStore';
 import { isValueDefined } from '@/utils/is';
 
 import { getIcon } from './iconMap';
+import { HighlightMatch } from './HighlightMatch';
 import { filterBottomNavItems } from './sidebarFilterUtils';
 import { BOTTOM_NAV_ITEMS } from './sidebarNavData';
 
@@ -50,7 +51,11 @@ export const SidebarBottomItems = ({
                   to={item.path}
                 >
                   {iconNode}
-                  {!isCollapsed && <span>{FM(item.labelKey)}</span>}
+                  {!isCollapsed && (
+                  <span>
+                    <HighlightMatch query={searchQuery} text={FM(item.labelKey)} />
+                  </span>
+                )}
                 </NavLink>
               </li>
             );
@@ -71,7 +76,11 @@ export const SidebarBottomItems = ({
                 onClick={() => setActiveSubNav(subNavId)}
               >
                 {iconNode}
-                {!isCollapsed && <span>{FM(item.labelKey)}</span>}
+                {!isCollapsed && (
+                  <span>
+                    <HighlightMatch query={searchQuery} text={FM(item.labelKey)} />
+                  </span>
+                )}
               </button>
             </li>
           );

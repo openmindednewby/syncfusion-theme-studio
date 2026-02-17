@@ -5,6 +5,8 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
+import { HighlightMatch } from './HighlightMatch';
+
 
 interface SubNavItem {
   path: string;
@@ -21,6 +23,8 @@ interface NavSubGroupProps {
   items: SubNavItem[];
   /** Force expand when search is active */
   forceExpanded?: boolean;
+  /** Current search query for highlighting matched text */
+  searchQuery?: string;
 }
 
 export const NavSubGroup = ({
@@ -30,6 +34,7 @@ export const NavSubGroup = ({
   path,
   items,
   forceExpanded = false,
+  searchQuery = '',
 }: NavSubGroupProps): JSX.Element => {
   const location = useLocation();
   const isChildActive = items.some((item) => location.pathname === item.path);
@@ -73,7 +78,9 @@ export const NavSubGroup = ({
         >
           <path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
         </svg>
-        <span className="flex-1 text-left">{sectionName}</span>
+        <span className="flex-1 text-left">
+          <HighlightMatch query={searchQuery} text={sectionName} />
+        </span>
       </button>
 
       {effectiveExpanded ? (
@@ -90,7 +97,9 @@ export const NavSubGroup = ({
                 data-testid={item.testId}
                 to={item.path}
               >
-                <span>{FM(item.labelKey)}</span>
+                <span>
+                  <HighlightMatch query={searchQuery} text={FM(item.labelKey)} />
+                </span>
               </NavLink>
             </li>
           ))}

@@ -4,6 +4,7 @@ import { NavLink, useLocation } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
 
+import { HighlightMatch } from './HighlightMatch';
 import { NavSubGroup } from './NavSubGroup';
 
 export interface SubNavItem {
@@ -35,6 +36,8 @@ interface NavExpandableItemProps {
   isCollapsed: boolean;
   /** Force expand when search is active */
   forceExpanded?: boolean;
+  /** Current search query for highlighting matched text */
+  searchQuery?: string;
 }
 
 export const NavExpandableItem = ({
@@ -45,6 +48,7 @@ export const NavExpandableItem = ({
   children,
   isCollapsed,
   forceExpanded = false,
+  searchQuery = '',
 }: NavExpandableItemProps): JSX.Element => {
   const location = useLocation();
   const isActive = location.pathname.startsWith(pathPrefix);
@@ -91,7 +95,9 @@ export const NavExpandableItem = ({
         )}
         <span aria-hidden="true" className="shrink-0">{icon}</span>
         {!isCollapsed && (
-          <span className="flex-1 text-left">{sectionName}</span>
+          <span className="flex-1 text-left">
+            <HighlightMatch query={searchQuery} text={sectionName} />
+          </span>
         )}
       </button>
 
@@ -106,6 +112,7 @@ export const NavExpandableItem = ({
                 items={child.items}
                 labelKey={child.labelKey}
                 path={child.path}
+                searchQuery={searchQuery}
                 testId={child.testId}
               />
             ) : (
@@ -120,7 +127,9 @@ export const NavExpandableItem = ({
                   data-testid={child.testId}
                   to={child.path}
                 >
-                  <span>{FM(child.labelKey)}</span>
+                  <span>
+                    <HighlightMatch query={searchQuery} text={FM(child.labelKey)} />
+                  </span>
                 </NavLink>
               </li>
             )

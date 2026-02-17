@@ -20,6 +20,8 @@ import {
   slaTemplate,
   scoreTemplate,
   actionsTemplate,
+  assigneeTemplate,
+  automationStatusTemplate,
 } from './AlertBadgeTemplates';
 import { SECURITY_ALERTS, ALERT_COLUMNS } from './alertData';
 import { AlertKpiCards } from './AlertKpiCards';
@@ -38,6 +40,8 @@ function mapColumnTemplate(col: ColumnModel): ColumnModel {
   if (col.field === 'status') return { ...col, template: statusTemplate };
   if (col.field === 'slaStatus') return { ...col, template: slaTemplate };
   if (col.field === 'score') return { ...col, template: scoreTemplate };
+  if (col.field === 'assignee') return { ...col, template: assigneeTemplate };
+  if (col.field === 'automationStatus') return { ...col, template: automationStatusTemplate };
   if (col.field === 'actions') return { ...col, template: actionsTemplate };
   return col;
 }

@@ -156,9 +156,10 @@ const TableHeader = ({
               aria-sort={isSorted ? sortDirection : undefined}
               className={cn(
                 cellPadding,
-                'native-grid-header-cell group/th relative cursor-pointer select-none font-semibold',
+                'native-grid-header-cell group/th relative cursor-pointer select-none',
                 'border-b transition-colors',
                 'overflow-visible whitespace-nowrap',
+                'border-r border-r-border/30 last:border-r-0',
                 ALIGN_CLASSES[align],
               )}
               draggable={draggableHeaders}
@@ -167,6 +168,10 @@ const TableHeader = ({
                 padding: 'var(--component-datagrid-cell-padding)',
                 color: 'var(--component-datagrid-header-text)',
                 borderColor: 'var(--component-datagrid-header-border)',
+                textTransform: 'var(--component-datagrid-header-transform)',
+                fontSize: 'var(--component-datagrid-header-font-size)',
+                fontWeight: 'var(--component-datagrid-header-font-weight)',
+                letterSpacing: 'var(--component-datagrid-header-letter-spacing)',
                 ...buildColumnStyle(column),
               }}
               onClick={() => onSort(column.field)}

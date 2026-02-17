@@ -649,30 +649,61 @@
   }
 
   .e-grid .e-headercell,
-  .e-grid .e-detailheadercell {
+  .e-grid .e-detailheadercell,
+  .e-grid .e-headercell .e-headertext,
+  .e-grid .e-headercell .e-headercelldiv {
     background-color: var(--component-datagrid-header-bg) !important;
     color: var(--component-datagrid-header-text) !important;
-    font-weight: 600;
+    font-weight: var(--component-datagrid-header-font-weight) !important;
+    text-transform: var(--component-datagrid-header-transform) !important;
+    font-size: var(--component-datagrid-header-font-size) !important;
+    letter-spacing: var(--component-datagrid-header-letter-spacing) !important;
     text-align: var(--component-datagrid-header-text-align) !important;
     vertical-align: var(--component-datagrid-header-vertical-align) !important;
+  }
+
+  /* Add vertical dividers to header cells like Figma */
+  .e-grid .e-headercell:not(:last-child) {
+    border-right: 1px solid var(--component-datagrid-header-border) !important;
+  }
+
+  /* Apply padding only to non-selection cells to avoid pushing the checkbox */
+  .e-grid .e-headercell:not(.e-selectioncolumn),
+  .e-grid .e-detailheadercell:not(.e-selectioncolumn) {
     padding: var(--component-datagrid-header-text-padding) !important;
+  }
+
+  /* Center checkbox in selection column - absolute clear padding for perfect alignment */
+  .e-grid .e-headercell.e-selectioncolumn,
+  .e-grid .e-rowcell.e-selectioncolumn,
+  .e-grid .e-headercell.e-selectioncolumn .e-headercelldiv,
+  .e-grid .e-rowcell.e-selectioncolumn .e-rowcelldiv {
+    padding: 0 !important;
+    text-align: center !important;
+    justify-content: center !important;
   }
 
   /* Syncfusion's inner header div uses flexbox — text-align on the parent
      .e-headercell has no effect on flex children.  Mirror the configured
      alignment with justify-content so headers actually center / align.
      text-align is set as a fallback for non-flex rendering modes. */
-  .e-grid .e-headercell .e-headercelldiv,
-  .e-grid .e-detailheadercell .e-headercelldiv {
+  .e-grid .e-headercell:not(.e-selectioncolumn) .e-headercelldiv,
+  .e-grid .e-detailheadercell:not(.e-selectioncolumn) .e-headercelldiv {
     text-align: var(--component-datagrid-header-text-align) !important;
     justify-content: var(--component-datagrid-header-text-align) !important;
   }
 
   .e-grid .e-rowcell {
     color: rgb(var(--color-text-primary)) !important;
-    border-color: rgb(var(--color-border)) !important;
+    border-color: var(--component-datagrid-cell-border) !important;
     text-align: var(--component-datagrid-default-text-align) !important;
     vertical-align: var(--component-datagrid-default-vertical-align) !important;
+    padding: var(--component-datagrid-cell-padding) !important;
+    line-height: 1.25 !important;
+  }
+
+  .e-grid .e-row {
+    height: var(--component-datagrid-row-height) !important;
   }
 
   .e-grid .e-row:hover .e-rowcell {

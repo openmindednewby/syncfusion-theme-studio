@@ -31,6 +31,20 @@ const ROW_HEIGHT_OPTIONS = [
   { value: ROW_HEIGHT_COMFORTABLE, labelKey: 'themeSettings.components.dataGrid.heightComfortable' },
 ] as const;
 
+const TRANSFORM_OPTIONS = [
+  { value: 'none', label: 'None' },
+  { value: 'uppercase', label: 'Uppercase' },
+  { value: 'lowercase', label: 'Lowercase' },
+  { value: 'capitalize', label: 'Capitalize' },
+] as const;
+
+const WEIGHT_OPTIONS = [
+  { value: '400', label: '400 (Normal)' },
+  { value: '500', label: '500 (Medium)' },
+  { value: '600', label: '600 (Semi-bold)' },
+  { value: '700', label: '700 (Bold)' },
+] as const;
+
 const SELECT_CLASSES =
   'w-32 rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none';
 
@@ -114,6 +128,54 @@ export const DataGridColumnRowEditor = ({
         value={config.headerTextPadding}
         onChange={(value) => onUpdate({ headerTextPadding: value })}
       />
+
+      {/* Header Font Size */}
+      <TextInputRow
+        label={FM('themeSettings.components.dataGrid.headerFontSize')}
+        value={config.headerFontSize}
+        onChange={(value) => onUpdate({ headerFontSize: value })}
+      />
+
+      {/* Header Letter Spacing */}
+      <TextInputRow
+        label={FM('themeSettings.components.dataGrid.headerLetterSpacing')}
+        value={config.headerLetterSpacing}
+        onChange={(value) => onUpdate({ headerLetterSpacing: value })}
+      />
+
+      {/* Header Text Transform */}
+      <div className="flex items-center justify-between gap-2 rounded bg-surface-sunken px-3 py-2">
+        <span className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.dataGrid.headerTextTransform')}
+        </span>
+        <select
+          aria-label={FM('themeSettings.components.dataGrid.headerTextTransform')}
+          className={SELECT_CLASSES}
+          value={config.headerTextTransform}
+          onChange={(e) => onUpdate({ headerTextTransform: e.target.value })}
+        >
+          {TRANSFORM_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Header Font Weight */}
+      <div className="flex items-center justify-between gap-2 rounded bg-surface-sunken px-3 py-2">
+        <span className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.dataGrid.headerFontWeight')}
+        </span>
+        <select
+          aria-label={FM('themeSettings.components.dataGrid.headerFontWeight')}
+          className={SELECT_CLASSES}
+          value={config.headerFontWeight}
+          onChange={(e) => onUpdate({ headerFontWeight: e.target.value })}
+        >
+          {WEIGHT_OPTIONS.map((opt) => (
+            <option key={opt.value} value={opt.value}>{opt.label}</option>
+          ))}
+        </select>
+      </div>
 
       {/* Cell Padding */}
       <TextInputRow

@@ -59,6 +59,10 @@ function injectDataGridPaginationVars(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-datagrid-default-vertical-align', dg.defaultVerticalAlign);
   root.style.setProperty('--component-datagrid-header-vertical-align', dg.headerVerticalAlign);
   root.style.setProperty('--component-datagrid-row-height', dg.rowHeight);
+  root.style.setProperty('--component-datagrid-header-transform', dg.headerTextTransform);
+  root.style.setProperty('--component-datagrid-header-font-size', dg.headerFontSize);
+  root.style.setProperty('--component-datagrid-header-font-weight', dg.headerFontWeight);
+  root.style.setProperty('--component-datagrid-header-letter-spacing', dg.headerLetterSpacing);
 }
 
 function injectDataGridColumnMenuVars(root: HTMLElement, c: ComponentConfigSingle): void {

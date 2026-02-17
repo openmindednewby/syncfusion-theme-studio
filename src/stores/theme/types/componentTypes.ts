@@ -118,6 +118,10 @@ export interface DataGridConfig {
   columnMenuSeparatorColor: string;
   columnMenuTriggerColor: string;
   columnMenuTriggerHoverColor: string;
+  headerTextTransform: string;
+  headerFontSize: string;
+  headerFontWeight: string;
+  headerLetterSpacing: string;
 }
 
 export interface CardsConfig {

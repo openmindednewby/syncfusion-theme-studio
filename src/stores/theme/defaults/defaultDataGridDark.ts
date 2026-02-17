@@ -57,4 +57,8 @@ export const DEFAULT_DATAGRID_DARK: DataGridConfig = {
   columnMenuSeparatorColor: '55 65 81',
   columnMenuTriggerColor: '156 163 175',
   columnMenuTriggerHoverColor: '209 213 219',
+  headerTextTransform: 'none',
+  headerFontSize: '14px',
+  headerFontWeight: '600',
+  headerLetterSpacing: '0',
 };

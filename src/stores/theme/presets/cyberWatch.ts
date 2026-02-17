@@ -165,6 +165,7 @@ const CYBERWATCH_COMPONENTS: ComponentsConfig = {
       ...DEFAULT_COMPONENTS_DARK.dataGrid,
       headerBackground: '17 24 39',
       headerTextColor: '148 163 184',
+      headerBorder: '45 58 82',
       rowEvenBackground: '11 17 32',
       rowOddBackground: '17 24 39',
       rowHoverBackground: '26 34 56',
@@ -179,6 +180,10 @@ const CYBERWATCH_COMPONENTS: ComponentsConfig = {
       filterRowBackground: '11 17 32',
       groupHeaderBackground: '26 34 56',
       footerBackground: '17 24 39',
+      headerTextTransform: 'uppercase',
+      headerFontSize: '0.7rem',
+      headerFontWeight: '700',
+      headerLetterSpacing: '0.025em',
     },
   },
 };

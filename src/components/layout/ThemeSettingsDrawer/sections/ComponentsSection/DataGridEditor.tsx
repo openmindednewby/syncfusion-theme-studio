@@ -16,7 +16,7 @@ interface DataGridEditorProps {
   onUpdate: (updates: Partial<DataGridConfig>) => void;
 }
 
-const DATAGRID_PROPERTY_COUNT = 53;
+const DATAGRID_PROPERTY_COUNT = 57;
 
 const TableIcon = (): JSX.Element => (
   <svg

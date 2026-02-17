@@ -9,8 +9,8 @@ import { FM } from '@/localization/helpers';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { isValueDefined } from '@/utils/is';
 
-import { getIcon } from './iconMap';
 import { HighlightMatch } from './HighlightMatch';
+import { getIcon } from './iconMap';
 import { filterBottomNavItems } from './sidebarFilterUtils';
 import { BOTTOM_NAV_ITEMS } from './sidebarNavData';
 

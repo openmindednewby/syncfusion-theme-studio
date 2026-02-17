@@ -19,6 +19,7 @@ Login page light house result for production build
     - [Export/Import Themes](#exportimport-themes)
   - [API Integration](#api-integration)
   - [Code Standards](#code-standards)
+  - [Icons](#icons)
   - [Performance Optimization Details](#performance-optimization-details)
     - [The Problem](#the-problem)
     - [Root Causes Identified](#root-causes-identified)
@@ -118,6 +119,7 @@ src/
 │   ├── routes.tsx
 │   └── providers/
 ├── components/
+│   ├── icons/              # Centralized SVG icons (see Icons section)
 │   ├── layout/             # MainLayout, Sidebar, Header
 │   ├── ui/                 # Syncfusion wrappers
 │   └── common/             # Shared components
@@ -181,6 +183,36 @@ This project follows strict coding standards:
 - Comprehensive accessibility support
 - Unit test coverage > 80%
 
+## Icons
+
+All reusable SVG icons live in `src/components/icons/`, split into 3 files for natural Vite code-splitting:
+
+| File | Contents | When Loaded |
+|------|----------|-------------|
+| `AppIcons.tsx` | 28 core icons (sidebar, header, brand) | Every page |
+| `SettingsIcons.tsx` | 19 drawer icons (tabs, import/export, sections) | When settings drawer opens |
+| `ShowcaseIcons.tsx` | 22 demo icons (toolbar, breadcrumb, buttons) | Demo pages only |
+
+**Supporting files:** `types.ts` (shared `IconProps` interface), `index.ts` (barrel re-export).
+
+### Rules
+
+- **All new icons go in `src/components/icons/`** — never define inline SVGs in feature files. The ESLint rule `no-inline-svg-icons` enforces this automatically.
+- **Pick the right file** based on where the icon is consumed: app-wide → `AppIcons`, settings drawer → `SettingsIcons`, showcase/demo → `ShowcaseIcons`.
+- **Import from the barrel**: `import { IconName } from '@/components/icons'`.
+- **Naming**: App icons use `Icon` prefix (`IconDashboard`). Settings/showcase icons use descriptive names (`ExportIcon`, `BoldIcon`).
+- **Props**: All icons accept `{ className?: string }` via `IconProps`. Icons that need extra props (e.g. `CollapseIcon` with `isCollapsed`) define their own interface.
+
+### Exceptions (not in `src/components/icons/`)
+
+These are **stateful mini-components**, not reusable icons:
+
+- `ThemeToggleNative` — Sun/Moon with animation states and hardcoded colors
+- `SelectNative/ChevronIcon` — Memoized with `isOpen` prop and wrapper span
+- `NativeChipShowcase` — 2 tiny inline SVGs (3 lines each) inside JSX
+
+---
+
 ## Common Functionality & References
 
 ### Tailwind CSS Spacing Scale
@@ -213,6 +245,7 @@ Full reference: https://tailwindcss.com/docs/padding
 
 | What | Location |
 |------|----------|
+| **SVG Icons** | `src/components/icons/` (AppIcons, SettingsIcons, ShowcaseIcons) |
 | **Shared UI components** | `src/components/ui/shared/` (SearchInput, etc.) |
 | **Layout components** | `src/components/layout/` (Sidebar, Header, MainLayout) |
 | **Theme store & types** | `src/stores/theme/` |

@@ -1,76 +1,9 @@
 import { useState, type ChangeEvent } from 'react';
 
+import { ExportIcon, ImportIcon, CheckIcon, ShareSectionIcon } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeStore } from '@/stores/useThemeStore';
-
-/**
- * Download icon for export
- */
-const DownloadIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-4 w-4"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    viewBox="0 0 24 24"
-  >
-    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/**
- * Upload icon for import
- */
-const UploadIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-4 w-4"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    viewBox="0 0 24 24"
-  >
-    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/**
- * Check icon for success state
- */
-const CheckIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-4 w-4"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    viewBox="0 0 24 24"
-  >
-    <path d="M5 13l4 4L19 7" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/**
- * Share icon for section header
- */
-const ShareIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-5 w-5 text-primary-500"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={1.75}
-    viewBox="0 0 24 24"
-  >
-    <path
-      d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 export const ImportExportSection = (): JSX.Element => {
   const { theme, exportTheme, importTheme } = useThemeStore();
@@ -115,7 +48,7 @@ export const ImportExportSection = (): JSX.Element => {
       {/* Section Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-50">
-          <ShareIcon />
+          <ShareSectionIcon />
         </div>
         <div>
           <h4 className="text-sm font-semibold text-text-primary">
@@ -136,7 +69,7 @@ export const ImportExportSection = (): JSX.Element => {
           type="button"
           onClick={handleExport}
         >
-          <DownloadIcon />
+          <ExportIcon />
           {FM('themeSettings.export')}
         </button>
         <button
@@ -153,7 +86,7 @@ export const ImportExportSection = (): JSX.Element => {
           type="button"
           onClick={toggleImport}
         >
-          <UploadIcon />
+          <ImportIcon />
           {showImport ? FM('common.cancel') : FM('themeSettings.import')}
         </button>
       </div>

@@ -1,5 +1,6 @@
 import { useState, lazy, Suspense } from 'react';
 
+import { CollapseIcon, DrawerLogoIcon, ResetIcon } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
@@ -9,10 +10,6 @@ import { DrawerTabs } from './DrawerTabs';
 import { ImportExportSection } from './ImportExportSection';
 import { TabId } from './tabId';
 import { ThemeStudioLoader } from './ThemeStudioLoader';
-
-
-
-const LOGO_LETTER = 'T';
 
 // Lazy load heavy tab sections for better initial load performance
 const ColorsSection = lazy(async () => ({
@@ -40,76 +37,6 @@ const PresetsSection = lazy(async () => ({
 const DEFAULT_TAB: TabId = TabId.Colors;
 const PANEL_WIDTH_PX = 520;
 const COLLAPSED_WIDTH_PX = 52;
-
-/**
- * Collapse/Expand toggle icon with smooth rotation animation
- */
-const CollapseIcon = ({ isCollapsed }: { isCollapsed: boolean }): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className={`h-5 w-5 transition-transform duration-200 ease-out ${isCollapsed ? '' : 'rotate-180'}`}
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path d="M9 5l7 7-7 7" strokeLinecap="round" strokeLinejoin="round" />
-  </svg>
-);
-
-/**
- * App logo icon - gradient theme studio icon
- */
-const LogoIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-7 w-7"
-    fill="none"
-    viewBox="0 0 32 32"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <defs>
-      <linearGradient id="logo-gradient" x1="0%" x2="100%" y1="0%" y2="100%">
-        <stop offset="0%" stopColor="rgb(var(--color-primary-500))" />
-        <stop offset="100%" stopColor="rgb(var(--color-primary-700))" />
-      </linearGradient>
-    </defs>
-    <rect fill="url(#logo-gradient)" height="32" rx="8" width="32" />
-    <text
-      fill="white"
-      fontFamily="system-ui, sans-serif"
-      fontSize="18"
-      fontWeight="700"
-      textAnchor="middle"
-      x="16"
-      y="22"
-    >
-      {LOGO_LETTER}
-    </text>
-  </svg>
-);
-
-/**
- * Reset icon
- */
-const ResetIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-4 w-4"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth={2}
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </svg>
-);
 
 // Loading fallback for lazy-loaded sections.
 // ThemeStudioLoader reserves 200px min-height by default, preventing the
@@ -185,7 +112,7 @@ export const ThemeSettingsDrawer = (): JSX.Element => {
         <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
           {/* Header with Logo and Title */}
           <header className="theme-panel-header flex items-center gap-3 border-b border-border bg-gradient-to-r from-surface to-surface-elevated px-5 py-4">
-            <LogoIcon />
+            <DrawerLogoIcon />
             <div className="flex flex-col">
               <h2 className="text-base font-bold tracking-tight text-text-primary">
                 {FM('themeSettings.title')}

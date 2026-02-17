@@ -1,12 +1,13 @@
 import { useState } from 'react';
 
+import { SettingsPaletteIcon, SlidersIcon, WandIcon } from '@/components/icons';
 import AlertNative, { AlertSeverity } from '@/components/ui/native/AlertNative';
 import { FM } from '@/localization/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { rgbStringToHex, hexToRgbString } from '@/utils';
 
+
 import { ColorPicker } from './ColorPicker';
-import { PaletteIcon, SlidersIcon, WandIcon } from './ColorsSectionIcons';
 
 const COLOR_SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
 const DARK_SHADE_THRESHOLD = 500;
@@ -57,7 +58,7 @@ export const ColorsSection = (): JSX.Element => {
       {/* Header */}
       <div className="flex items-center gap-3">
         <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary-50">
-          <PaletteIcon />
+          <SettingsPaletteIcon className="h-5 w-5 text-primary-500" />
         </div>
         <div>
           <h3 className="text-sm font-semibold text-text-primary">{FM('themeSettings.primaryColors')}</h3>

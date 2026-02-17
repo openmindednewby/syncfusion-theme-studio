@@ -984,7 +984,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
 };
 
 // Memoize the component - type assertion needed for generic memo
-// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
+ 
 const DataGrid = memo(DataGridComponent) as typeof DataGridComponent;
 
 export default DataGrid;

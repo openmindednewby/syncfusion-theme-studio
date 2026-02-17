@@ -19,6 +19,7 @@ import reactCompilerPlugin from 'eslint-plugin-react-compiler';
 import requireStableHookArgsPlugin from './eslint-plugins/require-stable-hook-args.mjs';
 import noBarrelCompanionFilePlugin from './eslint-plugins/no-barrel-companion-file.mjs';
 import noDuplicateNavPrefixPlugin from './eslint-plugins/no-duplicate-nav-prefix.mjs';
+import noInlineSvgIconsPlugin from './eslint-plugins/no-inline-svg-icons.mjs';
 
 export default [
   // =====================================================
@@ -108,6 +109,7 @@ export default [
       'react-compiler': reactCompilerPlugin,
       'require-stable-hook-args': requireStableHookArgsPlugin,
       'no-barrel-companion-file': noBarrelCompanionFilePlugin,
+      'no-inline-svg-icons': noInlineSvgIconsPlugin,
     },
     settings: {
       react: { version: 'detect' },
@@ -418,6 +420,12 @@ export default [
       // =====================================================
       // Flags foo.ts when foo/index.ts also exists (TS resolves to file, ignoring barrel)
       'no-barrel-companion-file/no-barrel-companion-file': 'error',
+
+      // =====================================================
+      // ICON PLACEMENT ENFORCEMENT
+      // =====================================================
+      // All SVG icon components must live in src/components/icons/
+      'no-inline-svg-icons/no-inline-svg-icons': 'error',
 
       // =====================================================
       // GENERAL BEST PRACTICES

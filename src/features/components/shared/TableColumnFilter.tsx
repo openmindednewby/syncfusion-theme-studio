@@ -4,7 +4,7 @@
  */
 import { useEffect, useRef, useState } from 'react';
 
-import { IconFilter } from '@/components/layout/Sidebar/SidebarIcons';
+import { IconFilter } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 import { ComponentTestIds } from '@/shared/testIds.components';
 

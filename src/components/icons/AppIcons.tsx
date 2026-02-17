@@ -1,15 +1,22 @@
 /**
- * SVG icon components for the sidebar navigation.
- * All icons use currentColor and accept className for sizing.
+ * Core app icons used in sidebar, header, and brand logo.
+ * Loaded on every page via the main layout.
  */
+import type { IconProps } from './types';
 
 const ICON_SIZE = 18;
 
-interface IconProps {
-  className?: string;
-}
-
-const defaults = { width: ICON_SIZE, height: ICON_SIZE, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
+const defaults = {
+  'aria-hidden': true as const,
+  width: ICON_SIZE,
+  height: ICON_SIZE,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: 'currentColor',
+  strokeWidth: 1.8,
+  strokeLinecap: 'round' as const,
+  strokeLinejoin: 'round' as const,
+};
 
 export const CyberWatchLogo = ({ className }: IconProps): JSX.Element => (
   <svg className={className} fill="none" height="24" viewBox="0 0 24 24" width="24">
@@ -78,9 +85,7 @@ export const IconGlobe = ({ className }: IconProps): JSX.Element => (
 );
 
 export const IconZap = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
-  </svg>
+  <svg {...defaults} className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" /></svg>
 );
 
 export const IconSignal = ({ className }: IconProps): JSX.Element => (

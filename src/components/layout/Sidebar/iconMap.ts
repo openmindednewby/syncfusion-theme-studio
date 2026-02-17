@@ -1,7 +1,6 @@
 /**
  * Maps IconName enum values to icon components.
  */
-import { IconName } from './iconName';
 import {
   IconDashboard,
   IconFolder,
@@ -28,7 +27,9 @@ import {
   IconMessageSquare,
   IconPieChart,
   IconFormInput,
-} from './SidebarIcons';
+} from '@/components/icons';
+
+import { IconName } from './iconName';
 
 type IconComponent = (props: { className?: string }) => JSX.Element;
 

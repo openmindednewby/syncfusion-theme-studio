@@ -1,10 +1,10 @@
 /**
  * Sidebar header with CyberWatch branding and collapse toggle.
  */
+import { CyberWatchLogo, IconChevronLeft } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
-import { CyberWatchLogo, IconChevronLeft } from './SidebarIcons';
 
 interface SidebarHeaderProps {
   isCollapsed: boolean;

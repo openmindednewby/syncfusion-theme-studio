@@ -4,7 +4,7 @@
  */
 import { memo } from 'react';
 
-import { IconUser } from '@/components/layout/Sidebar/SidebarIcons';
+import { IconUser } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 
 const AMBER_COLOR = '#F59E0B';

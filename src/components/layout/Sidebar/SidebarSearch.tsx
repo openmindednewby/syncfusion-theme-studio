@@ -3,11 +3,11 @@
  */
 import { type ChangeEvent, useCallback } from 'react';
 
+import { IconSearch } from '@/components/icons';
 import { SearchInput } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
-import { IconSearch } from './SidebarIcons';
 
 interface SidebarSearchProps {
   isCollapsed: boolean;

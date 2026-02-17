@@ -25,9 +25,9 @@ function filterNavChildren(children: NavChild[], query: string): NavChild[] {
       );
       if (filteredItems.length > 0)
         acc.push({ ...child, items: filteredItems });
-    } else if (FM(child.labelKey).toLowerCase().includes(query)) {
+    } else if (FM(child.labelKey).toLowerCase().includes(query)) 
       acc.push(child);
-    }
+    
     return acc;
   }, []);
 }

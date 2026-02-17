@@ -1,4 +1,4 @@
-import { IconShieldCheck } from '@/components/layout/Sidebar/SidebarIcons';
+import { IconShieldCheck } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 
 const NotImplementedPage = (): JSX.Element => (

@@ -1,19 +1,8 @@
 import { useState, type ReactNode, useId } from 'react';
 
+import { ChevronDownIcon } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
-
-const ChevronDownIcon = (): JSX.Element => (
-  <svg
-    aria-hidden="true"
-    className="h-4 w-4 text-text-muted transition-transform duration-200"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-  >
-    <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} />
-  </svg>
-);
 
 interface CollapsibleSectionProps {
   children: ReactNode;

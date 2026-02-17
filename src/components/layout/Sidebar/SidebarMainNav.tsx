@@ -9,8 +9,8 @@ import { NavLink } from 'react-router-dom';
 
 import { FM } from '@/localization/helpers';
 
-import { getIcon } from './iconMap';
 import { HighlightMatch } from './HighlightMatch';
+import { getIcon } from './iconMap';
 import { NavExpandableItem } from './NavExpandableItem';
 import { filterMainNavItems } from './sidebarFilterUtils';
 import {
@@ -59,6 +59,7 @@ export const SidebarMainNav = ({
           return (
             <li key={entry.id}>
               <NavLink
+                end
                 aria-label={FM(entry.labelKey)}
                 className={({ isActive }) =>
                   `sidebar-item flex items-center gap-3 rounded-md py-2 text-sm transition-colors ${
@@ -66,7 +67,6 @@ export const SidebarMainNav = ({
                   } ${isActive ? 'active' : ''}`
                 }
                 data-testid={entry.testId}
-                end
                 to={entry.path ?? '#'}
               >
                 {iconNode}

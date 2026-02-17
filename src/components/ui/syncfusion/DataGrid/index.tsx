@@ -88,12 +88,21 @@ function applyFixedPopupStyle(
   // Only applied if 'protect' is true to avoid breaking menu items (like Sort).
   if (protect && !element.hasAttribute('data-sf-stop-prop')) {
     const stopProp = (e: Event): void => {
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+
       // If the user clicks the "Filter" or "Clear" buttons, we MUST let the event
       // bubble so Syncfusion can detect the submission and update the grid.
-      const isFilterButton = e.target instanceof HTMLElement && 
-        (e.target.closest('.e-filterbtn') || e.target.closest('.e-clearbtn'));
+      const isFilterButton = target.closest('.e-filterbtn, .e-clearbtn');
       
-      if (isFilterButton) return;
+      // If the user clicks a menu item that triggers a submenu or a dialog (like "Filter" in column menu),
+      // we MUST let it bubble so the grid can see the click and open the next level.
+      const isTriggerItem = target.closest('.e-menu-item.e-filter-item, .e-menu-item[aria-haspopup="true"]');
+      
+      if (isFilterButton || isTriggerItem) {
+        // console.log('[DataGrid] Bubbling event for submission or submenu trigger');
+        return;
+      }
       
       e.stopPropagation();
     };
@@ -103,6 +112,30 @@ function applyFixedPopupStyle(
     }
     element.setAttribute('data-sf-stop-prop', 'true');
     console.log(`[DataGrid] Applied selective stopPropagation (bubbling) to popup: ${element.id || 'unnamed'}`);
+  }
+}
+
+function cleanupZombies(): void {
+  // We need to be VERY careful here. If we remove a popup that Syncfusion is 
+  // currently initializing or animating, the feature will break.
+  const zombies = Array.from(document.body.children).filter((node): node is HTMLElement => {
+    if (!(node instanceof HTMLElement)) return false;
+    
+    // Target only the specific zombie wrappers the user complained about
+    const isManagedPopup = node.matches('.e-grid-menu.e-contextmenu-wrapper, .e-dialog.e-filter-popup');
+    if (!isManagedPopup) return false;
+    
+    // Only prune if it's definitely hidden AND has been processed by us before
+    // (Meaning it's a leftover, not a new one being born)
+    const isHidden = (node.style.display === 'none' || getComputedStyle(node).display === 'none') && 
+                     (node.getAttribute('aria-hidden') === 'true' || node.classList.contains('e-popup-close'));
+                     
+    return isHidden && node.hasAttribute('data-sf-stop-prop');
+  });
+  
+  for (const zombie of zombies) {
+    console.log(`[DataGrid] Pruning dead popup: ${zombie.id || 'unnamed'}`);
+    zombie.remove();
   }
 }
 
@@ -636,6 +669,9 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
         setTimeout(() => scheduleFilterOperatorDropdownReposition(), POPUP_REPOSITION_DELAY_MS);
         scheduleFilterOperatorDropdownReposition();
       }
+      
+      // When clicking anywhere on the document, check for hidden popups to prune
+      setTimeout(() => cleanupZombies(), 100);
       const menuItem = target.closest('.e-grid-menu .e-menu-item') as HTMLElement | null;
       if (!isValueDefined(menuItem)) return;
       const menuPopup = getColumnMenuPopupFromMenuItem(menuItem);
@@ -703,6 +739,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       }
       scheduleFilterOperatorDropdownReposition();
       scheduleGridContextMenuReposition();
+      cleanupZombies();
     };
 
     const onDocumentFocusIn = (event: Event): void => {
@@ -719,30 +756,41 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
 
     filterDropdownObserver = new MutationObserver((mutations) => {
       let shouldReposition = false;
+      let shouldCleanup = false;
+      
       for (const mutation of mutations) {
         if (mutation.type === 'childList') {
           const addedNodes = Array.from(mutation.addedNodes).filter((node): node is HTMLElement => node instanceof HTMLElement);
           if (addedNodes.some((node) => isValueDefined(node.matches) && node.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]'))) {
             console.log('[DataGrid] MutationObserver: Operator popup added directly');
             shouldReposition = true;
-            break;
           }
           if (addedNodes.some((node) => isValueDefined(node.querySelector) && isValueDefined(node.querySelector('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')))) {
             console.log('[DataGrid] MutationObserver: Container with operator popup added');
             shouldReposition = true;
-            break;
           }
+          
+          // If nodes were removed, check if we need to clean up remaining wrappers
+          if (mutation.removedNodes.length > 0) shouldCleanup = true;
         }
+        
         if (mutation.type === 'attributes' && mutation.target instanceof HTMLElement) {
+          if (mutation.target.matches('.e-grid-menu.e-contextmenu-wrapper, .e-dialog.e-filter-popup, .e-ddl.e-popup')) {
+            // Attribute change (likely hidden/style) on a popup means we should check if it's a zombie now
+            shouldCleanup = true;
+          }
           if (mutation.target.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')) {
             console.log(`[DataGrid] MutationObserver: Operator popup attribute change: ${mutation.attributeName}`);
             shouldReposition = true;
-            break;
           }
         }
       }
-      if (!shouldReposition) return;
-      scheduleFilterOperatorDropdownReposition();
+      
+      if (shouldCleanup) {
+        // Use a longer delay for cleanup to avoid racing with popup initialization
+        setTimeout(() => cleanupZombies(), 500);
+      }
+      if (shouldReposition) scheduleFilterOperatorDropdownReposition();
     });
     filterDropdownObserver.observe(document.body, {
       childList: true,

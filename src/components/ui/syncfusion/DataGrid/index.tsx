@@ -23,7 +23,7 @@ import '@syncfusion/ej2-navigations/styles/pager/tailwind.css';
 // DO NOT import the context menu CSS here or it will break our custom menu styles. The context menu styles should only be imported in the Storybook stories where the context menu is used, to avoid unintended side effects on other parts of the app. See SyncfusionThemeStudio/src/stories/DataGrid.stories.tsx for an example of how to import the context menu CSS in a way that scopes it to the relevant stories.
 // import '@syncfusion/ej2-react-navigations/styles/context-menu/tailwind.css';
 
-import { memo, useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
 import {
   GridComponent,
@@ -439,9 +439,11 @@ function repositionColumnMenuPopup(trigger: HTMLElement): boolean | undefined {
   const popup = getVisibleColumnMenuPopup();
   if (!isValueDefined(popup)) return undefined;
 
-  if (popup.parentElement !== document.body) {
-    document.body.appendChild(popup);
-  }
+  // Do NOT move the column menu popup to document.body. Syncfusion's ColumnMenu
+  // module relies on event delegation through the grid DOM to fire columnMenuClick
+  // and handle built-in actions (AutoFit, Sort, Filter, etc.). Moving the popup
+  // out of the grid breaks this delegation. Instead, apply fixed positioning
+  // in-place which escapes parent overflow:hidden clipping.
 
   const triggerRect = trigger.getBoundingClientRect();
   const popupRect = popup.getBoundingClientRect();
@@ -525,6 +527,22 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   const { features, services } = useGridFeatures(props);
   const callbacks = useGridCallbacks(props);
 
+  // Explicit column menu click handler.
+  // Moving the column menu popup to document.body (for fixed positioning) breaks
+  // Syncfusion's built-in event delegation for column menu actions. This handler
+  // re-implements the built-in AutoFit / AutoFitAll / Sort actions so they work
+  // regardless of where the popup lives in the DOM.
+  const handleColumnMenuClick = useCallback((args: { item?: { id?: string }; column?: { field?: string } }) => {
+    const id = args.item?.id ?? '';
+    const field = args.column?.field;
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    if (id.endsWith('_colmenu_AutoFitAll')) grid.autoFitColumns();
+    else if (id.endsWith('_colmenu_AutoFit') && field) grid.autoFitColumns([field]);
+    else if (id.endsWith('_colmenu_SortAscending') && field) grid.sortColumn(field, 'Ascending');
+    else if (id.endsWith('_colmenu_SortDescending') && field) grid.sortColumn(field, 'Descending');
+  }, [gridRef]);
 
   useEffect(() => {
     if (!features.paging || !isValueDefined(wrapperRef.current) || !isValueDefined(globalThis.ResizeObserver)) return;
@@ -923,6 +941,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
         allowSorting={features.sorting}
         allowTextWrap={props.allowTextWrap}
         childGrid={childGrid}
+        columnMenuClick={handleColumnMenuClick}
         contextMenuClick={callbacks.handleContextMenuClick}
         contextMenuItems={contextMenuItems}
         cssClass={gridCssClass}

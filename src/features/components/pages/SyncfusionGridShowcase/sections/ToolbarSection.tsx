@@ -1,9 +1,9 @@
 /**
  * Toolbar and context menu section: export buttons, search, right-click menu.
  */
-import { memo, useMemo } from 'react';
+import { memo } from 'react';
 
-import type { ColumnModel, ContextMenuItemModel } from '@syncfusion/ej2-grids';
+import type { ColumnModel, ContextMenuItem } from '@syncfusion/ej2-grids';
 
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
@@ -30,36 +30,30 @@ const TOOLBAR_COLUMNS: ColumnModel[] = [
 
 const TOOLBAR_ITEMS = ['Search', 'Print', 'ExcelExport', 'PdfExport'];
 
-export const ToolbarSection = memo((): JSX.Element => {
-  const contextMenuItems = useMemo(
-    (): ContextMenuItemModel[] => [
-      { text: FM('gridShowcase.contextAutoFit'), id: 'autofit', target: '.e-content' },
-      { text: FM('gridShowcase.contextAutoFitAll'), id: 'autofitall', target: '.e-content' },
-      { text: FM('gridShowcase.contextSortAsc'), id: 'sortasc', target: '.e-headercontent' },
-      { text: FM('gridShowcase.contextSortDesc'), id: 'sortdesc', target: '.e-headercontent' },
-    ],
-    [],
-  );
+// Use Syncfusion's built-in context menu items so the grid handles actions
+// automatically (AutoFit, Sort, etc.) without needing a custom click handler.
+const CONTEXT_MENU_ITEMS: ContextMenuItem[] = [
+  'AutoFit', 'AutoFitAll', 'SortAscending', 'SortDescending',
+];
 
-  return (
-    <ShowcaseSection
-      descriptionKey="gridShowcase.toolbarDescription"
-      testId="grid-showcase-toolbar"
-      titleKey="gridShowcase.toolbarTitle"
-    >
-      <DataGrid
-        allowExcelExport
-        allowPdfExport
-        allowSorting
-        columns={TOOLBAR_COLUMNS}
-        contextMenuItems={contextMenuItems}
-        data={EMPLOYEES}
-        searchSettings={{ fields: ['name', 'email', 'role'], ignoreCase: true }}
-        testId="grid-toolbar"
-        toolbar={TOOLBAR_ITEMS}
-      />
-    </ShowcaseSection>
-  );
-});
+export const ToolbarSection = memo((): JSX.Element => (
+  <ShowcaseSection
+    descriptionKey="gridShowcase.toolbarDescription"
+    testId="grid-showcase-toolbar"
+    titleKey="gridShowcase.toolbarTitle"
+  >
+    <DataGrid
+      allowExcelExport
+      allowPdfExport
+      allowSorting
+      columns={TOOLBAR_COLUMNS}
+      contextMenuItems={CONTEXT_MENU_ITEMS}
+      data={EMPLOYEES}
+      searchSettings={{ fields: ['name', 'email', 'role'], ignoreCase: true }}
+      testId="grid-toolbar"
+      toolbar={TOOLBAR_ITEMS}
+    />
+  </ShowcaseSection>
+));
 
 ToolbarSection.displayName = 'ToolbarSection';

@@ -668,19 +668,32 @@
   }
 
   /* Apply padding only to non-selection cells to avoid pushing the checkbox */
-  .e-grid .e-headercell:not(.e-selectioncolumn),
-  .e-grid .e-detailheadercell:not(.e-selectioncolumn) {
+  .e-grid .e-headercell:not(.e-selectioncolumn):not(:has(.e-headerchkcelldiv)),
+  .e-grid .e-detailheadercell:not(.e-selectioncolumn):not(:has(.e-headerchkcelldiv)) {
     padding: var(--component-datagrid-header-text-padding) !important;
   }
 
   /* Center checkbox in selection column - absolute clear padding for perfect alignment */
   .e-grid .e-headercell.e-selectioncolumn,
+  .e-grid .e-headercell:has(.e-headerchkcelldiv),
   .e-grid .e-rowcell.e-selectioncolumn,
+  .e-grid .e-rowcell.e-gridchkbox,
   .e-grid .e-headercell.e-selectioncolumn .e-headercelldiv,
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-headercelldiv,
   .e-grid .e-rowcell.e-selectioncolumn .e-rowcelldiv {
     padding: 0 !important;
     text-align: center !important;
     justify-content: center !important;
+  }
+
+  /* Center the header checkbox: hide the column-menu icon that steals flex space */
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-headercell-container {
+    justify-content: center !important;
+  }
+
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-columnmenu,
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-sortfilterdiv {
+    display: none !important;
   }
 
   /* Syncfusion's inner header div uses flexbox — text-align on the parent

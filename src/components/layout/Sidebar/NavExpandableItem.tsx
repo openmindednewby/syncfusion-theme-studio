@@ -74,20 +74,20 @@ export const NavExpandableItem = ({
         type="button"
         onClick={handleToggle}
       >
+        {!isCollapsed && (
+          <svg
+            aria-hidden="true"
+            className={`size-3.5 shrink-0 transition-transform ${isExpanded ? 'rotate-90' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 16 16"
+          >
+            <path d="M6 4l4 4-4 4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
+          </svg>
+        )}
         <span aria-hidden="true" className="shrink-0">{icon}</span>
         {!isCollapsed && (
-          <>
-            <svg
-              aria-hidden="true"
-              className={`size-4 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 16 16"
-            >
-              <path d="M4 6l4 4 4-4" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" />
-            </svg>
-            <span className="flex-1 text-left">{sectionName}</span>
-          </>
+          <span className="flex-1 text-left">{sectionName}</span>
         )}
       </button>
 

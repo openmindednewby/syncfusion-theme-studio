@@ -37,6 +37,7 @@ export function useSyncfusionFilters(
       const grid = gridRef.current;
       if (!isValueDefined(grid)) return;
 
+      console.log(`[useSyncfusionFilters] Applying filter settings: ${filterType}`);
       // eslint-disable-next-line react-compiler/react-compiler -- imperative Syncfusion API
       grid.filterSettings = { type: filterType };
       grid.allowFiltering = true;

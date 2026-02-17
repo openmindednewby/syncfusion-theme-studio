@@ -193,6 +193,11 @@ interface ColumnChooserConfig {
   enabled: boolean;
 }
 
+/** Column menu configuration */
+interface ColumnMenuConfig {
+  enabled: boolean;
+}
+
 /** Search configuration */
 interface SearchConfig {
   enabled: boolean;
@@ -219,5 +224,6 @@ export type {
   InfiniteScrollConfig,
   ClipboardConfig,
   ColumnChooserConfig,
+  ColumnMenuConfig,
   SearchConfig,
 };

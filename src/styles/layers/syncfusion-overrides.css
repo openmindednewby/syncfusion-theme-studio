@@ -458,8 +458,11 @@
 
   /* Ensure Syncfusion dropdown glyph icons always use the icon font. */
   .e-input-group-icon.e-ddl-icon::before,
-  .e-input-group-icon.e-search-icon::before {
+  .e-input-group-icon.e-search-icon:not(.e-input-group.e-search .e-input-group-icon)::before,
+  .e-input-group-icon.e-filter-icon::before {
+    content: "\e729" !important;
     font-family: 'e-icons' !important;
+    font-size: 11px !important;
   }
 
   .e-ddl.e-control-wrapper.e-disabled {
@@ -1083,9 +1086,13 @@
   /* Force menu filter popups to use absolute positioning.
      Syncfusion may rewrite inline top/left during open; keeping position
      absolute avoids viewport-fixed drift seen in themed grid layouts. */
+  /* Cleaned up user's manual rule - the selector was nested incorrectly.
+     Applying absolute positioning to filter popups to match user preference
+     while we investigate anchor discovery issues. */
   .e-dialog.e-filter-popup.e-col-menu,
   .e-flmenu.e-dialog.e-filter-popup,
-  .e-col-menu.e-dialog.e-filter-popup {
+  .e-col-menu.e-dialog.e-filter-popup,
+  .e-ddl.e-popup.e-popup-flmenu {
     position: absolute !important;
   }
 
@@ -1111,6 +1118,29 @@
     color: var(--component-datagrid-colmenu-text) !important;
     border-color: var(--component-datagrid-colmenu-border) !important;
     border-radius: 6px !important;
+  }
+
+  /* Increase operator dropdown height and ensure scrollbar visibility */
+  .e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"],
+  .e-ddl.e-popup.e-popup-open[id$="-floptr_popup"],
+  .e-ddl.e-popup.e-popup-flmenu {
+    max-height: 450px !important;
+    height: auto !important;
+  }
+
+  .e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"] .e-content.e-dropdownbase,
+  .e-ddl.e-popup.e-popup-flmenu .e-content.e-dropdownbase {
+    max-height: 448px !important;
+    overflow-y: auto !important;
+    display: block !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgb(var(--color-border)) transparent !important;
+  }
+
+  /* List items refinement */
+  .e-ddl.e-popup.e-popup-flmenu .e-list-item {
+    padding: 8px 12px !important;
+    min-height: 36px !important;
   }
 
   /* Filter operator dropdown popup must stay absolute to avoid off-screen/fixed drift. */

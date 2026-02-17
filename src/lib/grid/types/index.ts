@@ -10,6 +10,7 @@ import type {
   AggregateRowConfig,
   ClipboardConfig,
   ColumnChooserConfig,
+  ColumnMenuConfig,
   ContextMenuConfig,
   DetailRowConfig,
   DragDropConfig,
@@ -124,6 +125,7 @@ interface GridConfig {
   infiniteScroll?: InfiniteScrollConfig;
   clipboard?: ClipboardConfig;
   columnChooser?: ColumnChooserConfig;
+  columnMenu?: ColumnMenuConfig;
   search?: SearchConfig;
 }
 
@@ -157,6 +159,7 @@ export type {
   InfiniteScrollConfig,
   ClipboardConfig,
   ColumnChooserConfig,
+  ColumnMenuConfig,
   SearchConfig,
 } from './features';
 

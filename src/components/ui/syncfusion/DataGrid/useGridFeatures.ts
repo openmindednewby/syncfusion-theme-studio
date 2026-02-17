@@ -101,7 +101,7 @@ function resolveColumnFeatures<T extends object>(
     reordering: resolveBoolean(props.allowReordering, undefined, false),
     freezing: hasFreezing(props),
     columnChooser: resolveBoolean(props.showColumnChooser, config?.columnChooser?.enabled, false),
-    columnMenu: props.showColumnMenu === true,
+    columnMenu: resolveBoolean(props.showColumnMenu, config?.columnMenu?.enabled, false),
     excelExport: resolveBoolean(props.allowExcelExport, config?.export?.excel, false),
     pdfExport: resolveBoolean(props.allowPdfExport, config?.export?.pdf, false),
   };

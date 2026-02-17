@@ -55,9 +55,10 @@ const MIN_RESPONSIVE_PAGE_COUNT = 3;
 const PAGE_SIZE_OPTIONS_SEPARATOR = ',';
 const POPUP_REPOSITION_DELAY_MS = 0;
 const POPUP_VERTICAL_GAP_PX = 4;
-const FILTER_POPUP_Z_INDEX = '10001';
+const FILTER_POPUP_Z_INDEX = '100001';
 const MENU_SUBPOPUP_MIN_WIDTH_PX = 220;
-const SUBMENU_POPUP_Z_INDEX = '10002';
+const SUBMENU_POPUP_Z_INDEX = '100002';
+const OPERATOR_POPUP_Z_INDEX = '100003';
 type PopupAnchor = HTMLElement | DOMRect;
 
 function setStyleIfChanged(element: HTMLElement, property: string, value: string): void {
@@ -82,14 +83,22 @@ function applyFixedPopupStyle(
 }
 
 function isPopupVisible(element: HTMLElement): boolean {
+  if (!element.isConnected) return false;
+  // Use attributes first as getComputedStyle can be slow or return stale results during transitions
+  const isHidden = element.getAttribute('aria-hidden') === 'true' || element.style.display === 'none';
+  if (isHidden) return false;
+  
+  if (element.classList.contains('e-popup-open') || element.classList.contains('e-popup-show')) return true;
+  
   const style = getComputedStyle(element);
   if (style.display === 'none' || style.visibility === 'hidden' || Number(style.opacity) === 0) return false;
-  return element.classList.contains('e-popup-open') || style.visibility === 'visible' || element.offsetHeight > 0;
+  return style.visibility === 'visible' || element.offsetHeight > 0;
 }
 
 function getVisibleElement(selectors: string): HTMLElement | undefined {
   const candidates = Array.from(document.querySelectorAll<HTMLElement>(selectors));
-  return candidates.find((element) => isPopupVisible(element));
+  // Prefer the most recently added/updated popup (usually the last one in DOM)
+  return candidates.reverse().find((element) => isPopupVisible(element));
 }
 
 function normalizePositiveInt(value: unknown, fallback: number): number {
@@ -245,33 +254,67 @@ function resolveAnchorRect(anchor: PopupAnchor): DOMRect | undefined {
 }
 
 function getVisibleFilterPopup(): HTMLElement | undefined {
-  return getVisibleElement(
-    '.e-dialog.e-filter-popup.e-popup-open[role="dialog"], .e-flmenu.e-dialog.e-filter-popup[role="dialog"], .e-col-menu.e-dialog.e-filter-popup[role="dialog"]',
+  // Specifically exclude dropdown popups to avoid mis-identifying the operator list as the filter dialog
+  const popup = getVisibleElement(
+    '.e-dialog.e-filter-popup.e-popup-open[role="dialog"]:not(.e-ddl), .e-flmenu.e-dialog.e-filter-popup[role="dialog"]:not(.e-ddl), .e-col-menu.e-dialog.e-filter-popup[role="dialog"]:not(.e-ddl)',
   );
+  if (isValueDefined(popup)) console.log(`[DataGrid] Found visible filter popup: ${popup.id}`);
+  return popup;
 }
 
 function repositionFilterOperatorDropdownPopup(): boolean {
-  const popup = getVisibleElement('.e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"]');
-  if (!isValueDefined(popup) || popup.id === '') return false;
-  const operatorInputId = popup.id.replace(/_popup$/, '');
-  const operatorInput = document.getElementById(operatorInputId) as HTMLElement | null;
-  if (!isValueDefined(operatorInput)) return false;
-  const wrapper = operatorInput.closest<HTMLElement>('.e-ddl.e-control-wrapper');
+  // Target the operator dropdown specifically by its known ID pattern
+  const popup = getVisibleElement('.e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"], .e-ddl.e-popup.e-popup-open[id$="-floptr_popup"]');
+  if (!isValueDefined(popup) || popup.id === '') {
+    // console.log('[DataGrid] Operator popup not found or not open');
+    return false;
+  }
+
+  // Attempt to find the anchor element:
+  // 1. Common pattern: the popup ID is derived from the anchor ID
+  const anchorId = popup.getAttribute('aria-label') || popup.id.replace(/_popup$/, '');
+  let anchor = document.getElementById(anchorId);
+  console.log(`[DataGrid] Repositioning operator popup: ${popup.id}, initial anchor ID search: ${anchorId}, found: ${!!anchor}`);
+  
+  // 2. Fallback: find by aria-controls
+  if (!isValueDefined(anchor)) {
+    anchor = document.querySelector<HTMLElement>(`[aria-controls="${popup.id}"]`);
+    if (anchor) console.log(`[DataGrid] Found anchor via aria-controls: ${anchor.id || 'unnamed'}`);
+  }
+
+  // 3. Fallback: look inside the currently visible filter popup
+  if (!isValueDefined(anchor)) {
+    const visibleFilterPopup = getVisibleFilterPopup();
+    if (isValueDefined(visibleFilterPopup)) {
+      const escapedId = typeof CSS !== 'undefined' && isValueDefined(CSS.escape) ? CSS.escape(anchorId) : anchorId;
+      anchor = visibleFilterPopup.querySelector<HTMLElement>(`#${escapedId}`) 
+        ?? visibleFilterPopup.querySelector<HTMLElement>('.e-flm_optrdiv .e-ddl.e-control-wrapper');
+      if (anchor) console.log(`[DataGrid] Found anchor inside filter popup: ${anchor.id || 'unnamed'}`);
+    }
+  }
+
+  if (!isValueDefined(anchor)) {
+    console.warn(`[DataGrid] FAILED to find anchor for operator popup: ${popup.id}`);
+    return false;
+  }
+
+  const wrapper = anchor.closest<HTMLElement>('.e-ddl.e-control-wrapper') ?? anchor;
   if (!isValueDefined(wrapper)) return false;
 
   if (popup.parentElement !== document.body) {
+    console.log(`[DataGrid] Appending operator popup to body: ${popup.id}`);
     document.body.appendChild(popup);
   }
 
   const rect = wrapper.getBoundingClientRect();
-  const absoluteLeft = rect.left + window.scrollX;
-  const absoluteTop = rect.bottom + POPUP_VERTICAL_GAP_PX + window.scrollY;
-  setStyleIfChanged(popup, 'position', 'absolute');
-  setStyleIfChanged(popup, 'left', `${Math.round(absoluteLeft)}px`);
-  setStyleIfChanged(popup, 'top', `${Math.round(absoluteTop)}px`);
-  setStyleIfChanged(popup, 'min-width', `${Math.round(rect.width)}px`);
+  if (rect.width === 0 || rect.height === 0) {
+    console.log(`[DataGrid] Anchor wrapper has no size: ${wrapper.id || 'unnamed'}`);
+    return false;
+  }
+
+  console.log(`[DataGrid] Positioning operator popup at [${Math.round(rect.left)}, ${Math.round(rect.bottom + POPUP_VERTICAL_GAP_PX)}]`);
+  applyFixedPopupStyle(popup, rect.left, rect.bottom + POPUP_VERTICAL_GAP_PX, rect.width, OPERATOR_POPUP_Z_INDEX);
   setStyleIfChanged(popup, 'margin-top', '0');
-  setStyleIfChanged(popup, 'z-index', '10003');
   return true;
 }
 
@@ -292,26 +335,19 @@ function repositionFilterPopup(anchor: PopupAnchor, preferredOpenToLeft?: boolea
   const popupHeight = Math.max(120, popupRect.height || filterPopup.offsetHeight || 0);
   
   const defaultHorizontal = resolveHorizontalPosition(anchorRect, popupWidth);
-  let left = defaultHorizontal.left;
-  const effectivePreferredOpenToLeft = preferredOpenToLeft
-    ?? getColumnMenuSidePreferenceFromDom();
+  let targetLeft = defaultHorizontal.left;
+  const effectivePreferredOpenToLeft = preferredOpenToLeft ?? getColumnMenuSidePreferenceFromDom();
   if (isValueDefined(effectivePreferredOpenToLeft)) {
     const requiredSpace = popupWidth + POPUP_VERTICAL_GAP_PX;
     const unclamped = effectivePreferredOpenToLeft
       ? anchorRect.left - requiredSpace
       : anchorRect.right + POPUP_VERTICAL_GAP_PX;
     const maxLeft = Math.max(POPUP_VERTICAL_GAP_PX, window.innerWidth - popupWidth - POPUP_VERTICAL_GAP_PX);
-    left = Math.min(Math.max(POPUP_VERTICAL_GAP_PX, unclamped), maxLeft);
+    targetLeft = Math.min(Math.max(POPUP_VERTICAL_GAP_PX, unclamped), maxLeft);
   }
-  const top = resolveVerticalPosition(anchorRect, popupHeight);
+  const targetTop = resolveVerticalPosition(anchorRect, popupHeight);
 
-  const absoluteLeft = left + window.scrollX;
-  const absoluteTop = top + window.scrollY;
-  setStyleIfChanged(filterPopup, 'position', 'absolute');
-  setStyleIfChanged(filterPopup, 'left', `${Math.round(absoluteLeft)}px`);
-  setStyleIfChanged(filterPopup, 'top', `${Math.round(absoluteTop)}px`);
-  setStyleIfChanged(filterPopup, 'min-width', `${Math.round(popupWidth)}px`);
-  setStyleIfChanged(filterPopup, 'z-index', FILTER_POPUP_Z_INDEX);
+  applyFixedPopupStyle(filterPopup, targetLeft, targetTop, popupWidth, FILTER_POPUP_Z_INDEX);
   
   // Return true only if we have a real size measurement, indicating it's "ready"
   return (popupRect.width > 0 && popupRect.height > 0) || (filterPopup.offsetWidth > 0 && filterPopup.offsetHeight > 0);
@@ -436,6 +472,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   const { features, services } = useGridFeatures(props);
   const callbacks = useGridCallbacks(props);
 
+
   useEffect(() => {
     if (!features.paging || !isValueDefined(wrapperRef.current) || !isValueDefined(globalThis.ResizeObserver)) return;
     const element = wrapperRef.current;
@@ -449,7 +486,11 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
   }, [features.paging]);
 
   useEffect(() => {
-    if (!features.columnMenu || !isValueDefined(wrapperRef.current)) return;
+    const isColumnMenuOrFilterActive = features.columnMenu || features.filtering;
+    if (!isColumnMenuOrFilterActive || !isValueDefined(wrapperRef.current)) return;
+    
+    console.log(`[DataGrid] Initializing repositioning logic (columnMenu: ${features.columnMenu}, filtering: ${features.filtering})`);
+    
     const root = wrapperRef.current;
     let hoverRafId: number | null = null;
     let filterRafId: number | null = null;
@@ -658,16 +699,19 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
         if (mutation.type === 'childList') {
           const addedNodes = Array.from(mutation.addedNodes).filter((node): node is HTMLElement => node instanceof HTMLElement);
           if (addedNodes.some((node) => isValueDefined(node.matches) && node.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]'))) {
+            console.log('[DataGrid] MutationObserver: Operator popup added directly');
             shouldReposition = true;
             break;
           }
           if (addedNodes.some((node) => isValueDefined(node.querySelector) && isValueDefined(node.querySelector('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')))) {
+            console.log('[DataGrid] MutationObserver: Container with operator popup added');
             shouldReposition = true;
             break;
           }
         }
         if (mutation.type === 'attributes' && mutation.target instanceof HTMLElement) {
           if (mutation.target.matches('.e-ddl.e-popup.e-popup-flmenu[id$="-floptr_popup"]')) {
+            console.log(`[DataGrid] MutationObserver: Operator popup attribute change: ${mutation.attributeName}`);
             shouldReposition = true;
             break;
           }
@@ -705,7 +749,7 @@ const DataGridComponent = <T extends object>(props: DataGridProps<T>): JSX.Eleme
       if (isValueDefined(contextMenuRafId)) cancelAnimationFrame(contextMenuRafId);
       if (isValueDefined(submenuRafId)) cancelAnimationFrame(submenuRafId);
     };
-  }, [features.columnMenu]);
+  }, [features.columnMenu, features.filtering]);
 
   useEffect(() => {
     if (!features.paging || !isValueDefined(wrapperRef.current)) return;

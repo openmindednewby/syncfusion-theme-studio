@@ -22,7 +22,7 @@ export const SidebarSearch = ({
         aria-label={FM('sidebar.searchNavigation')}
         inputClassName="sidebar-search-input w-full"
         containerClassName="relative"
-        iconClassName="pointer-events-none absolute inset-y-0 left-2.5 flex items-center"
+        iconClassName="pointer-events-none absolute inset-y-0 left-2.5 flex items-center !text-[color:var(--component-sidebar-text-color)]"
         placeholder={FM('sidebar.searchNavigation')}
         renderIcon={() => <IconSearch />}
         testId={TestIds.SIDEBAR_SEARCH}

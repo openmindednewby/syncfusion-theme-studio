@@ -37,6 +37,10 @@ export function injectSidebarVariables(root: HTMLElement, c: ComponentConfigSing
   root.style.setProperty('--component-sidebar-scrollbar', c.sidebar.showScrollbar ? 'thin' : 'none');
   root.style.setProperty('--component-sidebar-scrollbar-width', c.sidebar.showScrollbar ? '4px' : '0px');
 
+  // Search highlight variables
+  root.style.setProperty('--component-sidebar-highlight-color', `rgb(${c.sidebar.searchHighlightColor})`);
+  root.style.setProperty('--component-sidebar-highlight-scale', c.sidebar.searchHighlightScale);
+
   // Search input variables
   root.style.setProperty('--component-sidebar-search-bg', c.sidebar.searchBackground);
   root.style.setProperty('--component-sidebar-search-border', c.sidebar.searchBorder);

@@ -27,7 +27,7 @@ export const HighlightMatch = ({
   return (
     <>
       {before}
-      <strong className="font-bold">{match}</strong>
+      <mark className="sidebar-search-highlight bg-transparent">{match}</mark>
       {after}
     </>
   );

@@ -32,6 +32,8 @@ export interface SidebarComponentConfig {
   expandAnimationEnabled: boolean;
   expandAnimationDuration: string;
   showScrollbar: boolean;
+  searchHighlightColor: string;
+  searchHighlightScale: string;
   searchBackground: string;
   searchBorder: string;
   searchBorderRadius: string;

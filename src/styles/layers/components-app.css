@@ -58,6 +58,12 @@
   color: var(--component-sidebar-active-text);
 }
 
+.sidebar-search-highlight {
+  color: var(--component-sidebar-highlight-color, inherit);
+  font-weight: 700;
+  font-size: calc(1em * var(--component-sidebar-highlight-scale, 1));
+}
+
 /* ===== SIDEBAR BOTTOM ITEMS ===== */
 .sidebar-bottom-items {
   margin-top: auto;

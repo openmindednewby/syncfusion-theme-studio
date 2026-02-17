@@ -30,6 +30,8 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     expandAnimationEnabled: true,
     expandAnimationDuration: '200ms',
     showScrollbar: true,
+    searchHighlightColor: '37 99 235',
+    searchHighlightScale: '1.05',
     searchBackground: 'rgba(0, 0, 0, 0.04)',
     searchBorder: 'rgba(0, 0, 0, 0.12)',
     searchBorderRadius: '6px',

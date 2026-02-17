@@ -419,6 +419,9 @@
         "expandAnimationTitle": "Expand/Collapse Animation",
         "expandAnimationEnabled": "Enable Animation",
         "expandAnimationDuration": "Animation Duration",
+        "searchHighlightTitle": "Search Highlight",
+        "searchHighlightColor": "Highlight Color",
+        "searchHighlightScale": "Size Scale",
         "scrollbarTitle": "Scrollbar",
         "showScrollbar": "Show Scrollbar"
       },

@@ -23,7 +23,8 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 // v7: Added pagerContainerBorderColor to DataGridConfig
 // v8: Added paginationDefaultPageSize + paginationPageSizeOptions to DataGridConfig
 // v9: Added iconSize, iconStrokeWidth, expandAnimation, showScrollbar to SidebarComponentConfig
-const THEME_SCHEMA_VERSION = 9;
+// v10: Added searchHighlightColor, searchHighlightScale to SidebarComponentConfig
+const THEME_SCHEMA_VERSION = 10;
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return isValueDefined(value) && typeof value === 'object' && !Array.isArray(value);

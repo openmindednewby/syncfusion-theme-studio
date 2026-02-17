@@ -134,6 +134,8 @@ const createSidebar = (): SidebarComponentConfig => ({
   expandAnimationEnabled: true,
   expandAnimationDuration: '200ms',
   showScrollbar: true,
+  searchHighlightColor: '37 99 235',
+  searchHighlightScale: '1.05',
   searchBackground: 'rgba(0, 0, 0, 0.2)',
   searchBorder: 'rgba(255, 255, 255, 0.1)',
   searchBorderRadius: '8px',

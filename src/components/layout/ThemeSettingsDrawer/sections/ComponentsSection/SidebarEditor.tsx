@@ -138,6 +138,32 @@ export const SidebarEditor = ({ config, onUpdate }: SidebarEditorProps): JSX.Ele
         </div>
       </div>
 
+      {/* Search Highlight Subsection */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.sidebar.searchHighlightTitle')}
+        </p>
+        <div className="space-y-2 pl-2">
+          <ColorPicker
+            label={FM('themeSettings.components.sidebar.searchHighlightColor')}
+            value={config.searchHighlightColor}
+            onChange={(value) => onUpdate({ searchHighlightColor: value })}
+          />
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.searchHighlightScale')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="1.05"
+              type="text"
+              value={config.searchHighlightScale}
+              onChange={(e) => onUpdate({ searchHighlightScale: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Scrollbar Subsection */}
       <div className="space-y-2">
         <p className="text-xs font-medium text-text-secondary">

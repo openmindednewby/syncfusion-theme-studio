@@ -80,6 +80,22 @@ function applyFixedPopupStyle(
     setStyleIfChanged(element, 'min-width', `${Math.round(minWidth)}px`);
   }
   setStyleIfChanged(element, 'z-index', zIndex);
+
+  // Prevent interactions inside this popup from bubbling to document level.
+  // This avoids Syncfusion's "click outside" listeners (e.g. on the main filter dialog)
+  // from closing the parent menu when the user interacts with the operator dropdown.
+  // Using capture phase and multiple event types for maximum reliability.
+  if (!element.hasAttribute('data-sf-stop-prop')) {
+    const stopProp = (e: Event): void => e.stopPropagation();
+    const events = ['pointerdown', 'mousedown', 'click', 'mouseup', 'pointerup'];
+    for (const eventName of events) {
+      // Use bubbling phase (capture: false) so that children (like list items)
+      // receive the events first and can execute their selection logic.
+      element.addEventListener(eventName, stopProp, { capture: false, passive: false });
+    }
+    element.setAttribute('data-sf-stop-prop', 'true');
+    console.log(`[DataGrid] Applied stopPropagation (bubbling) to popup: ${element.id || 'unnamed'}`);
+  }
 }
 
 function isPopupVisible(element: HTMLElement): boolean {

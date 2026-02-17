@@ -33,6 +33,8 @@ interface NavExpandableItemProps {
   pathPrefix: string;
   children: NavChild[];
   isCollapsed: boolean;
+  /** Force expand when search is active */
+  forceExpanded?: boolean;
 }
 
 export const NavExpandableItem = ({
@@ -42,14 +44,15 @@ export const NavExpandableItem = ({
   pathPrefix,
   children,
   isCollapsed,
+  forceExpanded = false,
 }: NavExpandableItemProps): JSX.Element => {
   const location = useLocation();
   const isActive = location.pathname.startsWith(pathPrefix);
-  const [isExpanded, setIsExpanded] = useState(isActive);
+  const [isExpanded, setIsExpanded] = useState(isActive || forceExpanded);
 
   useEffect(() => {
-    if (isActive) setIsExpanded(true);
-  }, [isActive]);
+    if (isActive || forceExpanded) setIsExpanded(true);
+  }, [isActive, forceExpanded]);
 
   const handleToggle = useCallback(() => {
     setIsExpanded((prev) => !prev);
@@ -98,6 +101,7 @@ export const NavExpandableItem = ({
               <NavSubGroup
                 key={child.testId}
                 expandTestId={child.expandTestId}
+                forceExpanded={forceExpanded}
                 items={child.items}
                 labelKey={child.labelKey}
                 path={child.path}

@@ -19,6 +19,8 @@ interface NavSubGroupProps {
   /** Optional path used for active-state detection */
   path?: string | undefined;
   items: SubNavItem[];
+  /** Force expand when search is active */
+  forceExpanded?: boolean;
 }
 
 export const NavSubGroup = ({
@@ -27,16 +29,17 @@ export const NavSubGroup = ({
   expandTestId,
   path,
   items,
+  forceExpanded = false,
 }: NavSubGroupProps): JSX.Element => {
   const location = useLocation();
   const isChildActive = items.some((item) => location.pathname === item.path);
   const isHeaderActive = isValueDefined(path) && path !== '' ? location.pathname === path : false;
-  const [isExpanded, setIsExpanded] = useState(isChildActive || isHeaderActive);
+  const [isExpanded, setIsExpanded] = useState(isChildActive || isHeaderActive || forceExpanded);
 
-  // Auto-expand when navigating to a child or header route (never auto-collapse)
+  // Auto-expand when navigating to a child or header route, or when search forces it
   useEffect(() => {
-    if (isChildActive || isHeaderActive) setIsExpanded(true);
-  }, [isChildActive, isHeaderActive]);
+    if (isChildActive || isHeaderActive || forceExpanded) setIsExpanded(true);
+  }, [isChildActive, isHeaderActive, forceExpanded]);
 
   const handleToggle = useCallback(() => {
     setIsExpanded((prev) => !prev);

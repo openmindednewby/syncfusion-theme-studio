@@ -42,6 +42,39 @@ export const SidebarEditor = ({ config, onUpdate }: SidebarEditorProps): JSX.Ele
         onChange={(value) => onUpdate({ hoverItemBackground: value })}
       />
 
+      {/* Typography Subsection */}
+      <div className="space-y-2">
+        <p className="text-xs font-medium text-text-secondary">
+          {FM('themeSettings.components.sidebar.typographyTitle')}
+        </p>
+        <div className="space-y-2 pl-2">
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.fontSize')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="14px"
+              type="text"
+              value={config.fontSize}
+              onChange={(e) => onUpdate({ fontSize: e.target.value })}
+            />
+          </div>
+          <div className="space-y-1">
+            <label className="text-xs text-text-muted">
+              {FM('themeSettings.components.sidebar.fontWeight')}
+            </label>
+            <input
+              className={TEXT_INPUT_CLASS}
+              placeholder="500"
+              type="text"
+              value={config.fontWeight}
+              onChange={(e) => onUpdate({ fontWeight: e.target.value })}
+            />
+          </div>
+        </div>
+      </div>
+
       {/* Search Input Subsection */}
       <div className="space-y-2">
         <p className="text-xs font-medium text-text-secondary">

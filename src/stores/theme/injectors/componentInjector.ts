@@ -29,7 +29,9 @@ export function injectSidebarVariables(root: HTMLElement, c: ComponentConfigSing
   root.style.setProperty('--component-sidebar-hover-bg', `rgb(${c.sidebar.hoverItemBackground})`);
   root.style.setProperty('--component-sidebar-border-right', `rgb(${c.sidebar.borderRight})`);
   root.style.setProperty('--component-sidebar-transition', c.sidebar.transitionDuration);
-  
+  root.style.setProperty('--component-sidebar-font-size', c.sidebar.fontSize);
+  root.style.setProperty('--component-sidebar-font-weight', c.sidebar.fontWeight);
+
   // Search input variables
   root.style.setProperty('--component-sidebar-search-bg', c.sidebar.searchBackground);
   root.style.setProperty('--component-sidebar-search-border', c.sidebar.searchBorder);

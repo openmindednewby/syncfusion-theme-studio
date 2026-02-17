@@ -409,7 +409,10 @@
         "searchFocusBackground": "Focus Background",
         "searchFocusBorder": "Focus Border",
         "searchFontSize": "Font Size",
-        "searchPadding": "Padding"
+        "searchPadding": "Padding",
+        "typographyTitle": "Typography",
+        "fontSize": "Font Size",
+        "fontWeight": "Font Weight"
       },
       "buttons": {
         "title": "Buttons",

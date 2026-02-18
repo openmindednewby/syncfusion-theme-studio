@@ -466,22 +466,39 @@ export function repositionFilterPopup(
   return hasSize;
 }
 
+/** Flip the preferred side when the popup doesn't fit on the chosen side. */
+function flipSideIfNeeded(
+  preferred: boolean,
+  anchorRect: DOMRect,
+  requiredSpace: number,
+): boolean {
+  const spaceRight = window.innerWidth - anchorRect.right;
+  const spaceLeft = anchorRect.left;
+
+  const shouldFlipToRight =
+    preferred && spaceLeft < requiredSpace && spaceRight >= requiredSpace;
+  const shouldFlipToLeft =
+    !preferred && spaceRight < requiredSpace && spaceLeft >= requiredSpace;
+
+  if (shouldFlipToRight) return false;
+  if (shouldFlipToLeft) return true;
+  return preferred;
+}
+
 /** Compute the horizontal left position for a filter popup. */
 function resolveFilterPopupLeft(
   anchorRect: DOMRect,
   popupWidth: number,
   preferredOpenToLeft?: boolean,
 ): number {
-  const defaultHorizontal = resolveHorizontalPosition(
-    anchorRect,
-    popupWidth,
-  );
+  const defaultHorizontal = resolveHorizontalPosition(anchorRect, popupWidth);
   const effectivePreference =
     preferredOpenToLeft ?? getColumnMenuSidePreferenceFromDom();
   if (!isValueDefined(effectivePreference)) return defaultHorizontal.left;
 
   const requiredSpace = popupWidth + POPUP_VERTICAL_GAP_PX;
-  const unclamped = effectivePreference
+  const openToLeft = flipSideIfNeeded(effectivePreference, anchorRect, requiredSpace);
+  const unclamped = openToLeft
     ? anchorRect.left - requiredSpace
     : anchorRect.right + POPUP_VERTICAL_GAP_PX;
   const maxLeft = Math.max(

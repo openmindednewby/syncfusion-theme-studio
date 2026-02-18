@@ -123,11 +123,6 @@ const CYBERWATCH_DARK_MODE = {
 const CYBERWATCH_COMPONENTS: ComponentsConfig = {
   light: {
     ...DEFAULT_COMPONENTS_LIGHT,
-    dataGrid: {
-      ...DEFAULT_COMPONENTS_LIGHT.dataGrid,
-      paginationActiveBackground: '0 188 212',
-      pagerContainerBorderColor: '209 213 219',
-    },
   },
   dark: {
     ...DEFAULT_COMPONENTS_DARK,
@@ -146,30 +141,6 @@ const CYBERWATCH_COMPONENTS: ComponentsConfig = {
       borderFocus: '0 188 212',
       textColor: '248 250 252',
       placeholderColor: '100 116 139',
-    },
-    dataGrid: {
-      ...DEFAULT_COMPONENTS_DARK.dataGrid,
-      headerBackground: '17 24 39',
-      headerTextColor: '148 163 184',
-      headerBorder: '45 58 82',
-      rowEvenBackground: '11 17 32',
-      rowOddBackground: '17 24 39',
-      rowHoverBackground: '26 34 56',
-      rowSelectedBackground: '0 60 70',
-      cellBorderColor: '26 34 56',
-      cellPadding: '8px 12px',
-      rowHeight: '48px',
-      paginationBackground: '11 17 32',
-      pagerContainerBorderColor: '209 213 219',
-      paginationActiveBackground: '0 188 212',
-      toolbarBackground: '17 24 39',
-      filterRowBackground: '11 17 32',
-      groupHeaderBackground: '26 34 56',
-      footerBackground: '17 24 39',
-      headerTextTransform: 'uppercase',
-      headerFontSize: '0.7rem',
-      headerFontWeight: '700',
-      headerLetterSpacing: '0.025em',
     },
   },
 };

@@ -6,16 +6,12 @@ import { ButtonNative, ButtonVariant, HeadingNative, HeadingLevel, InputNative, 
 import { startPhasedPreload } from '@/config/preloadOrchestrator';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
-import { Mode } from '@/stores/mode';
-// Use lightweight mode store to avoid loading full theme system (~80KB)
-import { useModeStore } from '@/stores/useModeStore';
 
 const DEFAULT_EMAIL = 'demo@example.com';
 const DEFAULT_PASSWORD = 'demo123';
 
 const LoginPage = (): JSX.Element => {
   const navigate = useNavigate();
-  const { mode, toggleMode } = useModeStore();
   const [email, setEmail] = useState(DEFAULT_EMAIL);
   const [password, setPassword] = useState(DEFAULT_PASSWORD);
 
@@ -24,10 +20,6 @@ const LoginPage = (): JSX.Element => {
   useEffect(() => {
     startPhasedPreload();
   }, []);
-
-  const themeLabel =
-    mode === Mode.Light ? FM('login.themeSwitchDark') : FM('login.themeSwitchLight');
-  const themeIcon = mode === Mode.Light ? 'moon' : 'sun';
 
   const handleEmailChange = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -49,51 +41,6 @@ const LoginPage = (): JSX.Element => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
-        {/* Theme toggle */}
-        <div className="mb-4 flex justify-end">
-          <button
-            aria-label={themeLabel}
-            className="rounded-md p-2 text-text-secondary hover:bg-surface"
-            data-testid={TestIds.THEME_TOGGLE}
-            type="button"
-            onClick={toggleMode}
-          >
-            {themeIcon === 'moon' ? (
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-              </svg>
-            ) : (
-              <svg
-                aria-hidden="true"
-                className="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                />
-              </svg>
-            )}
-          </button>
-        </div>
-
         <div className="card">
           <div className="mb-6 text-center">
             <HeadingNative level={HeadingLevel.H1}>{FM('login.title')}</HeadingNative>

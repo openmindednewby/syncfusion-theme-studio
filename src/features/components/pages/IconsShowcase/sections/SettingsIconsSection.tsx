@@ -18,6 +18,8 @@ import {
   SwatchesIcon,
   TableIcon,
   TextIcon,
+  ThemeMoonIcon,
+  ThemeSunIcon,
   WandIcon,
 } from '@/components/icons';
 import { FM } from '@/localization/helpers';
@@ -42,6 +44,8 @@ const SETTINGS_ICONS = [
   { name: 'SwatchesIcon', icon: SwatchesIcon },
   { name: 'TableIcon', icon: TableIcon },
   { name: 'TextIcon', icon: TextIcon },
+  { name: 'ThemeMoonIcon', icon: ThemeMoonIcon },
+  { name: 'ThemeSunIcon', icon: ThemeSunIcon },
   { name: 'WandIcon', icon: WandIcon },
 ] as const;
 

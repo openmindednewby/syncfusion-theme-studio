@@ -176,6 +176,24 @@ local_resource(
     allow_parallel=True,
 )
 
+# --- Figma-to-Theme Sync (manual) ---
+local_resource(
+    name='theme-studio-figma-sync',
+    labels=['CodeGen'],
+    cmd='npm run figma:sync',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Figma Discovery (manual) ---
+local_resource(
+    name='theme-studio-figma-discover',
+    labels=['CodeGen'],
+    cmd='npm run figma:discover',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
 # ===============================================================================
 # 6. MOCK SERVER
 # ===============================================================================

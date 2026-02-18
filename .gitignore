@@ -50,6 +50,9 @@ Thumbs.db
 # Generated API hooks (can be regenerated)
 src/api/generated/
 
+# Figma pipeline intermediate data
+scripts/figma/data/
+
 # Syncfusion license (keep private)
 syncfusion-license.txt
 
@@ -112,3 +115,6 @@ figma/autoFitBrokenImplementation.png
 figma/filtersOnTheOtherSide.png
 figma/nativeFilterIssue.png
 figma/issueWithNativeColumns.png
+figma/fimaSidePanel2.png
+figma/sidePanelOnFigma.png
+figma/variables.png

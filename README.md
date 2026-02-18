@@ -94,20 +94,65 @@ Login page light house result for production build
 ## Quick Start
 
 ```bash
-# Tilt
-tilt up --port=10351
-
-# Install dependencies
+# 1. Install dependencies
 npm install
 
-# Start development server
+# 2. Set up environment variables (see Environment Setup below)
+cp .env.example .env
+
+# 3. Start development server
 npm run dev
 
-# Build for production
-npm run build
+# 4. Open http://localhost:4444 and log in with demo credentials
+```
 
-# Run tests
-npm run test
+## Environment Setup
+
+Copy `.env.example` to `.env` and configure the required variables:
+
+```bash
+cp .env.example .env
+```
+
+### Syncfusion License Key (Required)
+
+```env
+VITE_SYNCFUSION_LICENSE_KEY=your-license-key-here
+```
+
+A valid Syncfusion license key is **required** to suppress trial watermark banners on Syncfusion components (DataGrid, DatePicker, etc.). Without it the app runs normally but displays license warnings.
+
+Get your key from the [Syncfusion License Portal](https://www.syncfusion.com/account/manage-trials/downloads) under "License & Downloads" > "Get License Key".
+
+### Figma-to-Theme Sync (Optional)
+
+```env
+FIGMA_API_TOKEN=your-figma-personal-access-token
+FIGMA_FILE_KEY=your-figma-file-key
+```
+
+These variables enable the Figma-to-Theme sync pipeline (`npm run figma:sync`) which extracts design tokens from a Figma file and generates a theme preset. **This is entirely optional** — the app runs fully without Figma credentials. Only configure these if you want to sync themes from Figma.
+
+Generate a Figma personal access token at **Figma > Settings > Personal access tokens**.
+
+### All Commands
+
+```bash
+# Development
+npm run dev                # Start dev server (port 4444)
+npm run build              # Production build
+npm run preview            # Preview production build (port 4445)
+npm run test               # Run unit tests
+npm run test:coverage      # Run tests with coverage
+npm run lint               # Lint check
+npm run lint:fix           # Auto-fix lint issues
+
+# Figma sync (optional, requires FIGMA_* env vars)
+npm run figma:sync         # Extract + generate theme from Figma
+npm run figma:discover     # List available Figma styles
+
+# Tilt (optional orchestrator)
+tilt up --port=10351       # Start all services via Tilt
 ```
 
 ## Project Structure

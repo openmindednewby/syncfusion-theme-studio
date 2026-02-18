@@ -3,6 +3,7 @@ import { ARCTIC_THEME } from './arctic';
 import { COPPER_THEME } from './copper';
 import { CYBERWATCH_THEME } from './cyberWatch';
 import { EMERALD_THEME } from './emerald';
+import { FIGMA_DESIGN_THEME } from './figmaDesign';
 import { FOREST_GREEN_THEME } from './forestGreen';
 import { FREMEN_THEME } from './fremen';
 import { GOLD_THEME } from './gold';
@@ -48,4 +49,5 @@ export const themePresets: ThemePreset[] = [
   { id: 'lavender', name: 'Lavender', description: 'Soft calming purple tones', previewColors: previewColors(LAVENDER_THEME), theme: LAVENDER_THEME },
   { id: 'slate', name: 'Slate', description: 'Professional gray theme', previewColors: previewColors(SLATE_THEME), theme: SLATE_THEME },
   { id: 'gold', name: 'Gold', description: 'Luxurious gold accents', previewColors: previewColors(GOLD_THEME), theme: GOLD_THEME },
+  { id: 'figmaDesign', name: 'Figma Design', description: 'Design system theme from Figma', previewColors: previewColors(FIGMA_DESIGN_THEME), theme: FIGMA_DESIGN_THEME },
 ];

@@ -884,7 +884,23 @@
     "sortAscending": "Sort Ascending",
     "sortDescending": "Sort Descending",
     "columns": "Columns",
-    "filter": "Filter"
+    "filter": "Filter",
+    "filterOperator": {
+      "contains": "Contains",
+      "doesNotContain": "Does Not Contain",
+      "startsWith": "Starts With",
+      "doesNotStartWith": "Does Not Start With",
+      "endsWith": "Ends With",
+      "doesNotEndWith": "Does Not End With",
+      "equal": "Equal",
+      "notEqual": "Not Equal",
+      "empty": "Empty",
+      "notEmpty": "Not Empty",
+      "greaterThan": "Greater Than",
+      "greaterThanOrEqual": "Greater Than Or Equal",
+      "lessThan": "Less Than",
+      "lessThanOrEqual": "Less Than Or Equal"
+    }
   },
   "components": {
     "title": "Components Showcase",

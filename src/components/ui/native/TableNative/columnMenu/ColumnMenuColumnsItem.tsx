@@ -54,6 +54,11 @@ const ColumnMenuColumnsItem = memo(
               'rounded-md shadow-lg py-1',
             )}
             role="menu"
+            style={{
+              backgroundColor: 'var(--component-datagrid-colmenu-bg)',
+              border: '1px solid var(--component-datagrid-colmenu-border)',
+              color: 'var(--component-datagrid-colmenu-text)',
+            }}
           >
             {allColumns.map((col) => {
               const isVisible = !hiddenFields.has(col.field);

@@ -112,6 +112,7 @@ const TableContent = ({
           columnTypes={gridState.columnTypes}
           draggableHeaders={showGroupDropArea}
           fields={fields}
+          filterOperators={gridState.filterOperators}
           filterValues={gridState.filterValues}
           isAllSelected={selection.isAllSelected}
           isFilterEnabled={isFilterEnabled}
@@ -120,6 +121,7 @@ const TableContent = ({
           sortDirection={gridState.sortDirection}
           sortField={gridState.sortField}
           onFilterChange={gridState.onFilterChange}
+          onFilterOperatorChange={gridState.onFilterOperatorChange}
           onSelectAll={selection.handleSelectAll}
           onSort={gridState.onSort}
           {...columnMenuProps}

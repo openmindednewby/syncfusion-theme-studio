@@ -1,17 +1,11 @@
-/**
- * State manager for the native table's filter, sort, and pagination.
- *
- * Provides a single hook that manages all grid state and exposes
- * a data pipeline: raw data -> filter -> sort -> paginate.
- */
 import { useState, useCallback, useMemo, useEffect } from 'react';
 
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 
-import { ColumnType, DataMode, SortDirection } from '../types';
+import { ColumnType, DataMode, FilterOperator, SortDirection, type GridConfig, type SortColumnConfig } from '../types';
 import { detectColumnTypes } from '../utils/detectColumnTypes';
-
-import type { GridConfig, SortColumnConfig } from '../types';
+import { executeFilterComparison } from '../utils/executeFilter';
+import { getDefaultOperator } from '../utils/filterOperatorsByType';
 
 const DEFAULT_PAGE_SIZE = 10;
 const FIRST_PAGE = 1;
@@ -19,7 +13,9 @@ const NO_THRESHOLD = 0;
 
 interface NativeGridStateResult {
   filterValues: Record<string, string>;
+  filterOperators: Record<string, FilterOperator>;
   onFilterChange: (field: string, value: string) => void;
+  onFilterOperatorChange: (field: string, operator: FilterOperator) => void;
   sortField: string | undefined;
   sortDirection: 'ascending' | 'descending' | undefined;
   onSort: (field: string) => void;
@@ -34,40 +30,23 @@ interface NativeGridStateResult {
   processedData: Array<Record<string, unknown>>;
 }
 
-/** Apply client-side filters to data */
 function applyFilters(
   data: Array<Record<string, unknown>>,
   filters: Record<string, string>,
   columnTypes: Record<string, ColumnType>,
+  filterOperators: Record<string, FilterOperator>,
 ): Array<Record<string, unknown>> {
   return data.filter((row) =>
     Object.entries(filters).every(([field, filterValue]) => {
-      if (filterValue === '') return true;
-
-      const cellValue = row[field];
       const type = columnTypes[field] ?? ColumnType.String;
-
-      if (type === ColumnType.Boolean) return String(cellValue) === filterValue;
-
-      if (type === ColumnType.Number) {
-        const num = Number(cellValue);
-        const filterNum = Number(filterValue);
-        return !Number.isNaN(filterNum) && num === filterNum;
-      }
-
-      if (type === ColumnType.Date) {
-        const cellDate = isValueDefined(cellValue) ? String(cellValue).split('T')[0] : '';
-        return cellDate === filterValue;
-      }
-
-      // String: case-insensitive contains
-      const str = isValueDefined(cellValue) ? String(cellValue).toLowerCase() : '';
-      return str.includes(filterValue.toLowerCase());
+      const operator = filterOperators[field] ?? getDefaultOperator(type);
+      const isEmptyOp = operator === FilterOperator.Empty || operator === FilterOperator.NotEmpty;
+      if (filterValue === '' && !isEmptyOp) return true;
+      return executeFilterComparison(row[field], filterValue, type, operator);
     }),
   );
 }
 
-/** Apply client-side sort to data */
 function applySort(
   data: Array<Record<string, unknown>>,
   field: string | undefined,
@@ -97,19 +76,23 @@ function mapSortDirection(
   return sortCol.direction === SortDirection.Ascending ? 'ascending' : 'descending';
 }
 
-/** Manages filter state for native grid */
 function useFilterState(): {
   filterValues: Record<string, string>;
+  filterOperators: Record<string, FilterOperator>;
   onFilterChange: (field: string, value: string) => void;
+  onFilterOperatorChange: (field: string, operator: FilterOperator) => void;
 } {
   const [filterValues, setFilterValues] = useState<Record<string, string>>({});
+  const [filterOperators, setFilterOperators] = useState<Record<string, FilterOperator>>({});
   const onFilterChange = useCallback((field: string, value: string) => {
     setFilterValues((prev) => ({ ...prev, [field]: value }));
   }, []);
-  return { filterValues, onFilterChange };
+  const onFilterOperatorChange = useCallback((field: string, operator: FilterOperator) => {
+    setFilterOperators((prev) => ({ ...prev, [field]: operator }));
+  }, []);
+  return { filterValues, filterOperators, onFilterChange, onFilterOperatorChange };
 }
 
-/** Manages sort state for native grid */
 function useSortState(defaultSort?: SortColumnConfig[]): {
   sortField: string | undefined;
   sortDirection: 'ascending' | 'descending' | undefined;
@@ -138,7 +121,6 @@ function useSortState(defaultSort?: SortColumnConfig[]): {
   return { sortField: sortState.field, sortDirection: sortState.direction, onSort };
 }
 
-/** Manages pagination state for native grid */
 function usePaginationState(initialPageSize: number): {
   currentPage: number;
   pageSize: number;
@@ -148,20 +130,12 @@ function usePaginationState(initialPageSize: number): {
 } {
   const [currentPage, setCurrentPage] = useState(FIRST_PAGE);
   const [pageSize, setPageSize] = useState(initialPageSize);
-
-  const onPageChange = useCallback((page: number) => {
-    setCurrentPage(page);
-  }, []);
-
+  const onPageChange = useCallback((page: number) => { setCurrentPage(page); }, []);
   const onPageSizeChange = useCallback((size: number) => {
     setPageSize(size);
     setCurrentPage(FIRST_PAGE);
   }, []);
-
-  const resetPage = useCallback(() => {
-    setCurrentPage(FIRST_PAGE);
-  }, []);
-
+  const resetPage = useCallback(() => { setCurrentPage(FIRST_PAGE); }, []);
   return { currentPage, pageSize, onPageChange, onPageSizeChange, resetPage };
 }
 
@@ -170,21 +144,25 @@ interface DataPipelineInput {
   isClient: boolean;
   filterConfig: GridConfig['filter'];
   filterValues: Record<string, string>;
+  filterOperators: Record<string, FilterOperator>;
   columnTypes: Record<string, ColumnType>;
   sortField: string | undefined;
   sortDirection: 'ascending' | 'descending' | undefined;
 }
 
-/** Run the client-side data pipeline: filter -> sort */
 function useDataPipeline(input: DataPipelineInput): Array<Record<string, unknown>> {
-  const { data, isClient, filterConfig, filterValues, columnTypes, sortField, sortDirection } = input;
+  const { data, isClient, filterConfig, filterValues, filterOperators, columnTypes, sortField, sortDirection } = input;
 
   const filteredData = useMemo(() => {
     if (!isClient) return data;
     const isFilterRowEnabled = isValueDefined(filterConfig) && filterConfig.enabled;
     const hasActiveFilters = Object.values(filterValues).some((v) => v.length > 0);
-    return isFilterRowEnabled || hasActiveFilters ? applyFilters(data, filterValues, columnTypes) : data;
-  }, [isClient, data, filterValues, columnTypes, filterConfig]);
+    const hasEmptyOps = Object.values(filterOperators).some(
+      (op) => op === FilterOperator.Empty || op === FilterOperator.NotEmpty,
+    );
+    const shouldFilter = isFilterRowEnabled || hasActiveFilters || hasEmptyOps;
+    return shouldFilter ? applyFilters(data, filterValues, columnTypes, filterOperators) : data;
+  }, [isClient, data, filterValues, filterOperators, columnTypes, filterConfig]);
 
   return useMemo(
     () => (isClient ? applySort(filteredData, sortField, sortDirection) : filteredData),
@@ -192,7 +170,6 @@ function useDataPipeline(input: DataPipelineInput): Array<Record<string, unknown
   );
 }
 
-/** Determine if pagination should show and slice the data accordingly */
 function usePaginatedData(
   sortedData: Array<Record<string, unknown>>,
   paginationConfig: GridConfig['pagination'],
@@ -227,14 +204,14 @@ export function useNativeGridState(
     [data, fields, gridConfig?.filter?.columnTypeOverrides],
   );
 
-  const { filterValues, onFilterChange } = useFilterState();
+  const { filterValues, filterOperators, onFilterChange, onFilterOperatorChange } = useFilterState();
   const { sortField, sortDirection, onSort } = useSortState(gridConfig?.defaultSort);
   const configPageSize = gridConfig?.pagination?.pageSize ?? DEFAULT_PAGE_SIZE;
   const { currentPage, pageSize, onPageChange, onPageSizeChange, resetPage } =
     usePaginationState(configPageSize);
 
   const sortedData = useDataPipeline({
-    data, isClient, filterConfig: gridConfig?.filter, filterValues, columnTypes, sortField, sortDirection,
+    data, isClient, filterConfig: gridConfig?.filter, filterValues, filterOperators, columnTypes, sortField, sortDirection,
   });
 
   useEffect(() => { resetPage(); }, [filterValues, resetPage]);
@@ -243,7 +220,8 @@ export function useNativeGridState(
     usePaginatedData(sortedData, gridConfig?.pagination, currentPage, pageSize);
 
   return {
-    filterValues, onFilterChange, sortField, sortDirection, onSort,
+    filterValues, filterOperators, onFilterChange, onFilterOperatorChange,
+    sortField, sortDirection, onSort,
     currentPage, pageSize, totalPages, totalItems,
     onPageChange, onPageSizeChange, shouldShowPagination, columnTypes, processedData,
   };

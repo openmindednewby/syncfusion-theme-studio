@@ -1,6 +1,7 @@
 import { memo, useCallback, useRef } from 'react';
 
-import { ColumnType } from '@/lib/grid/types';
+import { ColumnType, type FilterOperator } from '@/lib/grid/types';
+import { getDefaultOperator } from '@/lib/grid/utils/filterOperatorsByType';
 import { FM } from '@/localization/helpers';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
@@ -8,9 +9,7 @@ import { isValueDefined } from '@/utils/is';
 import ColumnMenuPopup from './columnMenu/ColumnMenuPopup';
 import ColumnMenuTrigger from './columnMenu/ColumnMenuTrigger';
 import FilterRow from './filters/FilterRow';
-import { TextAlign } from './types';
-
-import type { TableColumn } from './types';
+import { TextAlign, type TableColumn } from './types';
 
 const CHECKBOX_HEADER_STYLE: React.CSSProperties = { padding: 0, width: '50px', textAlign: 'center', verticalAlign: 'middle' };
 const HEADER_LINE_HEIGHT = '1';
@@ -46,6 +45,8 @@ interface Props {
   filterValues: Record<string, string>;
   columnTypes: Record<string, ColumnType>;
   onFilterChange: (field: string, value: string) => void;
+  filterOperators?: Record<string, FilterOperator>;
+  onFilterOperatorChange?: (field: string, operator: FilterOperator) => void;
   showCheckbox?: boolean;
   isAllSelected?: boolean;
   onSelectAll?: () => void;
@@ -70,6 +71,8 @@ const TableHeader = ({
   filterValues,
   columnTypes,
   onFilterChange,
+  filterOperators,
+  onFilterOperatorChange,
   showCheckbox = false,
   isAllSelected = false,
   onSelectAll,
@@ -105,6 +108,7 @@ const TableHeader = ({
         allColumns={allColumns}
         columnType={columnTypes[field] ?? ColumnType.String}
         field={field}
+        filterOperator={filterOperators?.[field] ?? getDefaultOperator(columnTypes[field] ?? ColumnType.String)}
         filterValue={filterValues[field] ?? ''}
         hiddenFields={hiddenFields}
         sortDirection={sortDirection}
@@ -112,6 +116,7 @@ const TableHeader = ({
         triggerRef={{ current: triggerRefs.current[field] ?? null }}
         onClose={onMenuClose}
         onFilterChange={onFilterChange}
+        onFilterOperatorChange={onFilterOperatorChange ?? (() => {})}
         onSort={onSort}
         onToggleColumn={onToggleColumnVisibility}
       />

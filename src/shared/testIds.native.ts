@@ -87,4 +87,5 @@ export const NativeTestIds = {
   NATIVE_GRID_COLUMN_MENU_SORT_DESC: 'native-grid-colmenu-sort-desc',
   NATIVE_GRID_COLUMN_MENU_COLUMNS: 'native-grid-colmenu-columns',
   NATIVE_GRID_COLUMN_MENU_FILTER: 'native-grid-colmenu-filter',
+  NATIVE_GRID_COLUMN_MENU_FILTER_OPERATOR: 'native-grid-colmenu-filter-operator',
 } as const;

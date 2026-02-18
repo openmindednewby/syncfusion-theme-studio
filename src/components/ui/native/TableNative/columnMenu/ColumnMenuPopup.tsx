@@ -2,7 +2,7 @@ import { memo, useEffect, useRef, type RefObject } from 'react';
 
 import { createPortal } from 'react-dom';
 
-import type { ColumnType } from '@/lib/grid/types';
+import type { ColumnType, FilterOperator } from '@/lib/grid/types';
 import { NativeTestIds } from '@/shared/testIds.native';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
@@ -26,7 +26,9 @@ interface ColumnMenuPopupProps {
   triggerRef: RefObject<HTMLButtonElement | null>;
   columnType: ColumnType;
   filterValue: string;
+  filterOperator: FilterOperator;
   onFilterChange: (field: string, value: string) => void;
+  onFilterOperatorChange: (field: string, operator: FilterOperator) => void;
 }
 
 /** Closes menu when clicking outside both popup and trigger */
@@ -59,7 +61,7 @@ const ColumnMenuPopup = memo(
   ({
     field, sortField, sortDirection, onSort, onClose,
     allColumns, hiddenFields, onToggleColumn,
-    triggerRef, columnType, filterValue, onFilterChange,
+    triggerRef, columnType, filterValue, filterOperator, onFilterChange, onFilterOperatorChange,
   }: ColumnMenuPopupProps): JSX.Element => {
     const popupRef = useRef<HTMLDivElement>(null);
     const pos = useColumnMenuPosition(triggerRef, true);
@@ -80,7 +82,7 @@ const ColumnMenuPopup = memo(
       >
         <ColumnMenuSortItems field={field} sortDirection={sortDirection} sortField={sortField} onClose={onClose} onSort={onSort} />
         <hr className="native-grid-colmenu-separator my-1 border-t" style={{ borderColor: 'var(--component-datagrid-colmenu-separator)' }} />
-        <ColumnMenuFilterItem columnType={columnType} field={field} filterValue={filterValue} onFilterChange={onFilterChange} />
+        <ColumnMenuFilterItem columnType={columnType} field={field} filterOperator={filterOperator} filterValue={filterValue} onFilterChange={onFilterChange} onFilterOperatorChange={onFilterOperatorChange} />
         <hr className="native-grid-colmenu-separator my-1 border-t" style={{ borderColor: 'var(--component-datagrid-colmenu-separator)' }} />
         <ColumnMenuColumnsItem allColumns={allColumns} hiddenFields={hiddenFields} onToggleColumn={onToggleColumn} />
       </div>,

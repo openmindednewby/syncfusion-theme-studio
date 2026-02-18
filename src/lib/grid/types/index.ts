@@ -130,6 +130,7 @@ interface GridConfig {
 }
 
 export { DataMode, ColumnType, FilterType, SortDirection };
+export { FilterOperator } from './filterOperator';
 export type {
   GridConfig,
   FilterConfig,

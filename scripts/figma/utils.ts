@@ -1,6 +1,14 @@
 // Utility functions for Figma-to-Theme pipeline
 
-import type { FigmaColor, FigmaNode, FigmaPaint } from './types';
+import type {
+  FigmaColor,
+  FigmaNode,
+  FigmaPaint,
+  FigmaVariable,
+  FigmaVariableAlias,
+  FigmaVariablesResponse,
+  VariableColorResolver,
+} from './types';
 
 const MAX_RGB_VALUE = 255;
 
@@ -27,16 +35,6 @@ export function extractSolidFill(
   const fills = node.fills ?? [];
   const solidFill = fills.find(isVisibleSolidPaint);
   return solidFill?.color;
-}
-
-/** Extract the first visible solid fill with its paint opacity */
-export function extractSolidFillWithOpacity(
-  node: FigmaNode,
-): { color: FigmaColor; opacity: number } | undefined {
-  const fills = node.fills ?? [];
-  const solidFill = fills.find(isVisibleSolidPaint);
-  if (!solidFill?.color) return undefined;
-  return { color: solidFill.color, opacity: solidFill.opacity ?? 1 };
 }
 
 /** Extract the first visible solid stroke color from a node */
@@ -130,4 +128,76 @@ export function deepMerge(
   }
 
   return result;
+}
+
+// --- Variable resolution ---
+
+const MAX_ALIAS_DEPTH = 5;
+
+function isVariableAlias(value: unknown): value is FigmaVariableAlias {
+  return isPlainObject(value) && value.type === 'VARIABLE_ALIAS' && typeof value.id === 'string';
+}
+
+function isFigmaColor(value: unknown): value is FigmaColor {
+  return (
+    isPlainObject(value) &&
+    typeof value.r === 'number' &&
+    typeof value.g === 'number' &&
+    typeof value.b === 'number'
+  );
+}
+
+function findModeId(
+  variable: FigmaVariable,
+  collections: Record<string, { modes: Array<{ modeId: string; name: string }> }>,
+  modeName: string,
+): string | undefined {
+  const collection = collections[variable.variableCollectionId];
+  if (!collection) return undefined;
+  const lowerMode = modeName.toLowerCase();
+  return collection.modes.find((m) => m.name.toLowerCase() === lowerMode)?.modeId;
+}
+
+function resolveVariableColor(
+  variableId: string,
+  modeId: string,
+  variables: Record<string, FigmaVariable>,
+  depth: number,
+): FigmaColor | undefined {
+  if (depth > MAX_ALIAS_DEPTH) return undefined;
+  const variable = variables[variableId];
+  if (!variable) return undefined;
+
+  const value = variable.valuesByMode[modeId];
+  if (!value) return undefined;
+
+  if (isFigmaColor(value)) return value;
+  if (isVariableAlias(value)) {
+    return resolveVariableColor(value.id, modeId, variables, depth + 1);
+  }
+  return undefined;
+}
+
+/**
+ * Creates a resolver that looks up bound variable colors via the Variables API data.
+ * Returns undefined if no variables data is available.
+ */
+export function createVariableResolver(
+  variablesData: FigmaVariablesResponse | undefined,
+): VariableColorResolver | undefined {
+  if (!variablesData) return undefined;
+  const { variables, variableCollections } = variablesData.meta;
+
+  return (boundVariables, modeName) => {
+    const colorRef = boundVariables.color;
+    if (!isVariableAlias(colorRef)) return undefined;
+
+    const variable = variables[colorRef.id];
+    if (!variable) return undefined;
+
+    const modeId = findModeId(variable, variableCollections, modeName);
+    if (!modeId) return undefined;
+
+    return resolveVariableColor(colorRef.id, modeId, variables, 0);
+  };
 }

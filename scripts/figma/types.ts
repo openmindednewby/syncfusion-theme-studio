@@ -72,6 +72,11 @@ export interface BadgeColorData {
   textColor: string;
   borderColor: string;
   fillOpacity: number;
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  letterSpacing?: string;
 }
 
 /** Badge data for a section (severity or sla) with light/dark variants */
@@ -116,3 +121,50 @@ export interface FigmaMappingConfig {
   lightMappings: MappingRule[];
   darkMappings: MappingRule[];
 }
+
+// --- Figma Variables API types ---
+
+/** Reference to another variable (used in boundVariables and alias values) */
+export interface FigmaVariableAlias {
+  type: 'VARIABLE_ALIAS';
+  id: string;
+}
+
+/** A single mode within a variable collection */
+export interface FigmaVariableMode {
+  modeId: string;
+  name: string;
+}
+
+/** A variable collection containing modes */
+export interface FigmaVariableCollection {
+  id: string;
+  name: string;
+  modes: FigmaVariableMode[];
+}
+
+/** A Figma variable with per-mode values */
+export interface FigmaVariable {
+  id: string;
+  name: string;
+  resolvedType: string;
+  variableCollectionId: string;
+  valuesByMode: Record<string, FigmaColor | FigmaVariableAlias>;
+}
+
+/** Response from GET /v1/files/:key/variables/local */
+export interface FigmaVariablesResponse {
+  meta: {
+    variables: Record<string, FigmaVariable>;
+    variableCollections: Record<string, FigmaVariableCollection>;
+  };
+}
+
+/**
+ * Resolves a bound variable to a FigmaColor for a given mode.
+ * Returns undefined if the variable or mode can't be resolved.
+ */
+export type VariableColorResolver = (
+  boundVariables: Record<string, unknown>,
+  modeName: string,
+) => FigmaColor | undefined;

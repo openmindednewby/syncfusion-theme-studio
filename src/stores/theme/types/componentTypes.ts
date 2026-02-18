@@ -2,7 +2,7 @@
 
 import type { DataGridConfig } from './dataComponentTypes';
 import type { AvatarConfig, ProgressBarConfig, TabsConfig, TimelineConfig, TooltipConfig } from './dataDisplayComponentTypes';
-import type { BadgesConfig, CardsConfig, ModalsConfig } from './displayComponentTypes';
+import type { AlertBadgesConfig, BadgesConfig, CardsConfig, ModalsConfig } from './displayComponentTypes';
 import type { AlertsConfig, ChipConfig, DatePickerConfig, DialogConfig, ErrorMessagesConfig, FlexBoxConfig, MessageConfig, SelectConfig, ToastConfig } from './feedbackComponentTypes';
 import type { ButtonsComponentConfig, InputsConfig } from './formComponentTypes';
 import type { HeaderComponentConfig, SidebarComponentConfig } from './layoutComponentTypes';
@@ -23,7 +23,7 @@ export type { ButtonStateColors, ButtonsComponentConfig, InputsConfig } from './
 export type { DataGridConfig } from './dataComponentTypes';
 
 // Re-export display component types
-export type { BadgeVariant, BadgesConfig, CardsConfig, ModalsConfig } from './displayComponentTypes';
+export type { AlertBadgesConfig, BadgeTypography, BadgeVariant, BadgesConfig, CardsConfig, ModalsConfig } from './displayComponentTypes';
 
 // Re-export pagination types
 export type { PaginationConfig } from './paginationTypes';
@@ -47,6 +47,7 @@ export interface ComponentConfigSingle {
   cards: CardsConfig;
   modals: ModalsConfig;
   badges: BadgesConfig;
+  alertBadges: AlertBadgesConfig;
   select: SelectConfig;
   datePicker: DatePickerConfig;
   dialog: DialogConfig;

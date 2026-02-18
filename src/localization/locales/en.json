@@ -636,6 +636,15 @@
         "background": "Background",
         "textColor": "Text Color"
       },
+      "alertBadges": {
+        "title": "Alert Badges",
+        "description": "Typography for severity/SLA badges used in alert grids. Colors are shared with the Badges section above.",
+        "fontFamily": "Font Family",
+        "fontSize": "Font Size",
+        "fontWeight": "Font Weight",
+        "lineHeight": "Line Height",
+        "letterSpacing": "Letter Spacing"
+      },
       "errorMessages": {
         "title": "Error Messages",
         "colorsSection": "Colors",

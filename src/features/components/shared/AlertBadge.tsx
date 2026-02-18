@@ -55,18 +55,17 @@ const OUTLINE_STYLES: Record<BadgeVariant, CSSProperties> = {
   },
 };
 
-const FONT_WEIGHT_SEMIBOLD = 600;
-const LINE_HEIGHT_NORMAL = 1.5;
-
-const BASE_STYLE: CSSProperties = {
+const BASE_STYLE: Record<string, string> = {
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
   padding: '0.125rem 0.5rem',
   borderRadius: 'var(--radius-sm)',
-  fontSize: 'var(--font-size-xs)',
-  fontWeight: FONT_WEIGHT_SEMIBOLD,
-  lineHeight: LINE_HEIGHT_NORMAL,
+  fontFamily: 'var(--component-alert-badge-font-family)',
+  fontSize: 'var(--component-alert-badge-font-size)',
+  fontWeight: 'var(--component-alert-badge-font-weight)',
+  lineHeight: 'var(--component-alert-badge-line-height)',
+  letterSpacing: 'var(--component-alert-badge-letter-spacing)',
   whiteSpace: 'nowrap',
 };
 

@@ -4,9 +4,22 @@
 import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import { extractBadges } from './extract-badges';
 import { FIGMA_MAPPING } from './figma-mapping';
-import type { BadgeColorData, BadgeSectionData, ExtractedProperty, FigmaColor, FigmaExtraction, FigmaNode } from './types';
-import { buildNodePath, extractSolidFill, extractSolidFillWithOpacity, extractSolidStroke, figmaColorToRgb } from './utils';
+import type {
+  ExtractedProperty,
+  FigmaColor,
+  FigmaExtraction,
+  FigmaNode,
+  FigmaVariablesResponse,
+} from './types';
+import {
+  buildNodePath,
+  createVariableResolver,
+  extractSolidFill,
+  extractSolidStroke,
+  figmaColorToRgb,
+} from './utils';
 
 const FIGMA_API_BASE = 'https://api.figma.com/v1';
 const MAX_RETRIES = 3;
@@ -53,6 +66,25 @@ async function fetchFigmaFile(
   }
 
   throw new Error(`Failed after ${MAX_RETRIES} retries`);
+}
+
+async function fetchVariables(
+  fileKey: string,
+  token: string,
+): Promise<FigmaVariablesResponse | undefined> {
+  const url = `${FIGMA_API_BASE}/files/${fileKey}/variables/local`;
+  try {
+    console.log('Fetching Figma variables...');
+    const response = await fetch(url, { headers: { 'X-FIGMA-TOKEN': token } });
+    if (!response.ok) {
+      console.warn(`Variables API returned ${response.status} — falling back to raw colors`);
+      return undefined;
+    }
+    return response.json() as Promise<FigmaVariablesResponse>;
+  } catch (err: unknown) {
+    console.warn('Variables API unavailable — falling back to raw colors:', err);
+    return undefined;
+  }
 }
 
 function findFrameByName(root: FigmaNode, name: string): FigmaNode | undefined {
@@ -130,103 +162,6 @@ function extractNodeProperties(node: FigmaNode, parentPath: string): ExtractedPr
   return properties;
 }
 
-function findSectionByName(
-  root: FigmaNode,
-  name: string,
-): FigmaNode | undefined {
-  const lowerName = name.toLowerCase();
-  if (root.name.toLowerCase() === lowerName && (root.type === 'SECTION' || root.type === 'FRAME')) {
-    return root;
-  }
-  for (const child of root.children ?? []) {
-    const found = findSectionByName(child, name);
-    if (found) return found;
-  }
-  return undefined;
-}
-
-function findTextChild(node: FigmaNode): FigmaNode | undefined {
-  if (node.type === 'TEXT' && node.characters) return node;
-  for (const child of node.children ?? []) {
-    const found = findTextChild(child);
-    if (found) return found;
-  }
-  return undefined;
-}
-
-function extractBadgeColorData(badge: FigmaNode): BadgeColorData | undefined {
-  const fillData = extractSolidFillWithOpacity(badge);
-  if (!fillData) return undefined;
-
-  const strokeColor = extractSolidStroke(badge);
-  const textNode = findTextChild(badge);
-  const textFill = textNode ? extractSolidFill(textNode) : undefined;
-
-  return {
-    background: figmaColorToRgb(fillData.color),
-    textColor: textFill ? figmaColorToRgb(textFill) : '255 255 255',
-    borderColor: strokeColor ? figmaColorToRgb(strokeColor) : figmaColorToRgb(fillData.color),
-    fillOpacity: fillData.opacity,
-  };
-}
-
-function extractBadgesFromMode(
-  modeFrame: FigmaNode,
-): Record<string, BadgeColorData> {
-  const badges: Record<string, BadgeColorData> = {};
-
-  for (const child of modeFrame.children ?? []) {
-    const textNode = findTextChild(child);
-    if (!textNode?.characters) continue;
-
-    const label = textNode.characters.trim().toUpperCase();
-    const colorData = extractBadgeColorData(child);
-    if (colorData) badges[label] = colorData;
-  }
-
-  return badges;
-}
-
-function extractBadgeSection(
-  root: FigmaNode,
-  sectionName: string,
-): BadgeSectionData | undefined {
-  const section = findSectionByName(root, sectionName);
-  if (!section) return undefined;
-
-  const lightFrame = (section.children ?? []).find(
-    (c) => c.name.toLowerCase() === 'light',
-  );
-  const darkFrame = (section.children ?? []).find(
-    (c) => c.name.toLowerCase() === 'dark',
-  );
-
-  if (!lightFrame && !darkFrame) return undefined;
-
-  const light = lightFrame ? extractBadgesFromMode(lightFrame) : {};
-  const dark = darkFrame ? extractBadgesFromMode(darkFrame) : {};
-
-  if (Object.keys(light).length === 0 && Object.keys(dark).length === 0) return undefined;
-
-  return { light, dark };
-}
-
-function extractBadges(
-  document: FigmaNode,
-): FigmaExtraction['badges'] {
-  const severity = extractBadgeSection(document, 'severity');
-  const sla = extractBadgeSection(document, 'sla');
-
-  if (!severity && !sla) return undefined;
-
-  console.log(
-    `Badges: ${severity ? Object.keys(severity.light).length : 0} severity, ` +
-    `${sla ? Object.keys(sla.light).length : 0} sla`,
-  );
-
-  return { severity, sla };
-}
-
 function buildExtraction(
   fileKey: string,
   fileName: string,
@@ -253,8 +188,16 @@ function buildExtraction(
 async function main(): Promise<void> {
   const token = getEnvVar('FIGMA_API_TOKEN');
   const fileKey = getEnvVar('FIGMA_FILE_KEY');
-  const file = await fetchFigmaFile(fileKey, token);
+  const [file, variablesData] = await Promise.all([
+    fetchFigmaFile(fileKey, token),
+    fetchVariables(fileKey, token),
+  ]);
   console.log(`File: ${file.name}`);
+
+  const resolver = createVariableResolver(variablesData);
+  if (resolver) {
+    console.log('Variable resolver active — bound colors will be resolved per mode');
+  }
 
   const lightFrame = findFrameByName(file.document, FIGMA_MAPPING.lightFrameSelector);
   const darkFrame = findFrameByName(file.document, FIGMA_MAPPING.darkFrameSelector);
@@ -263,7 +206,7 @@ async function main(): Promise<void> {
   if (!darkFrame) console.warn(`Dark frame "${FIGMA_MAPPING.darkFrameSelector}" not found.`);
 
   const extraction = buildExtraction(fileKey, file.name, lightFrame, darkFrame);
-  extraction.badges = extractBadges(file.document);
+  extraction.badges = extractBadges(file.document, resolver);
 
   const outPath = resolve(import.meta.dirname, 'data/figma-extract.json');
   writeFileSync(outPath, JSON.stringify(extraction, null, 2));

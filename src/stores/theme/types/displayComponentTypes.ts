@@ -1,4 +1,4 @@
-// Display component type definitions (cards, modals, badges)
+// Display component type definitions (cards, modals, badges, alert badges)
 
 export interface CardsConfig {
   background: string;
@@ -43,6 +43,14 @@ export interface BadgeVariant {
   borderColor: string;
 }
 
+export interface BadgeTypography {
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  letterSpacing: string;
+}
+
 export interface BadgesConfig {
   success: BadgeVariant;
   warning: BadgeVariant;
@@ -50,4 +58,8 @@ export interface BadgesConfig {
   info: BadgeVariant;
   borderRadius: string;
   padding: string;
+}
+
+export interface AlertBadgesConfig {
+  typography: BadgeTypography;
 }

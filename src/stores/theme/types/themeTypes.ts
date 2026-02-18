@@ -9,6 +9,7 @@ import { type Mode, type StatusKey, type StatusShade ,
 } from './colorTypes';
 import { type ButtonVariant ,
   type AccordionConfig,
+  type AlertBadgesConfig,
   type AlertsConfig,
   type AvatarConfig,
   type BadgesConfig,
@@ -101,6 +102,7 @@ export interface ThemeState {
   updateCardsConfig: (updates: Partial<CardsConfig>) => void;
   updateModalsConfig: (updates: Partial<ModalsConfig>) => void;
   updateBadgesConfig: (updates: Partial<BadgesConfig>) => void;
+  updateAlertBadgesConfig: (updates: Partial<AlertBadgesConfig>) => void;
   updateSelectConfig: (updates: Partial<SelectConfig>) => void;
   updateDatePickerConfig: (updates: Partial<DatePickerConfig>) => void;
   updateDialogConfig: (updates: Partial<DialogConfig>) => void;

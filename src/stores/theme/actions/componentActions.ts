@@ -6,6 +6,7 @@ import { type ButtonVariant ,
   type ButtonsComponentConfig,
   type AlertsConfig,
   type AvatarConfig,
+  type AlertBadgesConfig,
   type BadgesConfig,
   type BreadcrumbConfig,
   type ButtonStateColors,
@@ -43,6 +44,7 @@ const enum ComponentKey {
   Cards = 'cards',
   Modals = 'modals',
   Badges = 'badges',
+  AlertBadges = 'alertBadges',
   Select = 'select',
   DatePicker = 'datePicker',
   Dialog = 'dialog',
@@ -113,6 +115,7 @@ function createCoreComponentActions(set: SetState, get: GetState): Pick<Componen
 export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
   return {
     ...createCoreComponentActions(set, get),
+    updateAlertBadgesConfig: (u: Partial<AlertBadgesConfig>) => update(set, get, ComponentKey.AlertBadges, u),
     updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, ComponentKey.Message, u),
     updateChipConfig: (u: Partial<ChipConfig>) => update(set, get, ComponentKey.Chips, u),
     updateAccordionConfig: (u: Partial<AccordionConfig>) => update(set, get, ComponentKey.Accordion, u),

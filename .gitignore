@@ -121,3 +121,4 @@ figma/variables.png
 figma/badgesWithVariables.png
 MockServer/src/MockServer.Core/bin/Debug/net9.0/MockServer.Core.dll
 figma/badges issue.png
+MockServer/src/MockServer.Core/obj/Debug/net9.0/MockServer.Core.AssemblyInfo.cs

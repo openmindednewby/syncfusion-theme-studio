@@ -6,6 +6,7 @@ import type { FigmaExtraction } from './types';
 export interface ComponentSectionOverrides {
   light: Record<string, Record<string, string>>;
   dark: Record<string, Record<string, string>>;
+  typography?: Record<string, string>;
 }
 
 /** Generate the import block for the preset file */
@@ -67,17 +68,26 @@ function generateComponentsOverride(
 
     for (const [section, overrides] of Object.entries(sections)) {
       const modeOverrides = overrides[mode];
-      if (!modeOverrides || Object.keys(modeOverrides).length === 0) continue;
+      const hasVariantOverrides = modeOverrides && Object.keys(modeOverrides).length > 0;
+      const hasTypography = overrides.typography && Object.keys(overrides.typography).length > 0;
+
+      if (!hasVariantOverrides && !hasTypography) continue;
 
       lines.push(`    ${section}: {`);
       lines.push(`      ...${defaultName}.${section},`);
 
-      for (const [key, value] of Object.entries(modeOverrides)) {
-        if (typeof value === 'object' && value !== null) {
-          lines.push(`      ${key}: ${formatObjectLiteral(value as Record<string, string>, 6)},`);
-        } else {
-          lines.push(`      ${key}: '${value}',`);
+      if (hasVariantOverrides) {
+        for (const [key, value] of Object.entries(modeOverrides)) {
+          if (typeof value === 'object' && value !== null) {
+            lines.push(`      ${key}: ${formatObjectLiteral(value as Record<string, string>, 6)},`);
+          } else {
+            lines.push(`      ${key}: '${value}',`);
+          }
         }
+      }
+
+      if (hasTypography) {
+        lines.push(`      typography: ${formatObjectLiteral(overrides.typography!, 6)},`);
       }
 
       lines.push('    },');

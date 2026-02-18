@@ -42,6 +42,7 @@ export interface ComponentConfigActions {
   updateCardsConfig: ThemeState['updateCardsConfig'];
   updateModalsConfig: ThemeState['updateModalsConfig'];
   updateBadgesConfig: ThemeState['updateBadgesConfig'];
+  updateAlertBadgesConfig: ThemeState['updateAlertBadgesConfig'];
   updateSelectConfig: ThemeState['updateSelectConfig'];
   updateDatePickerConfig: ThemeState['updateDatePickerConfig'];
   updateDialogConfig: ThemeState['updateDialogConfig'];

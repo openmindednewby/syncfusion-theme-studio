@@ -3,6 +3,7 @@ import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 
 import { AccordionEditor } from './AccordionEditor';
+import { AlertBadgesEditor } from './AlertBadgesEditor';
 import { AlertsEditor } from './AlertsEditor';
 import { BadgesEditor } from './BadgesEditor';
 import { BreadcrumbEditor } from './BreadcrumbEditor';
@@ -39,6 +40,7 @@ export const ComponentsSection = (): JSX.Element => {
     updateCardsConfig,
     updateModalsConfig,
     updateBadgesConfig,
+    updateAlertBadgesConfig,
     updateSelectConfig,
     updateDatePickerConfig,
     updateDialogConfig,
@@ -85,6 +87,7 @@ export const ComponentsSection = (): JSX.Element => {
         <CardsEditor config={components.cards} onUpdate={updateCardsConfig} />
         <ModalsEditor config={components.modals} onUpdate={updateModalsConfig} />
         <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />
+        <AlertBadgesEditor config={components.alertBadges} onUpdate={updateAlertBadgesConfig} />
         <ChipsEditor config={components.chips} onUpdate={updateChipConfig} />
         <ErrorMessagesEditor config={components.errorMessages} onUpdate={updateErrorMessagesConfig} />
         <FlexBoxEditor config={components.flexBox} onUpdate={updateFlexBoxConfig} />

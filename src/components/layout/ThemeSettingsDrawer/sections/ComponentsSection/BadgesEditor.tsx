@@ -1,7 +1,6 @@
 import { FM } from '@/localization/helpers';
 import type { BadgesConfig, BadgeVariant } from '@/stores/theme/types';
 
-
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
 

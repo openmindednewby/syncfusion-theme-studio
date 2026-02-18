@@ -11,6 +11,7 @@ import type { BadgeColorData, BadgeSectionData, FigmaExtraction } from './types'
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
 const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
 const OUTPUT_PATH = resolve(SECTIONS_DIR, 'badges.json');
+const ALERT_BADGES_OUTPUT_PATH = resolve(SECTIONS_DIR, 'alertBadges.json');
 
 const SEVERITY_LABEL_MAP: Record<string, string> = {
   CRITICAL: 'error',
@@ -68,8 +69,53 @@ function buildModeOverrides(
 ): Record<string, BadgeVariantOverride> {
   const severityOverrides = mapBadgeVariants(badges.severity, SEVERITY_LABEL_MAP, mode);
   const slaOverrides = mapBadgeVariants(badges.sla, SLA_LABEL_MAP, mode);
-  // Severity is primary source; SLA fills gaps for variants severity doesn't cover
-  return { ...slaOverrides, ...severityOverrides };
+
+  // Start with severity as base (provides background + textColor for solid badges).
+  // For overlapping variants, take borderColor from SLA (drives outline badge color).
+  // SLA-only variants get full SLA data.
+  const result: Record<string, BadgeVariantOverride> = { ...severityOverrides };
+
+  for (const [variant, slaData] of Object.entries(slaOverrides)) {
+    const existing = result[variant];
+    if (existing) {
+      result[variant] = { ...existing, borderColor: slaData.borderColor };
+    } else {
+      result[variant] = slaData;
+    }
+  }
+
+  return result;
+}
+
+interface BadgeTypographyOverride {
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  letterSpacing: string;
+}
+
+function extractBadgeTypography(
+  badges: NonNullable<FigmaExtraction['badges']>,
+): BadgeTypographyOverride | undefined {
+  const sections = [badges.severity, badges.sla];
+  for (const section of sections) {
+    if (!section) continue;
+    for (const modeData of [section.light, section.dark]) {
+      for (const colorData of Object.values(modeData)) {
+        if (colorData.fontFamily) {
+          return {
+            fontFamily: colorData.fontFamily,
+            fontSize: colorData.fontSize ?? '10px',
+            fontWeight: colorData.fontWeight ?? '500',
+            lineHeight: colorData.lineHeight ?? '15px',
+            letterSpacing: colorData.letterSpacing ?? '0px',
+          };
+        }
+      }
+    }
+  }
+  return undefined;
 }
 
 function main(): void {
@@ -97,6 +143,14 @@ function main(): void {
   mkdirSync(SECTIONS_DIR, { recursive: true });
   writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
   console.log(`Written: ${OUTPUT_PATH}`);
+
+  const typography = extractBadgeTypography(extraction.badges);
+  if (typography) {
+    const alertBadgesOutput = { light: {}, dark: {}, typography };
+    writeFileSync(ALERT_BADGES_OUTPUT_PATH, JSON.stringify(alertBadgesOutput, null, 2));
+    console.log(`Typography: ${typography.fontFamily} ${typography.fontSize}/${typography.lineHeight}`);
+    console.log(`Written: ${ALERT_BADGES_OUTPUT_PATH}`);
+  }
 }
 
 main();

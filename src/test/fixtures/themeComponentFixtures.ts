@@ -543,6 +543,15 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
   cards: createCards(),
   modals: createModals(),
   badges: createBadges(),
+  alertBadges: {
+    typography: {
+      fontFamily: 'inherit',
+      fontSize: '0.75rem',
+      fontWeight: '600',
+      lineHeight: '1.5',
+      letterSpacing: '0px',
+    },
+  },
   select: createSelect(),
   datePicker: createDatePicker(),
   dialog: createDialog(),

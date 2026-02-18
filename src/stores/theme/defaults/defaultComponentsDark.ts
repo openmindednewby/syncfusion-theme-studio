@@ -158,5 +158,14 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     info: { background: '50 42 22', textColor: '253 230 178', borderColor: '245 202 128' },
     borderRadius: 'full', padding: '2px 8px',
   },
+  alertBadges: {
+    typography: {
+      fontFamily: 'inherit',
+      fontSize: '0.75rem',
+      fontWeight: '600',
+      lineHeight: '1.5',
+      letterSpacing: '0px',
+    },
+  },
   pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK, ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,
 };

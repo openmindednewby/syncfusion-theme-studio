@@ -3,6 +3,7 @@
 import { injectAvatarVariables, injectProgressBarVariables, injectTabsVariables, injectTimelineVariables, injectTooltipVariables } from './dataDisplayInjector';
 import { injectDataGridVariables } from './dataGridInjector';
 import { injectAlertVariables, injectChipVariables, injectDatePickerVariables, injectDialogVariables, injectErrorMessageVariables, injectFlexBoxVariables, injectMessageVariables, injectSelectVariables, injectToastVariables } from './feedbackInjector';
+import { loadGoogleFont } from './fontLoader';
 import { injectAccordionVariables, injectBreadcrumbVariables, injectMenuVariables, injectToolbarVariables } from './navigationInjector';
 import { injectPaginationVariables } from './paginationInjector';
 
@@ -130,6 +131,16 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-badge-info-outline-bg', `rgb(${c.badges.info.borderColor} / 0.2)`);
 }
 
+export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  const { typography } = c.alertBadges;
+  loadGoogleFont(typography.fontFamily, typography.fontWeight);
+  root.style.setProperty('--component-alert-badge-font-family', typography.fontFamily);
+  root.style.setProperty('--component-alert-badge-font-size', typography.fontSize);
+  root.style.setProperty('--component-alert-badge-font-weight', typography.fontWeight);
+  root.style.setProperty('--component-alert-badge-line-height', typography.lineHeight);
+  root.style.setProperty('--component-alert-badge-letter-spacing', typography.letterSpacing);
+}
+
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {
   injectHeaderVariables(root, components);
   injectSidebarVariables(root, components);
@@ -139,6 +150,7 @@ export function injectComponentVariables(root: HTMLElement, components: Componen
   injectCardVariables(root, components);
   injectModalVariables(root, components);
   injectBadgeVariables(root, components);
+  injectAlertBadgeVariables(root, components);
   injectSelectVariables(root, components);
   injectDatePickerVariables(root, components);
   injectDialogVariables(root, components);

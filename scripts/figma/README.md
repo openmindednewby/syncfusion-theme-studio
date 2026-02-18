@@ -42,7 +42,8 @@ ThemeConfig
   │     ├── light: ComponentConfigSingle
   │     │     ├── header, sidebar
   │     │     ├── buttons, inputs
-  │     │     ├── badges    <-- Figma pipeline writes here
+  │     │     ├── badges       <-- Figma pipeline writes colors here
+  │     ├── alertBadges  <-- Figma pipeline writes typography here
   │     │     ├── cards, modals, select, datePicker, ...
   │     │     └── (25+ component sections)
   │     └── dark: ComponentConfigSingle
@@ -181,6 +182,30 @@ src/stores/theme/
 
 ---
 
+## Badges vs Alert Badges
+
+The app has two distinct badge component families that share **colors** but differ in **typography**:
+
+| Component | Config Key | Purpose | Typography |
+|-----------|-----------|---------|------------|
+| `BadgeNative` | `badges` | General-purpose badge (dot, count, label) | Hardcoded via Tailwind (`text-xs font-medium`) |
+| `SyncfusionBadge` | `badges` | Syncfusion badge wrapper | Same Tailwind classes |
+| `AlertBadge` | `badges` (colors) + `alertBadges` (typography) | Severity/SLA badges in alert grids | Configurable via CSS variables |
+
+**Color variables** (`--component-badge-*-bg`, `--component-badge-*-text`, `--component-badge-*-border`) are shared by all three components and come from the `badges` config.
+
+**Typography variables** (`--component-alert-badge-font-*`) are only used by `AlertBadge` and come from the `alertBadges` config. The Figma design specifies `Fira Sans Condensed`, `500`, `10px`, `15px` for these badges.
+
+In the **Theme Settings drawer**, these appear as two separate sections:
+- **Badges**: Color pickers for success/warning/error/info variants (shared by all badge components)
+- **Alert Badges**: Typography controls (font family, size, weight, line height, letter spacing) specific to `AlertBadge`
+
+The Figma pipeline writes:
+- `data/figma-sections/badges.json` — color overrides for all badge components
+- `data/figma-sections/alertBadges.json` — typography overrides for `AlertBadge` only
+
+---
+
 ## Badge Pipeline Detail
 
 ### Extraction (extract.ts)
@@ -223,8 +248,9 @@ Maps Figma labels to theme badge variant keys:
 
 Severity mappings take priority. SLA mappings fill gaps for variants not covered by severity.
 
-Output: `data/figma-sections/badges.json`
+Output: `data/figma-sections/badges.json` (colors) + `data/figma-sections/alertBadges.json` (typography)
 ```json
+// badges.json — shared colors for all badge components
 {
   "light": {
     "error":   { "background": "239 68 68",  "textColor": "255 255 255", "borderColor": "239 68 68" },
@@ -233,6 +259,19 @@ Output: `data/figma-sections/badges.json`
     "success": { "background": "123 164 175","textColor": "255 255 255", "borderColor": "123 164 175" }
   },
   "dark": { ... }
+}
+
+// alertBadges.json — typography for AlertBadge only
+{
+  "light": {},
+  "dark": {},
+  "typography": {
+    "fontFamily": "Fira Sans Condensed",
+    "fontSize": "10px",
+    "fontWeight": "500",
+    "lineHeight": "15px",
+    "letterSpacing": "0px"
+  }
 }
 ```
 

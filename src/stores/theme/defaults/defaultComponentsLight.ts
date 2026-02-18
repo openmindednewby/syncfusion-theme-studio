@@ -158,5 +158,14 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     info: { background: '254 249 235', textColor: '146 107 33', borderColor: '245 202 128' },
     borderRadius: 'full', padding: '2px 8px',
   },
+  alertBadges: {
+    typography: {
+      fontFamily: 'inherit',
+      fontSize: '0.75rem',
+      fontWeight: '600',
+      lineHeight: '1.5',
+      letterSpacing: '0px',
+    },
+  },
   pagination: DEFAULT_PAGINATION_LIGHT, ...DEFAULT_FEEDBACK_LIGHT, ...DEFAULT_NAVIGATION_LIGHT, ...DEFAULT_DATA_DISPLAY_LIGHT,
 };

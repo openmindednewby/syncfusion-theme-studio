@@ -53,6 +53,8 @@ export type {
   DataGridConfig,
   CardsConfig,
   ModalsConfig,
+  AlertBadgesConfig,
+  BadgeTypography,
   BadgeVariant,
   BadgesConfig,
   AccordionConfig,

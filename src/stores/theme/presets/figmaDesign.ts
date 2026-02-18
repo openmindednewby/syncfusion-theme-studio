@@ -49,7 +49,7 @@ const FIGMA_COMPONENTS: ComponentsConfig = {
         borderColor: '16 185 129',
       },
       padding: {
-        paddingTop: '5px',
+        paddingTop: '7px',
         paddingRight: '5px',
         paddingBottom: '5px',
         paddingLeft: '5px',
@@ -111,7 +111,7 @@ const FIGMA_COMPONENTS: ComponentsConfig = {
         borderColor: '16 185 129',
       },
       padding: {
-        paddingTop: '5px',
+        paddingTop: '7px',
         paddingRight: '5px',
         paddingBottom: '5px',
         paddingLeft: '5px',

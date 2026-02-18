@@ -155,6 +155,22 @@ Example — fixing light mode badge text color from white to dark:
 }
 ```
 
+How it works in practice:
+
+```
+data/figma-sections/alertBadges.json     (Figma API output — paddingTop: "2px")
+         +
+data/figma-corrections/alertBadges.json  (our override — paddingTop: "7px")
+         =
+src/stores/theme/presets/figmaDesign.ts  (generated — paddingTop: "7px")
+```
+
+The `figma-corrections/` directory currently has two files:
+- **`badges.json`** — fixes light mode text colors (white → dark)
+- **`alertBadges.json`** — fixes paddingTop (2px → 7px)
+
+If you re-run `figma:extract` and `figma:generate:badges` in the future, the section JSONs get overwritten but the corrections persist and are re-applied automatically on the next `figma:generate`.
+
 **Phase 3: Main Generator** (`npm run figma:generate`)
 
 - Reads `data/figma-extract.json` for general color/mode mappings

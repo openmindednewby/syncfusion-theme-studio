@@ -329,6 +329,44 @@
   background-color: var(--component-datagrid-action-btn-hover) !important;
 }
 
+/* ===== NATIVE GRID CHECKBOX ===== */
+.native-grid-checkbox {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid var(--component-datagrid-cell-border);
+  border-radius: 4px;
+  background-color: var(--component-datagrid-row-even);
+  cursor: pointer;
+  position: relative;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.native-grid-checkbox:checked {
+  background-color: var(--component-datagrid-pagination-active-bg);
+  border-color: var(--component-datagrid-pagination-active-bg);
+}
+
+.native-grid-checkbox:checked::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1px;
+  width: 4px;
+  height: 9px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Override global 44px touch target for compact header triggers */
+.native-grid-colmenu-trigger {
+  min-height: unset;
+  min-width: unset;
+}
+
 /* ===== ALERTS ===== */
 .alert {
   display: flex;

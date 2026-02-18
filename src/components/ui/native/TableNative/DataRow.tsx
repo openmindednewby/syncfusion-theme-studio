@@ -116,7 +116,6 @@ const DataRow = ({
     >
       {showCheckbox ? (
         <CheckboxCell
-          cellPadding={cellPadding}
           isSelected={state.isSelected}
           row={row}
           rowId={state.rowId}

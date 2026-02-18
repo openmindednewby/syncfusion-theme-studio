@@ -16,7 +16,8 @@ import { TextAlign } from './types';
 
 import type { TableColumn } from './types';
 
-const HEADER_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-header-text-padding)' };
+const CHECKBOX_HEADER_STYLE: React.CSSProperties = { padding: 0, width: '50px', textAlign: 'center', verticalAlign: 'middle' };
+const HEADER_LINE_HEIGHT = '1';
 const SORT_ASCENDING_INDICATOR = '\u25B2';
 const SORT_DESCENDING_INDICATOR = '\u25BC';
 
@@ -121,14 +122,15 @@ const TableHeader = ({
         style={{
           backgroundColor: 'var(--component-datagrid-header-bg)',
           borderColor: 'var(--component-datagrid-header-border)',
+          height: '32px',
         }}
       >
         {showCheckbox ? (
-          <th className={cn(cellPadding, 'w-10 text-center')} scope="col" style={HEADER_PADDING_STYLE}>
+          <th scope="col" style={CHECKBOX_HEADER_STYLE}>
             <input
               aria-label={FM('table.selectAll')}
               checked={isAllSelected}
-              className="h-4 w-4"
+              className="native-grid-checkbox"
               data-testid="select-all-checkbox"
               type="checkbox"
               onChange={onSelectAll}
@@ -164,6 +166,7 @@ const TableHeader = ({
                 fontWeight: 'var(--component-datagrid-header-font-weight)',
                 letterSpacing: 'var(--component-datagrid-header-letter-spacing)',
                 verticalAlign: 'var(--component-datagrid-header-vertical-align)',
+                lineHeight: HEADER_LINE_HEIGHT,
                 ...buildColumnStyle(column),
               }}
               onClick={() => onSort(column.field)}

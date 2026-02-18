@@ -15,13 +15,13 @@ import type { EditingHandlers, SelectionHandlers, CellEditContext } from './Data
 import type { TableColumn } from './types';
 
 const CELL_PADDING_STYLE: React.CSSProperties = { padding: 'var(--component-datagrid-cell-padding)' };
+const CHECKBOX_CELL_STYLE: React.CSSProperties = { padding: 0, width: '50px', textAlign: 'center', verticalAlign: 'middle' };
 
 // -- CheckboxCell --
 
 interface CheckboxCellProps {
   rowId: unknown;
   isSelected: boolean;
-  cellPadding: string;
   row: Record<string, unknown>;
   rowIndex: number;
   selection: SelectionHandlers | undefined;
@@ -29,12 +29,12 @@ interface CheckboxCellProps {
 
 /** Render the selection checkbox cell */
 const CheckboxCell = memo(({
-  rowId, isSelected, cellPadding, row, rowIndex, selection,
+  rowId, isSelected, row, rowIndex, selection,
 }: CheckboxCellProps): JSX.Element => (
-  <td className={cn(cellPadding, 'text-center')} style={CELL_PADDING_STYLE}>
+  <td style={CHECKBOX_CELL_STYLE}>
     <input
       checked={isSelected}
-      className="h-4 w-4"
+      className="native-grid-checkbox"
       data-testid={`row-checkbox-${String(rowId)}`}
       type="checkbox"
       onChange={() => {

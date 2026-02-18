@@ -20,6 +20,7 @@ export const Sidebar = (): JSX.Element => {
   const [isHovered, setIsHovered] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const sidebarRef = useRef<HTMLElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
 
   const effectivelyCollapsed = isCollapsed && !isHovered;
   const collapsedClass = effectivelyCollapsed ? 'collapsed' : '';
@@ -28,13 +29,27 @@ export const Sidebar = (): JSX.Element => {
   useEffect(() => {
     const el = sidebarRef.current;
     if (!isValueDefined(el)) return;
-    const enter = (): void => { if (isCollapsed) setIsHovered(true); };
+    const isOverHeader = (target: EventTarget | null): boolean => {
+      const header = headerRef.current;
+      return isValueDefined(header) && target instanceof Node && header.contains(target);
+    };
+    const enter = (e: MouseEvent): void => {
+      if (!isCollapsed) return;
+      if (isOverHeader(e.target)) return;
+      setIsHovered(true);
+    };
     const leave = (): void => setIsHovered(false);
+    const move = (e: MouseEvent): void => {
+      if (!isCollapsed) return;
+      setIsHovered(!isOverHeader(e.target));
+    };
     el.addEventListener('mouseenter', enter);
     el.addEventListener('mouseleave', leave);
+    el.addEventListener('mousemove', move);
     return () => {
       el.removeEventListener('mouseenter', enter);
       el.removeEventListener('mouseleave', leave);
+      el.removeEventListener('mousemove', move);
     };
   }, [isCollapsed]);
 
@@ -45,7 +60,7 @@ export const Sidebar = (): JSX.Element => {
       data-collapsed={effectivelyCollapsed ? 'true' : 'false'}
       data-testid={TestIds.SIDEBAR}
     >
-      <SidebarHeader isCollapsed={effectivelyCollapsed} onToggle={toggle} />
+      <SidebarHeader headerRef={headerRef} isCollapsed={effectivelyCollapsed} onToggle={toggle} />
       <SidebarSearch
         isCollapsed={effectivelyCollapsed}
         searchQuery={searchQuery}

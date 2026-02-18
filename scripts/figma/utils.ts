@@ -29,6 +29,16 @@ export function extractSolidFill(
   return solidFill?.color;
 }
 
+/** Extract the first visible solid fill with its paint opacity */
+export function extractSolidFillWithOpacity(
+  node: FigmaNode,
+): { color: FigmaColor; opacity: number } | undefined {
+  const fills = node.fills ?? [];
+  const solidFill = fills.find(isVisibleSolidPaint);
+  if (!solidFill?.color) return undefined;
+  return { color: solidFill.color, opacity: solidFill.opacity ?? 1 };
+}
+
 /** Extract the first visible solid stroke color from a node */
 export function extractSolidStroke(
   node: FigmaNode,

@@ -20,6 +20,22 @@ Login page light house result for production build
   - [API Integration](#api-integration)
   - [Code Standards](#code-standards)
   - [Icons](#icons)
+    - [Generation Script](#generation-script)
+  - [Figma Integration](#figma-integration)
+    - [Two Theme Paths](#two-theme-paths)
+    - [Three-Phase Pipeline](#three-phase-pipeline)
+    - [Figma API Setup](#figma-api-setup)
+    - [Mapping Configuration](#mapping-configuration)
+    - [Script Files](#script-files)
+    - [Commands](#commands)
+    - [Adding a New Section](#adding-a-new-section)
+    - [Section Readiness Tracker](#section-readiness-tracker)
+    - [Icons from Figma](#icons-from-figma)
+  - [Local Development Pipeline](#local-development-pipeline)
+    - [Automatic Startup Order](#automatic-startup-order)
+    - [Resource Reference](#resource-reference)
+    - [Port Summary](#port-summary)
+    - [Common Workflows](#common-workflows)
   - [Performance Optimization Details](#performance-optimization-details)
     - [The Problem](#the-problem)
     - [Root Causes Identified](#root-causes-identified)
@@ -230,15 +246,37 @@ This project follows strict coding standards:
 
 ## Icons
 
-All reusable SVG icons live in `src/components/icons/`, split into 3 files for natural Vite code-splitting:
+All reusable SVG icons live in `src/components/icons/`, organized for natural Vite code-splitting:
 
 | File | Contents | When Loaded |
 |------|----------|-------------|
 | `AppIcons.tsx` | 28 core icons (sidebar, header, brand) | Every page |
 | `SettingsIcons.tsx` | 19 drawer icons (tabs, import/export, sections) | When settings drawer opens |
 | `ShowcaseIcons.tsx` | 22 demo icons (toolbar, breadcrumb, buttons) | Demo pages only |
+| `ThemeIcons.tsx` | 2 theme toggle icons (sun/moon) | Header |
+| `FeatherIconsA–Z.tsx` | 270 auto-generated Feather icons (25 files) | On demand (tree-shaken) |
+| `CustomIcons.tsx` | 17 custom media/action icons + aliases | On demand |
 
-**Supporting files:** `types.ts` (shared `IconProps` interface), `index.ts` (barrel re-export).
+**Supporting files:** `types.ts` (shared `IconProps` interface), `index.ts` (barrel re-export), `featherIconEntries.ts` (icon list for showcase page).
+
+**Total: 357 icon components** available.
+
+### Generation Script
+
+The Feather icons are auto-generated from the `feather-icons` npm package (devDependency):
+
+```bash
+# Regenerate all Feather icon files
+node scripts/generate-feather-icons.mjs
+```
+
+The script:
+1. Reads all SVG icons from the `feather-icons` package
+2. Converts them to React TSX components matching the project pattern (`defaults` spread, `IconProps`, `currentColor`)
+3. Splits output into alphabetical files (A–Z) to stay under the 300-line ESLint limit
+4. Skips 18 icons already defined in `AppIcons.tsx` to avoid duplicates
+
+To add a new hand-coded icon, add it to the appropriate file (`AppIcons`, `SettingsIcons`, `ShowcaseIcons`, or `CustomIcons`) based on where it's consumed.
 
 ### Rules
 
@@ -255,6 +293,367 @@ These are **stateful mini-components**, not reusable icons:
 - `ThemeToggleNative` — Sun/Moon with animation states and hardcoded colors
 - `SelectNative/ChevronIcon` — Memoized with `isOpen` prop and wrapper span
 - `NativeChipShowcase` — 2 tiny inline SVGs (3 lines each) inside JSX
+
+---
+
+## Figma Integration
+
+The project includes an optional Figma-to-Theme sync pipeline that extracts design tokens from the Figma API and applies them to the **Figma Design** preset theme only. All other preset themes (Fremen, Voyager, CyberWatch, etc.) are manually authored and are not affected by this pipeline.
+
+The app works with or without Figma data. When the pipeline has not been run, the Figma Design preset falls back to defaults.
+
+### Two Theme Paths
+
+There are 18 preset themes. Each is a complete `ThemeConfig`. They follow two distinct paths:
+
+**Path 1 — Manually Authored Presets (17 themes)**
+
+```
+Hand-authored TypeScript file (e.g. fremen.ts, cyberWatch.ts)
+    │
+    v
+ThemeConfig (complete preset with all sections)
+    │
+    v
+useThemeStore (Zustand)
+    │
+    v
+injectThemeVariables()
+    │
+    v
+CSS custom properties on :root
+    │
+    ├──> BadgeNative        (reads --component-badge-error-bg, etc.)
+    ├──> SyncfusionBadge    (reads the same CSS vars)
+    ├──> AlertBadge          (reads the same CSS vars)
+    └──> Every other component...
+```
+
+These presets are written by hand in `src/stores/theme/presets/`. Each file exports a complete `ThemeConfig` with colors, typography, spacing, shadows, and per-component overrides for light and dark modes. No Figma dependency.
+
+**Path 2 — Figma Design Preset (1 theme, generated)**
+
+```
+Figma REST API
+    │
+    v
+figma:extract              data/figma-extract.json        (1 API call, stores everything)
+    │
+    v
+figma:generate:badges      data/figma-sections/badges.json (per-section intermediate)
+figma:generate:buttons     data/figma-sections/buttons.json (future)
+figma:generate:input       data/figma-sections/input.json   (future)
+    ...
+    │
+    v
+figma:generate             reads extract + ALL section JSONs
+                           writes ONE src/stores/theme/presets/figmaDesign.ts
+    │
+    v
+ThemeConfig (with Figma overrides, defaults for unsynced sections)
+    │
+    v
+useThemeStore (Zustand)
+    │
+    v
+injectThemeVariables()
+    │
+    v
+CSS custom properties on :root
+    │
+    ├──> BadgeNative        (reads --component-badge-error-bg, etc.)
+    ├──> SyncfusionBadge    (reads the same CSS vars)
+    └──> Every other component...
+```
+
+The generated `figmaDesign.ts` spreads `DEFAULT_COMPONENTS_LIGHT`/`DEFAULT_COMPONENTS_DARK` and only overrides the sections that have a corresponding `data/figma-sections/<name>.json` file. Unsynced sections keep their default values.
+
+**Both paths converge at the same point**: the Zustand store injects CSS variables, and both Native and Syncfusion components read the same CSS vars — so they always look identical regardless of which path produced the theme.
+
+| Preset | Source | Figma-synced? |
+|--------|--------|:---:|
+| Fremen | `presets/fremen.ts` | No |
+| Oceanus | `presets/oceanus.ts` | No |
+| CyberWatch | `presets/cyberWatch.ts` | No |
+| Default Blue | `defaultTheme.ts` | No |
+| Voyager, Ocean Blue, Forest Green, ... | `presets/*.ts` | No |
+| **Figma Design** | **`presets/figmaDesign.ts`** | **Yes** |
+
+### Three-Phase Pipeline
+
+**Phase 1: Extract** (`npm run figma:extract`)
+
+- Makes one API call to the Figma REST API
+- Walks the document tree for each section (badges, buttons, etc.)
+- Stores raw extracted data in `data/figma-extract.json`
+- This is the only step that requires network access and `FIGMA_API_TOKEN`
+
+**Phase 2: Section Generators** (`npm run figma:generate:<section>`)
+
+Each section has its own dedicated generator script that:
+1. Reads `data/figma-extract.json` (no API call)
+2. Maps Figma labels/nodes to theme variant keys
+3. Writes an intermediate JSON to `data/figma-sections/<section>.json`
+
+Section generators are independent. You can run one without running the others.
+
+| Section | Script | Status |
+|---------|--------|--------|
+| Badges | `generate-badges.ts` | Implemented |
+| Typography | stub | Future |
+| Colours | stub | Future |
+| Buttons | stub | Future |
+| Input | stub | Future |
+| (21 more) | stub | Future |
+
+**Phase 3: Main Generator** (`npm run figma:generate`)
+
+- Reads `data/figma-extract.json` for general color/mode mappings
+- Reads ALL `data/figma-sections/*.json` files (auto-discovered)
+- Combines everything into one `figmaDesign.ts` preset
+- Component section JSONs become inline overrides in the `FIGMA_COMPONENTS` constant
+
+### Full Sync
+
+`npm run figma:sync` runs all three phases in order:
+
+```
+extract  -->  generate:badges  -->  generate
+```
+
+### Figma API Setup
+
+Two environment variables are required (both in `.env`):
+
+| Variable | Source | Example |
+|----------|--------|---------|
+| `FIGMA_API_TOKEN` | Figma > Settings > Personal access tokens | `figd_abc123...` |
+| `FIGMA_FILE_KEY` | The file ID from the Figma URL (`figma.com/file/<KEY>/...`) | `AbCdEf12345` |
+
+Both are optional. Without them, the `figma:*` commands will exit with a helpful message and no other functionality is affected.
+
+### Mapping Configuration
+
+`scripts/figma/figma-mapping.ts` defines how Figma node paths map to `ThemeConfig` properties. It supports:
+
+- **Shared mappings** — applied to both light and dark themes (e.g., border radii, font families)
+- **Separate light/dark mappings** — different Figma nodes for each mode (e.g., background colors, text colors)
+
+Edit this file to add or change which Figma styles map to which theme properties.
+
+### Script Files
+
+```
+scripts/figma/
+  extract.ts                    Phase 1: Figma API -> JSON
+  generate-badges.ts            Phase 2: Badges section generator
+  generate.ts                   Phase 3: Combines sections -> figmaDesign.ts
+  code-generators.ts            TypeScript code generation helpers
+  figma-mapping.ts              Color/mode mapping rules (manual config)
+  types.ts                      Shared TypeScript types
+  utils.ts                      Color conversion and tree traversal utilities
+  discover.ts                   Exploration tool for Figma file structure
+  data/
+    figma-extract.json          Raw API extraction output
+    figma-sections/
+      badges.json               Badge section overrides (generated)
+      buttons.json              (future)
+      ...
+```
+
+### Commands
+
+| Command | Description |
+|---------|-------------|
+| `npm run figma:extract` | Fetch Figma file and save raw extraction JSON |
+| `npm run figma:generate:badges` | Generate badge section overrides from extraction |
+| `npm run figma:generate` | Combine all sections into `figmaDesign.ts` |
+| `npm run figma:sync` | Full pipeline: extract + all generators + combine |
+| `npm run figma:discover` | Explore Figma file structure (development tool) |
+
+### Adding a New Section
+
+To implement a new section generator (e.g., buttons):
+
+1. **Create `generate-buttons.ts`** that reads `figma-extract.json`, maps Figma values to theme keys, writes `data/figma-sections/buttons.json`
+2. **Update extraction** in `extract.ts` if the section needs new node parsing logic
+3. **Replace the stub** in `package.json`: change `"figma:generate:buttons": "echo [STUB]..."` to `"figma:generate:buttons": "tsx scripts/figma/generate-buttons.ts"`
+4. **Update `figma:sync`** to include the new generator in the pipeline chain
+5. **Run `figma:generate`** which automatically picks up `buttons.json` and adds it to `figmaDesign.ts`
+
+The main generator discovers section files automatically from `data/figma-sections/*.json`.
+
+### Section Readiness Tracker
+
+| Category | Section | Ready Design | Variables Defined | Generation Script | App Integration |
+|----------|---------|:---:|:---:|:---:|:---:|
+| Foundation | Typography | Yes | - | stub | - |
+| Foundation | Colours | Yes | - | stub | - |
+| Foundation | Layouts / Grid | Review | - | stub | - |
+| Foundation | Icons | - | - | stub | - |
+| Components | **Badges** | **Yes** | **Yes** | **generate-badges.ts** | **Yes** |
+| Components | Buttons | Yes | - | stub | - |
+| Components | Description | Yes | - | stub | - |
+| Components | Input | Yes | - | stub | - |
+| Components | Drawer | Future | - | stub | - |
+| Components | External Link | Yes | - | stub | - |
+| Components | Notifications / Alerts | Future | - | stub | - |
+| Components | Image | Future | - | stub | - |
+| Components | Navigation Menus | - | - | stub | - |
+| Components | Drop Down Lists | - | - | stub | - |
+| Components | Breadcrumbs | - | - | stub | - |
+| Components | Data Grid | - | - | stub | - |
+| Components | Combobox | - | - | stub | - |
+| Components | Filtering / Search | - | - | stub | - |
+| Components | Pagination | - | - | stub | - |
+| Components | Progress | - | - | stub | - |
+| Components | Skeleton | - | - | stub | - |
+| Components | Slider | - | - | stub | - |
+| Components | Subhead | - | - | stub | - |
+
+### Icons from Figma
+
+The Figma design file (the same one linked via `FIGMA_FILE_KEY`) also contains the icon reference — a complete Feather Icons set plus custom media icons. The icon SVGs in the codebase were generated to match the Figma design's icon page.
+
+The `scripts/generate-feather-icons.mjs` script uses the `feather-icons` npm package rather than the Figma API for icon generation, since Feather icons are standardized and the npm package is the canonical source. See the [Generation Script](#generation-script) section above.
+
+---
+
+## Local Development Pipeline
+
+[Tilt](https://tilt.dev/) orchestrates the entire development workflow. It manages dependency ordering, runs quality checks before the dev server starts, and provides a dashboard to trigger manual actions. Every resource has a clear purpose in the pipeline.
+
+```bash
+# Start the pipeline (opens Tilt dashboard at http://localhost:10351)
+tilt up
+
+# Start on a specific port
+tilt up --port=10351
+```
+
+### Automatic Startup Order
+
+When you run `tilt up`, these resources execute automatically in dependency order:
+
+```
+theme-studio-lint          ESLint check (gate 1)
+        │
+        v
+theme-studio-unit-tests    Jest with coverage (gate 2)
+        │
+        v
+theme-studio-dev           Vite dev server on port 4444 (ready)
+```
+
+The pipeline enforces that **lint must pass before tests run**, and **tests must pass before the dev server starts**. If lint fails, nothing downstream starts. This prevents wasting time developing against broken code.
+
+### Resource Reference
+
+#### Dev (automatic)
+
+| Resource | Command | Trigger | Why It Exists |
+|----------|---------|---------|---------------|
+| `theme-studio-lint` | `npm run lint` | Auto | Catches code style violations, unused imports, accessibility issues, and enforces the 300-line file limit before tests run. Failing early here saves a full test cycle. |
+| `theme-studio-lint-fix` | `npm run lint:fix` | Manual | Auto-fixes all fixable ESLint violations (import order, spacing, trailing commas). Run this instead of fixing lint errors by hand. |
+| `theme-studio-unit-tests` | `npm run test:coverage` | Auto (after lint) | Runs the full Vitest suite with coverage reporting. Blocks the dev server from starting if any test fails, ensuring you never develop against a broken test baseline. |
+| `theme-studio-unit-tests-watch` | `npm run test` | Manual | Starts Vitest in watch mode for TDD workflows. Re-runs affected tests on every file save. Does not block anything — use alongside the dev server. |
+| `theme-studio-dev` | `npm run dev` | Auto (after tests) | Starts the Vite dev server on **port 4444** with HMR. Only starts after lint and tests pass. Links to Dashboard, Products, Native Components, Syncfusion Components, and Login pages. |
+
+#### Build (manual)
+
+These resources are triggered manually because production builds are expensive and not needed during normal development.
+
+| Resource | Command | Trigger | Why It Exists |
+|----------|---------|---------|---------------|
+| `theme-studio-typecheck` | `npm run typecheck` | Manual | Runs `tsc --noEmit` for full TypeScript type checking. Vite's dev server skips type checking for speed, so this catches type errors that HMR misses. Run before committing. |
+| `theme-studio-build` | `npm run build` | Manual (after hooks) | Creates an optimized production bundle with Vite. Depends on `theme-studio-generate-hooks` so the build always has the latest API types. Used for Lighthouse audits and deployment. |
+| `theme-studio-prod` | `npm run preview` | Manual (after build) | Serves the production build on **port 4445**. Use this to verify the production bundle locally — minified JS, code-split CSS, real chunk sizes. Required before running Lighthouse. |
+
+#### Testing (manual)
+
+| Resource | Command | Trigger | Why It Exists |
+|----------|---------|---------|---------------|
+| `theme-studio-e2e` | `npm run test:e2e` | Manual (after dev) | Runs Playwright E2E tests against the running dev server. Tests real browser interactions (login flow, theme switching, component showcase navigation). Depends on `theme-studio-dev` being healthy. |
+
+#### Quality (manual)
+
+Quality gates are manual because they're slow, network-dependent, or only needed before releases.
+
+| Resource | Command | Trigger | Why It Exists |
+|----------|---------|---------|---------------|
+| `theme-studio-lighthouse-prod` | `npm run lighthouse:prod:ci && ...` | Manual (after prod) | Runs a Lighthouse audit against the production preview server, asserts score thresholds, generates an HTML report, and opens it. Requires `theme-studio-prod` running on port 4445. Use to verify the 98/100 performance score hasn't regressed. |
+| `theme-studio-bundle-analyze` | `npm run analyze` | Manual | Generates a visual treemap of the production bundle. Shows which dependencies are largest and where code-splitting boundaries are. Use when investigating bundle size regressions. |
+| `theme-studio-security-audit` | `npm audit --audit-level=high` | Manual | Checks all npm dependencies for known vulnerabilities at severity `high` or above. Run before releases or after adding new dependencies. |
+| `theme-studio-deps-health` | `npm outdated` | Manual | Lists all outdated npm packages with current vs latest versions. Helps plan dependency upgrades. Always succeeds (exit 0) even when packages are outdated. |
+
+#### CodeGen (manual)
+
+| Resource | Command | Trigger | Why It Exists |
+|----------|---------|---------|---------------|
+| `theme-studio-generate-hooks` | `npm run api:generate` | Manual | Runs Orval to generate type-safe React Query hooks from OpenAPI specs. Must be triggered after API contract changes. The production build depends on this resource to ensure generated types are fresh. |
+
+#### Figma (manual)
+
+All Figma resources are manual-trigger and require `FIGMA_API_TOKEN` / `FIGMA_FILE_KEY` env vars. See [Figma Integration](#figma-integration) for the full pipeline documentation.
+
+| Resource | Command | Why It Exists |
+|----------|---------|---------------|
+| `figma-extract` | `npm run figma:extract` | Single API call to Figma REST API. Saves the entire document tree to `data/figma-extract.json`. All other Figma generators read from this file (no additional API calls). |
+| `figma-discover` | `npm run figma:discover` | Exploration tool that lists all available styles and nodes in the Figma file. Use when mapping new sections to find the correct Figma node paths. |
+| `figma-generate-badges` | `npm run figma:generate:badges` | Generates badge component theme overrides from extracted Figma data. **Implemented** — produces `data/figma-sections/badges.json`. |
+| `figma-generate-typography` | `npm run figma:generate:typography` | Stub for future typography section generation (font families, sizes, weights). |
+| `figma-generate-colours` | `npm run figma:generate:colours` | Stub for future color palette generation (primary, status, surface colors). |
+| `figma-generate-layouts` | `npm run figma:generate:layouts` | Stub for future layout/grid section generation (spacing, breakpoints). |
+| `figma-generate-icons` | `npm run figma:generate:icons` | Stub for future icon metadata generation from Figma. (Icon SVGs use the `feather-icons` npm package instead.) |
+| `figma-generate-buttons` | `npm run figma:generate:buttons` | Stub for future button component theme generation. |
+| `figma-generate-description` | `npm run figma:generate:description` | Stub for future description/text component generation. |
+| `figma-generate-input` | `npm run figma:generate:input` | Stub for future input field theme generation. |
+| `figma-generate-drawer` | `npm run figma:generate:drawer` | Stub for future drawer/sidebar component generation. |
+| `figma-generate-external-link` | `npm run figma:generate:external-link` | Stub for future external link component generation. |
+| `figma-generate-notifications` | `npm run figma:generate:notifications` | Stub for future notification/alert component generation. |
+| `figma-generate-image` | `npm run figma:generate:image` | Stub for future image component generation. |
+| `figma-generate-nav-menus` | `npm run figma:generate:nav-menus` | Stub for future navigation menu generation. |
+| `figma-generate-dropdowns` | `npm run figma:generate:dropdowns` | Stub for future dropdown list generation. |
+| `figma-generate-breadcrumbs` | `npm run figma:generate:breadcrumbs` | Stub for future breadcrumb component generation. |
+| `figma-generate-data-grid` | `npm run figma:generate:data-grid` | Stub for future data grid theme generation. |
+| `figma-generate-combobox` | `npm run figma:generate:combobox` | Stub for future combobox component generation. |
+| `figma-generate-filtering` | `npm run figma:generate:filtering` | Stub for future search/filter component generation. |
+| `figma-generate-pagination` | `npm run figma:generate:pagination` | Stub for future pagination component generation. |
+| `figma-generate-progress` | `npm run figma:generate:progress` | Stub for future progress bar generation. |
+| `figma-generate-skeleton` | `npm run figma:generate:skeleton` | Stub for future skeleton loader generation. |
+| `figma-generate-slider` | `npm run figma:generate:slider` | Stub for future slider component generation. |
+| `figma-generate-subhead` | `npm run figma:generate:subhead` | Stub for future subhead component generation. |
+| `figma-generate` | `npm run figma:generate` | Main generator that reads `figma-extract.json` plus all `data/figma-sections/*.json` files and produces the final `figmaDesign.ts` preset. |
+| `figma-sync` | `npm run figma:sync` | Full pipeline shortcut: runs extract, then all section generators, then the main generator in sequence. |
+
+#### MockServer (manual)
+
+| Resource | Command | Trigger | Why It Exists |
+|----------|---------|---------|---------------|
+| `mock-server` | `dotnet run MockServer.Web` | Manual | Starts a .NET mock API server on **port 5150** that simulates backend endpoints (Products, Users, Orders). Enables frontend development without running the full backend stack. Has a readiness probe on `/api/products`. |
+| `mock-server-export-spec` | Downloads `swagger.json` | Manual (after mock-server) | Exports the MockServer's OpenAPI spec to `src/api/swagger/mockserver.json`. Run this after changing mock endpoints, then trigger `theme-studio-generate-hooks` to regenerate API hooks from the updated spec. |
+
+### Port Summary
+
+| Port | Service | Auto-Start |
+|------|---------|:---:|
+| **4444** | Vite dev server | Yes |
+| **4445** | Production preview | No |
+| **5150** | Mock API server | No |
+| **9001** | Lighthouse reports | No |
+| **10351** | Tilt dashboard | Yes |
+
+### Common Workflows
+
+**Normal development:** Just run `tilt up`. Lint, tests, and dev server start automatically in order.
+
+**Before committing:** Trigger `theme-studio-typecheck` in the Tilt dashboard to catch type errors Vite skips.
+
+**Performance check:** Trigger `theme-studio-build` → `theme-studio-prod` → `theme-studio-lighthouse-prod` in sequence.
+
+**After API changes:** Trigger `mock-server-export-spec` → `theme-studio-generate-hooks` to regenerate typed API hooks.
+
+**Figma sync:** Trigger `figma-sync` for the full pipeline, or trigger individual section generators after `figma-extract`.
 
 ---
 
@@ -290,7 +689,11 @@ Full reference: https://tailwindcss.com/docs/padding
 
 | What | Location |
 |------|----------|
-| **SVG Icons** | `src/components/icons/` (AppIcons, SettingsIcons, ShowcaseIcons) |
+| **SVG Icons** | `src/components/icons/` (AppIcons, SettingsIcons, ShowcaseIcons, FeatherIcons*, CustomIcons) |
+| **Figma sync pipeline** | `scripts/figma/` (discover, extract, generate, mapping) |
+| **Icon generation** | `scripts/generate-feather-icons.mjs` |
+| **Tilt pipeline** | `Tiltfile` (all resources, dependency order, port mappings) |
+| **Mock API server** | `MockServer/` (.NET mock for standalone frontend development) |
 | **Shared UI components** | `src/components/ui/shared/` (SearchInput, etc.) |
 | **Layout components** | `src/components/layout/` (Sidebar, Header, MainLayout) |
 | **Theme store & types** | `src/stores/theme/` |

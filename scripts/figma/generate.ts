@@ -1,9 +1,12 @@
-// Phase 2: Generate figmaDesign.ts preset from extracted JSON + mapping config
+// Main preset generator — combines extraction data + section overrides into figmaDesign.ts
+// Reads: data/figma-extract.json (raw extraction) + data/figma-sections/*.json (per-section overrides)
+// Writes: src/stores/theme/presets/figmaDesign.ts
 // Usage: npx tsx scripts/figma/generate.ts
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
+import type { ComponentSectionOverrides } from './code-generators';
 import { generatePresetCode } from './code-generators';
 import { FIGMA_MAPPING } from './figma-mapping';
 import type { ExtractedProperty, FigmaExtraction, FigmaPropertyType, MappingRule } from './types';
@@ -11,6 +14,7 @@ import type { FigmaColor } from './types';
 import { deepSet, figmaColorToRgb } from './utils';
 
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
+const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
 const OUTPUT_PATH = resolve(
   import.meta.dirname,
   '../../src/stores/theme/presets/figmaDesign.ts',
@@ -28,6 +32,22 @@ function loadExtraction(): FigmaExtraction {
   }
   const raw = readFileSync(EXTRACT_PATH, 'utf-8');
   return JSON.parse(raw) as FigmaExtraction;
+}
+
+/** Load all per-section JSON overrides from data/figma-sections/ */
+function loadComponentSections(): Record<string, ComponentSectionOverrides> {
+  if (!existsSync(SECTIONS_DIR)) return {};
+
+  const files = readdirSync(SECTIONS_DIR).filter((f) => f.endsWith('.json'));
+  const sections: Record<string, ComponentSectionOverrides> = {};
+
+  for (const file of files) {
+    const name = file.replace('.json', '');
+    const raw = readFileSync(resolve(SECTIONS_DIR, file), 'utf-8');
+    sections[name] = JSON.parse(raw) as ComponentSectionOverrides;
+  }
+
+  return sections;
 }
 
 function findProperty(
@@ -83,6 +103,7 @@ function main(): void {
   const extraction = loadExtraction();
   console.log(`Source: ${extraction.fileName} (${extraction.extractedAt})`);
 
+  // --- Color/mode mapping rules ---
   const totalRules =
     FIGMA_MAPPING.sharedMappings.length +
     FIGMA_MAPPING.lightMappings.length +
@@ -94,18 +115,29 @@ function main(): void {
     console.log('Generating preset with all defaults...');
   }
 
-  const overrides: Record<string, unknown> = {};
+  const colorOverrides: Record<string, unknown> = {};
   const result: MappingResult = { mapped: 0, warnings: [] };
 
-  applyMappings(overrides, FIGMA_MAPPING.sharedMappings, extraction.lightFrame.properties, result);
-  applyMappings(overrides, FIGMA_MAPPING.lightMappings, extraction.lightFrame.properties, result);
-  applyMappings(overrides, FIGMA_MAPPING.darkMappings, extraction.darkFrame.properties, result);
+  applyMappings(colorOverrides, FIGMA_MAPPING.sharedMappings, extraction.lightFrame.properties, result);
+  applyMappings(colorOverrides, FIGMA_MAPPING.lightMappings, extraction.lightFrame.properties, result);
+  applyMappings(colorOverrides, FIGMA_MAPPING.darkMappings, extraction.darkFrame.properties, result);
 
-  const code = generatePresetCode(extraction, overrides);
+  // --- Component section overrides (from per-section generators) ---
+  const componentSections = loadComponentSections();
+  const sectionNames = Object.keys(componentSections);
+
+  if (sectionNames.length > 0) {
+    console.log(`\nComponent sections: ${sectionNames.join(', ')}`);
+  }
+
+  const code = generatePresetCode(extraction, colorOverrides, componentSections);
   writeFileSync(OUTPUT_PATH, code);
 
   console.log(`\nGenerated: ${OUTPUT_PATH}`);
-  console.log(`${result.mapped}/${totalRules} properties mapped`);
+  console.log(`${result.mapped}/${totalRules} color mappings applied`);
+  if (sectionNames.length > 0) {
+    console.log(`${sectionNames.length} component section(s) applied`);
+  }
 
   if (result.warnings.length > 0) {
     console.log(`${result.warnings.length} warnings:`);

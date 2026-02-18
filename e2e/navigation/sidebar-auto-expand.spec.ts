@@ -8,14 +8,16 @@ test.describe('Sidebar Navigation Auto-Expand', () => {
     await login(page);
   });
 
-  test.describe('Threat Detection section auto-expand', () => {
-    test('should auto-expand Threat Detection section when navigating directly to a native component page', async ({ page }) => {
+  test.describe('Components section auto-expand', () => {
+    test('should auto-expand Components section when navigating directly to a native component page', async ({ page }) => {
       await page.goto('/dashboard/components/native');
 
-      const threatExpand = page.getByTestId(TestIds.NAV_THREAT_DETECTION_EXPAND);
-      await expect(threatExpand).toHaveAttribute('aria-expanded', 'true');
+      const componentsExpand = page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND);
+      await expect(componentsExpand).toHaveAttribute('aria-expanded', 'true');
 
-      await expect(page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE)).toBeVisible();
+      // The Overview sub-group auto-expands when its child is active
+      const overviewGroup = page.locator('#subgroup-nav-overview-group');
+      await expect(overviewGroup.getByTestId(TestIds.NAV_COMPONENTS_NATIVE)).toBeVisible();
     });
 
     test('should auto-expand Attack Surface section on direct navigation to button route', async ({ page }) => {
@@ -35,17 +37,20 @@ test.describe('Sidebar Navigation Auto-Expand', () => {
       const productsExpand = page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND);
       await expect(productsExpand).toHaveAttribute('aria-expanded', 'true');
 
-      await expect(page.getByTestId(TestIds.NAV_PRODUCTS_NATIVE)).toBeVisible();
+      // Scope to Products section children to avoid duplicate testId matches
+      const productsChildren = page.locator('#nav-children-nav-products-expand');
+      await expect(productsChildren.getByTestId(TestIds.NAV_PRODUCTS_NATIVE)).toBeVisible();
     });
   });
 
-  test.describe('Direct link navigation', () => {
-    test('should highlight User Rank when navigating to forms/syncfusion', async ({ page }) => {
+  test.describe('Forms section auto-expand', () => {
+    test('should auto-expand Forms section when navigating to forms/syncfusion', async ({ page }) => {
       await page.goto('/dashboard/forms/syncfusion');
 
-      const userRankLink = page.getByTestId(TestIds.NAV_USER_RANK);
-      await expect(userRankLink).toBeVisible();
-      await expect(userRankLink).toHaveClass(/active/);
+      const formsExpand = page.getByTestId(TestIds.NAV_FORMS_EXPAND);
+      await expect(formsExpand).toHaveAttribute('aria-expanded', 'true');
+      // The expand button should have the active class
+      await expect(formsExpand).toHaveClass(/active/);
     });
   });
 });

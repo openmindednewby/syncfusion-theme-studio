@@ -18,16 +18,18 @@ test.describe('Navigation', () => {
   test('navigates to products page via sidebar sub-menu', async ({ page }) => {
     // Products is now an expandable sub-menu - expand it first
     await page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND).click();
-    // Click on Native products (first sub-item)
-    await page.getByTestId(TestIds.NAV_PRODUCTS_NATIVE).click();
+    // Click on Native products (scoped to Products section to avoid duplicate testId matches)
+    await page.locator('#nav-children-nav-products-expand').getByTestId(TestIds.NAV_PRODUCTS_NATIVE).click();
     await expect(page).toHaveURL('/dashboard/products/native');
   });
 
   test('navigates to components page via sidebar sub-menu', async ({ page }) => {
-    // Threat Detection section contains the component routes
-    await page.getByTestId(TestIds.NAV_THREAT_DETECTION_EXPAND).click();
-    // Click on Native components (Detection Rules)
-    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
+    // Components is an expandable sub-menu - expand it first
+    await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
+    // Expand the Overview sub-group to reveal Native/Syncfusion links
+    await page.getByTestId(TestIds.NAV_OVERVIEW_GROUP_EXPAND).click();
+    // Click on Native components (scoped to Overview sub-group)
+    await page.locator('#subgroup-nav-overview-group').getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
     await expect(page).toHaveURL('/dashboard/components/native');
   });
 

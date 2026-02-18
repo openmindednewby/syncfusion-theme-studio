@@ -14,6 +14,7 @@ export interface FigmaPaint {
   visible?: boolean;
   opacity?: number;
   color?: FigmaColor;
+  boundVariables?: Record<string, unknown>;
 }
 
 /** Figma text style properties */
@@ -45,6 +46,7 @@ export interface FigmaNode {
   effects?: FigmaEffect[];
   style?: FigmaTextStyle;
   children?: FigmaNode[];
+  characters?: string;
 }
 
 /** Property types extractable from a Figma node */
@@ -64,6 +66,20 @@ export interface ExtractedProperty {
   convertedValue?: string;
 }
 
+/** Extracted badge color data for a single badge instance */
+export interface BadgeColorData {
+  background: string;
+  textColor: string;
+  borderColor: string;
+  fillOpacity: number;
+}
+
+/** Badge data for a section (severity or sla) with light/dark variants */
+export interface BadgeSectionData {
+  light: Record<string, BadgeColorData>;
+  dark: Record<string, BadgeColorData>;
+}
+
 /** Full extraction output */
 export interface FigmaExtraction {
   fileKey: string;
@@ -78,6 +94,10 @@ export interface FigmaExtraction {
     nodeId: string;
     nodeName: string;
     properties: ExtractedProperty[];
+  };
+  badges?: {
+    severity?: BadgeSectionData;
+    sla?: BadgeSectionData;
   };
 }
 

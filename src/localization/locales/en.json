@@ -1567,7 +1567,11 @@
       "customSize": "Custom size",
       "customColor": "Custom color",
       "clickToCopy": "Click to copy component",
-      "copied": "Copied!"
+      "copied": "Copied!",
+      "featherIcons": "Feather Icons",
+      "featherIconsDescription": "Complete Feather icon set (270 icons). Auto-generated from the feather-icons package.",
+      "customIcons": "Custom Icons",
+      "customIconsDescription": "Media controls and convenience aliases not available in the Feather set."
     },
     "avatarShowcase": {
       "nativeTitle": "Native Avatar",

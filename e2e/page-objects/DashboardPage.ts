@@ -94,12 +94,14 @@ export class DashboardPage extends BasePage {
 
   async navigateToSyncfusionForms(): Promise<void> {
     await this.expandFormsSection();
-    await this.clickByTestId(TestIds.NAV_FORMS_SYNCFUSION);
+    // Scope to Forms section children to avoid duplicate testId matches
+    await this.page.locator('#nav-children-nav-forms-expand').getByTestId(TestIds.NAV_FORMS_SYNCFUSION).click();
   }
 
   async navigateToNativeForms(): Promise<void> {
     await this.expandFormsSection();
-    await this.clickByTestId(TestIds.NAV_FORMS_NATIVE);
+    // Scope to Forms section children to avoid duplicate testId matches
+    await this.page.locator('#nav-children-nav-forms-expand').getByTestId(TestIds.NAV_FORMS_NATIVE).click();
   }
 
   async expectFormsExpanded(): Promise<void> {

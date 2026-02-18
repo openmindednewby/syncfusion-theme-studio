@@ -102,8 +102,8 @@ test.describe('Theme Editor', () => {
 
     test('displays preset cards in presets tab', async ({ page }) => {
       const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
-      // There are 17 presets defined in presets.ts
-      await expect(presetCards).toHaveCount(17);
+      // There are 18 presets defined in themePresets.ts
+      await expect(presetCards).toHaveCount(18);
     });
 
     test('default preset is active initially', async () => {

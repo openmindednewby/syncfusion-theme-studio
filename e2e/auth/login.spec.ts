@@ -34,21 +34,8 @@ test.describe('Login Page', () => {
     await expect(page.getByTestId(TestIds.DASHBOARD_HEADING)).toBeVisible({ timeout: 15000 });
   });
 
-  test('should toggle between light and dark mode on login page', async ({ page }) => {
-    const htmlElement = page.locator('html');
-
-    // Check initial mode and toggle
-    const initiallyDark = await htmlElement.evaluate((el) => el.classList.contains('dark'));
-
-    // Click theme toggle
-    await page.getByTestId(TestIds.THEME_TOGGLE).click();
-
-    // Wait for mode to change using web-first assertion
-    if (initiallyDark)
-      await expect(htmlElement).not.toHaveClass(/dark/);
-    else
-      await expect(htmlElement).toHaveClass(/dark/);
-  });
+  // Login page intentionally has no theme toggle — it is rendered via the Header
+  // component on the dashboard only. Theme toggling is tested in mode-toggle.spec.ts.
 
   test('should use native components (not Syncfusion) for performance', async ({ page }) => {
     // Verify login page doesn't load heavy Syncfusion components

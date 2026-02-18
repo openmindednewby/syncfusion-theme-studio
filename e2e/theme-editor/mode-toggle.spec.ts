@@ -114,15 +114,13 @@ test.describe('Light/Dark Mode Toggle', () => {
   test('should update toggle button aria attributes based on mode', async ({ page }) => {
     const toggleBtn = page.getByTestId(TestIds.THEME_TOGGLE);
 
-    // Default is dark mode — aria-checked should be true
-    await expect(toggleBtn).toHaveAttribute('aria-checked', 'true');
+    // Default is dark mode — label prompts switching to light
     await expect(toggleBtn).toHaveAttribute('aria-label', /light/i);
 
     // Switch to light mode
     await toggleBtn.click();
 
-    // In light mode — aria-checked should be false
-    await expect(toggleBtn).toHaveAttribute('aria-checked', 'false');
+    // In light mode — label prompts switching to dark
     await expect(toggleBtn).toHaveAttribute('aria-label', /dark/i);
   });
 

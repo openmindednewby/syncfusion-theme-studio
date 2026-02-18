@@ -176,20 +176,281 @@ local_resource(
     allow_parallel=True,
 )
 
-# --- Figma-to-Theme Sync (manual) ---
+# ===============================================================================
+# 6. FIGMA PIPELINE
+# ===============================================================================
+# Architecture:
+#   figma-extract  → Shared API call, saves data/figma-extract.json
+#   figma-generate-<section> → Per-section generation (reads JSON, writes preset)
+#   figma-generate → Main preset generator (imports section outputs)
+#   figma-sync     → Full pipeline: extract → all generators → main generate
+#
+# Status key: [LIVE] = implemented, [STUB] = placeholder for future work
+
+# --- Shared: Figma API Extraction (manual) ---
 local_resource(
-    name='theme-studio-figma-sync',
-    labels=['CodeGen'],
-    cmd='npm run figma:sync',
+    name='figma-extract',
+    labels=['Figma'],
+    cmd='npm run figma:extract',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )
 
-# --- Figma Discovery (manual) ---
+# --- Shared: Figma Discovery (manual) ---
 local_resource(
-    name='theme-studio-figma-discover',
-    labels=['CodeGen'],
+    name='figma-discover',
+    labels=['Figma'],
     cmd='npm run figma:discover',
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Foundation Generators ---
+local_resource(
+    name='figma-generate-typography',
+    labels=['Figma'],
+    cmd='npm run figma:generate:typography',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-colours',
+    labels=['Figma'],
+    cmd='npm run figma:generate:colours',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-layouts',
+    labels=['Figma'],
+    cmd='npm run figma:generate:layouts',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-icons',
+    labels=['Figma'],
+    cmd='npm run figma:generate:icons',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+# --- Component Generators ---
+local_resource(
+    name='figma-generate-badges',
+    labels=['Figma'],
+    cmd='npm run figma:generate:badges',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-buttons',
+    labels=['Figma'],
+    cmd='npm run figma:generate:buttons',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-description',
+    labels=['Figma'],
+    cmd='npm run figma:generate:description',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-input',
+    labels=['Figma'],
+    cmd='npm run figma:generate:input',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-drawer',
+    labels=['Figma'],
+    cmd='npm run figma:generate:drawer',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-external-link',
+    labels=['Figma'],
+    cmd='npm run figma:generate:external-link',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-notifications',
+    labels=['Figma'],
+    cmd='npm run figma:generate:notifications',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-image',
+    labels=['Figma'],
+    cmd='npm run figma:generate:image',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-nav-menus',
+    labels=['Figma'],
+    cmd='npm run figma:generate:nav-menus',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-dropdowns',
+    labels=['Figma'],
+    cmd='npm run figma:generate:dropdowns',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-breadcrumbs',
+    labels=['Figma'],
+    cmd='npm run figma:generate:breadcrumbs',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-data-grid',
+    labels=['Figma'],
+    cmd='npm run figma:generate:data-grid',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-combobox',
+    labels=['Figma'],
+    cmd='npm run figma:generate:combobox',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-filtering',
+    labels=['Figma'],
+    cmd='npm run figma:generate:filtering',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-pagination',
+    labels=['Figma'],
+    cmd='npm run figma:generate:pagination',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-progress',
+    labels=['Figma'],
+    cmd='npm run figma:generate:progress',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-skeleton',
+    labels=['Figma'],
+    cmd='npm run figma:generate:skeleton',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-slider',
+    labels=['Figma'],
+    cmd='npm run figma:generate:slider',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+local_resource(
+    name='figma-generate-subhead',
+    labels=['Figma'],
+    cmd='npm run figma:generate:subhead',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    auto_init=False,
+    allow_parallel=True,
+)
+
+# --- Main Preset Generator (imports all section outputs) ---
+local_resource(
+    name='figma-generate',
+    labels=['Figma'],
+    cmd='npm run figma:generate',
+    resource_deps=['figma-extract'],
+    trigger_mode=TRIGGER_MODE_MANUAL,
+    allow_parallel=True,
+)
+
+# --- Full Sync: extract → all generators → main generate ---
+local_resource(
+    name='figma-sync',
+    labels=['Figma'],
+    cmd='npm run figma:sync',
     trigger_mode=TRIGGER_MODE_MANUAL,
     allow_parallel=True,
 )

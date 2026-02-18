@@ -51,18 +51,8 @@ test.describe('Theme Settings Drawer', () => {
     await expect(drawer).toBeVisible();
   });
 
-  test('should open drawer via sidebar Theme Editor link', async ({ page }) => {
-    // Click the Theme Editor nav item
-    await page.getByTestId(TestIds.NAV_THEME_EDITOR).click();
-
-    // Wait for drawer to be fully expanded using aria-expanded attribute
-    const toggleBtn = page.getByTestId(TestIds.THEME_CLOSE_BTN);
-    await expect(toggleBtn).toHaveAttribute('aria-expanded', 'true');
-
-    // Verify drawer is visible
-    const drawer = page.getByTestId(TestIds.THEME_SETTINGS_DRAWER);
-    await expect(drawer).toBeVisible();
-  });
+  // The sidebar no longer has a Theme Editor nav item. The drawer
+  // is opened via the header cog button or the dashboard Theme Editor button.
 
   test('should open drawer via header settings cog button', async ({ page }) => {
     // Click the cog icon in header

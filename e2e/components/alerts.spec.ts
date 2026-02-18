@@ -10,9 +10,8 @@ import { TestIds } from '../shared/testIds';
 test.describe('Native Alert Components', () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
-    // Use SPA navigation instead of page.goto() to avoid full page reload
-    await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
-    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
+    // Navigate directly to avoid strict-mode violations from duplicate sidebar testIds
+    await page.goto('/dashboard/components/native');
     await expect(page.getByTestId(TestIds.NATIVE_COMPONENTS_PAGE)).toBeVisible({ timeout: 15000 });
   });
 

@@ -55,7 +55,8 @@ test.describe('Dashboard Page', () => {
     await expect(page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND)).toBeVisible();
     // Components is now an expandable sub-menu with expand button
     await expect(page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND)).toBeVisible();
-    await expect(page.getByTestId(TestIds.NAV_THEME_EDITOR)).toBeVisible();
+    // Forms is an expandable sub-menu
+    await expect(page.getByTestId(TestIds.NAV_FORMS_EXPAND)).toBeVisible();
   });
 
   test('should collapse and expand sidebar', async ({ page }) => {
@@ -87,24 +88,23 @@ test.describe('Dashboard Page', () => {
   test('should navigate to products page via sidebar sub-menu', async ({ page }) => {
     // Products is now an expandable sub-menu - expand it first
     await page.getByTestId(TestIds.NAV_PRODUCTS_EXPAND).click();
-    // Click on Native products (first sub-item)
-    await page.getByTestId(TestIds.NAV_PRODUCTS_NATIVE).click();
+    // Click on Native products (scoped to Products section to avoid duplicate testId matches)
+    await page.locator('#nav-children-nav-products-expand').getByTestId(TestIds.NAV_PRODUCTS_NATIVE).click();
     await expect(page).toHaveURL('/dashboard/products/native');
   });
 
   test('should navigate to components page via sidebar sub-menu', async ({ page }) => {
     // Components is now an expandable sub-menu - expand it first
     await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
-    // Click on Native components (first sub-item)
-    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
-    // /dashboard/components redirects to /dashboard/components/native
+    // Expand the Overview sub-group to reveal Native/Syncfusion links
+    await page.getByTestId(TestIds.NAV_OVERVIEW_GROUP_EXPAND).click();
+    // Click on Native components (scoped to Overview sub-group to avoid duplicate testId matches)
+    await page.locator('#subgroup-nav-overview-group').getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
     await expect(page).toHaveURL('/dashboard/components/native');
   });
 
-  test('should navigate back to login page', async ({ page }) => {
-    await page.getByTestId(TestIds.NAV_LOGIN).click();
-    await expect(page).toHaveURL('/');
-  });
+  // The sidebar no longer has a login/logout link. Authentication is
+  // handled externally. Removed the nav-login test accordingly.
 
   test('should display theme color showcase section', async ({ page }) => {
     // Check for the Theme Colors in Action section

@@ -3,6 +3,8 @@ import { TestIds } from '@/shared/testIds';
 
 import {
   AppIconsSection,
+  CustomIconsSection,
+  FeatherIconsSection,
   SettingsIconsSection,
   ShowcaseIconsSection,
   UsageExamplesSection,
@@ -23,6 +25,8 @@ const IconsShowcase = (): JSX.Element => (
       <AppIconsSection />
       <ShowcaseIconsSection />
       <SettingsIconsSection />
+      <FeatherIconsSection />
+      <CustomIconsSection />
     </div>
   </div>
 );

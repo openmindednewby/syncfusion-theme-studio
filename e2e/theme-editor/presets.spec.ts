@@ -18,8 +18,8 @@ test.describe('Theme Presets', () => {
     // Find all preset cards
     const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
 
-    // Should have multiple presets (17 according to presets.ts)
-    await expect(presetCards).toHaveCount(17);
+    // Should have multiple presets (18 according to themePresets.ts)
+    await expect(presetCards).toHaveCount(18);
   });
 
   test('should apply preset and update UI colors', async ({ page }) => {

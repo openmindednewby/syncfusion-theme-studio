@@ -26,9 +26,10 @@ test.describe('Forms Navigation', () => {
       // Sub-menu should now be expanded
       await dashboardPage.expectFormsExpanded();
 
-      // Sub-items should be visible
-      await expect(page.getByTestId(TestIds.NAV_FORMS_SYNCFUSION)).toBeVisible();
-      await expect(page.getByTestId(TestIds.NAV_FORMS_NATIVE)).toBeVisible();
+      // Sub-items should be visible (scoped to Forms section to avoid duplicate testId matches)
+      const formsChildren = page.locator('#nav-children-nav-forms-expand');
+      await expect(formsChildren.getByTestId(TestIds.NAV_FORMS_SYNCFUSION)).toBeVisible();
+      await expect(formsChildren.getByTestId(TestIds.NAV_FORMS_NATIVE)).toBeVisible();
     });
 
     test('collapses sub-menu when Forms section is clicked again', async ({ page }) => {
@@ -39,12 +40,13 @@ test.describe('Forms Navigation', () => {
       // Click again to collapse
       await dashboardPage.expandFormsSection();
 
-      // Sub-menu should be collapsed
+      // Sub-menu should be collapsed (aria-expanded = false)
       await dashboardPage.expectFormsCollapsed();
 
-      // Sub-items should no longer be visible
-      await expect(page.getByTestId(TestIds.NAV_FORMS_SYNCFUSION)).not.toBeVisible();
-      await expect(page.getByTestId(TestIds.NAV_FORMS_NATIVE)).not.toBeVisible();
+      // The expandable container should have the 'collapsed' CSS class
+      // (children remain in the DOM but are hidden via grid-template-rows: 0fr + opacity: 0)
+      const expandableContainer = page.locator('#nav-children-nav-forms-expand').locator('..');
+      await expect(expandableContainer).toHaveClass(/collapsed/);
     });
   });
 
@@ -104,9 +106,10 @@ test.describe('Forms Navigation', () => {
       // The Forms section should be auto-expanded since the current path is under /dashboard/forms
       await dashboardPage.expectFormsExpanded();
 
-      // Sub-items should be visible
-      await expect(page.getByTestId(TestIds.NAV_FORMS_SYNCFUSION)).toBeVisible();
-      await expect(page.getByTestId(TestIds.NAV_FORMS_NATIVE)).toBeVisible();
+      // Sub-items should be visible (scoped to Forms section)
+      const formsChildren = page.locator('#nav-children-nav-forms-expand');
+      await expect(formsChildren.getByTestId(TestIds.NAV_FORMS_SYNCFUSION)).toBeVisible();
+      await expect(formsChildren.getByTestId(TestIds.NAV_FORMS_NATIVE)).toBeVisible();
     });
   });
 
@@ -124,14 +127,12 @@ test.describe('Forms Navigation', () => {
       // Expand the Components sub-menu
       await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
 
-      // Verify the Components sub-items are visible (Native and Syncfusion components)
-      await expect(page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE)).toBeVisible();
-      await expect(page.getByTestId(TestIds.NAV_COMPONENTS_SYNCFUSION)).toBeVisible();
+      // Verify Components section has sub-groups (scoped to avoid duplicate testId matches)
+      const componentsChildren = page.locator('#nav-children-nav-components-expand');
+      await expect(componentsChildren.getByTestId(TestIds.NAV_OVERVIEW_GROUP_EXPAND)).toBeVisible();
 
       // There should be no "forms" link inside the Components sub-menu
-      // The old NAV_SHOWCASE_FORMS test ID no longer exists
-      const componentsSection = page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).locator('..');
-      const formsLinkInComponents = componentsSection.locator('a[href*="/showcase/forms"]');
+      const formsLinkInComponents = componentsChildren.locator('a[href*="/showcase/forms"]');
       await expect(formsLinkInComponents).toHaveCount(0);
     });
   });

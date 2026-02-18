@@ -12,9 +12,8 @@ import { TestIds } from '../shared/testIds';
 test.describe('Native Toast Notifications', () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
-    // Navigate to the native components page via SPA navigation
-    await page.getByTestId(TestIds.NAV_COMPONENTS_EXPAND).click();
-    await page.getByTestId(TestIds.NAV_COMPONENTS_NATIVE).click();
+    // Navigate directly to avoid strict-mode violations from duplicate sidebar testIds
+    await page.goto('/dashboard/components/native');
     await expect(page.getByTestId(TestIds.NATIVE_COMPONENTS_PAGE)).toBeVisible({ timeout: 15000 });
   });
 

@@ -41,9 +41,9 @@ const AlertBadgeShowcase = (): JSX.Element => (
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.slaStatus')}</h3>
         <div className="flex flex-wrap gap-3">
-          <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-ok" text="Within SLA" variant={BadgeVariant.Success} />
-          <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-risk" text="At Risk" variant={BadgeVariant.Error} />
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-breached" text="Breached" variant={BadgeVariant.Error} />
+          <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-risk" text="At Risk" variant={BadgeVariant.Warning} />
+          <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-ok" text="Compliant" variant={BadgeVariant.Success} />
         </div>
       </section>
       <section className="card space-y-4">

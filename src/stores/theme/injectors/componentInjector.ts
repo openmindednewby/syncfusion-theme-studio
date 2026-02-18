@@ -115,19 +115,19 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-badge-success-bg', `rgb(${c.badges.success.background})`);
   root.style.setProperty('--component-badge-success-text', `rgb(${c.badges.success.textColor})`);
   root.style.setProperty('--component-badge-success-border', `rgb(${c.badges.success.borderColor})`);
-  root.style.setProperty('--component-badge-success-outline-bg', `rgb(${c.badges.success.borderColor} / 0.1)`);
+  root.style.setProperty('--component-badge-success-outline-bg', `rgb(${c.badges.success.borderColor} / 0.2)`);
   root.style.setProperty('--component-badge-warning-bg', `rgb(${c.badges.warning.background})`);
   root.style.setProperty('--component-badge-warning-text', `rgb(${c.badges.warning.textColor})`);
   root.style.setProperty('--component-badge-warning-border', `rgb(${c.badges.warning.borderColor})`);
-  root.style.setProperty('--component-badge-warning-outline-bg', `rgb(${c.badges.warning.borderColor} / 0.1)`);
+  root.style.setProperty('--component-badge-warning-outline-bg', `rgb(${c.badges.warning.borderColor} / 0.2)`);
   root.style.setProperty('--component-badge-error-bg', `rgb(${c.badges.error.background})`);
   root.style.setProperty('--component-badge-error-text', `rgb(${c.badges.error.textColor})`);
   root.style.setProperty('--component-badge-error-border', `rgb(${c.badges.error.borderColor})`);
-  root.style.setProperty('--component-badge-error-outline-bg', `rgb(${c.badges.error.borderColor} / 0.1)`);
+  root.style.setProperty('--component-badge-error-outline-bg', `rgb(${c.badges.error.borderColor} / 0.2)`);
   root.style.setProperty('--component-badge-info-bg', `rgb(${c.badges.info.background})`);
   root.style.setProperty('--component-badge-info-text', `rgb(${c.badges.info.textColor})`);
   root.style.setProperty('--component-badge-info-border', `rgb(${c.badges.info.borderColor})`);
-  root.style.setProperty('--component-badge-info-outline-bg', `rgb(${c.badges.info.borderColor} / 0.1)`);
+  root.style.setProperty('--component-badge-info-outline-bg', `rgb(${c.badges.info.borderColor} / 0.2)`);
 }
 
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {

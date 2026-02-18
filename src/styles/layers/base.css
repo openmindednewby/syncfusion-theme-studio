@@ -182,6 +182,24 @@
     --component-badge-error-text: rgb(185 28 28);
     --component-badge-info-bg: rgb(219 234 254);
     --component-badge-info-text: rgb(29 78 216);
+
+    /* Alert Badges (separate from regular badges) */
+    --component-alert-badge-success-bg: rgb(123 164 175);
+    --component-alert-badge-success-text: rgb(17 19 25);
+    --component-alert-badge-success-border: rgb(16 185 129);
+    --component-alert-badge-warning-bg: rgb(249 115 22);
+    --component-alert-badge-warning-text: rgb(17 19 25);
+    --component-alert-badge-warning-border: rgb(249 115 22);
+    --component-alert-badge-error-bg: rgb(239 68 68);
+    --component-alert-badge-error-text: rgb(17 19 25);
+    --component-alert-badge-error-border: rgb(239 68 68);
+    --component-alert-badge-info-bg: rgb(254 177 48);
+    --component-alert-badge-info-text: rgb(17 19 25);
+    --component-alert-badge-info-border: rgb(254 177 48);
+    --component-alert-badge-padding-top: 2px;
+    --component-alert-badge-padding-right: 8px;
+    --component-alert-badge-padding-bottom: 2px;
+    --component-alert-badge-padding-left: 8px;
   }
 
   /* ===== DARK MODE ===== */

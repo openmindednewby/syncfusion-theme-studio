@@ -132,13 +132,31 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
 }
 
 export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  const { typography } = c.alertBadges;
+  const { typography, padding, success, warning, error, info } = c.alertBadges;
   loadGoogleFont(typography.fontFamily, typography.fontWeight);
   root.style.setProperty('--component-alert-badge-font-family', typography.fontFamily);
   root.style.setProperty('--component-alert-badge-font-size', typography.fontSize);
   root.style.setProperty('--component-alert-badge-font-weight', typography.fontWeight);
   root.style.setProperty('--component-alert-badge-line-height', typography.lineHeight);
   root.style.setProperty('--component-alert-badge-letter-spacing', typography.letterSpacing);
+
+  root.style.setProperty('--component-alert-badge-padding-top', padding.paddingTop);
+  root.style.setProperty('--component-alert-badge-padding-right', padding.paddingRight);
+  root.style.setProperty('--component-alert-badge-padding-bottom', padding.paddingBottom);
+  root.style.setProperty('--component-alert-badge-padding-left', padding.paddingLeft);
+
+  root.style.setProperty('--component-alert-badge-success-bg', `rgb(${success.background})`);
+  root.style.setProperty('--component-alert-badge-success-text', `rgb(${success.textColor})`);
+  root.style.setProperty('--component-alert-badge-success-border', `rgb(${success.borderColor})`);
+  root.style.setProperty('--component-alert-badge-warning-bg', `rgb(${warning.background})`);
+  root.style.setProperty('--component-alert-badge-warning-text', `rgb(${warning.textColor})`);
+  root.style.setProperty('--component-alert-badge-warning-border', `rgb(${warning.borderColor})`);
+  root.style.setProperty('--component-alert-badge-error-bg', `rgb(${error.background})`);
+  root.style.setProperty('--component-alert-badge-error-text', `rgb(${error.textColor})`);
+  root.style.setProperty('--component-alert-badge-error-border', `rgb(${error.borderColor})`);
+  root.style.setProperty('--component-alert-badge-info-bg', `rgb(${info.background})`);
+  root.style.setProperty('--component-alert-badge-info-text', `rgb(${info.textColor})`);
+  root.style.setProperty('--component-alert-badge-info-border', `rgb(${info.borderColor})`);
 }
 
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {

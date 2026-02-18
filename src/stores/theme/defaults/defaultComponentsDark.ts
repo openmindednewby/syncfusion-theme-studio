@@ -159,6 +159,11 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     borderRadius: 'full', padding: '2px 8px',
   },
   alertBadges: {
+    success: { background: '123 164 175', textColor: '17 19 25', borderColor: '16 185 129' },
+    warning: { background: '249 115 22', textColor: '17 19 25', borderColor: '249 115 22' },
+    error: { background: '239 68 68', textColor: '17 19 25', borderColor: '239 68 68' },
+    info: { background: '254 177 48', textColor: '17 19 25', borderColor: '254 177 48' },
+    padding: { paddingTop: '2px', paddingRight: '8px', paddingBottom: '2px', paddingLeft: '8px' },
     typography: {
       fontFamily: 'inherit',
       fontSize: '0.75rem',

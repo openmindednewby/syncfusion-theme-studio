@@ -8,6 +8,7 @@ import { resolve } from 'node:path';
 
 import type { ComponentSectionOverrides } from './code-generators';
 import { generatePresetCode } from './code-generators';
+import { deepMergeCorrections } from './corrections';
 import { FIGMA_MAPPING } from './figma-mapping';
 import type { ExtractedProperty, FigmaExtraction, FigmaPropertyType, MappingRule } from './types';
 import type { FigmaColor } from './types';
@@ -15,6 +16,7 @@ import { deepSet, figmaColorToRgb } from './utils';
 
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
 const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
+const CORRECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-corrections');
 const OUTPUT_PATH = resolve(
   import.meta.dirname,
   '../../src/stores/theme/presets/figmaDesign.ts',
@@ -123,7 +125,8 @@ function main(): void {
   applyMappings(colorOverrides, FIGMA_MAPPING.darkMappings, extraction.darkFrame.properties, result);
 
   // --- Component section overrides (from per-section generators) ---
-  const componentSections = loadComponentSections();
+  const rawSections = loadComponentSections();
+  const componentSections = deepMergeCorrections(rawSections, CORRECTIONS_DIR);
   const sectionNames = Object.keys(componentSections);
 
   if (sectionNames.length > 0) {

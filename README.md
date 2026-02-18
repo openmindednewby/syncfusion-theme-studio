@@ -306,30 +306,43 @@ The app works with or without Figma data. When the pipeline has not been run, th
 
 There are 18 preset themes. Each is a complete `ThemeConfig`. They follow two distinct paths:
 
-**Path 1 — Manually Authored Presets (17 themes)**
+**Path 1 — Hand-Authored Presets (17 themes)**
 
 ```
 Hand-authored TypeScript file (e.g. fremen.ts, cyberWatch.ts)
+    │  Defines: primary/secondary/neutral scales,
+    │  status colors, light/dark mode overrides.
+    │  Components: DEFAULT_COMPONENTS (no component-level overrides)
     │
     v
-ThemeConfig (complete preset with all sections)
+PresetsSection.handleApplyPreset()
     │
-    v
-useThemeStore (Zustand)
+    ├── 1. generateDerivedColors(primary)
+    │      Computes interactive colors (hover, active, focus)
+    │      from the primary color scale
     │
-    v
-injectThemeVariables()
+    ├── 2. buildDerivedComponents(DEFAULT_COMPONENTS, derived)
+    │      Patches buttons, sidebar, inputs, dataGrid
+    │      with primary-derived colors at runtime
     │
-    v
-CSS custom properties on :root
-    │
-    ├──> BadgeNative        (reads --component-badge-error-bg, etc.)
-    ├──> SyncfusionBadge    (reads the same CSS vars)
-    ├──> AlertBadge          (reads the same CSS vars)
-    └──> Every other component...
+    └── 3. updateTheme({...preset, components})
+           │
+           v
+    useThemeStore (Zustand)
+           │
+           v
+    injectThemeVariables()
+           │
+           v
+    CSS custom properties on :root
+           │
+           ├──> BadgeNative     (uses DEFAULT badge colors — no preset override)
+           ├──> Buttons         (uses primary-derived colors from buildDerivedComponents)
+           ├──> Sidebar         (uses primary-derived colors from buildDerivedComponents)
+           └──> Every other component...
 ```
 
-These presets are written by hand in `src/stores/theme/presets/`. Each file exports a complete `ThemeConfig` with colors, typography, spacing, shadows, and per-component overrides for light and dark modes. No Figma dependency.
+These presets are written by hand in `src/stores/theme/presets/`. Each file defines color scales, status colors, and light/dark mode overrides. They rely on `DEFAULT_COMPONENTS` for all component-level styling — the `buildDerivedComponents()` step at runtime patches buttons, sidebar, inputs, and dataGrid with colors derived from the primary scale. Badge colors, typography, and other component sections use the default values unchanged.
 
 **Path 2 — Figma Design Preset (1 theme, generated)**
 
@@ -342,33 +355,36 @@ figma:extract              data/figma-extract.json        (1 API call, stores ev
     v
 figma:generate:badges      data/figma-sections/badges.json (per-section intermediate)
 figma:generate:buttons     data/figma-sections/buttons.json (future)
-figma:generate:input       data/figma-sections/input.json   (future)
     ...
     │
     v
-figma:generate             reads extract + ALL section JSONs
-                           writes ONE src/stores/theme/presets/figmaDesign.ts
+figma:generate             1. reads extract + ALL section JSONs
+                           2. deep-merges figma-corrections/*.json on top
+                           3. writes ONE src/stores/theme/presets/figmaDesign.ts
     │
     v
-ThemeConfig (with Figma overrides, defaults for unsynced sections)
+PresetsSection.handleApplyPreset()
     │
-    v
-useThemeStore (Zustand)
-    │
-    v
-injectThemeVariables()
-    │
-    v
-CSS custom properties on :root
-    │
-    ├──> BadgeNative        (reads --component-badge-error-bg, etc.)
-    ├──> SyncfusionBadge    (reads the same CSS vars)
-    └──> Every other component...
+    ├── 1. generateDerivedColors(primary)
+    ├── 2. buildDerivedComponents(FIGMA_COMPONENTS, derived)
+    │      Same runtime patching, but starts from FIGMA_COMPONENTS
+    │      which already has Figma overrides baked in for synced sections
+    └── 3. updateTheme({...preset, components})
+           │
+           v
+    useThemeStore (Zustand)  →  injectThemeVariables()  →  CSS custom properties
+           │
+           ├──> BadgeNative     (uses FIGMA badge colors — Figma-synced section)
+           ├──> AlertBadge      (uses FIGMA typography — Figma-synced section)
+           ├──> Buttons         (uses primary-derived + any future Figma overrides)
+           └──> Every other component...
 ```
 
-The generated `figmaDesign.ts` spreads `DEFAULT_COMPONENTS_LIGHT`/`DEFAULT_COMPONENTS_DARK` and only overrides the sections that have a corresponding `data/figma-sections/<name>.json` file. Unsynced sections keep their default values.
+The generated `figmaDesign.ts` spreads `DEFAULT_COMPONENTS_LIGHT`/`DEFAULT_COMPONENTS_DARK` and only overrides the sections that have a corresponding `data/figma-sections/<name>.json` file. Unsynced sections keep their default values. Post-processing corrections from `data/figma-corrections/` are deep-merged on top to fix any incorrect Figma API values.
 
-**Both paths converge at the same point**: the Zustand store injects CSS variables, and both Native and Syncfusion components read the same CSS vars — so they always look identical regardless of which path produced the theme.
+**Both paths converge at the same runtime steps**: `handleApplyPreset()` calls `generateDerivedColors()` then `buildDerivedComponents()` then `updateTheme()`. The Zustand store injects CSS variables, and both Native and Syncfusion components read the same CSS vars — so they always look identical regardless of which path produced the theme.
+
+**Key difference**: hand-authored presets start from `DEFAULT_COMPONENTS` (all default badge/card/modal colors), while the Figma preset starts from `FIGMA_COMPONENTS` (with Figma-extracted overrides for synced sections like badges and alertBadges).
 
 | Preset | Source | Figma-synced? |
 |--------|--------|:---:|
@@ -410,6 +426,7 @@ Section generators are independent. You can run one without running the others.
 
 - Reads `data/figma-extract.json` for general color/mode mappings
 - Reads ALL `data/figma-sections/*.json` files (auto-discovered)
+- Deep-merges any `data/figma-corrections/*.json` files on top (corrections win)
 - Combines everything into one `figmaDesign.ts` preset
 - Component section JSONs become inline overrides in the `FIGMA_COMPONENTS` constant
 
@@ -447,6 +464,7 @@ Edit this file to add or change which Figma styles map to which theme properties
 scripts/figma/
   extract.ts                    Phase 1: Figma API -> JSON
   generate-badges.ts            Phase 2: Badges section generator
+  corrections.ts                Deep-merges correction files onto sections
   generate.ts                   Phase 3: Combines sections -> figmaDesign.ts
   code-generators.ts            TypeScript code generation helpers
   figma-mapping.ts              Color/mode mapping rules (manual config)
@@ -457,9 +475,14 @@ scripts/figma/
     figma-extract.json          Raw API extraction output
     figma-sections/
       badges.json               Badge section overrides (generated)
+      alertBadges.json          Alert badge section overrides (generated)
       buttons.json              (future)
       ...
+    figma-corrections/
+      badges.json               Fixes light mode badge text colors
 ```
+
+For the full pipeline documentation including badge extraction details, correction system, and CSS variable injection flow, see [`scripts/figma/README.md`](scripts/figma/README.md).
 
 ### Commands
 
@@ -690,7 +713,7 @@ Full reference: https://tailwindcss.com/docs/padding
 | What | Location |
 |------|----------|
 | **SVG Icons** | `src/components/icons/` (AppIcons, SettingsIcons, ShowcaseIcons, FeatherIcons*, CustomIcons) |
-| **Figma sync pipeline** | `scripts/figma/` (discover, extract, generate, mapping) |
+| **Figma sync pipeline** | `scripts/figma/` (discover, extract, generate, corrections, mapping) — see [`scripts/figma/README.md`](scripts/figma/README.md) |
 | **Icon generation** | `scripts/generate-feather-icons.mjs` |
 | **Tilt pipeline** | `Tiltfile` (all resources, dependency order, port mappings) |
 | **Mock API server** | `MockServer/` (.NET mock for standalone frontend development) |

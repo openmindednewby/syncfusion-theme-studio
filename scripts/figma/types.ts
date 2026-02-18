@@ -47,6 +47,10 @@ export interface FigmaNode {
   style?: FigmaTextStyle;
   children?: FigmaNode[];
   characters?: string;
+  paddingTop?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  paddingLeft?: number;
 }
 
 /** Property types extractable from a Figma node */
@@ -77,6 +81,10 @@ export interface BadgeColorData {
   fontWeight?: string;
   lineHeight?: string;
   letterSpacing?: string;
+  paddingTop?: string;
+  paddingRight?: string;
+  paddingBottom?: string;
+  paddingLeft?: string;
 }
 
 /** Badge data for a section (severity or sla) with light/dark variants */

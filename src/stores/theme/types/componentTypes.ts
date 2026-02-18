@@ -23,7 +23,7 @@ export type { ButtonStateColors, ButtonsComponentConfig, InputsConfig } from './
 export type { DataGridConfig } from './dataComponentTypes';
 
 // Re-export display component types
-export type { AlertBadgesConfig, BadgeTypography, BadgeVariant, BadgesConfig, CardsConfig, ModalsConfig } from './displayComponentTypes';
+export type { AlertBadgesConfig, BadgePadding, BadgeTypography, BadgeVariant, BadgesConfig, CardsConfig, ModalsConfig } from './displayComponentTypes';
 
 // Re-export pagination types
 export type { PaginationConfig } from './paginationTypes';

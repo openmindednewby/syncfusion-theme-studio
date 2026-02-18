@@ -7,6 +7,7 @@ export interface ComponentSectionOverrides {
   light: Record<string, Record<string, string>>;
   dark: Record<string, Record<string, string>>;
   typography?: Record<string, string>;
+  padding?: Record<string, string>;
 }
 
 /** Generate the import block for the preset file */
@@ -70,8 +71,9 @@ function generateComponentsOverride(
       const modeOverrides = overrides[mode];
       const hasVariantOverrides = modeOverrides && Object.keys(modeOverrides).length > 0;
       const hasTypography = overrides.typography && Object.keys(overrides.typography).length > 0;
+      const hasPadding = overrides.padding && Object.keys(overrides.padding).length > 0;
 
-      if (!hasVariantOverrides && !hasTypography) continue;
+      if (!hasVariantOverrides && !hasTypography && !hasPadding) continue;
 
       lines.push(`    ${section}: {`);
       lines.push(`      ...${defaultName}.${section},`);
@@ -84,6 +86,10 @@ function generateComponentsOverride(
             lines.push(`      ${key}: '${value}',`);
           }
         }
+      }
+
+      if (hasPadding) {
+        lines.push(`      padding: ${formatObjectLiteral(overrides.padding!, 6)},`);
       }
 
       if (hasTypography) {

@@ -643,7 +643,8 @@
         "fontSize": "Font Size",
         "fontWeight": "Font Weight",
         "lineHeight": "Line Height",
-        "letterSpacing": "Letter Spacing"
+        "letterSpacing": "Letter Spacing",
+        "padding": "Padding"
       },
       "errorMessages": {
         "title": "Error Messages",

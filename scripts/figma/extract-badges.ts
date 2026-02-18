@@ -92,6 +92,11 @@ function extractBadgeColorData(
     result.letterSpacing = style.letterSpacing !== undefined ? `${style.letterSpacing}px` : undefined;
   }
 
+  if (badge.paddingTop !== undefined) result.paddingTop = `${badge.paddingTop}px`;
+  if (badge.paddingRight !== undefined) result.paddingRight = `${badge.paddingRight}px`;
+  if (badge.paddingBottom !== undefined) result.paddingBottom = `${badge.paddingBottom}px`;
+  if (badge.paddingLeft !== undefined) result.paddingLeft = `${badge.paddingLeft}px`;
+
   return result;
 }
 

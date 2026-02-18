@@ -60,6 +60,18 @@ export interface BadgesConfig {
   padding: string;
 }
 
+export interface BadgePadding {
+  paddingTop: string;
+  paddingRight: string;
+  paddingBottom: string;
+  paddingLeft: string;
+}
+
 export interface AlertBadgesConfig {
+  success: BadgeVariant;
+  warning: BadgeVariant;
+  error: BadgeVariant;
+  info: BadgeVariant;
+  padding: BadgePadding;
   typography: BadgeTypography;
 }

@@ -95,6 +95,13 @@ interface BadgeTypographyOverride {
   letterSpacing: string;
 }
 
+interface BadgePaddingOverride {
+  paddingTop: string;
+  paddingRight: string;
+  paddingBottom: string;
+  paddingLeft: string;
+}
+
 function extractBadgeTypography(
   badges: NonNullable<FigmaExtraction['badges']>,
 ): BadgeTypographyOverride | undefined {
@@ -110,6 +117,28 @@ function extractBadgeTypography(
             fontWeight: colorData.fontWeight ?? '500',
             lineHeight: colorData.lineHeight ?? '15px',
             letterSpacing: colorData.letterSpacing ?? '0px',
+          };
+        }
+      }
+    }
+  }
+  return undefined;
+}
+
+function extractBadgePadding(
+  badges: NonNullable<FigmaExtraction['badges']>,
+): BadgePaddingOverride | undefined {
+  const sections = [badges.severity, badges.sla];
+  for (const section of sections) {
+    if (!section) continue;
+    for (const modeData of [section.light, section.dark]) {
+      for (const colorData of Object.values(modeData)) {
+        if (colorData.paddingTop !== undefined) {
+          return {
+            paddingTop: colorData.paddingTop,
+            paddingRight: colorData.paddingRight ?? '8px',
+            paddingBottom: colorData.paddingBottom ?? colorData.paddingTop,
+            paddingLeft: colorData.paddingLeft ?? '8px',
           };
         }
       }
@@ -145,10 +174,18 @@ function main(): void {
   console.log(`Written: ${OUTPUT_PATH}`);
 
   const typography = extractBadgeTypography(extraction.badges);
+  const padding = extractBadgePadding(extraction.badges);
   if (typography) {
-    const alertBadgesOutput = { light: {}, dark: {}, typography };
+    const alertBadgesOutput: Record<string, unknown> = {
+      light: output.light,
+      dark: output.dark,
+      typography,
+    };
+    if (padding) alertBadgesOutput['padding'] = padding;
     writeFileSync(ALERT_BADGES_OUTPUT_PATH, JSON.stringify(alertBadgesOutput, null, 2));
     console.log(`Typography: ${typography.fontFamily} ${typography.fontSize}/${typography.lineHeight}`);
+    if (padding) console.log(`Padding: ${padding.paddingTop} ${padding.paddingRight} ${padding.paddingBottom} ${padding.paddingLeft}`);
+    console.log(`Alert badge colors: ${Object.keys(output.light).length} variants`);
     console.log(`Written: ${ALERT_BADGES_OUTPUT_PATH}`);
   }
 }

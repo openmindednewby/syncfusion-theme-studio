@@ -14,19 +14,28 @@ The app has a centralized theme system. Every visual property is defined in a si
 ThemeConfig (one of 18 presets)
     |
     v
-useThemeStore (Zustand)
+PresetsSection.handleApplyPreset()
     |
-    v
-injectThemeVariables()
-    |
-    v
-CSS custom properties on :root
-    |
-    +---> BadgeNative        (reads --component-badge-error-bg, etc.)
-    +---> SyncfusionBadge    (reads the same CSS vars)
-    +---> AlertBadge          (reads the same CSS vars)
-    +---> Every other component...
+    ├── 1. generateDerivedColors(primary)       — compute interactive colors
+    ├── 2. buildDerivedComponents(comps, derived) — patch buttons/sidebar/inputs/dataGrid
+    └── 3. updateTheme({...preset, components})
+           |
+           v
+    useThemeStore (Zustand)
+           |
+           v
+    injectThemeVariables()
+           |
+           v
+    CSS custom properties on :root
+           |
+           +---> BadgeNative        (reads --component-badge-error-bg, etc.)
+           +---> SyncfusionBadge    (reads the same CSS vars)
+           +---> AlertBadge          (reads the same CSS vars)
+           +---> Every other component...
 ```
+
+For hand-authored presets (Fremen, Voyager, etc.), `comps` is `DEFAULT_COMPONENTS` — all component sections use default colors. For the Figma Design preset, `comps` is `FIGMA_COMPONENTS` — synced sections (badges, alertBadges) have Figma-extracted overrides, while unsynced sections fall back to defaults. The `buildDerivedComponents()` step patches buttons, sidebar, inputs, and dataGrid from the primary color scale for both paths.
 
 ### ThemeConfig Structure
 
@@ -83,8 +92,9 @@ figma:generate:input       data/figma-sections/input.json   (future)
     ...
     |
     v
-figma:generate             reads extract + ALL section JSONs
-                           writes ONE src/stores/theme/presets/figmaDesign.ts
+figma:generate             1. reads extract + ALL section JSONs
+                           2. deep-merges figma-corrections/*.json on top
+                           3. writes ONE src/stores/theme/presets/figmaDesign.ts
     |
     v
 ThemeConfig.components
@@ -125,10 +135,31 @@ Section generators are independent. You can run one without running the others.
 | Input | stub | Future |
 | (21 more) | stub | Future |
 
+**Phase 2.5: Post-Processing Corrections** (automatic, no command needed)
+
+The Figma API sometimes returns incorrect values. Rather than hardcoding fixes in generator scripts or manually editing section JSONs (which get overwritten), correction files in `data/figma-corrections/` are deep-merged on top of section data during Phase 3.
+
+- Correction files follow the same JSON structure as section files
+- Only the specific keys that need fixing are specified — everything else passes through
+- Matched by filename: `figma-corrections/badges.json` corrects `figma-sections/badges.json`
+- Applied automatically by `corrections.ts` during the main generate step
+
+Example — fixing light mode badge text color from white to dark:
+```json
+{
+  "light": {
+    "error": { "textColor": "17 19 25" },
+    "warning": { "textColor": "17 19 25" },
+    "success": { "textColor": "17 19 25" }
+  }
+}
+```
+
 **Phase 3: Main Generator** (`npm run figma:generate`)
 
 - Reads `data/figma-extract.json` for general color/mode mappings
 - Reads ALL `data/figma-sections/*.json` files (from section generators)
+- Deep-merges any `data/figma-corrections/*.json` files on top (corrections win)
 - Combines everything into one `figmaDesign.ts` preset
 - Component section JSONs become inline overrides in the `FIGMA_COMPONENTS` constant
 
@@ -148,6 +179,7 @@ extract  -->  generate:badges  -->  generate
 scripts/figma/
   extract.ts                    Phase 1: Figma API -> JSON
   generate-badges.ts            Phase 2: Badges section generator
+  corrections.ts                Phase 2.5: Deep-merges correction files onto sections
   generate.ts                   Phase 3: Combines sections -> figmaDesign.ts
   code-generators.ts            TypeScript code generation helpers
   figma-mapping.ts              Color/mode mapping rules (manual config)
@@ -158,8 +190,11 @@ scripts/figma/
     figma-extract.json          Raw API extraction output
     figma-sections/
       badges.json               Badge section overrides (generated)
+      alertBadges.json          Alert badge section overrides (generated)
       buttons.json              (future)
       ...
+    figma-corrections/
+      badges.json               Fixes light mode badge text colors
 
 src/stores/theme/
   presets/
@@ -260,6 +295,11 @@ Output: `data/figma-sections/badges.json` (colors) + `data/figma-sections/alertB
   },
   "dark": { ... }
 }
+```
+
+> **Note**: The Figma API returns white text (`255 255 255`) for light mode error/warning/success badges, but dark text is needed for readability. The correction file `data/figma-corrections/badges.json` overrides these to `17 19 25` during generation.
+
+```json
 
 // alertBadges.json — typography for AlertBadge only
 {
@@ -277,7 +317,7 @@ Output: `data/figma-sections/badges.json` (colors) + `data/figma-sections/alertB
 
 ### Code Generation (generate.ts + code-generators.ts)
 
-The main generator reads `badges.json` and produces inline overrides in `figmaDesign.ts`:
+The main generator reads `badges.json`, applies corrections, and produces inline overrides in `figmaDesign.ts`:
 
 ```typescript
 const FIGMA_COMPONENTS: ComponentsConfig = {
@@ -285,8 +325,8 @@ const FIGMA_COMPONENTS: ComponentsConfig = {
     ...DEFAULT_COMPONENTS_LIGHT,
     badges: {
       ...DEFAULT_COMPONENTS_LIGHT.badges,
-      error: { background: '239 68 68', textColor: '255 255 255', borderColor: '239 68 68' },
-      // ...
+      error: { background: '239 68 68', textColor: '17 19 25', borderColor: '239 68 68' },
+      // ...  (textColor corrected from '255 255 255' by figma-corrections/badges.json)
     },
   },
   dark: {
@@ -329,6 +369,18 @@ To implement a new section generator (e.g., buttons):
 5. **Run `figma:generate`** which automatically picks up `buttons.json` and adds it to `figmaDesign.ts`
 
 The main generator discovers section files automatically from `data/figma-sections/*.json`, so no changes needed there.
+
+---
+
+## Adding a Correction
+
+When the Figma API returns incorrect values for a section, add a correction file instead of editing the section JSON (which gets overwritten) or the generator script.
+
+1. **Create `data/figma-corrections/<section>.json`** with the same structure as the section file, but only include the keys that need fixing
+2. **Run `npm run figma:generate`** — the correction is automatically deep-merged on top of the section data
+3. The correction persists across re-extractions and re-generations since it lives in a separate file
+
+Corrections are matched by filename. Only keys present in the correction file are overridden — all other values pass through from the section unchanged.
 
 ---
 

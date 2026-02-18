@@ -15,43 +15,39 @@ interface AlertBadgeProps {
 
 const SOLID_STYLES: Record<BadgeVariant, CSSProperties> = {
   [BadgeVariant.Success]: {
-    background: 'var(--component-badge-success-bg)',
-    color: 'var(--component-badge-success-text)',
+    background: 'var(--component-alert-badge-success-bg)',
+    color: 'var(--component-alert-badge-success-text)',
   },
   [BadgeVariant.Warning]: {
-    background: 'var(--component-badge-warning-bg)',
-    color: 'var(--component-badge-warning-text)',
+    background: 'var(--component-alert-badge-warning-bg)',
+    color: 'var(--component-alert-badge-warning-text)',
   },
   [BadgeVariant.Error]: {
-    background: 'var(--component-badge-error-bg)',
-    color: 'var(--component-badge-error-text)',
+    background: 'var(--component-alert-badge-error-bg)',
+    color: 'var(--component-alert-badge-error-text)',
   },
   [BadgeVariant.Info]: {
-    background: 'var(--component-badge-info-bg)',
-    color: 'var(--component-badge-info-text)',
+    background: 'var(--component-alert-badge-info-bg)',
+    color: 'var(--component-alert-badge-info-text)',
   },
 };
 
 const OUTLINE_STYLES: Record<BadgeVariant, CSSProperties> = {
   [BadgeVariant.Success]: {
-    background: 'var(--component-badge-success-outline-bg)',
-    color: 'var(--component-badge-success-border)',
-    border: '1px solid var(--component-badge-success-border)',
+    color: 'var(--component-alert-badge-success-border)',
+    border: '1px solid var(--component-alert-badge-success-border)',
   },
   [BadgeVariant.Warning]: {
-    background: 'var(--component-badge-warning-outline-bg)',
-    color: 'var(--component-badge-warning-border)',
-    border: '1px solid var(--component-badge-warning-border)',
+    color: 'var(--component-alert-badge-warning-border)',
+    border: '1px solid var(--component-alert-badge-warning-border)',
   },
   [BadgeVariant.Error]: {
-    background: 'var(--component-badge-error-outline-bg)',
-    color: 'var(--component-badge-error-border)',
-    border: '1px solid var(--component-badge-error-border)',
+    color: 'var(--component-alert-badge-error-border)',
+    border: '1px solid var(--component-alert-badge-error-border)',
   },
   [BadgeVariant.Info]: {
-    background: 'var(--component-badge-info-outline-bg)',
-    color: 'var(--component-badge-info-border)',
-    border: '1px solid var(--component-badge-info-border)',
+    color: 'var(--component-alert-badge-info-border)',
+    border: '1px solid var(--component-alert-badge-info-border)',
   },
 };
 
@@ -59,7 +55,10 @@ const BASE_STYLE: Record<string, string> = {
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  padding: '0.125rem 0.5rem',
+  paddingTop: 'var(--component-alert-badge-padding-top)',
+  paddingRight: 'var(--component-alert-badge-padding-right)',
+  paddingBottom: 'var(--component-alert-badge-padding-bottom)',
+  paddingLeft: 'var(--component-alert-badge-padding-left)',
   borderRadius: 'var(--radius-sm)',
   fontFamily: 'var(--component-alert-badge-font-family)',
   fontSize: 'var(--component-alert-badge-font-size)',

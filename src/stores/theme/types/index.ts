@@ -54,6 +54,7 @@ export type {
   CardsConfig,
   ModalsConfig,
   AlertBadgesConfig,
+  BadgePadding,
   BadgeTypography,
   BadgeVariant,
   BadgesConfig,

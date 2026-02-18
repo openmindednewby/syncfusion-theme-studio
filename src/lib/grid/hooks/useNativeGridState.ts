@@ -181,8 +181,9 @@ function useDataPipeline(input: DataPipelineInput): Array<Record<string, unknown
 
   const filteredData = useMemo(() => {
     if (!isClient) return data;
-    const isFilterEnabled = isValueDefined(filterConfig) && filterConfig.enabled;
-    return isFilterEnabled ? applyFilters(data, filterValues, columnTypes) : data;
+    const isFilterRowEnabled = isValueDefined(filterConfig) && filterConfig.enabled;
+    const hasActiveFilters = Object.values(filterValues).some((v) => v.length > 0);
+    return isFilterRowEnabled || hasActiveFilters ? applyFilters(data, filterValues, columnTypes) : data;
   }, [isClient, data, filterValues, columnTypes, filterConfig]);
 
   return useMemo(

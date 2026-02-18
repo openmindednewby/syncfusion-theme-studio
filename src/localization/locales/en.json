@@ -883,7 +883,8 @@
     "columnMenu": "Column menu for {{p1}}",
     "sortAscending": "Sort Ascending",
     "sortDescending": "Sort Descending",
-    "columns": "Columns"
+    "columns": "Columns",
+    "filter": "Filter"
   },
   "components": {
     "title": "Components Showcase",

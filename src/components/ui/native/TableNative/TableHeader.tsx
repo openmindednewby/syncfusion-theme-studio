@@ -1,10 +1,6 @@
-/**
- * TableHeader renders the thead element with sortable column headers,
- * optional checkbox select-all column, and an optional filter row.
- */
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useRef } from 'react';
 
-import type { ColumnType } from '@/lib/grid/types';
+import { ColumnType } from '@/lib/grid/types';
 import { FM } from '@/localization/helpers';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';
@@ -21,19 +17,16 @@ const HEADER_LINE_HEIGHT = '1';
 const SORT_ASCENDING_INDICATOR = '\u25B2';
 const SORT_DESCENDING_INDICATOR = '\u25BC';
 
-/** Maps column TextAlign to CSS textAlign values for explicit per-column overrides */
 const HEADER_ALIGN_CSS: Record<TextAlign, React.CSSProperties['textAlign']> = {
   [TextAlign.Left]: 'left',
   [TextAlign.Center]: 'center',
   [TextAlign.Right]: 'right',
 };
 
-/** Format a column width value to a CSS-compatible string */
 function formatWidth(width: number | string): string {
   return typeof width === 'number' ? `${String(width)}px` : width;
 }
 
-/** Build the style object for column width constraints */
 function buildColumnStyle(column: TableColumn): React.CSSProperties | undefined {
   const style: React.CSSProperties = {};
   if (isValueDefined(column.width)) style.width = formatWidth(column.width);
@@ -89,6 +82,8 @@ const TableHeader = ({
   hiddenFields,
   onToggleColumnVisibility,
 }: Props): JSX.Element => {
+  const triggerRefs = useRef<Record<string, HTMLButtonElement | null>>({});
+
   const handleDragStart = useCallback(
     (e: React.DragEvent, field: string) => {
       if (!draggableHeaders) return;
@@ -97,6 +92,10 @@ const TableHeader = ({
     [draggableHeaders],
   );
 
+  const setTriggerRef = useCallback((field: string, el: HTMLButtonElement | null) => {
+    triggerRefs.current[field] = el;
+  }, []);
+
   const renderColumnMenuPopup = (field: string): JSX.Element | null => {
     if (!showColumnMenu || openMenuField !== field) return null;
     if (!onMenuClose || !allColumns) return null;
@@ -104,11 +103,15 @@ const TableHeader = ({
     return (
       <ColumnMenuPopup
         allColumns={allColumns}
+        columnType={columnTypes[field] ?? ColumnType.String}
         field={field}
+        filterValue={filterValues[field] ?? ''}
         hiddenFields={hiddenFields}
         sortDirection={sortDirection}
         sortField={sortField}
+        triggerRef={{ current: triggerRefs.current[field] ?? null }}
         onClose={onMenuClose}
+        onFilterChange={onFilterChange}
         onSort={onSort}
         onToggleColumn={onToggleColumnVisibility}
       />
@@ -147,13 +150,7 @@ const TableHeader = ({
             <th
               key={column.field}
               aria-sort={isSorted ? sortDirection : undefined}
-              className={cn(
-                cellPadding,
-                'native-grid-header-cell group/th relative cursor-pointer select-none',
-                'border-b transition-colors',
-                'overflow-visible whitespace-nowrap',
-                'border-r border-r-border/30 last:border-r-0',
-              )}
+              className={cn(cellPadding, 'native-grid-header-cell group/th relative cursor-pointer select-none border-b transition-colors overflow-visible whitespace-nowrap border-r border-r-border/30 last:border-r-0')}
               draggable={draggableHeaders}
               scope="col"
               style={{
@@ -177,18 +174,13 @@ const TableHeader = ({
                   {column.headerText}
                 </span>
                 {isSorted ? (
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 text-xs"
-                    style={{ color: 'var(--component-datagrid-sort-icon)' }}
-                  >
-                    {sortDirection === 'ascending'
-                      ? SORT_ASCENDING_INDICATOR
-                      : SORT_DESCENDING_INDICATOR}
+                  <span aria-hidden="true" className="shrink-0 text-xs" style={{ color: 'var(--component-datagrid-sort-icon)' }}>
+                    {sortDirection === 'ascending' ? SORT_ASCENDING_INDICATOR : SORT_DESCENDING_INDICATOR}
                   </span>
                 ) : null}
                 {showColumnMenu && onMenuToggle ? (
                   <ColumnMenuTrigger
+                    ref={(el) => setTriggerRef(column.field, el)}
                     field={column.field}
                     headerText={column.headerText}
                     isOpen={openMenuField === column.field}
@@ -196,11 +188,11 @@ const TableHeader = ({
                   />
                 ) : null}
               </span>
-              {renderColumnMenuPopup(column.field)}
             </th>
           );
         })}
       </tr>
+      {isValueDefined(openMenuField) ? renderColumnMenuPopup(openMenuField) : null}
       {isFilterEnabled ? (
         <FilterRow
           cellPadding={cellPadding}

@@ -88,10 +88,8 @@ alertsmanagement.png
 .gitignore
 TABLEFILTERING.png
 syncfusionMissingDarkTheme.png
-**/obj/**
-MockServer/src/MockServer.Core/bin/**
-MockServer/src/MockServer.Core/bin/*
-*Debug*
+**/obj/
+**/bin/
 figma/chips2.png
 figma/chips1.png
 figma/filterIssue.png
@@ -118,6 +116,4 @@ figma/fimaSidePanel2.png
 figma/sidePanelOnFigma.png
 figma/variables.png
 figma/badgesWithVariables.png
-MockServer/src/MockServer.Core/bin/Debug/net9.0/MockServer.Core.dll
 figma/badges issue.png
-MockServer/src/MockServer.Core/obj/Debug/net9.0/MockServer.Core.AssemblyInfo.cs

@@ -1,0 +1,261 @@
+{
+  "fileKey": "hTPo6YaE32xCzSFltwxTLQ",
+  "fileName": "UI Components Library (Community) (Copy) (Copy)",
+  "extractedAt": "2026-02-19T08:15:26.236Z",
+  "lightFrame": {
+    "nodeId": "",
+    "nodeName": "Light Theme",
+    "properties": []
+  },
+  "darkFrame": {
+    "nodeId": "",
+    "nodeName": "Dark Theme",
+    "properties": []
+  },
+  "badges": {
+    "severity": {
+      "light": {
+        "CRITICAL": {
+          "background": "239 68 68",
+          "textColor": "255 255 255",
+          "borderColor": "239 68 68",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "HIGH": {
+          "background": "249 115 22",
+          "textColor": "255 255 255",
+          "borderColor": "249 115 22",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "MEDIUM": {
+          "background": "254 177 48",
+          "textColor": "17 19 25",
+          "borderColor": "254 177 48",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "LOW": {
+          "background": "123 164 175",
+          "textColor": "255 255 255",
+          "borderColor": "123 164 175",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        }
+      },
+      "dark": {
+        "CRITICAL": {
+          "background": "239 68 68",
+          "textColor": "17 19 25",
+          "borderColor": "239 68 68",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "HIGH": {
+          "background": "249 115 22",
+          "textColor": "17 19 25",
+          "borderColor": "249 115 22",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "MEDIUM": {
+          "background": "254 177 48",
+          "textColor": "17 19 25",
+          "borderColor": "254 177 48",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "LOW": {
+          "background": "123 164 175",
+          "textColor": "17 19 25",
+          "borderColor": "123 164 175",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        }
+      }
+    },
+    "sla": {
+      "light": {
+        "BREACHED": {
+          "background": "239 68 68",
+          "textColor": "239 68 68",
+          "borderColor": "239 68 68",
+          "fillOpacity": 0.20000000298023224,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "AT RISK": {
+          "background": "249 115 22",
+          "textColor": "249 115 22",
+          "borderColor": "249 115 22",
+          "fillOpacity": 0.20000000298023224,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "COMPLIANT": {
+          "background": "16 185 129",
+          "textColor": "16 185 129",
+          "borderColor": "16 185 129",
+          "fillOpacity": 0.20000000298023224,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "FILL 20% OPACITY": {
+          "background": "0 0 0",
+          "textColor": "0 0 0",
+          "borderColor": "0 0 0",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "8px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px"
+        }
+      },
+      "dark": {
+        "BREACHED": {
+          "background": "239 68 68",
+          "textColor": "239 68 68",
+          "borderColor": "239 68 68",
+          "fillOpacity": 0.20000000298023224,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "AT RISK": {
+          "background": "249 115 22",
+          "textColor": "249 115 22",
+          "borderColor": "249 115 22",
+          "fillOpacity": 0.20000000298023224,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "COMPLIANT": {
+          "background": "16 185 129",
+          "textColor": "16 185 129",
+          "borderColor": "16 185 129",
+          "fillOpacity": 0.20000000298023224,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "10px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px",
+          "paddingTop": "5px",
+          "paddingRight": "5px",
+          "paddingBottom": "5px",
+          "paddingLeft": "5px"
+        },
+        "FILL 20% OPACITY": {
+          "background": "255 255 255",
+          "textColor": "255 255 255",
+          "borderColor": "255 255 255",
+          "fillOpacity": 1,
+          "fontFamily": "Fira Sans Condensed",
+          "fontSize": "8px",
+          "fontWeight": "500",
+          "lineHeight": "15px",
+          "letterSpacing": "0px"
+        }
+      }
+    }
+  }
+}

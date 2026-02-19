@@ -1,0 +1,9 @@
+{
+  "outlineFillOpacity": "0.2",
+  "padding": {
+    "paddingTop": "8px"
+  },
+  "typography": {
+    "textTransform": "uppercase"
+  }
+}

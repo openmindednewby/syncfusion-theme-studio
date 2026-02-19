@@ -50,8 +50,7 @@ Thumbs.db
 # Generated API hooks (can be regenerated)
 src/api/generated/
 
-# Figma pipeline intermediate data
-scripts/figma/data/
+# Figma pipeline data (corrections + intermediate outputs)
 
 # Syncfusion license (keep private)
 syncfusion-license.txt

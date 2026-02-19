@@ -1,0 +1,126 @@
+{
+  "colors": {
+    "primary-50": {
+      "hex": "#DFDFDF",
+      "rgb": "223 223 223"
+    },
+    "primary-10": {
+      "hex": "#E7E7E7",
+      "rgb": "231 231 231"
+    },
+    "primary-20": {
+      "hex": "#D0D0D0",
+      "rgb": "208 208 208"
+    },
+    "primary-05": {
+      "hex": "#F3F3F3",
+      "rgb": "243 243 243"
+    },
+    "primary-a-95": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-40": {
+      "hex": "#A1A1A1",
+      "rgb": "161 161 161"
+    },
+    "primary-a-20": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-a-10": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-a-90": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-a-80": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-a-60": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "background": {
+      "hex": "#FFFFFF",
+      "rgb": "255 255 255"
+    },
+    "primary-a-50": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-a-40": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "primary-a-05": {
+      "hex": "#131414",
+      "rgb": "19 20 20"
+    },
+    "Background Color": {
+      "hex": "#1B2029",
+      "rgb": "27 32 41"
+    },
+    "Selection": {
+      "hex": "#00A1C9",
+      "rgb": "0 161 201"
+    },
+    "Grid Header": {
+      "hex": "#39404B",
+      "rgb": "57 64 75"
+    },
+    "Side Menu": {
+      "hex": "#111319",
+      "rgb": "17 19 25"
+    },
+    "Accordion": {
+      "hex": "#262C39",
+      "rgb": "38 44 57"
+    }
+  },
+  "textStyles": [
+    "Fira/20/Medium",
+    "Fira/22/Medium",
+    "Fira/12/Medium",
+    "Fira/24/Medium",
+    "Fira/14/Medium",
+    "Fira/16/Medium",
+    "Fira/32/Medium",
+    "Fira/18/Medium",
+    "Fira/10/Medium",
+    "Fira/24/Italic",
+    "Fira/20/Bold",
+    "Fira/12/Italic",
+    "Fira/14/Bold",
+    "Fira/32/Bold",
+    "Fira/24/Bold",
+    "Fira/20/Regular",
+    "Fira/22/Italic",
+    "Fira/14/Regular",
+    "Fira/16/Regular",
+    "Fira/32/Regular",
+    "Fira/12/Bold",
+    "Fira/12/Regular",
+    "Fira/14/Italic",
+    "Fira/16/Italic",
+    "Fira/10/Regular",
+    "Fira/18/Bold",
+    "Fira/10/Regular",
+    "Fira/18/Regular",
+    "Fira/24/Regular",
+    "Fira/18/Italic",
+    "Fira/10/Bold",
+    "Fira/32/Italic",
+    "Fira/22/Italic",
+    "Fira/22/Bold",
+    "Fira/20/Italic",
+    "Fira/16/Bold"
+  ],
+  "effectStyles": [
+    "shadow-md",
+    "shadow-lg"
+  ]
+}

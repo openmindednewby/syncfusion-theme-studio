@@ -1,0 +1,7 @@
+{
+  "light": {
+    "error": { "textColor": "17 19 25" },
+    "warning": { "textColor": "17 19 25" },
+    "success": { "textColor": "17 19 25" }
+  }
+}

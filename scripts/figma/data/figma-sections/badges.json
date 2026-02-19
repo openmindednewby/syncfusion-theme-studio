@@ -1,0 +1,46 @@
+{
+  "light": {
+    "error": {
+      "background": "239 68 68",
+      "textColor": "255 255 255",
+      "borderColor": "239 68 68"
+    },
+    "warning": {
+      "background": "249 115 22",
+      "textColor": "255 255 255",
+      "borderColor": "249 115 22"
+    },
+    "info": {
+      "background": "254 177 48",
+      "textColor": "17 19 25",
+      "borderColor": "254 177 48"
+    },
+    "success": {
+      "background": "123 164 175",
+      "textColor": "255 255 255",
+      "borderColor": "16 185 129"
+    }
+  },
+  "dark": {
+    "error": {
+      "background": "239 68 68",
+      "textColor": "17 19 25",
+      "borderColor": "239 68 68"
+    },
+    "warning": {
+      "background": "249 115 22",
+      "textColor": "17 19 25",
+      "borderColor": "249 115 22"
+    },
+    "info": {
+      "background": "254 177 48",
+      "textColor": "17 19 25",
+      "borderColor": "254 177 48"
+    },
+    "success": {
+      "background": "123 164 175",
+      "textColor": "17 19 25",
+      "borderColor": "16 185 129"
+    }
+  }
+}

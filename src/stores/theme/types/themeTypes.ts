@@ -10,6 +10,7 @@ import { type Mode, type StatusKey, type StatusShade ,
 import { type ButtonVariant ,
   type AccordionConfig,
   type AlertBadgesConfig,
+  type ExternalLinkConfig,
   type AlertsConfig,
   type AvatarConfig,
   type BadgesConfig,
@@ -136,6 +137,7 @@ export interface ThemeState {
   updateCheckboxConfig: (updates: Partial<CheckboxConfig>) => void;
   updateRadioConfig: (updates: Partial<RadioConfig>) => void;
   updateToggleConfig: (updates: Partial<ToggleConfig>) => void;
+  updateExternalLinkConfig: (updates: Partial<ExternalLinkConfig>) => void;
   // Typography component actions
   updateTypographyComponentLevel: (level: keyof TypographyComponentsConfig, updates: Record<string, string>) => void;
   // Typography actions

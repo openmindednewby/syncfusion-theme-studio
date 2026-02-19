@@ -14,6 +14,7 @@ import { DataGridEditor } from './DataGridEditor';
 import { DatePickerEditor } from './DatePickerEditor';
 import { DialogEditor } from './DialogEditor';
 import { ErrorMessagesEditor } from './ErrorMessagesEditor';
+import { ExternalLinkEditor } from './ExternalLinkEditor';
 import { FlexBoxEditor } from './FlexBoxEditor';
 import { FormControlsGroupEditor } from './FormControlsGroupEditor';
 import { HeaderEditor } from './HeaderEditor';
@@ -65,6 +66,7 @@ export const ComponentsSection = (): JSX.Element => {
     updateCheckboxConfig,
     updateRadioConfig,
     updateToggleConfig,
+    updateExternalLinkConfig,
   } = useThemeStore();
 
   // Get the current mode's component configuration
@@ -116,6 +118,7 @@ export const ComponentsSection = (): JSX.Element => {
         <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />
         <AlertBadgesEditor config={components.alertBadges} onUpdate={updateAlertBadgesConfig} />
         <TextDescriptionEditor config={components.textDescription} onUpdate={updateTextDescriptionConfig} />
+        <ExternalLinkEditor config={components.externalLink} onUpdate={updateExternalLinkConfig} />
         <ChipsEditor config={components.chips} onUpdate={updateChipConfig} />
         <ErrorMessagesEditor config={components.errorMessages} onUpdate={updateErrorMessagesConfig} />
         <FlexBoxEditor config={components.flexBox} onUpdate={updateFlexBoxConfig} />

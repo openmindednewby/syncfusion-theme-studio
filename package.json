@@ -46,13 +46,13 @@
     "figma:generate:buttons": "tsx scripts/figma/generate-buttons.ts",
     "figma:generate:description": "tsx scripts/figma/generate-text-description.ts",
     "figma:generate:input": "tsx scripts/figma/generate-inputs.ts",
-    "figma:generate:external-link": "echo [STUB] External Link generation not implemented yet",
+    "figma:generate:external-link": "tsx scripts/figma/generate-external-links.ts",
     "figma:generate:layouts": "echo [STUB] Layouts/Grid generation not implemented yet",
     "figma:generate:icons": "tsx scripts/figma/generate-icons.ts",
     "figma:generate:drawer": "echo [STUB] Drawer generation not implemented yet",
     "figma:generate:notifications": "echo [STUB] Notifications/Alerts/Toast generation not implemented yet",
     "figma:generate:image": "echo [STUB] Image generation not implemented yet",
-    "figma:generate:nav-menus": "echo [STUB] Navigation Menus generation not implemented yet",
+    "figma:generate:nav-menus": "tsx scripts/figma/generate-nav-menus.ts",
     "figma:generate:dropdowns": "echo [STUB] Drop Down Lists generation not implemented yet",
     "figma:generate:breadcrumbs": "echo [STUB] Breadcrumbs generation not implemented yet",
     "figma:generate:data-grid": "echo [STUB] Data Grid generation not implemented yet",
@@ -63,7 +63,7 @@
     "figma:generate:skeleton": "echo [STUB] Skeleton generation not implemented yet",
     "figma:generate:slider": "echo [STUB] Slider generation not implemented yet",
     "figma:generate:subhead": "echo [STUB] Subhead generation not implemented yet",
-    "figma:sync": "tsx --env-file=.env scripts/figma/extract.ts && tsx scripts/figma/generate-icons.ts && tsx scripts/figma/generate-badges.ts && tsx scripts/figma/generate-buttons.ts && tsx scripts/figma/generate-inputs.ts && tsx scripts/figma/generate-text-description.ts && tsx scripts/figma/generate.ts"
+    "figma:sync": "tsx --env-file=.env scripts/figma/extract.ts && tsx scripts/figma/generate-icons.ts && tsx scripts/figma/generate-badges.ts && tsx scripts/figma/generate-buttons.ts && tsx scripts/figma/generate-inputs.ts && tsx scripts/figma/generate-text-description.ts && tsx scripts/figma/generate-external-links.ts && tsx scripts/figma/generate-nav-menus.ts && tsx scripts/figma/generate.ts"
   },
   "dependencies": {
     "@fontsource/fira-sans": "^5.2.7",

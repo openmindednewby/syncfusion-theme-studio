@@ -130,5 +130,16 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
     lineHeight: '20px',
     letterSpacing: '2%',
   },
+  externalLink: {
+    textColor: '59 130 246',
+    iconColor: '59 130 246',
+    hoverTextColor: '37 99 235',
+    hoverIconColor: '37 99 235',
+    typography: { fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: '500', lineHeight: '1.5', letterSpacing: '0px' },
+    textDecoration: 'none',
+    gap: '4px',
+    iconSize: '14px',
+    transitionDuration: '150ms',
+  },
   pagination: DEFAULT_PAGINATION_LIGHT, ...DEFAULT_FEEDBACK_LIGHT, ...DEFAULT_FORM_CONTROLS_LIGHT, ...DEFAULT_NAVIGATION_LIGHT, ...DEFAULT_DATA_DISPLAY_LIGHT,
 };

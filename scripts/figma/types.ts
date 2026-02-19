@@ -163,6 +163,43 @@ export interface IconExtractionData {
   icons: IconNodeData[];
 }
 
+/** Extracted nav menu color data for a single theme mode */
+export interface NavMenuColorData {
+  background: string;
+  textColor: string;
+  activeBackground: string;
+  activeTextColor: string;
+  hoverBackground?: string;
+  hoverTextColor?: string;
+  borderColor: string;
+  iconColor?: string;
+  separatorColor?: string;
+  itemBorderRadius?: string;
+  itemPaddingLeft?: string;
+  itemPaddingRight?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+}
+
+/** Nav menu data with light/dark variants */
+export interface NavMenuSectionData {
+  light: NavMenuColorData;
+  dark: NavMenuColorData;
+}
+
+/** Extracted external link data */
+export interface ExternalLinkData {
+  textColor: string;
+  iconColor: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  letterSpacing?: string;
+}
+
 /** Full extraction output */
 export interface FigmaExtraction {
   fileKey: string;
@@ -189,6 +226,8 @@ export interface FigmaExtraction {
   inputs?: InputSectionData;
   textDescription?: TextDescriptionData;
   icons?: IconExtractionData;
+  navMenus?: NavMenuSectionData;
+  externalLink?: ExternalLinkData;
 }
 
 /** Single mapping rule */

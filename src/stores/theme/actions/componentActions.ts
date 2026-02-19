@@ -7,6 +7,7 @@ import { type ButtonVariant ,
   type AlertsConfig,
   type AvatarConfig,
   type AlertBadgesConfig,
+  type ExternalLinkConfig,
   type BadgesConfig,
   type BreadcrumbConfig,
   type ButtonStateColors,
@@ -79,6 +80,7 @@ const enum ComponentKey {
   Checkbox = 'checkbox',
   Radio = 'radio',
   Toggle = 'toggle',
+  ExternalLink = 'externalLink',
 }
 
 function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
@@ -151,5 +153,6 @@ export function createComponentConfigActions(set: SetState, get: GetState): Comp
     updateCheckboxConfig: (u: Partial<CheckboxConfig>) => update(set, get, ComponentKey.Checkbox, u),
     updateRadioConfig: (u: Partial<RadioConfig>) => update(set, get, ComponentKey.Radio, u),
     updateToggleConfig: (u: Partial<ToggleConfig>) => update(set, get, ComponentKey.Toggle, u),
+    updateExternalLinkConfig: (u: Partial<ExternalLinkConfig>) => update(set, get, ComponentKey.ExternalLink, u),
   };
 }

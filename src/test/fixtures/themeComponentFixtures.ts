@@ -44,6 +44,7 @@ import type {
   CheckboxConfig,
   RadioConfig,
   ToggleConfig,
+  ExternalLinkConfig,
 } from '../../stores/theme/types';
 
 const DISABLED_DEFAULTS = {
@@ -622,6 +623,18 @@ const createToggle = (): ToggleConfig => ({
   thumbSize: '20px',
 });
 
+const createExternalLink = (): ExternalLinkConfig => ({
+  textColor: '59 130 246',
+  iconColor: '59 130 246',
+  hoverTextColor: '37 99 235',
+  hoverIconColor: '37 99 235',
+  typography: { fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: '500', lineHeight: '1.5', letterSpacing: '0px' },
+  textDecoration: 'none',
+  gap: '4px',
+  iconSize: '14px',
+  transitionDuration: '150ms',
+});
+
 const createPagination = (): PaginationConfig => ({
   background: '255 255 255',
   borderColor: '229 231 235',
@@ -671,6 +684,7 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
     },
   },
   textDescription: { textColor: '55 65 81', fontFamily: 'Fira Sans', fontSize: '12px', fontWeight: '400', lineHeight: '20px', letterSpacing: '0px' },
+  externalLink: createExternalLink(),
   select: createSelect(),
   datePicker: createDatePicker(),
   dialog: createDialog(),

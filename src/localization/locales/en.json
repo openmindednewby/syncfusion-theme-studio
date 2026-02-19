@@ -171,6 +171,7 @@
     "progressbarSyncfusion": "ProgressBar",
     "tooltipNative": "Tooltip",
     "tooltipSyncfusion": "Tooltip",
+    "navMenu": "Nav Menu",
     "themeToggleNative": "Theme Toggle",
     "native": "Native",
     "syncfusion": "Syncfusion",
@@ -196,6 +197,7 @@
     "tabs": "Tabs",
     "tag": "Tag",
     "textDescription": "Text Description",
+    "externalLink": "External Link",
     "icons": "Icons",
     "themeToggle": "Theme Toggle",
     "timeline": "Timeline",
@@ -783,6 +785,23 @@
         "fontWeight": "Font Weight",
         "lineHeight": "Line Height",
         "letterSpacing": "Letter Spacing"
+      },
+      "externalLink": {
+        "title": "External Link",
+        "description": "Styling for external link components with hover states.",
+        "textColor": "Text Color",
+        "iconColor": "Icon Color",
+        "hoverTextColor": "Hover Text Color",
+        "hoverIconColor": "Hover Icon Color",
+        "fontFamily": "Font Family",
+        "fontSize": "Font Size",
+        "fontWeight": "Font Weight",
+        "lineHeight": "Line Height",
+        "letterSpacing": "Letter Spacing",
+        "textDecoration": "Text Decoration",
+        "iconSize": "Icon Size",
+        "gap": "Gap",
+        "transitionDuration": "Transition"
       },
       "errorMessages": {
         "title": "Error Messages",
@@ -1760,6 +1779,14 @@
       "syncfusionTitle": "Syncfusion Badge",
       "syncfusionDescription": "Syncfusion-styled badge component"
     },
+    "navMenuShowcase": {
+      "title": "Nav Menu",
+      "description": "Themed vertical navigation menu component with active state highlighting and hover effects.",
+      "basicTitle": "Basic Navigation",
+      "basicDescription": "A simple vertical navigation menu with icons and an active item.",
+      "nestedTitle": "Nested Navigation",
+      "nestedDescription": "Navigation menu with sub-menu indicators for nested items."
+    },
     "alertBadgeShowcase": {
       "title": "Alert Badge",
       "description": "Themed badge component for security alerts, severity levels, SLA status, and risk scores"
@@ -1892,6 +1919,19 @@
       "toggleShort": "Short",
       "toggleLong": "Long",
       "toggleWithHeading": "With Heading"
+    },
+    "externalLinkShowcase": {
+      "title": "External Link",
+      "description": "Clickable text with external-link icon that opens in a new tab.",
+      "defaultTitle": "Default Links",
+      "useCasesTitle": "Use Cases",
+      "useCasesDescription": "Common patterns for external links in documentation and reference contexts.",
+      "docsLabel": "Docs:",
+      "apiLabel": "API:",
+      "supportLabel": "Support:",
+      "inlineTitle": "Inline Links",
+      "inlinePrefix": "Links work inline with text. Visit ",
+      "inlineSuffix": " for more information."
     },
     "themeToggleShowcase": {
       "nativeTitle": "Native Theme Toggle",

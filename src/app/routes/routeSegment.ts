@@ -141,6 +141,14 @@ export const enum RouteSegment {
   ComponentsTextDescriptionNative = 'components/textdescription/native',
   ComponentsTextDescriptionSyncfusion = 'components/textdescription/syncfusion',
 
+  // NavMenu
+  ComponentsNavMenu = 'components/navmenu',
+  ComponentsNavMenuNative = 'components/navmenu/native',
+
+  // ExternalLink
+  ComponentsExternalLink = 'components/externallink',
+  ComponentsExternalLinkNative = 'components/externallink/native',
+
   // ThemeToggle
   ComponentsThemeToggle = 'components/themetoggle',
   ComponentsThemeToggleNative = 'components/themetoggle/native',

@@ -148,6 +148,14 @@ export const enum RoutePath {
   ComponentsTextDescriptionNative = '/dashboard/components/textdescription/native',
   ComponentsTextDescriptionSyncfusion = '/dashboard/components/textdescription/syncfusion',
 
+  // NavMenu
+  ComponentsNavMenu = '/dashboard/components/navmenu',
+  ComponentsNavMenuNative = '/dashboard/components/navmenu/native',
+
+  // ExternalLink
+  ComponentsExternalLink = '/dashboard/components/externallink',
+  ComponentsExternalLinkNative = '/dashboard/components/externallink/native',
+
   // ThemeToggle
   ComponentsThemeToggle = '/dashboard/components/themetoggle',
   ComponentsThemeToggleNative = '/dashboard/components/themetoggle/native',

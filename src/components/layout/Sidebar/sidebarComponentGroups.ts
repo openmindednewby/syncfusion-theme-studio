@@ -32,6 +32,7 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
     ],
   },
   { path: RoutePath.ComponentsAlertBadgeNative, labelKey: 'menu.alertBadge', testId: ComponentTestIds.NAV_ALERTBADGE_GROUP },
+  { path: RoutePath.ComponentsExternalLinkNative, labelKey: 'menu.externalLink', testId: ComponentTestIds.NAV_EXTERNALLINK_GROUP },
   { path: RoutePath.ComponentsFlexBoxNative, labelKey: 'menu.flexBox', testId: ComponentTestIds.NAV_FLEXBOX_GROUP },
   {
     labelKey: 'menu.avatar', testId: ComponentTestIds.NAV_AVATAR_GROUP,
@@ -153,6 +154,7 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
       { path: RoutePath.ComponentsTextDescriptionSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_TEXTDESCRIPTION_SYNCFUSION },
     ],
   },
+  { path: RoutePath.ComponentsNavMenuNative, labelKey: 'menu.navMenu', testId: ComponentTestIds.NAV_NAVMENU_GROUP },
   { path: RoutePath.ComponentsThemeToggleNative, labelKey: 'menu.themeToggleNative', testId: ComponentTestIds.NAV_THEMETOGGLE_NATIVE },
   {
     labelKey: 'menu.timeline', testId: ComponentTestIds.NAV_TIMELINE_GROUP,

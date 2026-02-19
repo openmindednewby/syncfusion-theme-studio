@@ -1,0 +1,14 @@
+{
+  "light": {
+    "background": "250 251 252",
+    "textColor": "55 65 81",
+    "activeBackground": "0 83 104",
+    "borderColor": "229 231 235"
+  },
+  "dark": {
+    "background": "17 24 39",
+    "textColor": "209 213 219",
+    "activeBackground": "0 83 104",
+    "borderColor": "55 65 81"
+  }
+}

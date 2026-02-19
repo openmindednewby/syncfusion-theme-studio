@@ -61,6 +61,8 @@ export type {
   BadgeTypography,
   BadgeVariant,
   BadgesConfig,
+  ExternalLinkConfig,
+  ExternalLinkTypography,
   TextDescriptionConfig,
   AccordionConfig,
   ToolbarConfig,

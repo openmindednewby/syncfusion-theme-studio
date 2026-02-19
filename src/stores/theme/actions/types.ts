@@ -69,6 +69,7 @@ export interface ComponentConfigActions {
   updateCheckboxConfig: ThemeState['updateCheckboxConfig'];
   updateRadioConfig: ThemeState['updateRadioConfig'];
   updateToggleConfig: ThemeState['updateToggleConfig'];
+  updateExternalLinkConfig: ThemeState['updateExternalLinkConfig'];
 }
 
 export interface TypographyActions {

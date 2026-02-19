@@ -97,6 +97,11 @@
     --animation-intensity: normal;
     --animation-respect-reduced-motion: 1;
 
+    /* ===== CODE BLOCK (always-dark) ===== */
+    --color-code-bg: 24 24 27;
+    --color-code-gutter: 113 113 122;
+    --color-code-border: 39 39 42;
+
     /* ===== LIGHT MODE (Default) ===== */
     --color-background: 255 255 255;
     --color-surface: 249 250 251;
@@ -205,6 +210,29 @@
     --component-alert-badge-padding-bottom: 2px;
     --component-alert-badge-padding-left: 8px;
     --component-alert-badge-text-transform: none;
+
+    /* External Link */
+    --component-external-link-text-color: rgb(59 130 246);
+    --component-external-link-icon-color: rgb(59 130 246);
+    --component-external-link-hover-text-color: rgb(37 99 235);
+    --component-external-link-hover-icon-color: rgb(37 99 235);
+    --component-external-link-font-family: inherit;
+    --component-external-link-font-size: 0.875rem;
+    --component-external-link-font-weight: 500;
+    --component-external-link-line-height: 1.5;
+    --component-external-link-letter-spacing: 0px;
+    --component-external-link-text-decoration: none;
+    --component-external-link-gap: 4px;
+    --component-external-link-icon-size: 14px;
+    --component-external-link-transition: 150ms;
+  }
+
+  .external-link:hover {
+    color: var(--component-external-link-hover-text-color);
+  }
+
+  .external-link:hover svg {
+    color: var(--component-external-link-hover-icon-color);
   }
 
   /* ===== DARK MODE ===== */
@@ -216,6 +244,11 @@
     --color-text-primary: 249 250 251;
     --color-text-secondary: 156 163 175;
     --color-text-muted: 107 114 128;
+
+    /* Code block (darker in dark mode) */
+    --color-code-bg: 9 9 11;
+    --color-code-gutter: 82 82 91;
+    --color-code-border: 39 39 42;
 
     /* Dark mode component defaults */
     --component-header-background: rgb(31 41 55);

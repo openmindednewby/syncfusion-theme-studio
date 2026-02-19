@@ -3,7 +3,7 @@
 import type { CheckboxConfig } from './checkboxTypes';
 import type { DataGridConfig } from './dataComponentTypes';
 import type { AvatarConfig, ProgressBarConfig, TabsConfig, TimelineConfig, TooltipConfig } from './dataDisplayComponentTypes';
-import type { AlertBadgesConfig, BadgesConfig, CardsConfig, ModalsConfig, TextDescriptionConfig } from './displayComponentTypes';
+import type { AlertBadgesConfig, BadgesConfig, CardsConfig, ExternalLinkConfig, ModalsConfig, TextDescriptionConfig } from './displayComponentTypes';
 import type { FabConfig } from './fabTypes';
 import type { AlertsConfig, ChipConfig, DatePickerConfig, DialogConfig, ErrorMessagesConfig, FlexBoxConfig, MessageConfig, SelectConfig, ToastConfig } from './feedbackComponentTypes';
 import type { ButtonsComponentConfig, InputsConfig } from './formComponentTypes';
@@ -34,7 +34,7 @@ export type { SplitButtonConfig } from './splitButtonTypes';
 export type { DataGridConfig } from './dataComponentTypes';
 
 // Re-export display component types
-export type { AlertBadgesConfig, BadgePadding, BadgeTypography, BadgeVariant, BadgesConfig, CardsConfig, ModalsConfig, TextDescriptionConfig } from './displayComponentTypes';
+export type { AlertBadgesConfig, BadgePadding, BadgeTypography, BadgeVariant, BadgesConfig, CardsConfig, ExternalLinkConfig, ExternalLinkTypography, ModalsConfig, TextDescriptionConfig } from './displayComponentTypes';
 
 // Re-export pagination types
 export type { PaginationConfig } from './paginationTypes';
@@ -90,6 +90,7 @@ export interface ComponentConfigSingle {
   checkbox: CheckboxConfig;
   radio: RadioConfig;
   toggle: ToggleConfig;
+  externalLink: ExternalLinkConfig;
 }
 
 /** Mode-aware components configuration with light and dark variants */

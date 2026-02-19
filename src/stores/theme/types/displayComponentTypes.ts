@@ -86,3 +86,23 @@ export interface AlertBadgesConfig {
   padding: BadgePadding;
   typography: BadgeTypography;
 }
+
+export interface ExternalLinkTypography {
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  letterSpacing: string;
+}
+
+export interface ExternalLinkConfig {
+  textColor: string;
+  iconColor: string;
+  hoverTextColor: string;
+  hoverIconColor: string;
+  typography: ExternalLinkTypography;
+  textDecoration: string;
+  gap: string;
+  iconSize: string;
+  transitionDuration: string;
+}

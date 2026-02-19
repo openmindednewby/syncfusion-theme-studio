@@ -1,10 +1,9 @@
 // Component-specific CSS variable injection utilities
 
 import { injectButtonVariables, injectFabVariables, injectIconButtonVariables, injectSplitButtonVariables } from './buttonInjector';
-import { injectAvatarVariables, injectProgressBarVariables, injectTabsVariables, injectTimelineVariables, injectTooltipVariables } from './dataDisplayInjector';
+import { injectAlertBadgeVariables, injectAvatarVariables, injectExternalLinkVariables, injectProgressBarVariables, injectTabsVariables, injectTextDescriptionVariables, injectTimelineVariables, injectTooltipVariables } from './dataDisplayInjector';
 import { injectDataGridVariables } from './dataGridInjector';
 import { injectAlertVariables, injectChipVariables, injectDatePickerVariables, injectDialogVariables, injectErrorMessageVariables, injectFlexBoxVariables, injectMessageVariables, injectSelectVariables, injectToastVariables } from './feedbackInjector';
-import { loadLocalFont } from './fontLoader';
 import { injectCheckboxVariables, injectRadioVariables, injectToggleVariables } from './formControlInjector';
 import { injectAccordionVariables, injectBreadcrumbVariables, injectMenuVariables, injectToolbarVariables } from './navigationInjector';
 import { injectPaginationVariables } from './paginationInjector';
@@ -17,7 +16,7 @@ export { injectCheckboxVariables, injectRadioVariables, injectToggleVariables };
 export { injectDataGridVariables };
 export { injectPaginationVariables };
 export { injectAccordionVariables, injectBreadcrumbVariables, injectMenuVariables, injectToolbarVariables };
-export { injectAvatarVariables, injectProgressBarVariables, injectTabsVariables, injectTimelineVariables, injectTooltipVariables };
+export { injectAlertBadgeVariables, injectAvatarVariables, injectExternalLinkVariables, injectProgressBarVariables, injectTabsVariables, injectTextDescriptionVariables, injectTimelineVariables, injectTooltipVariables };
 
 export function injectHeaderVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   root.style.setProperty('--component-header-background', `rgb(${c.header.background})`);
@@ -120,61 +119,12 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-badge-info-outline-bg', `rgb(${c.badges.info.borderColor} / 0.2)`);
 }
 
-function injectAlertBadgeOutlineVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  const { success, warning, error, info, outlineFillOpacity: opacity } = c.alertBadges;
-  root.style.setProperty('--component-alert-badge-success-outline-bg', `rgb(${success.borderColor} / ${opacity})`);
-  root.style.setProperty('--component-alert-badge-warning-outline-bg', `rgb(${warning.borderColor} / ${opacity})`);
-  root.style.setProperty('--component-alert-badge-error-outline-bg', `rgb(${error.borderColor} / ${opacity})`);
-  root.style.setProperty('--component-alert-badge-info-outline-bg', `rgb(${info.borderColor} / ${opacity})`);
-}
-
-export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  const { typography, padding, success, warning, error, info } = c.alertBadges;
-  loadLocalFont(typography.fontFamily, typography.fontWeight);
-  root.style.setProperty('--component-alert-badge-font-family', typography.fontFamily);
-  root.style.setProperty('--component-alert-badge-font-size', typography.fontSize);
-  root.style.setProperty('--component-alert-badge-font-weight', typography.fontWeight);
-  root.style.setProperty('--component-alert-badge-line-height', typography.lineHeight);
-  root.style.setProperty('--component-alert-badge-letter-spacing', typography.letterSpacing);
-  root.style.setProperty('--component-alert-badge-text-transform', typography.textTransform);
-
-  root.style.setProperty('--component-alert-badge-padding-top', padding.paddingTop);
-  root.style.setProperty('--component-alert-badge-padding-right', padding.paddingRight);
-  root.style.setProperty('--component-alert-badge-padding-bottom', padding.paddingBottom);
-  root.style.setProperty('--component-alert-badge-padding-left', padding.paddingLeft);
-
-  root.style.setProperty('--component-alert-badge-success-bg', `rgb(${success.background})`);
-  root.style.setProperty('--component-alert-badge-success-text', `rgb(${success.textColor})`);
-  root.style.setProperty('--component-alert-badge-success-border', `rgb(${success.borderColor})`);
-  root.style.setProperty('--component-alert-badge-warning-bg', `rgb(${warning.background})`);
-  root.style.setProperty('--component-alert-badge-warning-text', `rgb(${warning.textColor})`);
-  root.style.setProperty('--component-alert-badge-warning-border', `rgb(${warning.borderColor})`);
-  root.style.setProperty('--component-alert-badge-error-bg', `rgb(${error.background})`);
-  root.style.setProperty('--component-alert-badge-error-text', `rgb(${error.textColor})`);
-  root.style.setProperty('--component-alert-badge-error-border', `rgb(${error.borderColor})`);
-  root.style.setProperty('--component-alert-badge-info-bg', `rgb(${info.background})`);
-  root.style.setProperty('--component-alert-badge-info-text', `rgb(${info.textColor})`);
-  root.style.setProperty('--component-alert-badge-info-border', `rgb(${info.borderColor})`);
-
-  injectAlertBadgeOutlineVariables(root, c);
-}
-
-export function injectTextDescriptionVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  const { textDescription } = c;
-  loadLocalFont(textDescription.fontFamily, textDescription.fontWeight);
-  root.style.setProperty('--component-text-description-color', `rgb(${textDescription.textColor})`);
-  root.style.setProperty('--component-text-description-font-family', textDescription.fontFamily);
-  root.style.setProperty('--component-text-description-font-size', textDescription.fontSize);
-  root.style.setProperty('--component-text-description-font-weight', textDescription.fontWeight);
-  root.style.setProperty('--component-text-description-line-height', textDescription.lineHeight);
-  root.style.setProperty('--component-text-description-letter-spacing', textDescription.letterSpacing);
-}
-
 function injectDisplayVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   injectCardVariables(root, c);
   injectModalVariables(root, c);
   injectBadgeVariables(root, c);
   injectAlertBadgeVariables(root, c);
+  injectExternalLinkVariables(root, c);
   injectTextDescriptionVariables(root, c);
 }
 

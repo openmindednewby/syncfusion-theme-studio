@@ -13,3 +13,5 @@ export {
   rgbStringToHex,
   type DerivedComponentColors,
 } from './paletteGenerator';
+export { TsxTokenType } from './tsxTokenType';
+export { tokenizeTsx, type TsxToken } from './tsxTokenizer';

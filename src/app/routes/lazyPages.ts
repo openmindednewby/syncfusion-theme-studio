@@ -227,6 +227,16 @@ export const SyncfusionTextDescriptionShowcase = lazy(
   async () => import('@/features/components/pages/SyncfusionTextDescriptionShowcase'),
 );
 
+// NavMenu showcase
+export const NavMenuShowcase = lazy(
+  async () => import('@/features/components/pages/NavMenuShowcase'),
+);
+
+// ExternalLink showcase
+export const ExternalLinkShowcase = lazy(
+  async () => import('@/features/components/pages/ExternalLinkShowcase'),
+);
+
 // ThemeToggle showcase
 export const NativeThemeToggleShowcase = lazy(
   async () => import('@/features/components/pages/NativeThemeToggleShowcase'),

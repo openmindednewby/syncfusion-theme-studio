@@ -198,12 +198,21 @@ export const ComponentTestIds = {
   ACTION_RAISE: 'alert-action-raise',
   ACTION_ADD_FILTER: 'alert-action-add-filter',
 
+  // External Link
+  EXTERNAL_LINK: 'external-link',
+  EXTERNAL_LINK_SHOWCASE: 'external-link-showcase',
+  NAV_EXTERNALLINK_GROUP: 'nav-externallink-group',
+
   // FlexBox Showcase
   FLEXBOX_SHOWCASE: 'flexbox-showcase',
   NAV_FLEXBOX_GROUP: 'nav-flexbox-group',
 
   // Alert Badge
   ALERT_BADGE: 'alert-badge',
+
+  // Nav Menu
+  NAV_MENU_SHOWCASE: 'nav-menu-showcase',
+  NAV_NAVMENU_GROUP: 'nav-navmenu-group',
 
   // Table Column Filter
   COLUMN_FILTER_BUTTON: 'column-filter-button',

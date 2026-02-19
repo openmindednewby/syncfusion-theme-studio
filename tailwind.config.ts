@@ -62,6 +62,10 @@ const config: Config = {
         'text-primary': 'rgb(var(--color-text-primary) / <alpha-value>)',
         'text-secondary': 'rgb(var(--color-text-secondary) / <alpha-value>)',
         'text-muted': 'rgb(var(--color-text-muted) / <alpha-value>)',
+        // Code block colors (always-dark)
+        'code-bg': 'rgb(var(--color-code-bg) / <alpha-value>)',
+        'code-gutter': 'rgb(var(--color-code-gutter) / <alpha-value>)',
+        'code-border': 'rgb(var(--color-code-border) / <alpha-value>)',
       },
       fontFamily: {
         sans: 'var(--font-sans)',

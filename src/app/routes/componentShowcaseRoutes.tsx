@@ -8,6 +8,7 @@ import { LoadingSpinner } from '@/components/common/LoadingSpinner';
 import {
   IconsShowcase,
   AlertBadgeShowcase,
+  ExternalLinkShowcase,
   FlexBoxShowcase,
   NativeAlertShowcase,
   NativeButtonShowcase,
@@ -41,6 +42,7 @@ import {
   NativeTextDescriptionShowcase,
   SyncfusionTextDescriptionShowcase,
   NativeThemeToggleShowcase,
+  NavMenuShowcase,
   NativeTooltipShowcase,
   SyncfusionTooltipShowcase,
   SyncfusionAccordionShowcase,
@@ -102,6 +104,9 @@ export const componentShowcaseRoutes: RouteObject[] = [
   // AlertBadge
   { path: RouteSegment.ComponentsAlertBadge, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsAlertBadgeNative, element: <LazyShowcase component={AlertBadgeShowcase} /> },
+  // ExternalLink
+  { path: RouteSegment.ComponentsExternalLink, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsExternalLinkNative, element: <LazyShowcase component={ExternalLinkShowcase} /> },
   // FlexBox
   { path: RouteSegment.ComponentsFlexBox, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsFlexBoxNative, element: <LazyShowcase component={FlexBoxShowcase} /> },
@@ -176,6 +181,9 @@ export const componentShowcaseRoutes: RouteObject[] = [
   { path: RouteSegment.ComponentsTextDescription, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsTextDescriptionNative, element: <LazyShowcase component={NativeTextDescriptionShowcase} /> },
   { path: RouteSegment.ComponentsTextDescriptionSyncfusion, element: <LazyShowcase component={SyncfusionTextDescriptionShowcase} /> },
+  // NavMenu
+  { path: RouteSegment.ComponentsNavMenu, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsNavMenuNative, element: <LazyShowcase component={NavMenuShowcase} /> },
   // ThemeToggle
   { path: RouteSegment.ComponentsThemeToggle, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsThemeToggleNative, element: <LazyShowcase component={NativeThemeToggleShowcase} /> },

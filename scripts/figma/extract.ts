@@ -6,8 +6,10 @@ import { resolve } from 'node:path';
 
 import { extractBadges } from './extract-badges';
 import { extractButtons } from './extract-buttons';
+import { extractExternalLinks } from './extract-external-links';
 import { extractIcons } from './extract-icons';
 import { extractInputs } from './extract-inputs';
+import { extractNavMenus } from './extract-nav-menus';
 import { extractTextDescription } from './extract-text-description';
 import { FIGMA_MAPPING } from './figma-mapping';
 import type {
@@ -215,6 +217,8 @@ async function main(): Promise<void> {
   extraction.inputs = extractInputs(file.document, resolver);
   extraction.textDescription = extractTextDescription(file.document, resolver);
   extraction.icons = await extractIcons(file.document, fileKey, token);
+  extraction.navMenus = extractNavMenus(file.document, resolver);
+  extraction.externalLink = extractExternalLinks(file.document, resolver);
 
   const outPath = resolve(import.meta.dirname, 'data/figma-extract.json');
   writeFileSync(outPath, JSON.stringify(extraction, null, 2));
@@ -227,6 +231,8 @@ async function main(): Promise<void> {
   if (extraction.inputs) console.log('Input data extracted successfully');
   if (extraction.textDescription) console.log('Text description data extracted successfully');
   if (extraction.icons) console.log(`Icon data extracted successfully (${extraction.icons.icons.length} icons)`);
+  if (extraction.navMenus) console.log('Nav menu data extracted successfully');
+  if (extraction.externalLink) console.log('External link data extracted successfully');
   console.log(`Written to: ${outPath}`);
 }
 

@@ -196,6 +196,10 @@
     --component-alert-badge-info-bg: rgb(254 177 48);
     --component-alert-badge-info-text: rgb(17 19 25);
     --component-alert-badge-info-border: rgb(254 177 48);
+    --component-alert-badge-success-outline-bg: transparent;
+    --component-alert-badge-warning-outline-bg: transparent;
+    --component-alert-badge-error-outline-bg: transparent;
+    --component-alert-badge-info-outline-bg: transparent;
     --component-alert-badge-padding-top: 2px;
     --component-alert-badge-padding-right: 8px;
     --component-alert-badge-padding-bottom: 2px;

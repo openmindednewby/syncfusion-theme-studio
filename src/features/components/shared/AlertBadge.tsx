@@ -34,18 +34,22 @@ const SOLID_STYLES: Record<BadgeVariant, CSSProperties> = {
 
 const OUTLINE_STYLES: Record<BadgeVariant, CSSProperties> = {
   [BadgeVariant.Success]: {
+    background: 'var(--component-alert-badge-success-outline-bg)',
     color: 'var(--component-alert-badge-success-border)',
     border: '1px solid var(--component-alert-badge-success-border)',
   },
   [BadgeVariant.Warning]: {
+    background: 'var(--component-alert-badge-warning-outline-bg)',
     color: 'var(--component-alert-badge-warning-border)',
     border: '1px solid var(--component-alert-badge-warning-border)',
   },
   [BadgeVariant.Error]: {
+    background: 'var(--component-alert-badge-error-outline-bg)',
     color: 'var(--component-alert-badge-error-border)',
     border: '1px solid var(--component-alert-badge-error-border)',
   },
   [BadgeVariant.Info]: {
+    background: 'var(--component-alert-badge-info-outline-bg)',
     color: 'var(--component-alert-badge-info-border)',
     border: '1px solid var(--component-alert-badge-info-border)',
   },

@@ -73,6 +73,7 @@ export interface AlertBadgesConfig {
   warning: BadgeVariant;
   error: BadgeVariant;
   info: BadgeVariant;
+  outlineFillOpacity: string;
   padding: BadgePadding;
   typography: BadgeTypography;
 }

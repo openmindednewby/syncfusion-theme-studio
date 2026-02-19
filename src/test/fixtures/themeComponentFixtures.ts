@@ -548,6 +548,7 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
     warning: { background: '249 115 22', textColor: '17 19 25', borderColor: '249 115 22' },
     error: { background: '239 68 68', textColor: '17 19 25', borderColor: '239 68 68' },
     info: { background: '254 177 48', textColor: '17 19 25', borderColor: '254 177 48' },
+    outlineFillOpacity: '0',
     padding: { paddingTop: '2px', paddingRight: '8px', paddingBottom: '2px', paddingLeft: '8px' },
     typography: {
       fontFamily: 'inherit',

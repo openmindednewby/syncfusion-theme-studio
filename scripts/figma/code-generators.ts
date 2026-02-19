@@ -8,6 +8,7 @@ export interface ComponentSectionOverrides {
   dark: Record<string, Record<string, string>>;
   typography?: Record<string, string>;
   padding?: Record<string, string>;
+  outlineFillOpacity?: string;
 }
 
 /** Generate the import block for the preset file */
@@ -72,8 +73,9 @@ function generateComponentsOverride(
       const hasVariantOverrides = modeOverrides && Object.keys(modeOverrides).length > 0;
       const hasTypography = overrides.typography && Object.keys(overrides.typography).length > 0;
       const hasPadding = overrides.padding && Object.keys(overrides.padding).length > 0;
+      const hasOutlineFillOpacity = !!overrides.outlineFillOpacity;
 
-      if (!hasVariantOverrides && !hasTypography && !hasPadding) continue;
+      if (!hasVariantOverrides && !hasTypography && !hasPadding && !hasOutlineFillOpacity) continue;
 
       lines.push(`    ${section}: {`);
       lines.push(`      ...${defaultName}.${section},`);
@@ -86,6 +88,10 @@ function generateComponentsOverride(
             lines.push(`      ${key}: '${value}',`);
           }
         }
+      }
+
+      if (hasOutlineFillOpacity) {
+        lines.push(`      outlineFillOpacity: '${overrides.outlineFillOpacity}',`);
       }
 
       if (hasPadding) {

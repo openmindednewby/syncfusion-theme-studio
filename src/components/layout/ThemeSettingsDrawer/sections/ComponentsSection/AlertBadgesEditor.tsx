@@ -88,6 +88,11 @@ export const AlertBadgesEditor = ({ config, onUpdate }: AlertBadgesEditorProps):
             onUpdate={(updates) => handleVariantUpdate(variant, updates)}
           />
         ))}
+        <Field
+          label={FM('themeSettings.components.alertBadges.outlineFillOpacity')}
+          value={config.outlineFillOpacity}
+          onChange={(v) => onUpdate({ outlineFillOpacity: v })}
+        />
         <div>
           <p className="mb-2 text-xs font-medium text-text-secondary">{FM('themeSettings.components.alertBadges.padding')}</p>
           <div className="grid grid-cols-4 gap-2 pl-2">

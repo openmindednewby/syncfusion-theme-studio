@@ -645,7 +645,8 @@
         "lineHeight": "Line Height",
         "letterSpacing": "Letter Spacing",
         "textTransform": "Text Transform",
-        "padding": "Padding"
+        "padding": "Padding",
+        "outlineFillOpacity": "Outline Fill Opacity"
       },
       "errorMessages": {
         "title": "Error Messages",

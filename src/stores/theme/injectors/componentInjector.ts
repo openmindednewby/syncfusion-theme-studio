@@ -131,6 +131,14 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-badge-info-outline-bg', `rgb(${c.badges.info.borderColor} / 0.2)`);
 }
 
+function injectAlertBadgeOutlineVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  const { success, warning, error, info, outlineFillOpacity: opacity } = c.alertBadges;
+  root.style.setProperty('--component-alert-badge-success-outline-bg', `rgb(${success.borderColor} / ${opacity})`);
+  root.style.setProperty('--component-alert-badge-warning-outline-bg', `rgb(${warning.borderColor} / ${opacity})`);
+  root.style.setProperty('--component-alert-badge-error-outline-bg', `rgb(${error.borderColor} / ${opacity})`);
+  root.style.setProperty('--component-alert-badge-info-outline-bg', `rgb(${info.borderColor} / ${opacity})`);
+}
+
 export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   const { typography, padding, success, warning, error, info } = c.alertBadges;
   loadGoogleFont(typography.fontFamily, typography.fontWeight);
@@ -158,6 +166,8 @@ export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigS
   root.style.setProperty('--component-alert-badge-info-bg', `rgb(${info.background})`);
   root.style.setProperty('--component-alert-badge-info-text', `rgb(${info.textColor})`);
   root.style.setProperty('--component-alert-badge-info-border', `rgb(${info.borderColor})`);
+
+  injectAlertBadgeOutlineVariables(root, c);
 }
 
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {

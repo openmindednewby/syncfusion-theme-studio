@@ -125,6 +125,21 @@ function extractBadgeTypography(
   return undefined;
 }
 
+function extractOutlineFillOpacity(
+  badges: NonNullable<FigmaExtraction['badges']>,
+): string | undefined {
+  const sla = badges.sla;
+  if (!sla) return undefined;
+  for (const modeData of [sla.light, sla.dark]) {
+    for (const colorData of Object.values(modeData)) {
+      if (colorData.fillOpacity !== undefined && colorData.fillOpacity < 1) {
+        return String(Math.round(colorData.fillOpacity * 100) / 100);
+      }
+    }
+  }
+  return undefined;
+}
+
 function extractBadgePadding(
   badges: NonNullable<FigmaExtraction['badges']>,
 ): BadgePaddingOverride | undefined {
@@ -175,6 +190,7 @@ function main(): void {
 
   const typography = extractBadgeTypography(extraction.badges);
   const padding = extractBadgePadding(extraction.badges);
+  const outlineFillOpacity = extractOutlineFillOpacity(extraction.badges);
   if (typography) {
     const alertBadgesOutput: Record<string, unknown> = {
       light: output.light,
@@ -182,9 +198,11 @@ function main(): void {
       typography,
     };
     if (padding) alertBadgesOutput['padding'] = padding;
+    if (outlineFillOpacity) alertBadgesOutput['outlineFillOpacity'] = outlineFillOpacity;
     writeFileSync(ALERT_BADGES_OUTPUT_PATH, JSON.stringify(alertBadgesOutput, null, 2));
     console.log(`Typography: ${typography.fontFamily} ${typography.fontSize}/${typography.lineHeight}`);
     if (padding) console.log(`Padding: ${padding.paddingTop} ${padding.paddingRight} ${padding.paddingBottom} ${padding.paddingLeft}`);
+    if (outlineFillOpacity) console.log(`Outline fill opacity: ${outlineFillOpacity}`);
     console.log(`Alert badge colors: ${Object.keys(output.light).length} variants`);
     console.log(`Written: ${ALERT_BADGES_OUTPUT_PATH}`);
   }

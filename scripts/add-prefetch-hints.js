@@ -34,6 +34,35 @@ const REMOVE_FROM_MODULEPRELOAD = [
   'query-vendor', // React Query - not needed for login page render
 ];
 
+/** Inline the entry CSS into a <style> tag to eliminate the render-blocking request. */
+function inlineEntryCss(html, distDir) {
+  const linkRegex = /<link\s+rel="stylesheet"\s+crossorigin\s+href="(\/assets\/css\/index-[^"]+\.css)">/;
+  const match = html.match(linkRegex);
+  if (!match) {
+    console.log('No entry CSS link found to inline');
+    return html;
+  }
+
+  const cssHref = match[1];
+  const cssPath = path.resolve(distDir, cssHref.slice(1));
+  if (!fs.existsSync(cssPath)) {
+    console.log(`CSS file not found: ${cssPath}`);
+    return html;
+  }
+
+  const css = fs.readFileSync(cssPath, 'utf-8');
+  const sizeKB = (css.length / 1024).toFixed(1);
+  html = html.replace(match[0], `<style>${css}</style>`);
+  console.log(`Inlined entry CSS (${sizeKB} KB): ${cssHref}`);
+
+  for (const ext of ['', '.gz', '.br']) {
+    const file = cssPath + ext;
+    if (fs.existsSync(file)) fs.unlinkSync(file);
+  }
+
+  return html;
+}
+
 function addPrefetchHints() {
   const assetsDir = path.resolve(DIST_DIR, 'assets');
   const htmlPath = path.resolve(DIST_DIR, 'index.html');
@@ -49,6 +78,9 @@ function addPrefetchHints() {
   }
 
   let html = fs.readFileSync(htmlPath, 'utf-8');
+
+  // Step 0: Inline entry CSS to eliminate render-blocking stylesheet
+  html = inlineEntryCss(html, DIST_DIR);
 
   // Step 1: Remove heavy chunks from modulepreload
   for (const chunkName of REMOVE_FROM_MODULEPRELOAD) {

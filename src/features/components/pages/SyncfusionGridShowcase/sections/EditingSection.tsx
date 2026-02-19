@@ -6,6 +6,7 @@ import { memo, useMemo } from 'react';
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 import type { EditSettingsModel } from '@syncfusion/ej2-react-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -69,6 +70,7 @@ export const EditingSection = memo((): JSX.Element => {
         editSettings={editSettings}
         testId="grid-editing"
       />
+      <CopyableCodeSnippet code='<DataGrid columns={columns} data={data} editSettings={{ allowEditing: true, mode: "Normal" }} />' />
     </ShowcaseSection>
   );
 });

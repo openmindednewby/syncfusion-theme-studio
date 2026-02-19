@@ -81,6 +81,11 @@ export const AlertBadgeShowcase = lazy(
   async () => import('@/features/components/pages/AlertBadgeShowcase'),
 );
 
+// FlexBox showcase
+export const FlexBoxShowcase = lazy(
+  async () => import('@/features/components/pages/FlexBoxShowcase'),
+);
+
 // Checkbox showcase
 export const NativeCheckboxShowcase = lazy(
   async () => import('@/features/components/pages/NativeCheckboxShowcase'),
@@ -212,6 +217,14 @@ export const SyncfusionTooltipShowcase = lazy(
 // Icons showcase
 export const IconsShowcase = lazy(
   async () => import('@/features/components/pages/IconsShowcase'),
+);
+
+// TextDescription showcase
+export const NativeTextDescriptionShowcase = lazy(
+  async () => import('@/features/components/pages/NativeTextDescriptionShowcase'),
+);
+export const SyncfusionTextDescriptionShowcase = lazy(
+  async () => import('@/features/components/pages/SyncfusionTextDescriptionShowcase'),
 );
 
 // ThemeToggle showcase

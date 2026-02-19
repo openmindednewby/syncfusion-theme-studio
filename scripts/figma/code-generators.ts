@@ -4,8 +4,8 @@ import type { FigmaExtraction } from './types';
 
 /** Overrides for a single component section (e.g., badges, buttons) keyed by mode */
 export interface ComponentSectionOverrides {
-  light: Record<string, Record<string, string>>;
-  dark: Record<string, Record<string, string>>;
+  light: Record<string, Record<string, string> | string>;
+  dark: Record<string, Record<string, string> | string>;
   typography?: Record<string, string>;
   padding?: Record<string, string>;
   outlineFillOpacity?: string;
@@ -46,12 +46,17 @@ function generateImports(hasComponentOverrides: boolean): string[] {
   return imports;
 }
 
-function formatObjectLiteral(obj: Record<string, string>, indent: number): string {
+function formatObjectLiteral(
+  obj: Record<string, string>,
+  indent: number,
+  spreadBase?: string,
+): string {
   const pad = ' '.repeat(indent);
+  const spreadLine = spreadBase ? `${pad}  ...${spreadBase},\n` : '';
   const entries = Object.entries(obj)
     .map(([k, v]) => `${pad}  ${k}: '${v}'`)
     .join(',\n');
-  return `{\n${entries},\n${pad}}`;
+  return `{\n${spreadLine}${entries},\n${pad}}`;
 }
 
 /** Generate FIGMA_COMPONENTS constant with section overrides */
@@ -77,13 +82,27 @@ function generateComponentsOverride(
 
       if (!hasVariantOverrides && !hasTypography && !hasPadding && !hasOutlineFillOpacity) continue;
 
+      // Compact single-line format for sections with only flat string overrides
+      const allFlatStrings = hasVariantOverrides
+        && Object.values(modeOverrides).every((v) => typeof v === 'string')
+        && !hasTypography && !hasPadding && !hasOutlineFillOpacity;
+
+      if (allFlatStrings) {
+        const entries = Object.entries(modeOverrides)
+          .map(([k, v]) => `${k}: '${v}'`)
+          .join(', ');
+        lines.push(`    ${section}: { ...${defaultName}.${section}, ${entries} },`);
+        continue;
+      }
+
       lines.push(`    ${section}: {`);
       lines.push(`      ...${defaultName}.${section},`);
 
       if (hasVariantOverrides) {
         for (const [key, value] of Object.entries(modeOverrides)) {
           if (typeof value === 'object' && value !== null) {
-            lines.push(`      ${key}: ${formatObjectLiteral(value as Record<string, string>, 6)},`);
+            const spreadBase = `${defaultName}.${section}.${key}`;
+            lines.push(`      ${key}: ${formatObjectLiteral(value as Record<string, string>, 6, spreadBase)},`);
           } else {
             lines.push(`      ${key}: '${value}',`);
           }

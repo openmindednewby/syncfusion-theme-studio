@@ -23,6 +23,12 @@ export interface BaseButtonProps {
   fullWidth?: boolean;
   /** Whether the button is disabled */
   disabled?: boolean;
+  /** Show loading spinner and disable interaction */
+  loading?: boolean;
+  /** Icon element rendered before the button text */
+  leftIcon?: React.ReactNode;
+  /** Icon element rendered after the button text */
+  rightIcon?: React.ReactNode;
   /** Button content */
   children: React.ReactNode;
 }

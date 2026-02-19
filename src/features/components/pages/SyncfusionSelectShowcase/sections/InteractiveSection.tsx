@@ -3,6 +3,7 @@
  */
 import { memo, useState, useCallback, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Select } from '@/components/ui/syncfusion';
 import type { SelectOption } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
@@ -54,6 +55,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {displayValue}
         </p>
       </div>
+      <CopyableCodeSnippet code='<Select fullWidth label="Color" options={options} value={selectedValue} onChange={handleChange} />' />
     </section>
   );
 });

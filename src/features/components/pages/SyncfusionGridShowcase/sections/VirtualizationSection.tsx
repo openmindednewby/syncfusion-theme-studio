@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -51,6 +52,7 @@ export const VirtualizationSection = memo((): JSX.Element => {
         rowHeight={VIRTUAL_ROW_HEIGHT}
         testId="grid-virtualization"
       />
+      <CopyableCodeSnippet code='<DataGrid enableVirtualization columns={columns} data={largeData} height="400px" />' />
     </ShowcaseSection>
   );
 });

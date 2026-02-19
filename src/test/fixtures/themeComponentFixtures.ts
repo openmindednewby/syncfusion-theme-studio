@@ -38,7 +38,20 @@ import type {
   MenuConfig,
   BreadcrumbConfig,
   PaginationConfig,
+  IconButtonConfig,
+  FabConfig,
+  SplitButtonConfig,
+  CheckboxConfig,
+  RadioConfig,
+  ToggleConfig,
 } from '../../stores/theme/types';
+
+const DISABLED_DEFAULTS = {
+  disabledBackground: '191 219 254',
+  disabledTextColor: '255 255 255',
+  disabledBorderColor: 'transparent',
+  disabledOpacity: '0.5',
+};
 
 const createPrimaryButton = (): ButtonStateColors => ({
   background: '59 130 246',
@@ -50,6 +63,7 @@ const createPrimaryButton = (): ButtonStateColors => ({
   borderWidth: '1px',
   borderRadius: 'md',
   shadow: ShadowScale.Sm,
+  ...DISABLED_DEFAULTS,
 });
 
 const createSecondaryButton = (): ButtonStateColors => ({
@@ -62,6 +76,7 @@ const createSecondaryButton = (): ButtonStateColors => ({
   borderWidth: '1px',
   borderRadius: 'md',
   shadow: ShadowScale.None,
+  ...DISABLED_DEFAULTS,
 });
 
 const createOutlineButton = (): ButtonStateColors => ({
@@ -74,6 +89,7 @@ const createOutlineButton = (): ButtonStateColors => ({
   borderWidth: '1px',
   borderRadius: 'md',
   shadow: ShadowScale.None,
+  ...DISABLED_DEFAULTS,
 });
 
 const createGhostButton = (): ButtonStateColors => ({
@@ -86,6 +102,7 @@ const createGhostButton = (): ButtonStateColors => ({
   borderWidth: '1px',
   borderRadius: 'md',
   shadow: ShadowScale.None,
+  ...DISABLED_DEFAULTS,
 });
 
 const createDangerButton = (): ButtonStateColors => ({
@@ -98,6 +115,50 @@ const createDangerButton = (): ButtonStateColors => ({
   borderWidth: '1px',
   borderRadius: 'md',
   shadow: ShadowScale.Sm,
+  ...DISABLED_DEFAULTS,
+});
+
+const createIconButtons = (): IconButtonConfig => ({
+  primary: {
+    background: '59 130 246', backgroundHover: '37 99 235', backgroundActive: '29 78 216',
+    iconColor: '255 255 255', iconColorHover: '255 255 255',
+    borderColor: 'transparent', borderWidth: '0px',
+    disabledBackground: '191 219 254', disabledIconColor: '255 255 255', disabledOpacity: '0.5',
+  },
+  secondary: {
+    background: '243 244 246', backgroundHover: '229 231 235', backgroundActive: '209 213 219',
+    iconColor: '55 65 81', iconColorHover: '17 24 39',
+    borderColor: 'transparent', borderWidth: '0px',
+    disabledBackground: '243 244 246', disabledIconColor: '156 163 175', disabledOpacity: '0.5',
+  },
+  tertiary: {
+    background: 'transparent', backgroundHover: '243 244 246', backgroundActive: '229 231 235',
+    iconColor: '107 114 128', iconColorHover: '55 65 81',
+    borderColor: 'transparent', borderWidth: '0px',
+    disabledBackground: 'transparent', disabledIconColor: '209 213 219', disabledOpacity: '0.5',
+  },
+  borderRadius: '9999px', size: '40px', iconSize: '20px',
+  focusRingColor: '59 130 246', transitionDuration: '150ms',
+});
+
+const createFab = (): FabConfig => ({
+  background: '59 130 246', backgroundHover: '37 99 235', backgroundActive: '29 78 216',
+  iconColor: '255 255 255', textColor: '255 255 255',
+  borderRadius: '16px', size: '56px', iconSize: '24px',
+  shadow: '0 6px 10px rgb(0 0 0 / 0.14)', shadowHover: '0 8px 15px rgb(0 0 0 / 0.2)',
+  disabledBackground: '191 219 254', disabledOpacity: '0.5', transitionDuration: '200ms',
+});
+
+const createSplitButton = (): SplitButtonConfig => ({
+  background: '59 130 246', backgroundHover: '37 99 235', backgroundActive: '29 78 216',
+  textColor: '255 255 255', textColorHover: '255 255 255',
+  borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md',
+  dividerColor: '147 197 253',
+  dropdownBackground: '255 255 255', dropdownBorderColor: '229 231 235',
+  dropdownItemHover: '243 244 246', dropdownItemTextColor: '55 65 81',
+  dropdownShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)',
+  disabledBackground: '191 219 254', disabledTextColor: '255 255 255', disabledOpacity: '0.5',
+  transitionDuration: '150ms',
 });
 
 const createButtons = (): ButtonsComponentConfig => ({
@@ -106,6 +167,10 @@ const createButtons = (): ButtonsComponentConfig => ({
   outline: createOutlineButton(),
   ghost: createGhostButton(),
   danger: createDangerButton(),
+  typography: { fontFamily: 'inherit', fontSize: '14px', fontWeight: '500', lineHeight: '20px', letterSpacing: '0px' },
+  padding: { paddingTop: '8px', paddingRight: '16px', paddingBottom: '8px', paddingLeft: '16px' },
+  gap: '8px',
+  focusRing: { color: '59 130 246', width: '2px', offset: '2px' },
   transitionDuration: '150ms',
 });
 
@@ -514,6 +579,49 @@ const createBreadcrumb = (): BreadcrumbConfig => ({
   transitionDuration: '150ms',
 });
 
+const createCheckbox = (): CheckboxConfig => ({
+  uncheckedBackground: '255 255 255',
+  uncheckedBorderColor: '209 213 219',
+  checkedBackground: '59 130 246',
+  checkedBorderColor: '59 130 246',
+  checkmarkColor: '255 255 255',
+  indeterminateBackground: '59 130 246',
+  hoverBorderColor: '156 163 175',
+  focusRingColor: '59 130 246',
+  disabledOpacity: '0.5',
+  borderRadius: '4px',
+  size: '18px',
+  labelColor: '55 65 81',
+  labelDisabledColor: '156 163 175',
+});
+
+const createRadio = (): RadioConfig => ({
+  uncheckedBackground: '255 255 255',
+  uncheckedBorderColor: '209 213 219',
+  selectedBackground: '59 130 246',
+  selectedBorderColor: '59 130 246',
+  dotColor: '255 255 255',
+  hoverBorderColor: '156 163 175',
+  focusRingColor: '59 130 246',
+  disabledOpacity: '0.5',
+  size: '18px',
+  labelColor: '55 65 81',
+  labelDisabledColor: '156 163 175',
+});
+
+const createToggle = (): ToggleConfig => ({
+  trackActiveBackground: '59 130 246',
+  trackInactiveBackground: '209 213 219',
+  thumbBackground: '255 255 255',
+  thumbShadow: '0 1px 3px rgb(0 0 0 / 0.1)',
+  focusRingColor: '59 130 246',
+  disabledOpacity: '0.5',
+  trackBorderRadius: '9999px',
+  trackWidth: '44px',
+  trackHeight: '24px',
+  thumbSize: '20px',
+});
+
 const createPagination = (): PaginationConfig => ({
   background: '255 255 255',
   borderColor: '229 231 235',
@@ -538,6 +646,9 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
   header: createHeader(),
   sidebar: createSidebar(),
   buttons: createButtons(),
+  iconButtons: createIconButtons(),
+  fab: createFab(),
+  splitButton: createSplitButton(),
   inputs: createInputs(),
   dataGrid: createDataGrid(),
   cards: createCards(),
@@ -559,6 +670,7 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
       textTransform: 'uppercase',
     },
   },
+  textDescription: { textColor: '55 65 81', fontFamily: 'Fira Sans', fontSize: '12px', fontWeight: '400', lineHeight: '20px', letterSpacing: '0px' },
   select: createSelect(),
   datePicker: createDatePicker(),
   dialog: createDialog(),
@@ -578,6 +690,9 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
   avatar: { background: '219 234 254', textColor: '29 78 216', borderColor: '255 255 255', statusIndicatorColor: '34 197 94', fallbackBg: '229 231 235' },
   progressBar: { trackBg: '229 231 235', fillColor: '59 130 246', textColor: '55 65 81', borderRadius: 'full', successFillColor: '34 197 94', warningFillColor: '245 158 11', dangerFillColor: '239 68 68' },
   tooltip: { background: '17 24 39', textColor: '249 250 251', borderColor: '55 65 81', arrowColor: '17 24 39', animationEffect: AnimationEffect.Fade, animationDuration: '150ms' },
+  checkbox: createCheckbox(),
+  radio: createRadio(),
+  toggle: createToggle(),
 });
 
 /** Create mode-aware components config with light and dark variants */

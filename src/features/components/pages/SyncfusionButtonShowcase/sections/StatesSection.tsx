@@ -3,6 +3,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { StarIcon, ArrowIcon } from '@/components/icons';
 import { Button, ButtonVariant, ButtonSize } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
@@ -82,6 +83,7 @@ export const StatesSection = memo((): JSX.Element => (
         {FM('components.buttons.outline')}
       </Button>
     </div>
+    <CopyableCodeSnippet code='<Button disabled loading leftIcon={<StarIcon />} variant={ButtonVariant.Primary}>Label</Button>' />
   </section>
 ));
 

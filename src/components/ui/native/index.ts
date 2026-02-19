@@ -77,9 +77,27 @@ export { default as ThemeToggleNative } from './ThemeToggleNative';
 export { ThemeToggleSize } from './ThemeToggleNative/themeToggleSize';
 export type { ThemeToggleNativeProps } from './ThemeToggleNative';
 
+export { default as DescriptionNative } from './DescriptionNative';
+export type { DescriptionNativeProps } from './DescriptionNative';
+
 export { default as HeadingNative, HeadingLevel } from './HeadingNative';
 export type { HeadingNativeProps } from './HeadingNative';
 
 export { default as TextNative, TextVariant } from './TextNative';
 export type { TextNativeProps } from './TextNative';
 export { SearchInput } from '@/components/ui/shared/SearchInput';
+
+export { default as IconButtonNative, IconButtonVariant } from './IconButtonNative';
+export type { IconButtonNativeProps } from './IconButtonNative';
+
+export { default as FabNative, FabPosition } from './FabNative';
+export type { FabNativeProps } from './FabNative';
+
+export { default as SplitButtonNative } from './SplitButtonNative';
+export type { SplitButtonNativeProps, SplitButtonItem } from './SplitButtonNative';
+
+export { default as RadioNative } from './RadioNative';
+export type { RadioNativeProps } from './RadioNative';
+
+export { default as ChipNative, ChipVariant } from './ChipNative';
+export type { ChipNativeProps } from './ChipNative';

@@ -5,6 +5,10 @@ import { writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import { extractBadges } from './extract-badges';
+import { extractButtons } from './extract-buttons';
+import { extractIcons } from './extract-icons';
+import { extractInputs } from './extract-inputs';
+import { extractTextDescription } from './extract-text-description';
 import { FIGMA_MAPPING } from './figma-mapping';
 import type {
   ExtractedProperty,
@@ -207,6 +211,10 @@ async function main(): Promise<void> {
 
   const extraction = buildExtraction(fileKey, file.name, lightFrame, darkFrame);
   extraction.badges = extractBadges(file.document, resolver);
+  extraction.buttons = extractButtons(file.document, resolver);
+  extraction.inputs = extractInputs(file.document, resolver);
+  extraction.textDescription = extractTextDescription(file.document, resolver);
+  extraction.icons = await extractIcons(file.document, fileKey, token);
 
   const outPath = resolve(import.meta.dirname, 'data/figma-extract.json');
   writeFileSync(outPath, JSON.stringify(extraction, null, 2));
@@ -215,6 +223,10 @@ async function main(): Promise<void> {
   const darkCount = extraction.darkFrame.properties.length;
   console.log(`Extracted ${lightCount} light + ${darkCount} dark properties`);
   if (extraction.badges) console.log('Badge data extracted successfully');
+  if (extraction.buttons) console.log('Button data extracted successfully');
+  if (extraction.inputs) console.log('Input data extracted successfully');
+  if (extraction.textDescription) console.log('Text description data extracted successfully');
+  if (extraction.icons) console.log(`Icon data extracted successfully (${extraction.icons.icons.length} icons)`);
   console.log(`Written to: ${outPath}`);
 }
 

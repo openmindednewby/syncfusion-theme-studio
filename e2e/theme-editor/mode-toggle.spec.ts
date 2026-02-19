@@ -15,14 +15,16 @@ test.describe('Light/Dark Mode Toggle', () => {
     const htmlElement = page.locator('html');
     const toggleBtn = page.getByTestId(TestIds.THEME_TOGGLE);
 
-    // Get initial mode
+    // Wait for theme to initialise — html class must be non-empty
+    await expect(htmlElement).toHaveAttribute('class', /.+/);
+
+    // Get initial mode after theme is ready
     const wasDark = await page.evaluate(() =>
       document.documentElement.classList.contains('dark')
     );
 
     // Toggle mode via header button
     await toggleBtn.click();
-    await page.waitForTimeout(100);
 
     // Verify mode changed
     if (wasDark) {

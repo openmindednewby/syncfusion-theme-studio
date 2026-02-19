@@ -10,6 +10,7 @@ import {
   ItemDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const VariantsSection = memo((): JSX.Element => {
@@ -59,6 +60,7 @@ export const VariantsSection = memo((): JSX.Element => {
           </ToolbarComponent>
         </div>
       </div>
+      <CopyableCodeSnippet code='<ToolbarComponent overflowMode="Scrollable" width="300px">...</ToolbarComponent>' />
     </section>
   );
 });

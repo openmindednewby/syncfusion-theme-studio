@@ -7,6 +7,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { EditingConfig } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -115,6 +116,7 @@ export const EditingSection = memo((): JSX.Element => {
         onDelete={handleDelete}
         onSave={handleSave}
       />
+      <CopyableCodeSnippet code='<TableNative columns={columns} data={data} editConfig={{ mode: "Normal", allowEditing: true }} />' />
     </section>
   );
 });

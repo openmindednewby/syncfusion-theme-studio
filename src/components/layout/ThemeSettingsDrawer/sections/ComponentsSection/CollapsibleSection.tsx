@@ -62,7 +62,7 @@ export const CollapsibleSection = ({
 
       <div
         className={`collapsible-content transition-all duration-200 ease-out ${
-          isOpen ? 'max-h-[1000px] opacity-100' : 'max-h-0 opacity-0'
+          isOpen ? 'max-h-[5000px] opacity-100' : 'max-h-0 opacity-0'
         }`}
       >
         {isOpen ? (

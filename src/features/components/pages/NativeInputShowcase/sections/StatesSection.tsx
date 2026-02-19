@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { InputNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -60,6 +61,7 @@ export const StatesSection = memo((): JSX.Element => (
         />
       </div>
     </div>
+    <CopyableCodeSnippet code='<InputNative disabled label="Disabled" placeholder="Cannot edit" fullWidth />' />
   </section>
 ));
 

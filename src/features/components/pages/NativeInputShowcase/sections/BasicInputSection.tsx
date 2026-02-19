@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { InputNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -47,6 +48,7 @@ export const BasicInputSection = memo((): JSX.Element => (
         type="number"
       />
     </div>
+    <CopyableCodeSnippet code='<InputNative label="Name" placeholder="Enter name" helperText="Your full name" fullWidth />' />
   </section>
 ));
 

@@ -10,6 +10,7 @@ import {
   ItemDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const BasicSection = memo((): JSX.Element => {
@@ -34,6 +35,7 @@ export const BasicSection = memo((): JSX.Element => {
           <ItemDirective prefixIcon="e-icons e-align-right" text={FM('components.toolbarShowcase.items.alignRight')} tooltipText={FM('components.toolbarShowcase.items.alignRight')} />
         </ItemsDirective>
       </ToolbarComponent>
+      <CopyableCodeSnippet code='<ToolbarComponent><ItemsDirective><ItemDirective prefixIcon="e-icons e-bold" text="Bold" /></ItemsDirective></ToolbarComponent>' />
     </section>
   );
 });

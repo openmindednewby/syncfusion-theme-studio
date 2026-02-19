@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionBadge, { BadgeVariant } from '@/components/ui/syncfusion/Badge';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -17,6 +18,7 @@ const SyncfusionBadgeShowcase = (): JSX.Element => (
           <SyncfusionBadge testId="sf-badge-error" variant={BadgeVariant.Error}>{FM('showcase.labels.error')}</SyncfusionBadge>
           <SyncfusionBadge testId="sf-badge-info" variant={BadgeVariant.Info}>{FM('showcase.labels.info')}</SyncfusionBadge>
         </div>
+        <CopyableCodeSnippet code='<SyncfusionBadge variant={BadgeVariant.Success}>Active</SyncfusionBadge>' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.withContent')}</h3>
@@ -28,6 +30,7 @@ const SyncfusionBadgeShowcase = (): JSX.Element => (
             <span className="rounded bg-surface-elevated px-3 py-2 text-text-primary">{FM('showcase.labels.status')}</span>
           </SyncfusionBadge>
         </div>
+        <CopyableCodeSnippet code='<SyncfusionBadge count={8} variant={BadgeVariant.Error}><span>Inbox</span></SyncfusionBadge>' />
       </section>
     </div>
   </div>

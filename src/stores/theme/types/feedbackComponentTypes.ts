@@ -10,6 +10,7 @@ import type { FlexWrap } from './flexWrap';
 export { ErrorAnimationType } from './errorAnimationType';
 export { FlexAlign } from './flexAlign';
 export { FlexDirection } from './flexDirection';
+export { FlexGapSize } from './flexGapSize';
 export { FlexJustify } from './flexJustify';
 export { FlexWrap } from './flexWrap';
 

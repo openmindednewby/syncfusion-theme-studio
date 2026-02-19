@@ -1,6 +1,6 @@
 /**
- * Auto-generated Feather icons (IconSunset).
- * DO NOT EDIT — re-run: node scripts/generate-feather-icons.mjs
+ * Auto-generated Feather icons (IconSunrise – IconSunset).
+ * DO NOT EDIT — re-run: npm run figma:generate:icons
  */
 import type { IconProps } from './types';
 
@@ -18,16 +18,29 @@ const defaults = {
   strokeLinejoin: 'round' as const,
 };
 
+export const IconSunrise = ({ className }: IconProps): JSX.Element => (
+  <svg {...defaults} className={className}>
+    <path d="M17 18C17 16.6739 16.4732 15.4021 15.5355 14.4645C14.5979 13.5268 13.3261 13 12 13C10.6739 13 9.40215 13.5268 8.46447 14.4645C7.52678 15.4021 7 16.6739 7 18" />
+    <path d="M12 2V9" />
+    <path d="M4.21997 10.22L5.63997 11.64" />
+    <path d="M1 18H3" />
+    <path d="M21 18H23" />
+    <path d="M18.36 11.64L19.78 10.22" />
+    <path d="M23 22H1" />
+    <path d="M8 6L12 2L16 6" />
+  </svg>
+);
+
 export const IconSunset = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M17 18a5 5 0 0 0-10 0" />
-    <line x1="12" x2="12" y1="9" y2="2" />
-    <line x1="4.22" x2="5.64" y1="10.22" y2="11.64" />
-    <line x1="1" x2="3" y1="18" y2="18" />
-    <line x1="21" x2="23" y1="18" y2="18" />
-    <line x1="18.36" x2="19.78" y1="11.64" y2="10.22" />
-    <line x1="23" x2="1" y1="22" y2="22" />
-    <polyline points="16 5 12 9 8 5" />
+    <path d="M17 18C17 16.6739 16.4732 15.4021 15.5355 14.4645C14.5979 13.5268 13.3261 13 12 13C10.6739 13 9.40215 13.5268 8.46447 14.4645C7.52678 15.4021 7 16.6739 7 18" />
+    <path d="M12 9V2" />
+    <path d="M4.21997 10.22L5.63997 11.64" />
+    <path d="M1 18H3" />
+    <path d="M21 18H23" />
+    <path d="M18.36 11.64L19.78 10.22" />
+    <path d="M23 22H1" />
+    <path d="M16 5L12 9L8 5" />
   </svg>
 );
 

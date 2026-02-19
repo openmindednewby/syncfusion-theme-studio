@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { GridConfig } from '@/lib/grid/types';
 import { FM } from '@/localization/helpers';
@@ -42,6 +43,7 @@ export const PaginationSection = memo((): JSX.Element => (
       gridConfig={PAGINATION_GRID_CONFIG}
       testId={TestIds.NATIVE_GRID_PAGINATION}
     />
+    <CopyableCodeSnippet code='<TableNative columns={columns} data={data} gridConfig={{ pagination: { enabled: true, pageSize: 5 } }} />' />
   </section>
 ));
 

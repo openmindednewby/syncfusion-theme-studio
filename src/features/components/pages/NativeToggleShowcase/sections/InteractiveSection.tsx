@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ToggleNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -108,6 +109,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           ))}
         </div>
       </div>
+      <CopyableCodeSnippet code={'<ToggleNative\n  checked={settings.notifications}\n  label="Notifications"\n  onChange={(checked) => handleSettingChange("notifications", checked)}\n/>'} />
     </section>
   );
 });

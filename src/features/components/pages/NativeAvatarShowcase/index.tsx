@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { AvatarNative, AvatarSize } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -18,6 +19,7 @@ const NativeAvatarShowcase = (): JSX.Element => (
           <AvatarNative initials="LG" size={AvatarSize.Lg} testId="avatar-lg" />
           <AvatarNative initials="XL" size={AvatarSize.Xl} testId="avatar-xl" />
         </div>
+        <CopyableCodeSnippet code='<AvatarNative initials="MD" size={AvatarSize.Md} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.withStatus')}</h3>
@@ -26,6 +28,7 @@ const NativeAvatarShowcase = (): JSX.Element => (
           <AvatarNative showStatus initials="AB" testId="avatar-status-2" />
           <AvatarNative showStatus testId="avatar-fallback" />
         </div>
+        <CopyableCodeSnippet code='<AvatarNative showStatus initials="JD" />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.avatarGroup')}</h3>
@@ -35,6 +38,7 @@ const NativeAvatarShowcase = (): JSX.Element => (
           <AvatarNative initials="C" testId="avatar-group-3" />
           <AvatarNative initials="+3" testId="avatar-group-more" />
         </div>
+        <CopyableCodeSnippet code={'<div className="flex -space-x-2">\n  <AvatarNative initials="A" />\n  <AvatarNative initials="B" />\n  <AvatarNative initials="+3" />\n</div>'} />
       </section>
     </div>
   </div>

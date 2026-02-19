@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { MenuNative } from '@/components/ui/native';
 import type { MenuItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -66,6 +67,7 @@ export const BasicSection = memo((): JSX.Element => (
       items={buildMenuItems()}
       testId={TestIds.NATIVE_MENU_BASIC}
     />
+    <CopyableCodeSnippet code={'<MenuNative\n  ariaLabel="Main menu"\n  items={[\n    { text: "File", items: [{ text: "New" }, { text: "Open" }] },\n    { text: "Edit", items: [{ text: "Undo" }, { text: "Redo" }] },\n  ]}\n/>'} />
   </section>
 ));
 

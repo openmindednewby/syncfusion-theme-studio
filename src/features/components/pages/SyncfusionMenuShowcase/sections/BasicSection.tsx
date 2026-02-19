@@ -6,6 +6,7 @@ import { memo } from 'react';
 
 import { MenuComponent, type MenuItemModel } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const buildFileMenu = (): MenuItemModel => ({
@@ -53,6 +54,7 @@ export const BasicSection = memo((): JSX.Element => (
       </p>
     </div>
     <MenuComponent items={buildMenuItems()} />
+    <CopyableCodeSnippet code='<MenuComponent items={[{ text: "File", items: [{ text: "New" }, { text: "Open" }] }]} />' />
   </section>
 ));
 

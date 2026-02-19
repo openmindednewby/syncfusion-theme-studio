@@ -4,6 +4,7 @@
  */
 import { memo, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ThemeToggleNative, ThemeToggleSize } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { Mode } from '@/stores/mode';
@@ -43,6 +44,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {FM('components.themeToggleShowcase.labels.currentMode', modeLabel)}
         </span>
       </div>
+      <CopyableCodeSnippet code={'<ThemeToggleNative\n  checked={isDark}\n  label="Dark mode"\n  size={ThemeToggleSize.Md}\n  onChange={handleChange}\n/>'} />
     </section>
   );
 });

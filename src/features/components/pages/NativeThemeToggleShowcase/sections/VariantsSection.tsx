@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ThemeToggleNative, ThemeToggleSize } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -66,6 +67,7 @@ export const VariantsSection = memo((): JSX.Element => {
           </span>
         </div>
       </div>
+      <CopyableCodeSnippet code={'<ThemeToggleNative\n  checked={false}\n  label="Small"\n  size={ThemeToggleSize.Sm}\n  onChange={handleChange}\n/>\n<ThemeToggleNative\n  checked\n  disabled\n  label="Disabled"\n  size={ThemeToggleSize.Md}\n/>'} />
     </section>
   );
 });

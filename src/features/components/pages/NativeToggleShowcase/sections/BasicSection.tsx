@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ToggleNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -54,6 +55,7 @@ export const BasicSection = memo((): JSX.Element => {
           </span>
         </div>
       </div>
+      <CopyableCodeSnippet code={'<ToggleNative\n  checked={isOn}\n  label="Enable feature"\n  onChange={handleChange}\n/>'} />
     </section>
   );
 });

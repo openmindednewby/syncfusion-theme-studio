@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Input } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -60,6 +61,7 @@ export const StatesSection = memo((): JSX.Element => (
         />
       </div>
     </div>
+    <CopyableCodeSnippet code='<Input fullWidth enabled={false} label="Disabled" error="Required field" />' />
   </section>
 ));
 

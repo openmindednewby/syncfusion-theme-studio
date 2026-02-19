@@ -4,31 +4,12 @@ import type { CardsConfig } from '@/stores/theme/types';
 import { AnimationSubsection } from './AnimationSubsection';
 import { CollapsibleSection } from './CollapsibleSection';
 import { ColorPicker } from '../../ColorPicker';
+import { EditorTextInput } from '../../EditorTextInput';
 
 interface CardsEditorProps {
   config: CardsConfig;
   onUpdate: (updates: Partial<CardsConfig>) => void;
 }
-
-const TextInput = ({
-  label,
-  value,
-  onChange,
-}: {
-  label: string;
-  value: string;
-  onChange: (value: string) => void;
-}): JSX.Element => (
-  <div className="space-y-1">
-    <label className="text-xs text-text-muted">{label}</label>
-    <input
-      className="w-full rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary"
-      type="text"
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    />
-  </div>
-);
 
 const SectionLabel = ({ label }: { label: string }): JSX.Element => (
   <p className="text-xs font-medium text-text-secondary">{label}</p>
@@ -63,7 +44,7 @@ export const CardsEditor = ({ config, onUpdate }: CardsEditorProps): JSX.Element
           />
         </div>
         <div className="pl-2">
-          <TextInput
+          <EditorTextInput
             label={FM('themeSettings.components.cards.borderWidth')}
             value={config.borderWidth}
             onChange={(value) => onUpdate({ borderWidth: value })}
@@ -109,7 +90,7 @@ export const CardsEditor = ({ config, onUpdate }: CardsEditorProps): JSX.Element
           />
         </div>
         <div className="pl-2">
-          <TextInput
+          <EditorTextInput
             label={FM('themeSettings.components.cards.contentPadding')}
             value={config.contentPadding}
             onChange={(value) => onUpdate({ contentPadding: value })}

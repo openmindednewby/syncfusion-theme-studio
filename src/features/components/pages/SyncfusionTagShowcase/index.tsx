@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTag, { TagVariant } from '@/components/ui/syncfusion/Tag';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -18,6 +19,7 @@ const SyncfusionTagShowcase = (): JSX.Element => (
           <SyncfusionTag label="Warning" testId="sf-tag-warning" variant={TagVariant.Warning} />
           <SyncfusionTag label="Danger" testId="sf-tag-danger" variant={TagVariant.Danger} />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionTag label="Success" variant={TagVariant.Success} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.removable')}</h3>
@@ -26,6 +28,7 @@ const SyncfusionTagShowcase = (): JSX.Element => (
           <SyncfusionTag removable label="React" testId="sf-tag-removable-2" variant={TagVariant.Success} />
           <SyncfusionTag removable label="Node.js" testId="sf-tag-removable-3" />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionTag removable label="React" variant={TagVariant.Primary} />' />
       </section>
     </div>
   </div>

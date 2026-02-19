@@ -6,6 +6,7 @@ import { memo, useEffect, useMemo } from 'react';
 
 import { MessageComponent } from '@syncfusion/ej2-react-notifications';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
@@ -77,6 +78,7 @@ export const FilledSection = memo((): JSX.Element => {
           {FM('components.alerts.infoMessage')}
         </MessageComponent>
       </div>
+      <CopyableCodeSnippet code='<MessageComponent showIcon severity="Success" variant="Filled">Message text</MessageComponent>' />
     </section>
   );
 });

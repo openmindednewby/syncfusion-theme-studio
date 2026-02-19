@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { TooltipNative, TooltipPlacement } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -25,6 +26,7 @@ const NativeTooltipShowcase = (): JSX.Element => (
             <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">{FM('showcase.labels.right')}</button>
           </TooltipNative>
         </div>
+        <CopyableCodeSnippet code={'<TooltipNative\n  content="Tooltip on top"\n  placement={TooltipPlacement.Top}\n>\n  <button>Hover me</button>\n</TooltipNative>'} />
       </section>
     </div>
   </div>

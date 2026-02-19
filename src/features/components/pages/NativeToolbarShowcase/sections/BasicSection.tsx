@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { CutIcon, CopyIcon, PasteIcon, UndoIcon, RedoIcon, SaveIcon } from '@/components/icons';
 import { ToolbarNative } from '@/components/ui/native';
 import type { ToolbarItem } from '@/components/ui/native';
@@ -43,6 +44,7 @@ export const BasicSection = memo((): JSX.Element => (
       items={buildBasicItems()}
       testId="toolbar-basic"
     />
+    <CopyableCodeSnippet code={'<ToolbarNative\n  ariaLabel="Edit toolbar"\n  items={[\n    { type: "button", text: "Cut", icon: <CutIcon /> },\n    { type: "button", text: "Copy", icon: <CopyIcon /> },\n    { type: "separator" },\n    { type: "button", text: "Save", icon: <SaveIcon /> },\n  ]}\n/>'} />
   </section>
 ));
 

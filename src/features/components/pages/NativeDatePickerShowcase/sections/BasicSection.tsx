@@ -6,6 +6,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DatePickerNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -40,6 +41,7 @@ export const BasicSection = memo((): JSX.Element => (
         testId="native-datepicker-showcase-required"
       />
     </div>
+    <CopyableCodeSnippet code='<DatePickerNative label="Date" helperText="Select a date" fullWidth />' />
   </section>
 ));
 

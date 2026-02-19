@@ -3,6 +3,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import {
   ButtonNative,
   ButtonVariant,
@@ -101,6 +102,7 @@ export const ConfirmDialogSection = memo((): JSX.Element => {
       >
         <p>{FM('components.dialogShowcase.dangerDialogContent')}</p>
       </DialogNative>
+      <CopyableCodeSnippet code='<DialogNative isOpen={isOpen} title="Confirm" variant={DialogVariant.Confirm} onClose={handleClose}>Content</DialogNative>' />
     </section>
   );
 });

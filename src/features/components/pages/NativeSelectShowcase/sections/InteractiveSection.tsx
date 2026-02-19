@@ -3,6 +3,7 @@
  */
 import { memo, useState, useCallback, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -54,6 +55,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {displayValue}
         </p>
       </div>
+      <CopyableCodeSnippet code={'<SelectNative\n  fullWidth\n  label="Pick a color"\n  options={colorOptions}\n  value={selectedValue}\n  onChange={handleChange}\n/>'} />
     </section>
   );
 });

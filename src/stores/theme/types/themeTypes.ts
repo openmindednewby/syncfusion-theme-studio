@@ -17,25 +17,32 @@ import { type ButtonVariant ,
   type ButtonStateColors,
   type ButtonsComponentConfig,
   type CardsConfig,
+  type CheckboxConfig,
   type ChipConfig,
   type ComponentsConfig,
   type DataGridConfig,
   type DatePickerConfig,
   type DialogConfig,
   type ErrorMessagesConfig,
+  type FabConfig,
   type FlexBoxConfig,
   type HeaderComponentConfig,
+  type IconButtonConfig,
   type InputsConfig,
   type MenuConfig,
   type MessageConfig,
   type ModalsConfig,
   type PaginationConfig,
   type ProgressBarConfig,
+  type RadioConfig,
   type SelectConfig,
   type SidebarComponentConfig,
+  type SplitButtonConfig,
   type TabsConfig,
+  type TextDescriptionConfig,
   type TimelineConfig,
   type ToastConfig,
+  type ToggleConfig,
   type ToolbarConfig,
   type TooltipConfig,
 } from './componentTypes';
@@ -122,6 +129,13 @@ export interface ThemeState {
   updateAvatarConfig: (updates: Partial<AvatarConfig>) => void;
   updateProgressBarConfig: (updates: Partial<ProgressBarConfig>) => void;
   updateTooltipConfig: (updates: Partial<TooltipConfig>) => void;
+  updateIconButtonConfig: (updates: Partial<IconButtonConfig>) => void;
+  updateFabConfig: (updates: Partial<FabConfig>) => void;
+  updateSplitButtonConfig: (updates: Partial<SplitButtonConfig>) => void;
+  updateTextDescriptionConfig: (updates: Partial<TextDescriptionConfig>) => void;
+  updateCheckboxConfig: (updates: Partial<CheckboxConfig>) => void;
+  updateRadioConfig: (updates: Partial<RadioConfig>) => void;
+  updateToggleConfig: (updates: Partial<ToggleConfig>) => void;
   // Typography component actions
   updateTypographyComponentLevel: (level: keyof TypographyComponentsConfig, updates: Record<string, string>) => void;
   // Typography actions

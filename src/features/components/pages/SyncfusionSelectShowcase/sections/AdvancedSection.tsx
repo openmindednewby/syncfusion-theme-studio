@@ -10,6 +10,7 @@ import {
   MultiSelectComponent,
 } from '@syncfusion/ej2-react-dropdowns';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
@@ -126,6 +127,7 @@ export const AdvancedSection = memo((): JSX.Element => {
           </span>
         </div>
       </div>
+      <CopyableCodeSnippet code='<ComboBoxComponent allowFiltering dataSource={data} fields={{ value: "id", text: "text" }} />' />
     </section>
   );
 });

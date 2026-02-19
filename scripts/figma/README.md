@@ -472,7 +472,7 @@ Corrections are matched by filename. Only keys present in the correction file ar
 | Foundation | Icons | - | - | stub | - |
 | Components | **Badges** | **Yes** | **Yes** | **generate-badges.ts** | **Yes** |
 | Components | Buttons | Yes | - | stub | - |
-| Components | Description | Yes | - | stub | - |
+| Components | **Description** | **Yes** | **Yes** | **generate-text-description.ts** | **Yes** |
 | Components | Input | Yes | - | stub | - |
 | Components | Drawer | Future | - | stub | - |
 | Components | External Link | Yes | - | stub | - |

@@ -3,6 +3,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant, ButtonSize } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -38,6 +39,7 @@ export const SizesSection = memo((): JSX.Element => (
         {FM('components.buttons.large')}
       </Button>
     </div>
+    <CopyableCodeSnippet code='<Button size={ButtonSize.Lg} variant={ButtonVariant.Primary}>Label</Button>' />
   </section>
 ));
 

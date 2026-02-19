@@ -68,6 +68,15 @@ export interface BadgePadding {
   paddingLeft: string;
 }
 
+export interface TextDescriptionConfig {
+  textColor: string;
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  letterSpacing: string;
+}
+
 export interface AlertBadgesConfig {
   success: BadgeVariant;
   warning: BadgeVariant;

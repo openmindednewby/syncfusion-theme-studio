@@ -3,6 +3,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const CssButtonsSection = memo((): JSX.Element => (
@@ -26,6 +27,7 @@ export const CssButtonsSection = memo((): JSX.Element => (
         {FM('components.buttons.disabled')}
       </button>
     </div>
+    <CopyableCodeSnippet code='<button className="btn btn-primary" type="button">Label</button>' />
   </section>
 ));
 

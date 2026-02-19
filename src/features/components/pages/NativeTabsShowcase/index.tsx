@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { TabsNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -27,14 +28,17 @@ const NativeTabsShowcase = (): JSX.Element => (
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.basicTabs')}</h3>
         <TabsNative items={DEMO_TABS} testId="native-tabs-basic" />
+        <CopyableCodeSnippet code={'<TabsNative\n  items={[\n    { id: "tab1", label: "Overview", content: <p>Overview panel</p> },\n    { id: "tab2", label: "Details", content: <p>Details panel</p> },\n    { id: "tab3", label: "Disabled", content: <p>...</p>, disabled: true },\n  ]}\n/>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.iconTabs')}</h3>
         <TabsNative items={ICON_TABS} testId="native-tabs-icon" />
+        <CopyableCodeSnippet code={'<TabsNative\n  items={[\n    { id: "home", label: "\u{1F3E0} Home", content: <p>Home content</p> },\n    { id: "search", label: "\u{1F50D} Search", content: <p>Search content</p> },\n  ]}\n/>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.verticalTabs')}</h3>
         <TabsNative items={DEMO_TABS.slice(0, VERTICAL_TAB_COUNT)} orientation="vertical" testId="native-tabs-vertical" />
+        <CopyableCodeSnippet code={'<TabsNative\n  orientation="vertical"\n  items={[\n    { id: "tab1", label: "Overview", content: <p>Overview</p> },\n    { id: "tab2", label: "Details", content: <p>Details</p> },\n  ]}\n/>'} />
       </section>
     </div>
   </div>

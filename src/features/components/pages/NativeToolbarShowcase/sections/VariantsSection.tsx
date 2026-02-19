@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import {
   AlignLeftIcon,
   AlignCenterIcon,
@@ -100,6 +101,7 @@ export const VariantsSection = memo((): JSX.Element => (
         />
       </div>
     </div>
+    <CopyableCodeSnippet code={'<ToolbarNative\n  ariaLabel="Icon-only toolbar"\n  items={[\n    { type: "button", icon: <AlignLeftIcon />, tooltip: "Align Left" },\n    { type: "button", icon: <BoldIcon />, tooltip: "Bold" },\n    { type: "button", text: "Settings", disabled: true },\n  ]}\n/>'} />
   </section>
 ));
 

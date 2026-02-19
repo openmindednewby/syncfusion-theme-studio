@@ -6,6 +6,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DatePicker } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -45,6 +46,7 @@ export const DatePickerSection = memo((): JSX.Element => (
         value={new Date()}
       />
     </div>
+    <CopyableCodeSnippet code='<DatePicker label="Date" placeholder="Select date" value={new Date()} fullWidth />' />
   </section>
 ));
 

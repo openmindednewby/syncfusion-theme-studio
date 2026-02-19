@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTabs from '@/components/ui/syncfusion/Tabs';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -19,6 +20,7 @@ const SyncfusionTabsShowcase = (): JSX.Element => (
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.basicTabs')}</h3>
         <SyncfusionTabs items={DEMO_TABS} testId="sf-tabs-basic" />
+        <CopyableCodeSnippet code='<SyncfusionTabs items={[{ id: "tab1", label: "Overview", content: <p>Panel</p> }]} />' />
       </section>
     </div>
   </div>

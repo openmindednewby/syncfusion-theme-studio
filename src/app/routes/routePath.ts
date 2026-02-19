@@ -55,6 +55,10 @@ export const enum RoutePath {
   ComponentsAlertBadge = '/dashboard/components/alertbadge',
   ComponentsAlertBadgeNative = '/dashboard/components/alertbadge/native',
 
+  // FlexBox
+  ComponentsFlexBox = '/dashboard/components/flexbox',
+  ComponentsFlexBoxNative = '/dashboard/components/flexbox/native',
+
   // Checkbox
   ComponentsCheckbox = '/dashboard/components/checkbox',
   ComponentsCheckboxNative = '/dashboard/components/checkbox/native',
@@ -138,6 +142,11 @@ export const enum RoutePath {
   // Icons
   ComponentsIcons = '/dashboard/components/icons',
   ComponentsIconsNative = '/dashboard/components/icons/native',
+
+  // TextDescription
+  ComponentsTextDescription = '/dashboard/components/textdescription',
+  ComponentsTextDescriptionNative = '/dashboard/components/textdescription/native',
+  ComponentsTextDescriptionSyncfusion = '/dashboard/components/textdescription/syncfusion',
 
   // ThemeToggle
   ComponentsThemeToggle = '/dashboard/components/themetoggle',

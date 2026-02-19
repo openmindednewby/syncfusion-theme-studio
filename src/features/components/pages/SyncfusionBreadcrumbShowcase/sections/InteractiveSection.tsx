@@ -11,6 +11,7 @@ import {
   BreadcrumbItemsDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
@@ -60,6 +61,7 @@ export const InteractiveSection = memo((): JSX.Element => (
       </p>
     </div>
     <InteractiveBreadcrumb />
+    <CopyableCodeSnippet code='<BreadcrumbComponent enableNavigation={false} itemClick={handleItemClick}>...</BreadcrumbComponent>' />
   </section>
 ));
 

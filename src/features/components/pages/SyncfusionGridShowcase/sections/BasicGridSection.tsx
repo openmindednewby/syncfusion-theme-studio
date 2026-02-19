@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -42,6 +43,7 @@ export const BasicGridSection = memo((): JSX.Element => (
       data={EMPLOYEES}
       testId="grid-basic"
     />
+    <CopyableCodeSnippet code='<DataGrid allowSorting allowFiltering allowPaging columns={columns} data={data} />' />
   </ShowcaseSection>
 ));
 

@@ -6,6 +6,7 @@ import { memo, useEffect, useMemo } from 'react';
 
 import { MessageComponent } from '@syncfusion/ej2-react-notifications';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
@@ -71,6 +72,7 @@ export const DismissibleSection = memo((): JSX.Element => {
           {FM('components.alertShowcase.sfDismissibleText')}
         </MessageComponent>
       </div>
+      <CopyableCodeSnippet code='<MessageComponent showCloseIcon showIcon severity="Info" variant="Filled">Dismissible alert</MessageComponent>' />
     </section>
   );
 });

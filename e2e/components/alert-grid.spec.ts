@@ -220,8 +220,7 @@ test.describe('Syncfusion Alert Management Grid', () => {
 test.describe('Native Alert Management Grid', () => {
   test.beforeEach(async ({ page }) => {
     await login(page);
-    await page.goto('/dashboard/components/grid/native');
-    await page.waitForLoadState('domcontentloaded');
+    await page.goto('/dashboard/components/grid/native', { waitUntil: 'domcontentloaded' });
     await page.getByTestId('native-grid-alert-management').waitFor({ state: 'visible' });
   });
 

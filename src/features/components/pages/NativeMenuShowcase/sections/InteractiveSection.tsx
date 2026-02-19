@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { MenuNative } from '@/components/ui/native';
 import type { MenuItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -94,6 +95,7 @@ export const InteractiveSection = memo((): JSX.Element => {
       <p className="text-sm text-text-secondary" data-testid={TestIds.NATIVE_MENU_SELECTED}>
         {displayText}
       </p>
+      <CopyableCodeSnippet code={'<MenuNative\n  ariaLabel="Actions menu"\n  items={[\n    { text: "New", onClick: () => handleSelect("New") },\n    { text: "Save", onClick: () => handleSelect("Save") },\n  ]}\n/>'} />
     </section>
   );
 });

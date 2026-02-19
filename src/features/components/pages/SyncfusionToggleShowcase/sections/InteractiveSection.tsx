@@ -6,6 +6,7 @@ import { memo, useCallback, useId, useState } from 'react';
 
 import { type ChangeEventArgs, SwitchComponent } from '@syncfusion/ej2-react-buttons';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const InteractiveSection = memo((): JSX.Element => {
@@ -44,6 +45,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {FM('components.toggleShowcase.labels.currentState', stateLabel)}
         </span>
       </div>
+      <CopyableCodeSnippet code='<SwitchComponent checked={isActive} change={handleChange} name="interactive" />' />
     </section>
   );
 });

@@ -32,6 +32,7 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
     ],
   },
   { path: RoutePath.ComponentsAlertBadgeNative, labelKey: 'menu.alertBadge', testId: ComponentTestIds.NAV_ALERTBADGE_GROUP },
+  { path: RoutePath.ComponentsFlexBoxNative, labelKey: 'menu.flexBox', testId: ComponentTestIds.NAV_FLEXBOX_GROUP },
   {
     labelKey: 'menu.avatar', testId: ComponentTestIds.NAV_AVATAR_GROUP,
     expandTestId: ComponentTestIds.NAV_AVATAR_GROUP_EXPAND, items: [
@@ -143,6 +144,13 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
     expandTestId: ComponentTestIds.NAV_TAG_GROUP_EXPAND, items: [
       { path: RoutePath.ComponentsTagNative, labelKey: 'menu.native', testId: ComponentTestIds.NAV_TAG_NATIVE },
       { path: RoutePath.ComponentsTagSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_TAG_SYNCFUSION },
+    ],
+  },
+  {
+    labelKey: 'menu.textDescription', testId: ComponentTestIds.NAV_TEXTDESCRIPTION_GROUP,
+    expandTestId: ComponentTestIds.NAV_TEXTDESCRIPTION_GROUP_EXPAND, items: [
+      { path: RoutePath.ComponentsTextDescriptionNative, labelKey: 'menu.native', testId: ComponentTestIds.NAV_TEXTDESCRIPTION_NATIVE },
+      { path: RoutePath.ComponentsTextDescriptionSyncfusion, labelKey: 'menu.syncfusion', testId: ComponentTestIds.NAV_TEXTDESCRIPTION_SYNCFUSION },
     ],
   },
   { path: RoutePath.ComponentsThemeToggleNative, labelKey: 'menu.themeToggleNative', testId: ComponentTestIds.NAV_THEMETOGGLE_NATIVE },

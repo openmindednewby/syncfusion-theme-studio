@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { CheckboxNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -45,6 +46,7 @@ export const WithLabelSection = memo((): JSX.Element => (
         testId="native-cb-showcase-required"
       />
     </div>
+    <CopyableCodeSnippet code='<CheckboxNative helperText="Additional info" label="With helper" />' />
   </section>
 ));
 

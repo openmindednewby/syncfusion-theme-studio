@@ -242,7 +242,6 @@ local_resource(
     cmd='npm run figma:generate:icons',
     resource_deps=['figma-extract'],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    auto_init=False,
     allow_parallel=True,
 )
 
@@ -262,7 +261,6 @@ local_resource(
     cmd='npm run figma:generate:buttons',
     resource_deps=['figma-extract'],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    auto_init=False,
     allow_parallel=True,
 )
 
@@ -272,7 +270,6 @@ local_resource(
     cmd='npm run figma:generate:description',
     resource_deps=['figma-extract'],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    auto_init=False,
     allow_parallel=True,
 )
 
@@ -282,7 +279,6 @@ local_resource(
     cmd='npm run figma:generate:input',
     resource_deps=['figma-extract'],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    auto_init=False,
     allow_parallel=True,
 )
 

@@ -7,6 +7,7 @@ import { memo, useCallback, useState } from 'react';
 import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 import type { ChangeEventArgs } from '@syncfusion/ej2-react-buttons';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const INITIAL_STATE = {
@@ -75,6 +76,7 @@ export const InteractiveSection = memo((): JSX.Element => {
       >
         <span className="text-sm font-medium text-text-primary">{statusText}</span>
       </div>
+      <CopyableCodeSnippet code='<CheckBoxComponent checked={value} change={handleChange} label="Subscribe" />' />
     </section>
   );
 });

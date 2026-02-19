@@ -5,6 +5,7 @@
  */
 import { memo, useCallback, useMemo, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -110,6 +111,7 @@ export const InteractiveSection = memo((): JSX.Element => (
       </p>
     </div>
     <InteractiveBreadcrumb />
+    <CopyableCodeSnippet code='<BreadcrumbNative ariaLabel="Breadcrumb" items={items} onItemClick={handleItemClick} />' />
   </section>
 ));
 

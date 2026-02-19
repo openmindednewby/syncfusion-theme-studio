@@ -62,6 +62,13 @@ export interface ComponentConfigActions {
   updateAvatarConfig: ThemeState['updateAvatarConfig'];
   updateProgressBarConfig: ThemeState['updateProgressBarConfig'];
   updateTooltipConfig: ThemeState['updateTooltipConfig'];
+  updateIconButtonConfig: ThemeState['updateIconButtonConfig'];
+  updateFabConfig: ThemeState['updateFabConfig'];
+  updateSplitButtonConfig: ThemeState['updateSplitButtonConfig'];
+  updateTextDescriptionConfig: ThemeState['updateTextDescriptionConfig'];
+  updateCheckboxConfig: ThemeState['updateCheckboxConfig'];
+  updateRadioConfig: ThemeState['updateRadioConfig'];
+  updateToggleConfig: ThemeState['updateToggleConfig'];
 }
 
 export interface TypographyActions {

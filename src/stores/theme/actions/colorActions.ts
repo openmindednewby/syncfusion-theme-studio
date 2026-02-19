@@ -6,6 +6,7 @@ import type { DerivedComponentColors } from '@/utils';
 import { injectThemeVariables } from '../themeInjector';
 import { type StatusKey, type StatusShade ,
   type ButtonsComponentConfig,
+  type ColorScale,
   type ColorShade,
   type ComponentConfigSingle,
   type ComponentsConfig,
@@ -34,6 +35,22 @@ interface StatusColorUpdate {
   status: StatusKey;
   shade: StatusShade;
   value: string;
+}
+
+// Palette shades for disabled button states (light = muted/lighter, dark = muted/darker)
+const DISABLED_SHADE_LIGHT: ColorShade = '200';
+const DISABLED_SHADE_DARK: ColorShade = '900';
+const DISABLED_TEXT_LIGHT = '255 255 255';
+const DISABLED_TEXT_DARK = '148 163 184';
+
+interface DisabledOverrides {
+  background: string;
+  textColor: string;
+}
+
+function getDisabledOverrides(palette: ColorScale, isLightMode: boolean): DisabledOverrides {
+  const shade = isLightMode ? DISABLED_SHADE_LIGHT : DISABLED_SHADE_DARK;
+  return { background: palette[shade], textColor: isLightMode ? DISABLED_TEXT_LIGHT : DISABLED_TEXT_DARK };
 }
 
 function buildColorScaleTheme(currentTheme: ThemeConfig, update: ColorScaleUpdate): ThemeConfig {
@@ -88,20 +105,51 @@ export function buildDerivedDataGrid(dataGrid: DataGridConfig, derived: DerivedC
   };
 }
 
-export function buildDerivedModeConfig(config: ComponentConfigSingle, derived: DerivedComponentColors): ComponentConfigSingle {
-  return {
+export function buildDerivedModeConfig(
+  config: ComponentConfigSingle,
+  derived: DerivedComponentColors,
+  palette?: ColorScale,
+  isLightMode?: boolean,
+): ComponentConfigSingle {
+  const base: ComponentConfigSingle = {
     ...config,
     buttons: buildDerivedButtons(config.buttons, derived),
     sidebar: buildDerivedSidebar(config.sidebar, derived),
     inputs: buildDerivedInputs(config.inputs, derived),
     dataGrid: buildDerivedDataGrid(config.dataGrid, derived),
   };
+
+  if (!palette) return base;
+
+  const disabled = getDisabledOverrides(palette, isLightMode ?? true);
+  return applyDisabledOverrides(base, disabled);
 }
 
-export function buildDerivedComponents(components: ComponentsConfig, derived: DerivedComponentColors): ComponentsConfig {
+function applyDisabledOverrides(config: ComponentConfigSingle, disabled: DisabledOverrides): ComponentConfigSingle {
   return {
-    light: buildDerivedModeConfig(components.light, derived),
-    dark: buildDerivedModeConfig(components.dark, derived),
+    ...config,
+    buttons: {
+      ...config.buttons,
+      primary: { ...config.buttons.primary, disabledBackground: disabled.background, disabledTextColor: disabled.textColor },
+      outline: { ...config.buttons.outline, disabledTextColor: disabled.background, disabledBorderColor: disabled.background },
+    },
+    iconButtons: {
+      ...config.iconButtons,
+      primary: { ...config.iconButtons.primary, disabledBackground: disabled.background },
+    },
+    fab: { ...config.fab, disabledBackground: disabled.background },
+    splitButton: { ...config.splitButton, disabledBackground: disabled.background, disabledTextColor: disabled.textColor },
+  };
+}
+
+export function buildDerivedComponents(
+  components: ComponentsConfig,
+  derived: DerivedComponentColors,
+  palette?: ColorScale,
+): ComponentsConfig {
+  return {
+    light: buildDerivedModeConfig(components.light, derived, palette, true),
+    dark: buildDerivedModeConfig(components.dark, derived, palette, false),
   };
 }
 
@@ -125,7 +173,7 @@ export function createColorUpdateActions(set: SetState, get: GetState): ColorUpd
       let newTheme: ThemeConfig = { ...get().theme, primary: palette };
       if (cascadeToComponents) {
         const derived = generateDerivedColors(palette);
-        newTheme = { ...newTheme, components: buildDerivedComponents(newTheme.components, derived) };
+        newTheme = { ...newTheme, components: buildDerivedComponents(newTheme.components, derived, palette) };
       }
       applyAndInject(newTheme);
     },

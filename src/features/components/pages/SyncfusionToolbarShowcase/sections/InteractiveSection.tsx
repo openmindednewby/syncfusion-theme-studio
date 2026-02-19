@@ -6,6 +6,7 @@ import { memo, useCallback, useState } from 'react';
 
 import { type ClickEventArgs, ToolbarComponent, ItemsDirective, ItemDirective } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const INITIAL_CLICK_COUNT = 0;
@@ -55,6 +56,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {FM('components.toolbarShowcase.sections.clickCount', String(clickCount))}
         </span>
       </div>
+      <CopyableCodeSnippet code='<ToolbarComponent clicked={handleClicked}>...</ToolbarComponent>' />
     </section>
   );
 });

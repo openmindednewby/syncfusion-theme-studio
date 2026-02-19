@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -51,6 +52,7 @@ export const ColumnFeaturesSection = memo((): JSX.Element => (
       testId="grid-column-features"
       toolbar={TOOLBAR_ITEMS}
     />
+    <CopyableCodeSnippet code='<DataGrid allowResizing allowReordering showColumnChooser columns={columns} data={data} frozenColumns={2} />' />
   </ShowcaseSection>
 ));
 

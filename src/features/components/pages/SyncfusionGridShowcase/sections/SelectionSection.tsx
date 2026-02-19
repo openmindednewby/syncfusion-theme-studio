@@ -6,6 +6,7 @@ import { memo, useMemo } from 'react';
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 import type { SelectionSettingsModel } from '@syncfusion/ej2-react-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -52,6 +53,7 @@ export const SelectionSection = memo((): JSX.Element => {
         selectionSettings={selectionSettings}
         testId="grid-selection"
       />
+      <CopyableCodeSnippet code='<DataGrid columns={columns} data={data} selectionSettings={{ type: "Multiple", mode: "Row" }} />' />
     </ShowcaseSection>
   );
 });

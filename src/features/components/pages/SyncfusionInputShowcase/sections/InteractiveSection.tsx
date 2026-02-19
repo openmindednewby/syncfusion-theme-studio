@@ -4,6 +4,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Input } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -41,6 +42,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           <span className="font-mono font-medium text-text-primary">{displayValue}</span>
         </p>
       </div>
+      <CopyableCodeSnippet code='<Input fullWidth label="Interactive" value={value} input={handleInput} />' />
     </section>
   );
 });

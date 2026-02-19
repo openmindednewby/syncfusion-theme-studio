@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -70,6 +71,7 @@ export const BasicSection = memo((): JSX.Element => (
         />
       </div>
     </div>
+    <CopyableCodeSnippet code='<BreadcrumbNative ariaLabel="Breadcrumb" items={items} />' />
   </section>
 ));
 

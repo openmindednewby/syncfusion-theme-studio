@@ -31,8 +31,7 @@ try {
   const patch = [
     '',
     PATCH_MARKER,
-    'module.exports = exports.minimatch;',
-    'module.exports.minimatch = exports.minimatch;',
+    'exports.default = exports.minimatch;',
     '',
   ].join('\n');
 

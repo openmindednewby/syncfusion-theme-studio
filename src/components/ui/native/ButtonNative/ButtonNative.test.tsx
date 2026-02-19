@@ -126,7 +126,7 @@ describe('ButtonNative', () => {
   describe('variants', () => {
     it('applies primary variant classes by default', () => {
       render(<ButtonNative testId="test-button">Primary</ButtonNative>);
-      expect(screen.getByTestId('test-button').className).toContain('bg-primary-600');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-primary');
     });
 
     it('applies danger variant classes when specified', () => {
@@ -135,7 +135,7 @@ describe('ButtonNative', () => {
           Danger
         </ButtonNative>,
       );
-      expect(screen.getByTestId('test-button').className).toContain('bg-error-500');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-danger');
     });
 
     it('applies outline variant classes when specified', () => {
@@ -144,9 +144,7 @@ describe('ButtonNative', () => {
           Outline
         </ButtonNative>,
       );
-      const className = screen.getByTestId('test-button').className;
-      expect(className).toContain('bg-transparent');
-      expect(className).toContain('border');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-outline');
     });
 
     it('applies ghost variant classes when specified', () => {
@@ -155,14 +153,14 @@ describe('ButtonNative', () => {
           Ghost
         </ButtonNative>,
       );
-      expect(screen.getByTestId('test-button').className).toContain('bg-transparent');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-ghost');
     });
   });
 
   describe('sizes', () => {
     it('applies medium size classes by default', () => {
       render(<ButtonNative testId="test-button">Medium</ButtonNative>);
-      expect(screen.getByTestId('test-button').className).toContain('h-10');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-md');
     });
 
     it('applies small size classes when specified', () => {
@@ -171,7 +169,7 @@ describe('ButtonNative', () => {
           Small
         </ButtonNative>,
       );
-      expect(screen.getByTestId('test-button').className).toContain('h-8');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-sm');
     });
 
     it('applies large size classes when specified', () => {
@@ -180,7 +178,7 @@ describe('ButtonNative', () => {
           Large
         </ButtonNative>,
       );
-      expect(screen.getByTestId('test-button').className).toContain('h-12');
+      expect(screen.getByTestId('test-button').className).toContain('native-btn-lg');
     });
   });
 
@@ -201,6 +199,133 @@ describe('ButtonNative', () => {
         </ButtonNative>,
       );
       expect(screen.getByTestId('test-button').className).not.toContain('w-full');
+    });
+  });
+
+  describe('loading state', () => {
+    it('sets disabled attribute when loading is true', () => {
+      render(
+        <ButtonNative loading testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      expect(screen.getByTestId('test-button').hasAttribute('disabled')).toBe(true);
+    });
+
+    it('sets aria-busy when loading is true', () => {
+      render(
+        <ButtonNative loading testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      expect(screen.getByTestId('test-button').getAttribute('aria-busy')).toBe('true');
+    });
+
+    it('does not set aria-busy when loading is false', () => {
+      render(
+        <ButtonNative testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      expect(screen.getByTestId('test-button').getAttribute('aria-busy')).toBeNull();
+    });
+
+    it('renders spinner element when loading', () => {
+      render(
+        <ButtonNative loading testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      const button = screen.getByTestId('test-button');
+      const spinner = button.querySelector('.native-btn-spinner');
+      expect(spinner).not.toBeNull();
+      expect(spinner?.getAttribute('aria-hidden')).toBe('true');
+    });
+
+    it('does not render spinner when not loading', () => {
+      render(
+        <ButtonNative testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      const button = screen.getByTestId('test-button');
+      expect(button.querySelector('.native-btn-spinner')).toBeNull();
+    });
+
+    it('does not call onClick when loading', () => {
+      const handleClick = vi.fn();
+      render(
+        <ButtonNative loading testId="test-button" onClick={handleClick}>
+          Save
+        </ButtonNative>,
+      );
+      fireEvent.click(screen.getByTestId('test-button'));
+      expect(handleClick).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('leftIcon', () => {
+    it('renders left icon when provided', () => {
+      render(
+        <ButtonNative leftIcon={<span data-testid="left-icon">L</span>} testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      expect(screen.getByTestId('left-icon')).toBeDefined();
+      const button = screen.getByTestId('test-button');
+      expect(button.querySelector('.native-btn-icon-left')).not.toBeNull();
+    });
+
+    it('hides left icon when loading', () => {
+      render(
+        <ButtonNative loading leftIcon={<span data-testid="left-icon">L</span>} testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      const button = screen.getByTestId('test-button');
+      expect(button.querySelector('.native-btn-icon-left')).toBeNull();
+    });
+  });
+
+  describe('rightIcon', () => {
+    it('renders right icon when provided', () => {
+      render(
+        <ButtonNative rightIcon={<span data-testid="right-icon">R</span>} testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      expect(screen.getByTestId('right-icon')).toBeDefined();
+      const button = screen.getByTestId('test-button');
+      expect(button.querySelector('.native-btn-icon-right')).not.toBeNull();
+    });
+
+    it('hides right icon when loading', () => {
+      render(
+        <ButtonNative loading rightIcon={<span data-testid="right-icon">R</span>} testId="test-button">
+          Save
+        </ButtonNative>,
+      );
+      const button = screen.getByTestId('test-button');
+      expect(button.querySelector('.native-btn-icon-right')).toBeNull();
+    });
+  });
+
+  describe('both icons', () => {
+    it('renders both left and right icons together', () => {
+      render(
+        <ButtonNative
+          leftIcon={<span data-testid="left-icon">L</span>}
+          rightIcon={<span data-testid="right-icon">R</span>}
+          testId="test-button"
+        >
+          Save
+        </ButtonNative>,
+      );
+      const button = screen.getByTestId('test-button');
+      expect(button.querySelector('.native-btn-icon-left')).not.toBeNull();
+      expect(button.querySelector('.native-btn-icon-right')).not.toBeNull();
+      expect(screen.getByTestId('left-icon')).toBeDefined();
+      expect(screen.getByTestId('right-icon')).toBeDefined();
     });
   });
 });

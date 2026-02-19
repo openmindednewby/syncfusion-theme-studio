@@ -24,3 +24,9 @@ export type { BaseTooltipProps } from './tooltipTypes';
 
 export { HeadingLevel } from './headingLevel';
 export { TextVariant } from './textVariant';
+
+export { IconButtonVariant } from './iconButtonTypes';
+export type { BaseIconButtonProps } from './iconButtonTypes';
+export { FabPosition } from './fabTypes';
+export type { BaseFabProps } from './fabTypes';
+export type { SplitButtonItem, BaseSplitButtonProps } from './splitButtonTypes';

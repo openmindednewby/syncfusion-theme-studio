@@ -5,6 +5,7 @@ import { memo, useCallback } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -71,6 +72,7 @@ export const DetailRowSection = memo((): JSX.Element => {
         height={GRID_HEIGHT_TALL}
         testId="grid-detail-row"
       />
+      <CopyableCodeSnippet code='<DataGrid columns={columns} data={data} detailTemplate={detailTemplate} />' />
     </ShowcaseSection>
   );
 });

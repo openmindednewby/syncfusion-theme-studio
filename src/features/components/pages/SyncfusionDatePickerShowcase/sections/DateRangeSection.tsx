@@ -8,6 +8,7 @@ import { memo, useMemo } from 'react';
 
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const DAYS_IN_WEEK = 7;
@@ -42,6 +43,7 @@ export const DateRangeSection = memo((): JSX.Element => {
           </span>
         </div>
       </div>
+      <CopyableCodeSnippet code='<DateRangePickerComponent startDate={start} endDate={end} placeholder="Select range" />' />
     </section>
   );
 });

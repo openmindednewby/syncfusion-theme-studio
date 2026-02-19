@@ -3,6 +3,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant, ButtonSize } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -56,6 +57,7 @@ export const StatesSection = memo((): JSX.Element => (
         {FM('components.buttons.outline')}
       </ButtonNative>
     </div>
+    <CopyableCodeSnippet code="<ButtonNative disabled variant={ButtonVariant.Primary}>Disabled</ButtonNative>" />
   </section>
 ));
 

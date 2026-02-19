@@ -10,6 +10,7 @@ import {
   BreadcrumbItemsDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const dotSeparator = (): JSX.Element => <span className="mx-1 text-text-secondary">.</span>;
@@ -62,6 +63,7 @@ export const CustomSection = memo((): JSX.Element => (
         </BreadcrumbComponent>
       </div>
     </div>
+    <CopyableCodeSnippet code='<BreadcrumbComponent separatorTemplate=">" enableNavigation={false}>...</BreadcrumbComponent>' />
   </section>
 ));
 

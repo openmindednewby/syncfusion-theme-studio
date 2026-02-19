@@ -3,6 +3,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { CheckboxNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -35,6 +36,7 @@ export const BasicSection = memo((): JSX.Element => {
           testId="native-cb-showcase-unchecked"
         />
       </div>
+      <CopyableCodeSnippet code='<CheckboxNative checked={isChecked} label="Accept terms" onChange={handleChange} />' />
     </section>
   );
 });

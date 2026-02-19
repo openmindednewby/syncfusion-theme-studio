@@ -4,6 +4,7 @@
  */
 import { memo, useState, useCallback, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { SelectionConfig } from '@/components/ui/native';
 import type { GridConfig } from '@/lib/grid/types';
@@ -65,6 +66,7 @@ export const AlertManagementSection = memo((): JSX.Element => {
         selectionConfig={ALERT_SELECTION}
         testId={TestIds.NATIVE_GRID_ALERT_MANAGEMENT}
       />
+      <CopyableCodeSnippet code='<TableNative striped hoverable showColumnMenu columns={columns} data={data} selectionConfig={selectionConfig} gridConfig={gridConfig} />' />
     </section>
   );
 });

@@ -5,6 +5,7 @@
  */
 import { memo, useCallback, useMemo, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import type { AccordionItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -187,6 +188,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           />
         ))}
       </div>
+      <CopyableCodeSnippet code='<AccordionNative expandMode="multiple" items={items} />' />
     </section>
   );
 });

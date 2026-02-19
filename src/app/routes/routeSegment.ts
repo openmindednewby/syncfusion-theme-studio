@@ -48,6 +48,10 @@ export const enum RouteSegment {
   ComponentsAlertBadge = 'components/alertbadge',
   ComponentsAlertBadgeNative = 'components/alertbadge/native',
 
+  // FlexBox
+  ComponentsFlexBox = 'components/flexbox',
+  ComponentsFlexBoxNative = 'components/flexbox/native',
+
   // Checkbox
   ComponentsCheckbox = 'components/checkbox',
   ComponentsCheckboxNative = 'components/checkbox/native',
@@ -131,6 +135,11 @@ export const enum RouteSegment {
   // Icons
   ComponentsIcons = 'components/icons',
   ComponentsIconsNative = 'components/icons/native',
+
+  // TextDescription
+  ComponentsTextDescription = 'components/textdescription',
+  ComponentsTextDescriptionNative = 'components/textdescription/native',
+  ComponentsTextDescriptionSyncfusion = 'components/textdescription/syncfusion',
 
   // ThemeToggle
   ComponentsThemeToggle = 'components/themetoggle',

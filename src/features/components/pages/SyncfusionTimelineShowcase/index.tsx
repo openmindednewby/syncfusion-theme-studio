@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTimeline from '@/components/ui/syncfusion/Timeline';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -19,10 +20,12 @@ const SyncfusionTimelineShowcase = (): JSX.Element => (
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.verticalTimeline')}</h3>
         <SyncfusionTimeline items={ITEMS} testId="sf-timeline-vertical" />
+        <CopyableCodeSnippet code='<SyncfusionTimeline items={[{ id: "1", label: "Step 1", status: "completed" }]} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.horizontalTimeline')}</h3>
         <SyncfusionTimeline items={ITEMS} orientation="horizontal" testId="sf-timeline-horizontal" />
+        <CopyableCodeSnippet code='<SyncfusionTimeline items={items} orientation="horizontal" />' />
       </section>
     </div>
   </div>

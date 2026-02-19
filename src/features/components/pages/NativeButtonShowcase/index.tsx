@@ -1,7 +1,24 @@
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
-import { InteractiveSection, SizesSection, StatesSection, VariantsSection } from './sections';
+import {
+  CheckboxSection,
+  ChipSection,
+  DragHandleSection,
+  DropdownSection,
+  FabSection,
+  IconButtonSection,
+  IconsSection,
+  InteractiveSection,
+  LoadingSection,
+  PaginationButtonSection,
+  RadioSection,
+  SizesSection,
+  SplitButtonSection,
+  StatesSection,
+  ToggleSection,
+  VariantsSection,
+} from './sections';
 
 const NativeButtonShowcase = (): JSX.Element => (
   <div className="h-full overflow-y-auto p-6" data-testid={TestIds.NATIVE_BUTTON_SHOWCASE}>
@@ -19,6 +36,18 @@ const NativeButtonShowcase = (): JSX.Element => (
       <SizesSection />
       <StatesSection />
       <InteractiveSection />
+      <LoadingSection />
+      <IconsSection />
+      <IconButtonSection />
+      <FabSection />
+      <SplitButtonSection />
+      <CheckboxSection />
+      <RadioSection />
+      <ToggleSection />
+      <ChipSection />
+      <PaginationButtonSection />
+      <DropdownSection />
+      <DragHandleSection />
     </div>
   </div>
 );

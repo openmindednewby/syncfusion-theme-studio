@@ -1,7 +1,9 @@
 import { ShadowScale, type ComponentConfigSingle } from '../types';
+import { DEFAULT_BUTTONS_DARK, DEFAULT_FAB_DARK, DEFAULT_ICON_BUTTONS_DARK, DEFAULT_SPLIT_BUTTON_DARK } from './defaultButtonsDark';
 import { DEFAULT_DATA_DISPLAY_DARK } from './defaultDataDisplayDark';
 import { DEFAULT_DATAGRID_DARK } from './defaultDataGridDark';
 import { DEFAULT_FEEDBACK_DARK } from './defaultFeedbackDark';
+import { DEFAULT_FORM_CONTROLS_DARK } from './defaultFormControlsDark';
 import { DEFAULT_NAVIGATION_DARK } from './defaultNavigationDark';
 import { DEFAULT_PAGINATION_DARK } from './defaultPaginationDark';
 
@@ -42,64 +44,10 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     searchFontSize: '13px',
     searchPadding: '8px 12px 8px 32px',
   },
-  buttons: {
-    primary: {
-      background: '59 130 246',
-      backgroundHover: '96 165 250',
-      backgroundActive: '37 99 235',
-      textColor: '255 255 255',
-      textColorHover: '255 255 255',
-      borderColor: 'transparent',
-      borderWidth: '0px',
-      borderRadius: 'md',
-      shadow: ShadowScale.Sm,
-    },
-    secondary: {
-      background: '55 65 81',
-      backgroundHover: '75 85 99',
-      backgroundActive: '107 114 128',
-      textColor: '229 231 235',
-      textColorHover: '249 250 251',
-      borderColor: 'transparent',
-      borderWidth: '0px',
-      borderRadius: 'md',
-      shadow: ShadowScale.None,
-    },
-    outline: {
-      background: 'transparent',
-      backgroundHover: '55 65 81',
-      backgroundActive: '75 85 99',
-      textColor: '96 165 250',
-      textColorHover: '147 197 253',
-      borderColor: '96 165 250',
-      borderWidth: '1px',
-      borderRadius: 'md',
-      shadow: ShadowScale.None,
-    },
-    ghost: {
-      background: 'transparent',
-      backgroundHover: '55 65 81',
-      backgroundActive: '75 85 99',
-      textColor: '209 213 219',
-      textColorHover: '249 250 251',
-      borderColor: 'transparent',
-      borderWidth: '0px',
-      borderRadius: 'md',
-      shadow: ShadowScale.None,
-    },
-    danger: {
-      background: '239 68 68',
-      backgroundHover: '248 113 113',
-      backgroundActive: '220 38 38',
-      textColor: '255 255 255',
-      textColorHover: '255 255 255',
-      borderColor: 'transparent',
-      borderWidth: '0px',
-      borderRadius: 'md',
-      shadow: ShadowScale.Sm,
-    },
-    transitionDuration: '150ms',
-  },
+  buttons: DEFAULT_BUTTONS_DARK,
+  iconButtons: DEFAULT_ICON_BUTTONS_DARK,
+  fab: DEFAULT_FAB_DARK,
+  splitButton: DEFAULT_SPLIT_BUTTON_DARK,
   inputs: {
     background: '31 41 55',
     borderDefault: '75 85 99',
@@ -174,5 +122,13 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
       textTransform: 'none',
     },
   },
-  pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK, ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,
+  textDescription: {
+    textColor: '180 190 210',
+    fontFamily: 'Fira Sans',
+    fontSize: '12px',
+    fontWeight: '400',
+    lineHeight: '20px',
+    letterSpacing: '2%',
+  },
+  pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK, ...DEFAULT_FORM_CONTROLS_DARK, ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,
 };

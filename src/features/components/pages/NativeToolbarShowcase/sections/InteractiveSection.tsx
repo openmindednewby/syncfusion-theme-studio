@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import {
   BoldIcon,
   ItalicIcon,
@@ -98,6 +99,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {FM('components.toolbarShowcase.sections.clickCount', String(clickCount))}
         </span>
       </div>
+      <CopyableCodeSnippet code={'<ToolbarNative\n  ariaLabel="Format toolbar"\n  items={[\n    { type: "button", text: "Bold", icon: <BoldIcon />, onClick: () => handleClick("Bold") },\n    { type: "separator" },\n    { type: "button", text: "Align Left", icon: <AlignLeftIcon /> },\n  ]}\n/>'} />
     </section>
   );
 });

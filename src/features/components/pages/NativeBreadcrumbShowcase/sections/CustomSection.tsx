@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { HomeIcon, FolderDemoIcon, ChartIcon } from '@/components/icons';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
@@ -93,6 +94,7 @@ export const CustomSection = memo((): JSX.Element => (
         />
       </div>
     </div>
+    <CopyableCodeSnippet code='<BreadcrumbNative ariaLabel="Breadcrumb" items={items} separator="›" />' />
   </section>
 ));
 

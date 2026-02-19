@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { AlertNative, AlertSeverity } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -53,6 +54,7 @@ export const FeaturesSection = memo((): JSX.Element => (
         {FM('components.alertShowcase.longContentMessage')}
       </AlertNative>
     </div>
+    <CopyableCodeSnippet code='<AlertNative dismissible severity={AlertSeverity.Info} title="Title">Message</AlertNative>' />
   </section>
 ));
 

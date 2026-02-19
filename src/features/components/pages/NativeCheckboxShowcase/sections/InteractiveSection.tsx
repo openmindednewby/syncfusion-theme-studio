@@ -3,6 +3,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { CheckboxNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -78,6 +79,7 @@ export const InteractiveSection = memo((): JSX.Element => {
       >
         <span className="text-sm font-medium text-text-primary">{statusText}</span>
       </div>
+      <CopyableCodeSnippet code='<CheckboxNative checked={isChecked} label="Option" onChange={handleChange} />' />
     </section>
   );
 });

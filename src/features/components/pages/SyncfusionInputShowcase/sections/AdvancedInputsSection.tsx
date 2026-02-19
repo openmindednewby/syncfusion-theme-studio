@@ -6,6 +6,7 @@ import { memo, useId } from 'react';
 
 import { NumericTextBoxComponent } from '@syncfusion/ej2-react-inputs';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const NUMERIC_DEFAULT = 42;
@@ -71,6 +72,7 @@ export const AdvancedInputsSection = memo((): JSX.Element => {
           />
         </div>
       </div>
+      <CopyableCodeSnippet code='<NumericTextBoxComponent format="c2" currency="USD" min={0} max={1000} value={42} />' />
     </section>
   );
 });

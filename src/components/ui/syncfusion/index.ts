@@ -25,6 +25,9 @@ export type { DataGridProps } from './DataGrid';
 export { default as DatePicker } from './DatePicker';
 export type { DatePickerProps } from './DatePicker';
 
+export { default as SyncfusionDescription } from './Description';
+export type { SyncfusionDescriptionProps } from './Description';
+
 export { default as Dialog, DialogVariant } from './Dialog';
 export type { DialogProps, DialogButton } from './Dialog';
 

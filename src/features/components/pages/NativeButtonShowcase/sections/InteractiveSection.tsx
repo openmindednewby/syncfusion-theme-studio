@@ -3,6 +3,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -71,6 +72,7 @@ export const InteractiveSection = memo((): JSX.Element => {
             : FM('components.buttonShowcase.toggleInactive')}
         </ButtonNative>
       </div>
+      <CopyableCodeSnippet code='<ButtonNative variant={ButtonVariant.Primary} onClick={handleClick}>Click me</ButtonNative>' />
     </section>
   );
 });

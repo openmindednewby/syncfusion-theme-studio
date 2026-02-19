@@ -4,6 +4,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -55,6 +56,7 @@ export const StatesSection = memo((): JSX.Element => {
           testId="native-select-showcase-helper"
         />
       </div>
+      <CopyableCodeSnippet code={'<SelectNative\n  disabled\n  fullWidth\n  label="Disabled"\n  options={options}\n  value="colorRed"\n/>\n<SelectNative\n  fullWidth\n  error="Please select a value"\n  label="With error"\n  options={options}\n/>'} />
     </section>
   );
 });

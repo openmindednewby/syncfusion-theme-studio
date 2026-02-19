@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTooltip, { TooltipPlacement } from '@/components/ui/syncfusion/Tooltip';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -25,6 +26,7 @@ const SyncfusionTooltipShowcase = (): JSX.Element => (
             <button className="rounded bg-surface-elevated px-4 py-2 text-text-primary" type="button">{FM('showcase.labels.right')}</button>
           </SyncfusionTooltip>
         </div>
+        <CopyableCodeSnippet code='<SyncfusionTooltip content="Tooltip text" placement={TooltipPlacement.Top}><button>Hover me</button></SyncfusionTooltip>' />
       </section>
     </div>
   </div>

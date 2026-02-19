@@ -6,6 +6,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DatePickerNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -44,6 +45,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           {displayValue}
         </p>
       </div>
+      <CopyableCodeSnippet code='<DatePickerNative label="Select Date" value={dateValue} onChange={handleChange} fullWidth />' />
     </section>
   );
 });

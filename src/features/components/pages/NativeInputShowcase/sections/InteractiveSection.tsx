@@ -4,6 +4,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { InputNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -41,6 +42,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           <span className="font-mono font-medium text-text-primary">{displayValue}</span>
         </p>
       </div>
+      <CopyableCodeSnippet code='<InputNative label="Name" value={value} onChange={handleChange} fullWidth />' />
     </section>
   );
 });

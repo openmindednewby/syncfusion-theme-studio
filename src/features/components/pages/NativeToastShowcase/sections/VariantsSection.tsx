@@ -4,6 +4,7 @@
  */
 import { memo, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant, useToast, ToastSeverity } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -84,6 +85,7 @@ export const VariantsSection = memo((): JSX.Element => {
           {FM('components.nativeToasts.info')}
         </ButtonNative>
       </div>
+      <CopyableCodeSnippet code={'addToast({\n  severity: ToastSeverity.Success,\n  title: "Success",\n  message: "Operation completed successfully",\n});'} />
     </section>
   );
 });

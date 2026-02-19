@@ -1,0 +1,121 @@
+import { ShadowScale } from '../types';
+
+import type { ButtonsComponentConfig, FabConfig, IconButtonConfig, SplitButtonConfig } from '../types';
+
+export const DEFAULT_BUTTONS_LIGHT: ButtonsComponentConfig = {
+  primary: {
+    background: '59 130 246',
+    backgroundHover: '37 99 235',
+    backgroundActive: '29 78 216',
+    textColor: '255 255 255',
+    textColorHover: '255 255 255',
+    borderColor: 'transparent',
+    borderWidth: '0px',
+    borderRadius: 'md',
+    shadow: ShadowScale.Sm,
+    disabledBackground: '191 219 254',
+    disabledTextColor: '255 255 255',
+    disabledBorderColor: 'transparent',
+    disabledOpacity: '0.5',
+  },
+  secondary: {
+    background: '243 244 246',
+    backgroundHover: '229 231 235',
+    backgroundActive: '209 213 219',
+    textColor: '55 65 81',
+    textColorHover: '17 24 39',
+    borderColor: 'transparent',
+    borderWidth: '0px',
+    borderRadius: 'md',
+    shadow: ShadowScale.None,
+    disabledBackground: '243 244 246',
+    disabledTextColor: '156 163 175',
+    disabledBorderColor: 'transparent',
+    disabledOpacity: '0.5',
+  },
+  outline: {
+    background: 'transparent',
+    backgroundHover: '243 244 246',
+    backgroundActive: '229 231 235',
+    textColor: '59 130 246',
+    textColorHover: '37 99 235',
+    borderColor: '59 130 246',
+    borderWidth: '1px',
+    borderRadius: 'md',
+    shadow: ShadowScale.None,
+    disabledBackground: 'transparent',
+    disabledTextColor: '191 219 254',
+    disabledBorderColor: '191 219 254',
+    disabledOpacity: '0.5',
+  },
+  ghost: {
+    background: 'transparent',
+    backgroundHover: '243 244 246',
+    backgroundActive: '229 231 235',
+    textColor: '55 65 81',
+    textColorHover: '17 24 39',
+    borderColor: 'transparent',
+    borderWidth: '0px',
+    borderRadius: 'md',
+    shadow: ShadowScale.None,
+    disabledBackground: 'transparent',
+    disabledTextColor: '156 163 175',
+    disabledBorderColor: 'transparent',
+    disabledOpacity: '0.5',
+  },
+  danger: {
+    background: '239 68 68',
+    backgroundHover: '220 38 38',
+    backgroundActive: '185 28 28',
+    textColor: '255 255 255',
+    textColorHover: '255 255 255',
+    borderColor: 'transparent',
+    borderWidth: '0px',
+    borderRadius: 'md',
+    shadow: ShadowScale.Sm,
+    disabledBackground: '252 165 165',
+    disabledTextColor: '255 255 255',
+    disabledBorderColor: 'transparent',
+    disabledOpacity: '0.5',
+  },
+  typography: { fontFamily: 'inherit', fontSize: '14px', fontWeight: '500', lineHeight: '20px', letterSpacing: '0px' },
+  padding: { paddingTop: '8px', paddingRight: '16px', paddingBottom: '8px', paddingLeft: '16px' },
+  gap: '8px',
+  focusRing: { color: '59 130 246', width: '2px', offset: '2px' },
+  transitionDuration: '150ms',
+};
+
+export const DEFAULT_ICON_BUTTONS_LIGHT: IconButtonConfig = {
+  primary: {
+    background: '59 130 246', backgroundHover: '37 99 235', backgroundActive: '29 78 216',
+    iconColor: '255 255 255', iconColorHover: '255 255 255', borderColor: 'transparent', borderWidth: '0px',
+    disabledBackground: '191 219 254', disabledIconColor: '255 255 255', disabledOpacity: '0.5',
+  },
+  secondary: {
+    background: '243 244 246', backgroundHover: '229 231 235', backgroundActive: '209 213 219',
+    iconColor: '55 65 81', iconColorHover: '17 24 39', borderColor: 'transparent', borderWidth: '0px',
+    disabledBackground: '243 244 246', disabledIconColor: '156 163 175', disabledOpacity: '0.5',
+  },
+  tertiary: {
+    background: 'transparent', backgroundHover: '243 244 246', backgroundActive: '229 231 235',
+    iconColor: '107 114 128', iconColorHover: '55 65 81', borderColor: 'transparent', borderWidth: '0px',
+    disabledBackground: 'transparent', disabledIconColor: '209 213 219', disabledOpacity: '0.5',
+  },
+  borderRadius: '9999px', size: '40px', iconSize: '20px', focusRingColor: '59 130 246', transitionDuration: '150ms',
+};
+
+export const DEFAULT_FAB_LIGHT: FabConfig = {
+  background: '59 130 246', backgroundHover: '37 99 235', backgroundActive: '29 78 216',
+  iconColor: '255 255 255', textColor: '255 255 255', borderRadius: '16px', size: '56px', iconSize: '24px',
+  shadow: '0 6px 10px rgb(0 0 0 / 0.14)', shadowHover: '0 8px 15px rgb(0 0 0 / 0.2)',
+  disabledBackground: '191 219 254', disabledOpacity: '0.5', transitionDuration: '200ms',
+};
+
+export const DEFAULT_SPLIT_BUTTON_LIGHT: SplitButtonConfig = {
+  background: '59 130 246', backgroundHover: '37 99 235', backgroundActive: '29 78 216',
+  textColor: '255 255 255', textColorHover: '255 255 255', borderColor: 'transparent', borderWidth: '0px',
+  borderRadius: 'md', dividerColor: '147 197 253', dropdownBackground: '255 255 255',
+  dropdownBorderColor: '229 231 235', dropdownItemHover: '243 244 246', dropdownItemTextColor: '55 65 81',
+  dropdownShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)', disabledBackground: '191 219 254',
+  disabledTextColor: '255 255 255', disabledOpacity: '0.5', transitionDuration: '150ms',
+};

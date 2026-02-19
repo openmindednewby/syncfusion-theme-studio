@@ -5,6 +5,7 @@ import { memo, useMemo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { AggregateType } from '@/lib/grid/types';
 import type { AggregateRowConfig } from '@/lib/grid/types';
@@ -60,6 +61,7 @@ export const AggregatesSection = memo((): JSX.Element => {
         data={ORDERS}
         testId="grid-aggregates"
       />
+      <CopyableCodeSnippet code='<DataGrid columns={columns} data={data} aggregates={[{ columns: [{ field: "total", type: "Sum" }] }]} />' />
     </ShowcaseSection>
   );
 });

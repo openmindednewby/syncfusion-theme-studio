@@ -6,6 +6,7 @@ import { memo } from 'react';
 
 import { MenuComponent, type MenuItemModel } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const buildSecurityMenu = (): MenuItemModel => ({
@@ -62,6 +63,7 @@ export const NestedSection = memo((): JSX.Element => (
       </p>
     </div>
     <MenuComponent items={buildNestedItems()} />
+    <CopyableCodeSnippet code='<MenuComponent items={[{ text: "Settings", items: [{ text: "Security", items: [...] }] }]} />' />
   </section>
 ));
 

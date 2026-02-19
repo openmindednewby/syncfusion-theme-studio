@@ -3,6 +3,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Select } from '@/components/ui/syncfusion';
 import type { SelectOption } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
@@ -54,6 +55,7 @@ export const StatesSection = memo((): JSX.Element => {
           testId="sf-select-showcase-helper"
         />
       </div>
+      <CopyableCodeSnippet code='<Select fullWidth enabled={false} label="Disabled" options={options} value="colorRed" />' />
     </section>
   );
 });

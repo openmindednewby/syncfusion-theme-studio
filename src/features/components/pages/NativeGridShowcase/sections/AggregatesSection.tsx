@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { AggregateType, TableNative } from '@/components/ui/native';
 import type { AggregateRowDef } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -45,6 +46,7 @@ export const AggregatesSection = memo((): JSX.Element => (
       data={ORDERS}
       testId={TestIds.NATIVE_GRID_AGGREGATES}
     />
+    <CopyableCodeSnippet code='<TableNative columns={columns} data={data} aggregates={[{ columns: [{ field: "price", type: AggregateType.Sum }] }]} />' />
   </section>
 ));
 

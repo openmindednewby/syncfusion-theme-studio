@@ -6,6 +6,7 @@ import { memo } from 'react';
 
 import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const BasicSection = memo((): JSX.Element => (
@@ -32,6 +33,7 @@ export const BasicSection = memo((): JSX.Element => (
         label={FM('components.checkboxShowcase.labels.indeterminate')}
       />
     </div>
+    <CopyableCodeSnippet code='<CheckBoxComponent checked label="Option" />' />
   </section>
 ));
 

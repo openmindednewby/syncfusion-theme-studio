@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { GroupingConfig } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -43,6 +44,7 @@ export const GroupingSection = memo((): JSX.Element => {
         testId={TestIds.NATIVE_GRID_GROUPING}
         onGroupChange={handleGroupChange}
       />
+      <CopyableCodeSnippet code='<TableNative columns={columns} data={data} groupConfig={{ columns: ["department"], showDropArea: true }} />' />
     </section>
   );
 });

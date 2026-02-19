@@ -3,6 +3,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant, ButtonSize } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -38,6 +39,7 @@ export const SizesSection = memo((): JSX.Element => (
         {FM('components.buttons.large')}
       </ButtonNative>
     </div>
+    <CopyableCodeSnippet code="<ButtonNative size={ButtonSize.Sm} variant={ButtonVariant.Primary}>Label</ButtonNative>" />
   </section>
 ));
 

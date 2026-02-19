@@ -12,6 +12,31 @@ export interface ButtonStateColors {
   borderWidth: string;
   borderRadius: string;
   shadow: ShadowScale;
+  disabledBackground: string;
+  disabledTextColor: string;
+  disabledBorderColor: string;
+  disabledOpacity: string;
+}
+
+export interface ButtonTypography {
+  fontFamily: string;
+  fontSize: string;
+  fontWeight: string;
+  lineHeight: string;
+  letterSpacing: string;
+}
+
+export interface ButtonPadding {
+  paddingTop: string;
+  paddingRight: string;
+  paddingBottom: string;
+  paddingLeft: string;
+}
+
+export interface ButtonFocusRing {
+  color: string;
+  width: string;
+  offset: string;
 }
 
 export interface ButtonsComponentConfig {
@@ -20,6 +45,10 @@ export interface ButtonsComponentConfig {
   outline: ButtonStateColors;
   ghost: ButtonStateColors;
   danger: ButtonStateColors;
+  typography: ButtonTypography;
+  padding: ButtonPadding;
+  gap: string;
+  focusRing: ButtonFocusRing;
   transitionDuration: string;
 }
 

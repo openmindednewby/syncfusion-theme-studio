@@ -4,6 +4,7 @@
  */
 import { memo, useMemo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Select } from '@/components/ui/syncfusion';
 import type { SelectOption } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
@@ -61,6 +62,7 @@ export const BasicSelectSection = memo((): JSX.Element => {
           testId="sf-select-showcase-required"
         />
       </div>
+      <CopyableCodeSnippet code='<Select fullWidth label="Fruit" options={options} value={value} onChange={handleChange} />' />
     </section>
   );
 });

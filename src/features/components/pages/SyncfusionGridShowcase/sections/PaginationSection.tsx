@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -44,6 +45,7 @@ export const PaginationSection = memo((): JSX.Element => (
       pageSettings={{ pageSize: PAGE_SIZE_FIVE, pageSizes: PAGE_SIZES }}
       testId="grid-pagination"
     />
+    <CopyableCodeSnippet code='<DataGrid allowPaging columns={columns} data={data} pageSettings={{ pageSize: 5 }} />' />
   </ShowcaseSection>
 ));
 

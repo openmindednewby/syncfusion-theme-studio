@@ -11,6 +11,7 @@ import type {
   SelectionSettingsModel,
 } from '@syncfusion/ej2-react-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { TestIds } from '@/shared/testIds';
 
@@ -107,6 +108,7 @@ export const AlertManagementSection = memo((): JSX.Element => {
         selectionSettings={selectionSettings}
         testId={TestIds.GRID_ALERT_MANAGEMENT}
       />
+      <CopyableCodeSnippet code='<DataGrid allowFiltering allowPaging allowSorting columns={columns} data={alerts} filterSettings={filterSettings} />' />
     </ShowcaseSection>
   );
 });

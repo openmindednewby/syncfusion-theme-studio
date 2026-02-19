@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { TimelineNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -26,10 +27,12 @@ const NativeTimelineShowcase = (): JSX.Element => (
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.verticalTimeline')}</h3>
         <TimelineNative items={VERTICAL_ITEMS} testId="native-timeline-vertical" />
+        <CopyableCodeSnippet code={'<TimelineNative\n  items={[\n    { id: "1", label: "Order Placed", description: "Confirmed", status: "completed" },\n    { id: "2", label: "Shipped", description: "On the way", status: "active" },\n    { id: "3", label: "Delivered", description: "Pending", status: "pending" },\n  ]}\n/>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.horizontalTimeline')}</h3>
         <TimelineNative items={HORIZONTAL_ITEMS} orientation="horizontal" testId="native-timeline-horizontal" />
+        <CopyableCodeSnippet code={'<TimelineNative\n  orientation="horizontal"\n  items={[\n    { id: "1", label: "Step 1", status: "completed" },\n    { id: "2", label: "Step 2", status: "active" },\n  ]}\n/>'} />
       </section>
     </div>
   </div>

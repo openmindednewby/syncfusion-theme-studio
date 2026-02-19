@@ -51,6 +51,9 @@ export interface FigmaNode {
   paddingRight?: number;
   paddingBottom?: number;
   paddingLeft?: number;
+  itemSpacing?: number;
+  strokeWeight?: number;
+  opacity?: number;
 }
 
 /** Property types extractable from a Figma node */
@@ -93,6 +96,73 @@ export interface BadgeSectionData {
   dark: Record<string, BadgeColorData>;
 }
 
+/** Extracted button state color data (default/hover/active/disabled per variant) */
+export interface ButtonStateData {
+  background: string;
+  textColor: string;
+  borderColor: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  letterSpacing?: string;
+  paddingTop?: string;
+  paddingRight?: string;
+  paddingBottom?: string;
+  paddingLeft?: string;
+  gap?: string;
+  borderRadius?: string;
+  borderWidth?: string;
+  opacity?: string;
+}
+
+/** Extracted button variant data with states */
+export interface ButtonVariantData {
+  default?: ButtonStateData;
+  hover?: ButtonStateData;
+  active?: ButtonStateData;
+  disabled?: ButtonStateData;
+}
+
+/** Extracted input color data for a single input state */
+export interface InputColorData {
+  background: string;
+  borderColor: string;
+  textColor: string;
+  cornerRadius?: string;
+  fillOpacity: number;
+}
+
+/** Input data with light/dark variants keyed by state label */
+export interface InputSectionData {
+  light: Record<string, InputColorData>;
+  dark: Record<string, InputColorData>;
+}
+
+/** Extracted text description data */
+export interface TextDescriptionData {
+  textColor: string;
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  letterSpacing?: string;
+}
+
+/** Single icon node discovered in the Figma document tree */
+export interface IconNodeData {
+  nodeId: string;
+  name: string;
+  svgContent: string;
+}
+
+/** Result of the icon extraction phase */
+export interface IconExtractionData {
+  totalFound: number;
+  skipped: number;
+  icons: IconNodeData[];
+}
+
 /** Full extraction output */
 export interface FigmaExtraction {
   fileKey: string;
@@ -112,6 +182,13 @@ export interface FigmaExtraction {
     severity?: BadgeSectionData;
     sla?: BadgeSectionData;
   };
+  buttons?: {
+    light: Record<string, ButtonVariantData>;
+    dark: Record<string, ButtonVariantData>;
+  };
+  inputs?: InputSectionData;
+  textDescription?: TextDescriptionData;
+  icons?: IconExtractionData;
 }
 
 /** Single mapping rule */

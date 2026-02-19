@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { BadgeNativeVariant as BadgeVariant } from '@/components/ui/native';
 import { AlertBadge } from '@/features/components/shared/AlertBadge';
 import { AlertBadgeAppearance } from '@/features/components/shared/alertBadgeAppearance';
@@ -19,6 +20,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
           <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-error" text="Error" variant={BadgeVariant.Error} />
           <AlertBadge appearance={AlertBadgeAppearance.Solid} testId="alert-badge-info" text="Info" variant={BadgeVariant.Info} />
         </div>
+        <CopyableCodeSnippet code='<AlertBadge appearance={AlertBadgeAppearance.Solid} text="Success" variant={BadgeVariant.Success} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.outlineVariants')}</h3>
@@ -28,6 +30,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-outline-error" text="Error" variant={BadgeVariant.Error} />
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-outline-info" text="Info" variant={BadgeVariant.Info} />
         </div>
+        <CopyableCodeSnippet code='<AlertBadge appearance={AlertBadgeAppearance.Outline} text="Warning" variant={BadgeVariant.Warning} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.securityAlertExamples')}</h3>
@@ -37,6 +40,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
           <AlertBadge testId="alert-badge-medium" text="Medium" variant={BadgeVariant.Info} />
           <AlertBadge testId="alert-badge-low" text="Low" variant={BadgeVariant.Success} />
         </div>
+        <CopyableCodeSnippet code='<AlertBadge text="Critical" variant={BadgeVariant.Error} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.slaStatus')}</h3>
@@ -45,6 +49,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-risk" text="At Risk" variant={BadgeVariant.Warning} />
           <AlertBadge appearance={AlertBadgeAppearance.Outline} testId="alert-badge-sla-ok" text="Compliant" variant={BadgeVariant.Success} />
         </div>
+        <CopyableCodeSnippet code='<AlertBadge appearance={AlertBadgeAppearance.Outline} text="Breached" variant={BadgeVariant.Error} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.riskScores')}</h3>
@@ -53,6 +58,7 @@ const AlertBadgeShowcase = (): JSX.Element => (
           <AlertBadge testId="alert-badge-score-med" text="65" variant={BadgeVariant.Warning} />
           <AlertBadge testId="alert-badge-score-low" text="30" variant={BadgeVariant.Success} />
         </div>
+        <CopyableCodeSnippet code='<AlertBadge text="92" variant={BadgeVariant.Error} />' />
       </section>
     </div>
   </div>

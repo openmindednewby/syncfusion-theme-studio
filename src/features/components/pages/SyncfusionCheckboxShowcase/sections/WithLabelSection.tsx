@@ -6,6 +6,7 @@ import { memo } from 'react';
 
 import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 /** Syncfusion CheckBoxComponent labelPosition string values */
@@ -34,6 +35,7 @@ export const WithLabelSection = memo((): JSX.Element => (
         labelPosition={LABEL_POSITION_BEFORE}
       />
     </div>
+    <CopyableCodeSnippet code='<CheckBoxComponent checked label="Label" labelPosition="Before" />' />
   </section>
 ));
 

@@ -4,6 +4,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { AccordionNative } from '@/components/ui/native';
 import type { AccordionItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -40,6 +41,7 @@ export const BasicSection = memo((): JSX.Element => {
         </p>
       </div>
       <AccordionNative items={items} testId={TestIds.NATIVE_ACCORDION_BASIC} />
+      <CopyableCodeSnippet code="<AccordionNative items={items} />" />
     </section>
   );
 });

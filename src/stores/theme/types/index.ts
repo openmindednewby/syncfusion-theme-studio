@@ -49,6 +49,9 @@ export type {
   SidebarComponentConfig,
   ButtonStateColors,
   ButtonsComponentConfig,
+  ButtonTypography,
+  ButtonPadding,
+  ButtonFocusRing,
   InputsConfig,
   DataGridConfig,
   CardsConfig,
@@ -58,14 +61,24 @@ export type {
   BadgeTypography,
   BadgeVariant,
   BadgesConfig,
+  TextDescriptionConfig,
   AccordionConfig,
   ToolbarConfig,
   MenuConfig,
   BreadcrumbConfig,
   PaginationConfig,
+  IconButtonConfig,
+  IconButtonVariantColors,
+  FabConfig,
+  SplitButtonConfig,
   ComponentConfigSingle,
   ComponentsConfig,
 } from './componentTypes';
+
+// Re-export form control types
+export type { CheckboxConfig } from './checkboxTypes';
+export type { RadioConfig } from './radioTypes';
+export type { ToggleConfig } from './toggleTypes';
 
 // Re-export feedback component types (const enums + interfaces)
 export {
@@ -73,6 +86,7 @@ export {
   FlexWrap,
   FlexJustify,
   FlexAlign,
+  FlexGapSize,
   ErrorAnimationType,
 } from './feedbackComponentTypes';
 

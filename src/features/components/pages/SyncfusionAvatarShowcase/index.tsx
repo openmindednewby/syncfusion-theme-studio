@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionAvatar, { AvatarSize } from '@/components/ui/syncfusion/Avatar';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -18,6 +19,7 @@ const SyncfusionAvatarShowcase = (): JSX.Element => (
           <SyncfusionAvatar initials="LG" size={AvatarSize.Lg} testId="sf-avatar-lg" />
           <SyncfusionAvatar initials="XL" size={AvatarSize.Xl} testId="sf-avatar-xl" />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionAvatar initials="JD" size={AvatarSize.Md} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.fallback')}</h3>
@@ -25,6 +27,7 @@ const SyncfusionAvatarShowcase = (): JSX.Element => (
           <SyncfusionAvatar initials="JD" testId="sf-avatar-initials" />
           <SyncfusionAvatar testId="sf-avatar-fallback" />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionAvatar initials="JD" />' />
       </section>
     </div>
   </div>

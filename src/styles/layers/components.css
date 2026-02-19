@@ -26,6 +26,33 @@
     cursor: not-allowed;
   }
 
+  /* ===== NATIVE BUTTON LOADING & ICONS ===== */
+  @keyframes native-btn-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .native-btn-spinner {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 2px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 9999px;
+    animation: native-btn-spin 0.6s linear infinite;
+  }
+
+  .native-btn-icon-left,
+  .native-btn-icon-right {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .native-btn-content {
+    display: inline-flex;
+    align-items: center;
+  }
+
   /* Uses component-specific CSS variables from theme editor */
   .btn-primary {
     background-color: var(--component-button-primary-bg);
@@ -45,6 +72,160 @@
   .btn-secondary:hover:not(:disabled) {
     background-color: var(--component-button-secondary-bg-hover);
   }
+
+  /* ===== NATIVE BUTTONS (CSS-variable-driven) ===== */
+  .native-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--component-button-gap, 0.5rem);
+    font-family: var(--component-button-font-family, inherit);
+    font-size: var(--component-button-font-size, 0.875rem);
+    font-weight: var(--component-button-font-weight, 500);
+    line-height: var(--component-button-line-height, 1.25rem);
+    letter-spacing: var(--component-button-letter-spacing, 0);
+    padding: var(--component-button-padding-top, 0.5rem) var(--component-button-padding-right, 1rem) var(--component-button-padding-bottom, 0.5rem) var(--component-button-padding-left, 1rem);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: var(--component-button-transition, 150ms);
+  }
+
+  .native-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--component-button-focus-ring-width, 2px) var(--component-button-focus-ring-color, rgb(59 130 246)) ;
+    outline-offset: var(--component-button-focus-ring-offset, 2px);
+  }
+
+  .native-btn:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-btn-primary {
+    background-color: var(--component-button-primary-bg);
+    color: var(--component-button-primary-text);
+    border-color: var(--component-button-primary-border);
+    border-width: var(--component-button-primary-border-width);
+    border-radius: var(--radius-md);
+  }
+
+  .native-btn-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover);
+    color: var(--component-button-primary-text-hover);
+  }
+
+  .native-btn-primary:active:not(:disabled) {
+    background-color: var(--component-button-primary-bg-active);
+  }
+
+  .native-btn-primary:disabled {
+    background-color: var(--component-button-primary-disabled-bg);
+    color: var(--component-button-primary-disabled-text);
+    border-color: var(--component-button-primary-disabled-border);
+    opacity: var(--component-button-primary-disabled-opacity, 0.5);
+  }
+
+  .native-btn-secondary {
+    background-color: var(--component-button-secondary-bg);
+    color: var(--component-button-secondary-text);
+    border-color: var(--component-button-secondary-border);
+    border-width: var(--component-button-secondary-border-width);
+    border-radius: var(--radius-md);
+  }
+
+  .native-btn-secondary:hover:not(:disabled) {
+    background-color: var(--component-button-secondary-bg-hover);
+    color: var(--component-button-secondary-text-hover);
+  }
+
+  .native-btn-secondary:active:not(:disabled) {
+    background-color: var(--component-button-secondary-bg-active);
+  }
+
+  .native-btn-secondary:disabled {
+    background-color: var(--component-button-secondary-disabled-bg);
+    color: var(--component-button-secondary-disabled-text);
+    border-color: var(--component-button-secondary-disabled-border);
+    opacity: var(--component-button-secondary-disabled-opacity, 0.5);
+  }
+
+  .native-btn-outline {
+    background-color: var(--component-button-outline-bg);
+    color: var(--component-button-outline-text);
+    border-color: var(--component-button-outline-border);
+    border-width: var(--component-button-outline-border-width);
+    border-radius: var(--radius-md);
+  }
+
+  .native-btn-outline:hover:not(:disabled) {
+    background-color: var(--component-button-outline-bg-hover);
+    color: var(--component-button-outline-text-hover);
+  }
+
+  .native-btn-outline:active:not(:disabled) {
+    background-color: var(--component-button-outline-bg-active);
+  }
+
+  .native-btn-outline:disabled {
+    background-color: var(--component-button-outline-disabled-bg);
+    color: var(--component-button-outline-disabled-text);
+    border-color: var(--component-button-outline-disabled-border);
+    opacity: var(--component-button-outline-disabled-opacity, 0.5);
+  }
+
+  .native-btn-ghost {
+    background-color: var(--component-button-ghost-bg);
+    color: var(--component-button-ghost-text);
+    border-color: var(--component-button-ghost-border);
+    border-width: var(--component-button-ghost-border-width);
+    border-radius: var(--radius-md);
+  }
+
+  .native-btn-ghost:hover:not(:disabled) {
+    background-color: var(--component-button-ghost-bg-hover);
+    color: var(--component-button-ghost-text-hover);
+  }
+
+  .native-btn-ghost:active:not(:disabled) {
+    background-color: var(--component-button-ghost-bg-active);
+  }
+
+  .native-btn-ghost:disabled {
+    background-color: var(--component-button-ghost-disabled-bg);
+    color: var(--component-button-ghost-disabled-text);
+    border-color: var(--component-button-ghost-disabled-border);
+    opacity: var(--component-button-ghost-disabled-opacity, 0.5);
+  }
+
+  .native-btn-danger {
+    background-color: var(--component-button-danger-bg);
+    color: var(--component-button-danger-text);
+    border-color: var(--component-button-danger-border);
+    border-width: var(--component-button-danger-border-width);
+    border-radius: var(--radius-md);
+  }
+
+  .native-btn-danger:hover:not(:disabled) {
+    background-color: var(--component-button-danger-bg-hover);
+    color: var(--component-button-danger-text-hover);
+  }
+
+  .native-btn-danger:active:not(:disabled) {
+    background-color: var(--component-button-danger-bg-active);
+  }
+
+  .native-btn-danger:disabled {
+    background-color: var(--component-button-danger-disabled-bg);
+    color: var(--component-button-danger-disabled-text);
+    border-color: var(--component-button-danger-disabled-border);
+    opacity: var(--component-button-danger-disabled-opacity, 0.5);
+  }
+
+  /* Native button size variants */
+  .native-btn-sm { min-height: 2rem; }
+  .native-btn-md { min-height: 2.5rem; }
+  .native-btn-lg { min-height: 3rem; font-size: 1rem; }
 
   /* ===== CARDS ===== */
   /* Uses component-specific CSS variables from theme editor */
@@ -914,5 +1095,301 @@
 
   .native-grid-colmenu-separator {
     border-color: var(--component-datagrid-colmenu-separator);
+  }
+
+  /* ===== ICON BUTTON ===== */
+  .native-icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    cursor: pointer;
+    border-radius: var(--component-icon-button-border-radius, 9999px);
+    width: var(--component-icon-button-size, 2.5rem);
+    height: var(--component-icon-button-size, 2.5rem);
+    transition-property: background-color, color, box-shadow;
+    transition-duration: var(--component-icon-button-transition, 150ms);
+  }
+
+  .native-icon-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--component-icon-button-focus-ring, rgb(59 130 246));
+    outline-offset: 2px;
+  }
+
+  .native-icon-btn:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-icon-btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--component-icon-button-icon-size, 1.25rem);
+    height: var(--component-icon-button-icon-size, 1.25rem);
+  }
+
+  .native-icon-btn-primary {
+    background-color: var(--component-icon-button-primary-bg);
+    color: var(--component-icon-button-primary-icon);
+    border: var(--component-icon-button-primary-border-width, 0) solid var(--component-icon-button-primary-border);
+  }
+
+  .native-icon-btn-primary:hover:not(:disabled) {
+    background-color: var(--component-icon-button-primary-bg-hover);
+    color: var(--component-icon-button-primary-icon-hover);
+  }
+
+  .native-icon-btn-primary:active:not(:disabled) {
+    background-color: var(--component-icon-button-primary-bg-active);
+  }
+
+  .native-icon-btn-primary:disabled {
+    background-color: var(--component-icon-button-primary-disabled-bg);
+    color: var(--component-icon-button-primary-disabled-icon);
+    opacity: var(--component-icon-button-primary-disabled-opacity, 0.5);
+  }
+
+  .native-icon-btn-secondary {
+    background-color: var(--component-icon-button-secondary-bg);
+    color: var(--component-icon-button-secondary-icon);
+    border: var(--component-icon-button-secondary-border-width, 0) solid var(--component-icon-button-secondary-border);
+  }
+
+  .native-icon-btn-secondary:hover:not(:disabled) {
+    background-color: var(--component-icon-button-secondary-bg-hover);
+    color: var(--component-icon-button-secondary-icon-hover);
+  }
+
+  .native-icon-btn-secondary:active:not(:disabled) {
+    background-color: var(--component-icon-button-secondary-bg-active);
+  }
+
+  .native-icon-btn-secondary:disabled {
+    background-color: var(--component-icon-button-secondary-disabled-bg);
+    color: var(--component-icon-button-secondary-disabled-icon);
+    opacity: var(--component-icon-button-secondary-disabled-opacity, 0.5);
+  }
+
+  .native-icon-btn-tertiary {
+    background-color: var(--component-icon-button-tertiary-bg);
+    color: var(--component-icon-button-tertiary-icon);
+    border: var(--component-icon-button-tertiary-border-width, 0) solid var(--component-icon-button-tertiary-border);
+  }
+
+  .native-icon-btn-tertiary:hover:not(:disabled) {
+    background-color: var(--component-icon-button-tertiary-bg-hover);
+    color: var(--component-icon-button-tertiary-icon-hover);
+  }
+
+  .native-icon-btn-tertiary:active:not(:disabled) {
+    background-color: var(--component-icon-button-tertiary-bg-active);
+  }
+
+  .native-icon-btn-tertiary:disabled {
+    background-color: var(--component-icon-button-tertiary-disabled-bg);
+    color: var(--component-icon-button-tertiary-disabled-icon);
+    opacity: var(--component-icon-button-tertiary-disabled-opacity, 0.5);
+  }
+
+  /* Icon button size variants */
+  .native-icon-btn-sm {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .native-icon-btn-md {
+    width: var(--component-icon-button-size, 2.5rem);
+    height: var(--component-icon-button-size, 2.5rem);
+  }
+
+  .native-icon-btn-lg {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  /* ===== FAB ===== */
+  .native-fab {
+    position: fixed;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    border: none;
+    cursor: pointer;
+    z-index: 50;
+    background-color: var(--component-fab-bg);
+    color: var(--component-fab-icon);
+    border-radius: var(--component-fab-border-radius, 9999px);
+    width: var(--component-fab-size, 3.5rem);
+    height: var(--component-fab-size, 3.5rem);
+    box-shadow: var(--component-fab-shadow, 0 4px 12px rgb(0 0 0 / 0.15));
+    transition-property: background-color, box-shadow, transform;
+    transition-duration: var(--component-fab-transition, 200ms);
+  }
+
+  .native-fab:hover:not(:disabled) {
+    background-color: var(--component-fab-bg-hover);
+    box-shadow: var(--component-fab-shadow-hover, 0 6px 16px rgb(0 0 0 / 0.2));
+  }
+
+  .native-fab:active:not(:disabled) {
+    background-color: var(--component-fab-bg-active);
+  }
+
+  .native-fab:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--component-fab-bg), 0 0 0 4px rgb(59 130 246);
+  }
+
+  .native-fab:disabled {
+    background-color: var(--component-fab-disabled-bg);
+    opacity: var(--component-fab-disabled-opacity, 0.5);
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-fab-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--component-fab-icon-size, 1.5rem);
+    height: var(--component-fab-icon-size, 1.5rem);
+  }
+
+  .native-fab-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--component-fab-text);
+    white-space: nowrap;
+  }
+
+  .native-fab-extended {
+    width: auto;
+    padding: 0 1.25rem;
+    border-radius: var(--component-fab-border-radius, 1.75rem);
+  }
+
+  .native-fab-bottom-right { bottom: 1.5rem; right: 1.5rem; }
+  .native-fab-bottom-left { bottom: 1.5rem; left: 1.5rem; }
+  .native-fab-top-right { top: 1.5rem; right: 1.5rem; }
+  .native-fab-top-left { top: 1.5rem; left: 1.5rem; }
+
+  /* ===== SPLIT BUTTON ===== */
+  .native-split-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: stretch;
+    border-radius: var(--component-split-btn-border-radius, var(--radius-md));
+    border: var(--component-split-btn-border-width, 1px) solid var(--component-split-btn-border);
+    overflow: visible;
+  }
+
+  .native-split-btn-main {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    cursor: pointer;
+    background-color: var(--component-split-btn-bg);
+    color: var(--component-split-btn-text);
+    border-radius: var(--component-split-btn-border-radius, var(--radius-md)) 0 0 var(--component-split-btn-border-radius, var(--radius-md));
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition-property: background-color, color;
+    transition-duration: var(--component-split-btn-transition, 150ms);
+  }
+
+  .native-split-btn-main:hover:not(:disabled) {
+    background-color: var(--component-split-btn-bg-hover);
+    color: var(--component-split-btn-text-hover);
+  }
+
+  .native-split-btn-main:active:not(:disabled) {
+    background-color: var(--component-split-btn-bg-active);
+  }
+
+  .native-split-btn-main:disabled {
+    background-color: var(--component-split-btn-disabled-bg);
+    color: var(--component-split-btn-disabled-text);
+    opacity: var(--component-split-btn-disabled-opacity, 0.5);
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-split-btn-divider {
+    width: 1px;
+    background-color: var(--component-split-btn-divider);
+    align-self: stretch;
+  }
+
+  .native-split-btn-trigger {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: none;
+    cursor: pointer;
+    background-color: var(--component-split-btn-bg);
+    color: var(--component-split-btn-text);
+    border-radius: 0 var(--component-split-btn-border-radius, var(--radius-md)) var(--component-split-btn-border-radius, var(--radius-md)) 0;
+    transition-property: background-color, color;
+    transition-duration: var(--component-split-btn-transition, 150ms);
+  }
+
+  .native-split-btn-trigger:hover:not(:disabled) {
+    background-color: var(--component-split-btn-bg-hover);
+    color: var(--component-split-btn-text-hover);
+  }
+
+  .native-split-btn-trigger:disabled {
+    background-color: var(--component-split-btn-disabled-bg);
+    color: var(--component-split-btn-disabled-text);
+    opacity: var(--component-split-btn-disabled-opacity, 0.5);
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-split-btn-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    margin-top: 0.25rem;
+    padding: 0.25rem 0;
+    list-style: none;
+    background-color: var(--component-split-btn-dropdown-bg);
+    border: 1px solid var(--component-split-btn-dropdown-border);
+    border-radius: var(--component-split-btn-border-radius, var(--radius-md));
+    box-shadow: var(--component-split-btn-dropdown-shadow, 0 4px 12px rgb(0 0 0 / 0.1));
+    min-width: 100%;
+  }
+
+  .native-split-btn-item {
+    display: block;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 0.875rem;
+    color: var(--component-split-btn-dropdown-text);
+    transition: background-color 150ms ease;
+    white-space: nowrap;
+  }
+
+  .native-split-btn-item:hover:not(:disabled) {
+    background-color: var(--component-split-btn-dropdown-hover);
+  }
+
+  .native-split-btn-item-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
   }
 }

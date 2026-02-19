@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionProgressBar, { ProgressBarVariant } from '@/components/ui/syncfusion/ProgressBar';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -17,6 +18,7 @@ const SyncfusionProgressBarShowcase = (): JSX.Element => (
           <SyncfusionProgressBar showLabel testId="sf-progress-warning" value={45} variant={ProgressBarVariant.Warning} />
           <SyncfusionProgressBar showLabel testId="sf-progress-danger" value={20} variant={ProgressBarVariant.Danger} />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionProgressBar showLabel value={60} variant={ProgressBarVariant.Success} />' />
       </section>
     </div>
   </div>

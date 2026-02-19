@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const StatesSection = memo((): JSX.Element => (
@@ -28,6 +29,7 @@ export const StatesSection = memo((): JSX.Element => (
         label={FM('components.checkboxShowcase.labels.disabledChecked')}
       />
     </div>
+    <CopyableCodeSnippet code='<CheckBoxComponent disabled checked label="Disabled checked" />' />
   </section>
 ));
 

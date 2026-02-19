@@ -13,9 +13,11 @@
  * ensuring the browser has breathing room between bursts of network activity.
  */
 
+import { startFontPreload } from './fontPreloader';
+
 const IDLE_TIMEOUT_MS = 3000;
 const FALLBACK_DELAY_MS = 100;
-const PHASE_GAP_MS = 2000;
+const PHASE_GAP_MS = 500;
 
 // Phase 1 – Critical routes the user navigates to right after login
 const preloadCriticalRoutes = async (): Promise<unknown[]> =>
@@ -80,6 +82,8 @@ const delay = async (ms: number): Promise<void> =>
  * {@link PHASE_GAP_MS} pause between each phase.
  */
 const runPhases = async (): Promise<void> => {
+  startFontPreload();
+
   await preloadCriticalRoutes();
 
   await delay(PHASE_GAP_MS);

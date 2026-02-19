@@ -6,6 +6,7 @@ import { memo, useCallback, useState } from 'react';
 
 import { MenuComponent, type MenuEventArgs, type MenuItemModel } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { isValueDefined } from '@/utils/is';
 
@@ -59,6 +60,7 @@ export const InteractiveSection = memo((): JSX.Element => {
       <p className="text-sm text-text-secondary">
         {displayText}
       </p>
+      <CopyableCodeSnippet code='<MenuComponent items={menuItems} select={handleSelect} />' />
     </section>
   );
 });

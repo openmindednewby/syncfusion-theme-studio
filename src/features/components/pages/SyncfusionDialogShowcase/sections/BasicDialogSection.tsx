@@ -3,6 +3,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant, Dialog } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -53,6 +54,7 @@ export const BasicDialogSection = memo((): JSX.Element => {
           {FM('components.dialogShowcase.basicDialogContent')}
         </p>
       </Dialog>
+      <CopyableCodeSnippet code='<Dialog isOpen={isOpen} title="Title" onClose={handleClose} primaryButton={{ text: "OK", onClick: handleClose }}>Content</Dialog>' />
     </section>
   );
 });

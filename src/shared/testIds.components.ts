@@ -89,6 +89,8 @@ export const ComponentTestIds = {
   SYNCFUSION_TOOLTIP_SHOWCASE: 'syncfusion-tooltip-showcase',
   NATIVE_CHIP_SHOWCASE: 'native-chip-showcase',
   SYNCFUSION_CHIP_SHOWCASE: 'syncfusion-chip-showcase',
+  NATIVE_TEXTDESCRIPTION_SHOWCASE: 'native-textdescription-showcase',
+  SYNCFUSION_TEXTDESCRIPTION_SHOWCASE: 'syncfusion-textdescription-showcase',
   NATIVE_THEMETOGGLE_SHOWCASE: 'native-themetoggle-showcase',
   ICONS_SHOWCASE: 'icons-showcase',
 
@@ -111,6 +113,8 @@ export const ComponentTestIds = {
   NAV_TOOLTIP_SYNCFUSION: 'nav-tooltip-syncfusion',
   NAV_CHIP_NATIVE: 'nav-chip-native',
   NAV_CHIP_SYNCFUSION: 'nav-chip-syncfusion',
+  NAV_TEXTDESCRIPTION_NATIVE: 'nav-textdescription-native',
+  NAV_TEXTDESCRIPTION_SYNCFUSION: 'nav-textdescription-syncfusion',
   NAV_THEMETOGGLE_NATIVE: 'nav-themetoggle-native',
   NAV_ICONS_GROUP: 'nav-icons-group',
 
@@ -154,6 +158,8 @@ export const ComponentTestIds = {
   NAV_TABS_GROUP_EXPAND: 'nav-tabs-group-expand',
   NAV_TAG_GROUP: 'nav-tag-group',
   NAV_TAG_GROUP_EXPAND: 'nav-tag-group-expand',
+  NAV_TEXTDESCRIPTION_GROUP: 'nav-textdescription-group',
+  NAV_TEXTDESCRIPTION_GROUP_EXPAND: 'nav-textdescription-group-expand',
   NAV_TIMELINE_GROUP: 'nav-timeline-group',
   NAV_TIMELINE_GROUP_EXPAND: 'nav-timeline-group-expand',
   NAV_TOAST_GROUP: 'nav-toast-group',
@@ -169,6 +175,20 @@ export const ComponentTestIds = {
   NAV_THREAT_DETECTION_GROUP: 'nav-threat-detection-group',
   NAV_THREAT_DETECTION_GROUP_EXPAND: 'nav-threat-detection-group-expand',
 
+  // New button component showcase sections
+  NATIVE_LOADING_SECTION: 'native-loading-section',
+  NATIVE_ICONS_SECTION: 'native-icons-section',
+  NATIVE_ICON_BUTTON_SECTION: 'native-icon-button-section',
+  NATIVE_FAB_SECTION: 'native-fab-section',
+  NATIVE_SPLIT_BUTTON_SECTION: 'native-split-button-section',
+  NATIVE_CHECKBOX_SECTION: 'native-checkbox-section',
+  NATIVE_RADIO_SECTION: 'native-radio-section',
+  NATIVE_TOGGLE_SECTION: 'native-toggle-section',
+  NATIVE_CHIP_SECTION: 'native-chip-section',
+  NATIVE_PAGINATION_SECTION: 'native-pagination-section',
+  NATIVE_DROPDOWN_SECTION: 'native-dropdown-section',
+  NATIVE_DRAG_HANDLE_SECTION: 'native-drag-handle-section',
+
   // Table Action Menu
   ACTION_MENU_VIEW: 'alert-action-view',
   ACTION_MENU_MORE: 'alert-action-more',
@@ -177,6 +197,10 @@ export const ComponentTestIds = {
   ACTION_MERGE: 'alert-action-merge',
   ACTION_RAISE: 'alert-action-raise',
   ACTION_ADD_FILTER: 'alert-action-add-filter',
+
+  // FlexBox Showcase
+  FLEXBOX_SHOWCASE: 'flexbox-showcase',
+  NAV_FLEXBOX_GROUP: 'nav-flexbox-group',
 
   // Alert Badge
   ALERT_BADGE: 'alert-badge',

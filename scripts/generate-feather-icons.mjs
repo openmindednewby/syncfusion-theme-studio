@@ -74,22 +74,22 @@ function toPascalCase(kebab) {
  * E.g., <line y1="5" x1="12"> becomes <line x1="12" y1="5">
  */
 function sortElementProps(tag) {
-  // Match: <tagName attr1="val1" attr2="val2" ... />
-  const match = tag.match(/^<(\w+)\s+(.*?)\s*\/>$/s);
+  const selfClosing = tag.match(/^<(\w+)\s+(.*?)\s*\/>$/s);
+  const opening = selfClosing ? null : tag.match(/^<(\w+)\s+(.*?)\s*>$/s);
+  const match = selfClosing ?? opening;
   if (!match) return tag;
 
   const [, tagName, attrString] = match;
-  // Parse attributes: name="value" pairs
   const attrs = [];
   const attrRegex = /(\w[\w-]*)="([^"]*)"/g;
   let m;
   while ((m = attrRegex.exec(attrString)) !== null) {
     attrs.push({ name: m[1], value: m[2] });
   }
-  // Sort alphabetically by attribute name (case-insensitive)
   attrs.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }));
   const sorted = attrs.map((a) => `${a.name}="${a.value}"`).join(' ');
-  return `<${tagName} ${sorted} />`;
+  const suffix = selfClosing ? ' />' : '>';
+  return `<${tagName} ${sorted}${suffix}`;
 }
 
 /**
@@ -122,8 +122,8 @@ function toJsx(html) {
   jsx = jsx.replace(/stop-color/g, 'stopColor');
   jsx = jsx.replace(/stop-opacity/g, 'stopOpacity');
 
-  // Sort props within each self-closing element
-  jsx = jsx.replace(/<\w+\s[^>]*?\/>/g, sortElementProps);
+  // Sort props within each element (self-closing and opening tags)
+  jsx = jsx.replace(/<\w+\s[^>]*?>/g, sortElementProps);
 
   return jsx;
 }
@@ -139,11 +139,9 @@ function buildComponent(name, jsxContent) {
     return `export const ${componentName} = ({ className }: IconProps): JSX.Element => (\n  <svg {...defaults} className={className}>${inner}</svg>\n);\n`;
   }
 
-  // Split multiple child elements onto separate lines
-  const parts = inner
-    .split('/>')
-    .filter((p) => p.trim())
-    .map((p) => '    ' + p.trim() + ' />');
+  // Match all XML tags: self-closing (<tag ... />), opening (<tag ...>), closing (</tag>)
+  const tags = inner.match(/<[^>]+>/g) ?? [];
+  const parts = tags.map((tag) => '    ' + tag);
 
   return `export const ${componentName} = ({ className }: IconProps): JSX.Element => (\n  <svg {...defaults} className={className}>\n${parts.join('\n')}\n  </svg>\n);\n`;
 }

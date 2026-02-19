@@ -4,6 +4,7 @@
  */
 import { memo, useCallback, useState } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { SelectionConfig } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -83,6 +84,7 @@ export const SelectionSection = memo((): JSX.Element => {
         testId={SELECTION_TEST_IDS[activeMode]}
         onSelectionChange={handleSelectionChange}
       />
+      <CopyableCodeSnippet code='<TableNative columns={columns} data={data} selectionConfig={{ type: "Single", mode: "Row" }} />' />
     </section>
   );
 });

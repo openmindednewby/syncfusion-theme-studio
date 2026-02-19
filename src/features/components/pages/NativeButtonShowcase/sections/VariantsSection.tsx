@@ -3,6 +3,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -33,6 +34,7 @@ export const VariantsSection = memo((): JSX.Element => (
         {FM('components.buttons.danger')}
       </ButtonNative>
     </div>
+    <CopyableCodeSnippet code="<ButtonNative variant={ButtonVariant.Primary}>Label</ButtonNative>" />
   </section>
 ));
 

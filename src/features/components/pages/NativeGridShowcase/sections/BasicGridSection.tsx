@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { GridConfig } from '@/lib/grid/types';
 import { FM } from '@/localization/helpers';
@@ -34,6 +35,7 @@ export const BasicGridSection = memo((): JSX.Element => (
       gridConfig={BASIC_GRID_CONFIG}
       testId={TestIds.NATIVE_GRID_BASIC}
     />
+    <CopyableCodeSnippet code='<TableNative striped hoverable columns={columns} data={data} gridConfig={gridConfig} />' />
   </section>
 ));
 

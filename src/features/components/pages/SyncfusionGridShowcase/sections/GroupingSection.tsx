@@ -6,6 +6,7 @@ import { memo, useMemo } from 'react';
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 import type { GroupSettingsModel } from '@syncfusion/ej2-react-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -54,6 +55,7 @@ export const GroupingSection = memo((): JSX.Element => {
         height={GRID_HEIGHT_TALL}
         testId="grid-grouping"
       />
+      <CopyableCodeSnippet code='<DataGrid allowGrouping columns={columns} data={data} groupSettings={{ columns: ["department"] }} />' />
     </ShowcaseSection>
   );
 });

@@ -4,6 +4,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { AccordionNative } from '@/components/ui/native';
 import type { AccordionItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -63,6 +64,7 @@ export const MultipleSection = memo((): JSX.Element => {
           <AccordionNative allowMultiple items={items} testId={TestIds.NATIVE_ACCORDION_MULTI} />
         </div>
       </div>
+      <CopyableCodeSnippet code='<AccordionNative allowMultiple items={items} />' />
     </section>
   );
 });

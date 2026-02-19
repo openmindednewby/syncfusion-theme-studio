@@ -1,6 +1,6 @@
 /**
- * Auto-generated Feather icons (IconCalendar – IconCornerDownLeft).
- * DO NOT EDIT — re-run: node scripts/generate-feather-icons.mjs
+ * Auto-generated Feather icons (IconCalendar – IconCodepen).
+ * DO NOT EDIT — re-run: npm run figma:generate:icons
  */
 import type { IconProps } from './types';
 
@@ -20,218 +20,213 @@ const defaults = {
 
 export const IconCalendar = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <rect height="18" rx="2" ry="2" width="18" x="3" y="4" />
-    <line x1="16" x2="16" y1="2" y2="6" />
-    <line x1="8" x2="8" y1="2" y2="6" />
-    <line x1="3" x2="21" y1="10" y2="10" />
+    <path d="M19 4H5C3.89543 4 3 4.89543 3 6V20C3 21.1046 3.89543 22 5 22H19C20.1046 22 21 21.1046 21 20V6C21 4.89543 20.1046 4 19 4Z" />
+    <path d="M16 2V6" />
+    <path d="M8 2V6" />
+    <path d="M3 10H21" />
   </svg>
 );
 
 export const IconCamera = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z" />
-    <circle cx="12" cy="13" r="4" />
+    <path d="M23 19C23 19.5304 22.7893 20.0391 22.4142 20.4142C22.0391 20.7893 21.5304 21 21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H7L9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V19Z" />
+    <path d="M12 17C14.2091 17 16 15.2091 16 13C16 10.7909 14.2091 9 12 9C9.79086 9 8 10.7909 8 13C8 15.2091 9.79086 17 12 17Z" />
   </svg>
 );
 
 export const IconCameraOff = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <line x1="1" x2="23" y1="1" y2="23" />
-    <path d="M21 21H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3m3-3h6l2 3h4a2 2 0 0 1 2 2v9.34m-7.72-2.06a4 4 0 1 1-5.56-5.56" />
+    <g clipPath="url(#clip0_2868_1649)">
+    <path d="M1 1L23 23" />
+    <path d="M9 3H15L17 6H21C21.5304 6 22.0391 6.21071 22.4142 6.58579C22.7893 6.96086 23 7.46957 23 8V17.34M15.28 15.28C14.9481 15.765 14.5134 16.171 14.0068 16.469C13.5002 16.7669 12.9342 16.9496 12.3489 17.004C11.7637 17.0584 11.1737 16.9831 10.6209 16.7836C10.0681 16.5841 9.56601 16.2652 9.15042 15.8496C8.73483 15.434 8.41593 14.9319 8.2164 14.3791C8.01688 13.8263 7.94163 13.2363 7.99601 12.6511C8.05039 12.0658 8.23306 11.4998 8.53103 10.9932C8.829 10.4866 9.23495 10.0519 9.72 9.72M21 21H3C2.46957 21 1.96086 20.7893 1.58579 20.4142C1.21071 20.0391 1 19.5304 1 19V8C1 7.46957 1.21071 6.96086 1.58579 6.58579C1.96086 6.21071 2.46957 6 3 6H6L21 21Z" />
+    </g>
+    <defs>
+    <clipPath id="clip0_2868_1649">
+    <rect fill="white" height="24" width="24" />
+    </clipPath>
+    </defs>
   </svg>
 );
 
 export const IconCast = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M2 16.1A5 5 0 0 1 5.9 20M2 12.05A9 9 0 0 1 9.95 20M2 8V6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2h-6" />
-    <line x1="2" x2="2.01" y1="20" y2="20" />
+    <path d="M2 16.1C2.96089 16.296 3.84294 16.7702 4.53638 17.4636C5.22982 18.1571 5.70403 19.0391 5.9 20M2 12.05C4.03079 12.2759 5.92428 13.186 7.36911 14.6309C8.81395 16.0757 9.72413 17.9692 9.95 20M2 8V6C2 5.46957 2.21071 4.96086 2.58579 4.58579C2.96086 4.21071 3.46957 4 4 4H20C20.5304 4 21.0391 4.21071 21.4142 4.58579C21.7893 4.96086 22 5.46957 22 6V18C22 18.5304 21.7893 19.0391 21.4142 19.4142C21.0391 19.7893 20.5304 20 20 20H14" />
+    <path d="M2 20H2.01" />
   </svg>
 );
 
 export const IconCheck = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="20 6 9 17 4 12" /></svg>
+  <svg {...defaults} className={className}><path d="M20 6L8.99998 17L3.99998 12" /></svg>
 );
 
 export const IconCheckCircle = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-    <polyline points="22 4 12 14.01 9 11.01" />
+    <path d="M22 11.08V12C21.9988 14.1564 21.3005 16.2547 20.0093 17.9818C18.7182 19.709 16.9033 20.9725 14.8354 21.5839C12.7674 22.1953 10.5573 22.1219 8.53447 21.3746C6.51168 20.6273 4.78465 19.2461 3.61096 17.4371C2.43727 15.628 1.87979 13.4881 2.02168 11.3363C2.16356 9.18455 2.99721 7.13631 4.39828 5.49706C5.79935 3.85781 7.69278 2.71537 9.79619 2.24013C11.8996 1.7649 14.1003 1.98232 16.07 2.85999" />
+    <path d="M22 4L12 14.01L9 11.01" />
   </svg>
 );
 
 export const IconCheckSquare = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <polyline points="9 11 12 14 22 4" />
-    <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+    <path d="M9 11L12 14L22 4" />
+    <path d="M21 12V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V5C3 4.46957 3.21071 3.96086 3.58579 3.58579C3.96086 3.21071 4.46957 3 5 3H16" />
   </svg>
 );
 
 export const IconChevronDown = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="6 9 12 15 18 9" /></svg>
+  <svg {...defaults} className={className}><path d="M6 9L12 15L18 9" /></svg>
 );
 
 export const IconChevronRight = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="9 18 15 12 9 6" /></svg>
+  <svg {...defaults} className={className}><path d="M9 18L15 12L9 6" /></svg>
 );
 
 export const IconChevronUp = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="18 15 12 9 6 15" /></svg>
+  <svg {...defaults} className={className}><path d="M18 15L12 9L6 15" /></svg>
 );
 
 export const IconChevronsDown = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="7 13 12 18 17 13" /><polyline points="7 6 12 11 17 6" /></svg>
+  <svg {...defaults} className={className}><path d="M7 13L12 18L17 13" />
+<path d="M7 6L12 11L17 6" /></svg>
 );
 
 export const IconChevronsLeft = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="11 17 6 12 11 7" /><polyline points="18 17 13 12 18 7" /></svg>
+  <svg {...defaults} className={className}><path d="M11 17L6 12L11 7" />
+<path d="M18 17L13 12L18 7" /></svg>
 );
 
 export const IconChevronsRight = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="13 17 18 12 13 7" /><polyline points="6 17 11 12 6 7" /></svg>
+  <svg {...defaults} className={className}><path d="M13 17L18 12L13 7" />
+<path d="M6 17L11 12L6 7" /></svg>
 );
 
 export const IconChevronsUp = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="17 11 12 6 7 11" /><polyline points="17 18 12 13 7 18" /></svg>
+  <svg {...defaults} className={className}><path d="M17 11L12 6L7 11" />
+<path d="M17 18L12 13L7 18" /></svg>
 );
 
 export const IconChrome = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <circle cx="12" cy="12" r="4" />
-    <line x1="21.17" x2="12" y1="8" y2="8" />
-    <line x1="3.95" x2="8.54" y1="6.06" y2="14" />
-    <line x1="10.88" x2="15.46" y1="21.94" y2="14" />
+    <path d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47717 2 2.00002 6.47715 2.00002 12C2.00002 17.5228 6.47717 22 12 22Z" />
+    <path d="M12 16C14.2092 16 16 14.2091 16 12C16 9.79086 14.2092 8 12 8C9.79088 8 8.00002 9.79086 8.00002 12C8.00002 14.2091 9.79088 16 12 16Z" />
+    <path d="M21.17 8H12" />
+    <path d="M3.95003 6.06006L8.54003 14.0001" />
+    <path d="M10.88 21.94L15.46 14" />
   </svg>
 );
 
 export const IconCircle = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><circle cx="12" cy="12" r="10" /></svg>
+  <svg {...defaults} className={className}>
+    <path d="M12 22C17.5229 22 22 17.5228 22 12C22 6.47715 17.5229 2 12 2C6.47718 2 2.00003 6.47715 2.00003 12C2.00003 17.5228 6.47718 22 12 22Z" />
+  </svg>
 );
 
 export const IconClipboard = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" />
-    <rect height="4" rx="1" ry="1" width="8" x="8" y="2" />
+    <path d="M16 4H18C18.5304 4 19.0391 4.21071 19.4142 4.58579C19.7893 4.96086 20 5.46957 20 6V20C20 20.5304 19.7893 21.0391 19.4142 21.4142C19.0391 21.7893 18.5304 22 18 22H5.99997C5.46954 22 4.96083 21.7893 4.58576 21.4142C4.21068 21.0391 3.99997 20.5304 3.99997 20V6C3.99997 5.46957 4.21068 4.96086 4.58576 4.58579C4.96083 4.21071 5.46954 4 5.99997 4H7.99997" />
+    <path d="M15 2H9.00003C8.44775 2 8.00003 2.44772 8.00003 3V5C8.00003 5.55228 8.44775 6 9.00003 6H15C15.5523 6 16 5.55228 16 5V3C16 2.44772 15.5523 2 15 2Z" />
   </svg>
 );
 
 export const IconClock = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><circle cx="12" cy="12" r="10" /><polyline points="12 6 12 12 16 14" /></svg>
+  <svg {...defaults} className={className}>
+    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+    <path d="M12 6V12L16 14" />
+  </svg>
 );
 
 export const IconCloud = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z" /></svg>
+  <svg {...defaults} className={className}>
+    <path d="M18 10H16.74C16.3659 8.551 15.5928 7.23599 14.5086 6.2044C13.4245 5.1728 12.0727 4.46599 10.6069 4.16428C9.14112 3.86256 7.62008 3.97804 6.21664 4.49759C4.8132 5.01714 3.58363 5.91993 2.66764 7.10338C1.75165 8.28683 1.18598 9.70348 1.0349 11.1924C0.883813 12.6812 1.15338 14.1826 1.81296 15.526C2.47255 16.8693 3.4957 18.0007 4.76617 18.7916C6.03663 19.5824 7.50347 20.0011 8.99999 20H18C19.3261 20 20.5978 19.4732 21.5355 18.5355C22.4732 17.5979 23 16.3261 23 15C23 13.6739 22.4732 12.4021 21.5355 11.4645C20.5978 10.5268 19.3261 10 18 10Z" />
+  </svg>
 );
 
 export const IconCloudDrizzle = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <line x1="8" x2="8" y1="19" y2="21" />
-    <line x1="8" x2="8" y1="13" y2="15" />
-    <line x1="16" x2="16" y1="19" y2="21" />
-    <line x1="16" x2="16" y1="13" y2="15" />
-    <line x1="12" x2="12" y1="21" y2="23" />
-    <line x1="12" x2="12" y1="15" y2="17" />
-    <path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25" />
+    <g clipPath="url(#clip0_2868_1792)">
+    <path d="M8 19V21" />
+    <path d="M8 13V15" />
+    <path d="M16 19V21" />
+    <path d="M16 13V15" />
+    <path d="M12 21V23" />
+    <path d="M12 15V17" />
+    <path d="M20 16.58C21.0512 16.1195 21.9121 15.3115 22.4381 14.2915C22.964 13.2715 23.1231 12.1016 22.8886 10.9781C22.654 9.85472 22.0402 8.84617 21.15 8.12179C20.2599 7.39742 19.1476 7.00131 18 6.99996H16.74C16.423 5.77248 15.8188 4.63791 14.9773 3.68976C14.1357 2.74161 13.0809 2.00703 11.8997 1.54658C10.7186 1.08612 9.44488 0.912974 8.18365 1.0414C6.92243 1.16983 5.70978 1.59615 4.64567 2.28524C3.58155 2.97433 2.69644 3.90644 2.06328 5.00475C1.43012 6.10307 1.06704 7.33613 1.00398 8.60231C0.940923 9.86848 1.17968 11.1315 1.70058 12.2873C2.22147 13.4431 3.00959 14.4585 3.99997 15.25" />
+    </g>
+    <defs>
+    <clipPath id="clip0_2868_1792">
+    <rect fill="white" height="24" width="24" />
+    </clipPath>
+    </defs>
   </svg>
 );
 
 export const IconCloudLightning = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M19 16.9A5 5 0 0 0 18 7h-1.26a8 8 0 1 0-11.62 9" />
-    <polyline points="13 11 9 17 15 17 11 23" />
+    <g clipPath="url(#clip0_2868_1805)">
+    <path d="M13.0001 11L9.00006 17H15.0001L11.0001 23M20 16.58C21.0513 16.1195 21.9121 15.3115 22.4381 14.2915C22.9641 13.2715 23.1232 12.1016 22.8886 10.9781C22.6541 9.85472 22.0402 8.84617 21.1501 8.12179C20.2599 7.39741 19.1477 7.00131 18 6.99996H16.74C16.4231 5.77248 15.8189 4.63791 14.9773 3.68976C14.1358 2.74161 13.081 2.00703 11.8998 1.54658C10.7186 1.08612 9.44494 0.912974 8.18372 1.0414C6.92249 1.16983 5.70984 1.59615 4.64573 2.28524C3.58161 2.97433 2.6965 3.90644 2.06334 5.00475C1.43018 6.10307 1.06711 7.33613 1.00404 8.60231C0.940984 9.86848 1.17974 11.1315 1.70064 12.2873C2.22153 13.4431 3.00965 14.4585 4.00003 15.25" />
+    </g>
+    <defs>
+    <clipPath id="clip0_2868_1805">
+    <rect fill="white" height="24" width="24" />
+    </clipPath>
+    </defs>
   </svg>
 );
 
 export const IconCloudOff = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M22.61 16.95A5 5 0 0 0 18 10h-1.26a8 8 0 0 0-7.05-6M5 5a8 8 0 0 0 4 15h9a5 5 0 0 0 1.7-.3" />
-    <line x1="1" x2="23" y1="1" y2="23" />
+    <g clipPath="url(#clip0_2868_1813)">
+    <path d="M22.61 16.95C22.9322 16.1893 23.0609 15.3606 22.9845 14.5381C22.9082 13.7155 22.6293 12.9246 22.1726 12.2362C21.716 11.5478 21.0959 10.9832 20.3677 10.593C19.6396 10.2027 18.8261 9.99902 18 10H16.74C16.3318 8.39249 15.4341 6.95158 14.171 5.87666C12.908 4.80173 11.3421 4.14593 9.68999 4M4.99999 5C3.43807 5.86364 2.2098 7.22478 1.51058 8.86691C0.811359 10.509 0.681344 12.3378 1.14122 14.0623C1.60109 15.7869 2.62444 17.3081 4.04847 18.384C5.47251 19.4599 7.21543 20.0288 8.99999 20H18C18.5798 19.9993 19.155 19.8978 19.7 19.7" />
+    <path d="M1 1L23 23" />
+    </g>
+    <defs>
+    <clipPath id="clip0_2868_1813">
+    <rect fill="white" height="24" width="24" />
+    </clipPath>
+    </defs>
   </svg>
 );
 
 export const IconCloudRain = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <line x1="16" x2="16" y1="13" y2="21" />
-    <line x1="8" x2="8" y1="13" y2="21" />
-    <line x1="12" x2="12" y1="15" y2="23" />
-    <path d="M20 16.58A5 5 0 0 0 18 7h-1.26A8 8 0 1 0 4 15.25" />
+    <g clipPath="url(#clip0_2868_1821)">
+    <path d="M16 13V21" />
+    <path d="M8 13V21" />
+    <path d="M12 15V23" />
+    <path d="M20 16.58C21.0513 16.1195 21.9121 15.3115 22.4381 14.2915C22.9641 13.2715 23.1232 12.1016 22.8886 10.9781C22.6541 9.85472 22.0402 8.84617 21.1501 8.12179C20.2599 7.39742 19.1477 7.00131 18 6.99996H16.74C16.4231 5.77248 15.8189 4.63791 14.9773 3.68976C14.1358 2.74161 13.081 2.00703 11.8998 1.54658C10.7186 1.08612 9.44494 0.912974 8.18372 1.0414C6.92249 1.16983 5.70984 1.59615 4.64573 2.28524C3.58161 2.97433 2.6965 3.90644 2.06334 5.00475C1.43018 6.10307 1.06711 7.33613 1.00404 8.60231C0.940984 9.86848 1.17974 11.1315 1.70064 12.2873C2.22153 13.4431 3.00965 14.4585 4.00003 15.25" />
+    </g>
+    <defs>
+    <clipPath id="clip0_2868_1821">
+    <rect fill="white" height="24" width="24" />
+    </clipPath>
+    </defs>
   </svg>
 );
 
 export const IconCloudSnow = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <path d="M20 17.58A5 5 0 0 0 18 8h-1.26A8 8 0 1 0 4 16.25" />
-    <line x1="8" x2="8.01" y1="16" y2="16" />
-    <line x1="8" x2="8.01" y1="20" y2="20" />
-    <line x1="12" x2="12.01" y1="18" y2="18" />
-    <line x1="12" x2="12.01" y1="22" y2="22" />
-    <line x1="16" x2="16.01" y1="16" y2="16" />
-    <line x1="16" x2="16.01" y1="20" y2="20" />
+    <path d="M20 17.58C21.0513 17.1195 21.9121 16.3115 22.4381 15.2915C22.9641 14.2715 23.1232 13.1016 22.8886 11.9781C22.6541 10.8547 22.0402 9.84617 21.1501 9.12179C20.2599 8.39742 19.1477 8.00131 18 7.99996H16.74C16.4231 6.77248 15.8189 5.63791 14.9773 4.68976C14.1358 3.74161 13.081 3.00703 11.8998 2.54658C10.7186 2.08612 9.44494 1.91297 8.18372 2.0414C6.92249 2.16983 5.70984 2.59615 4.64573 3.28524C3.58161 3.97433 2.6965 4.90644 2.06334 6.00475C1.43018 7.10307 1.06711 8.33613 1.00404 9.60231C0.940984 10.8685 1.17974 12.1315 1.70064 13.2873C2.22153 14.4431 3.00965 15.4585 4.00003 16.25" />
+    <path d="M8 16H8.01" />
+    <path d="M8 20H8.01" />
+    <path d="M12 18H12.01" />
+    <path d="M12 22H12.01" />
+    <path d="M16 16H16.01" />
+    <path d="M16 20H16.01" />
   </svg>
 );
 
 export const IconCode = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /></svg>
+  <svg {...defaults} className={className}><path d="M16 18L22 12L16 6" />
+<path d="M8.00003 6L2.00003 12L8.00003 18" /></svg>
 );
 
 export const IconCodepen = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5 12 2" />
-    <line x1="12" x2="12" y1="22" y2="15.5" />
-    <polyline points="22 8.5 12 15.5 2 8.5" />
-    <polyline points="2 15.5 12 8.5 22 15.5" />
-    <line x1="12" x2="12" y1="2" y2="8.5" />
+    <path d="M12 2L22 8.5V15.5L12 22L2.00003 15.5V8.5L12 2Z" />
+    <path d="M12 22V15.5" />
+    <path d="M22 8.5L12 15.5L2.00003 8.5" />
+    <path d="M2.00003 15.5L12 8.5L22 15.5" />
+    <path d="M12 2V8.5" />
   </svg>
-);
-
-export const IconCodesandbox = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z" />
-    <polyline points="7.5 4.21 12 6.81 16.5 4.21" />
-    <polyline points="7.5 19.79 7.5 14.6 3 12" />
-    <polyline points="21 12 16.5 14.6 16.5 19.79" />
-    <polyline points="3.27 6.96 12 12.01 20.73 6.96" />
-    <line x1="12" x2="12" y1="22.08" y2="12" />
-  </svg>
-);
-
-export const IconCoffee = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <path d="M18 8h1a4 4 0 0 1 0 8h-1" />
-    <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z" />
-    <line x1="6" x2="6" y1="1" y2="4" />
-    <line x1="10" x2="10" y1="1" y2="4" />
-    <line x1="14" x2="14" y1="1" y2="4" />
-  </svg>
-);
-
-export const IconColumns = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <path d="M12 3h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7m0-18H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h7m0-18v18" />
-  </svg>
-);
-
-export const IconCommand = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <path d="M18 3a3 3 0 0 0-3 3v12a3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3H6a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3V6a3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3h12a3 3 0 0 0 3-3 3 3 0 0 0-3-3z" />
-  </svg>
-);
-
-export const IconCompass = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
-  </svg>
-);
-
-export const IconCopy = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <rect height="13" rx="2" ry="2" width="13" x="9" y="9" />
-    <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
-  </svg>
-);
-
-export const IconCornerDownLeft = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polyline points="9 10 4 15 9 20" /><path d="M20 4v7a4 4 0 0 1-4 4H4" /></svg>
 );
 

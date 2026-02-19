@@ -7,7 +7,7 @@ import { AlertBadgesEditor } from './AlertBadgesEditor';
 import { AlertsEditor } from './AlertsEditor';
 import { BadgesEditor } from './BadgesEditor';
 import { BreadcrumbEditor } from './BreadcrumbEditor';
-import { ButtonsEditor } from './ButtonsEditor';
+import { ButtonsGroupEditor } from './ButtonsGroupEditor';
 import { CardsEditor } from './CardsEditor';
 import { ChipsEditor } from './ChipsEditor';
 import { DataGridEditor } from './DataGridEditor';
@@ -15,6 +15,7 @@ import { DatePickerEditor } from './DatePickerEditor';
 import { DialogEditor } from './DialogEditor';
 import { ErrorMessagesEditor } from './ErrorMessagesEditor';
 import { FlexBoxEditor } from './FlexBoxEditor';
+import { FormControlsGroupEditor } from './FormControlsGroupEditor';
 import { HeaderEditor } from './HeaderEditor';
 import { InputsEditor } from './InputsEditor';
 import { MenuEditor } from './MenuEditor';
@@ -23,6 +24,7 @@ import { ModalsEditor } from './ModalsEditor';
 import { PaginationEditor } from './PaginationEditor';
 import { SelectEditor } from './SelectEditor';
 import { SidebarEditor } from './SidebarEditor';
+import { TextDescriptionEditor } from './TextDescriptionEditor';
 import { ToastEditor } from './ToastEditor';
 import { ToolbarEditor } from './ToolbarEditor';
 import { TypographyComponentEditor } from './TypographyComponentEditor';
@@ -41,6 +43,7 @@ export const ComponentsSection = (): JSX.Element => {
     updateModalsConfig,
     updateBadgesConfig,
     updateAlertBadgesConfig,
+    updateTextDescriptionConfig,
     updateSelectConfig,
     updateDatePickerConfig,
     updateDialogConfig,
@@ -56,6 +59,12 @@ export const ComponentsSection = (): JSX.Element => {
     updateBreadcrumbConfig,
     updatePaginationConfig,
     updateTypographyComponentLevel,
+    updateIconButtonConfig,
+    updateFabConfig,
+    updateSplitButtonConfig,
+    updateCheckboxConfig,
+    updateRadioConfig,
+    updateToggleConfig,
   } = useThemeStore();
 
   // Get the current mode's component configuration
@@ -78,7 +87,25 @@ export const ComponentsSection = (): JSX.Element => {
       <div className="space-y-2">
         <HeaderEditor config={components.header} onUpdate={updateHeaderConfig} />
         <SidebarEditor config={components.sidebar} onUpdate={updateSidebarConfig} />
-        <ButtonsEditor config={components.buttons} onUpdate={updateButtonConfig} onUpdateConfig={updateButtonsConfig} />
+        <ButtonsGroupEditor
+          buttonsConfig={components.buttons}
+          fabConfig={components.fab}
+          iconButtonsConfig={components.iconButtons}
+          splitButtonConfig={components.splitButton}
+          onUpdateButtonConfig={updateButtonConfig}
+          onUpdateButtonsConfig={updateButtonsConfig}
+          onUpdateFabConfig={updateFabConfig}
+          onUpdateIconButtonConfig={updateIconButtonConfig}
+          onUpdateSplitButtonConfig={updateSplitButtonConfig}
+        />
+        <FormControlsGroupEditor
+          checkboxConfig={components.checkbox}
+          radioConfig={components.radio}
+          toggleConfig={components.toggle}
+          onUpdateCheckboxConfig={updateCheckboxConfig}
+          onUpdateRadioConfig={updateRadioConfig}
+          onUpdateToggleConfig={updateToggleConfig}
+        />
         <InputsEditor config={components.inputs} onUpdate={updateInputConfig} />
         <SelectEditor config={components.select} onUpdate={updateSelectConfig} />
         <DatePickerEditor config={components.datePicker} onUpdate={updateDatePickerConfig} />
@@ -88,6 +115,7 @@ export const ComponentsSection = (): JSX.Element => {
         <ModalsEditor config={components.modals} onUpdate={updateModalsConfig} />
         <BadgesEditor config={components.badges} onUpdate={updateBadgesConfig} />
         <AlertBadgesEditor config={components.alertBadges} onUpdate={updateAlertBadgesConfig} />
+        <TextDescriptionEditor config={components.textDescription} onUpdate={updateTextDescriptionConfig} />
         <ChipsEditor config={components.chips} onUpdate={updateChipConfig} />
         <ErrorMessagesEditor config={components.errorMessages} onUpdate={updateErrorMessagesConfig} />
         <FlexBoxEditor config={components.flexBox} onUpdate={updateFlexBoxConfig} />

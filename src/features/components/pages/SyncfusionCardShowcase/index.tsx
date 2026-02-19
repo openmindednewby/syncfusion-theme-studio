@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionCard from '@/components/ui/syncfusion/Card';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -16,6 +17,7 @@ const SyncfusionCardShowcase = (): JSX.Element => (
             <p>{FM('showcase.content.basicCardContent')}</p>
           </SyncfusionCard>
         </div>
+        <CopyableCodeSnippet code='<SyncfusionCard><p>Card content</p></SyncfusionCard>' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.withHeaderFooter')}</h3>
@@ -28,6 +30,7 @@ const SyncfusionCardShowcase = (): JSX.Element => (
             <p>{FM('showcase.content.cardWithSections')}</p>
           </SyncfusionCard>
         </div>
+        <CopyableCodeSnippet code='<SyncfusionCard header={<h4>Title</h4>} footer={<span>Footer</span>}><p>Content</p></SyncfusionCard>' />
       </section>
     </div>
   </div>

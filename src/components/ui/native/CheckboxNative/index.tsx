@@ -3,7 +3,7 @@
  *
  * Provides a styled checkbox with label, helper text, error state,
  * indeterminate state support, required indicator, and disabled styling.
- * Uses the native `<input type="checkbox">` with CSS accent-color theming.
+ * Uses the native `<input type="checkbox">` with CSS variable theming.
  * No Syncfusion dependency for minimal bundle size.
  */
 import { memo, forwardRef, useId, type InputHTMLAttributes } from 'react';
@@ -59,11 +59,8 @@ const CheckboxNative = forwardRef<HTMLInputElement, Props>(
             aria-describedby={hasHelperOrError ? helperId : undefined}
             aria-invalid={hasError}
             className={cn(
-              'size-4 shrink-0 rounded border transition-colors cursor-pointer',
-              'text-primary-500 focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
-              'accent-primary-500',
-              hasError ? 'border-error-500' : 'border-border',
-              disabled === true && 'cursor-not-allowed opacity-50',
+              'native-checkbox',
+              hasError && 'border-error-500',
             )}
             disabled={disabled}
             id={id}

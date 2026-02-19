@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { BadgeNative, BadgeNativeVariant } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -17,6 +18,7 @@ const NativeBadgeShowcase = (): JSX.Element => (
           <BadgeNative testId="badge-error" variant={BadgeNativeVariant.Error}>{FM('showcase.labels.error')}</BadgeNative>
           <BadgeNative testId="badge-info" variant={BadgeNativeVariant.Info}>{FM('showcase.labels.info')}</BadgeNative>
         </div>
+        <CopyableCodeSnippet code="<BadgeNative variant={BadgeNativeVariant.Success}>Active</BadgeNative>" />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.countBadges')}</h3>
@@ -28,6 +30,7 @@ const NativeBadgeShowcase = (): JSX.Element => (
             <span className="rounded bg-surface-elevated px-3 py-2 text-text-primary">{FM('showcase.labels.notifications')}</span>
           </BadgeNative>
         </div>
+        <CopyableCodeSnippet code={'<BadgeNative count={5} variant={BadgeNativeVariant.Error}>\n  <span>Inbox</span>\n</BadgeNative>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.dotBadges')}</h3>
@@ -39,6 +42,7 @@ const NativeBadgeShowcase = (): JSX.Element => (
             <span className="rounded bg-surface-elevated px-3 py-2 text-text-primary">{FM('showcase.labels.alerts')}</span>
           </BadgeNative>
         </div>
+        <CopyableCodeSnippet code={'<BadgeNative dot variant={BadgeNativeVariant.Success}>\n  <span>Messages</span>\n</BadgeNative>'} />
       </section>
     </div>
   </div>

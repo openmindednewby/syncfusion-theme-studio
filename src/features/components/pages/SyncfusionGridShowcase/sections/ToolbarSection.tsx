@@ -5,6 +5,7 @@ import { memo } from 'react';
 
 import type { ColumnModel, ContextMenuItem } from '@syncfusion/ej2-grids';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -53,6 +54,7 @@ export const ToolbarSection = memo((): JSX.Element => (
       testId="grid-toolbar"
       toolbar={TOOLBAR_ITEMS}
     />
+    <CopyableCodeSnippet code='<DataGrid allowExcelExport allowPdfExport columns={columns} data={data} toolbar={["Search", "Print", "ExcelExport"]} />' />
   </ShowcaseSection>
 ));
 

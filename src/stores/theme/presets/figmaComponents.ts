@@ -11,6 +11,19 @@ import type { ComponentsConfig } from '../types';
 export const FIGMA_COMPONENTS: ComponentsConfig = {
   light: {
     ...DEFAULT_COMPONENTS_LIGHT,
+    checkbox: {
+      ...DEFAULT_COMPONENTS_LIGHT.checkbox,
+      checkedBackground: '0 161 201', checkedBorderColor: '0 161 201',
+      indeterminateBackground: '0 161 201', focusRingColor: '0 161 201',
+    },
+    radio: {
+      ...DEFAULT_COMPONENTS_LIGHT.radio,
+      selectedBackground: '0 161 201', selectedBorderColor: '0 161 201', focusRingColor: '0 161 201',
+    },
+    toggle: {
+      ...DEFAULT_COMPONENTS_LIGHT.toggle,
+      trackActiveBackground: '0 161 201', focusRingColor: '0 161 201',
+    },
     header: { ...DEFAULT_COMPONENTS_LIGHT.header, background: '255 255 255', textColor: '27 32 41', borderBottom: '223 223 223' },
     sidebar: {
       ...DEFAULT_COMPONENTS_LIGHT.sidebar,
@@ -20,28 +33,31 @@ export const FIGMA_COMPONENTS: ComponentsConfig = {
       searchHighlightColor: '0 161 201',
     },
     buttons: {
+      ...DEFAULT_COMPONENTS_LIGHT.buttons,
       primary: {
+        ...DEFAULT_COMPONENTS_LIGHT.buttons.primary,
         background: '0 161 201', backgroundHover: '0 133 166', backgroundActive: '0 108 135',
         textColor: '255 255 255', textColorHover: '255 255 255',
         borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md', shadow: ShadowScale.Sm,
       },
       secondary: {
+        ...DEFAULT_COMPONENTS_LIGHT.buttons.secondary,
         background: '243 243 243', backgroundHover: '223 226 228', backgroundActive: '193 196 197',
         textColor: '57 60 62', textColorHover: '27 32 41',
         borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md', shadow: ShadowScale.None,
       },
       outline: {
+        ...DEFAULT_COMPONENTS_LIGHT.buttons.outline,
         background: 'transparent', backgroundHover: '243 243 243', backgroundActive: '223 226 228',
         textColor: '0 161 201', textColorHover: '0 133 166',
         borderColor: '0 161 201', borderWidth: '1px', borderRadius: 'md', shadow: ShadowScale.None,
       },
       ghost: {
+        ...DEFAULT_COMPONENTS_LIGHT.buttons.ghost,
         background: 'transparent', backgroundHover: '243 243 243', backgroundActive: '223 226 228',
         textColor: '57 60 62', textColorHover: '27 32 41',
         borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md', shadow: ShadowScale.None,
       },
-      danger: { ...DEFAULT_COMPONENTS_LIGHT.buttons.danger },
-      transitionDuration: '150ms',
     },
     inputs: {
       ...DEFAULT_COMPONENTS_LIGHT.inputs,
@@ -59,6 +75,19 @@ export const FIGMA_COMPONENTS: ComponentsConfig = {
   },
   dark: {
     ...DEFAULT_COMPONENTS_DARK,
+    checkbox: {
+      ...DEFAULT_COMPONENTS_DARK.checkbox,
+      checkedBackground: '0 181 226', checkedBorderColor: '0 181 226',
+      indeterminateBackground: '0 181 226', focusRingColor: '0 181 226',
+    },
+    radio: {
+      ...DEFAULT_COMPONENTS_DARK.radio,
+      selectedBackground: '0 181 226', selectedBorderColor: '0 181 226', focusRingColor: '0 181 226',
+    },
+    toggle: {
+      ...DEFAULT_COMPONENTS_DARK.toggle,
+      trackActiveBackground: '0 181 226', focusRingColor: '0 181 226',
+    },
     header: { ...DEFAULT_COMPONENTS_DARK.header, background: '27 32 41', textColor: '243 243 243', borderBottom: '57 64 75' },
     sidebar: {
       ...DEFAULT_COMPONENTS_DARK.sidebar,
@@ -68,28 +97,31 @@ export const FIGMA_COMPONENTS: ComponentsConfig = {
       searchHighlightColor: '0 181 226',
     },
     buttons: {
+      ...DEFAULT_COMPONENTS_DARK.buttons,
       primary: {
+        ...DEFAULT_COMPONENTS_DARK.buttons.primary,
         background: '0 161 201', backgroundHover: '0 181 226', backgroundActive: '0 133 166',
         textColor: '255 255 255', textColorHover: '255 255 255',
         borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md', shadow: ShadowScale.Sm,
       },
       secondary: {
+        ...DEFAULT_COMPONENTS_DARK.buttons.secondary,
         background: '38 44 57', backgroundHover: '57 64 75', backgroundActive: '78 88 106',
         textColor: '223 226 228', textColorHover: '243 243 243',
         borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md', shadow: ShadowScale.None,
       },
       outline: {
+        ...DEFAULT_COMPONENTS_DARK.buttons.outline,
         background: 'transparent', backgroundHover: '38 44 57', backgroundActive: '57 64 75',
         textColor: '0 181 226', textColorHover: '77 200 230',
         borderColor: '0 181 226', borderWidth: '1px', borderRadius: 'md', shadow: ShadowScale.None,
       },
       ghost: {
+        ...DEFAULT_COMPONENTS_DARK.buttons.ghost,
         background: 'transparent', backgroundHover: '38 44 57', backgroundActive: '57 64 75',
         textColor: '243 243 243', textColorHover: '243 243 243',
         borderColor: 'transparent', borderWidth: '0px', borderRadius: 'md', shadow: ShadowScale.None,
       },
-      danger: { ...DEFAULT_COMPONENTS_DARK.buttons.danger },
-      transitionDuration: '150ms',
     },
     inputs: {
       ...DEFAULT_COMPONENTS_DARK.inputs,

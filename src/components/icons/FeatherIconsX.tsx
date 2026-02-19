@@ -1,6 +1,6 @@
 /**
  * Auto-generated Feather icons (IconX – IconXSquare).
- * DO NOT EDIT — re-run: node scripts/generate-feather-icons.mjs
+ * DO NOT EDIT — re-run: npm run figma:generate:icons
  */
 import type { IconProps } from './types';
 
@@ -19,30 +19,31 @@ const defaults = {
 };
 
 export const IconX = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><line x1="18" x2="6" y1="6" y2="18" /><line x1="6" x2="18" y1="6" y2="18" /></svg>
+  <svg {...defaults} className={className}><path d="M18 6L6 18" />
+<path d="M6 6L18 18" /></svg>
 );
 
 export const IconXCircle = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <circle cx="12" cy="12" r="10" />
-    <line x1="15" x2="9" y1="9" y2="15" />
-    <line x1="9" x2="15" y1="9" y2="15" />
+    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+    <path d="M15 9L9 15" />
+    <path d="M9 9L15 15" />
   </svg>
 );
 
 export const IconXOctagon = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
-    <line x1="15" x2="9" y1="9" y2="15" />
-    <line x1="9" x2="15" y1="9" y2="15" />
+    <path d="M7.86 2H16.14L22 7.86V16.14L16.14 22H7.86L2 16.14V7.86L7.86 2Z" />
+    <path d="M15 9L9 15" />
+    <path d="M9 9L15 15" />
   </svg>
 );
 
 export const IconXSquare = ({ className }: IconProps): JSX.Element => (
   <svg {...defaults} className={className}>
-    <rect height="18" rx="2" ry="2" width="18" x="3" y="3" />
-    <line x1="9" x2="15" y1="9" y2="15" />
-    <line x1="15" x2="9" y1="9" y2="15" />
+    <path d="M19 3H5C3.89543 3 3 3.89543 3 5V19C3 20.1046 3.89543 21 5 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3Z" />
+    <path d="M9 9L15 15" />
+    <path d="M15 9L9 15" />
   </svg>
 );
 

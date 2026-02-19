@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTag, { TagVariant } from '@/components/ui/syncfusion/Tag';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -18,6 +19,7 @@ const SyncfusionChipShowcase = (): JSX.Element => (
           <SyncfusionTag label="Warning" testId="sf-chip-warning" variant={TagVariant.Warning} />
           <SyncfusionTag label="Danger" testId="sf-chip-danger" variant={TagVariant.Danger} />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionTag label="Primary" variant={TagVariant.Primary} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.removable')}</h3>
@@ -26,6 +28,7 @@ const SyncfusionChipShowcase = (): JSX.Element => (
           <SyncfusionTag removable label="React" testId="sf-chip-removable-2" variant={TagVariant.Success} />
           <SyncfusionTag removable label="Node.js" testId="sf-chip-removable-3" />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionTag removable label="React" variant={TagVariant.Success} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
@@ -33,6 +36,7 @@ const SyncfusionChipShowcase = (): JSX.Element => (
           <SyncfusionTag label="Small" size="sm" testId="sf-chip-sm" variant={TagVariant.Primary} />
           <SyncfusionTag label="Medium" testId="sf-chip-md" variant={TagVariant.Primary} />
         </div>
+        <CopyableCodeSnippet code='<SyncfusionTag label="Small" size="sm" variant={TagVariant.Primary} />' />
       </section>
     </div>
   </div>

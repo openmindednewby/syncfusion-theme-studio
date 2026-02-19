@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Input } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -47,6 +48,7 @@ export const BasicInputSection = memo((): JSX.Element => (
         type="number"
       />
     </div>
+    <CopyableCodeSnippet code='<Input fullWidth label="Name" placeholder="Enter name" type="text" />' />
   </section>
 ));
 

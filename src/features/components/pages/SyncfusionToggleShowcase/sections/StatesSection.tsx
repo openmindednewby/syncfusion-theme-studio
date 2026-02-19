@@ -6,6 +6,7 @@ import { memo, useId } from 'react';
 
 import { SwitchComponent } from '@syncfusion/ej2-react-buttons';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const StatesSection = memo((): JSX.Element => {
@@ -36,6 +37,7 @@ export const StatesSection = memo((): JSX.Element => {
           </label>
         </div>
       </div>
+      <CopyableCodeSnippet code='<SwitchComponent checked disabled name="disabledOn" />' />
     </section>
   );
 });

@@ -10,6 +10,7 @@ import {
   BreadcrumbItemsDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const BasicSection = memo((): JSX.Element => (
@@ -32,6 +33,7 @@ export const BasicSection = memo((): JSX.Element => (
         </BreadcrumbItemsDirective>
       </BreadcrumbComponent>
     </div>
+    <CopyableCodeSnippet code='<BreadcrumbComponent><BreadcrumbItemsDirective><BreadcrumbItemDirective text="Home" url="/" /><BreadcrumbItemDirective text="Page" /></BreadcrumbItemsDirective></BreadcrumbComponent>' />
   </section>
 ));
 

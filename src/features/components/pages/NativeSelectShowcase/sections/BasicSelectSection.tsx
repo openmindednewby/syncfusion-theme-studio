@@ -4,6 +4,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -54,6 +55,7 @@ export const BasicSelectSection = memo((): JSX.Element => {
           testId="native-select-showcase-required"
         />
       </div>
+      <CopyableCodeSnippet code={'<SelectNative\n  fullWidth\n  label="Choose a fruit"\n  helperText="Select your favorite"\n  options={[\n    { value: "apple", label: "Apple" },\n    { value: "banana", label: "Banana" },\n  ]}\n/>'} />
     </section>
   );
 });

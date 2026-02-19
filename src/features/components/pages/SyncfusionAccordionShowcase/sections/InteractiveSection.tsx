@@ -11,6 +11,7 @@ import {
   AccordionItemDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
 
@@ -102,6 +103,7 @@ export const InteractiveSection = memo((): JSX.Element => {
           />
         </AccordionItemsDirective>
       </AccordionComponent>
+      <CopyableCodeSnippet code='<AccordionComponent ref={accordionRef} expandMode="Multiple" expanding={handleExpanding}>...</AccordionComponent>' />
     </section>
   );
 });

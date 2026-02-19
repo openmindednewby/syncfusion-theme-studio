@@ -1,6 +1,6 @@
 /**
  * Auto-generated Feather icons (IconNavigation – IconNavigation2).
- * DO NOT EDIT — re-run: node scripts/generate-feather-icons.mjs
+ * DO NOT EDIT — re-run: npm run figma:generate:icons
  */
 import type { IconProps } from './types';
 
@@ -19,10 +19,10 @@ const defaults = {
 };
 
 export const IconNavigation = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polygon points="3 11 22 2 13 21 11 13 3 11" /></svg>
+  <svg {...defaults} className={className}><path d="M3 11L22 2L13 21L11 13L3 11Z" /></svg>
 );
 
 export const IconNavigation2 = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}><polygon points="12 2 19 21 12 17 5 21 12 2" /></svg>
+  <svg {...defaults} className={className}><path d="M12 2L19 21L12 17L5.00003 21L12 2Z" /></svg>
 );
 

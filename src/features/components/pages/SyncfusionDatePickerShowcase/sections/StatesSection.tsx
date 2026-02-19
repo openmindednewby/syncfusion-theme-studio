@@ -6,6 +6,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DatePicker } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -56,6 +57,7 @@ export const StatesSection = memo((): JSX.Element => {
           testId="sf-datepicker-showcase-minmax"
         />
       </div>
+      <CopyableCodeSnippet code='<DatePicker enabled={false} label="Disabled" error="Required" min={today} max={maxDate} />' />
     </section>
   );
 });

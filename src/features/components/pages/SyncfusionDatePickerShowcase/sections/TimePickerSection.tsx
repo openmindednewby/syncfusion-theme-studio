@@ -8,6 +8,7 @@ import { memo, useMemo } from 'react';
 
 import { DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 export const TimePickerSection = memo((): JSX.Element => {
@@ -58,6 +59,7 @@ export const TimePickerSection = memo((): JSX.Element => {
           </div>
         </div>
       </div>
+      <CopyableCodeSnippet code='<TimePickerComponent value={now} placeholder="Select time" />' />
     </section>
   );
 });

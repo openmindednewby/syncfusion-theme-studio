@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { CardNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -16,6 +17,7 @@ const NativeCardShowcase = (): JSX.Element => (
             <p>{FM('showcase.content.basicCardDescription')}</p>
           </CardNative>
         </div>
+        <CopyableCodeSnippet code={'<CardNative>\n  <p>Basic card content</p>\n</CardNative>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.withHeaderFooter')}</h3>
@@ -28,6 +30,7 @@ const NativeCardShowcase = (): JSX.Element => (
             <p>{FM('showcase.content.cardBodyWithHeaderFooter')}</p>
           </CardNative>
         </div>
+        <CopyableCodeSnippet code={'<CardNative\n  header={<h4>Card Title</h4>}\n  footer={<span>Last updated: Just now</span>}\n>\n  <p>Card body content</p>\n</CardNative>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.cardGrid')}</h3>
@@ -45,6 +48,7 @@ const NativeCardShowcase = (): JSX.Element => (
             <p className="text-sm opacity-70">{FM('showcase.content.yearOverYear')}</p>
           </CardNative>
         </div>
+        <CopyableCodeSnippet code={'<CardNative hoverable header={<h4>Users</h4>}>\n  <p className="text-3xl font-bold">1,234</p>\n</CardNative>'} />
       </section>
     </div>
   </div>

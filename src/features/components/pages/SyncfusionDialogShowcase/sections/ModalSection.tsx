@@ -3,6 +3,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant, Dialog, DialogVariant } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 
@@ -100,6 +101,7 @@ export const ModalSection = memo((): JSX.Element => {
           {FM('components.dialogShowcase.dangerDialogContent')}
         </p>
       </Dialog>
+      <CopyableCodeSnippet code='<Dialog isOpen={isOpen} title="Confirm" variant={DialogVariant.Danger} primaryButton={{ text: "Delete", variant: "danger" }} secondaryButton={{ text: "Cancel" }}>Content</Dialog>' />
     </section>
   );
 });

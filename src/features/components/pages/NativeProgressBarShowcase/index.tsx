@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { ProgressBarNative, ProgressBarVariant } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -17,6 +18,7 @@ const NativeProgressBarShowcase = (): JSX.Element => (
           <ProgressBarNative showLabel label="Warning" testId="progress-warning" value={45} variant={ProgressBarVariant.Warning} />
           <ProgressBarNative showLabel label="Danger" testId="progress-danger" value={20} variant={ProgressBarVariant.Danger} />
         </div>
+        <CopyableCodeSnippet code={'<ProgressBarNative\n  showLabel\n  label="Success"\n  value={80}\n  variant={ProgressBarVariant.Success}\n/>'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
@@ -25,10 +27,12 @@ const NativeProgressBarShowcase = (): JSX.Element => (
           <ProgressBarNative size="md" testId="progress-md" value={70} />
           <ProgressBarNative size="lg" testId="progress-lg" value={70} />
         </div>
+        <CopyableCodeSnippet code={'<ProgressBarNative size="sm" value={70} />\n<ProgressBarNative size="md" value={70} />\n<ProgressBarNative size="lg" value={70} />'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.indeterminate')}</h3>
         <ProgressBarNative indeterminate testId="progress-indeterminate" value={0} />
+        <CopyableCodeSnippet code="<ProgressBarNative indeterminate value={0} />" />
       </section>
     </div>
   </div>

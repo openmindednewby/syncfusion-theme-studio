@@ -10,6 +10,7 @@ import {
   AccordionItemDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const I18N_PREFIX = 'components.accordionShowcase.multiple';
@@ -44,6 +45,7 @@ export const MultipleSection = memo((): JSX.Element => (
         />
       </AccordionItemsDirective>
     </AccordionComponent>
+    <CopyableCodeSnippet code='<AccordionComponent expandMode="Multiple"><AccordionItemsDirective>...</AccordionItemsDirective></AccordionComponent>' />
   </section>
 ));
 

@@ -6,6 +6,7 @@ import { memo, useMemo } from 'react';
 
 import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
@@ -72,6 +73,7 @@ export const VariantsSection = memo((): JSX.Element => {
           {FM('components.syncfusionToasts.infoMessage')}
         </ToastComponent>
       </div>
+      <CopyableCodeSnippet code='<ToastComponent cssClass="e-toast-success" title="Success" timeOut={0}>Message</ToastComponent>' />
     </section>
   );
 });

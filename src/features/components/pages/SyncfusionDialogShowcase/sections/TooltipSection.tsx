@@ -6,6 +6,7 @@ import { memo, useEffect } from 'react';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 
@@ -38,6 +39,7 @@ export const TooltipSection = memo((): JSX.Element => {
           <ButtonComponent cssClass="e-outline">{FM('components.hoverRight')}</ButtonComponent>
         </TooltipComponent>
       </div>
+      <CopyableCodeSnippet code='<TooltipComponent content="Tooltip text" position="TopCenter"><ButtonComponent>Hover me</ButtonComponent></TooltipComponent>' />
     </section>
   );
 });

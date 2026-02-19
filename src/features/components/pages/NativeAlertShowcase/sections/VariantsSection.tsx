@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { AlertNative, AlertSeverity } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -47,6 +48,7 @@ export const VariantsSection = memo((): JSX.Element => (
         {FM('components.alerts.nativeInfoMessage')}
       </AlertNative>
     </div>
+    <CopyableCodeSnippet code='<AlertNative severity={AlertSeverity.Success} title="Title">Message</AlertNative>' />
   </section>
 ));
 

@@ -1,6 +1,6 @@
 /**
  * Auto-generated Feather icons (IconOctagon).
- * DO NOT EDIT — re-run: node scripts/generate-feather-icons.mjs
+ * DO NOT EDIT — re-run: npm run figma:generate:icons
  */
 import type { IconProps } from './types';
 
@@ -19,8 +19,6 @@ const defaults = {
 };
 
 export const IconOctagon = ({ className }: IconProps): JSX.Element => (
-  <svg {...defaults} className={className}>
-    <polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2" />
-  </svg>
+  <svg {...defaults} className={className}><path d="M7.86 2H16.14L22 7.86V16.14L16.14 22H7.86L2 16.14V7.86L7.86 2Z" /></svg>
 );
 

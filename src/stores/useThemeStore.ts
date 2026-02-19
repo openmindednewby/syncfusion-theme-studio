@@ -25,7 +25,9 @@ export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 // v9: Added iconSize, iconStrokeWidth, expandAnimation, showScrollbar to SidebarComponentConfig
 // v10: Added searchHighlightColor, searchHighlightScale to SidebarComponentConfig
 // v11: Updated badge colors to match severity design (CRITICAL/HIGH/MEDIUM/LOW)
-const THEME_SCHEMA_VERSION = 11;
+// v12: Button system overhaul - disabled state, typography, padding, gap, focusRing; IconButton, FAB, SplitButton configs
+// v13: Form controls - CheckboxConfig, RadioConfig, ToggleConfig added to ComponentConfigSingle
+const THEME_SCHEMA_VERSION = 13;
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return isValueDefined(value) && typeof value === 'object' && !Array.isArray(value);

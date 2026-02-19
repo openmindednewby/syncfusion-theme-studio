@@ -10,6 +10,7 @@ import {
   AccordionItemDirective,
 } from '@syncfusion/ej2-react-navigations';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FM } from '@/localization/helpers';
 
 const I18N_PREFIX = 'components.accordionShowcase';
@@ -40,6 +41,7 @@ export const BasicSection = memo((): JSX.Element => (
         />
       </AccordionItemsDirective>
     </AccordionComponent>
+    <CopyableCodeSnippet code='<AccordionComponent expandedIndices={[0]}><AccordionItemsDirective><AccordionItemDirective header="Title" content="Content" /></AccordionItemsDirective></AccordionComponent>' />
   </section>
 ));
 

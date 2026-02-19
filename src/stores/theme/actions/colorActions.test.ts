@@ -137,6 +137,43 @@ describe('buildDerivedModeConfig', () => {
     expect(result.inputs.focusRingColor).toBe(derived.inputs.focusRingColor);
     expect(result.dataGrid.paginationActiveBackground).toBe(derived.dataGrid.paginationActiveBackground);
   });
+
+  it('cascades disabled colors from palette for light mode', () => {
+    const config = createComponents().light;
+    const palette = generatePaletteFromBase(PINK_500);
+    const derived = generateDerivedColors(palette);
+    const result = buildDerivedModeConfig(config, derived, palette, true);
+
+    expect(result.buttons.primary.disabledBackground).toBe(palette['200']);
+    expect(result.buttons.primary.disabledTextColor).toBe('255 255 255');
+    expect(result.buttons.outline.disabledTextColor).toBe(palette['200']);
+    expect(result.buttons.outline.disabledBorderColor).toBe(palette['200']);
+    expect(result.iconButtons.primary.disabledBackground).toBe(palette['200']);
+    expect(result.fab.disabledBackground).toBe(palette['200']);
+    expect(result.splitButton.disabledBackground).toBe(palette['200']);
+  });
+
+  it('cascades disabled colors from palette for dark mode', () => {
+    const config = createComponents().dark;
+    const palette = generatePaletteFromBase(GREEN_500);
+    const derived = generateDerivedColors(palette);
+    const result = buildDerivedModeConfig(config, derived, palette, false);
+
+    expect(result.buttons.primary.disabledBackground).toBe(palette['900']);
+    expect(result.buttons.primary.disabledTextColor).toBe('148 163 184');
+    expect(result.buttons.outline.disabledTextColor).toBe(palette['900']);
+    expect(result.iconButtons.primary.disabledBackground).toBe(palette['900']);
+    expect(result.fab.disabledBackground).toBe(palette['900']);
+    expect(result.splitButton.disabledBackground).toBe(palette['900']);
+  });
+
+  it('skips disabled overrides when palette is not provided', () => {
+    const config = createComponents().light;
+    const derived = createDerivedFromBase(PINK_500);
+    const result = buildDerivedModeConfig(config, derived);
+
+    expect(result.buttons.primary.disabledBackground).toBe(config.buttons.primary.disabledBackground);
+  });
 });
 
 describe('buildDerivedComponents', () => {
@@ -150,6 +187,16 @@ describe('buildDerivedComponents', () => {
     expect(result.dark.inputs.focusRingColor).toBe(PINK_500);
     expect(result.light.dataGrid.paginationActiveBackground).toBe(PINK_500);
     expect(result.dark.dataGrid.paginationActiveBackground).toBe(PINK_500);
+  });
+
+  it('cascades disabled colors per mode when palette is provided', () => {
+    const components = createComponents();
+    const palette = generatePaletteFromBase(PINK_500);
+    const derived = generateDerivedColors(palette);
+    const result = buildDerivedComponents(components, derived, palette);
+
+    expect(result.light.buttons.primary.disabledBackground).toBe(palette['200']);
+    expect(result.dark.buttons.primary.disabledBackground).toBe(palette['900']);
   });
 });
 

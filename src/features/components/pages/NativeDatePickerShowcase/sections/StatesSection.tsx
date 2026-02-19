@@ -6,6 +6,7 @@
  */
 import { memo, useMemo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { DatePickerNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -60,6 +61,7 @@ export const StatesSection = memo((): JSX.Element => {
           testId="native-datepicker-showcase-past"
         />
       </div>
+      <CopyableCodeSnippet code='<DatePickerNative disabled label="Disabled" value="2025-06-15" fullWidth />' />
     </section>
   );
 });

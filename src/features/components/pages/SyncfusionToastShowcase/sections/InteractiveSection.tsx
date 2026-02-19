@@ -6,6 +6,7 @@ import { memo, useCallback, useRef, useMemo } from 'react';
 
 import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/helpers';
 import { Mode } from '@/stores/mode';
@@ -102,6 +103,7 @@ export const InteractiveSection = memo((): JSX.Element => {
         position={{ X: 'Right', Y: 'Top' }}
         timeOut={TOAST_TIMEOUT_MS}
       />
+      <CopyableCodeSnippet code='<ToastComponent ref={toastRef} showCloseButton showProgressBar position={{ X: "Right", Y: "Top" }} />' />
     </section>
   );
 });

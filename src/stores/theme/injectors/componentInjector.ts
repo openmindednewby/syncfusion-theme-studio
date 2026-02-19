@@ -1,15 +1,19 @@
 // Component-specific CSS variable injection utilities
 
+import { injectButtonVariables, injectFabVariables, injectIconButtonVariables, injectSplitButtonVariables } from './buttonInjector';
 import { injectAvatarVariables, injectProgressBarVariables, injectTabsVariables, injectTimelineVariables, injectTooltipVariables } from './dataDisplayInjector';
 import { injectDataGridVariables } from './dataGridInjector';
 import { injectAlertVariables, injectChipVariables, injectDatePickerVariables, injectDialogVariables, injectErrorMessageVariables, injectFlexBoxVariables, injectMessageVariables, injectSelectVariables, injectToastVariables } from './feedbackInjector';
-import { loadGoogleFont } from './fontLoader';
+import { loadLocalFont } from './fontLoader';
+import { injectCheckboxVariables, injectRadioVariables, injectToggleVariables } from './formControlInjector';
 import { injectAccordionVariables, injectBreadcrumbVariables, injectMenuVariables, injectToolbarVariables } from './navigationInjector';
 import { injectPaginationVariables } from './paginationInjector';
 
 import type { ComponentConfigSingle } from '../types';
 
+export { injectButtonVariables, injectFabVariables, injectIconButtonVariables, injectSplitButtonVariables };
 export { injectAlertVariables, injectChipVariables, injectDatePickerVariables, injectDialogVariables, injectErrorMessageVariables, injectFlexBoxVariables, injectMessageVariables, injectSelectVariables, injectToastVariables };
+export { injectCheckboxVariables, injectRadioVariables, injectToggleVariables };
 export { injectDataGridVariables };
 export { injectPaginationVariables };
 export { injectAccordionVariables, injectBreadcrumbVariables, injectMenuVariables, injectToolbarVariables };
@@ -52,21 +56,6 @@ export function injectSidebarVariables(root: HTMLElement, c: ComponentConfigSing
   root.style.setProperty('--component-sidebar-search-focus-border', c.sidebar.searchFocusBorder);
   root.style.setProperty('--component-sidebar-search-font-size', c.sidebar.searchFontSize);
   root.style.setProperty('--component-sidebar-search-padding', c.sidebar.searchPadding);
-}
-
-export function injectButtonVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  root.style.setProperty('--component-button-primary-bg', `rgb(${c.buttons.primary.background})`);
-  root.style.setProperty('--component-button-primary-bg-hover', `rgb(${c.buttons.primary.backgroundHover})`);
-  root.style.setProperty('--component-button-primary-text', `rgb(${c.buttons.primary.textColor})`);
-  root.style.setProperty('--component-button-secondary-bg', `rgb(${c.buttons.secondary.background})`);
-  root.style.setProperty('--component-button-secondary-bg-hover', `rgb(${c.buttons.secondary.backgroundHover})`);
-  root.style.setProperty('--component-button-secondary-text', `rgb(${c.buttons.secondary.textColor})`);
-  root.style.setProperty('--component-button-outline-border', `rgb(${c.buttons.outline.borderColor})`);
-  root.style.setProperty('--component-button-outline-text', `rgb(${c.buttons.outline.textColor})`);
-  root.style.setProperty('--component-button-ghost-text', `rgb(${c.buttons.ghost.textColor})`);
-  root.style.setProperty('--component-button-danger-bg', `rgb(${c.buttons.danger.background})`);
-  root.style.setProperty('--component-button-danger-text', `rgb(${c.buttons.danger.textColor})`);
-  root.style.setProperty('--component-button-transition', c.buttons.transitionDuration);
 }
 
 export function injectInputVariables(root: HTMLElement, c: ComponentConfigSingle): void {
@@ -141,7 +130,7 @@ function injectAlertBadgeOutlineVariables(root: HTMLElement, c: ComponentConfigS
 
 export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   const { typography, padding, success, warning, error, info } = c.alertBadges;
-  loadGoogleFont(typography.fontFamily, typography.fontWeight);
+  loadLocalFont(typography.fontFamily, typography.fontWeight);
   root.style.setProperty('--component-alert-badge-font-family', typography.fontFamily);
   root.style.setProperty('--component-alert-badge-font-size', typography.fontSize);
   root.style.setProperty('--component-alert-badge-font-weight', typography.fontWeight);
@@ -170,25 +159,51 @@ export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigS
   injectAlertBadgeOutlineVariables(root, c);
 }
 
+export function injectTextDescriptionVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  const { textDescription } = c;
+  loadLocalFont(textDescription.fontFamily, textDescription.fontWeight);
+  root.style.setProperty('--component-text-description-color', `rgb(${textDescription.textColor})`);
+  root.style.setProperty('--component-text-description-font-family', textDescription.fontFamily);
+  root.style.setProperty('--component-text-description-font-size', textDescription.fontSize);
+  root.style.setProperty('--component-text-description-font-weight', textDescription.fontWeight);
+  root.style.setProperty('--component-text-description-line-height', textDescription.lineHeight);
+  root.style.setProperty('--component-text-description-letter-spacing', textDescription.letterSpacing);
+}
+
+function injectDisplayVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  injectCardVariables(root, c);
+  injectModalVariables(root, c);
+  injectBadgeVariables(root, c);
+  injectAlertBadgeVariables(root, c);
+  injectTextDescriptionVariables(root, c);
+}
+
+function injectFeedbackVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  injectSelectVariables(root, c);
+  injectDatePickerVariables(root, c);
+  injectDialogVariables(root, c);
+  injectErrorMessageVariables(root, c);
+  injectFlexBoxVariables(root, c);
+  injectAlertVariables(root, c);
+  injectToastVariables(root, c);
+  injectMessageVariables(root, c);
+  injectChipVariables(root, c);
+  injectCheckboxVariables(root, c);
+  injectRadioVariables(root, c);
+  injectToggleVariables(root, c);
+}
+
 export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {
   injectHeaderVariables(root, components);
   injectSidebarVariables(root, components);
   injectButtonVariables(root, components);
+  injectIconButtonVariables(root, components);
+  injectFabVariables(root, components);
+  injectSplitButtonVariables(root, components);
   injectInputVariables(root, components);
   injectDataGridVariables(root, components);
-  injectCardVariables(root, components);
-  injectModalVariables(root, components);
-  injectBadgeVariables(root, components);
-  injectAlertBadgeVariables(root, components);
-  injectSelectVariables(root, components);
-  injectDatePickerVariables(root, components);
-  injectDialogVariables(root, components);
-  injectErrorMessageVariables(root, components);
-  injectFlexBoxVariables(root, components);
-  injectAlertVariables(root, components);
-  injectToastVariables(root, components);
-  injectMessageVariables(root, components);
-  injectChipVariables(root, components);
+  injectDisplayVariables(root, components);
+  injectFeedbackVariables(root, components);
   injectAccordionVariables(root, components);
   injectToolbarVariables(root, components);
   injectMenuVariables(root, components);

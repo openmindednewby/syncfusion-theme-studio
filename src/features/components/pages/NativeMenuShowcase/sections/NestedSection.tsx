@@ -4,6 +4,7 @@
  */
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { MenuNative } from '@/components/ui/native';
 import type { MenuItem } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
@@ -78,6 +79,7 @@ export const NestedSection = memo((): JSX.Element => (
       items={buildNestedItems()}
       testId={TestIds.NATIVE_MENU_NESTED}
     />
+    <CopyableCodeSnippet code={'<MenuNative\n  ariaLabel="Nested menu"\n  items={[\n    { text: "Settings", items: [\n      { text: "Preferences", items: [\n        { text: "General" },\n        { text: "Appearance" },\n      ] },\n      { text: "Security", items: [...] },\n    ] },\n  ]}\n/>'} />
   </section>
 ));
 

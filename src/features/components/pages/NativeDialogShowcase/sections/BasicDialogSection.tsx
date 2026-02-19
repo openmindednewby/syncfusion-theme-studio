@@ -3,6 +3,7 @@
  */
 import { memo, useState, useCallback } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant, DialogNative } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 
@@ -51,6 +52,7 @@ export const BasicDialogSection = memo((): JSX.Element => {
       >
         <p>{FM('components.dialogShowcase.basicDialogContent')}</p>
       </DialogNative>
+      <CopyableCodeSnippet code='<DialogNative isOpen={isOpen} title="Title" onClose={handleClose}>Content</DialogNative>' />
     </section>
   );
 });

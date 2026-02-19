@@ -1,3 +1,4 @@
+import { CopyableCodeSnippet } from '@/components/common';
 import { TagNative, TagVariant } from '@/components/ui/native';
 import { FM } from '@/localization/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -18,6 +19,7 @@ const NativeTagShowcase = (): JSX.Element => (
           <TagNative label="Warning" testId="tag-warning" variant={TagVariant.Warning} />
           <TagNative label="Danger" testId="tag-danger" variant={TagVariant.Danger} />
         </div>
+        <CopyableCodeSnippet code={'<TagNative label="Primary" variant={TagVariant.Primary} />\n<TagNative label="Success" variant={TagVariant.Success} />'} />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.removableTags')}</h3>
@@ -26,6 +28,7 @@ const NativeTagShowcase = (): JSX.Element => (
           <TagNative removable label="TypeScript" testId="tag-removable-2" variant={TagVariant.Success} />
           <TagNative removable label="Tailwind" testId="tag-removable-3" />
         </div>
+        <CopyableCodeSnippet code='<TagNative removable label="React" variant={TagVariant.Primary} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('showcase.sections.sizes')}</h3>
@@ -33,6 +36,7 @@ const NativeTagShowcase = (): JSX.Element => (
           <TagNative label="Small" size="sm" testId="tag-sm" variant={TagVariant.Primary} />
           <TagNative label="Medium" testId="tag-md" variant={TagVariant.Primary} />
         </div>
+        <CopyableCodeSnippet code={'<TagNative label="Small" size="sm" variant={TagVariant.Primary} />\n<TagNative label="Medium" variant={TagVariant.Primary} />'} />
       </section>
     </div>
   </div>

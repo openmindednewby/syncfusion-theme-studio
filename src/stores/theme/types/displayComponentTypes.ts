@@ -49,6 +49,7 @@ export interface BadgeTypography {
   fontWeight: string;
   lineHeight: string;
   letterSpacing: string;
+  textTransform: string;
 }
 
 export interface BadgesConfig {

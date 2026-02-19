@@ -170,6 +170,7 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
       fontWeight: '600',
       lineHeight: '1.5',
       letterSpacing: '0px',
+      textTransform: 'none',
     },
   },
   pagination: DEFAULT_PAGINATION_DARK, ...DEFAULT_FEEDBACK_DARK, ...DEFAULT_NAVIGATION_DARK, ...DEFAULT_DATA_DISPLAY_DARK,

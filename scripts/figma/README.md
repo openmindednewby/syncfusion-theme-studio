@@ -229,6 +229,13 @@ src/stores/theme/
   types/
     componentTypes.ts           ComponentsConfig, ComponentConfigSingle
     displayComponentTypes.ts    BadgesConfig, BadgeVariant, CardsConfig, etc.
+
+src/styles/layers/
+  syncfusion-overrides.css      CSS layer: Syncfusion component overrides (~1,900 lines)
+                                Buttons, checkbox, radio, switch, dropdown, input,
+                                grid, datepicker, dialog, card, slider, tab, etc.
+                                All use CSS variables (e.g. var(--component-button-primary-bg))
+  native-overrides.css          CSS layer: Native HTML element overrides (select, etc.)
 ```
 
 ---
@@ -371,6 +378,49 @@ components.light.badges.error.borderColor -->  --component-badge-error-border
 ```
 
 Both `BadgeNative` and `SyncfusionBadge` read these same CSS variables, so they render identically.
+
+---
+
+## CSS Style Override Layers
+
+The Figma pipeline generates **theme values** (stored as JS objects in `figmaDesign.ts`), which are injected as **CSS custom properties** at runtime. The actual visual styling is applied via two CSS override layers in `src/styles/layers/`:
+
+### `syncfusion-overrides.css`
+
+Master CSS layer (~1,900 lines) that overrides Syncfusion component defaults. Covers buttons (primary, secondary, outline, ghost, danger, success, warning, info), checkbox, radio, switch, dropdown, input, grid, datepicker, dialog, card, slider, tabs, and global styles (font-family, popup visibility). All rules reference CSS variables injected by the theme system:
+
+```css
+/* Example: button primary uses theme-injected variables */
+.e-btn.e-primary {
+  background-color: rgb(var(--component-button-primary-bg));
+  color: rgb(var(--component-button-primary-text));
+  border-color: rgb(var(--component-button-primary-border));
+}
+```
+
+### `native-overrides.css`
+
+Overrides for native HTML elements (e.g., `<select>`) that also read from the same CSS variable system.
+
+### `figmaComponents.ts`
+
+Manual component overrides for the ClearSkies 2.0 design (accent and surface colors for light/dark modes). Unlike `figmaDesign.ts` which is auto-generated, this file is hand-authored and provides additional component-level overrides that sit alongside the Figma pipeline output.
+
+### How they connect
+
+```
+Figma API → figmaDesign.ts (generated theme values)
+                |
+                v
+         useThemeStore (Zustand)
+                |
+                v
+         injectThemeVariables() → CSS custom properties on :root
+                |
+                +--→ syncfusion-overrides.css (reads CSS vars, styles Syncfusion components)
+                +--→ native-overrides.css     (reads CSS vars, styles native elements)
+                +--→ React components          (reads CSS vars via inline styles / Tailwind)
+```
 
 ---
 

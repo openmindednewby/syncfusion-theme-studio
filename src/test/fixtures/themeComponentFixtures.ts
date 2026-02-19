@@ -555,6 +555,7 @@ const createComponentConfigSingle = (): ComponentConfigSingle => ({
       fontWeight: '600',
       lineHeight: '1.5',
       letterSpacing: '0px',
+      textTransform: 'uppercase',
     },
   },
   select: createSelect(),

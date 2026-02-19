@@ -139,6 +139,7 @@ export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigS
   root.style.setProperty('--component-alert-badge-font-weight', typography.fontWeight);
   root.style.setProperty('--component-alert-badge-line-height', typography.lineHeight);
   root.style.setProperty('--component-alert-badge-letter-spacing', typography.letterSpacing);
+  root.style.setProperty('--component-alert-badge-text-transform', typography.textTransform);
 
   root.style.setProperty('--component-alert-badge-padding-top', padding.paddingTop);
   root.style.setProperty('--component-alert-badge-padding-right', padding.paddingRight);

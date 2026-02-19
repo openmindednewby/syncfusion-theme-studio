@@ -170,6 +170,7 @@ export const DEFAULT_COMPONENTS_LIGHT: ComponentConfigSingle = {
       fontWeight: '600',
       lineHeight: '1.5',
       letterSpacing: '0px',
+      textTransform: 'none',
     },
   },
   pagination: DEFAULT_PAGINATION_LIGHT, ...DEFAULT_FEEDBACK_LIGHT, ...DEFAULT_NAVIGATION_LIGHT, ...DEFAULT_DATA_DISPLAY_LIGHT,

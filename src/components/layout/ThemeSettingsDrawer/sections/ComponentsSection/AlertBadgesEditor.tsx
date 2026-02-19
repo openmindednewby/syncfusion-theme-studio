@@ -123,6 +123,11 @@ export const AlertBadgesEditor = ({ config, onUpdate }: AlertBadgesEditorProps):
             value={config.typography.letterSpacing}
             onChange={(v) => handleTypographyUpdate('letterSpacing', v)}
           />
+          <Field
+            label={FM('themeSettings.components.alertBadges.textTransform')}
+            value={config.typography.textTransform}
+            onChange={(v) => handleTypographyUpdate('textTransform', v)}
+          />
         </div>
       </div>
     </CollapsibleSection>

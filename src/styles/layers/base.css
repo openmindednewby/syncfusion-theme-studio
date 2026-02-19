@@ -200,6 +200,7 @@
     --component-alert-badge-padding-right: 8px;
     --component-alert-badge-padding-bottom: 2px;
     --component-alert-badge-padding-left: 8px;
+    --component-alert-badge-text-transform: none;
   }
 
   /* ===== DARK MODE ===== */

@@ -65,6 +65,7 @@ const BASE_STYLE: Record<string, string> = {
   fontWeight: 'var(--component-alert-badge-font-weight)',
   lineHeight: 'var(--component-alert-badge-line-height)',
   letterSpacing: 'var(--component-alert-badge-letter-spacing)',
+  textTransform: 'var(--component-alert-badge-text-transform)',
   whiteSpace: 'nowrap',
 };
 

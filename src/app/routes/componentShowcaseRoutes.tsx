@@ -3,7 +3,7 @@ import { type ComponentType, Suspense } from 'react';
 import { Navigate, type RouteObject } from 'react-router-dom';
 
 
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 
 import {
   IconsShowcase,

@@ -7,7 +7,7 @@ import { memo, useCallback, useState } from 'react';
 import { type ClickEventArgs, ToolbarComponent, ItemsDirective, ItemDirective } from '@syncfusion/ej2-react-navigations';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const INITIAL_CLICK_COUNT = 0;
 

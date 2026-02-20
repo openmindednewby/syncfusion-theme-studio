@@ -10,7 +10,7 @@ import {
   DialogNative,
   DialogVariant,
 } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const ConfirmDialogSection = memo((): JSX.Element => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);

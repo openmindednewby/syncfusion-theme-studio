@@ -5,9 +5,9 @@ import { devtools, persist } from 'zustand/middleware';
 
 import { isValueDefined } from '@/utils/is';
 
-import { DEFAULT_THEME } from './theme/defaultTheme';
-import { createThemeActions } from './theme/storeActions';
-import { injectThemeVariables } from './theme/themeInjector';
+import { DEFAULT_THEME } from './theme/utils/defaultTheme';
+import { createThemeActions } from './theme/utils/storeActions';
+import { injectThemeVariables } from './theme/utils/themeInjector';
 
 import type { ThemeState } from './theme/types';
 

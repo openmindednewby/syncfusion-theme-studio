@@ -3,7 +3,7 @@
  *
  * Displays submitted form data in a formatted JSON panel.
  */
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 interface Props {

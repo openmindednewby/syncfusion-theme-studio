@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import DatePicker from '@/components/ui/syncfusion/DatePicker';
 import type { DatePickerProps } from '@/components/ui/syncfusion/DatePicker';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormDatePickerProps<T extends FieldValues>

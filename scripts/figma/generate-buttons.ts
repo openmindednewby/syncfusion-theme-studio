@@ -7,10 +7,15 @@ import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import type { ButtonVariantData, FigmaExtraction } from './types';
+import { deriveDarkOverrides, modesAreIdentical } from './generate-buttons-dark';
+import type { ButtonVariantOverride } from './generate-buttons-helpers';
+import { deriveHoverFromDefault, synthesizeDangerIfMissing } from './generate-buttons-helpers';
 
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
 const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
 const OUTPUT_PATH = resolve(SECTIONS_DIR, 'buttons.json');
+
+// ────────────────────────────────────────────────────────────────────
 
 const VARIANT_MAP: Record<string, string> = {
   primary: 'primary',
@@ -29,21 +34,7 @@ function loadExtraction(): FigmaExtraction {
   return JSON.parse(raw) as FigmaExtraction;
 }
 
-/** Fields that belong in ButtonStateColors (per-variant) */
-interface ButtonVariantOverride {
-  background?: string;
-  backgroundHover?: string;
-  backgroundActive?: string;
-  textColor?: string;
-  textColorHover?: string;
-  borderColor?: string;
-  borderWidth?: string;
-  borderRadius?: string;
-  disabledBackground?: string;
-  disabledTextColor?: string;
-  disabledBorderColor?: string;
-  disabledOpacity?: string;
-}
+// ── Variant mapping ────────────────────────────────────────────────
 
 function mapVariantToOverride(data: ButtonVariantData): ButtonVariantOverride {
   const override: ButtonVariantOverride = {};
@@ -60,9 +51,8 @@ function mapVariantToOverride(data: ButtonVariantData): ButtonVariantOverride {
     override.backgroundHover = data.hover.background;
     override.textColorHover = data.hover.textColor;
   } else if (data.default) {
-    // Auto-derive hover = same as default to prevent inheriting blue defaults
-    override.backgroundHover = data.default.background;
-    override.textColorHover = data.default.textColor;
+    // Derive meaningful hover instead of copying default verbatim
+    deriveHoverFromDefault(override);
   }
 
   if (data.active) {
@@ -78,6 +68,8 @@ function mapVariantToOverride(data: ButtonVariantData): ButtonVariantOverride {
 
   return override;
 }
+
+// ── Shared property extraction ─────────────────────────────────────
 
 /** Extract shared typography from the first variant with default state data */
 function extractTypography(
@@ -124,6 +116,8 @@ function extractGap(
   return undefined;
 }
 
+// ── Build + propagate ──────────────────────────────────────────────
+
 function buildModeOverrides(
   modeData: Record<string, ButtonVariantData>,
 ): Record<string, ButtonVariantOverride> {
@@ -139,6 +133,41 @@ function buildModeOverrides(
 
   return result;
 }
+
+/**
+ * If a majority of variants share the same borderRadius, propagate it
+ * to variants that are missing it (e.g., ghost/outline missing pill shape).
+ */
+function propagateSharedBorderRadius(
+  overrides: Record<string, ButtonVariantOverride>,
+): void {
+  const radii = Object.values(overrides)
+    .map((v) => v.borderRadius)
+    .filter(Boolean) as string[];
+
+  if (radii.length === 0) return;
+
+  const counts = new Map<string, number>();
+  for (const r of radii) {
+    counts.set(r, (counts.get(r) ?? 0) + 1);
+  }
+  let dominant = '';
+  let maxCount = 0;
+  for (const [r, c] of counts) {
+    if (c > maxCount) {
+      dominant = r;
+      maxCount = c;
+    }
+  }
+
+  for (const variant of Object.values(overrides)) {
+    if (!variant.borderRadius) {
+      variant.borderRadius = dominant;
+    }
+  }
+}
+
+// ── Main pipeline ──────────────────────────────────────────────────
 
 function main(): void {
   const extraction = loadExtraction();
@@ -157,10 +186,37 @@ function main(): void {
   const padding = extractPadding(extraction.buttons.light);
   const gap = extractGap(extraction.buttons.light);
 
-  const output: Record<string, unknown> = {
-    light: buildModeOverrides(extraction.buttons.light),
-    dark: buildModeOverrides(extraction.buttons.dark),
-  };
+  const lightOverrides = buildModeOverrides(extraction.buttons.light);
+  let darkOverrides = buildModeOverrides(extraction.buttons.dark);
+
+  // Check identity BEFORE danger synthesis (danger is always synthesized)
+  const shouldDeriveDark = modesAreIdentical(lightOverrides, darkOverrides);
+
+  // Synthesize danger variant if Figma didn't have one
+  synthesizeDangerIfMissing(lightOverrides);
+
+  if (shouldDeriveDark) {
+    console.log('Light/dark identical — deriving dark overrides from light');
+    darkOverrides = deriveDarkOverrides(lightOverrides);
+  } else {
+    synthesizeDangerIfMissing(darkOverrides);
+  }
+
+  // Propagate shared borderRadius to variants missing it
+  propagateSharedBorderRadius(lightOverrides);
+  propagateSharedBorderRadius(darkOverrides);
+
+  writeOutput(lightOverrides, darkOverrides, typography, padding, gap);
+}
+
+function writeOutput(
+  light: Record<string, ButtonVariantOverride>,
+  dark: Record<string, ButtonVariantOverride>,
+  typography?: Record<string, string>,
+  padding?: Record<string, string>,
+  gap?: string,
+): void {
+  const output: Record<string, unknown> = { light, dark };
   if (typography) output.typography = typography;
   if (padding) output.padding = padding;
   if (gap) output.gap = gap;
@@ -168,8 +224,7 @@ function main(): void {
   mkdirSync(SECTIONS_DIR, { recursive: true });
   writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
 
-  const outputVariants = Object.keys(output.light).length;
-  console.log(`Generated ${outputVariants} button variant overrides`);
+  console.log(`Generated ${Object.keys(light).length} button variant overrides`);
   console.log(`Written: ${OUTPUT_PATH}`);
 }
 

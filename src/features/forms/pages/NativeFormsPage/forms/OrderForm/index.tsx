@@ -12,7 +12,7 @@ import type { ProductDto, UserDto } from '@/api/generated/mockserver/models';
 import { FormNativeInput, FormNativeSelect } from '@/components/ui/form-fields';
 import { ButtonNative, ButtonVariant, ButtonSize } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import { orderFormSchema, type OrderFormData } from './schema';
 

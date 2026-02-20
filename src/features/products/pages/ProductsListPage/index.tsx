@@ -4,11 +4,11 @@ import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import type { Product, Category } from '@/api/generated/dummyjson/models';
 import { useGetAllProducts, useGetCategories } from '@/api/generated/dummyjson/products/products';
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 import { Button, ButtonVariant, DataGrid } from '@/components/ui/syncfusion';
 import type { GridConfig } from '@/lib/grid/types';
 import { FilterType, SortDirection } from '@/lib/grid/types';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 

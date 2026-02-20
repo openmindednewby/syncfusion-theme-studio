@@ -2,7 +2,7 @@ import { memo, useState, useCallback, useMemo } from 'react';
 
 import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const OPTION_COUNT = 3;
 

@@ -11,7 +11,7 @@ import { memo, forwardRef } from 'react';
 
 import type { GridConfig } from '@/lib/grid/types';
 
-import TableContent from './TableContent';
+import TableContent from './components/TableContent';
 
 import type { AggregateRowDef } from './hooks/useTableAggregates';
 import type { EditingConfig, GroupingConfig, SelectionConfig, TableColumn } from './types';

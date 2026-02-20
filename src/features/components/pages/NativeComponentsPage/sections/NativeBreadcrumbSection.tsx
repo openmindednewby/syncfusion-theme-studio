@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { HomeIcon } from '@/components/icons';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const buildBreadcrumbItems = (): BreadcrumbItem[] => [
   {

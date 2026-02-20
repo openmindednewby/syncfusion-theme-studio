@@ -18,7 +18,7 @@ import {
   MenuItemDirective,
 } from '@syncfusion/ej2-react-navigations';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 
 const Tab1Content = (): JSX.Element => (

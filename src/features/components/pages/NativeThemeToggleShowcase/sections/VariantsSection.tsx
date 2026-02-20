@@ -6,7 +6,7 @@ import { memo, useCallback, useState } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { ThemeToggleNative, ThemeToggleSize } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const SIZE_ITEMS: ReadonlyArray<{
   size: ThemeToggleSize;

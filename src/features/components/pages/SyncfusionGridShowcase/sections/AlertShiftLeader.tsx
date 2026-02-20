@@ -5,7 +5,7 @@
 import { memo } from 'react';
 
 import { IconUser } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const AMBER_COLOR = '#F59E0B';
 

@@ -6,7 +6,7 @@ import {
   MultiSelectComponent,
 } from '@syncfusion/ej2-react-dropdowns';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';

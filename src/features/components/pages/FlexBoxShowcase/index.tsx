@@ -1,4 +1,4 @@
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { ComponentTestIds } from '@/shared/testIds.components';
 
 import {

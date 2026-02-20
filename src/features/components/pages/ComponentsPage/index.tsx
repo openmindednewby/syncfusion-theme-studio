@@ -3,7 +3,7 @@ import { lazy, Suspense, useEffect } from 'react';
 import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej2-react-layouts';
 
 import { SectionSkeleton } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 

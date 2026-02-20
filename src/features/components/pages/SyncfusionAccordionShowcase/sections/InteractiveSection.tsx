@@ -12,7 +12,7 @@ import {
 } from '@syncfusion/ej2-react-navigations';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const I18N_PREFIX = 'components.accordionShowcase.interactive';

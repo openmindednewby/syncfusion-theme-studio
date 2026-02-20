@@ -1,7 +1,7 @@
 import { useState, useEffect, type RefObject } from 'react';
 
 import { MIN_SPACE_BELOW_PX } from '../constants';
-import { PopupPosition } from '../PopupPosition';
+import { PopupPosition } from '../utils/PopupPosition';
 
 /**
  * Determines whether the popup should appear above or below the trigger.

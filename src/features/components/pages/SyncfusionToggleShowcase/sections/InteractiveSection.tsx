@@ -7,7 +7,7 @@ import { memo, useCallback, useId, useState } from 'react';
 import { type ChangeEventArgs, SwitchComponent } from '@syncfusion/ej2-react-buttons';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const InteractiveSection = memo((): JSX.Element => {
   const [isActive, setIsActive] = useState(false);

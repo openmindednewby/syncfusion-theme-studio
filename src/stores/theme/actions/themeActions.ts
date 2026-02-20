@@ -2,8 +2,8 @@
 
 import { isValueDefined } from '@/utils/is';
 
-import { DEFAULT_THEME } from '../defaultTheme';
-import { injectThemeVariables } from '../themeInjector';
+import { DEFAULT_THEME } from '../utils/defaultTheme';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 import type { ThemeConfig } from '../types';
 import type { ExportImportActions, GetState, SetState, ThemeUpdateActions } from './types';

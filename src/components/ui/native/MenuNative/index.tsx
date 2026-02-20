@@ -10,7 +10,7 @@ import { memo } from 'react';
 
 import { cn } from '@/utils/cn';
 
-import TopLevelItem from './TopLevelItem';
+import TopLevelItem from './components/TopLevelItem';
 
 import type { MenuNativeProps, MenuItem } from './types';
 

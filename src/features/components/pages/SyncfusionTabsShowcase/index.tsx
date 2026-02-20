@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTabs from '@/components/ui/syncfusion/Tabs';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const DEMO_TABS = [

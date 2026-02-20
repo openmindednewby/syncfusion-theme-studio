@@ -9,9 +9,9 @@ import { useMemo } from 'react';
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import type { ProductDto } from '@/api/generated/mockserver/models';
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 

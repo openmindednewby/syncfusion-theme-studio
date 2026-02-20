@@ -24,11 +24,11 @@ import {
   assigneeTemplate,
   automationStatusTemplate,
 } from './AlertBadgeTemplates';
-import { SECURITY_ALERTS, ALERT_COLUMNS } from './alertData';
 import { AlertKpiCards } from './AlertKpiCards';
 import { AlertShiftLeader } from './AlertShiftLeader';
 import { AlertToolbar } from './AlertToolbar';
 import { ShowcaseSection } from './ShowcaseSection';
+import { SECURITY_ALERTS, ALERT_COLUMNS } from '../data/alertData';
 
 const CHECKBOX_WIDTH = 50;
 const PAGE_SIZE = 10;

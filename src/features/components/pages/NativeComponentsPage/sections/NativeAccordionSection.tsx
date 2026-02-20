@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { AccordionNative } from '@/components/ui/native';
 import type { AccordionItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const buildAccordionItems = (): AccordionItem[] => [
   {

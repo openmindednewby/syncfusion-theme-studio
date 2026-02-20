@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { ButtonNative, ButtonVariant, ButtonSize } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const NativeButtonsSection = memo((): JSX.Element => (
   <section className="card">

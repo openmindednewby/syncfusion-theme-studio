@@ -8,7 +8,7 @@ import { memo, useMemo } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DatePicker } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const DAYS_IN_MONTH = 30;
 const MS_PER_DAY = 86_400_000;

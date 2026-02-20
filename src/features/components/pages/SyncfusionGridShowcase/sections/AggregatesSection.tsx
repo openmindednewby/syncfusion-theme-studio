@@ -9,8 +9,9 @@ import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
 import { AggregateType } from '@/lib/grid/types';
 import type { AggregateRowConfig } from '@/lib/grid/types';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { ShowcaseSection } from './ShowcaseSection';
 import {
   ORDERS,
   COL_WIDTH_ID,
@@ -20,8 +21,7 @@ import {
   COL_WIDTH_PRICE,
   COL_WIDTH_TOTAL,
   COL_WIDTH_COUNTRY,
-} from './data';
-import { ShowcaseSection } from './ShowcaseSection';
+} from '../data/data';
 
 const AGGREGATE_COLUMNS: ColumnModel[] = [
   { field: 'orderId', headerText: FM('gridShowcase.orderId'), width: COL_WIDTH_ID, textAlign: 'Right' },

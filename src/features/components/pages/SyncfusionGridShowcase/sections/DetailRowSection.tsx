@@ -7,8 +7,9 @@ import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { ShowcaseSection } from './ShowcaseSection';
 import {
   EMPLOYEES,
   COL_WIDTH_ID,
@@ -17,10 +18,9 @@ import {
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_STATUS,
   GRID_HEIGHT_TALL,
-} from './data';
-import { ShowcaseSection } from './ShowcaseSection';
+} from '../data/data';
 
-import type { Employee } from './data';
+import type { Employee } from '../data/data';
 
 const DETAIL_COLUMNS: ColumnModel[] = [
   { field: 'id', headerText: FM('common.id'), width: COL_WIDTH_ID, textAlign: 'Right' },

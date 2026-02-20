@@ -5,7 +5,7 @@
  * editing, selection, column features, aggregates, toolbar, context menu,
  * detail rows, drag-and-drop, and virtualization.
  */
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import {

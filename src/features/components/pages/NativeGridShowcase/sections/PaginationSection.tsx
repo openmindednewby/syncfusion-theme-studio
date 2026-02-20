@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { GridConfig } from '@/lib/grid/types';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import { EMPLOYEE_COLUMNS, EMPLOYEES } from '../sampleData';

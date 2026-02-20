@@ -7,7 +7,7 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 
 export const TooltipSection = memo((): JSX.Element => {

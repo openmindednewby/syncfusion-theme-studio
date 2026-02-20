@@ -4,7 +4,7 @@
  */
 import { memo } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 interface ShowcaseSectionProps {
   titleKey: string;

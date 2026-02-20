@@ -1,7 +1,7 @@
 // Mode-related actions
 
-import { injectThemeVariables } from '../themeInjector';
 import { Mode } from '../types';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 
 import type { GetState, ModeActions, SetState } from './types';

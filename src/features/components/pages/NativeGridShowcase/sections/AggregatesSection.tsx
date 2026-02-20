@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { AggregateType, TableNative } from '@/components/ui/native';
 import type { AggregateRowDef } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import { ORDER_COLUMNS, ORDERS } from '../sampleData';

@@ -5,7 +5,7 @@
  */
 import { memo, useCallback, useMemo } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { cn } from '@/utils/cn';
 
 import { generatePageNumbers, ELLIPSIS } from './utils';

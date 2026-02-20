@@ -1,7 +1,7 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import { IconArrowRight } from '@/components/icons/FeatherIconsA';
 import { ExternalLink } from '@/features/components/shared/ExternalLink';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { ComponentTestIds } from '@/shared/testIds.components';
 
 const ExternalLinkShowcase = (): JSX.Element => (

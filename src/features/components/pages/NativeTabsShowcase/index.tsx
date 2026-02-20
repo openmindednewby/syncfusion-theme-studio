@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import { TabsNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const VERTICAL_TAB_COUNT = 3;

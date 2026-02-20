@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const StatesSection = memo((): JSX.Element => (
   <section className="card space-y-4">

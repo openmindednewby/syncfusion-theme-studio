@@ -4,8 +4,8 @@ import { renderHook, act } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 
 
-import { ToastProvider, useToast } from './ToastContext';
-import { buildToastClassName } from './ToastItem';
+import { ToastProvider, useToast } from './components/ToastContext';
+import { buildToastClassName } from './components/ToastItem';
 import { ToastSeverity, AUTO_DISMISS_MS, EXIT_ANIMATION_MS, MAX_VISIBLE_TOASTS } from './types';
 
 import type { Toast } from './types';

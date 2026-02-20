@@ -1,0 +1,37 @@
+// Theme store actions - assembled from split action files
+
+import {
+  createAnimationActions,
+  createColorUpdateActions,
+  createComponentConfigActions,
+  createExportImportActions,
+  createLayoutActions,
+  createModeActions,
+  createModeConfigActions,
+  createThemeUpdateActions,
+  createTypographyActions,
+  createTypographyComponentActions,
+} from '../actions';
+import { DEFAULT_THEME } from './defaultTheme';
+import { Mode } from '../types';
+
+import type { GetState, SetState } from '../actions';
+import type { ThemeState } from '../types';
+
+
+export function createThemeActions(set: SetState, get: GetState): ThemeState {
+  return {
+    mode: Mode.Dark,
+    theme: DEFAULT_THEME,
+    ...createModeActions(set, get),
+    ...createColorUpdateActions(set, get),
+    ...createModeConfigActions(set, get),
+    ...createThemeUpdateActions(set, get),
+    ...createExportImportActions(set, get),
+    ...createComponentConfigActions(set, get),
+    ...createTypographyActions(set, get),
+    ...createLayoutActions(set, get),
+    ...createTypographyComponentActions(set, get),
+    ...createAnimationActions(set, get),
+  };
+}

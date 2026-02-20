@@ -4,7 +4,7 @@
  * Demonstrates React Hook Form + Zod integration with native HTML components.
  * Shows example forms with zero Syncfusion dependencies for optimal bundle size.
  */
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import { OrderSection } from './sections/OrderSection';

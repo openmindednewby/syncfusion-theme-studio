@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 import { Outlet } from 'react-router-dom';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { useThemeInitializer, useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';
 

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-import type { SubNavId } from '@/components/layout/Sidebar/subNavId';
+import type { SubNavId } from '@/components/layout/Sidebar/utils/subNavId';
 
 interface SidebarState {
   isCollapsed: boolean;

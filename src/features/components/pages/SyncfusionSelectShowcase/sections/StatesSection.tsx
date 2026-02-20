@@ -6,7 +6,7 @@ import { memo, useMemo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { Select } from '@/components/ui/syncfusion';
 import type { SelectOption } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const COLOR_KEYS = ['colorRed', 'colorBlue', 'colorGreen'] as const;
 

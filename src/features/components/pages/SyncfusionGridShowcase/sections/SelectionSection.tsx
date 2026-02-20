@@ -8,8 +8,9 @@ import type { SelectionSettingsModel } from '@syncfusion/ej2-react-grids';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { ShowcaseSection } from './ShowcaseSection';
 import {
   EMPLOYEES,
   COL_WIDTH_ID,
@@ -17,8 +18,7 @@ import {
   COL_WIDTH_ROLE,
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_STATUS,
-} from './data';
-import { ShowcaseSection } from './ShowcaseSection';
+} from '../data/data';
 
 const CHECKBOX_WIDTH = 50;
 

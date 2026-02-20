@@ -3,7 +3,6 @@
 import { generateDerivedColors, generatePaletteFromBase } from '@/utils';
 import type { DerivedComponentColors } from '@/utils';
 
-import { injectThemeVariables } from '../themeInjector';
 import { type StatusKey, type StatusShade ,
   type ButtonsComponentConfig,
   type ColorScale,
@@ -15,6 +14,7 @@ import { type StatusKey, type StatusShade ,
   type SidebarComponentConfig,
   type ThemeConfig,
 } from '../types';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 
 import type { ColorUpdateActions, GetState, SetState } from './types';

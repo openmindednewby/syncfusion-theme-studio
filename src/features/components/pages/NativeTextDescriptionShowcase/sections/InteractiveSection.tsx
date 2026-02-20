@@ -2,7 +2,7 @@ import { memo, useState } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DescriptionNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const CONTENT_OPTIONS = [
   { labelKey: 'components.textDescriptionShowcase.toggleShort', key: 'shortContent' as const },

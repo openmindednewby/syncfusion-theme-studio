@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'];
 const DARK_SHADE_THRESHOLD = 500;

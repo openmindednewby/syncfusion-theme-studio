@@ -3,7 +3,7 @@
  */
 import type { ColumnModel } from '@syncfusion/ej2-grids';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const ID_WIDTH = 60;
 const TITLE_WIDTH = 200;

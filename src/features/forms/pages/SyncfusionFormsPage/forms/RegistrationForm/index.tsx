@@ -9,7 +9,7 @@ import { FormProvider } from 'react-hook-form';
 import { FormInput, FormCheckbox } from '@/components/ui/form-fields';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import {
   registrationFormSchema,

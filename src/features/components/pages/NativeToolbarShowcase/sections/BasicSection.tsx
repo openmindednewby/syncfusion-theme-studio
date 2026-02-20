@@ -8,7 +8,7 @@ import { CopyableCodeSnippet } from '@/components/common';
 import { CutIcon, CopyIcon, PasteIcon, UndoIcon, RedoIcon, SaveIcon } from '@/components/icons';
 import { ToolbarNative } from '@/components/ui/native';
 import type { ToolbarItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 /* ------------------------------------------------------------------ */
 /*  Toolbar items                                                     */

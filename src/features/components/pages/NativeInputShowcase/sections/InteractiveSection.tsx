@@ -6,7 +6,7 @@ import { memo, useState, useCallback } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { InputNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const InteractiveSection = memo((): JSX.Element => {
   const [value, setValue] = useState('');

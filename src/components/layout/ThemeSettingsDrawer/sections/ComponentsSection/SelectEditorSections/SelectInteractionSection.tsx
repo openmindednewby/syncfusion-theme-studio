@@ -1,8 +1,8 @@
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import type { SelectConfig } from '@/stores/theme/types';
 
-import { ColorPicker } from '../../../ColorPicker';
-import { TextInputRow } from '../../../TextInputRow';
+import { ColorPicker } from '../../../components/ColorPicker';
+import { TextInputRow } from '../../../components/TextInputRow';
 
 interface Props {
   config: SelectConfig;

@@ -1,6 +1,5 @@
 // Component configuration actions
 
-import { injectThemeVariables } from '../themeInjector';
 import { type ButtonVariant ,
   type AccordionConfig,
   type ButtonsComponentConfig,
@@ -41,6 +40,7 @@ import { type ButtonVariant ,
   type ToolbarConfig,
   type TooltipConfig,
 } from '../types';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 import type { ComponentConfigActions, GetState, SetState } from './types';
 

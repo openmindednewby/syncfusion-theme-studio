@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DescriptionNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const StatesSection = memo((): JSX.Element => (
   <section className="card space-y-4">

@@ -7,7 +7,7 @@ import {
   RatingComponent,
 } from '@syncfusion/ej2-react-inputs';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const SLIDER_DEFAULT_VALUE = 50;
 const SLIDER_MIN = 0;

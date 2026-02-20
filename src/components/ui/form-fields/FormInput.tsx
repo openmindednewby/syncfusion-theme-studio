@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import Input from '@/components/ui/syncfusion/Input';
 import type { InputProps } from '@/components/ui/syncfusion/Input';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormInputProps<T extends FieldValues>

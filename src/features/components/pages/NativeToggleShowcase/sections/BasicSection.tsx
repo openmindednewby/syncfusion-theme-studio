@@ -6,7 +6,7 @@ import { memo, useCallback, useState } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { ToggleNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const BasicSection = memo((): JSX.Element => {

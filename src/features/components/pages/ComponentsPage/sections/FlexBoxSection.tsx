@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 
 const DEMO_ITEM_COUNT = 6;

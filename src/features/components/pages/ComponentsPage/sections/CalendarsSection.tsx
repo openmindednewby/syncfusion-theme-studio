@@ -7,7 +7,7 @@ import {
   DateTimePickerComponent,
 } from '@syncfusion/ej2-react-calendars';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 
 const DAYS_IN_WEEK = 7;

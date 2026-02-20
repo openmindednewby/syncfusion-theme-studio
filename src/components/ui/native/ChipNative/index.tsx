@@ -7,7 +7,7 @@
  */
 import { memo, useCallback, type KeyboardEvent, type MouseEvent } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { cn } from '@/utils/cn';
 
 import { ChipVariant } from './chipVariant';

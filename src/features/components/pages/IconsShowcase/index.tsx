@@ -2,7 +2,7 @@ import { useCallback, useState, type ChangeEvent } from 'react';
 
 import { IconSearch } from '@/components/icons';
 import { SearchInput } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import {

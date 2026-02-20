@@ -9,12 +9,12 @@ import { useState, useCallback, useMemo } from 'react';
 
 import type { Product, Category } from '@/api/generated/dummyjson/models';
 import { useGetAllProducts, useGetCategories } from '@/api/generated/dummyjson/products/products';
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 import { ButtonNative, ButtonVariant, TableNative, TextAlign } from '@/components/ui/native';
 import type { TableColumn } from '@/components/ui/native';
 import type { GridConfig } from '@/lib/grid/types';
 import { FilterType, SortDirection } from '@/lib/grid/types';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 

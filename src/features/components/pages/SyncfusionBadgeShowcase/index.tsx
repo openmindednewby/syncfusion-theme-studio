@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionBadge, { BadgeVariant } from '@/components/ui/syncfusion/Badge';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SyncfusionBadgeShowcase = (): JSX.Element => (

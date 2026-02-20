@@ -6,7 +6,7 @@ import { memo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { StarIcon, ArrowIcon } from '@/components/icons';
 import { Button, ButtonVariant, ButtonSize } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const StatesSection = memo((): JSX.Element => (
   <section className="card space-y-4">

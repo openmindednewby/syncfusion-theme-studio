@@ -3,7 +3,7 @@
  */
 import { memo, useState, useCallback, useEffect } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const DropdownSection = memo((): JSX.Element => {

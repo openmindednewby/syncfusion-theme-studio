@@ -6,7 +6,7 @@ import { memo, useCallback } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { SplitButtonNative } from '@/components/ui/native';
 import type { SplitButtonItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const SplitButtonSection = memo((): JSX.Element => {

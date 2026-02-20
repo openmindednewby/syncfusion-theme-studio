@@ -13,7 +13,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import CheckboxNative from '@/components/ui/native/CheckboxNative';
 import type { CheckboxNativeProps } from '@/components/ui/native/CheckboxNative';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormCheckboxProps<T extends FieldValues>

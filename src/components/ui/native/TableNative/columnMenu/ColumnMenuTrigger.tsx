@@ -1,6 +1,6 @@
 import { forwardRef, memo, useCallback } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { NativeTestIds } from '@/shared/testIds.native';
 
 const ELLIPSIS_PATH = 'M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z';

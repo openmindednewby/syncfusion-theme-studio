@@ -8,7 +8,7 @@ import { memo, useState, useCallback } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DatePickerNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const InteractiveSection = memo((): JSX.Element => {
   const [dateValue, setDateValue] = useState('');

@@ -2,8 +2,8 @@
  * Shared types for Syncfusion component wrappers
  */
 
-export { ButtonVariant } from './buttonVariant';
-export { ComponentSize } from './componentSize';
+export { ButtonVariant } from './utils/buttonVariant';
+export { ComponentSize } from './utils/componentSize';
 
 /** CSS class prefix for themed components */
 export const SF_THEME_PREFIX = 'sf-themed' as const;

@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionCard from '@/components/ui/syncfusion/Card';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SyncfusionCardShowcase = (): JSX.Element => (

@@ -9,7 +9,7 @@ import { memo, useMemo } from 'react';
 import { DateRangePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const DAYS_IN_WEEK = 7;
 const MS_PER_DAY = 86_400_000;

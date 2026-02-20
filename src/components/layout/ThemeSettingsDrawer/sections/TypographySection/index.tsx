@@ -1,15 +1,15 @@
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TransitionType } from '@/stores/theme/types';
 import { useThemeStore } from '@/stores/useThemeStore';
 
 
-import { FontFamilyEditor } from './FontFamilyEditor';
-import { FontSizeEditor } from './FontSizeEditor';
-import { FontWeightEditor } from './FontWeightEditor';
-import { LetterSpacingEditor } from './LetterSpacingEditor';
-import { LineHeightEditor } from './LineHeightEditor';
-import { TextInputRow } from '../../TextInputRow';
+import { FontFamilyEditor } from './components/FontFamilyEditor';
+import { FontSizeEditor } from './components/FontSizeEditor';
+import { FontWeightEditor } from './components/FontWeightEditor';
+import { LetterSpacingEditor } from './components/LetterSpacingEditor';
+import { LineHeightEditor } from './components/LineHeightEditor';
+import { TextInputRow } from '../../components/TextInputRow';
 
 export const TypographySection = (): JSX.Element => {
   const {

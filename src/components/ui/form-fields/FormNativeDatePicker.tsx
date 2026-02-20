@@ -12,7 +12,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import DatePickerNative from '@/components/ui/native/DatePickerNative';
 import type { DatePickerNativeProps } from '@/components/ui/native/DatePickerNative';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormNativeDatePickerProps<T extends FieldValues>

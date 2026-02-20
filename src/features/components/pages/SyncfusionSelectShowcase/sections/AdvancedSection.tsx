@@ -11,7 +11,7 @@ import {
 } from '@syncfusion/ej2-react-dropdowns';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';

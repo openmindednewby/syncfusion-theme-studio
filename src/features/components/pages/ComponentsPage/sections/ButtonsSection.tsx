@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { Button, ButtonVariant, ButtonSize } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const ButtonsSection = memo((): JSX.Element => (
   <section className="card">

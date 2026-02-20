@@ -1,9 +1,9 @@
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { buildDerivedComponents } from '@/stores/theme/actions';
 import { DEFAULT_COMPONENTS_DARK, DEFAULT_COMPONENTS_LIGHT } from '@/stores/theme/defaults';
-import type { ThemePreset } from '@/stores/theme/presets';
-import { themePresets } from '@/stores/theme/presets';
 import type { ButtonsComponentConfig, ComponentsConfig } from '@/stores/theme/types';
+import type { ThemePreset } from '@/stores/theme/utils/presets';
+import { themePresets } from '@/stores/theme/utils/presets';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { generateDerivedColors } from '@/utils';
 

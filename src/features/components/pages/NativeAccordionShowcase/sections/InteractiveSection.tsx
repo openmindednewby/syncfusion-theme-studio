@@ -7,7 +7,7 @@ import { memo, useCallback, useMemo, useState } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import type { AccordionItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { cn } from '@/utils/cn';
 import { isValueDefined } from '@/utils/is';

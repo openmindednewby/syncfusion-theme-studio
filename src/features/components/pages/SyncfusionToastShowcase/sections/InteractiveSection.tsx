@@ -8,7 +8,7 @@ import { ToastComponent } from '@syncfusion/ej2-react-notifications';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { Mode } from '@/stores/mode';
 import { useThemeStore } from '@/stores/useThemeStore';
 import { cn } from '@/utils/cn';

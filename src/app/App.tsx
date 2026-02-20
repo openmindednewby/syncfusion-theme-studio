@@ -26,13 +26,13 @@ const ReactQueryDevtools = IS_DEVELOPMENT
 
 // Lazy load PWA components — deferred until after initial paint (see useDeferredMount below)
 const PWAUpdatePrompt = lazy(async () =>
-  import('@/components/common/PWAUpdatePrompt').then((m) => ({ default: m.PWAUpdatePrompt })),
+  import('@/components/common/components/PWAUpdatePrompt').then((m) => ({ default: m.PWAUpdatePrompt })),
 );
 const PWAInstallPrompt = lazy(async () =>
-  import('@/components/common/PWAInstallPrompt').then((m) => ({ default: m.PWAInstallPrompt })),
+  import('@/components/common/components/PWAInstallPrompt').then((m) => ({ default: m.PWAInstallPrompt })),
 );
 const OfflineIndicator = lazy(async () =>
-  import('@/components/common/OfflineIndicator').then((m) => ({ default: m.OfflineIndicator })),
+  import('@/components/common/components/OfflineIndicator').then((m) => ({ default: m.OfflineIndicator })),
 );
 
 /** Defers mounting until the browser is idle, keeping children off the critical rendering path. */

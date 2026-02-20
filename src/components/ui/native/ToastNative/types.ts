@@ -1,4 +1,4 @@
-import { ToastSeverity } from './toastSeverity';
+import { ToastSeverity } from './utils/toastSeverity';
 
 export { ToastSeverity };
 

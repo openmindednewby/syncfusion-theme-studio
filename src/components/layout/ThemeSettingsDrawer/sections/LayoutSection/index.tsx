@@ -1,11 +1,11 @@
 import { LayoutSectionIcon } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { useThemeStore } from '@/stores/useThemeStore';
 
-import { AnimationsEditor } from './AnimationsEditor';
-import { BorderRadiusEditor } from './BorderRadiusEditor';
-import { DimensionsEditor } from './DimensionsEditor';
-import { ShadowsEditor } from './ShadowsEditor';
+import { AnimationsEditor } from './components/AnimationsEditor';
+import { BorderRadiusEditor } from './components/BorderRadiusEditor';
+import { DimensionsEditor } from './components/DimensionsEditor';
+import { ShadowsEditor } from './components/ShadowsEditor';
 
 
 export const LayoutSection = (): JSX.Element => {

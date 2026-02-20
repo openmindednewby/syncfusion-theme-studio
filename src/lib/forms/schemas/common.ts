@@ -6,7 +6,7 @@
  */
 import { z } from 'zod';
 
-import { TE } from '@/localization/translation-error';
+import { TE } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 // Regex patterns

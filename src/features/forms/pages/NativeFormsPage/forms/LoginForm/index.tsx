@@ -4,7 +4,7 @@
 import { FormNativeInput, FormCheckbox } from '@/components/ui/form-fields';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { useFormWithSchema } from '@/lib/forms';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import { loginSchema, type LoginFormData } from './schema';
 

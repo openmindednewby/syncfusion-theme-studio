@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { AlertNative, AlertSeverity } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const NativeAlertsSection = memo((): JSX.Element => (
   <section className="card">

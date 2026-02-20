@@ -7,15 +7,15 @@
 import { useMemo, useCallback } from 'react';
 
 import type { ProductDto } from '@/api/generated/mockserver/models';
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import type { SelectOption } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 import { getProductColumns } from './columns';
-import { ProductsGrid } from './ProductsGrid';
-import { useProductCrud } from './useProductCrud';
+import { ProductsGrid } from './components/ProductsGrid';
+import { useProductCrud } from './hooks/useProductCrud';
 import { FormSection } from '../../components/FormSection';
 import { ProductForm } from '../../forms/ProductForm';
 

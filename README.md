@@ -290,6 +290,65 @@ This project follows strict coding standards:
 - Comprehensive accessibility support
 - Unit test coverage > 80%
 
+### Module Structure Convention
+
+When a component or feature directory grows beyond 3 source files, its internal files must be organized into standard subdirectories. Two custom ESLint rules enforce this: `enforce-module-structure` and `enforce-test-colocation`.
+
+**Component directory structure** (for directories with 4+ non-test source files):
+
+```
+ComponentName/
+├── index.tsx              # Main component (entry point, public API)
+├── types.ts               # Component-specific types
+├── constants.ts           # Component-specific constants
+├── components/            # Sub-components (child .tsx files)
+│   ├── SubComponentA.tsx
+│   └── SubComponentB.tsx
+├── hooks/                 # Custom hooks
+│   ├── useXxx.ts
+│   └── useXxx.test.ts     # Co-located test
+└── utils/                 # Pure helper functions
+    ├── someHelper.ts
+    └── someHelper.test.ts  # Co-located test
+```
+
+**Feature page structure:**
+
+```
+PageName/
+├── index.tsx              # Page component
+├── types.ts               # Page-level types
+├── constants.ts           # Page-level constants
+├── sections/              # Page sections (.tsx files live here directly)
+│   ├── index.ts           # Barrel export
+│   └── SectionName.tsx
+├── components/            # Page-specific sub-components
+├── hooks/                 # Page-specific hooks
+├── data/                  # Static/mock data files
+│   └── gridData.ts
+└── utils/                 # Page-specific helpers
+```
+
+**File placement rules:**
+
+| File Type | Naming Pattern | Required Location |
+|-----------|---------------|-------------------|
+| Hooks | `use*.ts` | `hooks/` subdirectory |
+| Sub-components | `PascalCase.tsx` | `components/` subdirectory (or domain subdir like `filters/`, `columnMenu/`) |
+| Helpers/utils | `camelCase.ts` | `utils/` subdirectory |
+| Data/fixtures | `*Data.ts`, `*.data.ts` | `data/` subdirectory (in features) |
+| Types | `types.ts`, `*Types.ts` | Root of component/page directory |
+| Constants | `constants.ts` | Root of component/page directory |
+| Tests | `*.test.ts(x)` | Co-located next to source file (NOT in `__tests__/`) |
+| Schema (forms) | `schema.ts` | Root of form directory |
+| Columns (grids) | `columns.ts` | Root of section directory |
+
+**Exempt directories** (flat by design, no reorganization needed): `shared/`, `presets/`, `defaults/`, `injectors/`.
+
+**Exempt section patterns**: `.tsx` files inside `sections/` and `forms/` directories are the primary content and stay at that level. Only hooks, utils, and data files in those directories need subdirectories.
+
+**Threshold**: Directories with 3 or fewer source files are not subject to these rules.
+
 ## Icons
 
 All reusable SVG icons live in `src/components/icons/`, organized for natural Vite code-splitting:

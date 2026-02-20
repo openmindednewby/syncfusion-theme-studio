@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { FlexBox, FlexGapSize } from '@/features/components/shared/FlexBox';
 import { FlexItem } from '@/features/components/shared/FlexItem';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import { ItemLabel, SectionLabel, WRAP_ITEMS } from './helpers';
 

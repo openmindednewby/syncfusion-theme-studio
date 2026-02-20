@@ -1,4 +1,4 @@
-export { CopyableCodeSnippet } from './CopyableCodeSnippet';
-export { LoadingSpinner } from './LoadingSpinner';
-export { SectionSkeleton } from './SectionSkeleton';
-export { default as ErrorBoundary } from './ErrorBoundary';
+export { CopyableCodeSnippet } from './components/CopyableCodeSnippet';
+export { LoadingSpinner } from './components/LoadingSpinner';
+export { SectionSkeleton } from './components/SectionSkeleton';
+export { default as ErrorBoundary } from './components/ErrorBoundary';

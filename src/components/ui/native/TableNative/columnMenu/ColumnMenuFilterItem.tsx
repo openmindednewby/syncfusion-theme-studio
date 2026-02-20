@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react';
 
 import { ColumnType, FilterOperator } from '@/lib/grid/types';
 import { getOperatorsForType } from '@/lib/grid/utils/filterOperatorsByType';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { NativeTestIds } from '@/shared/testIds.native';
 
 import BooleanFilter from '../filters/BooleanFilter';

@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { MenuNative } from '@/components/ui/native';
 import type { MenuItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const SEPARATOR: MenuItem = { separator: true, text: '' };
 

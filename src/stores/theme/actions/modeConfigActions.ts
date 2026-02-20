@@ -1,7 +1,7 @@
 // Mode configuration actions
 
-import { injectThemeVariables } from '../themeInjector';
 import { type Mode , type ThemeModeConfigUpdate } from '../types';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 
 

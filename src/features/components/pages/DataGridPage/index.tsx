@@ -6,7 +6,7 @@ import { SplitterComponent, PanesDirective, PaneDirective } from '@syncfusion/ej
 
 import { RoutePath } from '@/app/routePaths';
 import { ThemeEditorPanel } from '@/components/layout/ThemeEditorPanel';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 

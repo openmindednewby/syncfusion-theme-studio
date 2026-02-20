@@ -4,9 +4,9 @@
 import { RoutePath } from '@/app/routePaths';
 import { TestIds } from '@/shared/testIds';
 
-import { IconName } from './iconName';
+import { IconName } from './utils/iconName';
 
-import type { SubNavItem } from './NavExpandableItem';
+import type { SubNavItem } from './components/NavExpandableItem';
 
 export interface SubNavSection {
   id: string;

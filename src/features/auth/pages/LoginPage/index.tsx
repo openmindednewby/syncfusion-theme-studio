@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { ButtonNative, ButtonVariant, HeadingNative, HeadingLevel, InputNative, TextNative, TextVariant } from '@/components/ui/native';
 import { startPhasedPreload } from '@/config/preloadOrchestrator';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const DEFAULT_EMAIL = 'demo@example.com';

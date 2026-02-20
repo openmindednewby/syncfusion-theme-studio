@@ -4,7 +4,7 @@
 import { memo, useCallback } from 'react';
 
 import { ChipNative, ChipVariant } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const ChipSection = memo((): JSX.Element => {

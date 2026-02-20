@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTooltip, { TooltipPlacement } from '@/components/ui/syncfusion/Tooltip';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SyncfusionTooltipShowcase = (): JSX.Element => (

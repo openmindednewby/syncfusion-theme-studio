@@ -10,7 +10,7 @@ import { memo, useCallback, useState } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { TableNative } from '@/components/ui/native';
 import type { EditingConfig } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 import { PRODUCT_COLUMNS, PRODUCTS } from '../sampleData';

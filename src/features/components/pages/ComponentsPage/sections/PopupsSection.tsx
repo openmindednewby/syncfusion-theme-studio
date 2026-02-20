@@ -3,7 +3,7 @@ import { useState, useRef, useCallback, useEffect } from 'react';
 import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { DialogComponent, TooltipComponent } from '@syncfusion/ej2-react-popups';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 
 export const PopupsSection = (): JSX.Element => {

@@ -1,7 +1,7 @@
 import { memo, useState, useCallback } from 'react';
 
 import { DatePickerNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const NativeDatePickerSection = memo((): JSX.Element => {
   const [dateValue, setDateValue] = useState('');

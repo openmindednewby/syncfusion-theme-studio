@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionTag, { TagVariant } from '@/components/ui/syncfusion/Tag';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SyncfusionChipShowcase = (): JSX.Element => (

@@ -22,7 +22,7 @@ import {
   ThemeSunIcon,
   WandIcon,
 } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import FilterableIconGrid from './FilterableIconGrid';
 

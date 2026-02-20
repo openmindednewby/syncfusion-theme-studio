@@ -1,4 +1,3 @@
-import { DEFAULT_THEME } from '../defaultTheme';
 import { ARCTIC_THEME } from './arctic';
 import { COPPER_THEME } from './copper';
 import { CYBERWATCH_THEME } from './cyberWatch';
@@ -16,6 +15,7 @@ import { ROYAL_PURPLE_THEME } from './royalPurple';
 import { SLATE_THEME } from './slate';
 import { SUNSET_ORANGE_THEME } from './sunsetOrange';
 import { VOYAGER_THEME } from './voyager';
+import { DEFAULT_THEME } from '../utils/defaultTheme';
 
 import type { ThemeConfig } from '../types';
 

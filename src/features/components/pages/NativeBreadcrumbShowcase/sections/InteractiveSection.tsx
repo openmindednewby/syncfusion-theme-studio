@@ -8,7 +8,7 @@ import { memo, useCallback, useMemo, useState } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isValueDefined } from '@/utils/is';
 

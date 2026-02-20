@@ -2,8 +2,8 @@ import { memo, useCallback, type ChangeEvent, type RefObject } from 'react';
 
 import DropdownOption from './DropdownOption';
 
-import type { PopupPosition } from '../PopupPosition';
 import type { SelectOption } from '../types';
+import type { PopupPosition } from '../utils/PopupPosition';
 
 
 interface DropdownPopupProps {

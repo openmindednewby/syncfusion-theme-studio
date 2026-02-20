@@ -21,6 +21,8 @@ import noBarrelCompanionFilePlugin from './eslint-plugins/no-barrel-companion-fi
 import noDuplicateNavPrefixPlugin from './eslint-plugins/no-duplicate-nav-prefix.mjs';
 import noInlineSvgIconsPlugin from './eslint-plugins/no-inline-svg-icons.mjs';
 import noOptionalUndefinedPlugin from './eslint-plugins/no-optional-undefined.mjs';
+import enforceModuleStructurePlugin from './eslint-plugins/enforce-module-structure.mjs';
+import enforceTestColocationPlugin from './eslint-plugins/enforce-test-colocation.mjs';
 
 export default [
   // =====================================================
@@ -112,6 +114,8 @@ export default [
       'no-barrel-companion-file': noBarrelCompanionFilePlugin,
       'no-inline-svg-icons': noInlineSvgIconsPlugin,
       'no-optional-undefined': noOptionalUndefinedPlugin,
+      'enforce-module-structure': enforceModuleStructurePlugin,
+      'enforce-test-colocation': enforceTestColocationPlugin,
     },
     settings: {
       react: { version: 'detect' },
@@ -436,6 +440,17 @@ export default [
       'no-optional-undefined/no-optional-undefined': 'error',
 
       // =====================================================
+      // MODULE STRUCTURE ENFORCEMENT
+      // =====================================================
+      // Hooks → hooks/, sub-components → components/, utils → utils/
+      // Only enforced when a directory has 4+ non-test source files
+      'enforce-module-structure/enforce-module-structure': ['error', {
+        fileThreshold: 4,
+      }],
+      // Tests must be co-located next to source, not in __tests__/ dirs
+      'enforce-test-colocation/enforce-test-colocation': 'error',
+
+      // =====================================================
       // GENERAL BEST PRACTICES
       // =====================================================
       'no-console': ['error', { allow: ['warn', 'error'] }],
@@ -597,6 +612,7 @@ export default [
       'i18next/no-literal-string': 'off', // Tests use hardcoded strings
       'react-compiler/react-compiler': 'off',
       'require-stable-hook-args/require-stable-hook-args': 'off',
+      'enforce-module-structure/enforce-module-structure': 'off', // Test files follow their source
     },
   },
 

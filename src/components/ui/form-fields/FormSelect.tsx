@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import Select from '@/components/ui/syncfusion/Select';
 import type { SelectProps } from '@/components/ui/syncfusion/Select';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormSelectProps<T extends FieldValues>

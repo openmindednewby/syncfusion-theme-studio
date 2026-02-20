@@ -10,7 +10,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import SelectNative from '@/components/ui/native/SelectNative';
 import type { SelectNativeProps } from '@/components/ui/native/SelectNative';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormNativeSelectProps<T extends FieldValues>

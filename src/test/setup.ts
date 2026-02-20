@@ -16,11 +16,12 @@ vi.mock('react-i18next', () => ({
     },
     i18n: { language: 'en' },
   }),
+  initReactI18next: { type: '3rdParty', init: () => {} },
   i18nextProvider: ({ children }: { children: ReactNode }) => children,
 }));
 
 // Mock i18n module
-vi.mock('@/localization/i18n', () => ({
+vi.mock('@/localization/utils/i18n', () => ({
   default: {
     t: (key: string, options?: Record<string, string | undefined>) => {
       if (isValueDefined(options?.['p1'])) return `${key} - ${String(options?.['p1'])}`;

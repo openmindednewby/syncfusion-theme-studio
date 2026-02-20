@@ -7,8 +7,9 @@ import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { ShowcaseSection } from './ShowcaseSection';
 import {
   generateVirtualData,
   COL_WIDTH_ID,
@@ -21,8 +22,7 @@ import {
   GRID_HEIGHT_VIRTUAL,
   VIRTUAL_ROW_COUNT,
   VIRTUAL_ROW_HEIGHT,
-} from './data';
-import { ShowcaseSection } from './ShowcaseSection';
+} from '../data/data';
 
 const VIRTUAL_COLUMNS: ColumnModel[] = [
   { field: 'id', headerText: FM('common.id'), width: COL_WIDTH_ID, textAlign: 'Right' },

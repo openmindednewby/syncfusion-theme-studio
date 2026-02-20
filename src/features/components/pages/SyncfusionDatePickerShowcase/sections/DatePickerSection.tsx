@@ -8,7 +8,7 @@ import { memo } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DatePicker } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const DatePickerSection = memo((): JSX.Element => (
   <section className="card space-y-4">

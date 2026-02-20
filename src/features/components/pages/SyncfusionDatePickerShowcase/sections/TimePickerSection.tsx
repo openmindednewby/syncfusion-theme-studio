@@ -9,7 +9,7 @@ import { memo, useMemo } from 'react';
 import { DateTimePickerComponent, TimePickerComponent } from '@syncfusion/ej2-react-calendars';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const TimePickerSection = memo((): JSX.Element => {
   const now = useMemo(() => new Date(), []);

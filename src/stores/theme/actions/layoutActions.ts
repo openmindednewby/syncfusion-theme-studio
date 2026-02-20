@@ -1,6 +1,6 @@
 // Layout, border radius, and shadow update actions
 
-import { injectThemeVariables } from '../themeInjector';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 import type { BorderRadiusConfig, LayoutConfig, ShadowConfig, ThemeConfig } from '../types';
 import type { GetState, LayoutActions, SetState } from './types';

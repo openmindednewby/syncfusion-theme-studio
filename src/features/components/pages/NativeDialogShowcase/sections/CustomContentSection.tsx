@@ -5,7 +5,7 @@ import { memo, useState, useCallback } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant, DialogNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const CustomContentSection = memo((): JSX.Element => {
   const [isOpen, setIsOpen] = useState(false);

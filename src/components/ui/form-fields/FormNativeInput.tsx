@@ -12,7 +12,7 @@ import { Controller, type Control, type FieldPath, type FieldValues } from 'reac
 
 import InputNative from '@/components/ui/native/InputNative';
 import type { InputNativeProps } from '@/components/ui/native/InputNative';
-import { resolveTranslationError } from '@/localization/translation-error';
+import { resolveTranslationError } from '@/localization/utils/translation-error';
 import { isValueDefined } from '@/utils/is';
 
 interface FormNativeInputProps<T extends FieldValues>

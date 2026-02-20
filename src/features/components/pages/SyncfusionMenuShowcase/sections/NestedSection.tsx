@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { MenuComponent, type MenuItemModel } from '@syncfusion/ej2-react-navigations';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const buildSecurityMenu = (): MenuItemModel => ({
   text: FM('components.menuShowcase.security'),

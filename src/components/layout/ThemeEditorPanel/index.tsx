@@ -1,16 +1,16 @@
 import { useState, lazy, Suspense } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeStore } from '@/stores/useThemeStore';
 
-import { DrawerTabs } from '../ThemeSettingsDrawer/DrawerTabs';
-import { ImportExportSection } from '../ThemeSettingsDrawer/ImportExportSection';
-import { TabId } from '../ThemeSettingsDrawer/tabId';
+import { DrawerTabs } from '../ThemeSettingsDrawer/components/DrawerTabs';
+import { ImportExportSection } from '../ThemeSettingsDrawer/components/ImportExportSection';
+import { TabId } from '../ThemeSettingsDrawer/utils/tabId';
 
 // Lazy load heavy tab sections for better initial load performance
 const ColorsSection = lazy(async () => ({
-  default: (await import('../ThemeSettingsDrawer/ColorsSection')).ColorsSection,
+  default: (await import('../ThemeSettingsDrawer/components/ColorsSection')).ColorsSection,
 }));
 const TypographySection = lazy(async () => ({
   default: (await import('../ThemeSettingsDrawer/sections/TypographySection')).TypographySection,

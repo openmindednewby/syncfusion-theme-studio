@@ -4,7 +4,7 @@
 import { memo, useState } from 'react';
 
 import { RadioNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const RADIO_GROUP_NAME = 'showcase-radio-group';

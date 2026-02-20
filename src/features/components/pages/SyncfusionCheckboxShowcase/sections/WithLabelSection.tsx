@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 /** Syncfusion CheckBoxComponent labelPosition string values */
 const LABEL_POSITION_BEFORE = 'Before';

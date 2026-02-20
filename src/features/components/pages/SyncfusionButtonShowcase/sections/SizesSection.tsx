@@ -5,7 +5,7 @@ import { memo } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant, ButtonSize } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const SizesSection = memo((): JSX.Element => (
   <section className="card space-y-4">

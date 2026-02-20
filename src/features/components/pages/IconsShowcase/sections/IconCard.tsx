@@ -1,7 +1,7 @@
 import { memo, useCallback, useState } from 'react';
 
 import type { IconProps } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const COPIED_FEEDBACK_MS = 1500;
 

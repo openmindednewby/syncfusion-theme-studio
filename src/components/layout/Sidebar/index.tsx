@@ -9,11 +9,11 @@ import { TestIds } from '@/shared/testIds';
 import { useSidebarStore } from '@/stores/useSidebarStore';
 import { isValueDefined } from '@/utils/is';
 
-import { SidebarBottomItems } from './SidebarBottomItems';
-import { SidebarHeader } from './SidebarHeader';
-import { SidebarMainNav } from './SidebarMainNav';
-import { SidebarSearch } from './SidebarSearch';
-import { SidebarSubNav } from './SidebarSubNav';
+import { SidebarBottomItems } from './components/SidebarBottomItems';
+import { SidebarHeader } from './components/SidebarHeader';
+import { SidebarMainNav } from './components/SidebarMainNav';
+import { SidebarSearch } from './components/SidebarSearch';
+import { SidebarSubNav } from './components/SidebarSubNav';
 
 export const Sidebar = (): JSX.Element => {
   const { isCollapsed, toggle, activeSubNav } = useSidebarStore();

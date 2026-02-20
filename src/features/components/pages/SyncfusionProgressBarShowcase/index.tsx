@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionProgressBar, { ProgressBarVariant } from '@/components/ui/syncfusion/ProgressBar';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SyncfusionProgressBarShowcase = (): JSX.Element => (

@@ -1,5 +1,5 @@
-export { DEFAULT_THEME } from './defaultTheme';
-export { injectThemeVariables } from './themeInjector';
+export { DEFAULT_THEME } from './utils/defaultTheme';
+export { injectThemeVariables } from './utils/themeInjector';
 export type {
   AnimationConfig,
   BorderRadiusConfig,

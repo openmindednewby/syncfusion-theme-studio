@@ -1,7 +1,7 @@
 import { memo, useState, useCallback } from 'react';
 
 import { InputNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const NativeInputsSection = memo((): JSX.Element => {
   const [inputValue, setInputValue] = useState('');

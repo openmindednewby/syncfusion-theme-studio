@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 
 import { CYBERWATCH_THEME } from './cyberWatch';
-import { themePresets } from '../presets';
+import { themePresets } from '../utils/presets';
 
 const COLOR_SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
 const STATUS_SHADES = ['50', '100', '200', '500', '700'] as const;

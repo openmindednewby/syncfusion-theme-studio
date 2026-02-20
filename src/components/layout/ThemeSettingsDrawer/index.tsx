@@ -1,19 +1,19 @@
 import { useState, lazy, Suspense } from 'react';
 
 import { CollapseIcon, DrawerLogoIcon, ResetIcon } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
 import { useThemeStore } from '@/stores/useThemeStore';
 
-import { DrawerTabs } from './DrawerTabs';
-import { ImportExportSection } from './ImportExportSection';
-import { TabId } from './tabId';
-import { ThemeStudioLoader } from './ThemeStudioLoader';
+import { DrawerTabs } from './components/DrawerTabs';
+import { ImportExportSection } from './components/ImportExportSection';
+import { ThemeStudioLoader } from './components/ThemeStudioLoader';
+import { TabId } from './utils/tabId';
 
 // Lazy load heavy tab sections for better initial load performance
 const ColorsSection = lazy(async () => ({
-  default: (await import('./ColorsSection')).ColorsSection,
+  default: (await import('./components/ColorsSection')).ColorsSection,
 }));
 const TypographySection = lazy(async () => ({
   default: (await import('./sections/TypographySection')).TypographySection,

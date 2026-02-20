@@ -8,7 +8,7 @@ import { CopyableCodeSnippet } from '@/components/common';
 import { HomeIcon, FolderDemoIcon, ChartIcon } from '@/components/icons';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const CHEVRON_SEPARATOR = '\u203A';

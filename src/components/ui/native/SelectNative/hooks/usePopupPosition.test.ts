@@ -4,8 +4,8 @@ import { renderHook } from '@testing-library/react';
 import { describe, it, expect, vi, afterEach } from 'vitest';
 
 import { MIN_SPACE_BELOW_PX } from '../constants';
-import { PopupPosition } from '../PopupPosition';
 import { usePopupPosition } from './usePopupPosition';
+import { PopupPosition } from '../utils/PopupPosition';
 
 const VIEWPORT_HEIGHT = 800;
 const TRIGGER_HEIGHT = 40;

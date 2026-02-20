@@ -1,6 +1,6 @@
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
-import type { ThemePreset } from '@/stores/theme/presets';
+import type { ThemePreset } from '@/stores/theme/utils/presets';
 import { isValueDefined } from '@/utils/is';
 
 

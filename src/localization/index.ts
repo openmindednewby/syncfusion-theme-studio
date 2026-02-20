@@ -1,5 +1,5 @@
 /**
  * Localization module exports
  */
-export { FM, FD } from './helpers';
-export { default as i18n } from './i18n';
+export { FM, FD } from './utils/helpers';
+export { default as i18n } from './utils/i18n';

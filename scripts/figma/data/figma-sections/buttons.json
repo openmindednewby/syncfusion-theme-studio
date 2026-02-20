@@ -6,7 +6,7 @@
       "borderColor": "transparent",
       "borderRadius": "25px",
       "borderWidth": "1px",
-      "backgroundHover": "17 19 25",
+      "backgroundHover": "32 34 40",
       "textColorHover": "255 255 255",
       "backgroundActive": "255 255 255",
       "disabledBackground": "17 19 25",
@@ -20,7 +20,7 @@
       "borderColor": "223 223 223",
       "borderRadius": "25px",
       "borderWidth": "1px",
-      "backgroundHover": "255 255 255",
+      "backgroundHover": "245 245 245",
       "textColorHover": "57 64 75",
       "backgroundActive": "255 255 255",
       "disabledBackground": "255 255 255",
@@ -33,62 +33,94 @@
       "textColor": "21 21 21",
       "borderColor": "transparent",
       "borderWidth": "1px",
-      "backgroundHover": "transparent",
-      "textColorHover": "21 21 21"
+      "backgroundHover": "243 244 246",
+      "textColorHover": "21 21 21",
+      "borderRadius": "25px"
     },
     "outline": {
       "background": "transparent",
       "textColor": "21 21 21",
       "borderColor": "202 202 202",
       "borderWidth": "1px",
-      "backgroundHover": "transparent",
-      "textColorHover": "21 21 21"
-    }
-  },
-  "dark": {
-    "primary": {
-      "background": "17 19 25",
+      "backgroundHover": "243 244 246",
+      "textColorHover": "21 21 21",
+      "borderRadius": "25px"
+    },
+    "danger": {
+      "background": "220 38 38",
       "textColor": "255 255 255",
       "borderColor": "transparent",
       "borderRadius": "25px",
       "borderWidth": "1px",
-      "backgroundHover": "17 19 25",
+      "backgroundHover": "185 28 28",
       "textColorHover": "255 255 255",
-      "backgroundActive": "255 255 255",
-      "disabledBackground": "17 19 25",
+      "backgroundActive": "153 27 27",
+      "disabledBackground": "220 38 38",
       "disabledTextColor": "255 255 255",
+      "disabledBorderColor": "transparent",
+      "disabledOpacity": "0.25"
+    }
+  },
+  "dark": {
+    "primary": {
+      "background": "255 255 255",
+      "textColor": "17 19 25",
+      "borderColor": "transparent",
+      "borderRadius": "25px",
+      "borderWidth": "1px",
+      "backgroundHover": "229 231 235",
+      "textColorHover": "17 19 25",
+      "backgroundActive": "209 213 219",
+      "disabledBackground": "255 255 255",
+      "disabledTextColor": "156 163 175",
       "disabledBorderColor": "transparent",
       "disabledOpacity": "0.25"
     },
     "secondary": {
-      "background": "255 255 255",
-      "textColor": "57 64 75",
-      "borderColor": "223 223 223",
+      "background": "55 65 81",
+      "textColor": "229 231 235",
+      "borderColor": "75 85 99",
       "borderRadius": "25px",
       "borderWidth": "1px",
-      "backgroundHover": "255 255 255",
-      "textColorHover": "57 64 75",
-      "backgroundActive": "255 255 255",
-      "disabledBackground": "255 255 255",
-      "disabledTextColor": "57 64 75",
-      "disabledBorderColor": "223 223 223",
+      "backgroundHover": "75 85 99",
+      "textColorHover": "249 250 251",
+      "backgroundActive": "107 114 128",
+      "disabledBackground": "55 65 81",
+      "disabledTextColor": "107 114 128",
+      "disabledBorderColor": "75 85 99",
       "disabledOpacity": "0.25"
     },
     "ghost": {
       "background": "transparent",
-      "textColor": "21 21 21",
+      "textColor": "209 213 219",
       "borderColor": "transparent",
       "borderWidth": "1px",
-      "backgroundHover": "transparent",
-      "textColorHover": "21 21 21"
+      "borderRadius": "25px",
+      "backgroundHover": "55 65 81",
+      "textColorHover": "249 250 251"
     },
     "outline": {
       "background": "transparent",
-      "textColor": "21 21 21",
-      "borderColor": "202 202 202",
+      "textColor": "209 213 219",
+      "borderColor": "156 163 175",
       "borderWidth": "1px",
-      "backgroundHover": "transparent",
-      "textColorHover": "21 21 21"
+      "borderRadius": "25px",
+      "backgroundHover": "55 65 81",
+      "textColorHover": "249 250 251"
+    },
+    "danger": {
+      "background": "239 68 68",
+      "textColor": "255 255 255",
+      "borderColor": "transparent",
+      "borderRadius": "25px",
+      "borderWidth": "1px",
+      "backgroundHover": "248 113 113",
+      "textColorHover": "255 255 255",
+      "backgroundActive": "252 165 165",
+      "disabledBackground": "239 68 68",
+      "disabledTextColor": "156 163 175",
+      "disabledBorderColor": "transparent",
+      "disabledOpacity": "0.25"
     }
   },
   "typography": {

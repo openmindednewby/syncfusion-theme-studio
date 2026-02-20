@@ -7,7 +7,7 @@ import { memo, useId } from 'react';
 import { SwitchComponent } from '@syncfusion/ej2-react-buttons';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const StatesSection = memo((): JSX.Element => {
   const disabledOnId = useId();

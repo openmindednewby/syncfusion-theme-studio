@@ -1,7 +1,7 @@
 // Typography and transition update actions
 
-import { injectThemeVariables } from '../themeInjector';
 import { FontFamilyType, type TransitionType , type FontSizeScale, type FontWeightScale, type LetterSpacingScale, type LineHeightScale } from '../types';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 
 import type { GetState, SetState, TypographyActions } from './types';

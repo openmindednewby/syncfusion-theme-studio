@@ -6,7 +6,7 @@ import { memo, useState, useCallback } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { Input } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const InteractiveSection = memo((): JSX.Element => {
   const [value, setValue] = useState('');

@@ -16,7 +16,7 @@ import {
 } from '@/api/generated/mockserver/orders/orders';
 import { useMockServerWebProductsList } from '@/api/generated/mockserver/products/products';
 import { useMockServerWebUsersList } from '@/api/generated/mockserver/users/users';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 import { OrderForm } from '../../forms/OrderForm';

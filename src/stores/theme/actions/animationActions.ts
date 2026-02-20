@@ -1,6 +1,6 @@
 // Animation configuration actions
 
-import { injectThemeVariables } from '../themeInjector';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 import type { AnimationConfig } from '../types';
 import type { AnimationActions, GetState, SetState } from './types';

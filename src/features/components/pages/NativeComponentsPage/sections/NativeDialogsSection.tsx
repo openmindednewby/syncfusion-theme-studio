@@ -1,7 +1,7 @@
 import { memo, useState, useCallback } from 'react';
 
 import { ButtonNative, ButtonVariant, DialogNative, DialogVariant } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const NativeDialogsSection = memo((): JSX.Element => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

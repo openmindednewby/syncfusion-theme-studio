@@ -7,7 +7,7 @@ import { memo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { BreadcrumbNative } from '@/components/ui/native';
 import type { BreadcrumbItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const TWO_ITEM_TRAIL: BreadcrumbItem[] = [

@@ -8,18 +8,18 @@ import type { EditSettingsModel } from '@syncfusion/ej2-react-grids';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { ShowcaseSection } from './ShowcaseSection';
 import {
   COL_WIDTH_ID,
   COL_WIDTH_NAME,
   COL_WIDTH_EMAIL,
   COL_WIDTH_ROLE,
   COL_WIDTH_COMMAND,
-} from './data';
-import { ShowcaseSection } from './ShowcaseSection';
+} from '../data/data';
 
-import type { Employee } from './data';
+import type { Employee } from '../data/data';
 
 const INITIAL_EDIT_DATA: Employee[] = [
   { id: 1, name: 'Alice Martin', email: 'alice@co.com', role: 'Manager', status: 'Active', department: 'Engineering', salary: 95000, hireDate: '2020-03-15', country: 'USA' },

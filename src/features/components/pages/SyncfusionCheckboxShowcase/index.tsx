@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 

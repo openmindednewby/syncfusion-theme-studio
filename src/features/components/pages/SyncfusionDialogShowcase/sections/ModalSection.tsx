@@ -5,7 +5,7 @@ import { memo, useState, useCallback } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { Button, ButtonVariant, Dialog, DialogVariant } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const ModalSection = memo((): JSX.Element => {
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);

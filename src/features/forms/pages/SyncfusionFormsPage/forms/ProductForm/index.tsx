@@ -12,7 +12,7 @@ import { FormInput, FormSelect } from '@/components/ui/form-fields';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import type { SelectOption } from '@/components/ui/syncfusion';
 import { useFormWithSchema } from '@/lib/forms';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import {
   defaultProductFormValues,

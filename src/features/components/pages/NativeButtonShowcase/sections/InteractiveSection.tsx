@@ -5,7 +5,7 @@ import { memo, useCallback, useState } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const INITIAL_COUNT = 0;
 

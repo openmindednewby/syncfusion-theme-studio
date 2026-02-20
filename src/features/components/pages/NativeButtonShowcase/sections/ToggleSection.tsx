@@ -4,7 +4,7 @@
 import { memo, useState, useCallback } from 'react';
 
 import { ToggleNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const ToggleSection = memo((): JSX.Element => {

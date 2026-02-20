@@ -1,5 +1,5 @@
 import { IconShieldCheck } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const NotImplementedPage = (): JSX.Element => (
   <div className="flex min-h-[60vh] flex-col items-center justify-center gap-4">

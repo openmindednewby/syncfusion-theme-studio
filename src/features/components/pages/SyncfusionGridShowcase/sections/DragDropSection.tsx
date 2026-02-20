@@ -7,8 +7,9 @@ import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { ShowcaseSection } from './ShowcaseSection';
 import {
   COL_WIDTH_ID,
   COL_WIDTH_NAME,
@@ -16,10 +17,9 @@ import {
   COL_WIDTH_DEPARTMENT,
   COL_WIDTH_STATUS,
   PAGE_SIZE_FIVE,
-} from './data';
-import { ShowcaseSection } from './ShowcaseSection';
+} from '../data/data';
 
-import type { Employee } from './data';
+import type { Employee } from '../data/data';
 
 const DRAG_DATA: Employee[] = [
   { id: 1, name: 'Alice Martin', email: 'alice@co.com', role: 'Manager', status: 'Active', department: 'Engineering', salary: 95000, hireDate: '2020-03-15', country: 'USA' },

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { FEATHER_ICON_ENTRIES } from '@/components/icons/featherIconEntries';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import FilterableIconGrid from './FilterableIconGrid';
 

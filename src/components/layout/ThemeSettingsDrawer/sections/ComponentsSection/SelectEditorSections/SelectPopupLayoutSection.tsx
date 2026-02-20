@@ -1,7 +1,7 @@
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import type { SelectConfig } from '@/stores/theme/types';
 
-import { TextInputRow } from '../../../TextInputRow';
+import { TextInputRow } from '../../../components/TextInputRow';
 
 interface Props {
   config: SelectConfig;

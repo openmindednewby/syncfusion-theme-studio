@@ -2,7 +2,7 @@ import { CopyableCodeSnippet } from '@/components/common';
 import { BadgeNativeVariant as BadgeVariant } from '@/components/ui/native';
 import { AlertBadge } from '@/features/components/shared/AlertBadge';
 import { AlertBadgeAppearance } from '@/features/components/shared/alertBadgeAppearance';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const AlertBadgeShowcase = (): JSX.Element => (

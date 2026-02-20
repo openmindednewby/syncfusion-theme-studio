@@ -6,7 +6,7 @@ import { memo } from 'react';
 
 import { IconDownload, IconFilter, IconRefresh, IconSearch, IconSettings } from '@/components/icons';
 import { SearchInput } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SEARCH_MAX_WIDTH = 300;

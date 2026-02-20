@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 
 import { DEFAULT_TYPOGRAPHY_COMPONENTS } from '../defaults';
-import { DEFAULT_THEME } from '../defaultTheme';
 import { injectTypographyComponentVariables } from './typographyComponentInjector';
+import { DEFAULT_THEME } from '../utils/defaultTheme';
 
 describe('injectTypographyComponentVariables', () => {
   it('writes correct CSS variables for all levels', () => {

@@ -7,10 +7,10 @@
 import { useMemo, useCallback } from 'react';
 
 import type { UserDto } from '@/api/generated/mockserver/models';
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 import { ButtonNative, ButtonVariant } from '@/components/ui/native';
 import { DataGrid } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 import { getUserColumns } from './columns';

@@ -5,7 +5,7 @@ import { memo, useCallback, useState } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { CheckboxNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const INITIAL_STATE = {
   emails: false,

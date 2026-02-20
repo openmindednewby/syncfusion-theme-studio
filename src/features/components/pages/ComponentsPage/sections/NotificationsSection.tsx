@@ -4,7 +4,7 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 import { MessageComponent , ToastComponent } from '@syncfusion/ej2-react-notifications';
 
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 

@@ -9,7 +9,7 @@ import {
   ChipDirective,
 } from '@syncfusion/ej2-react-buttons';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const SelectionSection = (): JSX.Element => {
   const enabledSwitchId = useId();

@@ -86,10 +86,11 @@ Figma REST API
 figma:extract              data/figma-extract.json         (1 API call, stores everything)
     |
     v
-figma:generate:badges      data/figma-sections/badges.json (intermediate)
-figma:generate:buttons     data/figma-sections/buttons.json (future)
-figma:generate:input       data/figma-sections/input.json   (future)
-    ...
+figma:generate:badges      data/figma-sections/badges.json      (intermediate)
+figma:generate:buttons     data/figma-sections/buttons.json     (intermediate)
+figma:generate:input       data/figma-sections/inputs.json      (intermediate)
+figma:generate:nav-menus   data/figma-sections/menu.json        (intermediate)
+    ...                    (9 section generators total)
     |
     v
 figma:generate             1. reads extract + ALL section JSONs
@@ -129,11 +130,18 @@ Section generators are independent. You can run one without running the others.
 | Section | Script | Status |
 |---------|--------|--------|
 | Badges | `generate-badges.ts` | Implemented |
+| Buttons | `generate-buttons.ts` + `-helpers.ts` + `-dark.ts` | Implemented |
+| Inputs | `generate-inputs.ts` | Implemented |
+| Form Controls | `generate-form-controls.ts` | Implemented |
+| External Links | `generate-external-links.ts` | Implemented |
+| Nav Menus | `generate-nav-menus.ts` | Implemented |
+| Text Description | `generate-text-description.ts` | Implemented |
+| Icons | `generate-icons.ts` | Implemented |
 | Typography | stub | Future |
 | Colours | stub | Future |
-| Buttons | stub | Future |
-| Input | stub | Future |
-| (21 more) | stub | Future |
+| (13 more) | stub | Future |
+
+For detailed documentation on how generators work, patterns, and how to add new ones, see [docs/FIGMA_SECTION_GENERATORS.md](../../docs/FIGMA_SECTION_GENERATORS.md).
 
 **Phase 2.5: Post-Processing Corrections** (automatic, no command needed)
 
@@ -165,9 +173,10 @@ data/figma-corrections/alertBadges.json  (our override — paddingTop: "7px")
 src/stores/theme/presets/figmaDesign.ts  (generated — paddingTop: "7px")
 ```
 
-The `figma-corrections/` directory currently has two files:
+The `figma-corrections/` directory currently has three files:
 - **`badges.json`** — fixes light mode text colors (white → dark)
 - **`alertBadges.json`** — fixes paddingTop (2px → 7px)
+- **`buttons.json`** — empty placeholder for post-visual-QA button fine-tuning
 
 If you re-run `figma:extract` and `figma:generate:badges` in the future, the section JSONs get overwritten but the corrections persist and are re-applied automatically on the next `figma:generate`.
 
@@ -184,7 +193,9 @@ If you re-run `figma:extract` and `figma:generate:badges` in the future, the sec
 `npm run figma:sync` runs all three phases in order:
 
 ```
-extract  -->  generate:badges  -->  generate
+extract → generate:icons → generate:badges → generate:buttons → generate:form-controls
+  → generate:input → generate:description → generate:external-link → generate:nav-menus
+  → generate
 ```
 
 ---
@@ -194,7 +205,26 @@ extract  -->  generate:badges  -->  generate
 ```
 scripts/figma/
   extract.ts                    Phase 1: Figma API -> JSON
+  extract-badges.ts             Badge extraction logic
+  extract-buttons.ts            Button extraction logic (multi-strategy)
+  extract-inputs.ts             Input extraction logic
+  extract-form-controls.ts      Checkbox + radio extraction logic
+  extract-external-link.ts      External link extraction logic
+  extract-nav-menus.ts          Nav menu extraction logic
+  extract-text-description.ts   Text description extraction logic
+  extract-icons.ts              Icon SVG extraction logic
+  button-helpers.ts             Button COMPONENT_SET parsing utilities
+  nav-menu-helpers.ts           Nav menu parsing utilities
   generate-badges.ts            Phase 2: Badges section generator
+  generate-buttons.ts           Phase 2: Buttons main pipeline
+  generate-buttons-helpers.ts   Buttons: color utilities, hover derivation, danger synthesis
+  generate-buttons-dark.ts      Buttons: dark mode derivation
+  generate-inputs.ts            Phase 2: Inputs section generator
+  generate-form-controls.ts     Phase 2: Checkbox + radio generator
+  generate-external-links.ts    Phase 2: External links generator
+  generate-nav-menus.ts         Phase 2: Nav menus + sidebar generator
+  generate-text-description.ts  Phase 2: Text description generator
+  generate-icons.ts             Phase 2: Icon TSX component generator
   corrections.ts                Phase 2.5: Deep-merges correction files onto sections
   generate.ts                   Phase 3: Combines sections -> figmaDesign.ts
   code-generators.ts            TypeScript code generation helpers
@@ -207,10 +237,18 @@ scripts/figma/
     figma-sections/
       badges.json               Badge section overrides (generated)
       alertBadges.json          Alert badge section overrides (generated)
-      buttons.json              (future)
-      ...
+      buttons.json              Button section overrides (generated)
+      inputs.json               Input section overrides (generated)
+      checkbox.json             Checkbox overrides (generated)
+      radio.json                Radio overrides (generated)
+      externalLink.json         External link overrides (generated)
+      menu.json                 Nav menu overrides (generated)
+      sidebar.json              Sidebar overrides (generated)
+      textDescription.json      Text description overrides (generated)
     figma-corrections/
       badges.json               Fixes light mode badge text colors
+      alertBadges.json          Fixes alert badge padding
+      buttons.json              Button fine-tuning (empty, populate after visual QA)
 
 src/stores/theme/
   presets/
@@ -426,15 +464,15 @@ Figma API → figmaDesign.ts (generated theme values)
 
 ## Adding a New Section
 
-To implement a new section generator (e.g., buttons):
+For the full step-by-step guide with code patterns and coding standards, see [docs/FIGMA_SECTION_GENERATORS.md](../../docs/FIGMA_SECTION_GENERATORS.md#adding-a-new-section-generator).
 
-1. **Create the extraction logic** in `extract.ts` to find and parse the Figma nodes for that section
-2. **Create `generate-buttons.ts`** that reads `figma-extract.json`, maps Figma values to theme keys, writes `data/figma-sections/buttons.json`
-3. **Replace the stub** in `package.json`: change `"figma:generate:buttons": "echo [STUB]..."` to `"figma:generate:buttons": "tsx scripts/figma/generate-buttons.ts"`
-4. **Update `figma:sync`** to include the new generator in the pipeline chain
-5. **Run `figma:generate`** which automatically picks up `buttons.json` and adds it to `figmaDesign.ts`
+Quick summary:
 
-The main generator discovers section files automatically from `data/figma-sections/*.json`, so no changes needed there.
+1. **Add extraction logic** in `extract.ts` (or a dedicated `extract-<section>.ts`)
+2. **Create `generate-<section>.ts`** following the common pattern (see docs)
+3. **Register npm script** in `package.json` and add to `figma:sync`
+4. **Run `figma:generate`** which auto-discovers `data/figma-sections/*.json`
+5. **Add corrections** in `data/figma-corrections/<section>.json` if needed
 
 ---
 
@@ -456,6 +494,13 @@ Corrections are matched by filename. Only keys present in the correction file ar
 |---------|-------------|
 | `npm run figma:extract` | Fetch Figma file and save raw extraction JSON |
 | `npm run figma:generate:badges` | Generate badge section overrides from extraction |
+| `npm run figma:generate:buttons` | Generate button section overrides from extraction |
+| `npm run figma:generate:input` | Generate input section overrides from extraction |
+| `npm run figma:generate:form-controls` | Generate checkbox + radio overrides |
+| `npm run figma:generate:external-link` | Generate external link overrides |
+| `npm run figma:generate:nav-menus` | Generate nav menu + sidebar overrides |
+| `npm run figma:generate:description` | Generate text description overrides |
+| `npm run figma:generate:icons` | Generate icon TSX components |
 | `npm run figma:generate` | Combine all sections into `figmaDesign.ts` |
 | `npm run figma:sync` | Full pipeline: extract + all generators + combine |
 | `npm run figma:discover` | Explore Figma file structure (development tool) |
@@ -469,16 +514,17 @@ Corrections are matched by filename. Only keys present in the correction file ar
 | Foundation | Typography | Yes | - | stub | - |
 | Foundation | Colours | Yes | - | stub | - |
 | Foundation | Layouts / Grid | Review | - | stub | - |
-| Foundation | Icons | - | - | stub | - |
+| Foundation | **Icons** | **Yes** | **Yes** | **generate-icons.ts** | **Yes** |
 | Components | **Badges** | **Yes** | **Yes** | **generate-badges.ts** | **Yes** |
-| Components | Buttons | Yes | - | stub | - |
+| Components | **Buttons** | **Yes** | **Yes** | **generate-buttons.ts** | **Yes** |
 | Components | **Description** | **Yes** | **Yes** | **generate-text-description.ts** | **Yes** |
-| Components | Input | Yes | - | stub | - |
+| Components | **Input** | **Yes** | **Yes** | **generate-inputs.ts** | **Yes** |
+| Components | **Form Controls** | **Yes** | **Yes** | **generate-form-controls.ts** | **Yes** |
+| Components | **External Link** | **Yes** | **Yes** | **generate-external-links.ts** | **Yes** |
+| Components | **Navigation Menus** | **Yes** | **Yes** | **generate-nav-menus.ts** | **Yes** |
 | Components | Drawer | Future | - | stub | - |
-| Components | External Link | Yes | - | stub | - |
 | Components | Notifications / Alerts | Future | - | stub | - |
 | Components | Image | Future | - | stub | - |
-| Components | Navigation Menus | - | - | stub | - |
 | Components | Drop Down Lists | - | - | stub | - |
 | Components | Breadcrumbs | - | - | stub | - |
 | Components | Data Grid | - | - | stub | - |

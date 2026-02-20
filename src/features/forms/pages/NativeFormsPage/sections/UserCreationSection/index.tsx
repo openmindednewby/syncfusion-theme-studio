@@ -14,7 +14,7 @@ import {
   useMockServerWebUsersList,
   getMockServerWebUsersListQueryKey,
 } from '@/api/generated/mockserver/users/users';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 import { FormSection } from '../../../SyncfusionFormsPage/components/FormSection';

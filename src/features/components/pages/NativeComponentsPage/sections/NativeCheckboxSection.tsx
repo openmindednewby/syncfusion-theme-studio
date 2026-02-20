@@ -1,7 +1,7 @@
 import { memo, useState, useCallback } from 'react';
 
 import { CheckboxNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const NativeCheckboxSection = memo((): JSX.Element => {
   const [checkboxChecked, setCheckboxChecked] = useState(true);

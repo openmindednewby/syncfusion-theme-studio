@@ -12,7 +12,7 @@ import {
 } from '@syncfusion/ej2-react-navigations';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 const InteractiveBreadcrumb = memo((): JSX.Element => {

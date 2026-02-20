@@ -1,6 +1,6 @@
 // Typography component configuration actions
 
-import { injectThemeVariables } from '../themeInjector';
+import { injectThemeVariables } from '../utils/themeInjector';
 
 import type { ThemeConfig, TypographyComponentsConfig } from '../types';
 import type { GetState, SetState } from './types';

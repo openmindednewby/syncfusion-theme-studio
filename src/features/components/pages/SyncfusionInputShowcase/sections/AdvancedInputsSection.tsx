@@ -7,7 +7,7 @@ import { memo, useId } from 'react';
 import { NumericTextBoxComponent } from '@syncfusion/ej2-react-inputs';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const NUMERIC_DEFAULT = 42;
 const NUMERIC_MIN = 0;

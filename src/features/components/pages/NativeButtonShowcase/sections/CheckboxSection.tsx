@@ -4,7 +4,7 @@
 import { memo, useState } from 'react';
 
 import { CheckboxNative } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const CheckboxSection = memo((): JSX.Element => {

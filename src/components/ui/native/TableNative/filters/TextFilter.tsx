@@ -3,7 +3,7 @@
  */
 import { useCallback } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import useDebouncedFilter from '../hooks/useDebouncedFilter';
 

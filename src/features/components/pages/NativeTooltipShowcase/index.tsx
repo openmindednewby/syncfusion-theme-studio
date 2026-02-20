@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import { TooltipNative, TooltipPlacement } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const NativeTooltipShowcase = (): JSX.Element => (

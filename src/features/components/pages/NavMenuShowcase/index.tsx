@@ -1,7 +1,7 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import { NavMenu } from '@/features/components/shared/NavMenu';
 import type { NavMenuItem } from '@/features/components/shared/NavMenu';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { ComponentTestIds } from '@/shared/testIds.components';
 
 const BASIC_ITEMS: NavMenuItem[] = [

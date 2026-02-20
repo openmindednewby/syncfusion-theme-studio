@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { RoutePath } from '@/app/routePaths';
 import { HeadingNative, HeadingLevel, TextNative, TextVariant } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
 

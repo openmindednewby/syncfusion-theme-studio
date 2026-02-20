@@ -2,7 +2,7 @@ import { lazy, Suspense, type ComponentType } from 'react';
 
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
 
-import { LoadingSpinner } from '@/components/common/LoadingSpinner';
+import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 
 import { RoutePath, RouteRedirectTarget, RouteSegment } from './routePaths';
 import { componentShowcaseRoutes } from './routes/componentShowcaseRoutes';

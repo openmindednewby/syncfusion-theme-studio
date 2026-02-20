@@ -8,7 +8,7 @@ import { CheckBoxComponent } from '@syncfusion/ej2-react-buttons';
 import type { ChangeEventArgs } from '@syncfusion/ej2-react-buttons';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const INITIAL_STATE = {
   emails: false,

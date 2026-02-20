@@ -6,7 +6,7 @@ import { memo, useState, useCallback, useMemo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const COLOR_KEYS = ['colorRed', 'colorBlue', 'colorGreen', 'colorYellow', 'colorPurple'] as const;
 

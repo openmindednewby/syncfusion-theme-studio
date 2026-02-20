@@ -1,9 +1,9 @@
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import type { BackgroundColors, BorderColors, TextColors } from '@/stores/theme/types';
 import { Mode } from '@/stores/theme/types';
 import { useThemeStore } from '@/stores/useThemeStore';
 
-import { ColorPicker } from '../../ColorPicker';
+import { ColorPicker } from '../../components/ColorPicker';
 
 const BACKGROUND_KEYS: Array<keyof BackgroundColors> = [
   'page',

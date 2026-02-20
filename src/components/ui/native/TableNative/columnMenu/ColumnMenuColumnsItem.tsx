@@ -1,6 +1,6 @@
 import { memo, useState, useCallback } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { NativeTestIds } from '@/shared/testIds.native';
 import { cn } from '@/utils/cn';
 

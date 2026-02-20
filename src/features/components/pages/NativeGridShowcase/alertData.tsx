@@ -9,14 +9,14 @@ import type { TableColumn } from '@/components/ui/native';
 import { AlertBadge } from '@/features/components/shared/AlertBadge';
 import { AlertBadgeAppearance } from '@/features/components/shared/alertBadgeAppearance';
 import { TableActionMenu } from '@/features/components/shared/TableActionMenu';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
+import { SECURITY_ALERTS as TYPED_ALERTS } from '../SyncfusionGridShowcase/data/alertData';
 import {
   getSeverityVariant, getScoreVariant, getSlaVariant,
 } from '../SyncfusionGridShowcase/sections/AlertBadgeTemplates';
-import { SECURITY_ALERTS as TYPED_ALERTS } from '../SyncfusionGridShowcase/sections/alertData';
 
-export type { SecurityAlert } from '../SyncfusionGridShowcase/sections/alertData';
+export type { SecurityAlert } from '../SyncfusionGridShowcase/data/alertData';
 
 // Column widths aligned with the Syncfusion grid
 const COL_WIDTH_ID = 100;

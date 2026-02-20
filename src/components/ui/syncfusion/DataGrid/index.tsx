@@ -18,10 +18,10 @@ import { cn } from '@/utils/cn';
 import { isNotEmptyArray, isValueDefined } from '@/utils/is';
 
 import { DEFAULT_PAGE_SETTINGS } from './constants';
-import { useGridCallbacks } from './useGridCallbacks';
-import { useGridFeatures } from './useGridFeatures';
-import { useGridPageSettings } from './useGridPageSettings';
-import { useGridPopupEffects } from './useGridPopupEffects';
+import { useGridCallbacks } from './hooks/useGridCallbacks';
+import { useGridFeatures } from './hooks/useGridFeatures';
+import { useGridPageSettings } from './hooks/useGridPageSettings';
+import { useGridPopupEffects } from './hooks/useGridPopupEffects';
 
 import type { DataGridProps } from './types';
 

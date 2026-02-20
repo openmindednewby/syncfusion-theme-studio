@@ -7,7 +7,7 @@ import { memo, useCallback, useState } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { MenuNative } from '@/components/ui/native';
 import type { MenuItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 import { isValueDefined } from '@/utils/is';
 

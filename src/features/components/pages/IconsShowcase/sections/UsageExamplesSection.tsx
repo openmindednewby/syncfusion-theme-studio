@@ -2,7 +2,7 @@ import { memo } from 'react';
 
 import { CopyableCodeSnippet } from '@/components/common';
 import { IconShieldCheck } from '@/components/icons';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const SNIPPET_DEFAULT = '<IconShieldCheck />';
 const SNIPPET_SIZE = 'className="h-8 w-8"';

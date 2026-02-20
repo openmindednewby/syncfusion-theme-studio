@@ -7,7 +7,7 @@ import { memo, useMemo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { AccordionNative } from '@/components/ui/native';
 import type { AccordionItem } from '@/components/ui/native';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const I18N_PREFIX = 'components.accordionShowcase';

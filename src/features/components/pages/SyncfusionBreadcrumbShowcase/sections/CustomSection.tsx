@@ -11,7 +11,7 @@ import {
 } from '@syncfusion/ej2-react-navigations';
 
 import { CopyableCodeSnippet } from '@/components/common';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 const dotSeparator = (): JSX.Element => <span className="mx-1 text-text-secondary">.</span>;
 

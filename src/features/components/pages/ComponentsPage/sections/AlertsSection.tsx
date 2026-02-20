@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 import { MessageComponent } from '@syncfusion/ej2-react-notifications';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { loadSyncfusionCss, SyncfusionCssModule } from '@/utils';
 
 /** Syncfusion MessageComponent severity string values */

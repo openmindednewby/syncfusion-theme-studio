@@ -5,8 +5,8 @@
 import { RoutePath, RoutePrefix } from '@/app/routePaths';
 import { TestIds } from '@/shared/testIds';
 
-import { IconName } from './iconName';
-import { COMPONENTS_CHILDREN } from './sidebarComponentGroups';
+import { IconName } from './utils/iconName';
+import { COMPONENTS_CHILDREN } from './utils/sidebarComponentGroups';
 import {
   FORMS_CHILDREN,
   PRODUCTS_CHILDREN,
@@ -15,11 +15,11 @@ import {
   COMPLIANCE_CHILDREN,
   PERFORMANCE_CHILDREN,
   THREAT_INTEL_CHILDREN,
-} from './sidebarNavChildren';
-import { THREAT_DETECTION_CHILDREN } from './sidebarThreatDetectionGroups';
-import { SubNavId } from './subNavId';
+} from './utils/sidebarNavChildren';
+import { THREAT_DETECTION_CHILDREN } from './utils/sidebarThreatDetectionGroups';
+import { SubNavId } from './utils/subNavId';
 
-import type { NavChild } from './NavExpandableItem';
+import type { NavChild } from './components/NavExpandableItem';
 
 /** A simple (non-expandable) nav item */
 export interface SidebarNavItem {

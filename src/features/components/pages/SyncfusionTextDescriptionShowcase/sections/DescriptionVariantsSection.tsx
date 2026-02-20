@@ -3,7 +3,7 @@ import { memo } from 'react';
 import { CopyableCodeSnippet } from '@/components/common';
 import { HeadingNative, HeadingLevel } from '@/components/ui/native';
 import { SyncfusionDescription } from '@/components/ui/syncfusion';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 export const DescriptionVariantsSection = memo((): JSX.Element => (
   <section className="card space-y-4">

@@ -1,7 +1,7 @@
 import { memo } from 'react';
 
 import { CUSTOM_ICON_ENTRIES } from '@/components/icons/customIconEntries';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 
 import FilterableIconGrid from './FilterableIconGrid';
 

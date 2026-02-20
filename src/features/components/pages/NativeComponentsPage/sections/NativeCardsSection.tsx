@@ -1,6 +1,6 @@
 import { memo } from 'react';
 
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 export const NativeCardsSection = memo((): JSX.Element => (

@@ -8,7 +8,7 @@ import { useState, useCallback, useMemo } from 'react';
 
 import type { UserDto } from '@/api/generated/mockserver/models';
 import { useMockServerWebUsersSearch } from '@/api/generated/mockserver/users/users';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
 import { LoginForm } from '../../forms/LoginForm';

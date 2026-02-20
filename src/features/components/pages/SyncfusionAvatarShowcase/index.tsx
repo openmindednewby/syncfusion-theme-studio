@@ -1,6 +1,6 @@
 import { CopyableCodeSnippet } from '@/components/common';
 import SyncfusionAvatar, { AvatarSize } from '@/components/ui/syncfusion/Avatar';
-import { FM } from '@/localization/helpers';
+import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
 const SyncfusionAvatarShowcase = (): JSX.Element => (

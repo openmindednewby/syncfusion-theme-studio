@@ -1793,10 +1793,8 @@
     "sidebarShowcase": {
       "title": "Sidebar",
       "description": "Themed sidebar navigation component driven by CSS custom properties for background, borders, active/hover states, and search input styling.",
-      "navigationTitle": "Navigation Items",
-      "navigationDescription": "Sidebar items with icons, active state highlighting, and hover effects using theme CSS variables.",
-      "searchTitle": "Search Input",
-      "searchDescription": "Themed search input styled with sidebar-specific CSS variables for background, border, and focus states."
+      "navigationTitle": "Sidebar Demo",
+      "navigationDescription": "Interactive replica of the app sidebar showing header, search, expandable groups, active/hover states, and bottom items — all styled via sidebar CSS variables."
     },
     "alertBadgeShowcase": {
       "title": "Alert Badge",

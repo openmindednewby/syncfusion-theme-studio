@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FlexBox, FlexGapSize } from '@/features/components/shared/FlexBox';
 import { FlexItem } from '@/features/components/shared/FlexItem';
 import { FM } from '@/localization/helpers';
@@ -48,6 +49,7 @@ export const GapSection = memo((): JSX.Element => (
         </FlexBox>
       </div>
     </div>
+    <CopyableCodeSnippet code={'<FlexBox gap={FlexGapSize.Middle}>\n  <FlexItem>A</FlexItem>\n  <FlexItem>B</FlexItem>\n  <FlexItem>C</FlexItem>\n</FlexBox>'} />
   </section>
 ));
 
@@ -93,6 +95,7 @@ export const WrapSection = memo((): JSX.Element => (
         </FlexBox>
       </div>
     </div>
+    <CopyableCodeSnippet code={'<FlexBox wrap>\n  <FlexItem style={{ minWidth: \'100px\' }}>Item</FlexItem>\n</FlexBox>'} />
   </section>
 ));
 

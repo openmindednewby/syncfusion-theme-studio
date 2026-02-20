@@ -155,6 +155,7 @@ export const COMPONENTS_CHILDREN: NavChild[] = [
     ],
   },
   { path: RoutePath.ComponentsNavMenuNative, labelKey: 'menu.navMenu', testId: ComponentTestIds.NAV_NAVMENU_GROUP },
+  { path: RoutePath.ComponentsSidebarNative, labelKey: 'menu.sidebar', testId: ComponentTestIds.NAV_SIDEBAR_GROUP },
   { path: RoutePath.ComponentsThemeToggleNative, labelKey: 'menu.themeToggleNative', testId: ComponentTestIds.NAV_THEMETOGGLE_NATIVE },
   {
     labelKey: 'menu.timeline', testId: ComponentTestIds.NAV_TIMELINE_GROUP,

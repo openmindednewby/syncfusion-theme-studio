@@ -172,6 +172,7 @@
     "tooltipNative": "Tooltip",
     "tooltipSyncfusion": "Tooltip",
     "navMenu": "Nav Menu",
+    "sidebar": "Sidebar",
     "themeToggleNative": "Theme Toggle",
     "native": "Native",
     "syncfusion": "Syncfusion",
@@ -788,11 +789,13 @@
       },
       "externalLink": {
         "title": "External Link",
-        "description": "Styling for external link components with hover states.",
+        "description": "Styling for external link components with hover and disabled states.",
         "textColor": "Text Color",
         "iconColor": "Icon Color",
         "hoverTextColor": "Hover Text Color",
         "hoverIconColor": "Hover Icon Color",
+        "disabledTextColor": "Disabled Text",
+        "disabledIconColor": "Disabled Icon",
         "fontFamily": "Font Family",
         "fontSize": "Font Size",
         "fontWeight": "Font Weight",
@@ -1787,6 +1790,14 @@
       "nestedTitle": "Nested Navigation",
       "nestedDescription": "Navigation menu with sub-menu indicators for nested items."
     },
+    "sidebarShowcase": {
+      "title": "Sidebar",
+      "description": "Themed sidebar navigation component driven by CSS custom properties for background, borders, active/hover states, and search input styling.",
+      "navigationTitle": "Navigation Items",
+      "navigationDescription": "Sidebar items with icons, active state highlighting, and hover effects using theme CSS variables.",
+      "searchTitle": "Search Input",
+      "searchDescription": "Themed search input styled with sidebar-specific CSS variables for background, border, and focus states."
+    },
     "alertBadgeShowcase": {
       "title": "Alert Badge",
       "description": "Themed badge component for security alerts, severity levels, SLA status, and risk scores"
@@ -1854,7 +1865,8 @@
       "featherIcons": "Feather Icons",
       "featherIconsDescription": "Complete Feather icon set (270 icons). Auto-generated from the feather-icons package.",
       "customIcons": "Custom Icons",
-      "customIconsDescription": "Media controls and convenience aliases not available in the Feather set."
+      "customIconsDescription": "Media controls and convenience aliases not available in the Feather set.",
+      "searchPlaceholder": "Search icons by name..."
     },
     "avatarShowcase": {
       "nativeTitle": "Native Avatar",
@@ -1924,6 +1936,8 @@
       "title": "External Link",
       "description": "Clickable text with external-link icon that opens in a new tab.",
       "defaultTitle": "Default Links",
+      "disabledTitle": "Disabled Links",
+      "disabledDescription": "Links can be disabled to indicate unavailable actions while preserving layout.",
       "useCasesTitle": "Use Cases",
       "useCasesDescription": "Common patterns for external links in documentation and reference contexts.",
       "docsLabel": "Docs:",
@@ -1931,7 +1945,9 @@
       "supportLabel": "Support:",
       "inlineTitle": "Inline Links",
       "inlinePrefix": "Links work inline with text. Visit ",
-      "inlineSuffix": " for more information."
+      "inlineSuffix": " for more information.",
+      "customIconTitle": "Custom Icons",
+      "customIconDescription": "Pass a custom icon via the icon prop. The default external-link icon is used when none is provided."
     },
     "themeToggleShowcase": {
       "nativeTitle": "Native Theme Toggle",

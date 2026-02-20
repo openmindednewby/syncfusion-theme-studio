@@ -43,6 +43,7 @@ import {
   SyncfusionTextDescriptionShowcase,
   NativeThemeToggleShowcase,
   NavMenuShowcase,
+  SidebarShowcase,
   NativeTooltipShowcase,
   SyncfusionTooltipShowcase,
   SyncfusionAccordionShowcase,
@@ -184,6 +185,9 @@ export const componentShowcaseRoutes: RouteObject[] = [
   // NavMenu
   { path: RouteSegment.ComponentsNavMenu, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsNavMenuNative, element: <LazyShowcase component={NavMenuShowcase} /> },
+  // Sidebar
+  { path: RouteSegment.ComponentsSidebar, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
+  { path: RouteSegment.ComponentsSidebarNative, element: <LazyShowcase component={SidebarShowcase} /> },
   // ThemeToggle
   { path: RouteSegment.ComponentsThemeToggle, element: <Navigate replace to={RouteRedirectTarget.Native} /> },
   { path: RouteSegment.ComponentsThemeToggleNative, element: <LazyShowcase component={NativeThemeToggleShowcase} /> },

@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { IconShieldCheck } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 
@@ -44,6 +45,7 @@ const UsageExamplesSection = (): JSX.Element => (
         </div>
       </div>
     </div>
+    <CopyableCodeSnippet code={'import { IconShieldCheck } from \'@/components/icons\';\n\n<IconShieldCheck />\n<IconShieldCheck className="h-8 w-8" />\n<IconShieldCheck className="h-6 w-6 text-status-success" />'} />
   </section>
 );
 

@@ -298,7 +298,6 @@ local_resource(
     cmd='npm run figma:generate:external-link',
     resource_deps=['figma-extract'],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    auto_init=False,
     allow_parallel=True,
 )
 
@@ -328,7 +327,6 @@ local_resource(
     cmd='npm run figma:generate:nav-menus',
     resource_deps=['figma-extract'],
     trigger_mode=TRIGGER_MODE_MANUAL,
-    auto_init=False,
     allow_parallel=True,
 )
 

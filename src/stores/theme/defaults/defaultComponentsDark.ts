@@ -135,6 +135,8 @@ export const DEFAULT_COMPONENTS_DARK: ComponentConfigSingle = {
     iconColor: '96 165 250',
     hoverTextColor: '147 197 253',
     hoverIconColor: '147 197 253',
+    disabledTextColor: '107 114 128',
+    disabledIconColor: '107 114 128',
     typography: { fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: '500', lineHeight: '1.5', letterSpacing: '0px' },
     textDecoration: 'none',
     gap: '4px',

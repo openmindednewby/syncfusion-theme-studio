@@ -24,7 +24,7 @@ import {
 } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 
-import IconCard from './IconCard';
+import FilterableIconGrid from './FilterableIconGrid';
 
 const SETTINGS_ICONS = [
   { name: 'CheckIcon', icon: CheckIcon },
@@ -49,17 +49,15 @@ const SETTINGS_ICONS = [
   { name: 'WandIcon', icon: WandIcon },
 ] as const;
 
-const SettingsIconsSection = (): JSX.Element => (
-  <section className="card space-y-4">
-    <h3 className="text-lg font-semibold text-text-primary">
-      {FM('components.iconsShowcase.settingsIcons')}
-    </h3>
-    <div className="grid grid-cols-2 gap-1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-      {SETTINGS_ICONS.map((entry) => (
-        <IconCard key={entry.name} icon={entry.icon} name={entry.name} />
-      ))}
-    </div>
-  </section>
+const CODE = 'import { CheckIcon, WandIcon, ExportIcon } from \'@/components/icons\';\n\n<WandIcon />\n<ExportIcon className="h-5 w-5" />';
+
+const SettingsIconsSection = ({ filter }: { filter: string }): JSX.Element | null => (
+  <FilterableIconGrid
+    codeSnippet={CODE}
+    filter={filter}
+    icons={SETTINGS_ICONS}
+    title={FM('components.iconsShowcase.settingsIcons')}
+  />
 );
 
 export default memo(SettingsIconsSection);

@@ -100,6 +100,8 @@ export interface ExternalLinkConfig {
   iconColor: string;
   hoverTextColor: string;
   hoverIconColor: string;
+  disabledTextColor: string;
+  disabledIconColor: string;
   typography: ExternalLinkTypography;
   textDecoration: string;
   gap: string;

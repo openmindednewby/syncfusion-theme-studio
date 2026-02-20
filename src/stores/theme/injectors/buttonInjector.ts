@@ -1,26 +1,39 @@
 // Button-specific CSS variable injection utilities
 
 import { loadLocalFont } from './fontLoader';
+import { ShadowScale } from '../types';
 
 import type { ComponentConfigSingle } from '../types';
 
 const VARIANTS = ['primary', 'secondary', 'outline', 'ghost', 'danger'] as const;
 
+/** Wrap color value in rgb() unless it's a CSS keyword like transparent/inherit. */
+function cssColor(value: string): string {
+  return value === 'transparent' || value === 'inherit' ? value : `rgb(${value})`;
+}
+
+/** Resolve borderRadius: literal px values pass through, scale tokens use var(). */
+function cssBorderRadius(value: string): string {
+  return /^\d/.test(value) ? value : `var(--radius-${value})`;
+}
+
 function injectButtonVariantVars(root: HTMLElement, c: ComponentConfigSingle): void {
   for (const v of VARIANTS) {
     const btn = c.buttons[v];
     const prefix = `--component-button-${v}`;
-    root.style.setProperty(`${prefix}-bg`, `rgb(${btn.background})`);
-    root.style.setProperty(`${prefix}-bg-hover`, `rgb(${btn.backgroundHover})`);
-    root.style.setProperty(`${prefix}-bg-active`, `rgb(${btn.backgroundActive})`);
-    root.style.setProperty(`${prefix}-text`, `rgb(${btn.textColor})`);
-    root.style.setProperty(`${prefix}-text-hover`, `rgb(${btn.textColorHover})`);
-    root.style.setProperty(`${prefix}-border`, `rgb(${btn.borderColor})`);
+    root.style.setProperty(`${prefix}-bg`, cssColor(btn.background));
+    root.style.setProperty(`${prefix}-bg-hover`, cssColor(btn.backgroundHover));
+    root.style.setProperty(`${prefix}-bg-active`, cssColor(btn.backgroundActive));
+    root.style.setProperty(`${prefix}-text`, cssColor(btn.textColor));
+    root.style.setProperty(`${prefix}-text-hover`, cssColor(btn.textColorHover));
+    root.style.setProperty(`${prefix}-border`, cssColor(btn.borderColor));
     root.style.setProperty(`${prefix}-border-width`, btn.borderWidth);
-    root.style.setProperty(`${prefix}-border-radius`, btn.borderRadius);
-    root.style.setProperty(`${prefix}-disabled-bg`, `rgb(${btn.disabledBackground})`);
-    root.style.setProperty(`${prefix}-disabled-text`, `rgb(${btn.disabledTextColor})`);
-    root.style.setProperty(`${prefix}-disabled-border`, `rgb(${btn.disabledBorderColor})`);
+    root.style.setProperty(`${prefix}-border-radius`, cssBorderRadius(btn.borderRadius));
+    const shadowValue = btn.shadow === ShadowScale.None ? 'none' : `var(--shadow-${btn.shadow})`;
+    root.style.setProperty(`${prefix}-shadow`, shadowValue);
+    root.style.setProperty(`${prefix}-disabled-bg`, cssColor(btn.disabledBackground));
+    root.style.setProperty(`${prefix}-disabled-text`, cssColor(btn.disabledTextColor));
+    root.style.setProperty(`${prefix}-disabled-border`, cssColor(btn.disabledBorderColor));
     root.style.setProperty(`${prefix}-disabled-opacity`, btn.disabledOpacity);
   }
 }

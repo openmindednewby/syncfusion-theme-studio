@@ -60,6 +60,16 @@ export const ExternalLinkEditor = ({ config, onUpdate }: ExternalLinkEditorProps
             value={config.hoverIconColor}
             onChange={(value) => onUpdate({ hoverIconColor: value })}
           />
+          <ColorPicker
+            label={FM('themeSettings.components.externalLink.disabledTextColor')}
+            value={config.disabledTextColor}
+            onChange={(value) => onUpdate({ disabledTextColor: value })}
+          />
+          <ColorPicker
+            label={FM('themeSettings.components.externalLink.disabledIconColor')}
+            value={config.disabledIconColor}
+            onChange={(value) => onUpdate({ disabledIconColor: value })}
+          />
         </div>
         <div className="grid grid-cols-2 gap-2">
           <Field

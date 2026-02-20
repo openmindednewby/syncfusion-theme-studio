@@ -1,6 +1,7 @@
 // Dedicated nav menu generation pipeline
-// Reads figma-extract.json, maps nav menu colors to theme MenuConfig fields,
+// Reads figma-extract.json, maps nav menu colors to theme MenuConfig + SidebarComponentConfig fields,
 // writes intermediate JSON for the main generator to consume.
+// NavMenu and Sidebar share the same Figma source — the navigation menu component.
 // Usage: npx tsx scripts/figma/generate-nav-menus.ts
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
@@ -10,7 +11,8 @@ import type { FigmaExtraction, NavMenuColorData } from './types';
 
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
 const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
-const OUTPUT_PATH = resolve(SECTIONS_DIR, 'menu.json');
+const MENU_OUTPUT_PATH = resolve(SECTIONS_DIR, 'menu.json');
+const SIDEBAR_OUTPUT_PATH = resolve(SECTIONS_DIR, 'sidebar.json');
 
 function loadExtraction(): FigmaExtraction {
   if (!existsSync(EXTRACT_PATH)) {
@@ -32,7 +34,17 @@ interface MenuOverride {
   separatorColor?: string;
 }
 
-function mapModeToOverride(data: NavMenuColorData): MenuOverride {
+interface SidebarOverride {
+  background?: string;
+  textColor?: string;
+  activeItemBackground?: string;
+  activeItemTextColor?: string;
+  hoverItemBackground?: string;
+  borderRight?: string;
+  searchHighlightColor?: string;
+}
+
+function mapModeToMenuOverride(data: NavMenuColorData): MenuOverride {
   const override: MenuOverride = {};
 
   override.background = data.background;
@@ -45,8 +57,22 @@ function mapModeToOverride(data: NavMenuColorData): MenuOverride {
   if (data.iconColor) override.iconColor = data.iconColor;
   if (data.separatorColor) override.separatorColor = data.separatorColor;
 
-  // Use activeTextColor as popupTextColor isn't a separate field in extraction
-  // The menu popup inherits from the main menu colors
+  return override;
+}
+
+function mapModeToSidebarOverride(data: NavMenuColorData): SidebarOverride {
+  const override: SidebarOverride = {};
+
+  override.background = data.background;
+  override.textColor = data.textColor;
+  override.activeItemBackground = data.activeBackground;
+  override.activeItemTextColor = data.activeTextColor;
+  override.borderRight = data.borderColor;
+
+  if (data.hoverBackground) override.hoverItemBackground = data.hoverBackground;
+
+  // Use the active background color for search highlight consistency
+  override.searchHighlightColor = data.activeBackground;
 
   return override;
 }
@@ -60,21 +86,25 @@ function main(): void {
     return;
   }
 
-  const lightOverride = mapModeToOverride(extraction.navMenus.light);
-  const darkOverride = mapModeToOverride(extraction.navMenus.dark);
-
-  const lightFields = Object.keys(lightOverride).length;
-  const darkFields = Object.keys(darkOverride).length;
-  console.log(`Nav menu overrides: ${lightFields} light + ${darkFields} dark fields`);
-
-  const output = {
-    light: lightOverride,
-    dark: darkOverride,
-  };
-
   mkdirSync(SECTIONS_DIR, { recursive: true });
-  writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));
-  console.log(`Written: ${OUTPUT_PATH}`);
+
+  // --- Menu overrides ---
+  const lightMenuOverride = mapModeToMenuOverride(extraction.navMenus.light);
+  const darkMenuOverride = mapModeToMenuOverride(extraction.navMenus.dark);
+
+  const menuOutput = { light: lightMenuOverride, dark: darkMenuOverride };
+  writeFileSync(MENU_OUTPUT_PATH, JSON.stringify(menuOutput, null, 2));
+  console.log(`Menu overrides: ${Object.keys(lightMenuOverride).length} light + ${Object.keys(darkMenuOverride).length} dark fields`);
+  console.log(`Written: ${MENU_OUTPUT_PATH}`);
+
+  // --- Sidebar overrides (derived from the same nav menu source) ---
+  const lightSidebarOverride = mapModeToSidebarOverride(extraction.navMenus.light);
+  const darkSidebarOverride = mapModeToSidebarOverride(extraction.navMenus.dark);
+
+  const sidebarOutput = { light: lightSidebarOverride, dark: darkSidebarOverride };
+  writeFileSync(SIDEBAR_OUTPUT_PATH, JSON.stringify(sidebarOutput, null, 2));
+  console.log(`Sidebar overrides: ${Object.keys(lightSidebarOverride).length} light + ${Object.keys(darkSidebarOverride).length} dark fields`);
+  console.log(`Written: ${SIDEBAR_OUTPUT_PATH}`);
 }
 
 main();

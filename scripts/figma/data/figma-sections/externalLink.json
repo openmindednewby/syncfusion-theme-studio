@@ -1,0 +1,40 @@
+{
+  "light": {
+    "textColor": "59 69 89",
+    "iconColor": "59 69 89",
+    "hoverTextColor": "30 41 59",
+    "hoverIconColor": "30 41 59",
+    "disabledTextColor": "156 163 175",
+    "disabledIconColor": "156 163 175",
+    "typography": {
+      "fontFamily": "Fira Sans",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "lineHeight": "12px",
+      "letterSpacing": "0px"
+    },
+    "textDecoration": "underline",
+    "gap": "4px",
+    "iconSize": "14px",
+    "transitionDuration": "150ms"
+  },
+  "dark": {
+    "textColor": "200 210 225",
+    "iconColor": "200 210 225",
+    "hoverTextColor": "226 232 240",
+    "hoverIconColor": "226 232 240",
+    "disabledTextColor": "107 114 128",
+    "disabledIconColor": "107 114 128",
+    "typography": {
+      "fontFamily": "Fira Sans",
+      "fontSize": "12px",
+      "fontWeight": "400",
+      "lineHeight": "12px",
+      "letterSpacing": "0px"
+    },
+    "textDecoration": "underline",
+    "gap": "4px",
+    "iconSize": "14px",
+    "transitionDuration": "150ms"
+  }
+}

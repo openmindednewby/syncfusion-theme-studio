@@ -1,4 +1,5 @@
 import { CopyableCodeSnippet } from '@/components/common';
+import { IconArrowRight } from '@/components/icons/FeatherIconsA';
 import { ExternalLink } from '@/features/components/shared/ExternalLink';
 import { FM } from '@/localization/helpers';
 import { ComponentTestIds } from '@/shared/testIds.components';
@@ -19,6 +20,15 @@ const ExternalLinkShowcase = (): JSX.Element => (
         <CopyableCodeSnippet code='<ExternalLink href="https://example.com" text="Example Link" />' />
       </section>
       <section className="card space-y-4">
+        <h3 className="text-lg font-semibold text-text-primary">{FM('components.externalLinkShowcase.disabledTitle')}</h3>
+        <p className="text-sm text-text-secondary">{FM('components.externalLinkShowcase.disabledDescription')}</p>
+        <div className="flex flex-wrap gap-6">
+          <ExternalLink disabled href="https://example.com" testId="external-link-disabled" text="Disabled Link" />
+          <ExternalLink disabled href="https://example.com/docs" testId="external-link-disabled-docs" text="Unavailable Docs" />
+        </div>
+        <CopyableCodeSnippet code='<ExternalLink href="https://example.com" text="Disabled Link" disabled />' />
+      </section>
+      <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('components.externalLinkShowcase.useCasesTitle')}</h3>
         <p className="text-sm text-text-secondary">{FM('components.externalLinkShowcase.useCasesDescription')}</p>
         <div className="space-y-3">
@@ -36,6 +46,16 @@ const ExternalLinkShowcase = (): JSX.Element => (
           </div>
         </div>
         <CopyableCodeSnippet code='<ExternalLink href="https://docs.example.com" text="View Documentation" />' />
+      </section>
+      <section className="card space-y-4">
+        <h3 className="text-lg font-semibold text-text-primary">{FM('components.externalLinkShowcase.customIconTitle')}</h3>
+        <p className="text-sm text-text-secondary">{FM('components.externalLinkShowcase.customIconDescription')}</p>
+        <div className="flex flex-wrap gap-6">
+          <ExternalLink href="https://example.com" icon={<IconArrowRight />} testId="external-link-custom-icon" text="With Arrow" />
+          <ExternalLink href="https://example.com" testId="external-link-default-icon" text="Default Icon" />
+          <ExternalLink disabled href="https://example.com" icon={<IconArrowRight />} testId="external-link-custom-disabled" text="Disabled Custom" />
+        </div>
+        <CopyableCodeSnippet code='<ExternalLink href="https://example.com" text="With Arrow" icon={<IconArrowRight />} />' />
       </section>
       <section className="card space-y-4">
         <h3 className="text-lg font-semibold text-text-primary">{FM('components.externalLinkShowcase.inlineTitle')}</h3>

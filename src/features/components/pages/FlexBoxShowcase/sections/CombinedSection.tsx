@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FlexBox, FlexGapSize } from '@/features/components/shared/FlexBox';
 import { FlexItem } from '@/features/components/shared/FlexItem';
 import { FM } from '@/localization/helpers';
@@ -49,6 +50,7 @@ export const CombinedSection = memo((): JSX.Element => (
         </FlexBox>
       </FlexBox>
     </FlexBox>
+    <CopyableCodeSnippet code={'<FlexBox vertical gap={FlexGapSize.Middle}>\n  <FlexBox align="center" justify="space-between">\n    <FlexItem>Logo</FlexItem>\n    <FlexBox gap={FlexGapSize.Small}>\n      <FlexItem>Nav 1</FlexItem>\n      <FlexItem>Nav 2</FlexItem>\n    </FlexBox>\n  </FlexBox>\n  <FlexBox gap={FlexGapSize.Middle}>\n    <FlexBox vertical flex="0 0 200px">Sidebar</FlexBox>\n    <FlexBox vertical flex="1">Main</FlexBox>\n  </FlexBox>\n</FlexBox>'} />
   </section>
 ));
 

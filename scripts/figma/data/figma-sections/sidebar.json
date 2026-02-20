@@ -1,0 +1,18 @@
+{
+  "light": {
+    "background": "250 251 252",
+    "textColor": "55 65 81",
+    "activeItemBackground": "0 83 104",
+    "activeItemTextColor": "255 255 255",
+    "borderRight": "229 231 235",
+    "searchHighlightColor": "0 83 104"
+  },
+  "dark": {
+    "background": "17 24 39",
+    "textColor": "209 213 219",
+    "activeItemBackground": "0 83 104",
+    "activeItemTextColor": "255 255 255",
+    "borderRight": "55 65 81",
+    "searchHighlightColor": "0 83 104"
+  }
+}

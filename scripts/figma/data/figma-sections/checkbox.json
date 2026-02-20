@@ -1,0 +1,16 @@
+{
+  "light": {
+    "checkedBackground": "59 130 246",
+    "checkedBorderColor": "59 130 246",
+    "checkmarkColor": "255 255 255",
+    "uncheckedBorderColor": "209 213 219",
+    "indeterminateBackground": "59 130 246"
+  },
+  "dark": {
+    "checkedBackground": "59 130 246",
+    "checkedBorderColor": "59 130 246",
+    "checkmarkColor": "255 255 255",
+    "uncheckedBorderColor": "209 213 219",
+    "indeterminateBackground": "59 130 246"
+  }
+}

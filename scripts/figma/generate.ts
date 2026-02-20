@@ -7,7 +7,7 @@ import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
 import type { ComponentSectionOverrides } from './code-generators';
-import { generatePresetCode } from './code-generators';
+import { generatePresetCode, generateSplitPresetCode } from './code-generators';
 import { deepMergeCorrections } from './corrections';
 import { FIGMA_MAPPING } from './figma-mapping';
 import type { ExtractedProperty, FigmaExtraction, FigmaPropertyType, MappingRule } from './types';
@@ -17,10 +17,8 @@ import { deepSet, figmaColorToRgb } from './utils';
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
 const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
 const CORRECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-corrections');
-const OUTPUT_PATH = resolve(
-  import.meta.dirname,
-  '../../src/stores/theme/presets/figmaDesign.ts',
-);
+const PRESETS_DIR = resolve(import.meta.dirname, '../../src/stores/theme/presets');
+const OUTPUT_PATH = resolve(PRESETS_DIR, 'figmaDesign.ts');
 
 interface MappingResult {
   mapped: number;
@@ -133,8 +131,16 @@ function main(): void {
     console.log(`\nComponent sections: ${sectionNames.join(', ')}`);
   }
 
-  const code = generatePresetCode(extraction, colorOverrides, componentSections);
-  writeFileSync(OUTPUT_PATH, code);
+  if (sectionNames.length > 0) {
+    const files = generateSplitPresetCode(extraction, colorOverrides, componentSections);
+    writeFileSync(OUTPUT_PATH, files.mainPreset);
+    writeFileSync(resolve(PRESETS_DIR, 'figmaDesignComponents.ts'), files.components);
+    writeFileSync(resolve(PRESETS_DIR, 'figmaDesignComponentsLight.ts'), files.componentsLight);
+    writeFileSync(resolve(PRESETS_DIR, 'figmaDesignComponentsDark.ts'), files.componentsDark);
+  } else {
+    const code = generatePresetCode(extraction, colorOverrides, componentSections);
+    writeFileSync(OUTPUT_PATH, code);
+  }
 
   console.log(`\nGenerated: ${OUTPUT_PATH}`);
   console.log(`${result.mapped}/${totalRules} color mappings applied`);

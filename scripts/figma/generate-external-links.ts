@@ -14,8 +14,10 @@ const OUTPUT_PATH = resolve(SECTIONS_DIR, 'externalLink.json');
 
 const DEFAULT_LIGHT_TEXT_COLOR = '59 130 246';
 const DEFAULT_LIGHT_HOVER_COLOR = '37 99 235';
+const DEFAULT_LIGHT_DISABLED_COLOR = '156 163 175';
 const DEFAULT_DARK_TEXT_COLOR = '96 165 250';
 const DEFAULT_DARK_HOVER_COLOR = '147 197 253';
+const DEFAULT_DARK_DISABLED_COLOR = '107 114 128';
 
 function loadExtraction(): FigmaExtraction {
   if (!existsSync(EXTRACT_PATH)) {
@@ -49,15 +51,20 @@ function main(): void {
     letterSpacing: externalLink.letterSpacing ?? '0px',
   };
 
+  const textDecoration = externalLink.textDecoration ?? 'none';
+  const gap = externalLink.gap ?? '4px';
+
   const output = {
     light: {
       textColor: externalLink.textColor || DEFAULT_LIGHT_TEXT_COLOR,
       iconColor: externalLink.iconColor || DEFAULT_LIGHT_TEXT_COLOR,
       hoverTextColor: DEFAULT_LIGHT_HOVER_COLOR,
       hoverIconColor: DEFAULT_LIGHT_HOVER_COLOR,
+      disabledTextColor: externalLink.disabledTextColor || DEFAULT_LIGHT_DISABLED_COLOR,
+      disabledIconColor: externalLink.disabledIconColor || DEFAULT_LIGHT_DISABLED_COLOR,
       typography,
-      textDecoration: 'none',
-      gap: '4px',
+      textDecoration,
+      gap,
       iconSize: '14px',
       transitionDuration: '150ms',
     },
@@ -66,9 +73,11 @@ function main(): void {
       iconColor: DEFAULT_DARK_TEXT_COLOR,
       hoverTextColor: DEFAULT_DARK_HOVER_COLOR,
       hoverIconColor: DEFAULT_DARK_HOVER_COLOR,
+      disabledTextColor: DEFAULT_DARK_DISABLED_COLOR,
+      disabledIconColor: DEFAULT_DARK_DISABLED_COLOR,
       typography,
-      textDecoration: 'none',
-      gap: '4px',
+      textDecoration,
+      gap,
       iconSize: '14px',
       transitionDuration: '150ms',
     },

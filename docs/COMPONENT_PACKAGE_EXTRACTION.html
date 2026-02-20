@@ -1,0 +1,1969 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>COMPONENT_PACKAGE_EXTRACTION.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="component-package-extraction-guide">Component Package Extraction Guide</h1>
+<p>This document describes the current state of <code>SyncfusionThemeStudio/src/components</code> and what is required to extract them into a standalone, shareable npm package for use across UI projects.</p>
+<p>Two extraction paths are covered:</p>
+<ol>
+<li><strong>Native-only package</strong> - Zero third-party UI dependencies, CSS-variable-driven</li>
+<li><strong>Syncfusion-only package</strong> - Themed wrappers around Syncfusion EJ2 React components</li>
+</ol>
+<hr>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ul>
+<li><a href="#current-architecture-overview">Current Architecture Overview</a></li>
+<li><a href="#path-a-native-components-package">Path A: Native Components Package</a></li>
+<li><a href="#path-b-syncfusion-components-package">Path B: Syncfusion Components Package</a></li>
+<li><a href="#shared-infrastructure-both-paths">Shared Infrastructure (Both Paths)</a></li>
+<li><a href="#recommended-package-structure">Recommended Package Structure</a></li>
+<li><a href="#consumer-setup">Consumer Setup</a></li>
+<li><a href="#migration-checklist">Migration Checklist</a></li>
+<li><a href="#why-syncfusion-extraction-is-fundamentally-harder-than-native">Why Syncfusion Extraction is Fundamentally Harder Than Native</a></li>
+<li><a href="#what-must-exist-at-the-project-root-and-why">What Must Exist at the Project Root (and Why)</a></li>
+<li><a href="#how-the-project-was-built-and-why-it-needs-rework">How the Project Was Built and Why It Needs Rework</a></li>
+<li><a href="#critical-css-layer-ordering-and-style-loading">Critical: CSS Layer Ordering and Style Loading</a></li>
+</ul>
+<hr>
+<h2 id="current-architecture-overview">Current Architecture Overview</h2>
+<h3 id="component-inventory">Component Inventory</h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Location</th>
+<th>Files</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Native UI</td>
+<td><code>src/components/ui/native/</code></td>
+<td>126</td>
+<td>Zero-dependency components using CSS variables + Tailwind</td>
+</tr>
+<tr>
+<td>Syncfusion wrappers</td>
+<td><code>src/components/ui/syncfusion/</code></td>
+<td>39</td>
+<td>Theme-aware wrappers around Syncfusion EJ2 React</td>
+</tr>
+<tr>
+<td>Shared types</td>
+<td><code>src/components/ui/shared/</code></td>
+<td>22</td>
+<td>Const enums, interfaces, and type definitions</td>
+</tr>
+<tr>
+<td>Form field adapters</td>
+<td><code>src/components/ui/form-fields/</code></td>
+<td>9</td>
+<td>React Hook Form integrations for both native and Syncfusion</td>
+</tr>
+<tr>
+<td>Icons</td>
+<td><code>src/components/icons/</code></td>
+<td>30+</td>
+<td>Feather icon wrappers and custom icon sets</td>
+</tr>
+</tbody>
+</table>
+<h3 id="style-system-critical-dependency">Style System (Critical Dependency)</h3>
+<p>All components are styled through a <strong>CSS custom property system</strong>. Styles live in <code>src/styles/layers/</code>:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Lines</th>
+<th>Used By</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>base.css</code></td>
+<td>395</td>
+<td>Both</td>
+<td>CSS variables: colors, typography, radius, transitions, component defaults, dark mode</td>
+</tr>
+<tr>
+<td><code>components.css</code></td>
+<td>1,395</td>
+<td>Native</td>
+<td>Component classes: <code>.native-btn</code>, <code>.native-select</code>, <code>.native-input</code>, etc.</td>
+</tr>
+<tr>
+<td><code>native-overrides.css</code></td>
+<td>148</td>
+<td>Native</td>
+<td>Native-specific style corrections</td>
+</tr>
+<tr>
+<td><code>syncfusion-overrides.css</code></td>
+<td>1,946</td>
+<td>Syncfusion</td>
+<td>Overrides for Syncfusion default styling to match theme</td>
+</tr>
+<tr>
+<td><code>syncfusion-themed.css</code></td>
+<td>281</td>
+<td>Syncfusion</td>
+<td>Theme-aware Syncfusion class definitions (<code>.sf-themed</code>, <code>.sf-light</code>, <code>.sf-dark</code>)</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Layer order</strong> (increasing specificity):</p>
+<pre class="hljs"><code><div>base -&gt; syncfusion-base -&gt; components -&gt; syncfusion-overrides -&gt; utilities
+</div></code></pre>
+<h3 id="css-variable-categories">CSS Variable Categories</h3>
+<p>The <code>base.css</code> file defines the following variable groups that components consume:</p>
+<ul>
+<li><strong>Primary colors</strong>: <code>--color-primary-50</code> through <code>--color-primary-900</code> (RGB triplets for Tailwind alpha support)</li>
+<li><strong>Status colors</strong>: <code>--color-success-*</code>, <code>--color-warning-*</code>, <code>--color-error-*</code>, <code>--color-info-*</code></li>
+<li><strong>Semantic surfaces</strong>: <code>--color-background</code>, <code>--color-surface</code>, <code>--color-surface-elevated</code>, <code>--color-border</code></li>
+<li><strong>Text colors</strong>: <code>--color-text-primary</code>, <code>--color-text-secondary</code>, <code>--color-text-muted</code></li>
+<li><strong>Typography</strong>: <code>--font-sans</code>, <code>--font-mono</code>, <code>--font-size-*</code>, <code>--font-weight-*</code>, <code>--line-height-*</code></li>
+<li><strong>Border radius</strong>: <code>--radius-none</code> through <code>--radius-full</code></li>
+<li><strong>Transitions</strong>: <code>--transition-fast</code>, <code>--transition-normal</code>, <code>--transition-slow</code></li>
+<li><strong>Animations</strong>: <code>--animation-enabled</code>, <code>--animation-default-*</code></li>
+<li><strong>Per-component defaults</strong>: <code>--component-button-*</code>, <code>--component-input-*</code>, <code>--component-datagrid-*</code>, <code>--component-card-*</code>, <code>--component-modal-*</code>, <code>--component-badge-*</code>, <code>--component-select-*</code>, etc.</li>
+<li><strong>Dark mode overrides</strong>: All of the above are re-declared under <code>.dark {}</code> selector</li>
+</ul>
+<h3 id="utility-dependencies">Utility Dependencies</h3>
+<p>Every component imports these two tiny utility files:</p>
+<p><strong><code>src/utils/cn.ts</code></strong> (7 lines) - className joiner:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">cn</span>(<span class="hljs-params">...classes: <span class="hljs-built_in">Array</span>&lt;<span class="hljs-built_in">string</span> | <span class="hljs-built_in">boolean</span> | <span class="hljs-literal">undefined</span> | <span class="hljs-literal">null</span>&gt;</span>): <span class="hljs-title">string</span> </span>{
+  <span class="hljs-keyword">return</span> classes.filter((c): c is <span class="hljs-built_in">string</span> =&gt; <span class="hljs-keyword">typeof</span> c === <span class="hljs-string">'string'</span> &amp;&amp; c.length &gt; <span class="hljs-number">0</span>).join(<span class="hljs-string">' '</span>);
+}
+</div></code></pre>
+<p><strong><code>src/utils/is.ts</code></strong> (37 lines) - Type guards:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isValueDefined</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">value: T | <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span></span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">T</span>
+<span class="hljs-title">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNullOrUndefined</span>(<span class="hljs-params">value: unknown</span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">null</span> | <span class="hljs-title">undefined</span>
+<span class="hljs-title">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNotEmptyString</span>(<span class="hljs-params">value: <span class="hljs-built_in">string</span> | <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span></span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">string</span>
+<span class="hljs-title">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">isNotEmptyArray</span>&lt;<span class="hljs-title">T</span>&gt;(<span class="hljs-params">value: T[] | <span class="hljs-literal">null</span> | <span class="hljs-literal">undefined</span></span>): <span class="hljs-title">value</span> <span class="hljs-title">is</span> <span class="hljs-title">T</span>[]
+</span></span></span></span></div></code></pre>
+<h3 id="localization-dependency">Localization Dependency</h3>
+<p><strong>16 components</strong> (mostly native) use <code>FM()</code> from <code>src/localization/helpers.ts</code> for translated strings (e.g., table pagination labels, dialog button text). This function wraps <code>i18next.t()</code>.</p>
+<h3 id="path-aliases">Path Aliases</h3>
+<p>All imports use <code>@/</code> aliases resolved in <code>tsconfig.json</code>:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"@/*"</span>: [<span class="hljs-string">"./src/*"</span>],
+  <span class="hljs-attr">"@components/*"</span>: [<span class="hljs-string">"./src/components/*"</span>],
+  <span class="hljs-attr">"@stores/*"</span>: [<span class="hljs-string">"./src/stores/*"</span>],
+  <span class="hljs-attr">"@utils/*"</span>: [<span class="hljs-string">"./src/utils/*"</span>],
+  <span class="hljs-attr">"@styles/*"</span>: [<span class="hljs-string">"./src/styles/*"</span>]
+}
+</div></code></pre>
+<hr>
+<h2 id="path-a-native-components-package">Path A: Native Components Package</h2>
+<h3 id="what-you-get">What You Get</h3>
+<p>32 components with zero third-party UI dependencies:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Category</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ButtonNative</code>, <code>IconButtonNative</code>, <code>FabNative</code>, <code>SplitButtonNative</code></td>
+<td>Actions</td>
+</tr>
+<tr>
+<td><code>InputNative</code>, <code>SelectNative</code>, <code>CheckboxNative</code>, <code>DatePickerNative</code>, <code>RadioNative</code>, <code>ToggleNative</code></td>
+<td>Forms</td>
+</tr>
+<tr>
+<td><code>TableNative</code> (with pagination, filtering, sorting, editing, grouping)</td>
+<td>Data display</td>
+</tr>
+<tr>
+<td><code>TabsNative</code>, <code>TimelineNative</code>, <code>BadgeNative</code>, <code>TagNative</code>, <code>ChipNative</code></td>
+<td>Data display</td>
+</tr>
+<tr>
+<td><code>AvatarNative</code>, <code>CardNative</code>, <code>ProgressBarNative</code></td>
+<td>Data display</td>
+</tr>
+<tr>
+<td><code>AccordionNative</code>, <code>MenuNative</code>, <code>BreadcrumbNative</code>, <code>ToolbarNative</code></td>
+<td>Navigation</td>
+</tr>
+<tr>
+<td><code>AlertNative</code>, <code>DialogNative</code>, <code>ToastNative</code> (with context provider), <code>TooltipNative</code></td>
+<td>Feedback</td>
+</tr>
+<tr>
+<td><code>HeadingNative</code>, <code>TextNative</code>, <code>DescriptionNative</code></td>
+<td>Typography</td>
+</tr>
+<tr>
+<td><code>ThemeToggleNative</code></td>
+<td>Theme</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-must-ship-with-it">What Must Ship With It</h3>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Source</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Component source</td>
+<td><code>src/components/ui/native/**</code></td>
+<td>The components themselves</td>
+</tr>
+<tr>
+<td>Shared types</td>
+<td><code>src/components/ui/shared/**</code></td>
+<td>Enums &amp; interfaces all components import</td>
+</tr>
+<tr>
+<td><code>cn()</code> utility</td>
+<td><code>src/utils/cn.ts</code></td>
+<td>Every component uses this</td>
+</tr>
+<tr>
+<td><code>is.*()</code> guards</td>
+<td><code>src/utils/is.ts</code></td>
+<td>Every component uses this</td>
+</tr>
+<tr>
+<td>Grid library</td>
+<td><code>src/lib/grid/</code> (16 files)</td>
+<td>Required by <code>TableNative</code></td>
+</tr>
+<tr>
+<td>Base CSS variables</td>
+<td><code>src/styles/layers/base.css</code></td>
+<td>All components consume CSS variables</td>
+</tr>
+<tr>
+<td>Component CSS classes</td>
+<td><code>src/styles/layers/components.css</code></td>
+<td>Native component class definitions</td>
+</tr>
+<tr>
+<td>Native overrides</td>
+<td><code>src/styles/layers/native-overrides.css</code></td>
+<td>Native-specific corrections</td>
+</tr>
+<tr>
+<td>Tailwind preset</td>
+<td><code>tailwind.config.ts</code> (theme.extend portion)</td>
+<td>Maps CSS variables to Tailwind classes</td>
+</tr>
+</tbody>
+</table>
+<h3 id="current-state---what-works-today">Current State - What Works Today</h3>
+<ul>
+<li>All components are already self-contained in <code>src/components/ui/native/</code></li>
+<li>Clean barrel export via <code>src/components/ui/native/index.ts</code> (104 lines)</li>
+<li>No dependency on zustand, Syncfusion, or any state management</li>
+<li>Styling is 100% CSS-variable-driven with sensible defaults in <code>base.css</code></li>
+<li>Dark mode works via <code>.dark</code> class on a parent element</li>
+</ul>
+<h3 id="current-state---what-blocks-extraction">Current State - What Blocks Extraction</h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Severity</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path aliases</strong></td>
+<td>High</td>
+<td>All imports use <code>@/</code> which won't resolve outside the monorepo. Must be resolved at build time.</td>
+</tr>
+<tr>
+<td><strong>i18n coupling</strong></td>
+<td>Medium</td>
+<td>16 components import <code>FM()</code> which requires a configured i18next instance. Cannot work without it.</td>
+</tr>
+<tr>
+<td><strong>No build pipeline</strong></td>
+<td>High</td>
+<td>No library build config exists. The project builds as an app (Vite), not a library.</td>
+</tr>
+<tr>
+<td><strong>Tailwind requirement</strong></td>
+<td>Medium</td>
+<td>Components use Tailwind utility classes alongside CSS classes. Consumers must have Tailwind.</td>
+</tr>
+<tr>
+<td><strong>CSS not independently importable</strong></td>
+<td>Medium</td>
+<td>Styles are bundled as a monolithic <code>index.css</code> with Syncfusion imports. Native styles need isolation.</td>
+</tr>
+<tr>
+<td><strong>SearchInput in shared</strong></td>
+<td>Low</td>
+<td><code>src/components/ui/shared/SearchInput.tsx</code> is a React component in the types barrel. Should move.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="changes-required-for-native-package">Changes Required for Native Package</h3>
+<ol>
+<li>
+<p><strong>Create library build config</strong> (<code>tsup.config.ts</code> or <code>vite.config.lib.ts</code>)</p>
+<ul>
+<li>Externalize <code>react</code>, <code>react-dom</code></li>
+<li>Resolve <code>@/</code> path aliases at build time</li>
+<li>Output ESM + CJS + type declarations</li>
+<li>Tree-shake unused components</li>
+</ul>
+</li>
+<li>
+<p><strong>Decouple <code>FM()</code> from i18next</strong> - Two options:</p>
+<ul>
+<li><strong>Option A</strong> (recommended): Accept an optional <code>t</code> function prop, fall back to English defaults</li>
+<li><strong>Option B</strong>: Export a <code>configureLocalization()</code> function consumers call once</li>
+</ul>
+</li>
+<li>
+<p><strong>Create isolated CSS entry point</strong></p>
+<ul>
+<li>New file: <code>styles/native.css</code> that imports only <code>base.css</code> + <code>components.css</code> + <code>native-overrides.css</code></li>
+<li>Exclude all Syncfusion CSS imports</li>
+</ul>
+</li>
+<li>
+<p><strong>Extract Tailwind preset</strong></p>
+<ul>
+<li>New file: <code>tailwind-preset.js</code> containing only the <code>theme.extend</code> values from <code>tailwind.config.ts</code></li>
+<li>Remove app-specific values (<code>sidebar</code>, <code>header</code> spacing)</li>
+</ul>
+</li>
+<li>
+<p><strong>Package.json with subpath exports</strong></p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"exports"</span>: {
+    <span class="hljs-attr">"."</span>: <span class="hljs-string">"./dist/index.js"</span>,
+    <span class="hljs-attr">"./styles"</span>: <span class="hljs-string">"./dist/styles/native.css"</span>,
+    <span class="hljs-attr">"./tailwind-preset"</span>: <span class="hljs-string">"./dist/tailwind-preset.js"</span>
+  }
+}
+</div></code></pre>
+</li>
+</ol>
+<h3 id="peer-dependencies-native">Peer Dependencies (Native)</h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"peerDependencies"</span>: {
+    <span class="hljs-attr">"react"</span>: <span class="hljs-string">"^18.0.0 || ^19.0.0"</span>,
+    <span class="hljs-attr">"react-dom"</span>: <span class="hljs-string">"^18.0.0 || ^19.0.0"</span>
+  },
+  <span class="hljs-attr">"peerDependenciesMeta"</span>: {
+    <span class="hljs-attr">"tailwindcss"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> }
+  }
+}
+</div></code></pre>
+<p>Tailwind is optional because consumers can use the shipped CSS classes directly without Tailwind, but they lose the Tailwind utility classes used in some component styles.</p>
+<hr>
+<h2 id="path-b-syncfusion-components-package">Path B: Syncfusion Components Package</h2>
+<h3 id="what-you-get">What You Get</h3>
+<p>17 themed wrapper components:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Wraps</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Button</code></td>
+<td><code>@syncfusion/ej2-react-buttons</code></td>
+</tr>
+<tr>
+<td><code>Input</code></td>
+<td><code>@syncfusion/ej2-react-inputs</code></td>
+</tr>
+<tr>
+<td><code>Select</code></td>
+<td><code>@syncfusion/ej2-react-dropdowns</code></td>
+</tr>
+<tr>
+<td><code>DataGrid</code></td>
+<td><code>@syncfusion/ej2-react-grids</code></td>
+</tr>
+<tr>
+<td><code>DatePicker</code></td>
+<td><code>@syncfusion/ej2-react-calendars</code></td>
+</tr>
+<tr>
+<td><code>Dialog</code></td>
+<td><code>@syncfusion/ej2-react-popups</code></td>
+</tr>
+<tr>
+<td><code>Alert</code></td>
+<td>Custom (uses Syncfusion styling)</td>
+</tr>
+<tr>
+<td><code>Tabs</code></td>
+<td><code>@syncfusion/ej2-react-navigations</code></td>
+</tr>
+<tr>
+<td><code>Timeline</code></td>
+<td><code>@syncfusion/ej2-react-navigations</code></td>
+</tr>
+<tr>
+<td><code>Tag</code>, <code>Badge</code>, <code>Avatar</code>, <code>Card</code>, <code>ProgressBar</code>, <code>Tooltip</code>, <code>Description</code></td>
+<td>Various</td>
+</tr>
+</tbody>
+</table>
+<p>Plus hooks: <code>useSyncfusionTheme</code>, <code>getButtonClasses</code></p>
+<h3 id="what-must-ship-with-it">What Must Ship With It</h3>
+<p>Everything from the Native path, <strong>plus</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Artifact</th>
+<th>Source</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Syncfusion wrappers</td>
+<td><code>src/components/ui/syncfusion/**</code></td>
+<td>The components themselves</td>
+</tr>
+<tr>
+<td>Syncfusion types</td>
+<td><code>src/components/ui/syncfusion/types.ts</code></td>
+<td><code>SF_THEME_PREFIX</code>, <code>SF_LIGHT_CLASS</code>, theme interfaces</td>
+</tr>
+<tr>
+<td>Theme hook</td>
+<td><code>src/components/ui/syncfusion/hooks/</code></td>
+<td><code>useSyncfusionTheme</code> - reads mode from zustand store</td>
+</tr>
+<tr>
+<td>Mode enum</td>
+<td><code>src/stores/mode.ts</code></td>
+<td><code>Mode.Light</code> / <code>Mode.Dark</code></td>
+</tr>
+<tr>
+<td>Theme store</td>
+<td><code>src/stores/useThemeStore.ts</code></td>
+<td>Zustand store that holds current mode</td>
+</tr>
+<tr>
+<td>Theme system</td>
+<td><code>src/stores/theme/</code> (120 files)</td>
+<td>Default theme, injectors, presets, actions, types</td>
+</tr>
+<tr>
+<td>Syncfusion override CSS</td>
+<td><code>src/styles/layers/syncfusion-overrides.css</code></td>
+<td>1,946 lines of Syncfusion styling overrides</td>
+</tr>
+<tr>
+<td>Syncfusion themed CSS</td>
+<td><code>src/styles/layers/syncfusion-themed.css</code></td>
+<td>281 lines of theme-aware class definitions</td>
+</tr>
+<tr>
+<td>Syncfusion base CSS</td>
+<td><code>@syncfusion/ej2-*/styles/tailwind.css</code></td>
+<td>Syncfusion's own base stylesheets</td>
+</tr>
+</tbody>
+</table>
+<h3 id="current-state---what-works-today">Current State - What Works Today</h3>
+<ul>
+<li>All wrappers are self-contained in <code>src/components/ui/syncfusion/</code></li>
+<li>Clean barrel export via <code>src/components/ui/syncfusion/index.ts</code></li>
+<li>Theme-aware: automatically switches CSS classes based on light/dark mode</li>
+<li><code>useSyncfusionTheme()</code> hook provides all theme classes to consumers</li>
+</ul>
+<h3 id="current-state---what-blocks-extraction">Current State - What Blocks Extraction</h3>
+<table>
+<thead>
+<tr>
+<th>Issue</th>
+<th>Severity</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Zustand store coupling</strong></td>
+<td><strong>Critical</strong></td>
+<td>Every Syncfusion component calls <code>useSyncfusionTheme()</code> which reads from a zustand store (<code>useThemeStore</code>). This store is deeply integrated into the app.</td>
+</tr>
+<tr>
+<td><strong>Theme system size</strong></td>
+<td>High</td>
+<td>The theme store spans 120 files. It manages colors, typography, layout, animations, and per-component configs. Extracting it means shipping a massive dependency.</td>
+</tr>
+<tr>
+<td><strong>Runtime CSS injection</strong></td>
+<td>High</td>
+<td><code>themeInjector.ts</code> writes CSS variables to <code>:root</code> at runtime based on store state. Consumers must either use this system or provide their own.</td>
+</tr>
+<tr>
+<td><strong>Syncfusion license</strong></td>
+<td>Medium</td>
+<td>Syncfusion EJ2 requires a commercial license. Consumers must have their own.</td>
+</tr>
+<tr>
+<td><strong>Path aliases</strong></td>
+<td>High</td>
+<td>Same as native - all <code>@/</code> imports must be resolved.</td>
+</tr>
+<tr>
+<td><strong>i18n coupling</strong></td>
+<td>Medium</td>
+<td>Some wrappers use <code>FM()</code>.</td>
+</tr>
+<tr>
+<td><strong>No build pipeline</strong></td>
+<td>High</td>
+<td>Same as native.</td>
+</tr>
+<tr>
+<td><strong>CSS not independently importable</strong></td>
+<td>Medium</td>
+<td>Syncfusion styles are mixed with native styles in <code>index.css</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="changes-required-for-syncfusion-package">Changes Required for Syncfusion Package</h3>
+<p>Everything from the native path, <strong>plus</strong>:</p>
+<ol>
+<li>
+<p><strong>Refactor theme consumption to React Context</strong> (the biggest change)</p>
+<p>Currently: Components call <code>useThemeStore()</code> directly (zustand global store).</p>
+<p>Target: Components consume a <code>&lt;ThemeProvider&gt;</code> context.</p>
+<pre class="hljs"><code><div>// Package exports a provider + hook
+export function ThemeProvider({ mode, children }: { mode: 'light' | 'dark'; children: ReactNode }) {
+  // inject CSS variables, provide context
+}
+
+// Components consume via hook
+export function useSyncfusionTheme(): SyncfusionTheme {
+  return useContext(ThemeContext);  // instead of useThemeStore()
+}
+</div></code></pre>
+<p>This decouples components from the zustand store and lets consumers control mode however they want.</p>
+</li>
+<li>
+<p><strong>Extract a minimal theme injector</strong></p>
+<ul>
+<li>Current <code>themeInjector.ts</code> injects 100+ CSS variables based on full <code>ThemeConfig</code></li>
+<li>Package only needs: mode (light/dark) and optional color overrides</li>
+<li>Ship a slim injector that sets CSS variables based on a simple config object</li>
+</ul>
+</li>
+<li>
+<p><strong>Isolate Syncfusion CSS entry point</strong></p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* styles/syncfusion.css */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-base/styles/tailwind.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-inputs/styles/tailwind.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-buttons/styles/tailwind.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/base.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-overrides.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-themed.css'</span>;
+</div></code></pre>
+</li>
+<li>
+<p><strong>Externalize all Syncfusion packages</strong> as peer dependencies</p>
+</li>
+<li>
+<p><strong>Decide on theme store shipping strategy</strong>:</p>
+<ul>
+<li><strong>Option A</strong> (recommended): Ship components + <code>ThemeProvider</code> + slim injector. No zustand dependency. Consumers provide <code>mode</code> prop.</li>
+<li><strong>Option B</strong>: Ship the full theme store (120 files + zustand). Consumers get the full theme editor capability. Much larger bundle.</li>
+</ul>
+</li>
+</ol>
+<h3 id="peer-dependencies-syncfusion">Peer Dependencies (Syncfusion)</h3>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"peerDependencies"</span>: {
+    <span class="hljs-attr">"react"</span>: <span class="hljs-string">"^18.0.0 || ^19.0.0"</span>,
+    <span class="hljs-attr">"react-dom"</span>: <span class="hljs-string">"^18.0.0 || ^19.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-buttons"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-inputs"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-dropdowns"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-grids"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-calendars"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-navigations"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-popups"</span>: <span class="hljs-string">"^32.0.0"</span>,
+    <span class="hljs-attr">"@syncfusion/ej2-react-layouts"</span>: <span class="hljs-string">"^32.0.0"</span>
+  }
+}
+</div></code></pre>
+<hr>
+<h2 id="shared-infrastructure-both-paths">Shared Infrastructure (Both Paths)</h2>
+<h3 id="form-field-adapters-optional-add-on">Form Field Adapters (Optional Add-On)</h3>
+<p><code>src/components/ui/form-fields/</code> provides React Hook Form integrations:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Wraps</th>
+<th>Variant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FormInput</code></td>
+<td>Syncfusion <code>Input</code></td>
+<td>Syncfusion</td>
+</tr>
+<tr>
+<td><code>FormSelect</code></td>
+<td>Syncfusion <code>Select</code></td>
+<td>Syncfusion</td>
+</tr>
+<tr>
+<td><code>FormDatePicker</code></td>
+<td>Syncfusion <code>DatePicker</code></td>
+<td>Syncfusion</td>
+</tr>
+<tr>
+<td><code>FormCheckbox</code></td>
+<td>Syncfusion <code>Checkbox</code></td>
+<td>Syncfusion</td>
+</tr>
+<tr>
+<td><code>FormNativeInput</code></td>
+<td><code>InputNative</code></td>
+<td>Native</td>
+</tr>
+<tr>
+<td><code>FormNativeSelect</code></td>
+<td><code>SelectNative</code></td>
+<td>Native</td>
+</tr>
+<tr>
+<td><code>FormNativeDatePicker</code></td>
+<td><code>DatePickerNative</code></td>
+<td>Native</td>
+</tr>
+<tr>
+<td><code>FieldError</code></td>
+<td>Shared error display</td>
+<td>Both</td>
+</tr>
+</tbody>
+</table>
+<p>These depend on <code>react-hook-form</code> and optionally <code>zod</code> / <code>@hookform/resolvers</code>.</p>
+<p><strong>Recommendation</strong>: Ship as a separate subpath export (<code>/form-fields</code>) since they introduce additional peer dependencies.</p>
+<h3 id="icons">Icons</h3>
+<p><code>src/components/icons/</code> contains Feather icon wrappers and custom icon sets. These are standalone React components with no external dependencies. They can be included in either package or shipped separately.</p>
+<hr>
+<h2 id="recommended-package-structure">Recommended Package Structure</h2>
+<h3 id="single-package-with-subpath-exports">Single Package with Subpath Exports</h3>
+<pre class="hljs"><code><div>@your-scope/ui/
+  dist/
+    native/          # Native components (tree-shakeable)
+    syncfusion/      # Syncfusion wrappers (tree-shakeable)
+    form-fields/     # React Hook Form adapters
+    utils/           # cn(), is.*() utilities
+    icons/           # Icon components
+    styles/
+      native.css     # Native-only styles
+      syncfusion.css # Syncfusion styles (includes native base)
+      variables.css  # CSS variables only (for custom implementations)
+    tailwind-preset.js
+</div></code></pre>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"@your-scope/ui"</span>,
+  <span class="hljs-attr">"version"</span>: <span class="hljs-string">"1.0.0"</span>,
+  <span class="hljs-attr">"type"</span>: <span class="hljs-string">"module"</span>,
+  <span class="hljs-attr">"exports"</span>: {
+    <span class="hljs-attr">"./native"</span>:           { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/native/index.js"</span>,       <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/native/index.d.ts"</span> },
+    <span class="hljs-attr">"./syncfusion"</span>:       { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/syncfusion/index.js"</span>,   <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/syncfusion/index.d.ts"</span> },
+    <span class="hljs-attr">"./form-fields"</span>:      { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/form-fields/index.js"</span>,  <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/form-fields/index.d.ts"</span> },
+    <span class="hljs-attr">"./icons"</span>:            { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/icons/index.js"</span>,        <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/icons/index.d.ts"</span> },
+    <span class="hljs-attr">"./utils"</span>:            { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/utils/index.js"</span>,        <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/utils/index.d.ts"</span> },
+    <span class="hljs-attr">"./styles/native"</span>:    <span class="hljs-string">"./dist/styles/native.css"</span>,
+    <span class="hljs-attr">"./styles/syncfusion"</span>:<span class="hljs-string">"./dist/styles/syncfusion.css"</span>,
+    <span class="hljs-attr">"./styles/variables"</span>: <span class="hljs-string">"./dist/styles/variables.css"</span>,
+    <span class="hljs-attr">"./tailwind-preset"</span>:  <span class="hljs-string">"./dist/tailwind-preset.js"</span>
+  },
+  <span class="hljs-attr">"peerDependencies"</span>: {
+    <span class="hljs-attr">"react"</span>: <span class="hljs-string">"^18.0.0 || ^19.0.0"</span>,
+    <span class="hljs-attr">"react-dom"</span>: <span class="hljs-string">"^18.0.0 || ^19.0.0"</span>
+  },
+  <span class="hljs-attr">"peerDependenciesMeta"</span>: {
+    <span class="hljs-attr">"tailwindcss"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-buttons"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-inputs"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-dropdowns"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-grids"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-calendars"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-navigations"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-popups"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"@syncfusion/ej2-react-layouts"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"react-hook-form"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> },
+    <span class="hljs-attr">"zod"</span>: { <span class="hljs-attr">"optional"</span>: <span class="hljs-literal">true</span> }
+  }
+}
+</div></code></pre>
+<hr>
+<h2 id="consumer-setup">Consumer Setup</h2>
+<h3 id="native-components-only">Native Components Only</h3>
+<pre class="hljs"><code><div>npm install @your-scope/ui
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">// tailwind.config.ts</span>
+<span class="hljs-keyword">import</span> uiPreset <span class="hljs-keyword">from</span> <span class="hljs-string">'@your-scope/ui/tailwind-preset'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> {
+  presets: [uiPreset],
+  content: [
+    <span class="hljs-string">'./src/**/*.{js,ts,jsx,tsx}'</span>,
+    <span class="hljs-string">'./node_modules/@your-scope/ui/dist/**/*.js'</span>, <span class="hljs-comment">// so Tailwind scans component classes</span>
+  ],
+};
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">/* app.css */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/native'</span>;
+<span class="hljs-keyword">@tailwind</span> base;
+<span class="hljs-keyword">@tailwind</span> components;
+<span class="hljs-keyword">@tailwind</span> utilities;
+</div></code></pre>
+<pre class="hljs"><code><div>// App.tsx
+import { ButtonNative, AlertNative, TableNative } from '@your-scope/ui/native';
+
+function App() {
+  return &lt;ButtonNative variant=&quot;primary&quot; size=&quot;md&quot;&gt;Click me&lt;/ButtonNative&gt;;
+}
+</div></code></pre>
+<p><strong>Dark mode</strong>: Add class <code>dark</code> to a parent element (e.g., <code>&lt;html class=&quot;dark&quot;&gt;</code>). All CSS variables swap automatically.</p>
+<h3 id="syncfusion-components">Syncfusion Components</h3>
+<pre class="hljs"><code><div>npm install @your-scope/ui @syncfusion/ej2-react-buttons @syncfusion/ej2-react-inputs <span class="hljs-comment"># ... etc</span>
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">/* app.css */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/syncfusion'</span>;
+<span class="hljs-keyword">@tailwind</span> base;
+<span class="hljs-keyword">@tailwind</span> components;
+<span class="hljs-keyword">@tailwind</span> utilities;
+</div></code></pre>
+<pre class="hljs"><code><div>// App.tsx (after refactor to context-based)
+import { ThemeProvider } from '@your-scope/ui/syncfusion';
+import { Button, DataGrid } from '@your-scope/ui/syncfusion';
+
+function App() {
+  return (
+    &lt;ThemeProvider mode=&quot;light&quot;&gt;
+      &lt;Button variant=&quot;primary&quot; size=&quot;md&quot;&gt;Click me&lt;/Button&gt;
+    &lt;/ThemeProvider&gt;
+  );
+}
+</div></code></pre>
+<hr>
+<h2 id="migration-checklist">Migration Checklist</h2>
+<h3 id="phase-1-foundation-both-paths">Phase 1: Foundation (Both Paths)</h3>
+<ul>
+<li><input type="checkbox" id="checkbox0"><label for="checkbox0">Set up build tooling (</label><code>tsup</code> or Vite library mode)</li>
+<li><input type="checkbox" id="checkbox1"><label for="checkbox1">Configure path alias resolution for </label><code>@/</code> imports</li>
+<li><input type="checkbox" id="checkbox2"><label for="checkbox2">Extract </label><code>cn()</code> and <code>is.*()</code> into a <code>utils/</code> entry point</li>
+<li><input type="checkbox" id="checkbox3"><label for="checkbox3">Extract shared types from </label><code>src/components/ui/shared/</code> into package</li>
+<li><input type="checkbox" id="checkbox4"><label for="checkbox4">Create </label><code>tailwind-preset.js</code> from <code>tailwind.config.ts</code> theme.extend</li>
+<li><input type="checkbox" id="checkbox5"><label for="checkbox5">Set up automated type declaration generation</label></li>
+</ul>
+<h3 id="phase-2-native-package">Phase 2: Native Package</h3>
+<ul>
+<li><input type="checkbox" id="checkbox6"><label for="checkbox6">Create </label><code>styles/native.css</code> entry point (base + components + native-overrides only)</li>
+<li><input type="checkbox" id="checkbox7"><label for="checkbox7">Decouple </label><code>FM()</code> - add optional <code>t</code> prop to 16 components, default to English</li>
+<li><input type="checkbox" id="checkbox8"><label for="checkbox8">Move </label><code>SearchInput.tsx</code> out of shared types barrel</li>
+<li><input type="checkbox" id="checkbox9"><label for="checkbox9">Verify all native components build and tree-shake correctly</label></li>
+<li><input type="checkbox" id="checkbox10"><label for="checkbox10">Write package.json with subpath exports</label></li>
+<li><input type="checkbox" id="checkbox11"><label for="checkbox11">Test in a fresh consumer project</label></li>
+</ul>
+<h3 id="phase-3-syncfusion-package">Phase 3: Syncfusion Package</h3>
+<ul>
+<li><input type="checkbox" id="checkbox12"><label for="checkbox12">Refactor </label><code>useSyncfusionTheme()</code> from zustand store to React Context</li>
+<li><input type="checkbox" id="checkbox13"><label for="checkbox13">Create </label><code>ThemeProvider</code> that accepts <code>mode</code> prop and injects CSS variables</li>
+<li><input type="checkbox" id="checkbox14"><label for="checkbox14">Extract minimal theme injector (mode-only, no full ThemeConfig)</label></li>
+<li><input type="checkbox" id="checkbox15"><label for="checkbox15">Create </label><code>styles/syncfusion.css</code> entry point</li>
+<li><input type="checkbox" id="checkbox16"><label for="checkbox16">Externalize all </label><code>@syncfusion/ej2-react-*</code> as peer dependencies</li>
+<li><input type="checkbox" id="checkbox17"><label for="checkbox17">Verify wrappers build with Syncfusion packages externalized</label></li>
+<li><input type="checkbox" id="checkbox18"><label for="checkbox18">Test in a fresh consumer project with Syncfusion license</label></li>
+</ul>
+<h3 id="phase-4-optional-add-ons">Phase 4: Optional Add-Ons</h3>
+<ul>
+<li><input type="checkbox" id="checkbox19"><label for="checkbox19">Package form field adapters as </label><code>/form-fields</code> subpath</li>
+<li><input type="checkbox" id="checkbox20"><label for="checkbox20">Package icons as </label><code>/icons</code> subpath</li>
+<li><input type="checkbox" id="checkbox21"><label for="checkbox21">Add Storybook or docs site for component showcase</label></li>
+</ul>
+<hr>
+<h2 id="why-syncfusion-extraction-is-fundamentally-harder-than-native">Why Syncfusion Extraction is Fundamentally Harder Than Native</h2>
+<p>The native and Syncfusion components look similar on the surface - both live in <code>src/components/ui/</code>, both use CSS variables, both share the same types. But the extraction difficulty is radically different because of <strong>how they consume their styling</strong>.</p>
+<h3 id="native-passive-css-consumer-easy">Native: Passive CSS Consumer (Easy)</h3>
+<p>A native component like <code>ButtonNative</code> is <strong>completely passive</strong> about its styling. Here is its entire dependency chain:</p>
+<pre class="hljs"><code><div>ButtonNative
+  ├── imports: cn(), isValueDefined()          (2 tiny utility files)
+  ├── imports: ButtonVariant, ButtonSize        (2 const enums from shared/)
+  ├── reads:   CSS variables via class names    (passive - whatever :root has, it uses)
+  └── runtime: NOTHING                          (no JavaScript at mount time)
+</div></code></pre>
+<p>The component renders a <code>&lt;button&gt;</code> with CSS class names like <code>native-btn native-btn-primary native-btn-md</code>. Those classes are defined in <code>components.css</code> and reference CSS variables like <code>--component-button-primary-bg</code>. The variables have default values in <code>base.css</code>. <strong>That's the entire story.</strong> The component never touches the DOM directly, never reads from a store, never injects anything at runtime.</p>
+<p>This means extraction is pure configuration work:</p>
+<ol>
+<li>Bundle the source files</li>
+<li>Ship the CSS</li>
+<li>Done - it works in any React project that loads the CSS</li>
+</ol>
+<h3 id="syncfusion-active-runtime-theme-system-hard">Syncfusion: Active Runtime Theme System (Hard)</h3>
+<p>A Syncfusion component like <code>Button</code> has a completely different dependency chain:</p>
+<pre class="hljs"><code><div>Button (Syncfusion)
+  ├── imports: ButtonComponent                  (@syncfusion/ej2-react-buttons - external)
+  ├── imports: cn(), isValueDefined()           (2 tiny utility files)
+  ├── imports: ButtonVariant, ButtonSize        (2 const enums from shared/)
+  ├── imports: Mode                             (const enum from stores/mode.ts)
+  ├── imports: useThemeStore                    (zustand global store)
+  │     └── useThemeStore
+  │           ├── zustand + devtools + persist middleware
+  │           ├── DEFAULT_THEME (from stores/theme/defaultTheme.ts)
+  │           │     └── FREMEN_THEME preset (200+ lines of color/config values)
+  │           │           └── DEFAULT_* from stores/theme/defaults/ (27 files)
+  │           ├── createThemeActions (from stores/theme/storeActions.ts)
+  │           │     └── 10 action creator modules (from stores/theme/actions/ - 12 files)
+  │           ├── injectThemeVariables (from stores/theme/themeInjector.ts)
+  │           │     └── 12 specialized injector functions (from stores/theme/injectors/ - 16 files)
+  │           ├── ThemeState interface (70+ actions defined)
+  │           │     └── stores/theme/types/ (36 type definition files)
+  │           └── Schema migration + deep merge + rehydration logic
+  └── runtime: calls useThemeStore() to read `mode` on every render
+</div></code></pre>
+<p>The critical difference: <strong>the Syncfusion Button calls <code>useThemeStore()</code> directly at render time</strong>. That single import transitively pulls in:</p>
+<table>
+<thead>
+<tr>
+<th>Dependency</th>
+<th>Files</th>
+<th>Why It Exists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>stores/theme/types/</code></td>
+<td>36 files</td>
+<td>TypeScript interfaces for every configurable property (colors, spacing, typography, buttons, inputs, grids, cards, dialogs, alerts, badges, pagination, etc.)</td>
+</tr>
+<tr>
+<td><code>stores/theme/defaults/</code></td>
+<td>27 files</td>
+<td>Default values for every component config, split by mode (light/dark) and category (buttons, forms, navigation, data display, feedback, pagination)</td>
+</tr>
+<tr>
+<td><code>stores/theme/actions/</code></td>
+<td>12 files</td>
+<td>70+ store actions: <code>updateButtonConfig()</code>, <code>updateDataGridConfig()</code>, <code>updatePrimaryPalette()</code>, etc. Each action deep-merges partial updates and re-injects CSS variables</td>
+</tr>
+<tr>
+<td><code>stores/theme/injectors/</code></td>
+<td>16 files</td>
+<td>Functions that call <code>document.documentElement.style.setProperty()</code> for every CSS variable. Specialized per domain: buttons, data grid, forms, navigation, data display, pagination, feedback, typography, colors, layout, animations</td>
+</tr>
+<tr>
+<td><code>stores/theme/presets/</code></td>
+<td>20 files</td>
+<td>Full theme presets (Fremen, Arctic, Copper, Emerald, Gold, Midnight, etc.) each defining 200+ config values</td>
+</tr>
+<tr>
+<td><code>useThemeStore.ts</code></td>
+<td>1 file</td>
+<td>Zustand <code>create()</code> with <code>persist</code> middleware (localStorage), <code>devtools</code>, schema versioning (v1-v13), deep merge migration, and <code>onRehydrateStorage</code> that calls <code>injectThemeVariables()</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Total: 120 files</strong> pulled in by a single <code>useThemeStore()</code> call.</p>
+<h3 id="the-core-problem-singleton-global-state">The Core Problem: Singleton Global State</h3>
+<p>The theme store is a <strong>zustand singleton</strong> - one global instance created at module load time. It immediately:</p>
+<ol>
+<li>Reads persisted state from <code>localStorage</code> (key: <code>theme-storage</code>)</li>
+<li>Deep-merges it with <code>DEFAULT_THEME</code> to handle schema migrations (13 versions so far)</li>
+<li>Calls <code>injectThemeVariables(theme, mode)</code> which uses <code>requestAnimationFrame</code> to write 100+ CSS variables to <code>document.documentElement.style</code></li>
+<li>Subscribes all connected components to re-render on any state change</li>
+</ol>
+<p>This design is perfect for an app with a single theme store, but it creates three fundamental problems for a shared package:</p>
+<p><strong>Problem 1: Store collision.</strong> If two different UI projects in the same page (e.g., micro-frontends, iframes, or even just the consuming app using its own zustand) both import this package, they share the same singleton store, stomping on each other's theme.</p>
+<p><strong>Problem 2: Mandatory side effects.</strong> The store boots on import (zustand <code>create()</code> runs at module scope). Even importing a single <code>Button</code> triggers localStorage reads, schema migration logic, and DOM manipulation. A consumer cannot opt out.</p>
+<p><strong>Problem 3: Tight coupling to the full ThemeConfig.</strong> The <code>ThemeState</code> interface exposes 70+ update actions (<code>updateButtonConfig</code>, <code>updateDataGridConfig</code>, <code>updateSidebarConfig</code>, etc.). A consumer who just wants light/dark mode must ship the entire config system, all 20 presets, all 27 default files, and the full injection pipeline.</p>
+<h3 id="why-native-avoids-all-of-this">Why Native Avoids All of This</h3>
+<p>Native components never import the theme store. They use CSS classes that reference CSS variables:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* components.css */</span>
+<span class="hljs-selector-class">.native-btn-primary</span> {
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--component-button-primary-bg);
+  <span class="hljs-attribute">color</span>: <span class="hljs-built_in">var</span>(--component-button-primary-text);
+}
+</div></code></pre>
+<p>The variables get their values from two possible sources:</p>
+<ol>
+<li><strong>Static CSS defaults</strong> in <code>base.css</code> (e.g., <code>--component-button-primary-bg: rgb(59 130 246)</code>) - always present</li>
+<li><strong>Runtime injection</strong> from the theme store's <code>injectThemeVariables()</code> - only if the app uses the theme editor</li>
+</ol>
+<p>Source #1 is a plain CSS file. Source #2 is the app's concern, not the component's. The component never knows or cares where the CSS variable values come from. This is why native extraction is &quot;just configuration&quot; - you ship the CSS, the consumer loads it, done.</p>
+<p>Syncfusion components bypass this clean separation. They reach directly into the JavaScript store to read <code>mode</code> and compute CSS class names like <code>sf-dark</code> or <code>sf-light</code> at render time. The styling is not purely CSS-driven - it has a mandatory JavaScript runtime dependency.</p>
+<h3 id="summary-of-difficulty-difference">Summary of Difficulty Difference</h3>
+<table>
+<thead>
+<tr>
+<th>Dimension</th>
+<th>Native</th>
+<th>Syncfusion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Runtime dependencies</strong></td>
+<td>None beyond React</td>
+<td>zustand + 120-file theme system</td>
+</tr>
+<tr>
+<td><strong>Side effects on import</strong></td>
+<td>None</td>
+<td>Store creation, localStorage read, DOM injection</td>
+</tr>
+<tr>
+<td><strong>State management</strong></td>
+<td>None (pure CSS)</td>
+<td>Global singleton zustand store</td>
+</tr>
+<tr>
+<td><strong>Styling mechanism</strong></td>
+<td>CSS classes read CSS variables passively</td>
+<td>JavaScript reads store, computes class names at render</td>
+</tr>
+<tr>
+<td><strong>Dark mode</strong></td>
+<td><code>.dark</code> CSS class on parent (consumer controls)</td>
+<td><code>useThemeStore().mode</code> read at render + CSS class toggle</td>
+</tr>
+<tr>
+<td><strong>Files to ship</strong></td>
+<td>~170 (components + types + utils + CSS)</td>
+<td>~330 (everything above + 120 theme store files + Syncfusion CSS)</td>
+</tr>
+<tr>
+<td><strong>Refactoring needed</strong></td>
+<td>i18n decoupling (16 components)</td>
+<td>Full store-to-context refactor (all 17 wrappers + theme system)</td>
+</tr>
+<tr>
+<td><strong>Consumer setup</strong></td>
+<td>Import CSS, use components</td>
+<td>Import CSS, wrap app in <code>&lt;ThemeProvider&gt;</code>, install 8 Syncfusion packages</td>
+</tr>
+<tr>
+<td><strong>Risk of breaking the app</strong></td>
+<td>Low - CSS-only changes</td>
+<td>High - touching the store/injector affects the entire theme editor</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="what-must-exist-at-the-project-root-and-why">What Must Exist at the Project Root (and Why)</h2>
+<p>Today, <code>SyncfusionThemeStudio/</code> is an <strong>application</strong> that Vite builds into a <code>dist/</code> folder served as a website. There is no concept of &quot;exporting components for external consumption&quot;. The following new root-level infrastructure is required to turn it into (or coexist with) a <strong>library package</strong>.</p>
+<h3 id="root-files-needed">Root Files Needed</h3>
+<pre class="hljs"><code><div>SyncfusionThemeStudio/
+  ├── package.json              ← MODIFY (add exports, peerDependencies, files, sideEffects)
+  ├── tsconfig.json             ← MODIFY (add declarationDir, composite, emitDeclarationOnly)
+  ├── tsconfig.lib.json         ← NEW    (separate TS config for library compilation)
+  ├── tsup.config.ts            ← NEW    (library bundler config)
+  ├── tailwind-preset.js        ← NEW    (extracted Tailwind theme for consumers)
+  ├── vite.config.ts            ← KEEP   (app build remains unchanged)
+  ├── src/
+  │   ├── styles/
+  │   │   ├── native.css        ← NEW    (isolated entry point for native CSS only)
+  │   │   └── syncfusion.css    ← NEW    (isolated entry point for Syncfusion CSS only)
+</div></code></pre>
+<h3 id="why-each-root-file-is-needed">Why Each Root File is Needed</h3>
+<h4 id="1-tsupconfigts-new---library-bundler">1. <code>tsup.config.ts</code> (NEW) - Library Bundler</h4>
+<p><strong>Why</strong>: The project currently uses Vite to build a <strong>single-page application</strong> (<code>vite build</code> produces <code>dist/index.html</code> + chunked JS bundles). This is fundamentally different from building a <strong>library</strong> (which produces importable modules with no HTML entry point).</p>
+<p>Vite can do library mode (<code>build.lib</code> in <code>vite.config.ts</code>), but <code>tsup</code> is better suited because:</p>
+<ul>
+<li>It handles multiple entry points natively (one per subpath export: <code>native/index.ts</code>, <code>syncfusion/index.ts</code>, etc.)</li>
+<li>It generates <code>.d.ts</code> type declarations automatically</li>
+<li>It resolves path aliases (<code>@/</code> → <code>./src/</code>) at build time without additional plugins</li>
+<li>It externalizes peer dependencies by default</li>
+<li>It outputs both ESM and CJS from a single config</li>
+</ul>
+<p><strong>What it does</strong>: Takes the <code>src/</code> source and produces a <code>dist/</code> folder with compiled JavaScript + type declarations, with <code>react</code>, <code>react-dom</code>, and all Syncfusion packages marked as external (not bundled).</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// tsup.config.ts</span>
+<span class="hljs-keyword">import</span> { defineConfig } <span class="hljs-keyword">from</span> <span class="hljs-string">'tsup'</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> defineConfig({
+  entry: {
+    <span class="hljs-string">'native/index'</span>:     <span class="hljs-string">'src/components/ui/native/index.ts'</span>,
+    <span class="hljs-string">'syncfusion/index'</span>: <span class="hljs-string">'src/components/ui/syncfusion/index.ts'</span>,
+    <span class="hljs-string">'form-fields/index'</span>:<span class="hljs-string">'src/components/ui/form-fields/index.ts'</span>,
+    <span class="hljs-string">'utils/index'</span>:      <span class="hljs-string">'src/lib-exports/utils.ts'</span>,
+    <span class="hljs-string">'icons/index'</span>:      <span class="hljs-string">'src/components/icons/index.ts'</span>,
+  },
+  format: [<span class="hljs-string">'esm'</span>],
+  dts: <span class="hljs-literal">true</span>,
+  splitting: <span class="hljs-literal">true</span>,
+  treeshake: <span class="hljs-literal">true</span>,
+  external: [
+    <span class="hljs-string">'react'</span>, <span class="hljs-string">'react-dom'</span>,
+    <span class="hljs-regexp">/^@syncfusion\//</span>,
+    <span class="hljs-string">'zustand'</span>,
+    <span class="hljs-string">'react-hook-form'</span>, <span class="hljs-string">'@hookform/resolvers'</span>, <span class="hljs-string">'zod'</span>,
+    <span class="hljs-string">'i18next'</span>, <span class="hljs-string">'react-i18next'</span>,
+  ],
+  esbuildOptions(options) {
+    <span class="hljs-comment">// Resolve @/ path aliases</span>
+    options.alias = { <span class="hljs-string">'@'</span>: <span class="hljs-string">'./src'</span> };
+  },
+});
+</div></code></pre>
+<p><strong>Why it can't be the existing <code>vite.config.ts</code></strong>: The Vite config is tuned for app mode - it has PWA plugins, manual chunk splitting for Syncfusion code-splitting, PostCSS with Tailwind, HTML entry point, dev server config, etc. Library builds have completely different requirements (no HTML, no code splitting into chunks, externalize everything). Mixing both in one config creates conflicts. Keeping them separate means <code>npm run build</code> continues to build the app, and a new <code>npm run build:lib</code> builds the library.</p>
+<h4 id="2-tsconfiglibjson-new---library-typescript-config">2. <code>tsconfig.lib.json</code> (NEW) - Library TypeScript Config</h4>
+<p><strong>Why</strong>: The existing <code>tsconfig.json</code> is configured for app development - it includes test files, dev utilities, and compiles for Vite's module system. Library compilation needs different settings:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"extends"</span>: <span class="hljs-string">"./tsconfig.json"</span>,
+  <span class="hljs-attr">"compilerOptions"</span>: {
+    <span class="hljs-attr">"declaration"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"declarationDir"</span>: <span class="hljs-string">"./dist/types"</span>,
+    <span class="hljs-attr">"emitDeclarationOnly"</span>: <span class="hljs-literal">true</span>,
+    <span class="hljs-attr">"rootDir"</span>: <span class="hljs-string">"./src"</span>
+  },
+  <span class="hljs-attr">"include"</span>: [<span class="hljs-string">"src/components/**/*"</span>, <span class="hljs-string">"src/utils/**/*"</span>, <span class="hljs-string">"src/lib/grid/**/*"</span>],
+  <span class="hljs-attr">"exclude"</span>: [<span class="hljs-string">"**/*.test.*"</span>, <span class="hljs-string">"**/*.spec.*"</span>, <span class="hljs-string">"src/**/*.stories.*"</span>]
+}
+</div></code></pre>
+<p><strong>Why it can't be the existing <code>tsconfig.json</code></strong>: The current config includes everything in <code>src/</code> (pages, layout, app entry point, stores, dev tools). Library builds must only include the files that are part of the package. Compiling the theme editor UI or the dev server into <code>.d.ts</code> files would bloat the package and expose internal types consumers shouldn't see.</p>
+<h4 id="3-packagejson-modify---package-metadata">3. <code>package.json</code> (MODIFY) - Package Metadata</h4>
+<p><strong>Why the current one doesn't work</strong>: The existing <code>package.json</code> has:</p>
+<ul>
+<li>No <code>exports</code> field (Node/bundlers don't know how to resolve subpath imports)</li>
+<li>No <code>files</code> field (an <code>npm publish</code> would include everything - 120 theme files, test fixtures, Playwright config, screenshots)</li>
+<li>No <code>peerDependencies</code> (React and Syncfusion would be bundled into the package, causing version conflicts)</li>
+<li>No <code>sideEffects</code> flag (bundlers can't tree-shake unused components)</li>
+<li><code>&quot;type&quot;: &quot;module&quot;</code> is already set (good)</li>
+</ul>
+<p><strong>What must change</strong>:</p>
+<pre class="hljs"><code><div>{
+  <span class="hljs-attr">"name"</span>: <span class="hljs-string">"@your-scope/ui"</span>,
+  <span class="hljs-attr">"exports"</span>: {
+    <span class="hljs-attr">"./native"</span>:            { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/native/index.js"</span>,     <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/native/index.d.ts"</span> },
+    <span class="hljs-attr">"./syncfusion"</span>:        { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/syncfusion/index.js"</span>, <span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/syncfusion/index.d.ts"</span> },
+    <span class="hljs-attr">"./form-fields"</span>:       { <span class="hljs-attr">"import"</span>: <span class="hljs-string">"./dist/form-fields/index.js"</span>,<span class="hljs-attr">"types"</span>: <span class="hljs-string">"./dist/form-fields/index.d.ts"</span> },
+    <span class="hljs-attr">"./styles/native"</span>:     <span class="hljs-string">"./dist/styles/native.css"</span>,
+    <span class="hljs-attr">"./styles/syncfusion"</span>: <span class="hljs-string">"./dist/styles/syncfusion.css"</span>,
+    <span class="hljs-attr">"./styles/variables"</span>:  <span class="hljs-string">"./dist/styles/variables.css"</span>,
+    <span class="hljs-attr">"./tailwind-preset"</span>:   <span class="hljs-string">"./dist/tailwind-preset.js"</span>
+  },
+  <span class="hljs-attr">"files"</span>: [<span class="hljs-string">"dist/"</span>],
+  <span class="hljs-attr">"sideEffects"</span>: [<span class="hljs-string">"*.css"</span>],
+  <span class="hljs-attr">"peerDependencies"</span>: { <span class="hljs-attr">"react"</span>: <span class="hljs-string">"^18 || ^19"</span>, <span class="hljs-attr">"react-dom"</span>: <span class="hljs-string">"^18 || ^19"</span> },
+  <span class="hljs-attr">"scripts"</span>: {
+    <span class="hljs-attr">"build:lib"</span>: <span class="hljs-string">"tsup &amp;&amp; node scripts/copy-styles.js"</span>
+  }
+}
+</div></code></pre>
+<p><strong>Why <code>exports</code> matters</strong>: Without it, consumers can't do <code>import { ButtonNative } from '@your-scope/ui/native'</code>. Node's module resolution won't know what file to load. The <code>exports</code> map is how modern packages tell bundlers &quot;this import path resolves to this file&quot;.</p>
+<p><strong>Why <code>files</code> matters</strong>: Without it, <code>npm pack</code> / <code>npm publish</code> includes the entire project directory. With <code>&quot;files&quot;: [&quot;dist/&quot;]</code>, only the compiled output ships. This keeps the package size from 50MB (with node_modules, test fixtures, screenshots) down to &lt; 1MB.</p>
+<p><strong>Why <code>sideEffects</code> matters</strong>: Without it, bundlers (webpack, Vite, Rollup) assume every module has side effects and cannot be tree-shaken. With <code>&quot;sideEffects&quot;: [&quot;*.css&quot;]</code>, the bundler knows that JS modules are pure and can safely eliminate unused component code. Only CSS files are marked as having side effects (because they modify global styles when imported).</p>
+<p><strong>Why <code>peerDependencies</code> matters</strong>: Without it, the package bundles its own copy of React. If the consumer's app also uses React, there are now two React instances, which breaks hooks (<code>&quot;Cannot update a component from inside the function body of a different component&quot;</code>) and doubles bundle size. Peer dependencies tell npm &quot;the consumer must provide React - don't install a second copy&quot;.</p>
+<h4 id="4-tailwind-presetjs-new---tailwind-theme-preset">4. <code>tailwind-preset.js</code> (NEW) - Tailwind Theme Preset</h4>
+<p><strong>Why</strong>: Components use Tailwind utility classes like <code>bg-primary-500</code>, <code>text-error-700</code>, <code>rounded-lg</code> that rely on custom theme mappings from <code>tailwind.config.ts</code>. These mappings connect Tailwind class names to CSS variables:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// tailwind.config.ts (current)</span>
+<span class="hljs-attr">colors</span>: {
+  <span class="hljs-attr">primary</span>: {
+    <span class="hljs-number">500</span>: <span class="hljs-string">'rgb(var(--color-primary-500) / &lt;alpha-value&gt;)'</span>,
+  }
+}
+</div></code></pre>
+<p>Without this mapping, <code>bg-primary-500</code> means nothing to a consumer's Tailwind instance. The consumer's Tailwind would generate no CSS for it, and components using those classes would have missing styles.</p>
+<p><strong>Why it must be a separate file</strong>: The current <code>tailwind.config.ts</code> includes app-specific values (<code>sidebar</code>, <code>header</code> spacing, <code>safelist</code> for the theme editor UI). Consumers should not get those. A preset contains only the theme mappings needed for components to render correctly.</p>
+<pre class="hljs"><code><div><span class="hljs-comment">// tailwind-preset.js</span>
+<span class="hljs-built_in">module</span>.exports = {
+  <span class="hljs-attr">theme</span>: {
+    <span class="hljs-attr">extend</span>: {
+      <span class="hljs-attr">colors</span>: {
+        <span class="hljs-attr">primary</span>:   { <span class="hljs-number">50</span>: <span class="hljs-string">'rgb(var(--color-primary-50) / &lt;alpha-value&gt;)'</span>,  <span class="hljs-comment">/* ...through 900 */</span> },
+        <span class="hljs-attr">success</span>:   { <span class="hljs-number">50</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">500</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">700</span>: <span class="hljs-string">'...'</span> },
+        <span class="hljs-attr">warning</span>:   { <span class="hljs-number">50</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">500</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">700</span>: <span class="hljs-string">'...'</span> },
+        <span class="hljs-attr">error</span>:     { <span class="hljs-number">50</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">500</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">700</span>: <span class="hljs-string">'...'</span> },
+        <span class="hljs-attr">info</span>:      { <span class="hljs-number">50</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">500</span>: <span class="hljs-string">'...'</span>, <span class="hljs-number">700</span>: <span class="hljs-string">'...'</span> },
+        <span class="hljs-attr">background</span>:<span class="hljs-string">'rgb(var(--color-background) / &lt;alpha-value&gt;)'</span>,
+        <span class="hljs-attr">surface</span>:   <span class="hljs-string">'rgb(var(--color-surface) / &lt;alpha-value&gt;)'</span>,
+        <span class="hljs-attr">border</span>:    <span class="hljs-string">'rgb(var(--color-border) / &lt;alpha-value&gt;)'</span>,
+        <span class="hljs-string">'text-primary'</span>:   <span class="hljs-string">'rgb(var(--color-text-primary) / &lt;alpha-value&gt;)'</span>,
+        <span class="hljs-string">'text-secondary'</span>: <span class="hljs-string">'rgb(var(--color-text-secondary) / &lt;alpha-value&gt;)'</span>,
+        <span class="hljs-string">'text-muted'</span>:     <span class="hljs-string">'rgb(var(--color-text-muted) / &lt;alpha-value&gt;)'</span>,
+      },
+      <span class="hljs-attr">borderRadius</span>: { <span class="hljs-comment">/* maps to --radius-* vars */</span> },
+      <span class="hljs-attr">fontSize</span>:     { <span class="hljs-comment">/* maps to --font-size-* vars */</span> },
+      <span class="hljs-attr">fontWeight</span>:   { <span class="hljs-comment">/* maps to --font-weight-* vars */</span> },
+    }
+  }
+};
+</div></code></pre>
+<h4 id="5-srcstylesnativecss-and-srcstylessyncfusioncss-new---isolated-css-entry-points">5. <code>src/styles/native.css</code> and <code>src/styles/syncfusion.css</code> (NEW) - Isolated CSS Entry Points</h4>
+<p><strong>Why</strong>: The current <code>src/styles/index.css</code> imports everything together:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Current index.css - monolithic */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-base/styles/tailwind.css'</span>;          <span class="hljs-comment">/* Syncfusion-only */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-inputs/styles/tailwind.css'</span>;  <span class="hljs-comment">/* Syncfusion-only */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-buttons/styles/tailwind.css'</span>; <span class="hljs-comment">/* Syncfusion-only */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/base.css'</span>;                                  <span class="hljs-comment">/* Both need */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/components.css'</span>;                            <span class="hljs-comment">/* Native needs */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/native-overrides.css'</span>;                      <span class="hljs-comment">/* Native needs */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-overrides.css'</span>;                  <span class="hljs-comment">/* Syncfusion needs */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-themed.css'</span>;                     <span class="hljs-comment">/* Syncfusion needs */</span>
+</div></code></pre>
+<p>A consumer who only uses native components should not be forced to download 2,227 lines of Syncfusion CSS overrides (or install <code>@syncfusion/ej2-base</code> just for its base CSS). Conversely, a consumer who only uses Syncfusion wrappers doesn't need the 1,395 lines of <code>.native-btn-*</code> classes.</p>
+<p>Separate entry points let consumers import exactly what they need:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* src/styles/native.css */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/base.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/components.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/native-overrides.css'</span>;
+</div></code></pre>
+<pre class="hljs"><code><div><span class="hljs-comment">/* src/styles/syncfusion.css */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-base/styles/tailwind.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-inputs/styles/tailwind.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-buttons/styles/tailwind.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/base.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-overrides.css'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-themed.css'</span>;
+</div></code></pre>
+<h4 id="6-syncfusion-only-additional-root-requirements">6. Syncfusion-Only Additional Root Requirements</h4>
+<p>For the Syncfusion path, two more things are needed beyond what native requires:</p>
+<p><strong><code>src/providers/ThemeProvider.tsx</code> (NEW)</strong> - Because the zustand store must be replaced with a React Context. This provider:</p>
+<ul>
+<li>Accepts a <code>mode</code> prop (<code>'light' | 'dark'</code>)</li>
+<li>Optionally accepts color overrides</li>
+<li>Calls a slim version of <code>injectThemeVariables()</code> to set CSS vars on mount/update</li>
+<li>Provides the mode value via React Context so <code>useSyncfusionTheme()</code> can read it without zustand</li>
+</ul>
+<p><strong>Slim injector extraction</strong> - The current <code>injectThemeVariables()</code> in <code>themeInjector.ts</code> accepts a full <code>ThemeConfig</code> (the interface with 13 top-level fields and hundreds of nested properties). For the package, a minimal injector is needed that only handles what consumers can reasonably configure: mode (light/dark) and optionally a primary color scale. The full 120-file theme system stays in the app, not the package.</p>
+<h3 id="root-infrastructure-summary">Root Infrastructure Summary</h3>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th style="text-align:center">Path A (Native)</th>
+<th style="text-align:center">Path B (Syncfusion)</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tsup.config.ts</code></td>
+<td style="text-align:center">Required</td>
+<td style="text-align:center">Required</td>
+<td>No library build exists today; app builds produce HTML, not importable modules</td>
+</tr>
+<tr>
+<td><code>tsconfig.lib.json</code></td>
+<td style="text-align:center">Required</td>
+<td style="text-align:center">Required</td>
+<td>Library type declarations must exclude tests, pages, and app-specific code</td>
+</tr>
+<tr>
+<td><code>package.json</code> changes</td>
+<td style="text-align:center">Required</td>
+<td style="text-align:center">Required</td>
+<td>No <code>exports</code>, <code>files</code>, <code>peerDependencies</code>, or <code>sideEffects</code> exist today</td>
+</tr>
+<tr>
+<td><code>tailwind-preset.js</code></td>
+<td style="text-align:center">Required</td>
+<td style="text-align:center">Required</td>
+<td>Consumers' Tailwind won't generate CSS for custom classes without the theme mappings</td>
+</tr>
+<tr>
+<td><code>src/styles/native.css</code></td>
+<td style="text-align:center">Required</td>
+<td style="text-align:center">Not needed</td>
+<td>Isolates native CSS from Syncfusion CSS</td>
+</tr>
+<tr>
+<td><code>src/styles/syncfusion.css</code></td>
+<td style="text-align:center">Not needed</td>
+<td style="text-align:center">Required</td>
+<td>Isolates Syncfusion CSS from native CSS</td>
+</tr>
+<tr>
+<td><code>src/providers/ThemeProvider.tsx</code></td>
+<td style="text-align:center">Not needed</td>
+<td style="text-align:center">Required</td>
+<td>Replaces zustand singleton with dependency-injectable context</td>
+</tr>
+<tr>
+<td>Slim theme injector</td>
+<td style="text-align:center">Not needed</td>
+<td style="text-align:center">Required</td>
+<td>Current injector requires the full 120-file ThemeConfig; package needs a minimal version</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="effort-estimates">Effort Estimates</h2>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Complexity</th>
+<th>Key Risk</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Foundation</td>
+<td>Medium</td>
+<td>Build tooling + path alias resolution</td>
+</tr>
+<tr>
+<td>Native package</td>
+<td>Low-Medium</td>
+<td>i18n decoupling is the main work; everything else is configuration</td>
+</tr>
+<tr>
+<td>Syncfusion package</td>
+<td><strong>High</strong></td>
+<td>Zustand-to-Context refactor touches every wrapper component + theme system</td>
+</tr>
+<tr>
+<td>Form field adapters</td>
+<td>Low</td>
+<td>Straightforward extraction</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Recommendation</strong>: Start with <strong>Phase 1 + Phase 2</strong> (native-only). This gives you a usable package with minimal refactoring. Phase 3 (Syncfusion) requires significant architectural changes to the theme system and should be planned as a separate effort.</p>
+<hr>
+<h2 id="how-the-project-was-built-and-why-it-needs-rework">How the Project Was Built and Why It Needs Rework</h2>
+<h3 id="original-design-intent">Original Design Intent</h3>
+<p>SyncfusionThemeStudio was built as a <strong>standalone single-page application</strong> - a visual theme editor where designers tweak colors, typography, spacing, and component styles in real time and see the result immediately. It was never designed to export components for external consumption.</p>
+<p>Every architectural decision followed from that goal:</p>
+<p><strong>1. Monolithic app build</strong>. Vite builds the project into <code>dist/index.html</code> + JS/CSS chunks. There is no library entry point because there was never a consumer - the app IS the product. The build pipeline produces an SPA with code-splitting for performance (Syncfusion CSS is lazy-loaded per component module via <code>loadSyncfusionCss()</code>), PWA support (<code>vite-plugin-pwa</code>), and manual chunk splitting to keep the initial bundle small despite Syncfusion's massive package sizes.</p>
+<p><strong>2. Global singleton theme store</strong>. The theme editor needs a single source of truth for the current theme - one place where all 200+ configurable properties live, persist to localStorage, and trigger re-renders across the entire UI when anything changes. Zustand with <code>persist</code> + <code>devtools</code> middleware was the natural choice. The store was designed for exactly one consumer: this app. It persists schema-versioned state to localStorage, deep-merges on hydration, and injects CSS variables into <code>document.documentElement.style</code> on every change. Components read from it directly because there is no boundary between &quot;library code&quot; and &quot;app code&quot; - it's all one app.</p>
+<p><strong>3. CSS variable injection at runtime</strong>. The theme editor lets users change any color, radius, font size, or component-specific style through the UI. Those changes must instantly reflect in every component. The solution: the theme store writes CSS variables to <code>:root</code> via <code>themeInjector.ts</code> (12 specialized injector functions across 16 files), and components consume those variables through CSS classes. This creates a live preview loop: user tweaks a slider -&gt; store updates -&gt; injector writes new CSS variable -&gt; component re-renders with new style. This is the right architecture for a theme editor, but it bakes runtime JavaScript into what should be a pure CSS concern for a shared component library.</p>
+<p><strong>4. Tight path aliases</strong>. All imports use <code>@/</code> aliases (<code>@/utils/cn</code>, <code>@/stores/useThemeStore</code>, <code>@/components/ui/shared/buttonTypes</code>). These are resolved by both <code>tsconfig.json</code> (for TypeScript) and <code>vite.config.ts</code> (for the build). This works perfectly when everything lives in one project. It breaks the moment you try to compile a subset of the source into an independent package, because the alias resolver needs to know where <code>@/</code> points, and in a library build context, it points nowhere unless explicitly configured.</p>
+<p><strong>5. Monolithic CSS entry point</strong>. The main <code>src/styles/index.css</code> imports everything: Syncfusion base CSS, custom base variables, native component classes, Syncfusion overrides, and Syncfusion themed classes. It then declares a <code>@layer</code> ordering that controls specificity across all of them. This is correct for the app - it needs everything in one place with deterministic specificity. But it means you cannot import &quot;just native CSS&quot; or &quot;just Syncfusion CSS&quot; without pulling in the entire stack.</p>
+<p><strong>6. CSS layer specificity system</strong>. The project uses CSS <code>@layer</code> to solve a real problem: Syncfusion ships its own base styles, native components have their own styles, and the theme system overrides both. Without layers, specificity conflicts are constant. The layer declaration <code>@layer base, syncfusion-base, components, syncfusion-overrides, utilities</code> ensures that overrides always win over base styles regardless of selector specificity. This is essential for correctness but creates a strict ordering contract that consumers must replicate.</p>
+<p><strong>7. Lazy-loaded Syncfusion CSS</strong>. Beyond the three statically imported Syncfusion stylesheets (base, inputs, buttons), the remaining Syncfusion CSS (grids, calendars, navigations, popups, dropdowns, layouts, notifications) is loaded on demand via <code>loadSyncfusionCss()</code>. This reduces the initial CSS payload by deferring large stylesheets until the component that needs them is actually rendered. The lazy loader uses a module-level <code>Set</code> to track which modules are already loaded and prevents duplicate imports. This code-splitting strategy is app-specific and would need to be rethought for a package where the consumer controls when and how CSS is loaded.</p>
+<h3 id="what-needs-to-change-for-native-components">What Needs to Change for Native Components</h3>
+<p>The native path is the simpler extraction because native components were built with a clean separation: they are pure React + CSS, never touch JavaScript state, and style themselves entirely through CSS classes that reference CSS variables. The changes are mostly about <strong>packaging and configuration</strong>, not refactoring component internals.</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>What Exists Today</th>
+<th>What Must Change</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Build system</strong></td>
+<td>Vite SPA build (<code>vite build</code> -&gt; <code>dist/index.html</code>)</td>
+<td>Add <code>tsup</code> library build (<code>tsup</code> -&gt; <code>dist/native/index.js</code> + <code>.d.ts</code>)</td>
+<td>A consumer needs importable ES modules, not an HTML page</td>
+</tr>
+<tr>
+<td><strong>Path aliases</strong></td>
+<td><code>@/utils/cn</code> resolved by Vite + tsconfig at dev/build time</td>
+<td><code>tsup</code> alias config or pre-build rewrite to relative paths</td>
+<td>Aliases don't resolve when the code lives in <code>node_modules/@scope/ui/</code></td>
+</tr>
+<tr>
+<td><strong>CSS entry point</strong></td>
+<td><code>src/styles/index.css</code> imports everything including Syncfusion</td>
+<td>New <code>src/styles/native.css</code> importing only <code>base.css</code> + <code>components.css</code> + <code>native-overrides.css</code></td>
+<td>Consumer should not need <code>@syncfusion/ej2-base</code> installed just to import CSS</td>
+</tr>
+<tr>
+<td><strong>Tailwind config</strong></td>
+<td><code>tailwind.config.ts</code> with app-specific values (sidebar/header spacing, safelist for theme editor palette display)</td>
+<td>New <code>tailwind-preset.js</code> with only the color/radius/font/weight mappings</td>
+<td>Consumer's Tailwind must generate CSS for classes like <code>bg-primary-500</code>, but shouldn't inherit the app's sidebar widths</td>
+</tr>
+<tr>
+<td><strong>Localization</strong></td>
+<td>16 components import <code>FM()</code> from <code>src/localization/helpers.ts</code>, which calls <code>i18n.t()</code> on a pre-configured i18next instance</td>
+<td>Either: (A) add optional <code>t</code> function prop with English fallback, or (B) export a <code>configureLocalization()</code> that consumers call</td>
+<td><code>FM()</code> will crash at runtime if i18next isn't initialized. A shared package cannot assume i18next exists in the consumer's app</td>
+</tr>
+<tr>
+<td><strong>Package metadata</strong></td>
+<td><code>package.json</code> has no <code>exports</code>, no <code>files</code>, no <code>peerDependencies</code>, no <code>sideEffects</code></td>
+<td>Add all four fields</td>
+<td>Without these, the package can't be imported by subpath, publishes 50MB of test fixtures, bundles its own React copy, and can't be tree-shaken</td>
+</tr>
+<tr>
+<td><strong>Type declarations</strong></td>
+<td><code>tsconfig.json</code> compiles everything (pages, stores, dev tools)</td>
+<td>New <code>tsconfig.lib.json</code> that only includes component/util/type files</td>
+<td>Library <code>.d.ts</code> output must not expose internal app types</td>
+</tr>
+<tr>
+<td><strong>SearchInput in shared</strong></td>
+<td><code>src/components/ui/shared/SearchInput.tsx</code> is a React component inside the types barrel</td>
+<td>Move to <code>src/components/ui/native/</code> or a separate barrel</td>
+<td>Types barrels should only contain types and enums, not React components</td>
+</tr>
+</tbody>
+</table>
+<p><strong>What does NOT need to change</strong>: The components themselves. <code>ButtonNative</code>, <code>InputNative</code>, <code>TableNative</code>, etc. do not need code modifications (except the 16 that use <code>FM()</code>). Their internal logic, props interfaces, CSS class references, and rendering behavior are already correct for external consumption. The work is entirely infrastructure.</p>
+<h3 id="what-needs-to-change-for-syncfusion-components">What Needs to Change for Syncfusion Components</h3>
+<p>The Syncfusion path requires everything from the native path <strong>plus significant refactoring of component internals and the theme system</strong>. The changes fall into three categories: the same infrastructure work as native, the store-to-context refactor, and the CSS isolation work.</p>
+<h4 id="same-infrastructure-as-native">Same Infrastructure as Native</h4>
+<p>All the build system, path alias, package metadata, type declaration, and Tailwind preset changes from the native path apply identically. These are table stakes for any package extraction.</p>
+<h4 id="store-to-context-refactor-the-hard-part">Store-to-Context Refactor (the Hard Part)</h4>
+<p>This is the single largest piece of work and the reason Syncfusion extraction is rated &quot;High&quot; complexity.</p>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>What Exists Today</th>
+<th>What Must Change</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Theme consumption</strong></td>
+<td>Every Syncfusion wrapper calls <code>useThemeStore()</code> directly to read <code>mode</code></td>
+<td>Create a <code>ThemeContext</code> + <code>ThemeProvider</code> that accepts <code>mode</code> as a prop; change <code>useSyncfusionTheme()</code> to read from context instead of zustand</td>
+<td>The zustand store is a module-scoped singleton. It cannot coexist with a consumer's own state management. Two apps on the same page would collide. Consumers must be able to control <code>mode</code> however they want (Redux, Context, URL param, cookie, etc.)</td>
+</tr>
+<tr>
+<td><strong>Theme injection</strong></td>
+<td><code>themeInjector.ts</code> accepts a full <code>ThemeConfig</code> (13 top-level fields, hundreds of nested properties) and writes 100+ CSS variables to <code>:root</code> via 12 specialized injector functions</td>
+<td>Create a slim injector that only handles mode (light/dark) and optionally a primary color palette</td>
+<td>The full <code>ThemeConfig</code> interface exists to power the theme editor UI. A consumer who just wants light/dark buttons shouldn't need to ship 120 files of theme configuration</td>
+</tr>
+<tr>
+<td><strong>Store boot side effects</strong></td>
+<td><code>useThemeStore</code> is created at module scope via <code>create()</code>. On import, it reads localStorage, runs migration, calls <code>injectThemeVariables()</code></td>
+<td>The package entry point must have zero side effects. <code>ThemeProvider</code> handles initialization explicitly when mounted</td>
+<td>Module-scope side effects break server-side rendering (no <code>document</code>), break tree-shaking (bundler can't eliminate the import), and break test isolation (store state leaks between tests)</td>
+</tr>
+<tr>
+<td><strong>Default theme</strong></td>
+<td><code>DEFAULT_THEME</code> is imported from <code>stores/theme/defaultTheme.ts</code> which imports the Fremen preset</td>
+<td>The package needs a minimal default (just light/dark mode colors) or no default at all (consumer provides everything)</td>
+<td>The Fremen preset imports from <code>stores/theme/defaults/</code> (27 files), which imports from <code>stores/theme/types/</code> (36 files). Shipping a &quot;default theme&quot; transitively pulls in the entire theme system</td>
+</tr>
+<tr>
+<td><strong>Theme presets</strong></td>
+<td>20 preset files (Arctic, Copper, Emerald, Fremen, Gold, etc.) in <code>stores/theme/presets/</code></td>
+<td>Do not ship presets. They are app-specific. If consumers want presets, export them as an optional subpath (<code>/presets</code>)</td>
+<td>Presets are 200+ lines each with hand-tuned colors for the theme editor. They add ~4,000 lines that consumers using the package for UI components will never use</td>
+</tr>
+<tr>
+<td><strong>Store actions</strong></td>
+<td><code>ThemeState</code> exposes 70+ mutation actions (<code>updateButtonConfig</code>, <code>updateDataGridConfig</code>, <code>updatePrimaryPalette</code>, etc.) assembled from 10 action creator modules</td>
+<td>None of these ship. The <code>ThemeProvider</code> is read-only from the component's perspective - it receives <code>mode</code> as a prop, components read it via context</td>
+<td>The 70+ actions exist for the theme editor's control panel. Shared components don't edit their own theme - they render with whatever mode the consumer provides</td>
+</tr>
+</tbody>
+</table>
+<p>The refactor touches <strong>all 17 Syncfusion wrapper components</strong> because every one of them imports from the theme system:</p>
+<pre class="hljs"><code><div>// Current (every Syncfusion wrapper)
+import { useThemeStore } from '@/stores/useThemeStore';
+import { Mode } from '@/stores/mode';
+// ...
+const { mode } = useThemeStore();
+const modeClass = mode === Mode.Dark ? 'sf-dark' : 'sf-light';
+</div></code></pre>
+<p>Each must change to:</p>
+<pre class="hljs"><code><div>// After refactor
+import { useSyncfusionTheme } from '../hooks/useSyncfusionTheme';
+// ...
+const { modeClass } = useSyncfusionTheme();  // reads from React Context, not zustand
+</div></code></pre>
+<p>The <code>useSyncfusionTheme()</code> hook itself changes from reading <code>useThemeStore().mode</code> to reading <code>useContext(ThemeContext).mode</code>. This is a small code change per component, but it must be done carefully across all 17 wrappers and verified against the theme editor (which continues to use the zustand store directly).</p>
+<h4 id="syncfusion-css-isolation">Syncfusion CSS Isolation</h4>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>What Exists Today</th>
+<th>What Must Change</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Base Syncfusion CSS</strong></td>
+<td>3 Syncfusion stylesheets imported statically in <code>index.css</code> + 6 more lazy-loaded via <code>loadSyncfusionCss()</code></td>
+<td>New <code>src/styles/syncfusion.css</code> that imports all needed Syncfusion base CSS statically</td>
+<td>Lazy loading is an app optimization that doesn't make sense for a package. The consumer's bundler handles code splitting. The package just needs to declare which CSS files are needed</td>
+</tr>
+<tr>
+<td><strong>Override CSS</strong></td>
+<td><code>syncfusion-overrides.css</code> (1,946 lines) overrides Syncfusion's default styles to match the theme system</td>
+<td>Ship as-is, but must be importable independently without native component CSS</td>
+<td>Syncfusion components render incorrectly without these overrides (wrong fonts, wrong colors, wrong spacing). They are not optional</td>
+</tr>
+<tr>
+<td><strong>Themed CSS</strong></td>
+<td><code>syncfusion-themed.css</code> (281 lines) defines <code>.sf-button</code>, <code>.sf-btn-primary</code>, <code>.sf-dark</code>, <code>.sf-light</code> etc.</td>
+<td>Ship as-is, same isolation requirement</td>
+<td>These classes are what the wrapper components apply. Without them, <code>cssClass=&quot;sf-button sf-dark sf-btn-primary&quot;</code> resolves to nothing</td>
+</tr>
+<tr>
+<td><strong>Layer ordering</strong></td>
+<td><code>@layer base, syncfusion-base, components, syncfusion-overrides, utilities</code> declared in <code>index.css</code></td>
+<td>Must be declared in the package's <code>syncfusion.css</code> entry point AND documented for consumers</td>
+<td>If the consumer's app uses CSS layers and declares a different order, Syncfusion overrides may not win over base styles, causing visual breakage</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="critical-css-layer-ordering-and-style-loading">Critical: CSS Layer Ordering and Style Loading</h2>
+<h3 id="why-order-matters">Why Order Matters</h3>
+<p>The component library uses CSS <code>@layer</code> declarations to control specificity without relying on selector weight or source order hacks. This solves a real problem: Syncfusion ships its own base styles (<code>.e-btn { ... }</code>, <code>.e-grid { ... }</code>), the native components have their own styles (<code>.native-btn { ... }</code>), and the theme system needs to override both.</p>
+<p>Without layers, you would need increasingly specific selectors to win:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* Syncfusion ships this (specificity: 0,1,0) */</span>
+<span class="hljs-selector-class">.e-btn</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#317ab9</span>; }
+
+<span class="hljs-comment">/* You need to override it (must be MORE specific) */</span>
+<span class="hljs-selector-class">.sf-themed</span> <span class="hljs-selector-class">.e-btn</span><span class="hljs-selector-class">.e-primary</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--component-button-primary-bg); }
+</div></code></pre>
+<p>With layers, the declaration order determines the winner regardless of selector specificity:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">@layer</span> syncfusion-base {
+  <span class="hljs-selector-class">.e-btn</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-number">#317ab9</span>; }       <span class="hljs-comment">/* Layer 2: always loses */</span>
+}
+<span class="hljs-keyword">@layer</span> syncfusion-overrides {
+  <span class="hljs-selector-class">.e-btn</span> { <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">var</span>(--component-button-primary-bg); }  <span class="hljs-comment">/* Layer 4: always wins */</span>
+}
+</div></code></pre>
+<h3 id="the-layer-order-contract">The Layer Order Contract</h3>
+<p>The project declares this layer order in <code>src/styles/index.css</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">@layer</span> base, syncfusion-base, components, syncfusion-overrides, utilities;
+</div></code></pre>
+<p>What each layer contains and why it's in that position:</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Position</th>
+<th>Layer</th>
+<th style="text-align:right">Lines</th>
+<th>Contains</th>
+<th>Why This Position</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">1</td>
+<td><code>base</code></td>
+<td style="text-align:right">395</td>
+<td>CSS custom property declarations (<code>:root { --color-primary-500: ... }</code>), base HTML resets, focus styles, scrollbar styles</td>
+<td>Must load first because everything else references these variables</td>
+</tr>
+<tr>
+<td style="text-align:center">2</td>
+<td><code>syncfusion-base</code></td>
+<td style="text-align:right">~3,000+</td>
+<td>Syncfusion's own shipped stylesheets (<code>@syncfusion/ej2-base</code>, <code>ej2-react-inputs</code>, <code>ej2-react-buttons</code>, etc.)</td>
+<td>Must load after base (so it inherits reset styles) but before our overrides</td>
+</tr>
+<tr>
+<td style="text-align:center">3</td>
+<td><code>components</code></td>
+<td style="text-align:right">1,395</td>
+<td>Native component classes (<code>.native-btn</code>, <code>.native-select</code>, <code>.native-input</code>, etc.)</td>
+<td>Must load after Syncfusion base (so they don't get stomped by Syncfusion's global selectors) but before Syncfusion overrides (which are specific to Syncfusion wrappers)</td>
+</tr>
+<tr>
+<td style="text-align:center">4</td>
+<td><code>syncfusion-overrides</code></td>
+<td style="text-align:right">2,227</td>
+<td>Our overrides of Syncfusion defaults + themed class definitions (<code>.sf-button</code>, <code>.sf-dark</code>, etc.)</td>
+<td>Must load after Syncfusion base so that our <code>var(--component-*)</code> values override Syncfusion's hardcoded colors. This is the key specificity win</td>
+</tr>
+<tr>
+<td style="text-align:center">5</td>
+<td><code>utilities</code></td>
+<td style="text-align:right">(Tailwind)</td>
+<td>Tailwind utility classes (<code>bg-primary-500</code>, <code>rounded-lg</code>, <code>text-sm</code>, etc.)</td>
+<td>Must be last so that utility classes can override any component style (e.g., <code>className=&quot;native-btn bg-red-500&quot;</code> makes the override work)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-the-consumer-must-do">What the Consumer Must Do</h3>
+<h4 id="native-only-consumer">Native-Only Consumer</h4>
+<p>The native CSS entry point ships with the layer declaration built-in. The consumer's <code>app.css</code> must load it <strong>before</strong> Tailwind directives:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* app.css - CORRECT ORDER */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/native'</span>;   <span class="hljs-comment">/* 1. Package CSS (includes @layer declaration) */</span>
+<span class="hljs-keyword">@tailwind</span> base;                           <span class="hljs-comment">/* 2. Tailwind base */</span>
+<span class="hljs-keyword">@tailwind</span> components;                     <span class="hljs-comment">/* 3. Tailwind components */</span>
+<span class="hljs-keyword">@tailwind</span> utilities;                      <span class="hljs-comment">/* 4. Tailwind utilities (must be last) */</span>
+</div></code></pre>
+<p>If the consumer loads Tailwind first, then the package CSS, Tailwind's <code>@layer base</code> will be declared before the package's <code>@layer base</code>, and the two will merge with the package's base rules appearing first - which is correct. But if the consumer declares their OWN <code>@layer</code> order, they must ensure <code>base</code> comes before <code>components</code> comes before <code>utilities</code>:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* app.css - WRONG: consumer redeclares layers in wrong order */</span>
+<span class="hljs-keyword">@layer</span> utilities, base, components;            <span class="hljs-comment">/* Utilities first = broken! */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/native'</span>;        <span class="hljs-comment">/* Package layer declaration ignored */</span>
+</div></code></pre>
+<p>The first <code>@layer</code> declaration in the document wins. If the consumer's app declares layers before the package CSS is loaded, the consumer's order takes precedence. This can silently break component styling if the order is wrong.</p>
+<p><strong>Recommendation</strong>: Document clearly that the package CSS import must be the <strong>first CSS import</strong> in the consumer's entry stylesheet, before any <code>@layer</code> declarations or Tailwind directives.</p>
+<h4 id="syncfusion-consumer">Syncfusion Consumer</h4>
+<p>The Syncfusion CSS entry point is more sensitive because it must control the relationship between Syncfusion's base styles and our overrides:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* app.css - CORRECT ORDER */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/syncfusion'</span>;  <span class="hljs-comment">/* 1. Package CSS (Syncfusion base + overrides + layer declaration) */</span>
+<span class="hljs-keyword">@tailwind</span> base;                              <span class="hljs-comment">/* 2. Tailwind base */</span>
+<span class="hljs-keyword">@tailwind</span> components;                        <span class="hljs-comment">/* 3. Tailwind components */</span>
+<span class="hljs-keyword">@tailwind</span> utilities;                         <span class="hljs-comment">/* 4. Tailwind utilities */</span>
+</div></code></pre>
+<p>The <code>syncfusion.css</code> entry point internally imports Syncfusion's base stylesheets and then the override layers. This order is critical:</p>
+<pre class="hljs"><code><div><span class="hljs-comment">/* What syncfusion.css does internally */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-base/styles/tailwind.css'</span>;           <span class="hljs-comment">/* -&gt; goes into syncfusion-base layer */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-inputs/styles/tailwind.css'</span>;   <span class="hljs-comment">/* -&gt; goes into syncfusion-base layer */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@syncfusion/ej2-react-buttons/styles/tailwind.css'</span>;  <span class="hljs-comment">/* -&gt; goes into syncfusion-base layer */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/base.css'</span>;                                   <span class="hljs-comment">/* -&gt; goes into base layer */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-overrides.css'</span>;                   <span class="hljs-comment">/* -&gt; goes into syncfusion-overrides layer */</span>
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'./layers/syncfusion-themed.css'</span>;                      <span class="hljs-comment">/* -&gt; goes into syncfusion-overrides layer */</span>
+
+<span class="hljs-keyword">@layer</span> base, syncfusion-base, components, syncfusion-overrides, utilities;
+</div></code></pre>
+<p>If a consumer also lazy-loads additional Syncfusion CSS (e.g., for grids or calendars), that CSS must land in the <code>syncfusion-base</code> layer, not outside of it. Otherwise it will have higher specificity than the overrides and the theme won't apply to those components. The package should document this and optionally provide a helper:</p>
+<pre class="hljs"><code><div>// Consumer lazy-loads grid CSS - must specify layer
+import '@syncfusion/ej2-react-grids/styles/tailwind.css';  // needs to be in syncfusion-base layer
+</div></code></pre>
+<h4 id="both-paths-common-pitfalls">Both Paths: Common Pitfalls</h4>
+<table>
+<thead>
+<tr>
+<th>Pitfall</th>
+<th>What Goes Wrong</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Consumer imports package CSS <strong>after</strong> Tailwind directives</td>
+<td>Tailwind's <code>@layer</code> declaration runs first, package layers merge into Tailwind's order instead of the package's intended order</td>
+<td>Always import package CSS first</td>
+</tr>
+<tr>
+<td>Consumer declares their own <code>@layer</code> before package CSS</td>
+<td>Their layer order takes precedence, potentially putting <code>utilities</code> before <code>components</code> (breaks utility overrides) or <code>base</code> after <code>overrides</code> (breaks variable references)</td>
+<td>Don't redeclare <code>@layer</code> order. Use the package's declaration or ensure it's compatible</td>
+</tr>
+<tr>
+<td>Consumer uses CSS Modules or Styled Components alongside package CSS</td>
+<td>CSS Modules scope class names, so <code>.native-btn</code> becomes <code>.ButtonNative_native-btn_a3x2</code>. The package's CSS won't match</td>
+<td>Package components must be used with global CSS, not CSS Modules. This is already the case since components use <code>className</code> strings</td>
+</tr>
+<tr>
+<td>Consumer loads Syncfusion CSS from a different version</td>
+<td>Syncfusion v32 base styles might differ from v33. Overrides were written for a specific version</td>
+<td>Pin Syncfusion peer dependency range tightly. Document tested version</td>
+</tr>
+<tr>
+<td>Consumer uses Tailwind v4 (CSS-first config) instead of v3</td>
+<td>Tailwind v4 uses <code>@theme</code> instead of <code>@layer</code>. The preset format and layer interop are different</td>
+<td>Provide separate preset files for v3 and v4, or document minimum version</td>
+</tr>
+</tbody>
+</table>
+<h3 id="style-loading-summary">Style Loading Summary</h3>
+<pre class="hljs"><code><div>LOAD ORDER (top = loads first, must be first in consumer's app.css)
+═══════════════════════════════════════════════════════════════════
+
+1. @import '@your-scope/ui/styles/native'     ← OR syncfusion (not both)
+   ┌─────────────────────────────────────────────────────────┐
+   │  @layer base            (CSS variables + resets)        │
+   │  @layer syncfusion-base (Syncfusion defaults) *         │  * syncfusion.css only
+   │  @layer components      (native component classes)      │
+   │  @layer syncfusion-overrides (theme overrides) *        │  * syncfusion.css only
+   └─────────────────────────────────────────────────────────┘
+
+2. @tailwind base;            ← Tailwind's base resets
+
+3. @tailwind components;      ← Tailwind's component classes
+
+4. @tailwind utilities;       ← Tailwind utilities (MUST be last)
+   ┌─────────────────────────────────────────────────────────┐
+   │  @layer utilities        (bg-*, text-*, rounded-*, etc) │
+   │  These can override ANY component style via className   │
+   └─────────────────────────────────────────────────────────┘
+
+5. Consumer's own CSS         ← App-specific styles (optional)
+</div></code></pre>
+<p>If the consumer imports both native and Syncfusion styles (because they use components from both), they should import the combined entry point or import both in order:</p>
+<pre class="hljs"><code><div><span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/native'</span>;
+<span class="hljs-keyword">@import</span> <span class="hljs-string">'@your-scope/ui/styles/syncfusion'</span>;
+<span class="hljs-keyword">@tailwind</span> base;
+<span class="hljs-keyword">@tailwind</span> components;
+<span class="hljs-keyword">@tailwind</span> utilities;
+</div></code></pre>
+<p>This works because both entry points share the same <code>base.css</code> (it will be included twice but CSS deduplication handles it), and the <code>@layer</code> declarations are additive - the first one to appear wins, and subsequent declarations just add rules to existing layers.</p>
+
+</body>
+</html>

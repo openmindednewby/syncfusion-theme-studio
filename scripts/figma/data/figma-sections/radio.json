@@ -1,0 +1,18 @@
+{
+  "light": {
+    "selectedBorderColor": "59 130 246",
+    "dotColor": "0 0 0",
+    "uncheckedBorderColor": "0 0 0",
+    "selectedBackground": "0 0 0",
+    "labelDisabledColor": "204 204 204",
+    "size": "18px"
+  },
+  "dark": {
+    "selectedBorderColor": "59 130 246",
+    "dotColor": "0 0 0",
+    "uncheckedBorderColor": "0 0 0",
+    "selectedBackground": "0 0 0",
+    "labelDisabledColor": "204 204 204",
+    "size": "18px"
+  }
+}

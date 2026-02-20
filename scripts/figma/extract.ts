@@ -7,6 +7,7 @@ import { resolve } from 'node:path';
 import { extractBadges } from './extract-badges';
 import { extractButtons } from './extract-buttons';
 import { extractExternalLinks } from './extract-external-links';
+import { extractFormControls } from './extract-form-controls';
 import { extractIcons } from './extract-icons';
 import { extractInputs } from './extract-inputs';
 import { extractNavMenus } from './extract-nav-menus';
@@ -219,6 +220,7 @@ async function main(): Promise<void> {
   extraction.icons = await extractIcons(file.document, fileKey, token);
   extraction.navMenus = extractNavMenus(file.document, resolver);
   extraction.externalLink = extractExternalLinks(file.document, resolver);
+  extraction.formControls = extractFormControls(file.document, resolver);
 
   const outPath = resolve(import.meta.dirname, 'data/figma-extract.json');
   writeFileSync(outPath, JSON.stringify(extraction, null, 2));
@@ -233,6 +235,12 @@ async function main(): Promise<void> {
   if (extraction.icons) console.log(`Icon data extracted successfully (${extraction.icons.icons.length} icons)`);
   if (extraction.navMenus) console.log('Nav menu data extracted successfully');
   if (extraction.externalLink) console.log('External link data extracted successfully');
+  if (extraction.formControls) {
+    const parts: string[] = [];
+    if (extraction.formControls.checkbox) parts.push('checkbox');
+    if (extraction.formControls.radio) parts.push('radio');
+    console.log(`Form controls extracted: ${parts.join(', ')}`);
+  }
   console.log(`Written to: ${outPath}`);
 }
 

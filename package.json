@@ -44,6 +44,7 @@
     "figma:generate:typography": "echo [STUB] Typography generation not implemented yet",
     "figma:generate:colours": "echo [STUB] Colours generation not implemented yet",
     "figma:generate:buttons": "tsx scripts/figma/generate-buttons.ts",
+    "figma:generate:form-controls": "tsx scripts/figma/generate-form-controls.ts",
     "figma:generate:description": "tsx scripts/figma/generate-text-description.ts",
     "figma:generate:input": "tsx scripts/figma/generate-inputs.ts",
     "figma:generate:external-link": "tsx scripts/figma/generate-external-links.ts",
@@ -63,7 +64,7 @@
     "figma:generate:skeleton": "echo [STUB] Skeleton generation not implemented yet",
     "figma:generate:slider": "echo [STUB] Slider generation not implemented yet",
     "figma:generate:subhead": "echo [STUB] Subhead generation not implemented yet",
-    "figma:sync": "tsx --env-file=.env scripts/figma/extract.ts && tsx scripts/figma/generate-icons.ts && tsx scripts/figma/generate-badges.ts && tsx scripts/figma/generate-buttons.ts && tsx scripts/figma/generate-inputs.ts && tsx scripts/figma/generate-text-description.ts && tsx scripts/figma/generate-external-links.ts && tsx scripts/figma/generate-nav-menus.ts && tsx scripts/figma/generate.ts"
+    "figma:sync": "tsx --env-file=.env scripts/figma/extract.ts && tsx scripts/figma/generate-icons.ts && tsx scripts/figma/generate-badges.ts && tsx scripts/figma/generate-buttons.ts && tsx scripts/figma/generate-form-controls.ts && tsx scripts/figma/generate-inputs.ts && tsx scripts/figma/generate-text-description.ts && tsx scripts/figma/generate-external-links.ts && tsx scripts/figma/generate-nav-menus.ts && tsx scripts/figma/generate.ts"
   },
   "dependencies": {
     "@fontsource/fira-sans": "^5.2.7",

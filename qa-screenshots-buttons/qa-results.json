@@ -1,0 +1,552 @@
+{
+  "pageLoad": {
+    "status": 200,
+    "url": "http://localhost:4444/dashboard/components/button/native"
+  },
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "networkErrors": [],
+  "buttonStyles": {
+    "native-btn-showcase-primary": {
+      "backgroundColor": "rgb(59, 130, 246)",
+      "color": "rgb(255, 255, 255)",
+      "borderColor": "rgb(255, 255, 255)",
+      "borderWidth": "0px",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "padding": "8px 16px",
+      "paddingTop": "8px",
+      "paddingRight": "16px",
+      "paddingBottom": "8px",
+      "paddingLeft": "16px",
+      "opacity": "1",
+      "cursor": "pointer",
+      "boxShadow": "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "display": "flex",
+      "textContent": "Primary",
+      "boundingBox": {
+        "x": 337,
+        "y": 285,
+        "width": 81.59375,
+        "height": 40,
+        "top": 285,
+        "right": 418.59375,
+        "bottom": 325,
+        "left": 337
+      }
+    },
+    "native-btn-showcase-secondary": {
+      "backgroundColor": "rgb(55, 65, 81)",
+      "color": "rgb(229, 231, 235)",
+      "borderColor": "rgb(229, 231, 235)",
+      "borderWidth": "0px",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "padding": "8px 16px",
+      "paddingTop": "8px",
+      "paddingRight": "16px",
+      "paddingBottom": "8px",
+      "paddingLeft": "16px",
+      "opacity": "1",
+      "cursor": "pointer",
+      "boxShadow": "none",
+      "display": "flex",
+      "textContent": "Secondary",
+      "boundingBox": {
+        "x": 434.59375,
+        "y": 285,
+        "width": 98.78125,
+        "height": 40,
+        "top": 285,
+        "right": 533.375,
+        "bottom": 325,
+        "left": 434.59375
+      }
+    },
+    "native-btn-showcase-outline": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderWidth": "1px",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "padding": "8px 16px",
+      "paddingTop": "8px",
+      "paddingRight": "16px",
+      "paddingBottom": "8px",
+      "paddingLeft": "16px",
+      "opacity": "1",
+      "cursor": "pointer",
+      "boxShadow": "none",
+      "display": "flex",
+      "textContent": "Outline",
+      "boundingBox": {
+        "x": 549.375,
+        "y": 285,
+        "width": 80.734375,
+        "height": 40,
+        "top": 285,
+        "right": 630.109375,
+        "bottom": 325,
+        "left": 549.375
+      }
+    },
+    "native-btn-showcase-ghost": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(209, 213, 219)",
+      "borderColor": "rgb(209, 213, 219)",
+      "borderWidth": "0px",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "padding": "8px 16px",
+      "paddingTop": "8px",
+      "paddingRight": "16px",
+      "paddingBottom": "8px",
+      "paddingLeft": "16px",
+      "opacity": "1",
+      "cursor": "pointer",
+      "boxShadow": "none",
+      "display": "flex",
+      "textContent": "Ghost",
+      "boundingBox": {
+        "x": 646.109375,
+        "y": 285,
+        "width": 69.375,
+        "height": 40,
+        "top": 285,
+        "right": 715.484375,
+        "bottom": 325,
+        "left": 646.109375
+      }
+    },
+    "native-btn-showcase-danger": {
+      "backgroundColor": "rgb(239, 68, 68)",
+      "color": "rgb(255, 255, 255)",
+      "borderColor": "rgb(255, 255, 255)",
+      "borderWidth": "0px",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500",
+      "padding": "8px 16px",
+      "paddingTop": "8px",
+      "paddingRight": "16px",
+      "paddingBottom": "8px",
+      "paddingLeft": "16px",
+      "opacity": "1",
+      "cursor": "pointer",
+      "boxShadow": "rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.1) 0px 1px 2px -1px",
+      "display": "flex",
+      "textContent": "Danger",
+      "boundingBox": {
+        "x": 731.484375,
+        "y": 285,
+        "width": 78.578125,
+        "height": 40,
+        "top": 285,
+        "right": 810.0625,
+        "bottom": 325,
+        "left": 731.484375
+      }
+    }
+  },
+  "checkboxStyles": {
+    "checked": {
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderRadius": "4px",
+      "width": "18px",
+      "height": "18px",
+      "outerHTML": "<div class=\"flex flex-col gap-1\" data-testid=\"checkbox-showcase-checked\"><div class=\"flex min-h-[44px] items-center gap-2\"><input aria-invalid=\"false\" class=\"native-checkbox\" id=\":r3:\" type=\"checkbox\" readonly=\"\" checked=\"\" style=\"\"><label class=\"text-sm text-text-primary cursor-pointer\" for=\":r3:\">Checked</label></div></div>"
+    },
+    "unchecked": {
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderRadius": "4px",
+      "width": "18px",
+      "height": "18px",
+      "outerHTML": "<div class=\"flex flex-col gap-1\" data-testid=\"checkbox-showcase-default\"><div class=\"flex min-h-[44px] items-center gap-2\"><input aria-invalid=\"false\" class=\"native-checkbox\" id=\":r1:\" type=\"checkbox\" style=\"\"><label class=\"text-sm text-text-primary cursor-pointer\" for=\":r1:\">Default</label></div></div>"
+    }
+  },
+  "radioStyles": {
+    "labels": [
+      {
+        "text": "Option 1",
+        "checked": false,
+        "borderColor": "rgb(229, 231, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Option 2",
+        "checked": false,
+        "borderColor": "rgb(229, 231, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Option 3",
+        "checked": false,
+        "borderColor": "rgb(229, 231, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      },
+      {
+        "text": "Disabled",
+        "checked": false,
+        "borderColor": "rgb(229, 231, 235)",
+        "backgroundColor": "rgba(0, 0, 0, 0)"
+      }
+    ]
+  },
+  "disabledStates": [
+    {
+      "testId": "native-btn-showcase-disabled-primary",
+      "text": "Disabled",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgb(30, 58, 138)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-showcase-disabled-secondary",
+      "text": "Disabled",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgb(55, 65, 81)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-showcase-disabled-outline",
+      "text": "Disabled",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-showcase-disabled-ghost",
+      "text": "Disabled",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-showcase-disabled-danger",
+      "text": "Disabled",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgb(127, 29, 29)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-loading-primary",
+      "text": "Primary",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgb(30, 58, 138)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-loading-secondary",
+      "text": "Secondary",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgb(55, 65, 81)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-loading-outline",
+      "text": "Outline",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-loading-ghost",
+      "text": "Ghost",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "pointerEvents": "none"
+    },
+    {
+      "testId": "native-btn-loading-danger",
+      "text": "Danger",
+      "opacity": "0.5",
+      "cursor": "not-allowed",
+      "backgroundColor": "rgb(127, 29, 29)",
+      "pointerEvents": "none"
+    }
+  ],
+  "darkMode": {
+    "native-btn-showcase-primary": {
+      "backgroundColor": "rgb(59, 130, 246)",
+      "color": "rgb(255, 255, 255)",
+      "borderColor": "rgb(255, 255, 255)"
+    },
+    "native-btn-showcase-secondary": {
+      "backgroundColor": "rgb(243, 244, 246)",
+      "color": "rgb(55, 65, 81)",
+      "borderColor": "rgb(55, 65, 81)"
+    },
+    "native-btn-showcase-outline": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(59, 130, 246)",
+      "borderColor": "rgb(59, 130, 246)"
+    },
+    "native-btn-showcase-ghost": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(55, 65, 81)",
+      "borderColor": "rgb(55, 65, 81)"
+    },
+    "native-btn-showcase-danger": {
+      "backgroundColor": "rgb(239, 68, 68)",
+      "color": "rgb(255, 255, 255)",
+      "borderColor": "rgb(255, 255, 255)"
+    }
+  },
+  "responsive": {
+    "tablet": {
+      "bodyWidth": 800,
+      "viewportWidth": 768,
+      "hasHorizontalOverflow": true
+    },
+    "mobile": {
+      "bodyWidth": 800,
+      "viewportWidth": 375,
+      "hasHorizontalOverflow": true,
+      "smallTouchTargets": [
+        {
+          "text": "Primary",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Secondary",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Outline",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Ghost",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Danger",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Small",
+          "width": 44,
+          "height": 32
+        },
+        {
+          "text": "Medium",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Small",
+          "width": 44,
+          "height": 32
+        },
+        {
+          "text": "Medium",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Disabled",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Disabled",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Disabled",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Disabled",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Disabled",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Primary",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Reset",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Inactive",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Primary",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Secondary",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Outline",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Ghost",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Danger",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Loading",
+          "width": 44,
+          "height": 40
+        },
+        {
+          "text": "Primary",
+          "width": 44,
+          "height": 40
+        }
+      ]
+    }
+  },
+  "accessibility": {
+    "totalInteractiveElements": 209,
+    "missingLabels": [
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input aria-invalid=\"false\" class=\"native-checkbox\" id=\":r1:\" type=\"checkbox\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input aria-invalid=\"false\" class=\"native-checkbox\" id=\":r3:\" type=\"checkbox\" readonly=\"\" checked=\"\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input aria-invalid=\"false\" class=\"native-checkbox\" id=\":r5:\" type=\"checkbox\" readonly=\"\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input aria-invalid=\"false\" class=\"native-checkbox\" disabled=\"\" id=\":r7:\" type=\"checkbox\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input aria-invalid=\"false\" class=\"native-checkbox\" disabled=\"\" id=\":r9:\" type=\"checkbox\" checked=\"\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input aria-describedby=\":rb:-helper\" aria-invalid=\"true\" class=\"native-checkbox border-error-500\" id=\":rb:\" type=\"checkbox\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input class=\"native-radio\" id=\":rd:\" type=\"radio\" name=\"showcase-radio-group\" value=\"option-1\" checked=\"\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input class=\"native-radio\" id=\":rf:\" type=\"radio\" name=\"showcase-radio-group\" value=\"option-2\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input class=\"native-radio\" id=\":rh:\" type=\"radio\" name=\"showcase-radio-group\" value=\"option-3\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input class=\"native-radio\" disabled=\"\" id=\":rj:\" type=\"radio\" name=\"showcase-radio-disabled\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input class=\"h-12 w-20 cursor-pointer rounded-lg border border-border\" id=\"base-color\" type=\"color\" value=\"#00bcd4\" style=\"\">"
+      },
+      {
+        "tag": "INPUT",
+        "role": null,
+        "testId": null,
+        "outerHTML": "<input class=\"flex-1 rounded-md border border-border bg-surface px-3 py-2 text-sm font-mono text-text-primary\" placeholder=\"#3b82f6\" type=\"text\" value=\"#00bcd4\" style=\"\">"
+      }
+    ]
+  },
+  "cssVariables": {
+    "--component-button-font-family": "",
+    "--component-button-font-size": "14px",
+    "--component-button-font-weight": "500",
+    "--component-button-padding-top": "8px",
+    "--component-button-padding-right": "16px",
+    "--component-button-padding-bottom": "8px",
+    "--component-button-padding-left": "16px",
+    "--component-button-primary-bg": "rgb(59 130 246)",
+    "--component-button-primary-text": "rgb(255 255 255)",
+    "--component-button-primary-border-radius": "6px",
+    "--component-button-secondary-bg": "rgb(55 65 81)",
+    "--component-button-secondary-text": "rgb(229 231 235)",
+    "--component-button-secondary-border": "rgb(transparent)",
+    "--component-button-outline-bg": "rgb(transparent)",
+    "--component-button-outline-text": "rgb(96 165 250)",
+    "--component-button-outline-border": "rgb(96 165 250)",
+    "--component-button-ghost-bg": "rgb(transparent)",
+    "--component-button-ghost-text": "rgb(209 213 219)",
+    "--component-button-ghost-border": "rgb(transparent)",
+    "--component-button-danger-bg": "rgb(239 68 68)",
+    "--component-button-danger-text": "rgb(255 255 255)",
+    "--component-button-primary-disabled-opacity": "0.5",
+    "--component-button-secondary-disabled-opacity": "0.5"
+  }
+}

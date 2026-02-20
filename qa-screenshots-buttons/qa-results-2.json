@@ -1,0 +1,370 @@
+{
+  "checkboxDetails": [
+    {
+      "index": 0,
+      "labelText": "Default",
+      "checked": false,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderWidth": "2px",
+      "borderRadius": "4px",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    },
+    {
+      "index": 1,
+      "labelText": "Checked",
+      "checked": true,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderWidth": "2px",
+      "borderRadius": "4px",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    },
+    {
+      "index": 2,
+      "labelText": "Indeterminate",
+      "checked": false,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderWidth": "2px",
+      "borderRadius": "4px",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    },
+    {
+      "index": 3,
+      "labelText": "Disabled",
+      "checked": false,
+      "disabled": true,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderWidth": "2px",
+      "borderRadius": "4px",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "0.5"
+    },
+    {
+      "index": 4,
+      "labelText": "Checked Disabled",
+      "checked": true,
+      "disabled": true,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderWidth": "2px",
+      "borderRadius": "4px",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "0.5"
+    },
+    {
+      "index": 5,
+      "labelText": "With Error",
+      "checked": false,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderWidth": "2px",
+      "borderRadius": "4px",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    }
+  ],
+  "radioDetails": [
+    {
+      "index": 0,
+      "labelText": "Option 1",
+      "checked": true,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderWidth": "2px",
+      "borderRadius": "50%",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    },
+    {
+      "index": 1,
+      "labelText": "Option 2",
+      "checked": false,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderWidth": "2px",
+      "borderRadius": "50%",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    },
+    {
+      "index": 2,
+      "labelText": "Option 3",
+      "checked": false,
+      "disabled": false,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderWidth": "2px",
+      "borderRadius": "50%",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "1"
+    },
+    {
+      "index": 3,
+      "labelText": "Disabled",
+      "checked": false,
+      "disabled": true,
+      "width": "18px",
+      "height": "18px",
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)",
+      "borderWidth": "2px",
+      "borderRadius": "50%",
+      "accentColor": "auto",
+      "appearance": "none",
+      "opacity": "0.5"
+    }
+  ],
+  "currentThemeState": {
+    "classList": [
+      "dark"
+    ],
+    "hasDarkClass": true,
+    "colorScheme": "normal",
+    "bodyBg": "rgb(15, 20, 38)"
+  },
+  "toggleInfo": {
+    "darkTab": false,
+    "lightTab": false,
+    "themeButtons": [
+      {
+        "text": "",
+        "testId": "theme-settings-button",
+        "ariaLabel": "Open theme settings",
+        "ariaCurrent": null
+      },
+      {
+        "text": "",
+        "testId": "theme-toggle",
+        "ariaLabel": "Switch to light mode",
+        "ariaCurrent": null
+      },
+      {
+        "text": "",
+        "testId": "theme-close-btn",
+        "ariaLabel": "Collapse theme panel",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Light",
+        "testId": "theme-tab-lightTheme",
+        "ariaLabel": "Light",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Dark",
+        "testId": "theme-tab-darkTheme",
+        "ariaLabel": "Dark",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Export",
+        "testId": "theme-export-btn",
+        "ariaLabel": "Export theme as JSON",
+        "ariaCurrent": null
+      }
+    ],
+    "tabInfo": [
+      {
+        "text": "ColorsTypographyLayoutLightDarkComponentsPresets",
+        "testId": null,
+        "ariaCurrent": null
+      },
+      {
+        "text": "Colors",
+        "testId": "theme-tab-colors",
+        "ariaCurrent": "page"
+      },
+      {
+        "text": "Typography",
+        "testId": "theme-tab-typography",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Layout",
+        "testId": "theme-tab-layout",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Light",
+        "testId": "theme-tab-lightTheme",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Dark",
+        "testId": "theme-tab-darkTheme",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Components",
+        "testId": "theme-tab-components",
+        "ariaCurrent": null
+      },
+      {
+        "text": "Presets",
+        "testId": "theme-tab-presets",
+        "ariaCurrent": null
+      }
+    ]
+  },
+  "lightTabClick": {
+    "clicked": true,
+    "text": "Light",
+    "testId": "theme-tab-lightTheme"
+  },
+  "lightModeButtonStyles": {
+    "native-btn-showcase-primary": {
+      "backgroundColor": "rgb(59, 130, 246)",
+      "color": "rgb(255, 255, 255)",
+      "borderColor": "rgb(255, 255, 255)",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500"
+    },
+    "native-btn-showcase-secondary": {
+      "backgroundColor": "rgb(55, 65, 81)",
+      "color": "rgb(229, 231, 235)",
+      "borderColor": "rgb(229, 231, 235)",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500"
+    },
+    "native-btn-showcase-outline": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500"
+    },
+    "native-btn-showcase-ghost": {
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "color": "rgb(209, 213, 219)",
+      "borderColor": "rgb(209, 213, 219)",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500"
+    },
+    "native-btn-showcase-danger": {
+      "backgroundColor": "rgb(239, 68, 68)",
+      "color": "rgb(255, 255, 255)",
+      "borderColor": "rgb(255, 255, 255)",
+      "borderRadius": "6px",
+      "fontFamily": "ui-sans-serif, system-ui, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\"",
+      "fontSize": "14px",
+      "fontWeight": "500"
+    }
+  },
+  "lightModeThemeState": {
+    "classList": [
+      "dark"
+    ],
+    "hasDarkClass": true,
+    "bodyBg": "rgb(15, 20, 38)"
+  },
+  "lightModeCheckboxDetails": [
+    {
+      "labelText": "Default",
+      "checked": false,
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)"
+    },
+    {
+      "labelText": "Checked",
+      "checked": true,
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)"
+    },
+    {
+      "labelText": "Indeterminate",
+      "checked": false,
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)"
+    },
+    {
+      "labelText": "Disabled",
+      "checked": false,
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)"
+    },
+    {
+      "labelText": "Checked Disabled",
+      "checked": true,
+      "backgroundColor": "rgb(96, 165, 250)",
+      "borderColor": "rgb(96, 165, 250)"
+    },
+    {
+      "labelText": "With Error",
+      "checked": false,
+      "backgroundColor": "rgb(31, 41, 55)",
+      "borderColor": "rgb(75, 85, 99)"
+    }
+  ],
+  "checkboxCssClasses": {
+    "found": true,
+    "appearance": "none",
+    "width": "18px",
+    "height": "18px",
+    "accentColor": "auto",
+    "backgroundColor": "rgb(31, 41, 55)",
+    "borderColor": "rgb(75, 85, 99)",
+    "borderWidth": "2px",
+    "borderRadius": "4px",
+    "cursor": "pointer"
+  },
+  "radioCssClasses": {
+    "found": true,
+    "appearance": "none",
+    "width": "18px",
+    "height": "18px",
+    "accentColor": "auto",
+    "backgroundColor": "rgb(96, 165, 250)",
+    "borderColor": "rgb(96, 165, 250)",
+    "borderWidth": "2px",
+    "borderRadius": "50%",
+    "cursor": "pointer"
+  },
+  "currentUrl": "http://localhost:4444/dashboard/components/button/native"
+}

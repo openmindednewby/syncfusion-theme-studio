@@ -232,6 +232,11 @@ export const NavMenuShowcase = lazy(
   async () => import('@/features/components/pages/NavMenuShowcase'),
 );
 
+// Sidebar showcase
+export const SidebarShowcase = lazy(
+  async () => import('@/features/components/pages/SidebarShowcase'),
+);
+
 // ExternalLink showcase
 export const ExternalLinkShowcase = lazy(
   async () => import('@/features/components/pages/ExternalLinkShowcase'),

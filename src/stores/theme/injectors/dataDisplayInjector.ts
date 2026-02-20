@@ -107,6 +107,8 @@ export function injectExternalLinkVariables(root: HTMLElement, c: ComponentConfi
   root.style.setProperty('--component-external-link-icon-color', `rgb(${externalLink.iconColor})`);
   root.style.setProperty('--component-external-link-hover-text-color', `rgb(${externalLink.hoverTextColor})`);
   root.style.setProperty('--component-external-link-hover-icon-color', `rgb(${externalLink.hoverIconColor})`);
+  root.style.setProperty('--component-external-link-disabled-text-color', `rgb(${externalLink.disabledTextColor})`);
+  root.style.setProperty('--component-external-link-disabled-icon-color', `rgb(${externalLink.disabledIconColor})`);
   root.style.setProperty('--component-external-link-font-family', externalLink.typography.fontFamily);
   root.style.setProperty('--component-external-link-font-size', externalLink.typography.fontSize);
   root.style.setProperty('--component-external-link-font-weight', externalLink.typography.fontWeight);

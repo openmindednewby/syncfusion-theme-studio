@@ -149,6 +149,10 @@ export const enum RouteSegment {
   ComponentsExternalLink = 'components/externallink',
   ComponentsExternalLinkNative = 'components/externallink/native',
 
+  // Sidebar
+  ComponentsSidebar = 'components/sidebar',
+  ComponentsSidebarNative = 'components/sidebar/native',
+
   // ThemeToggle
   ComponentsThemeToggle = 'components/themetoggle',
   ComponentsThemeToggleNative = 'components/themetoggle/native',

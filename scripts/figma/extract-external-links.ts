@@ -53,6 +53,24 @@ function resolvePaintColor(
   return paint.color;
 }
 
+function extractTextColor(
+  node: FigmaNode,
+  resolver: VariableColorResolver | undefined,
+  modeName: string,
+  fallback: string,
+): string {
+  const textNode = findTextChild(node);
+  if (!textNode) return fallback;
+
+  const fills = textNode.fills ?? [];
+  const solidFill = fills.find((p) => p.type === 'SOLID' && p.visible !== false);
+  if (solidFill) {
+    const resolved = resolvePaintColor(solidFill, resolver, modeName);
+    if (resolved) return figmaColorToRgb(resolved);
+  }
+  return fallback;
+}
+
 export function extractExternalLinks(
   document: FigmaNode,
   resolver: VariableColorResolver | undefined,
@@ -60,39 +78,87 @@ export function extractExternalLinks(
   const page = findPageByName(document, 'External Link');
   if (!page) return undefined;
 
-  const componentSet = findComponentSet(page, 'External Link');
+  // Try "link" first (Final -dtt page), then fall back to "External Link"
+  const componentSet = findComponentSet(page, 'link')
+    ?? findComponentSet(page, 'External Link');
   if (!componentSet) return undefined;
 
-  const firstVariant = (componentSet.children ?? []).find(
-    (c) => c.type === 'COMPONENT',
-  );
-  if (!firstVariant) return undefined;
+  const variants = componentSet.children ?? [];
+  let enabledColor = '59 69 89';
+  let disabledColor = '156 163 175';
+  let fontFamily: string | undefined;
+  let fontSize: string | undefined;
+  let fontWeight: string | undefined;
+  let lineHeight: string | undefined;
+  let letterSpacing: string | undefined;
+  let gap: string | undefined;
+  let textDecoration: string | undefined;
 
-  const textNode = findTextChild(firstVariant);
-  if (!textNode) return undefined;
+  for (const variant of variants) {
+    if (variant.type !== 'COMPONENT') continue;
 
-  let textColor = '59 130 246';
-  const textFills = textNode.fills ?? [];
-  const textSolid = textFills.find((p) => p.type === 'SOLID' && p.visible !== false);
-  if (textSolid) {
-    const resolved = resolvePaintColor(textSolid, resolver, 'light');
-    if (resolved) textColor = figmaColorToRgb(resolved);
+    const nameLower = variant.name.toLowerCase();
+    const color = extractTextColor(variant, resolver, 'light', '59 69 89');
+
+    if (nameLower.includes('disabled')) {
+      disabledColor = color;
+    } else {
+      enabledColor = color;
+
+      const textNode = findTextChild(variant);
+      if (textNode?.style) {
+        fontFamily = textNode.style.fontFamily;
+        fontSize = textNode.style.fontSize ? `${textNode.style.fontSize}px` : undefined;
+        fontWeight = textNode.style.fontWeight ? String(textNode.style.fontWeight) : undefined;
+        lineHeight = textNode.style.lineHeightPx ? `${textNode.style.lineHeightPx}px` : undefined;
+        letterSpacing = textNode.style.letterSpacing !== undefined
+          ? `${textNode.style.letterSpacing}px`
+          : undefined;
+      }
+
+      // Extract gap from the variant's layout (itemSpacing)
+      if (variant.itemSpacing !== undefined) {
+        gap = `${variant.itemSpacing}px`;
+      }
+    }
   }
 
-  const style = textNode.style;
+  // Check for underline: look for a child rectangle/line node that acts as underline
+  for (const variant of variants) {
+    if (variant.type !== 'COMPONENT') continue;
+    if (variant.name.toLowerCase().includes('disabled')) continue;
+
+    // Check direct children for underline decoration hints
+    for (const child of variant.children ?? []) {
+      for (const grandchild of child.children ?? []) {
+        if (grandchild.type === 'LINE' || grandchild.type === 'RECTANGLE') {
+          textDecoration = 'underline';
+          break;
+        }
+      }
+      if (textDecoration) break;
+    }
+    break;
+  }
+
   const result: ExternalLinkData = {
-    textColor,
-    iconColor: textColor,
-    fontFamily: style?.fontFamily,
-    fontSize: style?.fontSize ? `${style.fontSize}px` : undefined,
-    fontWeight: style?.fontWeight ? String(style.fontWeight) : undefined,
-    lineHeight: style?.lineHeightPx ? `${style.lineHeightPx}px` : undefined,
-    letterSpacing: style?.letterSpacing ? `${style.letterSpacing}px` : undefined,
+    textColor: enabledColor,
+    iconColor: enabledColor,
+    disabledTextColor: disabledColor,
+    disabledIconColor: disabledColor,
+    fontFamily,
+    fontSize,
+    fontWeight,
+    lineHeight,
+    letterSpacing,
+    textDecoration,
+    gap,
   };
 
   console.log(
-    `External Link: ${result.fontFamily ?? 'unknown'} ${result.fontSize ?? '?'}` +
-    ` / color ${result.textColor}`,
+    `External Link: enabled=${result.textColor} disabled=${result.disabledTextColor}` +
+    ` font=${result.fontFamily ?? 'unknown'} ${result.fontSize ?? '?'}` +
+    ` gap=${result.gap ?? 'none'} decoration=${result.textDecoration ?? 'none'}`,
   );
 
   return result;

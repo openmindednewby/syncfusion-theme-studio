@@ -628,6 +628,8 @@ const createExternalLink = (): ExternalLinkConfig => ({
   iconColor: '59 130 246',
   hoverTextColor: '37 99 235',
   hoverIconColor: '37 99 235',
+  disabledTextColor: '156 163 175',
+  disabledIconColor: '156 163 175',
   typography: { fontFamily: 'inherit', fontSize: '0.875rem', fontWeight: '500', lineHeight: '1.5', letterSpacing: '0px' },
   textDecoration: 'none',
   gap: '4px',

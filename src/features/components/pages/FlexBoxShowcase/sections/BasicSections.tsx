@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FlexBox } from '@/features/components/shared/FlexBox';
 import { FlexItem } from '@/features/components/shared/FlexItem';
 import { FM } from '@/localization/helpers';
@@ -21,6 +22,7 @@ export const BasicSection = memo((): JSX.Element => (
         </FlexItem>
       ))}
     </FlexBox>
+    <CopyableCodeSnippet code={'<FlexBox>\n  <FlexItem>Item 1</FlexItem>\n  <FlexItem>Item 2</FlexItem>\n</FlexBox>'} />
   </section>
 ));
 
@@ -41,6 +43,7 @@ export const VerticalSection = memo((): JSX.Element => (
         </FlexItem>
       ))}
     </FlexBox>
+    <CopyableCodeSnippet code={'<FlexBox vertical>\n  <FlexItem>Item 1</FlexItem>\n  <FlexItem>Item 2</FlexItem>\n</FlexBox>'} />
   </section>
 ));
 

@@ -214,6 +214,10 @@ export const ComponentTestIds = {
   NAV_MENU_SHOWCASE: 'nav-menu-showcase',
   NAV_NAVMENU_GROUP: 'nav-navmenu-group',
 
+  // Sidebar
+  SIDEBAR_SHOWCASE: 'sidebar-showcase',
+  NAV_SIDEBAR_GROUP: 'nav-sidebar-group',
+
   // Table Column Filter
   COLUMN_FILTER_BUTTON: 'column-filter-button',
   COLUMN_FILTER_POPUP: 'column-filter-popup',

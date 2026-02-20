@@ -193,11 +193,52 @@ export interface NavMenuSectionData {
 export interface ExternalLinkData {
   textColor: string;
   iconColor: string;
+  disabledTextColor?: string;
+  disabledIconColor?: string;
   fontFamily?: string;
   fontSize?: string;
   fontWeight?: string;
   lineHeight?: string;
   letterSpacing?: string;
+  textDecoration?: string;
+  gap?: string;
+}
+
+/** Extracted checkbox state data from Figma */
+export interface CheckboxExtractionData {
+  checkedBackground: string;
+  checkedBorderColor: string;
+  checkmarkColor: string;
+  uncheckedBorderColor: string;
+  disabledBackground?: string;
+  disabledBorderColor?: string;
+  size?: string;
+  borderRadius?: string;
+}
+
+/** Extracted radio state data from Figma */
+export interface RadioExtractionData {
+  selectedBorderColor: string;
+  dotColor: string;
+  uncheckedBorderColor: string;
+  disabledBorderColor?: string;
+  disabledLabelColor?: string;
+  size?: string;
+  labelFontFamily?: string;
+  labelFontSize?: string;
+  labelFontWeight?: string;
+}
+
+/** Form control extraction with light/dark modes */
+export interface FormControlExtractionData {
+  checkbox?: {
+    light: CheckboxExtractionData;
+    dark: CheckboxExtractionData;
+  };
+  radio?: {
+    light: RadioExtractionData;
+    dark: RadioExtractionData;
+  };
 }
 
 /** Full extraction output */
@@ -228,6 +269,7 @@ export interface FigmaExtraction {
   icons?: IconExtractionData;
   navMenus?: NavMenuSectionData;
   externalLink?: ExternalLinkData;
+  formControls?: FormControlExtractionData;
 }
 
 /** Single mapping rule */

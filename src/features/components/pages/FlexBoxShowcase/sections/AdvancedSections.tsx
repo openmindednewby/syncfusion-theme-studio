@@ -1,5 +1,6 @@
 import { memo } from 'react';
 
+import { CopyableCodeSnippet } from '@/components/common';
 import { FlexBox, FlexGapSize } from '@/features/components/shared/FlexBox';
 import { FlexItem } from '@/features/components/shared/FlexItem';
 import { FM } from '@/localization/helpers';
@@ -28,6 +29,7 @@ export const FlexPropertySection = memo((): JSX.Element => (
         <FlexItem><ItemLabel>{FM('components.flexBoxShowcase.letterC')}</ItemLabel></FlexItem>
       </FlexBox>
     </FlexBox>
+    <CopyableCodeSnippet code={'<FlexBox>\n  <FlexBox flex="1">Column 1</FlexBox>\n  <FlexBox flex="2">Column 2</FlexBox>\n  <FlexBox flex="1">Column 3</FlexBox>\n</FlexBox>'} />
   </section>
 ));
 
@@ -52,6 +54,7 @@ export const CustomElementSection = memo((): JSX.Element => (
         <ItemLabel>{FM('components.flexBoxShowcase.aside')}</ItemLabel>
       </FlexItem>
     </FlexBox>
+    <CopyableCodeSnippet code={'<FlexBox component="section">\n  <FlexItem component="article">Content</FlexItem>\n  <FlexItem component="aside">Sidebar</FlexItem>\n</FlexBox>'} />
   </section>
 ));
 

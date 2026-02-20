@@ -25,7 +25,7 @@ import {
 } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 
-import IconCard from './IconCard';
+import FilterableIconGrid from './FilterableIconGrid';
 
 const SHOWCASE_ICONS = [
   { name: 'AlignCenterIcon', icon: AlignCenterIcon },
@@ -51,17 +51,15 @@ const SHOWCASE_ICONS = [
   { name: 'UndoIcon', icon: UndoIcon },
 ] as const;
 
-const ShowcaseIconsSection = (): JSX.Element => (
-  <section className="card space-y-4">
-    <h3 className="text-lg font-semibold text-text-primary">
-      {FM('components.iconsShowcase.showcaseIcons')}
-    </h3>
-    <div className="grid grid-cols-2 gap-1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-      {SHOWCASE_ICONS.map((entry) => (
-        <IconCard key={entry.name} icon={entry.icon} name={entry.name} />
-      ))}
-    </div>
-  </section>
+const CODE = 'import { HomeIcon, SaveIcon, StarIcon } from \'@/components/icons\';\n\n<HomeIcon />\n<StarIcon className="h-5 w-5 text-warning-500" />';
+
+const ShowcaseIconsSection = ({ filter }: { filter: string }): JSX.Element | null => (
+  <FilterableIconGrid
+    codeSnippet={CODE}
+    filter={filter}
+    icons={SHOWCASE_ICONS}
+    title={FM('components.iconsShowcase.showcaseIcons')}
+  />
 );
 
 export default memo(ShowcaseIconsSection);

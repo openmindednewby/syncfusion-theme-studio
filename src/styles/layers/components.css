@@ -107,7 +107,8 @@
     color: var(--component-button-primary-text);
     border-color: var(--component-button-primary-border);
     border-width: var(--component-button-primary-border-width);
-    border-radius: var(--radius-md);
+    border-radius: var(--component-button-primary-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-primary-shadow, none);
   }
 
   .native-btn-primary:hover:not(:disabled) {
@@ -131,7 +132,8 @@
     color: var(--component-button-secondary-text);
     border-color: var(--component-button-secondary-border);
     border-width: var(--component-button-secondary-border-width);
-    border-radius: var(--radius-md);
+    border-radius: var(--component-button-secondary-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-secondary-shadow, none);
   }
 
   .native-btn-secondary:hover:not(:disabled) {
@@ -155,7 +157,8 @@
     color: var(--component-button-outline-text);
     border-color: var(--component-button-outline-border);
     border-width: var(--component-button-outline-border-width);
-    border-radius: var(--radius-md);
+    border-radius: var(--component-button-outline-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-outline-shadow, none);
   }
 
   .native-btn-outline:hover:not(:disabled) {
@@ -179,7 +182,8 @@
     color: var(--component-button-ghost-text);
     border-color: var(--component-button-ghost-border);
     border-width: var(--component-button-ghost-border-width);
-    border-radius: var(--radius-md);
+    border-radius: var(--component-button-ghost-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-ghost-shadow, none);
   }
 
   .native-btn-ghost:hover:not(:disabled) {
@@ -203,7 +207,8 @@
     color: var(--component-button-danger-text);
     border-color: var(--component-button-danger-border);
     border-width: var(--component-button-danger-border-width);
-    border-radius: var(--radius-md);
+    border-radius: var(--component-button-danger-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-danger-shadow, none);
   }
 
   .native-btn-danger:hover:not(:disabled) {
@@ -223,9 +228,9 @@
   }
 
   /* Native button size variants */
-  .native-btn-sm { min-height: 2rem; }
+  .native-btn-sm { min-height: 2rem; padding: 0.25rem 0.75rem; font-size: 0.8125rem; }
   .native-btn-md { min-height: 2.5rem; }
-  .native-btn-lg { min-height: 3rem; font-size: 1rem; }
+  .native-btn-lg { min-height: 3rem; padding: 0.625rem 1.25rem; font-size: 1rem; }
 
   /* ===== CARDS ===== */
   /* Uses component-specific CSS variables from theme editor */

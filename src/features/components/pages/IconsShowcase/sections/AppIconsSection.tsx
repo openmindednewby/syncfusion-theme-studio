@@ -32,7 +32,7 @@ import {
 } from '@/components/icons';
 import { FM } from '@/localization/helpers';
 
-import IconCard from './IconCard';
+import FilterableIconGrid from './FilterableIconGrid';
 
 const APP_ICONS = [
   { name: 'CyberWatchLogo', icon: CyberWatchLogo },
@@ -65,17 +65,15 @@ const APP_ICONS = [
   { name: 'IconZap', icon: IconZap },
 ] as const;
 
-const AppIconsSection = (): JSX.Element => (
-  <section className="card space-y-4">
-    <h3 className="text-lg font-semibold text-text-primary">
-      {FM('components.iconsShowcase.appIcons')}
-    </h3>
-    <div className="grid grid-cols-2 gap-1 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
-      {APP_ICONS.map((entry) => (
-        <IconCard key={entry.name} icon={entry.icon} name={entry.name} />
-      ))}
-    </div>
-  </section>
+const CODE = 'import { IconBell, IconSearch, IconUser } from \'@/components/icons\';\n\n<IconBell />\n<IconSearch className="h-5 w-5" />\n<IconUser className="h-6 w-6 text-primary-400" />';
+
+const AppIconsSection = ({ filter }: { filter: string }): JSX.Element | null => (
+  <FilterableIconGrid
+    codeSnippet={CODE}
+    filter={filter}
+    icons={APP_ICONS}
+    title={FM('components.iconsShowcase.appIcons')}
+  />
 );
 
 export default memo(AppIconsSection);

@@ -29,6 +29,7 @@ function loadExtraction(): FigmaExtraction {
   return JSON.parse(raw) as FigmaExtraction;
 }
 
+/** Fields that belong in ButtonStateColors (per-variant) */
 interface ButtonVariantOverride {
   background?: string;
   backgroundHover?: string;
@@ -36,22 +37,12 @@ interface ButtonVariantOverride {
   textColor?: string;
   textColorHover?: string;
   borderColor?: string;
+  borderWidth?: string;
+  borderRadius?: string;
   disabledBackground?: string;
   disabledTextColor?: string;
   disabledBorderColor?: string;
   disabledOpacity?: string;
-  fontFamily?: string;
-  fontSize?: string;
-  fontWeight?: string;
-  lineHeight?: string;
-  letterSpacing?: string;
-  paddingTop?: string;
-  paddingRight?: string;
-  paddingBottom?: string;
-  paddingLeft?: string;
-  gap?: string;
-  borderRadius?: string;
-  borderWidth?: string;
 }
 
 function mapVariantToOverride(data: ButtonVariantData): ButtonVariantOverride {
@@ -61,12 +52,17 @@ function mapVariantToOverride(data: ButtonVariantData): ButtonVariantOverride {
     override.background = data.default.background;
     override.textColor = data.default.textColor;
     override.borderColor = data.default.borderColor;
-    mapDefaultLayoutFields(override, data.default);
+    if (data.default.borderRadius) override.borderRadius = data.default.borderRadius;
+    if (data.default.borderWidth) override.borderWidth = data.default.borderWidth;
   }
 
   if (data.hover) {
     override.backgroundHover = data.hover.background;
     override.textColorHover = data.hover.textColor;
+  } else if (data.default) {
+    // Auto-derive hover = same as default to prevent inheriting blue defaults
+    override.backgroundHover = data.default.background;
+    override.textColorHover = data.default.textColor;
   }
 
   if (data.active) {
@@ -83,22 +79,49 @@ function mapVariantToOverride(data: ButtonVariantData): ButtonVariantOverride {
   return override;
 }
 
-function mapDefaultLayoutFields(
-  override: ButtonVariantOverride,
-  defaults: NonNullable<ButtonVariantData['default']>,
-): void {
-  if (defaults.fontFamily) override.fontFamily = defaults.fontFamily;
-  if (defaults.fontSize) override.fontSize = defaults.fontSize;
-  if (defaults.fontWeight) override.fontWeight = defaults.fontWeight;
-  if (defaults.lineHeight) override.lineHeight = defaults.lineHeight;
-  if (defaults.letterSpacing) override.letterSpacing = defaults.letterSpacing;
-  if (defaults.paddingTop) override.paddingTop = defaults.paddingTop;
-  if (defaults.paddingRight) override.paddingRight = defaults.paddingRight;
-  if (defaults.paddingBottom) override.paddingBottom = defaults.paddingBottom;
-  if (defaults.paddingLeft) override.paddingLeft = defaults.paddingLeft;
-  if (defaults.gap) override.gap = defaults.gap;
-  if (defaults.borderRadius) override.borderRadius = defaults.borderRadius;
-  if (defaults.borderWidth) override.borderWidth = defaults.borderWidth;
+/** Extract shared typography from the first variant with default state data */
+function extractTypography(
+  modeData: Record<string, ButtonVariantData>,
+): Record<string, string> | undefined {
+  for (const variantData of Object.values(modeData)) {
+    const def = variantData.default;
+    if (!def?.fontFamily) continue;
+    const typo: Record<string, string> = {};
+    if (def.fontFamily) typo.fontFamily = def.fontFamily;
+    if (def.fontSize) typo.fontSize = def.fontSize;
+    if (def.fontWeight) typo.fontWeight = def.fontWeight;
+    if (def.lineHeight) typo.lineHeight = def.lineHeight;
+    if (def.letterSpacing) typo.letterSpacing = def.letterSpacing;
+    return Object.keys(typo).length > 0 ? typo : undefined;
+  }
+  return undefined;
+}
+
+/** Extract shared padding from the first variant with default state data */
+function extractPadding(
+  modeData: Record<string, ButtonVariantData>,
+): Record<string, string> | undefined {
+  for (const variantData of Object.values(modeData)) {
+    const def = variantData.default;
+    if (!def?.paddingTop) continue;
+    const pad: Record<string, string> = {};
+    if (def.paddingTop) pad.paddingTop = def.paddingTop;
+    if (def.paddingRight) pad.paddingRight = def.paddingRight;
+    if (def.paddingBottom) pad.paddingBottom = def.paddingBottom;
+    if (def.paddingLeft) pad.paddingLeft = def.paddingLeft;
+    return Object.keys(pad).length > 0 ? pad : undefined;
+  }
+  return undefined;
+}
+
+/** Extract shared gap from the first variant with default state data */
+function extractGap(
+  modeData: Record<string, ButtonVariantData>,
+): string | undefined {
+  for (const variantData of Object.values(modeData)) {
+    if (variantData.default?.gap) return variantData.default.gap;
+  }
+  return undefined;
 }
 
 function buildModeOverrides(
@@ -130,10 +153,17 @@ function main(): void {
   const darkCount = Object.keys(extraction.buttons.dark).length;
   console.log(`Button variants: ${lightCount} light + ${darkCount} dark`);
 
-  const output = {
+  const typography = extractTypography(extraction.buttons.light);
+  const padding = extractPadding(extraction.buttons.light);
+  const gap = extractGap(extraction.buttons.light);
+
+  const output: Record<string, unknown> = {
     light: buildModeOverrides(extraction.buttons.light),
     dark: buildModeOverrides(extraction.buttons.dark),
   };
+  if (typography) output.typography = typography;
+  if (padding) output.padding = padding;
+  if (gap) output.gap = gap;
 
   mkdirSync(SECTIONS_DIR, { recursive: true });
   writeFileSync(OUTPUT_PATH, JSON.stringify(output, null, 2));

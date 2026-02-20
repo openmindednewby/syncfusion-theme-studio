@@ -156,6 +156,10 @@ export const enum RoutePath {
   ComponentsExternalLink = '/dashboard/components/externallink',
   ComponentsExternalLinkNative = '/dashboard/components/externallink/native',
 
+  // Sidebar
+  ComponentsSidebar = '/dashboard/components/sidebar',
+  ComponentsSidebarNative = '/dashboard/components/sidebar/native',
+
   // ThemeToggle
   ComponentsThemeToggle = '/dashboard/components/themetoggle',
   ComponentsThemeToggleNative = '/dashboard/components/themetoggle/native',

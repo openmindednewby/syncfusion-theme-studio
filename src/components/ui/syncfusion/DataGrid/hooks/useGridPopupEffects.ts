@@ -21,18 +21,6 @@ import { repositionPagerDropdownPopup } from '../utils/popupPositioning';
 
 import type { ResolvedGridFeatures } from '../types';
 
-/** Normalize responsive page count: at least MIN, always odd. */
-function normalizeResponsivePageCount(count: number): number {
-  const bounded = Math.max(MIN_RESPONSIVE_PAGE_COUNT, count);
-  return bounded % 2 === 0 ? bounded - 1 : bounded;
-}
-
-/** Refs needed by the DataGrid component for popup tracking. */
-export interface GridPopupRefs {
-  wrapperRef: React.RefObject<HTMLDivElement>;
-  responsivePageCount: number | undefined;
-}
-
 /**
  * Hook that manages all popup repositioning effects for the DataGrid.
  *
@@ -57,6 +45,18 @@ export function useGridPopupEffects(
   usePagerDropdownRepositioning(features.paging, wrapperRef);
 
   return { wrapperRef, responsivePageCount };
+}
+
+/** Refs needed by the DataGrid component for popup tracking. */
+export interface GridPopupRefs {
+  wrapperRef: React.RefObject<HTMLDivElement>;
+  responsivePageCount: number | undefined;
+}
+
+/** Normalize responsive page count: at least MIN, always odd. */
+function normalizeResponsivePageCount(count: number): number {
+  const bounded = Math.max(MIN_RESPONSIVE_PAGE_COUNT, count);
+  return bounded % 2 === 0 ? bounded - 1 : bounded;
 }
 
 // ---------------------------------------------------------------------------

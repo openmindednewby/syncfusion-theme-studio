@@ -23,6 +23,7 @@ import noInlineSvgIconsPlugin from './eslint-plugins/no-inline-svg-icons.mjs';
 import noOptionalUndefinedPlugin from './eslint-plugins/no-optional-undefined.mjs';
 import enforceModuleStructurePlugin from './eslint-plugins/enforce-module-structure.mjs';
 import enforceTestColocationPlugin from './eslint-plugins/enforce-test-colocation.mjs';
+import enforceFunctionStylePlugin from './eslint-plugins/enforce-function-style.mjs';
 
 export default [
   // =====================================================
@@ -116,6 +117,7 @@ export default [
       'no-optional-undefined': noOptionalUndefinedPlugin,
       'enforce-module-structure': enforceModuleStructurePlugin,
       'enforce-test-colocation': enforceTestColocationPlugin,
+      'enforce-function-style': enforceFunctionStylePlugin,
     },
     settings: {
       react: { version: 'detect' },
@@ -451,6 +453,13 @@ export default [
       'enforce-test-colocation/enforce-test-colocation': 'error',
 
       // =====================================================
+      // FUNCTION STYLE & ORDERING (custom plugin)
+      // =====================================================
+      // Multi-statement functions must use function declarations (not const arrows).
+      // Module-level statements must follow: exports → private functions → constants.
+      'enforce-function-style/enforce-function-style': 'warn',
+
+      // =====================================================
       // GENERAL BEST PRACTICES
       // =====================================================
       'no-console': ['error', { allow: ['warn', 'error'] }],
@@ -613,6 +622,7 @@ export default [
       'react-compiler/react-compiler': 'off',
       'require-stable-hook-args/require-stable-hook-args': 'off',
       'enforce-module-structure/enforce-module-structure': 'off', // Test files follow their source
+      'enforce-function-style/enforce-function-style': 'off', // Test files have different structure
     },
   },
 

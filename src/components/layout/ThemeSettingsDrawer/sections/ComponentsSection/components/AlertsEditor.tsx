@@ -17,14 +17,6 @@ const enum AlertKey {
   Info = 'info',
 }
 
-const ALERT_VARIANTS: AlertKey[] = [AlertKey.Success, AlertKey.Warning, AlertKey.Error, AlertKey.Info];
-
-interface AlertVariantEditorProps {
-  config: AlertVariantConfig;
-  variant: AlertKey;
-  onUpdate: (updates: Partial<AlertVariantConfig>) => void;
-}
-
 const AlertVariantEditor = ({ config, onUpdate, variant }: AlertVariantEditorProps): JSX.Element => (
   <div className="space-y-2">
     <p className="text-xs font-medium capitalize text-text-secondary">{variant}</p>
@@ -52,6 +44,14 @@ const AlertVariantEditor = ({ config, onUpdate, variant }: AlertVariantEditorPro
     </div>
   </div>
 );
+
+interface AlertVariantEditorProps {
+  config: AlertVariantConfig;
+  variant: AlertKey;
+  onUpdate: (updates: Partial<AlertVariantConfig>) => void;
+}
+
+const ALERT_VARIANTS: AlertKey[] = [AlertKey.Success, AlertKey.Warning, AlertKey.Error, AlertKey.Info];
 
 export const AlertsEditor = ({ config, onUpdate }: AlertsEditorProps): JSX.Element => {
   const handleVariantUpdate = (variant: AlertKey, updates: Partial<AlertVariantConfig>): void => {

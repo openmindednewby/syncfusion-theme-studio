@@ -1,4 +1,6 @@
-import { useState, useCallback, useRef, type ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
+
+import { useDebouncedInput } from '@/hooks/useDebouncedInput';
 
 const DEBOUNCE_MS = 300;
 
@@ -15,21 +17,7 @@ export const TextInputRow = ({
   placeholder,
   value,
 }: TextInputRowProps): JSX.Element => {
-  const [localValue, setLocalValue] = useState(value);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const newValue = e.target.value;
-      setLocalValue(newValue);
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        onChange(newValue);
-      }, DEBOUNCE_MS);
-    },
-    [onChange]
-  );
+  const { localValue, handleChange } = useDebouncedInput(value, onChange, DEBOUNCE_MS);
 
   return (
     <div className="flex items-center justify-between gap-2 rounded bg-surface-sunken px-3 py-2">
@@ -40,7 +28,7 @@ export const TextInputRow = ({
         placeholder={placeholder}
         type="text"
         value={localValue}
-        onChange={handleChange}
+        onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value)}
       />
     </div>
   );

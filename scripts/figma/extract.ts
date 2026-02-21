@@ -6,7 +6,10 @@ import { resolve } from 'node:path';
 
 import { extractBadges } from './extract-badges';
 import { extractButtons } from './extract-buttons';
+import { extractColours } from './extract-colours';
+import { extractDropdowns } from './extract-dropdowns';
 import { extractExternalLinks } from './extract-external-links';
+import { extractTypography } from './extract-typography';
 import { extractFormControls } from './extract-form-controls';
 import { extractIcons } from './extract-icons';
 import { extractInputs } from './extract-inputs';
@@ -221,6 +224,9 @@ async function main(): Promise<void> {
   extraction.navMenus = extractNavMenus(file.document, resolver);
   extraction.externalLink = extractExternalLinks(file.document, resolver);
   extraction.formControls = extractFormControls(file.document, resolver);
+  extraction.dropdowns = extractDropdowns(file.document, resolver);
+  extraction.typography = extractTypography(file.document, resolver);
+  extraction.colours = extractColours(file.document, resolver);
 
   const outPath = resolve(import.meta.dirname, 'data/figma-extract.json');
   writeFileSync(outPath, JSON.stringify(extraction, null, 2));
@@ -241,6 +247,9 @@ async function main(): Promise<void> {
     if (extraction.formControls.radio) parts.push('radio');
     console.log(`Form controls extracted: ${parts.join(', ')}`);
   }
+  if (extraction.dropdowns) console.log('Dropdown data extracted successfully');
+  if (extraction.typography) console.log('Typography data extracted successfully');
+  if (extraction.colours) console.log('Colour data extracted successfully');
   console.log(`Written to: ${outPath}`);
 }
 

@@ -3,6 +3,7 @@ import { type ComponentType, Suspense } from 'react';
 import { Navigate, type RouteObject } from 'react-router-dom';
 
 
+import { ErrorBoundary } from '@/components/common';
 import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 
 import {
@@ -70,9 +71,11 @@ interface LazyPageProps {
 const LazyShowcase = ({ component }: LazyPageProps): JSX.Element => {
   const Component = component;
   return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Component />
-    </Suspense>
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Component />
+      </Suspense>
+    </ErrorBoundary>
   );
 };
 

@@ -6,6 +6,40 @@ import { isValueDefined } from '@/utils/is';
 
 import { ColumnType, FilterOperator } from '../types';
 
+/** Dispatches filter comparison based on column type */
+export function executeFilterComparison(
+  cellValue: unknown,
+  filterValue: string,
+  columnType: ColumnType,
+  operator: FilterOperator,
+): boolean {
+  // Empty/NotEmpty operators don't need a filter value
+  if (operator === FilterOperator.Empty || operator === FilterOperator.NotEmpty) {
+    const isEmpty = !isValueDefined(cellValue) || String(cellValue).trim().length === 0;
+    return operator === FilterOperator.Empty ? isEmpty : !isEmpty;
+  }
+
+  if (columnType === ColumnType.Boolean)
+    return operator === FilterOperator.Equal
+      ? String(cellValue) === filterValue
+      : String(cellValue) !== filterValue;
+
+  if (columnType === ColumnType.Number) {
+    const num = Number(cellValue);
+    const filterNum = Number(filterValue);
+    if (Number.isNaN(filterNum)) return false;
+    return executeNumberFilter(num, filterNum, operator);
+  }
+
+  if (columnType === ColumnType.Date) {
+    const cellDate = isValueDefined(cellValue) ? (String(cellValue).split('T')[0] ?? '') : '';
+    return executeDateFilter(cellDate, filterValue, operator);
+  }
+
+  const str = isValueDefined(cellValue) ? String(cellValue) : '';
+  return executeStringFilter(str, filterValue, operator);
+}
+
 function executeStringFilter(cell: string, filter: string, op: FilterOperator): boolean {
   const c = cell.toLowerCase();
   const f = filter.toLowerCase();
@@ -66,38 +100,4 @@ function executeDateFilter(cellDate: string, filterDate: string, op: FilterOpera
     case FilterOperator.DoesNotEndWith:
     default: return cellDate === filterDate;
   }
-}
-
-/** Dispatches filter comparison based on column type */
-export function executeFilterComparison(
-  cellValue: unknown,
-  filterValue: string,
-  columnType: ColumnType,
-  operator: FilterOperator,
-): boolean {
-  // Empty/NotEmpty operators don't need a filter value
-  if (operator === FilterOperator.Empty || operator === FilterOperator.NotEmpty) {
-    const isEmpty = !isValueDefined(cellValue) || String(cellValue).trim().length === 0;
-    return operator === FilterOperator.Empty ? isEmpty : !isEmpty;
-  }
-
-  if (columnType === ColumnType.Boolean)
-    return operator === FilterOperator.Equal
-      ? String(cellValue) === filterValue
-      : String(cellValue) !== filterValue;
-
-  if (columnType === ColumnType.Number) {
-    const num = Number(cellValue);
-    const filterNum = Number(filterValue);
-    if (Number.isNaN(filterNum)) return false;
-    return executeNumberFilter(num, filterNum, operator);
-  }
-
-  if (columnType === ColumnType.Date) {
-    const cellDate = isValueDefined(cellValue) ? (String(cellValue).split('T')[0] ?? '') : '';
-    return executeDateFilter(cellDate, filterValue, operator);
-  }
-
-  const str = isValueDefined(cellValue) ? String(cellValue) : '';
-  return executeStringFilter(str, filterValue, operator);
 }

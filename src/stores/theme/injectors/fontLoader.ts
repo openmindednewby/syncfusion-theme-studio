@@ -1,9 +1,5 @@
 // Local font loader — uses self-hosted fontsource packages, no external requests.
 
-const SYSTEM_FONT_PREFIXES = ['ui-', 'system-ui', 'sans-serif', 'serif', 'monospace', 'inherit'];
-
-const loadedFonts = new Set<string>();
-
 function importFontCss(fontFamily: string): Promise<unknown> | undefined {
   switch (fontFamily) {
     case 'Fira Sans':
@@ -14,6 +10,10 @@ function importFontCss(fontFamily: string): Promise<unknown> | undefined {
       return undefined;
   }
 }
+
+const SYSTEM_FONT_PREFIXES = ['ui-', 'system-ui', 'sans-serif', 'serif', 'monospace', 'inherit'];
+
+const loadedFonts = new Set<string>();
 
 export function loadLocalFont(fontFamily: string, weight = '400'): void {
   if (SYSTEM_FONT_PREFIXES.some((p) => fontFamily.startsWith(p))) return;

@@ -22,15 +22,6 @@ import { ContactForm } from '../../forms/ContactForm';
 
 import type { ContactFormData } from '../../forms/ContactForm/schema';
 
-const RECENT_USERS_LIMIT = 5;
-const INITIAL_SKIP = 0;
-
-// --- Sub-components (defined before usage to satisfy no-use-before-define) ---
-
-interface CreatedUserCardProps {
-  user: UserDto;
-}
-
 const CreatedUserCard = ({ user }: CreatedUserCardProps): JSX.Element => {
   const notProvided = FM('forms.userCreation.notProvided');
 
@@ -68,9 +59,10 @@ const RecentUsersShell = ({ children }: { children: React.ReactNode }): JSX.Elem
   </div>
 );
 
-interface RecentUsersTableProps {
-  users: UserDto[];
-  isLoading: boolean;
+// --- Sub-components (defined before usage to satisfy no-use-before-define) ---
+
+interface CreatedUserCardProps {
+  user: UserDto;
 }
 
 const RecentUsersTable = ({ users, isLoading }: RecentUsersTableProps): JSX.Element => {
@@ -124,6 +116,14 @@ const RecentUsersTable = ({ users, isLoading }: RecentUsersTableProps): JSX.Elem
     </RecentUsersShell>
   );
 };
+
+const RECENT_USERS_LIMIT = 5;
+
+interface RecentUsersTableProps {
+  users: UserDto[];
+  isLoading: boolean;
+}
+const INITIAL_SKIP = 0;
 
 // --- Main section component ---
 

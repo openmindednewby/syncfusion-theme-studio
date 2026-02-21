@@ -21,6 +21,25 @@ interface GridCallbacks {
   handleRowDrop: ((args: unknown) => void) | undefined;
 }
 
+/**
+ * Create memoized callbacks for all DataGrid event handlers.
+ */
+export function useGridCallbacks<T extends object>(
+  props: DataGridProps<T>,
+): GridCallbacks {
+  const rowCallbacks = useRowCallbacks(props.onRowSelected, props.onRowDeselected);
+
+  return {
+    ...rowCallbacks,
+    handleActionBegin: useOptionalCallback(props.onActionBegin),
+    handleActionComplete: useOptionalCallback(props.onActionComplete),
+    handleToolbarClick: useOptionalCallback(props.onToolbarClick),
+    handleContextMenuClick: useOptionalCallback(props.onContextMenuClick),
+    handleRowDrag: useOptionalCallback(props.onRowDrag),
+    handleRowDrop: useOptionalCallback(props.onRowDrop),
+  };
+}
+
 /** Wrap an optional callback in a stable useCallback */
 function useOptionalCallback(
   callback: ((args: unknown) => void) | undefined,
@@ -55,23 +74,4 @@ function useRowCallbacks<T>(
   );
 
   return { handleRowSelected, handleRowDeselected };
-}
-
-/**
- * Create memoized callbacks for all DataGrid event handlers.
- */
-export function useGridCallbacks<T extends object>(
-  props: DataGridProps<T>,
-): GridCallbacks {
-  const rowCallbacks = useRowCallbacks(props.onRowSelected, props.onRowDeselected);
-
-  return {
-    ...rowCallbacks,
-    handleActionBegin: useOptionalCallback(props.onActionBegin),
-    handleActionComplete: useOptionalCallback(props.onActionComplete),
-    handleToolbarClick: useOptionalCallback(props.onToolbarClick),
-    handleContextMenuClick: useOptionalCallback(props.onContextMenuClick),
-    handleRowDrag: useOptionalCallback(props.onRowDrag),
-    handleRowDrop: useOptionalCallback(props.onRowDrop),
-  };
 }

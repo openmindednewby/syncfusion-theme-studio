@@ -27,10 +27,6 @@ export interface ThemePreset {
   theme: ThemeConfig;
 }
 
-function previewColors(theme: ThemeConfig): string[] {
-  return [theme.primary['500'], theme.secondary['500'], theme.neutral['500']];
-}
-
 export const themePresets: ThemePreset[] = [
   { id: 'fremen', name: 'Fremen', description: 'Cybersecurity-inspired teal with deep navy', previewColors: previewColors(FREMEN_THEME), theme: FREMEN_THEME },
   { id: 'oceanus', name: 'Oceanus', description: 'SOAR/SIEM dark navy with teal accents', previewColors: previewColors(OCEANUS_THEME), theme: OCEANUS_THEME },
@@ -51,3 +47,7 @@ export const themePresets: ThemePreset[] = [
   { id: 'gold', name: 'Gold', description: 'Luxurious gold accents', previewColors: previewColors(GOLD_THEME), theme: GOLD_THEME },
   { id: 'figmaDesign', name: 'Figma Design', description: 'Design system theme from Figma', previewColors: previewColors(FIGMA_DESIGN_THEME), theme: FIGMA_DESIGN_THEME },
 ];
+
+function previewColors(theme: ThemeConfig): string[] {
+  return [theme.primary['500'], theme.secondary['500'], theme.neutral['500']];
+}

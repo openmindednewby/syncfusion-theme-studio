@@ -13,30 +13,6 @@ import {
   mergeFallbackPageSettings,
 } from '../utils/pageSettingsHelpers';
 
-const FALLBACK_PAGE_SIZE = 10;
-
-interface PageSettingsInput {
-  gridConfig: GridConfig | undefined;
-  pageSettings: PageSettingsModel;
-  pagingEnabled: boolean;
-  dataLength: number;
-  responsivePageCount: number | undefined;
-  dataGridTheme: DataGridConfig;
-}
-
-/** Apply responsive page count override to base settings when applicable. */
-function applyResponsiveOverride(
-  base: PageSettingsModel,
-  responsivePageCount: number,
-  dataLength: number,
-): PageSettingsModel {
-  const pageSize = base.pageSize ?? FALLBACK_PAGE_SIZE;
-  const totalPages = Math.max(1, Math.ceil(dataLength / pageSize));
-  const nextPageCount = Math.min(totalPages, responsivePageCount);
-  if (base.pageCount === nextPageCount) return base;
-  return { ...base, pageCount: nextPageCount };
-}
-
 /** Compute final effective page settings from theme, props, and responsive count. */
 export function useGridPageSettings(input: PageSettingsInput): PageSettingsModel {
   const {
@@ -68,4 +44,28 @@ export function useGridPageSettings(input: PageSettingsInput): PageSettingsModel
     gridConfig, pageSettings.pageCount, fallbackPageSettings,
     pagingEnabled, dataLength, responsivePageCount,
   ]);
+}
+
+interface PageSettingsInput {
+  gridConfig: GridConfig | undefined;
+  pageSettings: PageSettingsModel;
+  pagingEnabled: boolean;
+  dataLength: number;
+  responsivePageCount: number | undefined;
+  dataGridTheme: DataGridConfig;
+}
+
+const FALLBACK_PAGE_SIZE = 10;
+
+/** Apply responsive page count override to base settings when applicable. */
+function applyResponsiveOverride(
+  base: PageSettingsModel,
+  responsivePageCount: number,
+  dataLength: number,
+): PageSettingsModel {
+  const pageSize = base.pageSize ?? FALLBACK_PAGE_SIZE;
+  const totalPages = Math.max(1, Math.ceil(dataLength / pageSize));
+  const nextPageCount = Math.min(totalPages, responsivePageCount);
+  if (base.pageCount === nextPageCount) return base;
+  return { ...base, pageCount: nextPageCount };
 }

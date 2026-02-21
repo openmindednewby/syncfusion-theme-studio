@@ -39,7 +39,7 @@ const LoginPage = (): JSX.Element => {
   );
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-4">
+    <main className="flex min-h-screen items-center justify-center bg-background p-4">
       <div className="w-full max-w-md">
         <div className="card">
           <div className="mb-6 text-center">
@@ -76,7 +76,7 @@ const LoginPage = (): JSX.Element => {
           <TextNative className="mt-4 text-center" variant={TextVariant.Muted}>{FM('login.demoHint')}</TextNative>
         </div>
       </div>
-    </div>
+    </main>
   );
 };
 

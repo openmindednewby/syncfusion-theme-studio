@@ -1,6 +1,5 @@
 import { Component, type ReactNode } from 'react';
 
-import { Button } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/utils/helpers';
 import { isValueDefined } from '@/utils/is';
 
@@ -42,9 +41,14 @@ class ErrorBoundary extends Component<Props, State> {
           <p className="text-center text-text-secondary">
             {error?.message ?? FM('common.unexpectedError')}
           </p>
-          <Button testId="error-boundary-retry" onClick={this.handleReset}>
+          <button
+            className="rounded-md bg-primary px-4 py-2 text-sm font-medium text-white hover:bg-primary/90"
+            data-testid="error-boundary-retry"
+            type="button"
+            onClick={this.handleReset}
+          >
             {FM('common.tryAgain')}
-          </Button>
+          </button>
         </div>
       );
     }

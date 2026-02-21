@@ -15,34 +15,6 @@ import { useSingleSelect, useMultiToggle } from './useSelectModes';
 
 import type { UseTableSelectionProps, UseTableSelectionResult } from './selectionUtils';
 
-/** Build selection state config, omitting undefined optional keys */
-function buildStateConfig(
-  data: Array<Record<string, unknown>>,
-  rowKeyAccessor: UseTableSelectionProps['rowKeyAccessor'],
-  onSelectionChange: UseTableSelectionProps['onSelectionChange'],
-): Parameters<typeof useSelectionState>[0] {
-  return {
-    data,
-    ...(isValueDefined(rowKeyAccessor) ? { rowKeyAccessor } : {}),
-    ...(isValueDefined(onSelectionChange) ? { onSelectionChange } : {}),
-  };
-}
-
-/** Build mode callbacks, omitting undefined optional keys */
-function buildModeCbs(
-  setSelectedRowIds: (ids: Set<unknown>) => void,
-  notifyChange: (ids: Set<unknown>) => void,
-  onRowSelected: UseTableSelectionProps['onRowSelected'],
-  onRowDeselected: UseTableSelectionProps['onRowDeselected'],
-): Parameters<typeof useSingleSelect>[2] {
-  return {
-    setSelectedRowIds, notifyChange,
-    ...(isValueDefined(onRowSelected) ? { onRowSelected } : {}),
-    ...(isValueDefined(onRowDeselected) ? { onRowDeselected } : {}),
-    setLastIndex: (_idx: number) => { /* managed in useRowClickHandler */ },
-  };
-}
-
 export function useTableSelection({
   data, selectionType = 'Single', selectionMode = 'Row',
   checkboxEnabled = false, rowKeyAccessor,
@@ -70,4 +42,32 @@ export function useTableSelection({
   });
 
   return { ...state, handleRowClick, ...cellHandlers };
+}
+
+/** Build selection state config, omitting undefined optional keys */
+function buildStateConfig(
+  data: Array<Record<string, unknown>>,
+  rowKeyAccessor: UseTableSelectionProps['rowKeyAccessor'],
+  onSelectionChange: UseTableSelectionProps['onSelectionChange'],
+): Parameters<typeof useSelectionState>[0] {
+  return {
+    data,
+    ...(isValueDefined(rowKeyAccessor) ? { rowKeyAccessor } : {}),
+    ...(isValueDefined(onSelectionChange) ? { onSelectionChange } : {}),
+  };
+}
+
+/** Build mode callbacks, omitting undefined optional keys */
+function buildModeCbs(
+  setSelectedRowIds: (ids: Set<unknown>) => void,
+  notifyChange: (ids: Set<unknown>) => void,
+  onRowSelected: UseTableSelectionProps['onRowSelected'],
+  onRowDeselected: UseTableSelectionProps['onRowDeselected'],
+): Parameters<typeof useSingleSelect>[2] {
+  return {
+    setSelectedRowIds, notifyChange,
+    ...(isValueDefined(onRowSelected) ? { onRowSelected } : {}),
+    ...(isValueDefined(onRowDeselected) ? { onRowDeselected } : {}),
+    setLastIndex: (_idx: number) => { /* managed in useRowClickHandler */ },
+  };
 }

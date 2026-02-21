@@ -1,1 +1,43 @@
-{}
+{
+  "light": {
+    "primary": {
+      "borderRadius": "0px"
+    },
+    "secondary": {
+      "borderRadius": "0px"
+    },
+    "ghost": {
+      "borderRadius": "0px"
+    },
+    "outline": {
+      "borderRadius": "0px"
+    },
+    "danger": {
+      "borderRadius": "0px"
+    }
+  },
+  "dark": {
+    "primary": {
+      "borderRadius": "0px"
+    },
+    "secondary": {
+      "borderRadius": "0px"
+    },
+    "ghost": {
+      "borderRadius": "0px"
+    },
+    "outline": {
+      "borderRadius": "0px"
+    },
+    "danger": {
+      "borderRadius": "0px"
+    }
+  },
+  "padding": {
+    "paddingTop": "8px",
+    "paddingRight": "12px",
+    "paddingBottom": "8px",
+    "paddingLeft": "12px"
+  },
+  "gap": "12px"
+}

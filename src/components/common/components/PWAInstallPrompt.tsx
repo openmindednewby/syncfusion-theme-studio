@@ -3,15 +3,15 @@ import { useCallback, useEffect, useState } from 'react';
 import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
-const DISMISSED_KEY = 'pwa-install-dismissed';
+const isBeforeInstallPromptEvent = (e: Event): e is BeforeInstallPromptEvent =>
+  'prompt' in e && 'userChoice' in e;
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
   userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
 }
 
-const isBeforeInstallPromptEvent = (e: Event): e is BeforeInstallPromptEvent =>
-  'prompt' in e && 'userChoice' in e;
+const DISMISSED_KEY = 'pwa-install-dismissed';
 
 export const PWAInstallPrompt = (): JSX.Element | null => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);

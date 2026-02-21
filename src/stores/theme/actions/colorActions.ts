@@ -37,39 +37,6 @@ interface StatusColorUpdate {
   value: string;
 }
 
-// Palette shades for disabled button states (light = muted/lighter, dark = muted/darker)
-const DISABLED_SHADE_LIGHT: ColorShade = '200';
-const DISABLED_SHADE_DARK: ColorShade = '900';
-const DISABLED_TEXT_LIGHT = '255 255 255';
-const DISABLED_TEXT_DARK = '148 163 184';
-
-interface DisabledOverrides {
-  background: string;
-  textColor: string;
-}
-
-function getDisabledOverrides(palette: ColorScale, isLightMode: boolean): DisabledOverrides {
-  const shade = isLightMode ? DISABLED_SHADE_LIGHT : DISABLED_SHADE_DARK;
-  return { background: palette[shade], textColor: isLightMode ? DISABLED_TEXT_LIGHT : DISABLED_TEXT_DARK };
-}
-
-function buildColorScaleTheme(currentTheme: ThemeConfig, update: ColorScaleUpdate): ThemeConfig {
-  return {
-    ...currentTheme,
-    [update.scaleKey]: { ...currentTheme[update.scaleKey], [update.shade]: update.value },
-  };
-}
-
-function buildStatusColorTheme(currentTheme: ThemeConfig, update: StatusColorUpdate): ThemeConfig {
-  return {
-    ...currentTheme,
-    status: {
-      ...currentTheme.status,
-      [update.status]: { ...currentTheme.status[update.status], [update.shade]: update.value },
-    },
-  };
-}
-
 export function buildDerivedButtons(buttons: ButtonsComponentConfig, derived: DerivedComponentColors): ButtonsComponentConfig {
   return {
     ...buttons,
@@ -105,6 +72,11 @@ export function buildDerivedDataGrid(dataGrid: DataGridConfig, derived: DerivedC
   };
 }
 
+interface DisabledOverrides {
+  background: string;
+  textColor: string;
+}
+
 export function buildDerivedModeConfig(
   config: ComponentConfigSingle,
   derived: DerivedComponentColors,
@@ -123,23 +95,6 @@ export function buildDerivedModeConfig(
 
   const disabled = getDisabledOverrides(palette, isLightMode ?? true);
   return applyDisabledOverrides(base, disabled);
-}
-
-function applyDisabledOverrides(config: ComponentConfigSingle, disabled: DisabledOverrides): ComponentConfigSingle {
-  return {
-    ...config,
-    buttons: {
-      ...config.buttons,
-      primary: { ...config.buttons.primary, disabledBackground: disabled.background, disabledTextColor: disabled.textColor },
-      outline: { ...config.buttons.outline, disabledTextColor: disabled.background, disabledBorderColor: disabled.background },
-    },
-    iconButtons: {
-      ...config.iconButtons,
-      primary: { ...config.iconButtons.primary, disabledBackground: disabled.background },
-    },
-    fab: { ...config.fab, disabledBackground: disabled.background },
-    splitButton: { ...config.splitButton, disabledBackground: disabled.background, disabledTextColor: disabled.textColor },
-  };
 }
 
 export function buildDerivedComponents(
@@ -177,5 +132,50 @@ export function createColorUpdateActions(set: SetState, get: GetState): ColorUpd
       }
       applyAndInject(newTheme);
     },
+  };
+}
+
+// Palette shades for disabled button states (light = muted/lighter, dark = muted/darker)
+const DISABLED_SHADE_LIGHT: ColorShade = '200';
+const DISABLED_SHADE_DARK: ColorShade = '900';
+const DISABLED_TEXT_LIGHT = '255 255 255';
+const DISABLED_TEXT_DARK = '148 163 184';
+
+function getDisabledOverrides(palette: ColorScale, isLightMode: boolean): DisabledOverrides {
+  const shade = isLightMode ? DISABLED_SHADE_LIGHT : DISABLED_SHADE_DARK;
+  return { background: palette[shade], textColor: isLightMode ? DISABLED_TEXT_LIGHT : DISABLED_TEXT_DARK };
+}
+
+function buildColorScaleTheme(currentTheme: ThemeConfig, update: ColorScaleUpdate): ThemeConfig {
+  return {
+    ...currentTheme,
+    [update.scaleKey]: { ...currentTheme[update.scaleKey], [update.shade]: update.value },
+  };
+}
+
+function buildStatusColorTheme(currentTheme: ThemeConfig, update: StatusColorUpdate): ThemeConfig {
+  return {
+    ...currentTheme,
+    status: {
+      ...currentTheme.status,
+      [update.status]: { ...currentTheme.status[update.status], [update.shade]: update.value },
+    },
+  };
+}
+
+function applyDisabledOverrides(config: ComponentConfigSingle, disabled: DisabledOverrides): ComponentConfigSingle {
+  return {
+    ...config,
+    buttons: {
+      ...config.buttons,
+      primary: { ...config.buttons.primary, disabledBackground: disabled.background, disabledTextColor: disabled.textColor },
+      outline: { ...config.buttons.outline, disabledTextColor: disabled.background, disabledBorderColor: disabled.background },
+    },
+    iconButtons: {
+      ...config.iconButtons,
+      primary: { ...config.iconButtons.primary, disabledBackground: disabled.background },
+    },
+    fab: { ...config.fab, disabledBackground: disabled.background },
+    splitButton: { ...config.splitButton, disabledBackground: disabled.background, disabledTextColor: disabled.textColor },
   };
 }

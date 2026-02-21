@@ -119,6 +119,29 @@ export function injectBadgeVariables(root: HTMLElement, c: ComponentConfigSingle
   root.style.setProperty('--component-badge-info-outline-bg', `rgb(${c.badges.info.borderColor} / 0.2)`);
 }
 
+export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {
+  injectHeaderVariables(root, components);
+  injectSidebarVariables(root, components);
+  injectButtonVariables(root, components);
+  injectIconButtonVariables(root, components);
+  injectFabVariables(root, components);
+  injectSplitButtonVariables(root, components);
+  injectInputVariables(root, components);
+  injectDataGridVariables(root, components);
+  injectDisplayVariables(root, components);
+  injectFeedbackVariables(root, components);
+  injectAccordionVariables(root, components);
+  injectToolbarVariables(root, components);
+  injectMenuVariables(root, components);
+  injectBreadcrumbVariables(root, components);
+  injectPaginationVariables(root, components);
+  injectTabsVariables(root, components);
+  injectTimelineVariables(root, components);
+  injectAvatarVariables(root, components);
+  injectProgressBarVariables(root, components);
+  injectTooltipVariables(root, components);
+}
+
 function injectDisplayVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   injectCardVariables(root, c);
   injectModalVariables(root, c);
@@ -141,27 +164,4 @@ function injectFeedbackVariables(root: HTMLElement, c: ComponentConfigSingle): v
   injectCheckboxVariables(root, c);
   injectRadioVariables(root, c);
   injectToggleVariables(root, c);
-}
-
-export function injectComponentVariables(root: HTMLElement, components: ComponentConfigSingle): void {
-  injectHeaderVariables(root, components);
-  injectSidebarVariables(root, components);
-  injectButtonVariables(root, components);
-  injectIconButtonVariables(root, components);
-  injectFabVariables(root, components);
-  injectSplitButtonVariables(root, components);
-  injectInputVariables(root, components);
-  injectDataGridVariables(root, components);
-  injectDisplayVariables(root, components);
-  injectFeedbackVariables(root, components);
-  injectAccordionVariables(root, components);
-  injectToolbarVariables(root, components);
-  injectMenuVariables(root, components);
-  injectBreadcrumbVariables(root, components);
-  injectPaginationVariables(root, components);
-  injectTabsVariables(root, components);
-  injectTimelineVariables(root, components);
-  injectAvatarVariables(root, components);
-  injectProgressBarVariables(root, components);
-  injectTooltipVariables(root, components);
 }

@@ -8,15 +8,6 @@ import { Select } from '@/components/ui/syncfusion';
 import type { SelectOption } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/utils/helpers';
 
-const COLOR_KEYS = ['colorRed', 'colorBlue', 'colorGreen'] as const;
-
-function buildColorOptions(): SelectOption[] {
-  return COLOR_KEYS.map((key) => ({
-    value: key,
-    label: FM(`components.selectShowcase.${key}`),
-  }));
-}
-
 export const StatesSection = memo((): JSX.Element => {
   const colorOptions = useMemo(() => buildColorOptions(), []);
 
@@ -59,5 +50,14 @@ export const StatesSection = memo((): JSX.Element => {
     </section>
   );
 });
+
+const COLOR_KEYS = ['colorRed', 'colorBlue', 'colorGreen'] as const;
+
+function buildColorOptions(): SelectOption[] {
+  return COLOR_KEYS.map((key) => ({
+    value: key,
+    label: FM(`components.selectShowcase.${key}`),
+  }));
+}
 
 StatesSection.displayName = 'StatesSection';

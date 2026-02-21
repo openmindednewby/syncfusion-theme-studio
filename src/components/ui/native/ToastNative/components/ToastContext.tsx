@@ -7,13 +7,13 @@ import { AUTO_DISMISS_MS, EXIT_ANIMATION_MS, MAX_VISIBLE_TOASTS } from '../types
 
 import type { AddToastOptions, Toast, ToastContextValue } from '../types';
 
-const ToastContext = createContext<ToastContextValue | null>(null);
-
 const markAsDismissing = (id: string) => (prev: Toast[]): Toast[] =>
   prev.map((t) => (t.id === id ? { ...t, dismissing: true } : t));
 
 const removeById = (id: string) => (prev: Toast[]): Toast[] =>
   prev.filter((t) => t.id !== id);
+
+const ToastContext = createContext<ToastContextValue | null>(null);
 
 export const ToastProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [toasts, setToasts] = useState<Toast[]>([]);

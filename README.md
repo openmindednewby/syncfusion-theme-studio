@@ -17,6 +17,7 @@ Login page light house result for production build
   - [Environment Setup](#environment-setup)
     - [Syncfusion License Key (Required)](#syncfusion-license-key-required)
     - [Figma-to-Theme Sync (Optional)](#figma-to-theme-sync-optional)
+    - [Feature Flags (Page Section Gating)](#feature-flags-page-section-gating)
     - [Files Not in Git (Generated / Local-Only)](#files-not-in-git-generated--local-only)
     - [All Commands](#all-commands)
   - [Project Structure](#project-structure)
@@ -179,6 +180,48 @@ FIGMA_FILE_KEY=your-figma-file-key
 These variables enable the Figma-to-Theme sync pipeline (`npm run figma:sync`) which extracts design tokens from a Figma file and generates a theme preset. **This is entirely optional** — the app runs fully without Figma credentials. Only configure these if you want to sync themes from Figma.
 
 Generate a Figma personal access token at **Figma > Settings > Personal access tokens**.
+
+### Feature Flags (Page Section Gating)
+
+Feature flags disable entire page sections at build time, removing them from the production bundle via Vite's static `import.meta.env` replacement + Rollup dead-code elimination.
+
+| Env Var | Default | Gates |
+|---------|---------|-------|
+| `VITE_ENABLE_COMPONENTS` | `true` | ~46 component showcases + overview + grid |
+| `VITE_ENABLE_FORMS` | `true` | SyncfusionFormsPage, NativeFormsPage |
+| `VITE_ENABLE_PRODUCTS` | `true` | NativeProductsPage, ProductsListPage |
+
+**To disable a section**, set the env var to `false` in `.env`:
+
+```env
+VITE_ENABLE_COMPONENTS=false
+```
+
+When a section is disabled:
+- Its page chunks are excluded from the production bundle (tree-shaken)
+- Its sidebar nav item is hidden
+- Its routes are removed (direct URL falls through to dashboard)
+- The preloader skips its imports
+
+**Two-layer gating architecture:**
+
+1. **Build-time** (`lazyPages.ts`): Uses `import.meta.env` directly so Vite replaces the env value at build time, enabling Rollup to eliminate dead `lazy()` imports. This is the only file allowed to use `import.meta.env` directly.
+
+2. **Runtime** (`router.tsx`, `componentShowcaseRoutes.tsx`, `sidebarNavData.ts`, `preloadOrchestrator.ts`): Uses `ENV` from `@/config/env` to conditionally include routes, nav items, and preload targets.
+
+ESLint enforces this separation:
+- `import.meta.env` is blocked everywhere except `env.ts` and `lazyPages.ts`
+- `ENV` import is blocked inside `lazyPages.ts`
+
+**Adding a new feature flag:**
+
+1. Add `VITE_ENABLE_X=true` to `.env` and `.env.example`
+2. Add the type to `src/vite-env.d.ts`
+3. Add `enableX` to `ENV` in `src/config/env.ts`
+4. Gate lazy imports in `src/app/routes/lazyPages.ts` using `import.meta.env` directly
+5. Gate routes in `router.tsx` / showcase routes using `ENV.enableX`
+6. Add the nav item `id` to `SECTION_GATES` in `sidebarNavData.ts`
+7. Gate preload imports in `preloadOrchestrator.ts`
 
 ### Files Not in Git (Generated / Local-Only)
 

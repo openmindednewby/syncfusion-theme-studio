@@ -6,13 +6,13 @@
 import { existsSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 
-import type { ComponentSectionOverrides } from './code-generators';
+import type { ComponentSectionOverrides, TopLevelOverrides } from './code-generators';
 import { generatePresetCode, generateSplitPresetCode } from './code-generators';
 import { deepMergeCorrections } from './corrections';
 import { FIGMA_MAPPING } from './figma-mapping';
 import type { ExtractedProperty, FigmaExtraction, FigmaPropertyType, MappingRule } from './types';
 import type { FigmaColor } from './types';
-import { deepSet, figmaColorToRgb } from './utils';
+import { deepMerge, deepSet, figmaColorToRgb } from './utils';
 
 const EXTRACT_PATH = resolve(import.meta.dirname, 'data/figma-extract.json');
 const SECTIONS_DIR = resolve(import.meta.dirname, 'data/figma-sections');
@@ -124,21 +124,52 @@ function main(): void {
 
   // --- Component section overrides (from per-section generators) ---
   const rawSections = loadComponentSections();
-  const componentSections = deepMergeCorrections(rawSections, CORRECTIONS_DIR);
+  const allSections = deepMergeCorrections(rawSections, CORRECTIONS_DIR);
+
+  // Separate special sections from component sections
+  const topLevel: TopLevelOverrides = {};
+  const componentSections: Record<string, ComponentSectionOverrides> = {};
+
+  for (const [name, data] of Object.entries(allSections)) {
+    if (name === 'typography') {
+      const typoData = data as unknown as TopLevelOverrides;
+      if (typoData.typography) topLevel.typography = typoData.typography;
+      if (typoData.typographyComponents) {
+        topLevel.typographyComponents = typoData.typographyComponents;
+      }
+    } else if (name === 'colours') {
+      // Merge colour overrides into the color overrides object
+      const colourData = data as unknown as Record<string, unknown>;
+      const merged = deepMerge(colorOverrides, colourData);
+      Object.assign(colorOverrides, merged);
+      console.log('Colour overrides merged into color mappings');
+    } else {
+      componentSections[name] = data;
+    }
+  }
+
   const sectionNames = Object.keys(componentSections);
+  const hasTopLevel = !!(topLevel.typography || topLevel.typographyComponents);
 
   if (sectionNames.length > 0) {
     console.log(`\nComponent sections: ${sectionNames.join(', ')}`);
   }
+  if (hasTopLevel) {
+    console.log('Top-level overrides: typography');
+  }
 
   if (sectionNames.length > 0) {
-    const files = generateSplitPresetCode(extraction, colorOverrides, componentSections);
+    const files = generateSplitPresetCode(
+      extraction, colorOverrides, componentSections, topLevel,
+    );
     writeFileSync(OUTPUT_PATH, files.mainPreset);
     writeFileSync(resolve(PRESETS_DIR, 'figmaDesignComponents.ts'), files.components);
     writeFileSync(resolve(PRESETS_DIR, 'figmaDesignComponentsLight.ts'), files.componentsLight);
     writeFileSync(resolve(PRESETS_DIR, 'figmaDesignComponentsDark.ts'), files.componentsDark);
   } else {
-    const code = generatePresetCode(extraction, colorOverrides, componentSections);
+    const code = generatePresetCode(
+      extraction, colorOverrides, componentSections, topLevel,
+    );
     writeFileSync(OUTPUT_PATH, code);
   }
 

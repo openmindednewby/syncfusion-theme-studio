@@ -14,21 +14,6 @@ import type { ThemeState } from './theme/types';
 // Re-export types for consumers
 export type { ColorScale, Mode, ThemeConfig, ThemeState } from './theme/types';
 
-// Schema version -- bump when ThemeConfig shape changes to invalidate stale data
-// v2: Added ChipConfig to component configurations
-// v3: Added fontSize, fontWeight, lineHeight, letterSpacing to TypographyConfig
-// v4: Added AnimationConfig to ThemeConfig + per-component animation fields
-// v5: Added TypographyComponentsConfig to ThemeConfig
-// v6: Added headerTextPadding to DataGridConfig
-// v7: Added pagerContainerBorderColor to DataGridConfig
-// v8: Added paginationDefaultPageSize + paginationPageSizeOptions to DataGridConfig
-// v9: Added iconSize, iconStrokeWidth, expandAnimation, showScrollbar to SidebarComponentConfig
-// v10: Added searchHighlightColor, searchHighlightScale to SidebarComponentConfig
-// v11: Updated badge colors to match severity design (CRITICAL/HIGH/MEDIUM/LOW)
-// v12: Button system overhaul - disabled state, typography, padding, gap, focusRing; IconButton, FAB, SplitButton configs
-// v13: Form controls - CheckboxConfig, RadioConfig, ToggleConfig added to ComponentConfigSingle
-const THEME_SCHEMA_VERSION = 13;
-
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return isValueDefined(value) && typeof value === 'object' && !Array.isArray(value);
 }
@@ -46,6 +31,21 @@ function deepMerge<T>(defaults: T, source: unknown): T {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   return result as T;
 }
+
+// Schema version -- bump when ThemeConfig shape changes to invalidate stale data
+// v2: Added ChipConfig to component configurations
+// v3: Added fontSize, fontWeight, lineHeight, letterSpacing to TypographyConfig
+// v4: Added AnimationConfig to ThemeConfig + per-component animation fields
+// v5: Added TypographyComponentsConfig to ThemeConfig
+// v6: Added headerTextPadding to DataGridConfig
+// v7: Added pagerContainerBorderColor to DataGridConfig
+// v8: Added paginationDefaultPageSize + paginationPageSizeOptions to DataGridConfig
+// v9: Added iconSize, iconStrokeWidth, expandAnimation, showScrollbar to SidebarComponentConfig
+// v10: Added searchHighlightColor, searchHighlightScale to SidebarComponentConfig
+// v11: Updated badge colors to match severity design (CRITICAL/HIGH/MEDIUM/LOW)
+// v12: Button system overhaul - disabled state, typography, padding, gap, focusRing; IconButton, FAB, SplitButton configs
+// v13: Form controls - CheckboxConfig, RadioConfig, ToggleConfig added to ComponentConfigSingle
+const THEME_SCHEMA_VERSION = 13;
 
 export const useThemeStore = create<ThemeState>()(
   devtools(

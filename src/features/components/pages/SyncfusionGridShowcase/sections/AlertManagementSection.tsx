@@ -30,12 +30,6 @@ import { AlertToolbar } from './AlertToolbar';
 import { ShowcaseSection } from './ShowcaseSection';
 import { SECURITY_ALERTS, ALERT_COLUMNS } from '../data/alertData';
 
-const CHECKBOX_WIDTH = 50;
-const PAGE_SIZE = 10;
-const PAGE_SIZE_MEDIUM = 20;
-const PAGE_SIZE_LARGE = 50;
-const PAGE_COUNT = 10;
-
 function mapColumnTemplate(col: ColumnModel): ColumnModel {
   if (col.field === 'severity') return { ...col, template: severityTemplate };
   if (col.field === 'status') return { ...col, template: statusTemplate };
@@ -46,6 +40,12 @@ function mapColumnTemplate(col: ColumnModel): ColumnModel {
   if (col.field === 'actions') return { ...col, template: actionsTemplate };
   return col;
 }
+
+const CHECKBOX_WIDTH = 50;
+const PAGE_SIZE = 10;
+const PAGE_SIZE_MEDIUM = 20;
+const PAGE_SIZE_LARGE = 50;
+const PAGE_COUNT = 10;
 
 const ALERT_GRID_COLUMNS: ColumnModel[] = [
   { field: 'checkbox', type: 'checkbox', width: CHECKBOX_WIDTH },

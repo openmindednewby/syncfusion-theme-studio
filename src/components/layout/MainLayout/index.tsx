@@ -14,9 +14,9 @@ import { Header } from '../Header';
 import { Sidebar } from '../Sidebar';
 import { ThemeSettingsDrawer } from '../ThemeSettingsDrawer';
 
-const MAIN_CONTENT_ID = 'main-content';
 const selectContentFullWidth = (s: { theme: { layout: { contentFullWidth: boolean } } }): boolean =>
   s.theme.layout.contentFullWidth;
+const MAIN_CONTENT_ID = 'main-content';
 
 /**
  * MainLayout - Three-column grid layout with:

@@ -23,6 +23,8 @@ interface Props {
   children: React.ReactNode;
 }
 
+export default ApiEventsProvider;
+
 function ApiEventsProvider({ children }: Props): React.ReactNode {
   // Subscribe to events — the hook handles toast/redirect/session-expired
   // activeModal and dismissModal are available for future modal overlay
@@ -30,5 +32,3 @@ function ApiEventsProvider({ children }: Props): React.ReactNode {
 
   return children;
 }
-
-export default ApiEventsProvider;

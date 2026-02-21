@@ -137,9 +137,10 @@ Section generators are independent. You can run one without running the others.
 | Nav Menus | `generate-nav-menus.ts` | Implemented |
 | Text Description | `generate-text-description.ts` | Implemented |
 | Icons | `generate-icons.ts` | Implemented |
+| Dropdowns | `generate-dropdowns.ts` | Implemented |
 | Typography | stub | Future |
 | Colours | stub | Future |
-| (13 more) | stub | Future |
+| (12 more) | stub | Future |
 
 For detailed documentation on how generators work, patterns, and how to add new ones, see [docs/FIGMA_SECTION_GENERATORS.md](../../docs/FIGMA_SECTION_GENERATORS.md).
 
@@ -195,7 +196,7 @@ If you re-run `figma:extract` and `figma:generate:badges` in the future, the sec
 ```
 extract → generate:icons → generate:badges → generate:buttons → generate:form-controls
   → generate:input → generate:description → generate:external-link → generate:nav-menus
-  → generate
+  → generate:dropdowns → generate
 ```
 
 ---
@@ -213,6 +214,8 @@ scripts/figma/
   extract-nav-menus.ts          Nav menu extraction logic
   extract-text-description.ts   Text description extraction logic
   extract-icons.ts              Icon SVG extraction logic
+  extract-dropdowns.ts          Dropdown trigger + item extraction logic
+  extract-helpers.ts            Shared paint/node helpers for extractors
   button-helpers.ts             Button COMPONENT_SET parsing utilities
   nav-menu-helpers.ts           Nav menu parsing utilities
   generate-badges.ts            Phase 2: Badges section generator
@@ -225,6 +228,7 @@ scripts/figma/
   generate-nav-menus.ts         Phase 2: Nav menus + sidebar generator
   generate-text-description.ts  Phase 2: Text description generator
   generate-icons.ts             Phase 2: Icon TSX component generator
+  generate-dropdowns.ts         Phase 2: Dropdown -> select.json generator
   corrections.ts                Phase 2.5: Deep-merges correction files onto sections
   generate.ts                   Phase 3: Combines sections -> figmaDesign.ts
   code-generators.ts            TypeScript code generation helpers
@@ -245,6 +249,7 @@ scripts/figma/
       menu.json                 Nav menu overrides (generated)
       sidebar.json              Sidebar overrides (generated)
       textDescription.json      Text description overrides (generated)
+      select.json               Dropdown/select overrides (generated)
     figma-corrections/
       badges.json               Fixes light mode badge text colors
       alertBadges.json          Fixes alert badge padding
@@ -501,6 +506,7 @@ Corrections are matched by filename. Only keys present in the correction file ar
 | `npm run figma:generate:nav-menus` | Generate nav menu + sidebar overrides |
 | `npm run figma:generate:description` | Generate text description overrides |
 | `npm run figma:generate:icons` | Generate icon TSX components |
+| `npm run figma:generate:dropdowns` | Generate dropdown/select overrides |
 | `npm run figma:generate` | Combine all sections into `figmaDesign.ts` |
 | `npm run figma:sync` | Full pipeline: extract + all generators + combine |
 | `npm run figma:discover` | Explore Figma file structure (development tool) |
@@ -525,7 +531,7 @@ Corrections are matched by filename. Only keys present in the correction file ar
 | Components | Drawer | Future | - | stub | - |
 | Components | Notifications / Alerts | Future | - | stub | - |
 | Components | Image | Future | - | stub | - |
-| Components | Drop Down Lists | - | - | stub | - |
+| Components | **Drop Down Lists** | **Yes** | **Yes** | **generate-dropdowns.ts** | **Yes** |
 | Components | Breadcrumbs | - | - | stub | - |
 | Components | Data Grid | - | - | stub | - |
 | Components | Combobox | - | - | stub | - |

@@ -17,8 +17,6 @@ interface DataGridEditorProps {
   onUpdate: (updates: Partial<DataGridConfig>) => void;
 }
 
-const DATAGRID_PROPERTY_COUNT = 57;
-
 const HeaderRowsSubSection = ({ config, onUpdate }: DataGridEditorProps): JSX.Element => (
   <CollapsibleSection title={FM('themeSettings.components.dataGrid.headerRowsSection')}>
     <div className="grid grid-cols-2 gap-2">
@@ -65,6 +63,8 @@ const HeaderRowsSubSection = ({ config, onUpdate }: DataGridEditorProps): JSX.El
     </div>
   </CollapsibleSection>
 );
+
+const DATAGRID_PROPERTY_COUNT = 57;
 
 export const DataGridEditor = ({ config, onUpdate }: DataGridEditorProps): JSX.Element => (
   <CollapsibleSection

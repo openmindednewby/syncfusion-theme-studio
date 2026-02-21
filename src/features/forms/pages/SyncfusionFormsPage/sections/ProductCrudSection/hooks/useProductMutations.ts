@@ -24,6 +24,40 @@ export interface ProductMutationResult {
   handleDelete: (id: number) => void;
 }
 
+export function useProductMutations(
+  editingProduct: ProductDto | null,
+  setEditingProduct: (p: ProductDto | null) => void
+): ProductMutationResult {
+  const createMutation = useMockServerWebProductsCreate();
+  const updateMutation = useMockServerWebProductsUpdate();
+  const invalidate = useInvalidateProducts();
+  const { deleteMutation, handleDelete } = useProductDelete(
+    editingProduct,
+    setEditingProduct,
+    invalidate
+  );
+
+  const isMutating =
+    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
+
+  const handleFormSubmit = useCallback(
+    (data: ProductFormData) => {
+      const payload = toApiPayload(data);
+      const onDone = (): void => {
+        setEditingProduct(null);
+        invalidate();
+      };
+
+      if (isValueDefined(editingProduct?.id))
+        updateMutation.mutate({ id: editingProduct.id, data: payload }, { onSuccess: onDone });
+      else createMutation.mutate({ data: payload }, { onSuccess: invalidate });
+    },
+    [editingProduct, createMutation, updateMutation, invalidate, setEditingProduct]
+  );
+
+  return { isMutating, handleFormSubmit, handleDelete };
+}
+
 /** Maps form data to the API request payload */
 function toApiPayload(data: ProductFormData): UpdateProductRequest {
   const payload: UpdateProductRequest = {
@@ -81,38 +115,4 @@ function useProductDelete(
   );
 
   return { deleteMutation, handleDelete };
-}
-
-export function useProductMutations(
-  editingProduct: ProductDto | null,
-  setEditingProduct: (p: ProductDto | null) => void
-): ProductMutationResult {
-  const createMutation = useMockServerWebProductsCreate();
-  const updateMutation = useMockServerWebProductsUpdate();
-  const invalidate = useInvalidateProducts();
-  const { deleteMutation, handleDelete } = useProductDelete(
-    editingProduct,
-    setEditingProduct,
-    invalidate
-  );
-
-  const isMutating =
-    createMutation.isPending || updateMutation.isPending || deleteMutation.isPending;
-
-  const handleFormSubmit = useCallback(
-    (data: ProductFormData) => {
-      const payload = toApiPayload(data);
-      const onDone = (): void => {
-        setEditingProduct(null);
-        invalidate();
-      };
-
-      if (isValueDefined(editingProduct?.id))
-        updateMutation.mutate({ id: editingProduct.id, data: payload }, { onSuccess: onDone });
-      else createMutation.mutate({ data: payload }, { onSuccess: invalidate });
-    },
-    [editingProduct, createMutation, updateMutation, invalidate, setEditingProduct]
-  );
-
-  return { isMutating, handleFormSubmit, handleDelete };
 }

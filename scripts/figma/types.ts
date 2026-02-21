@@ -241,6 +241,55 @@ export interface FormControlExtractionData {
   };
 }
 
+/** Extracted dropdown color data for a single theme mode */
+export interface DropdownColorData {
+  background: string;
+  borderColor: string;
+  textColor: string;
+  iconColor: string;
+  itemBackground: string;
+  itemTextColor: string;
+  borderRadius?: string;
+  fontFamily?: string;
+  fontSize?: string;
+}
+
+/** Dropdown data with light/dark variants */
+export interface DropdownSectionData {
+  light: DropdownColorData;
+  dark: DropdownColorData;
+}
+
+/** Extracted typography text style from Figma */
+export interface TypographyExtractionStyle {
+  fontFamily?: string;
+  fontSize?: string;
+  fontWeight?: string;
+  lineHeight?: string;
+  letterSpacing?: string;
+}
+
+/** Typography extraction data with heading/body levels */
+export interface TypographyExtractionData {
+  fontFamily?: string;
+  levels: Record<string, TypographyExtractionStyle>;
+}
+
+/** Extracted colour swatch data */
+export interface ColourSwatchData {
+  name: string;
+  hex: string;
+  rgb: string;
+}
+
+/** Colour palette extraction with named scales */
+export interface ColourExtractionData {
+  primary: Record<string, ColourSwatchData>;
+  secondary: Record<string, ColourSwatchData>;
+  neutral: Record<string, ColourSwatchData>;
+  status: Record<string, Record<string, ColourSwatchData>>;
+}
+
 /** Full extraction output */
 export interface FigmaExtraction {
   fileKey: string;
@@ -270,6 +319,9 @@ export interface FigmaExtraction {
   navMenus?: NavMenuSectionData;
   externalLink?: ExternalLinkData;
   formControls?: FormControlExtractionData;
+  dropdowns?: DropdownSectionData;
+  typography?: TypographyExtractionData;
+  colours?: ColourExtractionData;
 }
 
 /** Single mapping rule */

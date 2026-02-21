@@ -4,6 +4,7 @@ import { RouterProvider } from 'react-router-dom';
 
 import { QueryClientProvider } from '@tanstack/react-query';
 
+import { ErrorBoundary } from '@/components/common';
 import { ToastProvider } from '@/components/ui/native';
 import { apiClient, registerInterceptors, ApiEventsProvider } from '@/lib/api';
 import { isValueDefined } from '@/utils/is';
@@ -14,6 +15,18 @@ import { router } from './router';
 
 // Register interceptors once at bootstrap
 registerInterceptors(apiClient);
+
+/** Defers mounting until the browser is idle, keeping children off the critical rendering path. */
+function useDeferredMount(): boolean {
+  const [ready, setReady] = useState(false);
+
+  useEffect(() => {
+    const id = requestIdleCallback(() => setReady(true));
+    return () => cancelIdleCallback(id);
+  }, []);
+
+  return ready;
+}
 
 const IS_DEVELOPMENT = Boolean(import.meta.env.DEV);
 
@@ -35,18 +48,6 @@ const OfflineIndicator = lazy(async () =>
   import('@/components/common/components/OfflineIndicator').then((m) => ({ default: m.OfflineIndicator })),
 );
 
-/** Defers mounting until the browser is idle, keeping children off the critical rendering path. */
-function useDeferredMount(): boolean {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    const id = requestIdleCallback(() => setReady(true));
-    return () => cancelIdleCallback(id);
-  }, []);
-
-  return ready;
-}
-
 export const App = (): JSX.Element => {
   const isPastInitialPaint = useDeferredMount();
 
@@ -55,7 +56,9 @@ export const App = (): JSX.Element => {
       <ToastProvider>
         <ApiEventsProvider>
           <QueryClientProvider client={queryClient}>
-            <RouterProvider router={router} />
+            <ErrorBoundary>
+              <RouterProvider router={router} />
+            </ErrorBoundary>
             {isPastInitialPaint ? (
               <>
                 <Suspense fallback={null}>

@@ -33,6 +33,7 @@ Sections are independent. You can regenerate one without touching the others.
 | Nav Menus | `generate-nav-menus.ts` | `menu.json`, `sidebar.json` | `extract-nav-menus.ts` |
 | Text Description | `generate-text-description.ts` | `textDescription.json` | `extract-text-description.ts` |
 | Icons | `generate-icons.ts` | TSX component files | `extract-icons.ts` |
+| Dropdowns | `generate-dropdowns.ts` | `select.json` | `extract-dropdowns.ts` |
 
 ---
 

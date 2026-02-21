@@ -9,15 +9,6 @@ import { Select } from '@/components/ui/syncfusion';
 import type { SelectOption } from '@/components/ui/syncfusion';
 import { FM } from '@/localization/utils/helpers';
 
-const FRUIT_KEYS = ['fruitApple', 'fruitBanana', 'fruitCherry', 'fruitDragonFruit', 'fruitElderberry'] as const;
-
-function buildFruitOptions(): SelectOption[] {
-  return FRUIT_KEYS.map((key) => ({
-    value: key,
-    label: FM(`components.selectShowcase.${key}`),
-  }));
-}
-
 export const BasicSelectSection = memo((): JSX.Element => {
   const [basicValue, setBasicValue] = useState<string | number>('');
   const fruitOptions = useMemo(() => buildFruitOptions(), []);
@@ -66,5 +57,14 @@ export const BasicSelectSection = memo((): JSX.Element => {
     </section>
   );
 });
+
+const FRUIT_KEYS = ['fruitApple', 'fruitBanana', 'fruitCherry', 'fruitDragonFruit', 'fruitElderberry'] as const;
+
+function buildFruitOptions(): SelectOption[] {
+  return FRUIT_KEYS.map((key) => ({
+    value: key,
+    label: FM(`components.selectShowcase.${key}`),
+  }));
+}
 
 BasicSelectSection.displayName = 'BasicSelectSection';

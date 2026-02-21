@@ -25,13 +25,6 @@ interface FormDatePickerProps<T extends FieldValues>
   helperText?: string;
 }
 
-/**
- * Type guard to check if a value is a Date object
- */
-function isDateValue(value: unknown): value is Date {
-  return isValueDefined(value) && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]';
-}
-
 export const FormDatePicker = <T extends FieldValues>({
   name,
   control,
@@ -72,3 +65,10 @@ export const FormDatePicker = <T extends FieldValues>({
     }}
   />
 );
+
+/**
+ * Type guard to check if a value is a Date object
+ */
+function isDateValue(value: unknown): value is Date {
+  return isValueDefined(value) && typeof value === 'object' && Object.prototype.toString.call(value) === '[object Date]';
+}

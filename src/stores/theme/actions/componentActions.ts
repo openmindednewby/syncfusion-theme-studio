@@ -83,6 +83,35 @@ const enum ComponentKey {
   ExternalLink = 'externalLink',
 }
 
+export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
+  return {
+    ...createCoreComponentActions(set, get),
+    updateAlertBadgesConfig: (u: Partial<AlertBadgesConfig>) => update(set, get, ComponentKey.AlertBadges, u),
+    updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, ComponentKey.Message, u),
+    updateChipConfig: (u: Partial<ChipConfig>) => update(set, get, ComponentKey.Chips, u),
+    updateAccordionConfig: (u: Partial<AccordionConfig>) => update(set, get, ComponentKey.Accordion, u),
+    updateToolbarConfig: (u: Partial<ToolbarConfig>) => update(set, get, ComponentKey.Toolbar, u),
+    updateMenuConfig: (u: Partial<MenuConfig>) => update(set, get, ComponentKey.Menu, u),
+    updateBreadcrumbConfig: (u: Partial<BreadcrumbConfig>) => update(set, get, ComponentKey.Breadcrumb, u),
+    updatePaginationConfig: (u: Partial<PaginationConfig>) => update<PaginationConfig>(set, get, ComponentKey.Pagination, u),
+    updateTabsConfig: (u: Partial<TabsConfig>) => update(set, get, ComponentKey.Tabs, u),
+    updateTimelineConfig: (u: Partial<TimelineConfig>) => update(set, get, ComponentKey.Timeline, u),
+    updateAvatarConfig: (u: Partial<AvatarConfig>) => update(set, get, ComponentKey.Avatar, u),
+    updateProgressBarConfig: (u: Partial<ProgressBarConfig>) => update(set, get, ComponentKey.ProgressBar, u),
+    updateTooltipConfig: (u: Partial<TooltipConfig>) => update(set, get, ComponentKey.Tooltip, u),
+    updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
+    updateButtonsConfig: (u: Partial<ButtonsComponentConfig>) => update(set, get, ComponentKey.Buttons, u),
+    updateIconButtonConfig: (u: Partial<IconButtonConfig>) => update(set, get, ComponentKey.IconButtons, u),
+    updateFabConfig: (u: Partial<FabConfig>) => update(set, get, ComponentKey.Fab, u),
+    updateSplitButtonConfig: (u: Partial<SplitButtonConfig>) => update(set, get, ComponentKey.SplitButton, u),
+    updateTextDescriptionConfig: (u: Partial<TextDescriptionConfig>) => update(set, get, ComponentKey.TextDescription, u),
+    updateCheckboxConfig: (u: Partial<CheckboxConfig>) => update(set, get, ComponentKey.Checkbox, u),
+    updateRadioConfig: (u: Partial<RadioConfig>) => update(set, get, ComponentKey.Radio, u),
+    updateToggleConfig: (u: Partial<ToggleConfig>) => update(set, get, ComponentKey.Toggle, u),
+    updateExternalLinkConfig: (u: Partial<ExternalLinkConfig>) => update(set, get, ComponentKey.ExternalLink, u),
+  };
+}
+
 function update<T>(set: SetState, get: GetState, key: ComponentKey, updates: Partial<T>): void {
   const { theme, mode } = get();
   const newTheme: ThemeConfig = {
@@ -125,34 +154,5 @@ function createCoreComponentActions(set: SetState, get: GetState): Pick<Componen
     updateFlexBoxConfig: (u: Partial<FlexBoxConfig>) => update(set, get, ComponentKey.FlexBox, u),
     updateAlertsConfig: (u: Partial<AlertsConfig>) => update(set, get, ComponentKey.Alerts, u),
     updateToastConfig: (u: Partial<ToastConfig>) => update(set, get, ComponentKey.Toast, u),
-  };
-}
-
-export function createComponentConfigActions(set: SetState, get: GetState): ComponentConfigActions {
-  return {
-    ...createCoreComponentActions(set, get),
-    updateAlertBadgesConfig: (u: Partial<AlertBadgesConfig>) => update(set, get, ComponentKey.AlertBadges, u),
-    updateMessageConfig: (u: Partial<MessageConfig>) => update(set, get, ComponentKey.Message, u),
-    updateChipConfig: (u: Partial<ChipConfig>) => update(set, get, ComponentKey.Chips, u),
-    updateAccordionConfig: (u: Partial<AccordionConfig>) => update(set, get, ComponentKey.Accordion, u),
-    updateToolbarConfig: (u: Partial<ToolbarConfig>) => update(set, get, ComponentKey.Toolbar, u),
-    updateMenuConfig: (u: Partial<MenuConfig>) => update(set, get, ComponentKey.Menu, u),
-    updateBreadcrumbConfig: (u: Partial<BreadcrumbConfig>) => update(set, get, ComponentKey.Breadcrumb, u),
-    updatePaginationConfig: (u: Partial<PaginationConfig>) => update<PaginationConfig>(set, get, ComponentKey.Pagination, u),
-    updateTabsConfig: (u: Partial<TabsConfig>) => update(set, get, ComponentKey.Tabs, u),
-    updateTimelineConfig: (u: Partial<TimelineConfig>) => update(set, get, ComponentKey.Timeline, u),
-    updateAvatarConfig: (u: Partial<AvatarConfig>) => update(set, get, ComponentKey.Avatar, u),
-    updateProgressBarConfig: (u: Partial<ProgressBarConfig>) => update(set, get, ComponentKey.ProgressBar, u),
-    updateTooltipConfig: (u: Partial<TooltipConfig>) => update(set, get, ComponentKey.Tooltip, u),
-    updateButtonConfig: (v: ButtonVariant, u: Partial<ButtonStateColors>) => updateButton(set, get, v, u),
-    updateButtonsConfig: (u: Partial<ButtonsComponentConfig>) => update(set, get, ComponentKey.Buttons, u),
-    updateIconButtonConfig: (u: Partial<IconButtonConfig>) => update(set, get, ComponentKey.IconButtons, u),
-    updateFabConfig: (u: Partial<FabConfig>) => update(set, get, ComponentKey.Fab, u),
-    updateSplitButtonConfig: (u: Partial<SplitButtonConfig>) => update(set, get, ComponentKey.SplitButton, u),
-    updateTextDescriptionConfig: (u: Partial<TextDescriptionConfig>) => update(set, get, ComponentKey.TextDescription, u),
-    updateCheckboxConfig: (u: Partial<CheckboxConfig>) => update(set, get, ComponentKey.Checkbox, u),
-    updateRadioConfig: (u: Partial<RadioConfig>) => update(set, get, ComponentKey.Radio, u),
-    updateToggleConfig: (u: Partial<ToggleConfig>) => update(set, get, ComponentKey.Toggle, u),
-    updateExternalLinkConfig: (u: Partial<ExternalLinkConfig>) => update(set, get, ComponentKey.ExternalLink, u),
   };
 }

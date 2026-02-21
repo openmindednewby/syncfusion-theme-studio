@@ -12,26 +12,6 @@ import {
   isExpandableEntry,
 } from '../sidebarNavData';
 
-function filterNavChildren(children: NavChild[], query: string): NavChild[] {
-  return children.reduce<NavChild[]>((acc, child) => {
-    if (isSubNavGroup(child)) {
-      const groupLabel = FM(child.labelKey).toLowerCase();
-      if (groupLabel.includes(query)) {
-        acc.push(child);
-        return acc;
-      }
-      const filteredItems = child.items.filter((item) =>
-        FM(item.labelKey).toLowerCase().includes(query),
-      );
-      if (filteredItems.length > 0)
-        acc.push({ ...child, items: filteredItems });
-    } else if (FM(child.labelKey).toLowerCase().includes(query)) 
-      acc.push(child);
-    
-    return acc;
-  }, []);
-}
-
 export function filterMainNavItems(
   items: SidebarNavEntry[],
   query: string,
@@ -69,4 +49,24 @@ export function filterBottomNavItems(
   if (query === '') return items;
   const q = query.toLowerCase();
   return items.filter((item) => FM(item.labelKey).toLowerCase().includes(q));
+}
+
+function filterNavChildren(children: NavChild[], query: string): NavChild[] {
+  return children.reduce<NavChild[]>((acc, child) => {
+    if (isSubNavGroup(child)) {
+      const groupLabel = FM(child.labelKey).toLowerCase();
+      if (groupLabel.includes(query)) {
+        acc.push(child);
+        return acc;
+      }
+      const filteredItems = child.items.filter((item) =>
+        FM(item.labelKey).toLowerCase().includes(query),
+      );
+      if (filteredItems.length > 0)
+        acc.push({ ...child, items: filteredItems });
+    } else if (FM(child.labelKey).toLowerCase().includes(query)) 
+      acc.push(child);
+    
+    return acc;
+  }, []);
 }

@@ -4,25 +4,6 @@ import type { ThemePreset } from '@/stores/theme/utils/presets';
 import { isValueDefined } from '@/utils/is';
 
 
-const RGB_SEPARATOR = ' ';
-
-function rgbToStyle(rgb: string): string {
-  const parts = rgb.split(RGB_SEPARATOR);
-  return `rgb(${parts.join(', ')})`;
-}
-
-/** Build unique keys for color swatches by appending occurrence index for duplicates. */
-function buildColorKey(colors: readonly string[], color: string, position: number): string {
-  const priorCount = colors.slice(0, position).filter((c) => c === color).length;
-  return priorCount > 0 ? `${color}-${priorCount}` : color;
-}
-
-interface PresetCardProps {
-  preset: ThemePreset;
-  isActive: boolean;
-  onApply: (preset: ThemePreset) => void;
-}
-
 export const PresetCard = ({ isActive, onApply, preset }: PresetCardProps): JSX.Element => {
   const handleClick = (): void => {
     onApply(preset);
@@ -65,3 +46,22 @@ export const PresetCard = ({ isActive, onApply, preset }: PresetCardProps): JSX.
     </button>
   );
 };
+
+const RGB_SEPARATOR = ' ';
+
+function rgbToStyle(rgb: string): string {
+  const parts = rgb.split(RGB_SEPARATOR);
+  return `rgb(${parts.join(', ')})`;
+}
+
+interface PresetCardProps {
+  preset: ThemePreset;
+  isActive: boolean;
+  onApply: (preset: ThemePreset) => void;
+}
+
+/** Build unique keys for color swatches by appending occurrence index for duplicates. */
+function buildColorKey(colors: readonly string[], color: string, position: number): string {
+  const priorCount = colors.slice(0, position).filter((c) => c === color).length;
+  return priorCount > 0 ? `${color}-${priorCount}` : color;
+}

@@ -41,6 +41,69 @@ import { AVAILABLE_PAGE_SIZES, DEFAULT_PAGE_COUNT, DEFAULT_PAGE_SIZE } from '../
 import type { DataGridProps, ResolvedGridFeatures } from '../types';
 
 /**
+ * Resolve all feature flags by merging component props with gridConfig.
+ * Props take precedence over gridConfig for direct boolean toggles.
+ */
+export function resolveFeatures<T extends object>(
+  props: DataGridProps<T>,
+): ResolvedGridFeatures {
+  const config = props.gridConfig;
+
+  return {
+    ...resolveCoreFeatures(props, config),
+    ...resolveDataFeatures(props, config),
+    ...resolveColumnFeatures(props, config),
+    ...resolveUiFeatures(props, config),
+    ...resolvePerformanceFeatures(props, config),
+  };
+}
+
+/**
+ * Hook that resolves which Syncfusion services to inject.
+ * Memoized to avoid unnecessary re-renders.
+ */
+export function useGridFeatures<T extends object>(
+  props: DataGridProps<T>,
+): { features: ResolvedGridFeatures; services: Object[] } {
+  const features = useMemo(() => resolveFeatures(props), [props]);
+
+  const services = useMemo(() => buildServiceList(features), [features]);
+
+  return { features, services };
+}
+
+/**
+ * Compute effective page settings from gridConfig or fallback.
+ */
+export function computePageSettings(
+  gridConfig: GridConfig | undefined,
+  fallback: PageSettingsModel,
+  pagingEnabled: boolean,
+  dataLength: number,
+): PageSettingsModel {
+  if (!isValueDefined(gridConfig?.pagination)) {
+    const pageSize = fallback.pageSize ?? DEFAULT_PAGE_SIZE;
+    const pageCount = capPageCount(pageSize, dataLength, fallback.pageCount ?? DEFAULT_PAGE_COUNT);
+    return { ...fallback, pageCount };
+  }
+
+  const pag = gridConfig.pagination;
+  const threshold = pag.threshold ?? 0;
+  const shouldShow = pagingEnabled && dataLength > threshold;
+
+  if (!shouldShow) return { ...fallback, pageSize: dataLength };
+
+  const pageSize = pag.pageSize ?? DEFAULT_PAGE_SIZE;
+  const desiredPageCount = pag.pageCount ?? DEFAULT_PAGE_COUNT;
+  const settings: PageSettingsModel = {
+    pageSize,
+    pageCount: capPageCount(pageSize, dataLength, desiredPageCount),
+    pageSizes: pag.pageSizes ?? AVAILABLE_PAGE_SIZES,
+  };
+  return settings;
+}
+
+/**
  * Resolve a boolean flag: props value > config value > default.
  */
 function resolveBoolean(
@@ -137,24 +200,6 @@ function resolvePerformanceFeatures<T extends object>(
 }
 
 /**
- * Resolve all feature flags by merging component props with gridConfig.
- * Props take precedence over gridConfig for direct boolean toggles.
- */
-export function resolveFeatures<T extends object>(
-  props: DataGridProps<T>,
-): ResolvedGridFeatures {
-  const config = props.gridConfig;
-
-  return {
-    ...resolveCoreFeatures(props, config),
-    ...resolveDataFeatures(props, config),
-    ...resolveColumnFeatures(props, config),
-    ...resolveUiFeatures(props, config),
-    ...resolvePerformanceFeatures(props, config),
-  };
-}
-
-/**
  * Mapping from feature flag key to Syncfusion service module.
  * Used by buildServiceList to avoid repetitive if-statements.
  */
@@ -195,53 +240,8 @@ function buildServiceList(features: ResolvedGridFeatures): Object[] {
     .filter((service) => isValueDefined(service));
 }
 
-/**
- * Hook that resolves which Syncfusion services to inject.
- * Memoized to avoid unnecessary re-renders.
- */
-export function useGridFeatures<T extends object>(
-  props: DataGridProps<T>,
-): { features: ResolvedGridFeatures; services: Object[] } {
-  const features = useMemo(() => resolveFeatures(props), [props]);
-
-  const services = useMemo(() => buildServiceList(features), [features]);
-
-  return { features, services };
-}
-
 /** Cap pageCount to the actual number of pages so Syncfusion doesn't render empty page buttons. */
 function capPageCount(pageSize: number, dataLength: number, desiredPageCount: number): number {
   const totalPages = Math.max(1, Math.ceil(dataLength / pageSize));
   return Math.min(desiredPageCount, totalPages);
-}
-
-/**
- * Compute effective page settings from gridConfig or fallback.
- */
-export function computePageSettings(
-  gridConfig: GridConfig | undefined,
-  fallback: PageSettingsModel,
-  pagingEnabled: boolean,
-  dataLength: number,
-): PageSettingsModel {
-  if (!isValueDefined(gridConfig?.pagination)) {
-    const pageSize = fallback.pageSize ?? DEFAULT_PAGE_SIZE;
-    const pageCount = capPageCount(pageSize, dataLength, fallback.pageCount ?? DEFAULT_PAGE_COUNT);
-    return { ...fallback, pageCount };
-  }
-
-  const pag = gridConfig.pagination;
-  const threshold = pag.threshold ?? 0;
-  const shouldShow = pagingEnabled && dataLength > threshold;
-
-  if (!shouldShow) return { ...fallback, pageSize: dataLength };
-
-  const pageSize = pag.pageSize ?? DEFAULT_PAGE_SIZE;
-  const desiredPageCount = pag.pageCount ?? DEFAULT_PAGE_COUNT;
-  const settings: PageSettingsModel = {
-    pageSize,
-    pageCount: capPageCount(pageSize, dataLength, desiredPageCount),
-    pageSizes: pag.pageSizes ?? AVAILABLE_PAGE_SIZES,
-  };
-  return settings;
 }

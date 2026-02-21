@@ -23,6 +23,30 @@ interface TypographySubfieldUpdate {
   value: string;
 }
 
+export function createTypographyActions(set: SetState, get: GetState): TypographyActions {
+  return {
+    updateFontFamily: createFontFamilyAction(set, get),
+
+    updateFontSize: (key: keyof FontSizeScale, value: string): void => {
+      applyTypographyUpdate({ set, get, field: TypographySubfield.FontSize, key, value });
+    },
+
+    updateFontWeight: (key: keyof FontWeightScale, value: string): void => {
+      applyTypographyUpdate({ set, get, field: TypographySubfield.FontWeight, key, value });
+    },
+
+    updateLineHeight: (key: keyof LineHeightScale, value: string): void => {
+      applyTypographyUpdate({ set, get, field: TypographySubfield.LineHeight, key, value });
+    },
+
+    updateLetterSpacing: (key: keyof LetterSpacingScale, value: string): void => {
+      applyTypographyUpdate({ set, get, field: TypographySubfield.LetterSpacing, key, value });
+    },
+
+    updateTransition: createTransitionAction(set, get),
+  };
+}
+
 function applyTypographyUpdate(params: TypographySubfieldUpdate): void {
   const { theme, mode } = params.get();
   const existing = { ...theme.typography[params.field] };
@@ -57,29 +81,5 @@ function createTransitionAction(set: SetState, get: GetState) {
     };
     set({ theme: newTheme });
     injectThemeVariables(newTheme, mode);
-  };
-}
-
-export function createTypographyActions(set: SetState, get: GetState): TypographyActions {
-  return {
-    updateFontFamily: createFontFamilyAction(set, get),
-
-    updateFontSize: (key: keyof FontSizeScale, value: string): void => {
-      applyTypographyUpdate({ set, get, field: TypographySubfield.FontSize, key, value });
-    },
-
-    updateFontWeight: (key: keyof FontWeightScale, value: string): void => {
-      applyTypographyUpdate({ set, get, field: TypographySubfield.FontWeight, key, value });
-    },
-
-    updateLineHeight: (key: keyof LineHeightScale, value: string): void => {
-      applyTypographyUpdate({ set, get, field: TypographySubfield.LineHeight, key, value });
-    },
-
-    updateLetterSpacing: (key: keyof LetterSpacingScale, value: string): void => {
-      applyTypographyUpdate({ set, get, field: TypographySubfield.LetterSpacing, key, value });
-    },
-
-    updateTransition: createTransitionAction(set, get),
   };
 }

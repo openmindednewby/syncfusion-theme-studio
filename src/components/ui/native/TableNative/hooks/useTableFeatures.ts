@@ -26,21 +26,21 @@ interface FeatureFlags {
   allowDeleting: boolean;
 }
 
-/** Compute feature flags from config objects */
-function computeFeatureFlags(
-  selectionConfig?: SelectionConfig, editConfig?: EditingConfig, groupConfig?: GroupingConfig,
-): FeatureFlags {
-  const editingEnabled = isValueDefined(editConfig);
-  return {
-    selectionEnabled: isValueDefined(selectionConfig),
-    showCheckbox: selectionConfig?.checkbox ?? false,
-    groupingEnabled: isValueDefined(groupConfig),
-    showDropArea: groupConfig?.showDropArea ?? false,
-    editingEnabled,
-    showCommandColumn: editingEnabled,
-    allowEditing: editConfig?.allowEditing ?? true,
-    allowDeleting: editConfig?.allowDeleting ?? false,
-  };
+/** Wire up all table feature hooks from config */
+export function useTableFeatures(props: UseTableFeaturesProps): UseTableFeaturesResult {
+  const flags = computeFeatureFlags(props.selectionConfig, props.editConfig, props.groupConfig);
+  const selection = useTableSelection(buildSelectionProps(props, flags.showCheckbox));
+  const grouping = useTableGrouping({
+    data: props.processedData,
+    ...(isValueDefined(props.groupConfig?.columns) ? { groupColumns: props.groupConfig.columns } : {}),
+    ...(isValueDefined(props.onGroupChange) ? { onGroupChange: props.onGroupChange } : {}),
+  });
+  const aggregateResult = useTableAggregates({
+    data: props.processedData,
+    ...(isValueDefined(props.aggregates) ? { aggregates: props.aggregates } : {}),
+  });
+  const editing = useTableEditing(buildEditingProps(props, flags));
+  return { flags, selection, grouping, aggregateResult, editing };
 }
 
 interface UseTableFeaturesProps {
@@ -66,6 +66,23 @@ interface UseTableFeaturesResult {
   grouping: ReturnType<typeof useTableGrouping>;
   aggregateResult: ReturnType<typeof useTableAggregates>;
   editing: ReturnType<typeof useTableEditing>;
+}
+
+/** Compute feature flags from config objects */
+function computeFeatureFlags(
+  selectionConfig?: SelectionConfig, editConfig?: EditingConfig, groupConfig?: GroupingConfig,
+): FeatureFlags {
+  const editingEnabled = isValueDefined(editConfig);
+  return {
+    selectionEnabled: isValueDefined(selectionConfig),
+    showCheckbox: selectionConfig?.checkbox ?? false,
+    groupingEnabled: isValueDefined(groupConfig),
+    showDropArea: groupConfig?.showDropArea ?? false,
+    editingEnabled,
+    showCommandColumn: editingEnabled,
+    allowEditing: editConfig?.allowEditing ?? true,
+    allowDeleting: editConfig?.allowDeleting ?? false,
+  };
 }
 
 /** Build optional selection props, omitting undefined keys */
@@ -95,23 +112,6 @@ function buildEditingProps(props: UseTableFeaturesProps, flags: FeatureFlags): P
     ...(isValueDefined(props.onAdd) ? { onAdd: props.onAdd } : {}),
     ...(isValueDefined(props.onBatchSave) ? { onBatchSave: props.onBatchSave } : {}),
   };
-}
-
-/** Wire up all table feature hooks from config */
-export function useTableFeatures(props: UseTableFeaturesProps): UseTableFeaturesResult {
-  const flags = computeFeatureFlags(props.selectionConfig, props.editConfig, props.groupConfig);
-  const selection = useTableSelection(buildSelectionProps(props, flags.showCheckbox));
-  const grouping = useTableGrouping({
-    data: props.processedData,
-    ...(isValueDefined(props.groupConfig?.columns) ? { groupColumns: props.groupConfig.columns } : {}),
-    ...(isValueDefined(props.onGroupChange) ? { onGroupChange: props.onGroupChange } : {}),
-  });
-  const aggregateResult = useTableAggregates({
-    data: props.processedData,
-    ...(isValueDefined(props.aggregates) ? { aggregates: props.aggregates } : {}),
-  });
-  const editing = useTableEditing(buildEditingProps(props, flags));
-  return { flags, selection, grouping, aggregateResult, editing };
 }
 
 export type { FeatureFlags, UseTableFeaturesProps };

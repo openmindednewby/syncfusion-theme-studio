@@ -1,5 +1,6 @@
-import { useState, useCallback, useRef, type ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
 
+import { useDebouncedInput } from '@/hooks/useDebouncedInput';
 import { FM } from '@/localization/utils/helpers';
 import { FontFamilyType } from '@/stores/theme/types';
 
@@ -50,21 +51,7 @@ const FontFamilySelect = ({
   options,
   value,
 }: FontFamilySelectProps): JSX.Element => {
-  const [localValue, setLocalValue] = useState(value);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLSelectElement>) => {
-      const newValue = e.target.value;
-      setLocalValue(newValue);
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        onChange(newValue);
-      }, DEBOUNCE_MS);
-    },
-    [onChange],
-  );
+  const { localValue, handleChange } = useDebouncedInput(value, onChange, DEBOUNCE_MS);
 
   const isCustomValue = !options.some((opt) => opt.value === localValue);
 
@@ -75,7 +62,7 @@ const FontFamilySelect = ({
         aria-label={`Edit ${label}`}
         className="w-40 rounded border border-border bg-surface px-2 py-1 text-xs text-text-primary focus:border-primary-500 focus:outline-none"
         value={isCustomValue ? '' : localValue}
-        onChange={handleChange}
+        onChange={(e: ChangeEvent<HTMLSelectElement>) => handleChange(e.target.value)}
       >
         {isCustomValue ? <option style={{ fontFamily: localValue }} value="">
             {FM('themeSettings.typography.customFont')}

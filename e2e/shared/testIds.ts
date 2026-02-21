@@ -14,6 +14,10 @@ export const TestIds = {
   THEME_TOGGLE: 'theme-toggle',
   THEME_SETTINGS_BUTTON: 'theme-settings-button',
 
+  // Header Breadcrumb
+  HEADER_BREADCRUMB_NAV: 'header-breadcrumb-nav',
+  HEADER_BREADCRUMB_HOME: 'header-breadcrumb-home',
+
   // Dashboard
   DASHBOARD_HEADING: 'dashboard-heading',
   STAT_TOTAL_USERS: 'stat-total-users',

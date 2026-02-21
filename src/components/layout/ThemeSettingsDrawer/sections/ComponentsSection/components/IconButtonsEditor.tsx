@@ -16,15 +16,7 @@ const enum VariantKey {
   Tertiary = 'tertiary',
 }
 
-const VARIANTS: VariantKey[] = [VariantKey.Primary, VariantKey.Secondary, VariantKey.Tertiary];
-
 const L = (key: string): string => FM(`themeSettings.components.iconButtons.${key}`);
-
-interface VariantEditorProps {
-  config: IconButtonVariantColors;
-  variant: VariantKey;
-  onUpdate: (updates: Partial<IconButtonVariantColors>) => void;
-}
 
 const VariantEditor = ({ config, onUpdate, variant }: VariantEditorProps): JSX.Element => (
   <div className="space-y-2">
@@ -69,6 +61,14 @@ const VariantEditor = ({ config, onUpdate, variant }: VariantEditorProps): JSX.E
     </div>
   </div>
 );
+
+interface VariantEditorProps {
+  config: IconButtonVariantColors;
+  variant: VariantKey;
+  onUpdate: (updates: Partial<IconButtonVariantColors>) => void;
+}
+
+const VARIANTS: VariantKey[] = [VariantKey.Primary, VariantKey.Secondary, VariantKey.Tertiary];
 
 export const IconButtonsEditor = ({ config, onUpdate }: IconButtonsEditorProps): JSX.Element => {
   const handleVariantUpdate = (variant: VariantKey, updates: Partial<IconButtonVariantColors>): void => {

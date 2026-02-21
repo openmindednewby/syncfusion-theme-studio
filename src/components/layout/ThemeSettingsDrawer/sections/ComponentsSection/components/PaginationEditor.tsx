@@ -10,8 +10,6 @@ interface PaginationEditorProps {
   onUpdate: (updates: Partial<PaginationConfig>) => void;
 }
 
-const PAGINATION_PROPERTY_COUNT = 16;
-
 const ContainerFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
   <>
     <p className="text-xs font-medium text-text-secondary">
@@ -131,6 +129,8 @@ const InfoFields = ({ config, onUpdate }: PaginationEditorProps): JSX.Element =>
     />
   </>
 );
+
+const PAGINATION_PROPERTY_COUNT = 16;
 
 export const PaginationEditor = ({ config, onUpdate }: PaginationEditorProps): JSX.Element => (
   <CollapsibleSection

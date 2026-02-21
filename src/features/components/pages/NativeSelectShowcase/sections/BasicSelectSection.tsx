@@ -9,15 +9,6 @@ import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
 import { FM } from '@/localization/utils/helpers';
 
-const FRUIT_KEYS = ['fruitApple', 'fruitBanana', 'fruitCherry', 'fruitDragonFruit', 'fruitElderberry'] as const;
-
-function buildFruitOptions(): SelectNativeOption[] {
-  return FRUIT_KEYS.map((key) => ({
-    value: key,
-    label: FM(`components.selectShowcase.${key}`),
-  }));
-}
-
 export const BasicSelectSection = memo((): JSX.Element => {
   const fruitOptions = useMemo(() => buildFruitOptions(), []);
 
@@ -59,5 +50,14 @@ export const BasicSelectSection = memo((): JSX.Element => {
     </section>
   );
 });
+
+const FRUIT_KEYS = ['fruitApple', 'fruitBanana', 'fruitCherry', 'fruitDragonFruit', 'fruitElderberry'] as const;
+
+function buildFruitOptions(): SelectNativeOption[] {
+  return FRUIT_KEYS.map((key) => ({
+    value: key,
+    label: FM(`components.selectShowcase.${key}`),
+  }));
+}
 
 BasicSelectSection.displayName = 'BasicSelectSection';

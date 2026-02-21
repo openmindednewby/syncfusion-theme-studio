@@ -17,6 +17,26 @@ import { PRODUCT_COLUMNS, PRODUCTS } from '../sampleData';
 
 type DataRow = Record<string, unknown>;
 
+function useEditCallbacks(): {
+  handleSave: (edited: DataRow, original: DataRow) => void;
+  handleDelete: (row: DataRow) => void;
+  handleAdd: (row: DataRow) => void;
+} {
+  const handleSave = useCallback((_edited: DataRow, _original: DataRow) => {
+    // In a real app, this would call an API
+  }, []);
+
+  const handleDelete = useCallback((_row: DataRow) => {
+    // In a real app, this would call an API
+  }, []);
+
+  const handleAdd = useCallback((_row: DataRow) => {
+    // In a real app, this would call an API
+  }, []);
+
+  return { handleSave, handleDelete, handleAdd };
+}
+
 const INLINE_EDIT_CONFIG: EditingConfig = {
   mode: 'Normal',
   allowAdding: true,
@@ -37,26 +57,6 @@ const BATCH_EDIT_CONFIG: EditingConfig = {
   allowEditing: true,
   allowDeleting: true,
 };
-
-function useEditCallbacks(): {
-  handleSave: (edited: DataRow, original: DataRow) => void;
-  handleDelete: (row: DataRow) => void;
-  handleAdd: (row: DataRow) => void;
-} {
-  const handleSave = useCallback((_edited: DataRow, _original: DataRow) => {
-    // In a real app, this would call an API
-  }, []);
-
-  const handleDelete = useCallback((_row: DataRow) => {
-    // In a real app, this would call an API
-  }, []);
-
-  const handleAdd = useCallback((_row: DataRow) => {
-    // In a real app, this would call an API
-  }, []);
-
-  return { handleSave, handleDelete, handleAdd };
-}
 
 const EDIT_MODES = ['Normal', 'Dialog', 'Batch'] as const;
 

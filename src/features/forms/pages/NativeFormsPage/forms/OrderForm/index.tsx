@@ -17,18 +17,6 @@ import { FM } from '@/localization/utils/helpers';
 import { orderFormSchema, type OrderFormData } from './schema';
 
 
-const FORM_CONFIG = { schema: orderFormSchema, defaultValues: { userId: 0, items: [{ productId: 0, quantity: 1 }] } };
-const ZERO_PRICE = 0;
-const DEFAULT_QUANTITY = 1;
-const DECIMAL_PLACES = 2;
-
-interface Props {
-  users: UserDto[];
-  products: ProductDto[];
-  onSubmit: (data: OrderFormData) => void;
-  isSubmitting: boolean;
-}
-
 function buildUserOptions(users: UserDto[]): Array<{ value: number; label: string }> {
   return users.map((u) => ({
     value: u.id ?? 0,
@@ -42,6 +30,18 @@ function buildProductOptions(products: ProductDto[]): Array<{ value: number; lab
     label: `${p.title ?? ''} ($${String(p.price ?? 0)})`,
   }));
 }
+
+const FORM_CONFIG = { schema: orderFormSchema, defaultValues: { userId: 0, items: [{ productId: 0, quantity: 1 }] } };
+const ZERO_PRICE = 0;
+
+interface Props {
+  users: UserDto[];
+  products: ProductDto[];
+  onSubmit: (data: OrderFormData) => void;
+  isSubmitting: boolean;
+}
+const DEFAULT_QUANTITY = 1;
+const DECIMAL_PLACES = 2;
 
 export const OrderForm = ({ users, products, onSubmit, isSubmitting }: Props): JSX.Element => {
   const { control, handleSubmit, watch } = useFormWithSchema(FORM_CONFIG);

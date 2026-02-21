@@ -16,6 +16,28 @@ interface KeyboardNavParams {
 
 type KeyHandler = (e: KeyboardEvent) => void;
 
+/**
+ * Handles keyboard navigation within the dropdown.
+ * Arrow keys navigate, Enter/Space select, Escape closes, Home/End jump.
+ */
+export function useKeyboardNavigation(p: KeyboardNavParams): KeyHandler {
+  const { isOpen, filteredOptions, highlightedIndex } = p;
+  const { setHighlightedIndex, select, close, open } = p;
+
+  return useCallback(
+    (e: KeyboardEvent) => {
+      const ctx = { isOpen, filteredOptions, highlightedIndex, setHighlightedIndex, select, close, open };
+
+      if (e.key === KEYS.ARROW_DOWN || e.key === KEYS.ARROW_UP) handleVerticalNav(ctx, e);
+      else if (e.key === KEYS.ENTER || e.key === KEYS.SPACE) handleSelectKey(ctx, e);
+      else if (e.key === KEYS.ESCAPE) { e.preventDefault(); close(); }
+      else if (e.key === KEYS.HOME || e.key === KEYS.END) handleJumpKey(ctx, e);
+      else if (e.key === KEYS.TAB && isOpen) close();
+    },
+    [isOpen, filteredOptions, highlightedIndex, setHighlightedIndex, select, close, open],
+  );
+}
+
 function handleVerticalNav(p: KeyboardNavParams, e: KeyboardEvent): void {
   const lastIndex = p.filteredOptions.length - 1;
 
@@ -45,26 +67,4 @@ function handleJumpKey(p: KeyboardNavParams, e: KeyboardEvent): void {
 
   const lastIndex = p.filteredOptions.length - 1;
   p.setHighlightedIndex(e.key === KEYS.HOME ? 0 : lastIndex);
-}
-
-/**
- * Handles keyboard navigation within the dropdown.
- * Arrow keys navigate, Enter/Space select, Escape closes, Home/End jump.
- */
-export function useKeyboardNavigation(p: KeyboardNavParams): KeyHandler {
-  const { isOpen, filteredOptions, highlightedIndex } = p;
-  const { setHighlightedIndex, select, close, open } = p;
-
-  return useCallback(
-    (e: KeyboardEvent) => {
-      const ctx = { isOpen, filteredOptions, highlightedIndex, setHighlightedIndex, select, close, open };
-
-      if (e.key === KEYS.ARROW_DOWN || e.key === KEYS.ARROW_UP) handleVerticalNav(ctx, e);
-      else if (e.key === KEYS.ENTER || e.key === KEYS.SPACE) handleSelectKey(ctx, e);
-      else if (e.key === KEYS.ESCAPE) { e.preventDefault(); close(); }
-      else if (e.key === KEYS.HOME || e.key === KEYS.END) handleJumpKey(ctx, e);
-      else if (e.key === KEYS.TAB && isOpen) close();
-    },
-    [isOpen, filteredOptions, highlightedIndex, setHighlightedIndex, select, close, open],
-  );
 }

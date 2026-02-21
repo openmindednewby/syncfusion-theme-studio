@@ -10,18 +10,6 @@ import DateFilter from '../filters/DateFilter';
 import NumberFilter from '../filters/NumberFilter';
 import TextFilter from '../filters/TextFilter';
 
-const FUNNEL_ICON_PATH =
-  'M3.75 3.75h16.5M3.75 3.75L10.5 12v5.25l3-1.5V12l6.75-8.25';
-
-interface ColumnMenuFilterItemProps {
-  field: string;
-  columnType: ColumnType;
-  filterValue: string;
-  filterOperator: FilterOperator;
-  onFilterChange: (field: string, value: string) => void;
-  onFilterOperatorChange: (field: string, operator: FilterOperator) => void;
-}
-
 function renderFilterInput(
   field: string,
   columnType: ColumnType,
@@ -42,9 +30,21 @@ function renderFilterInput(
   }
 }
 
+interface ColumnMenuFilterItemProps {
+  field: string;
+  columnType: ColumnType;
+  filterValue: string;
+  filterOperator: FilterOperator;
+  onFilterChange: (field: string, value: string) => void;
+  onFilterOperatorChange: (field: string, operator: FilterOperator) => void;
+}
+
 function isPresenceOperator(op: FilterOperator): boolean {
   return op === FilterOperator.Empty || op === FilterOperator.NotEmpty;
 }
+
+const FUNNEL_ICON_PATH =
+  'M3.75 3.75h16.5M3.75 3.75L10.5 12v5.25l3-1.5V12l6.75-8.25';
 
 const ColumnMenuFilterItem = memo(
   ({ field, columnType, filterValue, filterOperator, onFilterChange, onFilterOperatorChange }: ColumnMenuFilterItemProps): JSX.Element => {

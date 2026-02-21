@@ -30,21 +30,6 @@ interface UseTableEditingProps {
   onBatchSave?: (changes: BatchChanges) => void;
 }
 
-/** Build optional callback props, omitting undefined keys */
-function buildCallbackProps(
-  onSave: UseTableEditingProps['onSave'],
-  onDelete: UseTableEditingProps['onDelete'],
-  onAdd: UseTableEditingProps['onAdd'],
-  onBatchSave: UseTableEditingProps['onBatchSave'],
-): Record<string, unknown> {
-  return {
-    ...(isValueDefined(onSave) ? { onSave } : {}),
-    ...(isValueDefined(onDelete) ? { onDelete } : {}),
-    ...(isValueDefined(onAdd) ? { onAdd } : {}),
-    ...(isValueDefined(onBatchSave) ? { onBatchSave } : {}),
-  };
-}
-
 export function useTableEditing({
   data, columns,
   editMode = 'Normal',
@@ -61,6 +46,21 @@ export function useTableEditing({
   });
 
   return { ...state, ...actions };
+}
+
+/** Build optional callback props, omitting undefined keys */
+function buildCallbackProps(
+  onSave: UseTableEditingProps['onSave'],
+  onDelete: UseTableEditingProps['onDelete'],
+  onAdd: UseTableEditingProps['onAdd'],
+  onBatchSave: UseTableEditingProps['onBatchSave'],
+): Record<string, unknown> {
+  return {
+    ...(isValueDefined(onSave) ? { onSave } : {}),
+    ...(isValueDefined(onDelete) ? { onDelete } : {}),
+    ...(isValueDefined(onAdd) ? { onAdd } : {}),
+    ...(isValueDefined(onBatchSave) ? { onBatchSave } : {}),
+  };
 }
 
 export type { UseTableEditingProps, UseTableEditingResult, BatchChanges, EditingCell };

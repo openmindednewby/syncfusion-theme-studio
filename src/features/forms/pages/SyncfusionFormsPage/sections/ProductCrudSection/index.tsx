@@ -22,37 +22,6 @@ import { ProductForm } from '../../forms/ProductForm';
 import type { ProductFormData } from '../../forms/ProductForm/schema';
 
 
-const DECIMAL_PLACES = 2;
-const DEFAULT_STOCK = 0;
-
-/** Transform ProductDto for grid display */
-function transformForGrid(product: ProductDto): Record<string, unknown> {
-  const price = isValueDefined(product.price)
-    ? `$${product.price.toFixed(DECIMAL_PLACES)}`
-    : '-';
-
-  return {
-    id: product.id,
-    title: product.title ?? '',
-    category: product.category ?? FM('common.unknown'),
-    price,
-    brand: product.brand ?? '-',
-    stock: product.stock ?? DEFAULT_STOCK,
-  };
-}
-
-/** Map a ProductDto to form default values */
-function toFormDefaults(product: ProductDto): Partial<ProductFormData> {
-  return {
-    productName: product.title ?? '',
-    category: product.category ?? '',
-    price: product.price ?? 0,
-    description: product.description ?? undefined,
-    brand: product.brand ?? undefined,
-    stock: product.stock ?? 0,
-  };
-}
-
 export const ProductCrudSection = (): JSX.Element => {
   const {
     products,
@@ -152,3 +121,34 @@ export const ProductCrudSection = (): JSX.Element => {
     </div>
   );
 };
+
+const DECIMAL_PLACES = 2;
+const DEFAULT_STOCK = 0;
+
+/** Transform ProductDto for grid display */
+function transformForGrid(product: ProductDto): Record<string, unknown> {
+  const price = isValueDefined(product.price)
+    ? `$${product.price.toFixed(DECIMAL_PLACES)}`
+    : '-';
+
+  return {
+    id: product.id,
+    title: product.title ?? '',
+    category: product.category ?? FM('common.unknown'),
+    price,
+    brand: product.brand ?? '-',
+    stock: product.stock ?? DEFAULT_STOCK,
+  };
+}
+
+/** Map a ProductDto to form default values */
+function toFormDefaults(product: ProductDto): Partial<ProductFormData> {
+  return {
+    productName: product.title ?? '',
+    category: product.category ?? '',
+    price: product.price ?? 0,
+    description: product.description ?? undefined,
+    brand: product.brand ?? undefined,
+    stock: product.stock ?? 0,
+  };
+}

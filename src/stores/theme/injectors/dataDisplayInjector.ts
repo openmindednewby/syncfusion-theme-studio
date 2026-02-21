@@ -53,14 +53,6 @@ export function injectTooltipVariables(root: HTMLElement, c: ComponentConfigSing
   root.style.setProperty('--component-tooltip-animation-duration', c.tooltip.animationDuration);
 }
 
-function injectAlertBadgeOutlineVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  const { success, warning, error, info, outlineFillOpacity: opacity } = c.alertBadges;
-  root.style.setProperty('--component-alert-badge-success-outline-bg', `rgb(${success.borderColor} / ${opacity})`);
-  root.style.setProperty('--component-alert-badge-warning-outline-bg', `rgb(${warning.borderColor} / ${opacity})`);
-  root.style.setProperty('--component-alert-badge-error-outline-bg', `rgb(${error.borderColor} / ${opacity})`);
-  root.style.setProperty('--component-alert-badge-info-outline-bg', `rgb(${info.borderColor} / ${opacity})`);
-}
-
 export function injectAlertBadgeVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   const { typography, padding, success, warning, error, info } = c.alertBadges;
   loadLocalFont(typography.fontFamily, typography.fontWeight);
@@ -118,4 +110,12 @@ export function injectExternalLinkVariables(root: HTMLElement, c: ComponentConfi
   root.style.setProperty('--component-external-link-gap', externalLink.gap);
   root.style.setProperty('--component-external-link-icon-size', externalLink.iconSize);
   root.style.setProperty('--component-external-link-transition', externalLink.transitionDuration);
+}
+
+function injectAlertBadgeOutlineVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  const { success, warning, error, info, outlineFillOpacity: opacity } = c.alertBadges;
+  root.style.setProperty('--component-alert-badge-success-outline-bg', `rgb(${success.borderColor} / ${opacity})`);
+  root.style.setProperty('--component-alert-badge-warning-outline-bg', `rgb(${warning.borderColor} / ${opacity})`);
+  root.style.setProperty('--component-alert-badge-error-outline-bg', `rgb(${error.borderColor} / ${opacity})`);
+  root.style.setProperty('--component-alert-badge-info-outline-bg', `rgb(${info.borderColor} / ${opacity})`);
 }

@@ -1,5 +1,6 @@
-import { useState, useCallback, useRef, type ChangeEvent } from 'react';
+import { useCallback, type ChangeEvent } from 'react';
 
+import { useDebouncedInput } from '@/hooks/useDebouncedInput';
 import { isValueDefined } from '@/utils/is';
 
 const DEBOUNCE_MS = 50;
@@ -37,20 +38,11 @@ interface ColorPickerProps {
 }
 
 export const ColorPicker = ({ compact = false, label, onChange, value }: ColorPickerProps): JSX.Element => {
-  const [hexValue, setHexValue] = useState(rgbToHex(value ?? ''));
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const newHex = e.target.value;
-      setHexValue(newHex);
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        onChange(hexToRgb(newHex));
-      }, DEBOUNCE_MS);
-    },
-    [onChange]
+  const hexOnChange = useCallback((hex: string) => onChange(hexToRgb(hex)), [onChange]);
+  const { localValue: hexValue, handleChange } = useDebouncedInput(
+    rgbToHex(value ?? ''),
+    hexOnChange,
+    DEBOUNCE_MS,
   );
 
   if (compact) 
@@ -62,7 +54,7 @@ export const ColorPicker = ({ compact = false, label, onChange, value }: ColorPi
             className="color-input h-10 w-10 min-h-[40px] min-w-[40px] cursor-pointer rounded-lg border-2 border-border transition-all duration-200 hover:border-primary-400 hover:shadow-md"
             type="color"
             value={hexValue}
-            onChange={handleChange}
+            onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value)}
           />
           <div
             className="pointer-events-none absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200 group-hover:opacity-100"
@@ -84,7 +76,7 @@ export const ColorPicker = ({ compact = false, label, onChange, value }: ColorPi
           className="color-input h-10 w-10 min-h-[40px] min-w-[40px] cursor-pointer rounded-lg border-2 border-border transition-all duration-200 hover:border-primary-400"
           type="color"
           value={hexValue}
-          onChange={handleChange}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(e.target.value)}
         />
       </div>
       <div className="flex flex-col">

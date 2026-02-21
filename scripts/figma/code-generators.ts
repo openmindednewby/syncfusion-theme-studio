@@ -12,6 +12,15 @@ export interface ComponentSectionOverrides {
   outlineFillOpacity?: string;
 }
 
+/** Top-level theme overrides (typography, typographyComponents, etc.) */
+export interface TopLevelOverrides {
+  typography?: {
+    fontSans?: string;
+    fontSize?: Record<string, string>;
+  };
+  typographyComponents?: Record<string, Record<string, string>>;
+}
+
 /** Generate the import block for the preset file */
 function generateImports(hasComponentOverrides: boolean): string[] {
   const imports = [
@@ -135,15 +144,66 @@ function generateComponentsOverride(
   return lines;
 }
 
+/** Generate FIGMA_TYPOGRAPHY override constant */
+export function generateTypographyOverride(
+  overrides: TopLevelOverrides['typography'],
+): string[] {
+  if (!overrides) return [];
+  const lines: string[] = ['const FIGMA_TYPOGRAPHY = {', '  ...DEFAULT_TYPOGRAPHY,'];
+
+  if (overrides.fontSans) {
+    lines.push(`  fontSans: '${overrides.fontSans}',`);
+  }
+
+  if (overrides.fontSize && Object.keys(overrides.fontSize).length > 0) {
+    lines.push('  fontSize: {');
+    lines.push('    ...DEFAULT_TYPOGRAPHY.fontSize,');
+    for (const [k, v] of Object.entries(overrides.fontSize)) {
+      lines.push(`    '${k}': '${v}',`);
+    }
+    lines.push('  },');
+  }
+
+  lines.push('};');
+  return lines;
+}
+
+/** Generate FIGMA_TYPOGRAPHY_COMPONENTS override constant */
+export function generateTypographyComponentsOverride(
+  overrides: TopLevelOverrides['typographyComponents'],
+): string[] {
+  if (!overrides || Object.keys(overrides).length === 0) return [];
+  const lines: string[] = [
+    'const FIGMA_TYPOGRAPHY_COMPONENTS = {',
+    '  ...DEFAULT_TYPOGRAPHY_COMPONENTS,',
+  ];
+
+  for (const [level, props] of Object.entries(overrides)) {
+    const entries = Object.entries(props)
+      .map(([k, v]) => `${k}: '${v}'`)
+      .join(', ');
+    lines.push(
+      `  ${level}: { ...DEFAULT_TYPOGRAPHY_COMPONENTS.${level}, ${entries} },`,
+    );
+  }
+
+  lines.push('};');
+  return lines;
+}
+
 /** Generate the ThemeConfig export */
 function generateThemeExport(
   usedConstants: string[],
   hasComponentOverrides: boolean,
+  topLevel?: TopLevelOverrides,
 ): string[] {
   const pick = (key: string, figma: string, def: string): string =>
     usedConstants.includes(key) ? figma : def;
 
   const componentsRef = hasComponentOverrides ? 'FIGMA_COMPONENTS' : 'DEFAULT_COMPONENTS';
+  const typographyRef = topLevel?.typography ? 'FIGMA_TYPOGRAPHY' : 'DEFAULT_TYPOGRAPHY';
+  const typoComponentsRef = topLevel?.typographyComponents
+    ? 'FIGMA_TYPOGRAPHY_COMPONENTS' : 'DEFAULT_TYPOGRAPHY_COMPONENTS';
 
   return [
     'export const FIGMA_DESIGN_THEME: ThemeConfig = {',
@@ -157,13 +217,13 @@ function generateThemeExport(
     '  spacing: DEFAULT_SPACING,',
     '  borderRadius: DEFAULT_BORDER_RADIUS,',
     '  shadows: DEFAULT_SHADOWS,',
-    '  typography: DEFAULT_TYPOGRAPHY,',
+    `  typography: ${typographyRef},`,
     '  transitions: DEFAULT_TRANSITIONS,',
     '  animations: DEFAULT_ANIMATIONS,',
     `  light: ${pick('light', 'FIGMA_LIGHT_MODE', 'DEFAULT_LIGHT_MODE')},`,
     `  dark: ${pick('dark', 'FIGMA_DARK_MODE', 'DEFAULT_DARK_MODE')},`,
     `  components: ${componentsRef},`,
-    '  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,',
+    `  typographyComponents: ${typoComponentsRef},`,
     '};',
     '',
   ];
@@ -259,6 +319,7 @@ export function generatePresetCode(
   extraction: FigmaExtraction,
   colorOverrides: Record<string, unknown>,
   componentSections: Record<string, ComponentSectionOverrides>,
+  topLevel?: TopLevelOverrides,
 ): string {
   const hasComponentOverrides = Object.keys(componentSections).length > 0;
   const importLines = generateImports(hasComponentOverrides);
@@ -267,13 +328,20 @@ export function generatePresetCode(
 
   const { lines: colorLines, usedConstants } = generateColorOverrideConstants(colorOverrides);
 
+  const typoLines = [
+    ...generateTypographyOverride(topLevel?.typography),
+    ...(topLevel?.typography ? [''] : []),
+    ...generateTypographyComponentsOverride(topLevel?.typographyComponents),
+    ...(topLevel?.typographyComponents ? [''] : []),
+  ];
+
   const componentLines = hasComponentOverrides
     ? [...generateComponentsOverride(componentSections), '']
     : [];
 
-  const exportLines = generateThemeExport(usedConstants, hasComponentOverrides);
+  const exportLines = generateThemeExport(usedConstants, hasComponentOverrides, topLevel);
 
-  return [...importLines, ...colorLines, ...componentLines, ...exportLines].join('\n');
+  return [...importLines, ...colorLines, ...typoLines, ...componentLines, ...exportLines].join('\n');
 }
 
 /** Result of split preset generation — one file per concern */
@@ -344,6 +412,7 @@ export function generateSplitPresetCode(
   extraction: FigmaExtraction,
   colorOverrides: Record<string, unknown>,
   componentSections: Record<string, ComponentSectionOverrides>,
+  topLevel?: TopLevelOverrides,
 ): SplitPresetFiles {
   const header = [
     '// Generated by scripts/figma/generate.ts — DO NOT EDIT MANUALLY',
@@ -426,8 +495,20 @@ export function generateSplitPresetCode(
     '',
   ];
 
+  const typographyRef = topLevel?.typography ? 'FIGMA_TYPOGRAPHY' : 'DEFAULT_TYPOGRAPHY';
+  const typoComponentsRef = topLevel?.typographyComponents
+    ? 'FIGMA_TYPOGRAPHY_COMPONENTS' : 'DEFAULT_TYPOGRAPHY_COMPONENTS';
+
+  const typoLines = [
+    ...generateTypographyOverride(topLevel?.typography),
+    ...(topLevel?.typography ? [''] : []),
+    ...generateTypographyComponentsOverride(topLevel?.typographyComponents),
+    ...(topLevel?.typographyComponents ? [''] : []),
+  ];
+
   const mainExport = [
     ...colorLines,
+    ...typoLines,
     'export const FIGMA_DESIGN_THEME: ThemeConfig = {',
     "  id: 'figmaDesign',",
     "  name: 'Figma Design',",
@@ -439,13 +520,13 @@ export function generateSplitPresetCode(
     '  spacing: DEFAULT_SPACING,',
     '  borderRadius: DEFAULT_BORDER_RADIUS,',
     '  shadows: DEFAULT_SHADOWS,',
-    '  typography: DEFAULT_TYPOGRAPHY,',
+    `  typography: ${typographyRef},`,
     '  transitions: DEFAULT_TRANSITIONS,',
     '  animations: DEFAULT_ANIMATIONS,',
     `  light: ${pick('light', 'FIGMA_LIGHT_MODE', 'DEFAULT_LIGHT_MODE')},`,
     `  dark: ${pick('dark', 'FIGMA_DARK_MODE', 'DEFAULT_DARK_MODE')},`,
     '  components: FIGMA_DESIGN_COMPONENTS,',
-    '  typographyComponents: DEFAULT_TYPOGRAPHY_COMPONENTS,',
+    `  typographyComponents: ${typoComponentsRef},`,
     '};',
     '',
   ];

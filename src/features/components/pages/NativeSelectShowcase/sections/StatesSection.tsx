@@ -9,15 +9,6 @@ import { SelectNative } from '@/components/ui/native';
 import type { SelectNativeOption } from '@/components/ui/native';
 import { FM } from '@/localization/utils/helpers';
 
-const COLOR_KEYS = ['colorRed', 'colorBlue', 'colorGreen'] as const;
-
-function buildColorOptions(): SelectNativeOption[] {
-  return COLOR_KEYS.map((key) => ({
-    value: key,
-    label: FM(`components.selectShowcase.${key}`),
-  }));
-}
-
 export const StatesSection = memo((): JSX.Element => {
   const colorOptions = useMemo(() => buildColorOptions(), []);
 
@@ -60,5 +51,14 @@ export const StatesSection = memo((): JSX.Element => {
     </section>
   );
 });
+
+const COLOR_KEYS = ['colorRed', 'colorBlue', 'colorGreen'] as const;
+
+function buildColorOptions(): SelectNativeOption[] {
+  return COLOR_KEYS.map((key) => ({
+    value: key,
+    label: FM(`components.selectShowcase.${key}`),
+  }));
+}
 
 StatesSection.displayName = 'StatesSection';

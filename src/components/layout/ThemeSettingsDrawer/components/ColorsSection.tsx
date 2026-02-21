@@ -9,21 +9,6 @@ import { rgbStringToHex, hexToRgbString } from '@/utils';
 
 import { ColorPicker } from './ColorPicker';
 
-const COLOR_SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
-const DARK_SHADE_THRESHOLD = 500;
-
-const enum PaletteMode {
-  Auto = 'auto',
-  Manual = 'manual',
-}
-
-interface ModeButtonProps {
-  active: boolean;
-  icon: JSX.Element;
-  label: string;
-  onClick: () => void;
-}
-
 const ModeButton = ({ active, icon, label, onClick }: ModeButtonProps): JSX.Element => (
   <button
     className={`flex flex-1 items-center justify-center gap-2 rounded-md px-3 py-2 text-xs font-medium transition-colors ${
@@ -36,6 +21,21 @@ const ModeButton = ({ active, icon, label, onClick }: ModeButtonProps): JSX.Elem
     {label}
   </button>
 );
+
+const COLOR_SHADES = ['50', '100', '200', '300', '400', '500', '600', '700', '800', '900'] as const;
+
+const enum PaletteMode {
+  Auto = 'auto',
+  Manual = 'manual',
+}
+
+interface ModeButtonProps {
+  active: boolean;
+  icon: JSX.Element;
+  label: string;
+  onClick: () => void;
+}
+const DARK_SHADE_THRESHOLD = 500;
 
 export const ColorsSection = (): JSX.Element => {
   const { theme, updatePrimaryColor, updatePrimaryPalette } = useThemeStore();

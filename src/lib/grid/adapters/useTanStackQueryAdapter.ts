@@ -11,9 +11,6 @@ import { isValueDefined } from '@/utils/is';
 
 import type { ServerQueryParams, TanStackQueryAdapterConfig } from '../types';
 
-const DEFAULT_PAGE = 1;
-const DEFAULT_PAGE_SIZE = 10;
-
 /** Default params builder: maps grid state to a flat query object */
 function defaultParamsBuilder(params: ServerQueryParams): Record<string, unknown> {
   const query: Record<string, unknown> = {
@@ -33,6 +30,9 @@ function defaultParamsBuilder(params: ServerQueryParams): Record<string, unknown
 
   return query;
 }
+
+const DEFAULT_PAGE = 1;
+const DEFAULT_PAGE_SIZE = 10;
 
 interface AdapterResult<TData> {
   /** The query data (unwrapped from TanStack Query) */

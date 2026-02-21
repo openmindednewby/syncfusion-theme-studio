@@ -11,10 +11,6 @@ import type { BreadcrumbItem } from '@/components/ui/native';
 import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
 
-const CHEVRON_SEPARATOR = '\u203A';
-const ARROW_SEPARATOR = '\u2192';
-const PIPE_SEPARATOR = '|';
-
 const buildChevronItems = (): BreadcrumbItem[] => [
   { text: FM('components.nativeBreadcrumb.home'), url: '/' },
   { text: FM('components.nativeBreadcrumb.settings'), url: '/settings' },
@@ -38,6 +34,10 @@ const buildIconItems = (): BreadcrumbItem[] => [
   { text: FM('components.nativeBreadcrumb.products'), url: '/products', icon: <FolderDemoIcon /> },
   { text: FM('components.breadcrumbShowcase.analytics'), icon: <ChartIcon /> },
 ];
+
+const CHEVRON_SEPARATOR = '\u203A';
+const ARROW_SEPARATOR = '\u2192';
+const PIPE_SEPARATOR = '|';
 
 export const CustomSection = memo((): JSX.Element => (
   <section className="card space-y-4" data-testid={TestIds.NATIVE_BREADCRUMB_CUSTOM}>

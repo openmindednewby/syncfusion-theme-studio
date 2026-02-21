@@ -16,14 +16,6 @@ const enum BadgeKey {
   Info = 'info',
 }
 
-const BADGE_VARIANTS: BadgeKey[] = [BadgeKey.Success, BadgeKey.Warning, BadgeKey.Error, BadgeKey.Info];
-
-interface BadgeVariantEditorProps {
-  config: BadgeVariant;
-  variant: BadgeKey;
-  onUpdate: (updates: Partial<BadgeVariant>) => void;
-}
-
 const BadgeVariantEditor = ({ config, onUpdate, variant }: BadgeVariantEditorProps): JSX.Element => (
   <div className="space-y-2">
     <p className="text-xs font-medium capitalize text-text-secondary">{variant}</p>
@@ -41,6 +33,14 @@ const BadgeVariantEditor = ({ config, onUpdate, variant }: BadgeVariantEditorPro
     </div>
   </div>
 );
+
+interface BadgeVariantEditorProps {
+  config: BadgeVariant;
+  variant: BadgeKey;
+  onUpdate: (updates: Partial<BadgeVariant>) => void;
+}
+
+const BADGE_VARIANTS: BadgeKey[] = [BadgeKey.Success, BadgeKey.Warning, BadgeKey.Error, BadgeKey.Info];
 
 export const BadgesEditor = ({ config, onUpdate }: BadgesEditorProps): JSX.Element => {
   const handleVariantUpdate = (variant: BadgeKey, updates: Partial<BadgeVariant>): void => {

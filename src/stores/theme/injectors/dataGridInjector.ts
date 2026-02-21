@@ -2,6 +2,13 @@
 
 import type { ComponentConfigSingle } from '../types';
 
+export function injectDataGridVariables(root: HTMLElement, c: ComponentConfigSingle): void {
+  injectDataGridCoreVars(root, c);
+  injectDataGridFeatureVars(root, c);
+  injectDataGridPaginationVars(root, c);
+  injectDataGridColumnMenuVars(root, c);
+}
+
 function injectDataGridCoreVars(root: HTMLElement, c: ComponentConfigSingle): void {
   const dg = c.dataGrid;
   root.style.setProperty('--component-datagrid-header-bg', `rgb(${dg.headerBackground})`);
@@ -74,11 +81,4 @@ function injectDataGridColumnMenuVars(root: HTMLElement, c: ComponentConfigSingl
   root.style.setProperty('--component-datagrid-colmenu-separator', `rgb(${dg.columnMenuSeparatorColor})`);
   root.style.setProperty('--component-datagrid-colmenu-trigger', `rgb(${dg.columnMenuTriggerColor})`);
   root.style.setProperty('--component-datagrid-colmenu-trigger-hover', `rgb(${dg.columnMenuTriggerHoverColor})`);
-}
-
-export function injectDataGridVariables(root: HTMLElement, c: ComponentConfigSingle): void {
-  injectDataGridCoreVars(root, c);
-  injectDataGridFeatureVars(root, c);
-  injectDataGridPaginationVars(root, c);
-  injectDataGridColumnMenuVars(root, c);
 }

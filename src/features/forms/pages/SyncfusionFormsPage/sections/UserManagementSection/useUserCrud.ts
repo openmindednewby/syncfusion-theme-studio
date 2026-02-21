@@ -20,20 +20,6 @@ import { isValueDefined } from '@/utils/is';
 
 import type { UserFormData } from '../../forms/UserForm/schema';
 
-const USERS_PAGE_SIZE = 10;
-const INITIAL_SKIP = 0;
-
-interface UserCrudResult {
-  users: UserDto[];
-  totalUsers: number;
-  editingUser: UserDto | null;
-  isLoadingUsers: boolean;
-  isMutating: boolean;
-  setEditingUser: (user: UserDto | null) => void;
-  handleFormSubmit: (data: UserFormData) => void;
-  handleDelete: (id: number) => void;
-}
-
 /** Convert form data to API payload */
 function toPayload(data: UserFormData): CreateUserRequest {
   return {
@@ -53,6 +39,17 @@ function useInvalidateUsers(): () => void {
       .invalidateQueries({ queryKey: getMockServerWebUsersListQueryKey() })
       .catch(() => undefined);
   }, [queryClient]);
+}
+
+interface UserCrudResult {
+  users: UserDto[];
+  totalUsers: number;
+  editingUser: UserDto | null;
+  isLoadingUsers: boolean;
+  isMutating: boolean;
+  setEditingUser: (user: UserDto | null) => void;
+  handleFormSubmit: (data: UserFormData) => void;
+  handleDelete: (id: number) => void;
 }
 
 function useUserSubmit(
@@ -101,6 +98,9 @@ function useUserDelete(
 
   return { handleDelete, isDeleting: deleteMut.isPending };
 }
+
+const USERS_PAGE_SIZE = 10;
+const INITIAL_SKIP = 0;
 
 export function useUserCrud(): UserCrudResult {
   const [editingUser, setEditingUser] = useState<UserDto | null>(null);

@@ -2,6 +2,7 @@ import { lazy, Suspense, type ComponentType } from 'react';
 
 import { createBrowserRouter, Navigate, type RouteObject } from 'react-router-dom';
 
+import { ErrorBoundary } from '@/components/common';
 import { LoadingSpinner } from '@/components/common/components/LoadingSpinner';
 
 import { RoutePath, RouteRedirectTarget, RouteSegment } from './routePaths';
@@ -20,24 +21,26 @@ import {
   SyncfusionGridShowcase,
 } from './routes/lazyPages';
 
-// Lazy-loaded layout - keeps login page bundle small
-const MainLayout = lazy(async () => ({
-  default: (await import('@/components/layout/MainLayout')).MainLayout,
-}));
+const LazyPage = ({ component }: LazyPageProps): JSX.Element => {
+  const Component = component;
+  return (
+    <ErrorBoundary>
+      <Suspense fallback={<LoadingSpinner />}>
+        <Component />
+      </Suspense>
+    </ErrorBoundary>
+  );
+};
 
 // Wrapper for lazy-loaded components
 interface LazyPageProps {
   component: ComponentType;
 }
 
-const LazyPage = ({ component }: LazyPageProps): JSX.Element => {
-  const Component = component;
-  return (
-    <Suspense fallback={<LoadingSpinner />}>
-      <Component />
-    </Suspense>
-  );
-};
+// Lazy-loaded layout - keeps login page bundle small
+const MainLayout = lazy(async () => ({
+  default: (await import('@/components/layout/MainLayout')).MainLayout,
+}));
 
 const routes: RouteObject[] = [
   { path: RoutePath.Root, element: <LazyPage component={LoginPage} /> },

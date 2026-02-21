@@ -1,3 +1,5 @@
+import { useNavigate } from 'react-router-dom';
+
 import { IconCogDetailed } from '@/components/icons';
 import { FM } from '@/localization/utils/helpers';
 import { TestIds } from '@/shared/testIds';
@@ -5,16 +7,21 @@ import { Mode } from '@/stores/mode';
 import { useThemeSettingsDrawerStore } from '@/stores/useThemeSettingsDrawerStore';
 import { useThemeStore } from '@/stores/useThemeStore';
 
+import { HeaderBreadcrumb } from './components/HeaderBreadcrumb';
+import { useHeaderBreadcrumbs } from './hooks/useHeaderBreadcrumbs';
+
 export const Header = (): JSX.Element => {
   const { mode, toggleMode } = useThemeStore();
   const { open: openThemeSettings } = useThemeSettingsDrawerStore();
+  const navigate = useNavigate();
+  const breadcrumbItems = useHeaderBreadcrumbs();
 
   const themeLabel =
     mode === Mode.Light ? FM('header.themeSwitchDark') : FM('header.themeSwitchLight');
 
   return (
     <header className="header flex items-center justify-between px-6">
-      <h1 className="text-lg font-semibold text-text-primary">{FM('app.title')}</h1>
+      <HeaderBreadcrumb items={breadcrumbItems} onNavigate={navigate} />
 
       <div className="flex items-center gap-2">
         {/* Theme settings cog */}

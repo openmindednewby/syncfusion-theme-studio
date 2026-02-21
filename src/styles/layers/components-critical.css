@@ -5,7 +5,7 @@
  */
 
 @layer components {
-  /* Buttons - only primary needed for login */
+  /* ===== Legacy .btn (kept for non-native consumers) ===== */
   .btn {
     display: inline-flex;
     align-items: center;
@@ -33,6 +33,67 @@
   .btn-primary:hover:not(:disabled) {
     background-color: var(--component-button-primary-bg-hover);
   }
+
+  /* ===== Native buttons (used by LoginPage) ===== */
+  .native-btn-content {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .native-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--component-button-gap, 0.5rem);
+    font-family: var(--component-button-font-family, inherit);
+    font-size: var(--component-button-font-size, 0.875rem);
+    font-weight: var(--component-button-font-weight, 500);
+    line-height: var(--component-button-line-height, 1.25rem);
+    letter-spacing: var(--component-button-letter-spacing, 0);
+    padding: var(--component-button-padding-top, 0.5rem) var(--component-button-padding-right, 1rem) var(--component-button-padding-bottom, 0.5rem) var(--component-button-padding-left, 1rem);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: var(--component-button-transition, 150ms);
+  }
+
+  .native-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--component-button-focus-ring-width, 2px) var(--component-button-focus-ring-color, rgb(59 130 246));
+    outline-offset: var(--component-button-focus-ring-offset, 2px);
+  }
+
+  .native-btn:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-btn-primary {
+    background-color: var(--component-button-primary-bg, rgb(59 130 246));
+    color: var(--component-button-primary-text, rgb(255 255 255));
+    border-color: var(--component-button-primary-border, transparent);
+    border-width: var(--component-button-primary-border-width, 1px);
+    border-radius: var(--component-button-primary-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-primary-shadow, none);
+  }
+
+  .native-btn-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover, rgb(37 99 235));
+    color: var(--component-button-primary-text-hover, rgb(255 255 255));
+  }
+
+  .native-btn-primary:active:not(:disabled) {
+    background-color: var(--component-button-primary-bg-active, rgb(29 78 216));
+  }
+
+  .native-btn-primary:disabled {
+    background-color: var(--component-button-primary-disabled-bg, rgb(59 130 246));
+    color: var(--component-button-primary-disabled-text, rgb(255 255 255));
+    border-color: var(--component-button-primary-disabled-border, transparent);
+    opacity: var(--component-button-primary-disabled-opacity, 0.5);
+  }
+
+  .native-btn-md { min-height: 2.5rem; }
 
   /* Card - for login form container */
   .card {

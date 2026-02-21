@@ -6,6 +6,12 @@ import type { ColumnModel } from '@syncfusion/ej2-grids';
 
 import { FM } from '@/localization/utils/helpers';
 
+function pickFromArray<T>(arr: T[], index: number): T {
+  // Array is guaranteed non-empty; modulo ensures valid index
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index always in bounds via modulo
+  return arr[index % arr.length]!;
+}
+
 // Column width constants
 const COL_WIDTH_ID = 100;
 const COL_WIDTH_SEVERITY = 110;
@@ -20,8 +26,6 @@ const COL_WIDTH_ASSIGNEE = 120;
 const COL_WIDTH_SLA_STATUS = 150;
 const COL_WIDTH_AUTOMATION = 180;
 const COL_WIDTH_ACTIONS = 120;
-
-const ALERT_COUNT = 592;
 
 export interface SecurityAlert {
   id: number;
@@ -38,6 +42,8 @@ export interface SecurityAlert {
   slaRemaining: string;
   automationStatus: string;
 }
+
+const ALERT_COUNT = 592;
 
 const SEVERITIES = ['Critical', 'High', 'Medium', 'Low', 'Informational'];
 
@@ -109,12 +115,6 @@ const SLA_HOURS = [SLA_CRITICAL_HOURS, SLA_HIGH_HOURS, SLA_MEDIUM_HOURS, SLA_LOW
 const SCORE_DECIMAL_FACTOR = 0.1;
 const SCORE_ROUND_PRECISION = 10;
 const ID_OFFSET = 26077000;
-
-function pickFromArray<T>(arr: T[], index: number): T {
-  // Array is guaranteed non-empty; modulo ensures valid index
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- index always in bounds via modulo
-  return arr[index % arr.length]!;
-}
 
 export const SECURITY_ALERTS: SecurityAlert[] = Array.from(
   { length: ALERT_COUNT },

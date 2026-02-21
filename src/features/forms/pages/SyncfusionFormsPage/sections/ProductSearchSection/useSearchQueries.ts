@@ -25,13 +25,6 @@ interface SearchQueryResult {
   isSearching: boolean;
 }
 
-/** Filter search results by category client-side */
-function filterByCategory(results: ProductDto[], category: string | undefined): ProductDto[] {
-  if (isValueDefined(category) && category !== '')
-    return results.filter((p) => p.category === category);
-  return results;
-}
-
 export function useSearchQueries(input: SearchQueryInput): SearchQueryResult {
   const { searchParams, hasTextQuery, hasCategoryOnly } = input;
 
@@ -59,4 +52,11 @@ export function useSearchQueries(input: SearchQueryInput): SearchQueryResult {
     (hasTextQuery && isSearchFetching) || (hasCategoryOnly && isCategoryFetching);
 
   return { categories, products, isSearching };
+}
+
+/** Filter search results by category client-side */
+function filterByCategory(results: ProductDto[], category: string | undefined): ProductDto[] {
+  if (isValueDefined(category) && category !== '')
+    return results.filter((p) => p.category === category);
+  return results;
 }

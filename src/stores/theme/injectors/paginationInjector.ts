@@ -2,13 +2,6 @@
 
 import type { ComponentConfigSingle } from '../types';
 
-const TRANSPARENT = 'transparent';
-
-function resolveBackground(value: string): string {
-  if (value === TRANSPARENT) return TRANSPARENT;
-  return `rgb(${value})`;
-}
-
 export function injectPaginationVariables(root: HTMLElement, c: ComponentConfigSingle): void {
   const p = c.pagination;
   root.style.setProperty('--component-pagination-bg', `rgb(${p.background})`);
@@ -27,4 +20,11 @@ export function injectPaginationVariables(root: HTMLElement, c: ComponentConfigS
   root.style.setProperty('--component-pagination-select-border', `rgb(${p.selectBorderColor})`);
   root.style.setProperty('--component-pagination-select-text', `rgb(${p.selectTextColor})`);
   root.style.setProperty('--component-pagination-info-text', `rgb(${p.infoTextColor})`);
+}
+
+const TRANSPARENT = 'transparent';
+
+function resolveBackground(value: string): string {
+  if (value === TRANSPARENT) return TRANSPARENT;
+  return `rgb(${value})`;
 }

@@ -38,6 +38,29 @@ interface BatchActions {
   cancelBatch: () => void;
 }
 
+export function useBatchActions(props: UseBatchActionsProps): BatchActions {
+  const {
+    editMode, data, rowKeyField, onBatchSave,
+    dirtyRows, dirtyCells, batchAdded, batchDeleted,
+  } = props;
+
+  const saveBatch = useCallback(() => {
+    if (editMode !== 'Batch') return;
+    const edited = buildEditedRows(data, rowKeyField, dirtyRows, dirtyCells);
+    const deleted = buildDeletedRows(data, rowKeyField, batchDeleted);
+    const changes: BatchChanges = { added: [...batchAdded], edited, deleted };
+    if (isValueDefined(onBatchSave)) onBatchSave(changes);
+    clearBatchState(props);
+  }, [editMode, data, rowKeyField, dirtyRows, dirtyCells, batchAdded, batchDeleted, onBatchSave, props]);
+
+  const cancelBatch = useCallback(() => {
+    if (editMode !== 'Batch') return;
+    clearBatchState(props);
+  }, [editMode, props]);
+
+  return { saveBatch, cancelBatch };
+}
+
 /** Build the edited rows array from dirty cells */
 function buildEditedRows(
   data: Array<Record<string, unknown>>,
@@ -81,27 +104,4 @@ function clearBatchState(s: BatchSetters): void {
   s.setEditingRowId(null);
   s.setEditingCell(null);
   s.setEditValues({});
-}
-
-export function useBatchActions(props: UseBatchActionsProps): BatchActions {
-  const {
-    editMode, data, rowKeyField, onBatchSave,
-    dirtyRows, dirtyCells, batchAdded, batchDeleted,
-  } = props;
-
-  const saveBatch = useCallback(() => {
-    if (editMode !== 'Batch') return;
-    const edited = buildEditedRows(data, rowKeyField, dirtyRows, dirtyCells);
-    const deleted = buildDeletedRows(data, rowKeyField, batchDeleted);
-    const changes: BatchChanges = { added: [...batchAdded], edited, deleted };
-    if (isValueDefined(onBatchSave)) onBatchSave(changes);
-    clearBatchState(props);
-  }, [editMode, data, rowKeyField, dirtyRows, dirtyCells, batchAdded, batchDeleted, onBatchSave, props]);
-
-  const cancelBatch = useCallback(() => {
-    if (editMode !== 'Batch') return;
-    clearBatchState(props);
-  }, [editMode, props]);
-
-  return { saveBatch, cancelBatch };
 }

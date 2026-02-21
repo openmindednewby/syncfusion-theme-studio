@@ -42,6 +42,33 @@ interface InlineEditActions {
   deleteOriginal: (rowId: unknown) => void;
 }
 
+export function useInlineEditActions(props: InlineEditProps): InlineEditActions {
+  const starts = useStartEditCallbacks(props);
+
+  const updateEditValue = useCallback((field: string, value: unknown) => {
+    props.setEditValues({ ...props.editValues, [field]: value });
+    const cell = props.editingCell;
+    if (props.editMode === 'Batch' && isValueDefined(cell)) {
+      props.setDirtyCells((prev) => new Map(prev).set(buildCellKey(cell.rowId, field), value));
+      props.setDirtyRows((prev) => new Set(prev).add(cell.rowId));
+    }
+  }, [props]);
+
+  const saveEdit = useCallback(() => {
+    if (props.editMode === 'Batch') saveBatchCell(props);
+    else saveNormalRow(props);
+  }, [props]);
+
+  const cancelEdit = useCallback(() => clearEditState(props), [props]);
+
+  const deleteOriginal = useCallback((rowId: unknown) => {
+    const row = findRowByKey(props.data, props.rowKeyField, rowId);
+    if (isValueDefined(row) && isValueDefined(props.onDelete)) props.onDelete(row);
+  }, [props]);
+
+  return { ...starts, updateEditValue, saveEdit, cancelEdit, deleteOriginal };
+}
+
 function clearEditState(s: InlineSetters): void {
   s.setEditingRowId(null);
   s.setEditingCell(null);
@@ -69,31 +96,4 @@ function saveNormalRow(props: InlineEditProps): void {
   if (!isValueDefined(orig)) return;
   if (isValueDefined(props.onSave)) props.onSave({ ...orig, ...props.editValues }, orig);
   clearEditState(props);
-}
-
-export function useInlineEditActions(props: InlineEditProps): InlineEditActions {
-  const starts = useStartEditCallbacks(props);
-
-  const updateEditValue = useCallback((field: string, value: unknown) => {
-    props.setEditValues({ ...props.editValues, [field]: value });
-    const cell = props.editingCell;
-    if (props.editMode === 'Batch' && isValueDefined(cell)) {
-      props.setDirtyCells((prev) => new Map(prev).set(buildCellKey(cell.rowId, field), value));
-      props.setDirtyRows((prev) => new Set(prev).add(cell.rowId));
-    }
-  }, [props]);
-
-  const saveEdit = useCallback(() => {
-    if (props.editMode === 'Batch') saveBatchCell(props);
-    else saveNormalRow(props);
-  }, [props]);
-
-  const cancelEdit = useCallback(() => clearEditState(props), [props]);
-
-  const deleteOriginal = useCallback((rowId: unknown) => {
-    const row = findRowByKey(props.data, props.rowKeyField, rowId);
-    if (isValueDefined(row) && isValueDefined(props.onDelete)) props.onDelete(row);
-  }, [props]);
-
-  return { ...starts, updateEditValue, saveEdit, cancelEdit, deleteOriginal };
 }

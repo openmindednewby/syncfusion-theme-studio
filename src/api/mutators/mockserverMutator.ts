@@ -2,9 +2,6 @@ import { apiClient } from '@/lib/api/axiosInstance';
 
 import type { AxiosRequestConfig, AxiosResponse, RawAxiosResponseHeaders } from 'axios';
 
-// Use relative path so requests go through the Vite dev/preview proxy (avoids CORS)
-const MOCKSERVER_BASE_URL = '/mockapi';
-
 /**
  * Convert axios headers to web-standard Headers object
  */
@@ -15,6 +12,9 @@ function convertHeaders(axiosHeaders: RawAxiosResponseHeaders): Headers {
   });
   return headers;
 }
+
+// Use relative path so requests go through the Vite dev/preview proxy (avoids CORS)
+const MOCKSERVER_BASE_URL = '/mockapi';
 
 /**
  * Orval 8.x compatible mutator for the MockServer local API.

@@ -9,17 +9,6 @@ type LayoutDimensionKey = keyof LayoutConfig;
 type BorderRadiusKey = keyof BorderRadiusConfig;
 type ShadowKey = keyof ShadowConfig;
 
-function applyThemeUpdate(
-  set: SetState,
-  get: GetState,
-  updateFn: (theme: ThemeConfig) => ThemeConfig
-): void {
-  const { theme, mode } = get();
-  const newTheme = updateFn(theme);
-  set({ theme: newTheme });
-  injectThemeVariables(newTheme, mode);
-}
-
 export function createLayoutActions(set: SetState, get: GetState): LayoutActions {
   const apply = (updateFn: (theme: ThemeConfig) => ThemeConfig): void =>
     applyThemeUpdate(set, get, updateFn);
@@ -40,4 +29,15 @@ export function createLayoutActions(set: SetState, get: GetState): LayoutActions
     updateShadow: (key: ShadowKey, value: string): void =>
       apply((theme) => ({ ...theme, shadows: { ...theme.shadows, [key]: value } })),
   };
+}
+
+function applyThemeUpdate(
+  set: SetState,
+  get: GetState,
+  updateFn: (theme: ThemeConfig) => ThemeConfig
+): void {
+  const { theme, mode } = get();
+  const newTheme = updateFn(theme);
+  set({ theme: newTheme });
+  injectThemeVariables(newTheme, mode);
 }

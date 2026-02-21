@@ -28,6 +28,12 @@ docs/Tasks/
 | ELD-06 | [Fix Breadcrumb a11y](./TODO/ELD-06-fix-breadcrumb-a11y.md) | `frontend-dev` | Low | TODO |
 | ELD-07 | [Split Product Mutations](./TODO/ELD-07-split-product-mutations.md) | `frontend-dev` | Low | TODO |
 
+### TODO — Feature Flags: Per-Section Page Gating
+
+| Task | Agent | Priority | Status |
+|------|-------|----------|--------|
+| [Feature Flags: Page Sections](./TODO/feature-flags-page-sections.md) | `frontend-dev` | High | TODO |
+
 ### TODO — Culture Settings (14 tasks)
 
 | # | Task | Agent | Status |

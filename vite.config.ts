@@ -44,6 +44,7 @@ export default defineConfig(({ mode }: ConfigEnv) => {
     workbox: {
       globPatterns: ['**/*.{js,css,html,svg,png,woff,woff2}'],
       navigateFallback: 'index.html',
+      navigateFallbackAllowlist: [/^\/(?!api)/],
       runtimeCaching: [
         {
           urlPattern: /^https:\/\/.*\.(?:png|jpg|jpeg|svg|gif|webp)$/,

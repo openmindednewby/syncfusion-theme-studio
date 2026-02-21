@@ -27,39 +27,6 @@ export const enum SyncfusionCssModule {
   Notifications = 'notifications',
 }
 
-/** Set to track already-loaded CSS modules */
-const loadedCss = new Set<SyncfusionCssModule>();
-
-/** Promises for in-progress CSS loads to prevent duplicate requests */
-const loadingPromises = new Map<SyncfusionCssModule, Promise<void>>();
-
-/**
- * Dynamically loads Syncfusion CSS for a specific component module.
- * CSS is only loaded once per module - subsequent calls are no-ops.
- *
- * @param module - The Syncfusion component module to load CSS for
- * @returns Promise that resolves when CSS is loaded
- */
-export async function loadSyncfusionCss(module: SyncfusionCssModule): Promise<void> {
-  // Already loaded - immediate return
-  if (loadedCss.has(module)) return;
-
-  // Currently loading - return existing promise
-  const existingPromise = loadingPromises.get(module);
-  if (isValueDefined(existingPromise)) return existingPromise;
-
-  // Create new loading promise
-  const loadPromise = loadCssModule(module);
-  loadingPromises.set(module, loadPromise);
-
-  try {
-    await loadPromise;
-    loadedCss.add(module);
-  } finally {
-    loadingPromises.delete(module);
-  }
-}
-
 /**
  * Internal function to load CSS module based on type.
  * Uses dynamic imports for CSS code splitting.
@@ -93,6 +60,39 @@ async function loadCssModule(module: SyncfusionCssModule): Promise<void> {
     default:
       // Exhaustive check - all cases should be handled above
       break;
+  }
+}
+
+/** Set to track already-loaded CSS modules */
+const loadedCss = new Set<SyncfusionCssModule>();
+
+/** Promises for in-progress CSS loads to prevent duplicate requests */
+const loadingPromises = new Map<SyncfusionCssModule, Promise<void>>();
+
+/**
+ * Dynamically loads Syncfusion CSS for a specific component module.
+ * CSS is only loaded once per module - subsequent calls are no-ops.
+ *
+ * @param module - The Syncfusion component module to load CSS for
+ * @returns Promise that resolves when CSS is loaded
+ */
+export async function loadSyncfusionCss(module: SyncfusionCssModule): Promise<void> {
+  // Already loaded - immediate return
+  if (loadedCss.has(module)) return;
+
+  // Currently loading - return existing promise
+  const existingPromise = loadingPromises.get(module);
+  if (isValueDefined(existingPromise)) return existingPromise;
+
+  // Create new loading promise
+  const loadPromise = loadCssModule(module);
+  loadingPromises.set(module, loadPromise);
+
+  try {
+    await loadPromise;
+    loadedCss.add(module);
+  } finally {
+    loadingPromises.delete(module);
   }
 }
 

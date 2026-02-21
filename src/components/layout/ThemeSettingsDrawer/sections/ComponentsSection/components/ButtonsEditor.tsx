@@ -16,21 +16,13 @@ interface ButtonsEditorProps {
   onUpdateConfig: (updates: Partial<ButtonsComponentConfig>) => void;
 }
 
-const BUTTON_VARIANTS: ButtonVariant[] = [
-  ButtonVariant.Primary,
-  ButtonVariant.Secondary,
-  ButtonVariant.Outline,
-  ButtonVariant.Ghost,
-  ButtonVariant.Danger,
-];
+const L = (key: string): string => FM(`themeSettings.components.buttons.${key}`);
 
 interface VariantEditorProps {
   config: ButtonStateColors;
   variant: ButtonVariant;
   onUpdate: (updates: Partial<ButtonStateColors>) => void;
 }
-
-const L = (key: string): string => FM(`themeSettings.components.buttons.${key}`);
 
 const VariantEditor = ({ config, onUpdate, variant }: VariantEditorProps): JSX.Element => (
   <div className="space-y-2">
@@ -57,6 +49,14 @@ const VariantEditor = ({ config, onUpdate, variant }: VariantEditorProps): JSX.E
     </div>
   </div>
 );
+
+const BUTTON_VARIANTS: ButtonVariant[] = [
+  ButtonVariant.Primary,
+  ButtonVariant.Secondary,
+  ButtonVariant.Outline,
+  ButtonVariant.Ghost,
+  ButtonVariant.Danger,
+];
 
 export const ButtonsEditor = ({ config, onUpdate, onUpdateConfig }: ButtonsEditorProps): JSX.Element => {
   const handleTypographyUpdate = (updates: Partial<ButtonTypography>): void => {

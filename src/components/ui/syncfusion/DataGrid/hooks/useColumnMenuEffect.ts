@@ -43,41 +43,6 @@ interface PopupTrackingState {
   openToLeft: boolean | undefined;
 }
 
-/** Check if a DOM mutation added a dropdown popup. */
-function mutationAddedDropdown(mutation: MutationRecord): boolean {
-  if (mutation.type !== 'childList') return false;
-  const addedNodes = Array.from(mutation.addedNodes).filter(
-    (node): node is HTMLElement => node instanceof HTMLElement,
-  );
-  const hasDirectDropdown = addedNodes.some(
-    (node) =>
-      isValueDefined(node.matches) &&
-      (node.matches('.e-ddl.e-popup') || node.matches('.e-autocomplete.e-popup')),
-  );
-  const hasNestedDropdown = addedNodes.some(
-    (node) =>
-      isValueDefined(node.querySelector) &&
-      isValueDefined(node.querySelector('.e-ddl.e-popup, .e-autocomplete.e-popup')),
-  );
-  return hasDirectDropdown || hasNestedDropdown;
-}
-
-/** Check if a DOM mutation changed attributes on a managed popup. */
-function mutationChangedPopupAttribute(mutation: MutationRecord): {
-  shouldReposition: boolean;
-  shouldCleanup: boolean;
-} {
-  if (mutation.type !== 'attributes' || !(mutation.target instanceof HTMLElement))
-    return { shouldReposition: false, shouldCleanup: false };
-
-  const el = mutation.target;
-  const shouldCleanup = el.matches(
-    '.e-grid-menu.e-contextmenu-wrapper, .e-dialog.e-filter-popup, .e-ddl.e-popup',
-  );
-  const shouldReposition = el.matches('.e-ddl.e-popup, .e-autocomplete.e-popup');
-  return { shouldReposition, shouldCleanup };
-}
-
 /**
  * Effect hook that sets up event listeners for repositioning column menu,
  * filter, submenu, and context menu popups in the DataGrid.
@@ -339,4 +304,39 @@ export function useColumnMenuEffect(
       if (isValueDefined(submenuRafId)) cancelAnimationFrame(submenuRafId);
     };
   }, [features.columnMenu, features.filtering, wrapperRef, trackingRef]);
+}
+
+/** Check if a DOM mutation added a dropdown popup. */
+function mutationAddedDropdown(mutation: MutationRecord): boolean {
+  if (mutation.type !== 'childList') return false;
+  const addedNodes = Array.from(mutation.addedNodes).filter(
+    (node): node is HTMLElement => node instanceof HTMLElement,
+  );
+  const hasDirectDropdown = addedNodes.some(
+    (node) =>
+      isValueDefined(node.matches) &&
+      (node.matches('.e-ddl.e-popup') || node.matches('.e-autocomplete.e-popup')),
+  );
+  const hasNestedDropdown = addedNodes.some(
+    (node) =>
+      isValueDefined(node.querySelector) &&
+      isValueDefined(node.querySelector('.e-ddl.e-popup, .e-autocomplete.e-popup')),
+  );
+  return hasDirectDropdown || hasNestedDropdown;
+}
+
+/** Check if a DOM mutation changed attributes on a managed popup. */
+function mutationChangedPopupAttribute(mutation: MutationRecord): {
+  shouldReposition: boolean;
+  shouldCleanup: boolean;
+} {
+  if (mutation.type !== 'attributes' || !(mutation.target instanceof HTMLElement))
+    return { shouldReposition: false, shouldCleanup: false };
+
+  const el = mutation.target;
+  const shouldCleanup = el.matches(
+    '.e-grid-menu.e-contextmenu-wrapper, .e-dialog.e-filter-popup, .e-ddl.e-popup',
+  );
+  const shouldReposition = el.matches('.e-ddl.e-popup, .e-autocomplete.e-popup');
+  return { shouldReposition, shouldCleanup };
 }

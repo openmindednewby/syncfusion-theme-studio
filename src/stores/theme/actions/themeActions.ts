@@ -8,8 +8,6 @@ import { injectThemeVariables } from '../utils/themeInjector';
 import type { ThemeConfig } from '../types';
 import type { ExportImportActions, GetState, SetState, ThemeUpdateActions } from './types';
 
-const JSON_INDENT = 2;
-
 function isPlainObject(value: unknown): value is Record<string, unknown> {
   return isValueDefined(value) && typeof value === 'object' && !Array.isArray(value);
 }
@@ -35,6 +33,8 @@ function deepMerge<T>(defaults: T, imported: T): T {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions -- deep-merge returns same shape
   return result as T;
 }
+
+const JSON_INDENT = 2;
 
 export function createThemeUpdateActions(set: SetState, get: GetState): ThemeUpdateActions {
   return {

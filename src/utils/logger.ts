@@ -8,17 +8,17 @@
 // eslint-disable-next-line prefer-const-enum/prefer-const-enum -- const enum causes tsc issues with isolatedModules
 type LogLevel = 'debug' | 'info' | 'warn' | 'error';
 
+interface LoggerOptions {
+  enableConsole: boolean;
+  minLevel: LogLevel;
+}
+
 const LOG_LEVEL_VALUES: Record<LogLevel, number> = {
   debug: 0,
   info: 1,
   warn: 2,
   error: 3,
 };
-
-interface LoggerOptions {
-  enableConsole: boolean;
-  minLevel: LogLevel;
-}
 
 const defaultOptions: LoggerOptions = {
   enableConsole: !import.meta.env.PROD,
@@ -29,16 +29,16 @@ function shouldLog(level: LogLevel, options: LoggerOptions): boolean {
   return options.enableConsole && LOG_LEVEL_VALUES[level] >= LOG_LEVEL_VALUES[options.minLevel];
 }
 
-function formatMessage(context: string, message: string): string {
-  const timestamp = new Date().toISOString();
-  return `[${timestamp}] [${context}] ${message}`;
-}
-
 interface Logger {
   debug: (context: string, message: string, data?: unknown) => void;
   info: (context: string, message: string, data?: unknown) => void;
   warn: (context: string, message: string, data?: unknown) => void;
   error: (context: string, message: string, error?: unknown) => void;
+}
+
+function formatMessage(context: string, message: string): string {
+  const timestamp = new Date().toISOString();
+  return `[${timestamp}] [${context}] ${message}`;
 }
 
 function createLogger(options: LoggerOptions = defaultOptions): Logger {

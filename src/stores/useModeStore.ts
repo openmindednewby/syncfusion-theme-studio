@@ -20,13 +20,6 @@ interface ModeState {
   toggleMode: () => void;
 }
 
-/** Apply mode to document (adds/removes 'dark' class) */
-function applyModeToDocument(mode: Mode): void {
-  const root = document.documentElement;
-  if (mode === Mode.Dark) root.classList.add('dark');
-  else root.classList.remove('dark');
-}
-
 export const useModeStore = create<ModeState>()(
   devtools(
     persist(
@@ -55,3 +48,10 @@ export const useModeStore = create<ModeState>()(
     { name: 'ModeStore' },
   ),
 );
+
+/** Apply mode to document (adds/removes 'dark' class) */
+function applyModeToDocument(mode: Mode): void {
+  const root = document.documentElement;
+  if (mode === Mode.Dark) root.classList.add('dark');
+  else root.classList.remove('dark');
+}

@@ -1,5 +1,6 @@
-import { useState, useCallback, useRef, type ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
 
+import { useDebouncedInput } from '@/hooks/useDebouncedInput';
 import { FM } from '@/localization/utils/helpers';
 import type { ShadowConfig } from '@/stores/theme/types';
 
@@ -16,21 +17,7 @@ interface ShadowInputRowProps {
 }
 
 const ShadowInputRow = ({ label, onChange, value }: ShadowInputRowProps): JSX.Element => {
-  const [localValue, setLocalValue] = useState(value);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLTextAreaElement>) => {
-      const newValue = e.target.value;
-      setLocalValue(newValue);
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        onChange(newValue);
-      }, DEBOUNCE_MS);
-    },
-    [onChange]
-  );
+  const { localValue, handleChange } = useDebouncedInput(value, onChange, DEBOUNCE_MS);
 
   return (
     <div className="space-y-1 rounded bg-surface-sunken p-2">
@@ -48,7 +35,7 @@ const ShadowInputRow = ({ label, onChange, value }: ShadowInputRowProps): JSX.El
         placeholder="e.g., 0 1px 2px rgba(0,0,0,0.1)"
         rows={2}
         value={localValue}
-        onChange={handleChange}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => handleChange(e.target.value)}
       />
     </div>
   );

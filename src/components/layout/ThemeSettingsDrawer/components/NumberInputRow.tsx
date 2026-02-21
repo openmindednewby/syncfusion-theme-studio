@@ -1,5 +1,6 @@
-import { useState, useCallback, useRef, type ChangeEvent } from 'react';
+import { type ChangeEvent } from 'react';
 
+import { useDebouncedInput } from '@/hooks/useDebouncedInput';
 import { isValueDefined } from '@/utils/is';
 
 const DEBOUNCE_MS = 300;
@@ -23,21 +24,7 @@ export const NumberInputRow = ({
   suffix,
   value,
 }: NumberInputRowProps): JSX.Element => {
-  const [localValue, setLocalValue] = useState(value);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout>>();
-
-  const handleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const newValue = Number(e.target.value);
-      setLocalValue(newValue);
-
-      if (timeoutRef.current) clearTimeout(timeoutRef.current);
-      timeoutRef.current = setTimeout(() => {
-        onChange(newValue);
-      }, DEBOUNCE_MS);
-    },
-    [onChange]
-  );
+  const { localValue, handleChange } = useDebouncedInput(value, onChange, DEBOUNCE_MS);
 
   return (
     <div className="flex items-center justify-between gap-2 rounded bg-surface-sunken px-3 py-2">
@@ -51,7 +38,7 @@ export const NumberInputRow = ({
           step={step}
           type="number"
           value={localValue}
-          onChange={handleChange}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => handleChange(Number(e.target.value))}
         />
         {isValueDefined(suffix) && suffix !== '' && (
           <span className="text-xs text-text-muted">{suffix}</span>

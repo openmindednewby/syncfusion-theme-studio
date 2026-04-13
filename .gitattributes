@@ -1,0 +1,3 @@
+# Normalize line endings for generated API files to LF
+# Prevents phantom diffs when Orval writes LF but core.autocrlf expects CRLF
+src/api/generated/** text eol=lf

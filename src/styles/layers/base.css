@@ -1,0 +1,459 @@
+/*
+ * Base CSS Variables
+ *
+ * ALL styling is driven by these CSS variables.
+ * They are injected at runtime by the theme system for customization.
+ * Values use RGB format (without rgb()) for Tailwind alpha compatibility.
+ */
+
+@layer base {
+  :root {
+    /* ===== PRIMARY COLORS ===== */
+    --color-primary-50: 239 246 255;
+    --color-primary-100: 219 234 254;
+    --color-primary-200: 191 219 254;
+    --color-primary-300: 147 197 253;
+    --color-primary-400: 96 165 250;
+    --color-primary-500: 59 130 246;
+    --color-primary-600: 37 99 235;
+    --color-primary-700: 29 78 216;
+    --color-primary-800: 30 64 175;
+    --color-primary-900: 30 58 138;
+
+    /* ===== STATUS COLORS ===== */
+    /* Success */
+    --color-success-50: 240 253 244;
+    --color-success-500: 34 197 94;
+    --color-success-700: 21 128 61;
+
+    /* Warning */
+    --color-warning-50: 254 252 232;
+    --color-warning-500: 234 179 8;
+    --color-warning-700: 161 98 7;
+
+    /* Error */
+    --color-error-50: 254 242 242;
+    --color-error-500: 239 68 68;
+    --color-error-700: 185 28 28;
+
+    /* Info */
+    --color-info-50: 239 246 255;
+    --color-info-500: 59 130 246;
+    --color-info-700: 29 78 216;
+
+    /* ===== LAYOUT ===== */
+    --sidebar-width: 310px;
+    --sidebar-collapsed-width: 64px;
+    --header-height: 64px;
+
+    /* ===== BORDER RADIUS ===== */
+    --radius-none: 0px;
+    --radius-sm: 0.125rem;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-full: 9999px;
+
+    /* ===== TYPOGRAPHY ===== */
+    --font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-base: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.25rem;
+    --font-size-2xl: 1.5rem;
+    --font-size-3xl: 1.875rem;
+
+    /* Font weights */
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+
+    /* Line heights */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.75;
+
+    /* Letter spacing */
+    --letter-spacing-tight: -0.025em;
+    --letter-spacing-normal: 0em;
+    --letter-spacing-wide: 0.025em;
+
+    /* ===== TRANSITIONS ===== */
+    --transition-fast: 150ms;
+    --transition-normal: 200ms;
+    --transition-slow: 300ms;
+
+    /* ===== ANIMATIONS ===== */
+    --animation-enabled: 1;
+    --animation-default-effect: anim-fade-zoom;
+    --animation-default-duration: 200ms;
+    --animation-default-easing: ease-out;
+    --animation-intensity: normal;
+    --animation-respect-reduced-motion: 1;
+
+    /* ===== CODE BLOCK (always-dark) ===== */
+    --color-code-bg: 24 24 27;
+    --color-code-gutter: 113 113 122;
+    --color-code-border: 39 39 42;
+
+    /* ===== LIGHT MODE (Default) ===== */
+    --color-background: 255 255 255;
+    --color-surface: 249 250 251;
+    --color-surface-elevated: 255 255 255;
+    --color-border: 229 231 235;
+    --color-text-primary: 17 24 39;
+    --color-text-secondary: 107 114 128;
+    --color-text-muted: 107 114 128; /* gray-500 for WCAG AA contrast (4.6:1 vs white) */
+
+    /* Surface variants */
+    --color-surface-hover: 243 244 246;
+    --color-surface-active: 229 231 235;
+    --color-surface-alt: 243 244 246;
+    --color-surface-primary: 255 255 255;
+    --color-surface-secondary: 243 244 246;
+    --color-surface-100: 249 250 251;
+    --color-surface-200: 243 244 246;
+    --color-surface-700: 55 65 81;
+    --color-surface-800: 31 41 55;
+
+    /* Border variants */
+    --color-border-primary: 209 213 219;
+
+    /* Brand colors (aliases for primary) */
+    --color-brand-primary: 59 130 246;
+    --color-brand-primary-hover: 37 99 235;
+
+    /* ===== COMPONENT DEFAULTS ===== */
+    /* These are overridden by the theme injector at runtime */
+
+    /* Header */
+    --component-header-background: rgb(255 255 255);
+    --component-header-text-color: rgb(17 24 39);
+    --component-header-border-bottom: rgb(229 231 235);
+    --component-header-height: 64px;
+
+    /* Sidebar */
+    --component-sidebar-background: rgb(250 251 252);
+    --component-sidebar-text-color: rgb(55 65 81);
+    --component-sidebar-active-bg: rgb(0 83 104);
+    --component-sidebar-active-text: rgb(255 255 255);
+    --component-sidebar-hover-bg: rgb(243 244 246);
+    --component-sidebar-border-right: rgb(229 231 235);
+
+    /* Buttons */
+    --component-button-primary-bg: rgb(59 130 246);
+    --component-button-primary-bg-hover: rgb(37 99 235);
+    --component-button-primary-text: rgb(255 255 255);
+    --component-button-secondary-bg: rgb(243 244 246);
+    --component-button-secondary-bg-hover: rgb(229 231 235);
+    --component-button-secondary-text: rgb(55 65 81);
+    --component-button-outline-border: rgb(59 130 246);
+    --component-button-outline-text: rgb(59 130 246);
+    --component-button-ghost-text: rgb(55 65 81);
+    --component-button-danger-bg: rgb(239 68 68);
+    --component-button-danger-text: rgb(255 255 255);
+
+    /* Inputs */
+    --component-input-background: rgb(255 255 255);
+    --component-input-border-default: rgb(209 213 219);
+    --component-input-border-focus: rgb(59 130 246);
+    --component-input-text-color: rgb(17 24 39);
+    --component-input-placeholder: rgb(156 163 175);
+
+    /* DataGrid */
+    --component-datagrid-header-bg: rgb(249 250 251);
+    --component-datagrid-header-text: rgb(55 65 81);
+    --component-datagrid-row-even: rgb(255 255 255);
+    --component-datagrid-row-odd: rgb(249 250 251);
+    --component-datagrid-row-hover: rgb(243 244 246);
+    --component-datagrid-row-selected: rgb(219 234 254);
+
+    /* DataGrid Pagination */
+    --component-datagrid-pagination-bg: rgb(255 255 255);
+    --component-datagrid-pagination-border: rgb(229 231 235);
+    --component-datagrid-pagination-text: rgb(55 65 81);
+    --component-datagrid-pagination-active-bg: rgb(59 130 246);
+    --component-datagrid-pagination-active-text: rgb(255 255 255);
+    --component-datagrid-pagination-hover-bg: rgb(243 244 246);
+    --component-datagrid-pager-container-border: rgb(229 231 235);
+    --component-datagrid-pagination-nav-color: rgb(107 114 128);
+    --component-datagrid-pagination-nav-disabled: rgb(209 213 219);
+    --component-datagrid-pagination-info-text: rgb(107 114 128);
+    --component-datagrid-pagination-btn-radius: 6px;
+
+    /* Cards */
+    --component-card-background: rgb(255 255 255);
+    --component-card-border: rgb(229 231 235);
+
+    /* Modals */
+    --component-modal-backdrop: rgba(0, 0, 0, 0.5);
+    --component-modal-content-bg: rgb(255 255 255);
+    --component-modal-border: rgb(229 231 235);
+
+    /* Badges */
+    --component-badge-success-bg: rgb(220 252 231);
+    --component-badge-success-text: rgb(21 128 61);
+    --component-badge-warning-bg: rgb(254 249 195);
+    --component-badge-warning-text: rgb(161 98 7);
+    --component-badge-error-bg: rgb(254 226 226);
+    --component-badge-error-text: rgb(185 28 28);
+    --component-badge-info-bg: rgb(219 234 254);
+    --component-badge-info-text: rgb(29 78 216);
+
+    /* Alert Badges (separate from regular badges) */
+    --component-alert-badge-success-bg: rgb(123 164 175);
+    --component-alert-badge-success-text: rgb(17 19 25);
+    --component-alert-badge-success-border: rgb(16 185 129);
+    --component-alert-badge-warning-bg: rgb(249 115 22);
+    --component-alert-badge-warning-text: rgb(17 19 25);
+    --component-alert-badge-warning-border: rgb(249 115 22);
+    --component-alert-badge-error-bg: rgb(239 68 68);
+    --component-alert-badge-error-text: rgb(17 19 25);
+    --component-alert-badge-error-border: rgb(239 68 68);
+    --component-alert-badge-info-bg: rgb(254 177 48);
+    --component-alert-badge-info-text: rgb(17 19 25);
+    --component-alert-badge-info-border: rgb(254 177 48);
+    --component-alert-badge-success-outline-bg: transparent;
+    --component-alert-badge-warning-outline-bg: transparent;
+    --component-alert-badge-error-outline-bg: transparent;
+    --component-alert-badge-info-outline-bg: transparent;
+    --component-alert-badge-padding-top: 2px;
+    --component-alert-badge-padding-right: 8px;
+    --component-alert-badge-padding-bottom: 2px;
+    --component-alert-badge-padding-left: 8px;
+    --component-alert-badge-text-transform: none;
+
+    /* External Link */
+    --component-external-link-text-color: rgb(59 130 246);
+    --component-external-link-icon-color: rgb(59 130 246);
+    --component-external-link-hover-text-color: rgb(37 99 235);
+    --component-external-link-hover-icon-color: rgb(37 99 235);
+    --component-external-link-font-family: inherit;
+    --component-external-link-font-size: 0.875rem;
+    --component-external-link-font-weight: 500;
+    --component-external-link-line-height: 1.5;
+    --component-external-link-letter-spacing: 0px;
+    --component-external-link-text-decoration: none;
+    --component-external-link-gap: 4px;
+    --component-external-link-icon-size: 12px;
+    --component-external-link-transition: 150ms;
+
+    /* Accordion */
+    --component-accordion-bg: rgb(255 255 255);
+    --component-accordion-text: rgb(55 65 81);
+    --component-accordion-header-bg: rgb(249 250 251);
+    --component-accordion-header-text: rgb(17 24 39);
+    --component-accordion-header-hover-bg: rgb(243 244 246);
+    --component-accordion-border: rgb(229 231 235);
+    --component-accordion-expanded-bg: rgb(243 244 246);
+    --component-accordion-expanded-text: rgb(17 24 39);
+    --component-accordion-icon: rgb(107 114 128);
+  }
+
+  .external-link:hover {
+    color: var(--component-external-link-hover-text-color);
+  }
+
+  .external-link:hover svg {
+    color: var(--component-external-link-hover-icon-color);
+  }
+
+  /* ===== DARK MODE ===== */
+  .dark {
+    --color-background: 17 24 39;
+    --color-surface: 31 41 55;
+    --color-surface-elevated: 55 65 81;
+    --color-border: 75 85 99;
+    --color-text-primary: 249 250 251;
+    --color-text-secondary: 156 163 175;
+    --color-text-muted: 107 114 128;
+
+    /* Surface variants */
+    --color-surface-hover: 55 65 81;
+    --color-surface-active: 75 85 99;
+    --color-surface-alt: 55 65 81;
+    --color-surface-primary: 31 41 55;
+    --color-surface-secondary: 55 65 81;
+    --color-surface-100: 31 41 55;
+    --color-surface-200: 55 65 81;
+    --color-surface-700: 229 231 235;
+    --color-surface-800: 249 250 251;
+
+    /* Border variants */
+    --color-border-primary: 107 114 128;
+
+    /* Brand colors (aliases for primary) */
+    --color-brand-primary: 96 165 250;
+    --color-brand-primary-hover: 147 197 253;
+
+    /* Code block (darker in dark mode) */
+    --color-code-bg: 9 9 11;
+    --color-code-gutter: 82 82 91;
+    --color-code-border: 39 39 42;
+
+    /* Dark mode component defaults */
+    --component-header-background: rgb(31 41 55);
+    --component-header-text-color: rgb(249 250 251);
+    --component-header-border-bottom: rgb(75 85 99);
+    --component-sidebar-background: rgb(17 24 39);
+    --component-sidebar-text-color: rgb(209 213 219);
+    --component-sidebar-hover-bg: rgb(38 42 53);
+    --component-sidebar-border-right: rgb(55 65 81);
+    --component-input-background: rgb(31 41 55);
+    --component-input-border-default: rgb(75 85 99);
+    --component-input-text-color: rgb(249 250 251);
+    --component-input-placeholder: rgb(107 114 128);
+    --component-datagrid-header-bg: rgb(31 41 55);
+    --component-datagrid-header-text: rgb(249 250 251);
+    --component-datagrid-row-even: rgb(17 24 39);
+    --component-datagrid-row-odd: rgb(31 41 55);
+    --component-datagrid-row-hover: rgb(55 65 81);
+    --component-datagrid-row-selected: rgb(30 58 138);
+    --component-datagrid-pagination-bg: rgb(17 24 39);
+    --component-datagrid-pagination-border: rgb(75 85 99);
+    --component-datagrid-pagination-text: rgb(156 163 175);
+    --component-datagrid-pagination-active-bg: rgb(59 130 246);
+    --component-datagrid-pagination-active-text: rgb(255 255 255);
+    --component-datagrid-pagination-hover-bg: rgb(55 65 81);
+    --component-datagrid-pager-container-border: rgb(75 85 99);
+    --component-datagrid-pagination-nav-color: rgb(156 163 175);
+    --component-datagrid-pagination-nav-disabled: rgb(75 85 99);
+    --component-datagrid-pagination-info-text: rgb(107 114 128);
+    --component-datagrid-pagination-btn-radius: 6px;
+    --component-card-background: rgb(31 41 55);
+    --component-card-border: rgb(75 85 99);
+    --component-modal-content-bg: rgb(31 41 55);
+    --component-modal-border: rgb(75 85 99);
+
+    /* Select / Dropdown */
+    --component-select-background: rgb(31 41 55);
+    --component-select-border-default: rgb(75 85 99);
+    --component-select-border-focus: rgb(96 165 250);
+    --component-select-text-color: rgb(249 250 251);
+    --component-select-icon-color: rgb(156 163 175);
+    --component-select-popup-bg: rgb(31 41 55);
+    --component-select-popup-border: rgb(75 85 99);
+    --component-select-item-hover: rgb(55 65 81);
+    --component-select-item-selected-bg: rgb(59 130 246);
+    --component-select-item-selected-text: rgb(255 255 255);
+
+    /* Accordion */
+    --component-accordion-bg: rgb(31 41 55);
+    --component-accordion-text: rgb(209 213 219);
+    --component-accordion-header-bg: rgb(31 41 55);
+    --component-accordion-header-text: rgb(249 250 251);
+    --component-accordion-header-hover-bg: rgb(55 65 81);
+    --component-accordion-border: rgb(75 85 99);
+    --component-accordion-expanded-bg: rgb(55 65 81);
+    --component-accordion-expanded-text: rgb(249 250 251);
+    --component-accordion-icon: rgb(156 163 175);
+  }
+
+  /* ===== BASE STYLES ===== */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    font-family: var(--font-sans);
+    font-size: var(--font-size-base);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    margin: 0;
+    background-color: rgb(var(--color-background));
+    color: rgb(var(--color-text-primary));
+    transition: background-color var(--transition-normal), color var(--transition-normal);
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    outline: 2px solid rgb(var(--color-primary-500));
+    outline-offset: 2px;
+  }
+
+  /* Ensure all interactive elements meet WCAG 2.1 touch target size requirements */
+  button,
+  [role="button"],
+  a,
+  select {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Checkboxes/radios: keep the control small but ensure the clickable row meets 44px */
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Exception: inline text links can be smaller but get extra padding when focused.
+     Links inside <nav> elements retain 44px touch targets for navigation. */
+  a:not([role="button"]):not(.btn):not(nav a) {
+    min-height: auto;
+    min-width: auto;
+  }
+
+  /* Skip link styles - visible only on focus */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+
+  /* Hide Syncfusion trial banner in development */
+  div[style*="z-index: 999999999"] {
+    display: none !important;
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: rgb(var(--color-surface));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border));
+    border-radius: var(--radius-full);
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(var(--color-text-muted));
+  }
+
+  /* When animations are globally disabled via theme settings */
+  :root[style*="--animation-enabled: 0"] * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Respect prefers-reduced-motion when the setting is enabled */
+  @media (prefers-reduced-motion: reduce) {
+    :root[style*="--animation-respect-reduced-motion: 1"] * {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

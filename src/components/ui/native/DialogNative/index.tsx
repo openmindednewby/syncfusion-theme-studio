@@ -1,0 +1,212 @@
+/**
+ * DialogNative - Zero-dependency themed modal dialog using native HTML `<dialog>`.
+ *
+ * Provides a modal dialog with configurable variant (default, confirm, danger),
+ * primary/secondary action buttons, close icon, overlay click handling, and
+ * ESC key support via the native dialog `cancel` event.
+ * No Syncfusion dependency for minimal bundle size.
+ */
+import { memo, useEffect, useRef, type ReactNode } from 'react';
+
+import type { BaseDialogButton } from '@/components/ui/shared/dialogTypes';
+import { FM } from '@/localization/utils/helpers';
+import { cn } from '@/utils/cn';
+import { isValueDefined } from '@/utils/is';
+
+/** Dialog style variants controlling button defaults and appearance */
+const enum DialogVariant {
+  Default = 'default',
+  Confirm = 'confirm',
+  Danger = 'danger',
+}
+
+type DialogButton = BaseDialogButton;
+
+interface Props {
+  /** Dialog title */
+  title: string;
+  /** Dialog content */
+  children: ReactNode;
+  /** Whether the dialog is open */
+  isOpen: boolean;
+  /** Called when dialog should close */
+  onClose: () => void;
+  /** Dialog variant */
+  variant?: DialogVariant;
+  /** Primary action button */
+  primaryButton?: DialogButton;
+  /** Secondary action button */
+  secondaryButton?: DialogButton;
+  /** Additional CSS classes */
+  className?: string;
+  /** Test ID for E2E testing */
+  testId?: string;
+  /** Width of the dialog */
+  width?: string | number;
+  /** Whether to show close button */
+  showCloseIcon?: boolean;
+  /** Whether clicking overlay closes dialog */
+  closeOnOverlayClick?: boolean;
+}
+export { DialogVariant };
+
+const BUTTON_CLASSES: Record<string, string> = {
+  primary: 'bg-primary-700 text-white hover:bg-primary-800 active:bg-primary-900',
+  secondary: 'bg-surface-elevated text-text-primary hover:bg-surface-hover border border-border',
+  danger: 'bg-error-500 text-white hover:bg-error-600 active:bg-error-700',
+};
+
+const CLOSE_BUTTON_SIZE = 32;
+
+const DialogNative = ({
+  title,
+  children,
+  isOpen,
+  onClose,
+  variant = DialogVariant.Default,
+  primaryButton,
+  secondaryButton,
+  className,
+  testId,
+  width = '400px',
+  showCloseIcon = true,
+  closeOnOverlayClick = true,
+}: Props): JSX.Element | null => {
+  const dialogRef = useRef<HTMLDialogElement>(null);
+
+  // Sync dialog open state
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    if (isOpen) dialog.showModal();
+    else dialog.close();
+  }, [isOpen]);
+
+  // Handle ESC key via dialog's cancel event
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    const handleCancel = (e: Event): void => {
+      e.preventDefault();
+      onClose();
+    };
+
+    dialog.addEventListener('cancel', handleCancel);
+    return (): void => dialog.removeEventListener('cancel', handleCancel);
+  }, [onClose]);
+
+  // Handle backdrop click imperatively — jsx-a11y cannot detect native dialog backdrop click pattern
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    if (!dialog) return;
+
+    function handleBackdropClick(e: MouseEvent): void {
+      if (closeOnOverlayClick && e.target === dialog) onClose();
+    }
+
+    dialog.addEventListener('click', handleBackdropClick);
+    return (): void => dialog.removeEventListener('click', handleBackdropClick);
+  }, [closeOnOverlayClick, onClose]);
+
+  const getButtonVariant = (
+    button: DialogButton,
+    defaultVariant: 'primary' | 'secondary' | 'danger',
+  ): 'primary' | 'secondary' | 'danger' => {
+    if (isValueDefined(button.variant)) return button.variant;
+    if (variant === DialogVariant.Danger && defaultVariant === 'primary') return 'danger';
+    return defaultVariant;
+  };
+
+  const resolvedWidth = typeof width === 'number' ? `${String(width)}px` : width;
+
+  return (
+    <dialog
+      ref={dialogRef}
+      aria-labelledby="dialog-title"
+      className={cn(
+        'fixed inset-0 m-auto p-0 rounded-lg shadow-xl',
+        'bg-surface border border-border',
+        'backdrop:bg-black/50 backdrop:backdrop-blur-sm',
+        className,
+      )}
+      data-testid={testId}
+      style={{ width: resolvedWidth, maxWidth: '90vw' }}
+    >
+      {/* Header */}
+      <div className="flex items-center justify-between p-4 border-b border-border">
+        <h2 className="text-lg font-semibold text-text-primary" id="dialog-title">
+          {title}
+        </h2>
+        {showCloseIcon ? <button
+            aria-label={FM('accessibility.closeDialog')}
+            className={cn(
+              'rounded-md p-1 text-text-secondary hover:bg-surface-elevated hover:text-text-primary',
+              'focus:outline-none focus:ring-2 focus:ring-primary-500',
+            )}
+            style={{ width: CLOSE_BUTTON_SIZE, height: CLOSE_BUTTON_SIZE }}
+            type="button"
+            onClick={onClose}
+          >
+            <svg
+              aria-hidden="true"
+              className="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M6 18L18 6M6 6l12 12"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+              />
+            </svg>
+          </button> : null}
+      </div>
+
+      {/* Content */}
+      <div className="p-4 text-text-primary">{children}</div>
+
+      {/* Footer with buttons */}
+      {(isValueDefined(primaryButton) || isValueDefined(secondaryButton)) && (
+        <div className="flex justify-end gap-2 p-4 border-t border-border">
+          {isValueDefined(secondaryButton) && (
+            <button
+              className={cn(
+                'px-4 py-2 rounded-md font-medium transition-colors',
+                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
+                BUTTON_CLASSES[getButtonVariant(secondaryButton, 'secondary')],
+              )}
+              data-testid={secondaryButton.testId}
+              type="button"
+              onClick={secondaryButton.onClick}
+            >
+              {secondaryButton.text}
+            </button>
+          )}
+          {isValueDefined(primaryButton) && (
+            <button
+              className={cn(
+                'px-4 py-2 rounded-md font-medium transition-colors',
+                'focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-1 focus:ring-offset-surface',
+                BUTTON_CLASSES[getButtonVariant(primaryButton, 'primary')],
+              )}
+              data-testid={primaryButton.testId}
+              type="button"
+              onClick={primaryButton.onClick}
+            >
+              {primaryButton.text}
+            </button>
+          )}
+        </div>
+      )}
+    </dialog>
+  );
+};
+
+DialogNative.displayName = 'DialogNative';
+
+export default memo(DialogNative);
+export type { Props as DialogNativeProps, DialogButton as DialogNativeButton };

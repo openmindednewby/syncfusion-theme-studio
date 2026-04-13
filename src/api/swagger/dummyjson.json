@@ -1,0 +1,430 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "DummyJSON Products API",
+    "description": "Free fake REST API for placeholder JSON data",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://dummyjson.com"
+    }
+  ],
+  "tags": [
+    {
+      "name": "products",
+      "description": "Product operations"
+    }
+  ],
+  "paths": {
+    "/products": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Get all products",
+        "operationId": "getAllProducts",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit number of products",
+            "schema": {
+              "type": "integer",
+              "default": 30
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip number of products",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          },
+          {
+            "name": "select",
+            "in": "query",
+            "description": "Select specific fields (comma-separated)",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Get product by ID",
+        "operationId": "getProductById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Product ID",
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Product"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Product not found"
+          }
+        }
+      }
+    },
+    "/products/search": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Search products",
+        "operationId": "searchProducts",
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "required": true,
+            "description": "Search query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit number of products",
+            "schema": {
+              "type": "integer",
+              "default": 30
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip number of products",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/categories": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Get all categories",
+        "operationId": "getCategories",
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/products/category/{category}": {
+      "get": {
+        "tags": ["products"],
+        "summary": "Get products by category",
+        "operationId": "getProductsByCategory",
+        "parameters": [
+          {
+            "name": "category",
+            "in": "path",
+            "required": true,
+            "description": "Category slug",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Limit number of products",
+            "schema": {
+              "type": "integer",
+              "default": 30
+            }
+          },
+          {
+            "name": "skip",
+            "in": "query",
+            "description": "Skip number of products",
+            "schema": {
+              "type": "integer",
+              "default": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Product": {
+        "type": "object",
+        "required": ["id", "title", "price"],
+        "properties": {
+          "id": {
+            "type": "integer",
+            "example": 1
+          },
+          "title": {
+            "type": "string",
+            "example": "Essence Mascara Lash Princess"
+          },
+          "description": {
+            "type": "string",
+            "example": "A popular mascara for volumizing lashes"
+          },
+          "category": {
+            "type": "string",
+            "example": "beauty"
+          },
+          "price": {
+            "type": "number",
+            "format": "double",
+            "example": 9.99
+          },
+          "discountPercentage": {
+            "type": "number",
+            "format": "double",
+            "example": 7.17
+          },
+          "rating": {
+            "type": "number",
+            "format": "double",
+            "example": 4.94
+          },
+          "stock": {
+            "type": "integer",
+            "example": 5
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "example": ["beauty", "mascara"]
+          },
+          "brand": {
+            "type": "string",
+            "example": "Essence"
+          },
+          "sku": {
+            "type": "string",
+            "example": "RCH45Q1A"
+          },
+          "weight": {
+            "type": "number",
+            "example": 2
+          },
+          "dimensions": {
+            "$ref": "#/components/schemas/Dimensions"
+          },
+          "warrantyInformation": {
+            "type": "string",
+            "example": "1 month warranty"
+          },
+          "shippingInformation": {
+            "type": "string",
+            "example": "Ships in 1 month"
+          },
+          "availabilityStatus": {
+            "type": "string",
+            "example": "Low Stock"
+          },
+          "reviews": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Review"
+            }
+          },
+          "returnPolicy": {
+            "type": "string",
+            "example": "30 days return policy"
+          },
+          "minimumOrderQuantity": {
+            "type": "integer",
+            "example": 24
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Dimensions": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "number",
+            "example": 23.17
+          },
+          "height": {
+            "type": "number",
+            "example": 14.43
+          },
+          "depth": {
+            "type": "number",
+            "example": 28.01
+          }
+        }
+      },
+      "Review": {
+        "type": "object",
+        "properties": {
+          "rating": {
+            "type": "integer",
+            "example": 5
+          },
+          "comment": {
+            "type": "string",
+            "example": "Great product!"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "reviewerName": {
+            "type": "string",
+            "example": "John Doe"
+          },
+          "reviewerEmail": {
+            "type": "string",
+            "format": "email",
+            "example": "john@example.com"
+          }
+        }
+      },
+      "Meta": {
+        "type": "object",
+        "properties": {
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "barcode": {
+            "type": "string",
+            "example": "9164035109868"
+          },
+          "qrCode": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "Category": {
+        "type": "object",
+        "properties": {
+          "slug": {
+            "type": "string",
+            "example": "beauty"
+          },
+          "name": {
+            "type": "string",
+            "example": "Beauty"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      },
+      "ProductsResponse": {
+        "type": "object",
+        "properties": {
+          "products": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Product"
+            }
+          },
+          "total": {
+            "type": "integer",
+            "example": 194
+          },
+          "skip": {
+            "type": "integer",
+            "example": 0
+          },
+          "limit": {
+            "type": "integer",
+            "example": 30
+          }
+        }
+      }
+    }
+  }
+}

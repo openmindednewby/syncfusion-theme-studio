@@ -1,0 +1,176 @@
+/*
+ * Critical Component Styles for Login Page
+ *
+ * Only the components needed for the login form.
+ */
+
+@layer components {
+  /* ===== Legacy .btn (kept for non-native consumers) ===== */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: var(--radius-md);
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: var(--transition-fast);
+    cursor: pointer;
+    border: 1px solid transparent;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-primary {
+    background-color: var(--component-button-primary-bg);
+    color: var(--component-button-primary-text);
+  }
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover);
+  }
+
+  /* ===== Native buttons (used by LoginPage) ===== */
+  .native-btn-content {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  .native-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--component-button-gap, 0.5rem);
+    font-family: var(--component-button-font-family, inherit);
+    font-size: var(--component-button-font-size, 0.875rem);
+    font-weight: var(--component-button-font-weight, 500);
+    line-height: var(--component-button-line-height, 1.25rem);
+    letter-spacing: var(--component-button-letter-spacing, 0);
+    padding: var(--component-button-padding-top, 0.5rem) var(--component-button-padding-right, 1rem) var(--component-button-padding-bottom, 0.5rem) var(--component-button-padding-left, 1rem);
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition-property: background-color, border-color, color, box-shadow;
+    transition-duration: var(--component-button-transition, 150ms);
+  }
+
+  .native-btn:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 var(--component-button-focus-ring-width, 2px) var(--component-button-focus-ring-color, rgb(59 130 246));
+    outline-offset: var(--component-button-focus-ring-offset, 2px);
+  }
+
+  .native-btn:disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
+  .native-btn-primary {
+    background-color: var(--component-button-primary-bg, rgb(59 130 246));
+    color: var(--component-button-primary-text, rgb(255 255 255));
+    border-color: var(--component-button-primary-border, transparent);
+    border-width: var(--component-button-primary-border-width, 1px);
+    border-radius: var(--component-button-primary-border-radius, var(--radius-md));
+    box-shadow: var(--component-button-primary-shadow, none);
+  }
+
+  .native-btn-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover, rgb(37 99 235));
+    color: var(--component-button-primary-text-hover, rgb(255 255 255));
+  }
+
+  .native-btn-primary:active:not(:disabled) {
+    background-color: var(--component-button-primary-bg-active, rgb(29 78 216));
+  }
+
+  .native-btn-primary:disabled {
+    background-color: var(--component-button-primary-disabled-bg, rgb(59 130 246));
+    color: var(--component-button-primary-disabled-text, rgb(255 255 255));
+    border-color: var(--component-button-primary-disabled-border, transparent);
+    opacity: var(--component-button-primary-disabled-opacity, 0.5);
+  }
+
+  .native-btn-md { min-height: 2.5rem; }
+
+  /* Card - for login form container */
+  .card {
+    background-color: var(--component-card-background);
+    border: var(--component-card-border-width, 1px) solid var(--component-card-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    color: var(--component-card-text, inherit);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  :is(.dark) .card {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Input - for login form fields (legacy .input class) */
+  .input {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    background-color: var(--component-input-background);
+    border: 1px solid var(--component-input-border-default);
+    border-radius: var(--radius-md);
+    color: var(--component-input-text-color);
+    font-size: var(--font-size-sm);
+    transition-property: border-color, box-shadow;
+    transition-duration: var(--transition-fast);
+  }
+
+  .input:focus {
+    border-color: var(--component-input-border-focus);
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1);
+    outline: none;
+  }
+
+  .input::placeholder {
+    color: var(--component-input-placeholder);
+  }
+
+  /* ===== Native input (used by InputNative on LoginPage) ===== */
+  .native-input {
+    height: 30px;
+    padding: 8px 10px;
+    font-size: 12px;
+    line-height: 14px;
+    font-family: inherit;
+    background-color: var(--component-input-background, rgb(255 255 255));
+    border: 1px solid var(--component-input-border-default, rgb(209 213 219));
+    border-radius: var(--component-input-border-radius, var(--radius-md));
+    color: var(--component-input-text-color, rgb(17 24 39));
+    transition: border-color var(--component-input-transition, 150ms),
+                box-shadow var(--component-input-transition, 150ms);
+    outline: none;
+  }
+
+  .native-input:hover:not(:disabled):not(:focus) {
+    border-color: var(--component-input-border-hover, rgb(156 163 175));
+  }
+
+  .native-input:focus {
+    border-color: var(--component-input-border-focus, rgb(59 130 246));
+    box-shadow: 0 0 0 2px var(--component-input-focus-ring, rgb(59 130 246));
+  }
+
+  .native-input::placeholder {
+    color: var(--component-input-placeholder, rgb(156 163 175));
+  }
+
+  .native-input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .native-input-label {
+    font-size: 12px;
+    line-height: 14px;
+    font-weight: 500;
+    color: var(--component-input-label, rgb(55 65 81));
+  }
+}

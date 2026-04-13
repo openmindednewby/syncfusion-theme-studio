@@ -1,0 +1,66 @@
+/**
+ * Login Form - Native form example using FormNativeInput
+ */
+import { FormNativeInput, FormCheckbox } from '@/components/ui/form-fields';
+import { ButtonNative, ButtonVariant } from '@/components/ui/native';
+import { useFormWithSchema } from '@/lib/forms';
+import { FM } from '@/localization/utils/helpers';
+
+import { loginSchema, type LoginFormData } from './schema';
+
+const FORM_CONFIG = { schema: loginSchema };
+
+interface Props {
+  onSubmit: (data: LoginFormData) => void;
+  /** Whether a search is in progress (disables submit button) */
+  isSearching?: boolean;
+  /** Optional override for the submit button label */
+  submitLabel?: string;
+}
+
+export const LoginForm = ({ onSubmit, isSearching, submitLabel }: Props): JSX.Element => {
+  const { control, handleSubmit, formState } = useFormWithSchema(FORM_CONFIG);
+  const { isSubmitting } = formState;
+
+  return (
+    <form className="space-y-4" onSubmit={handleSubmit(onSubmit)}>
+      <FormNativeInput
+        fullWidth
+        required
+        control={control}
+        label={FM('forms.fields.email')}
+        name="email"
+        placeholder={FM('forms.login.emailPlaceholder')}
+        testId="login-email"
+        type="email"
+      />
+
+      <FormNativeInput
+        fullWidth
+        required
+        control={control}
+        label={FM('forms.fields.password')}
+        name="password"
+        testId="login-password"
+        type="password"
+      />
+
+      <FormCheckbox
+        control={control}
+        label={FM('forms.fields.rememberMe')}
+        name="rememberMe"
+        testId="login-remember"
+      />
+
+      <ButtonNative
+        fullWidth
+        disabled={isSubmitting || isSearching}
+        testId="login-submit"
+        type="submit"
+        variant={ButtonVariant.Primary}
+      >
+        {submitLabel ?? FM('forms.actions.login')}
+      </ButtonNative>
+    </form>
+  );
+};

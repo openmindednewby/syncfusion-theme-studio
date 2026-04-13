@@ -1,0 +1,261 @@
+/*
+ * Login Page CSS - Zero Syncfusion Dependencies
+ *
+ * This file contains only the styles needed for the login page.
+ * Syncfusion CSS is loaded lazily when entering protected routes.
+ *
+ * Optimization: Uses components-critical.css instead of full components.css
+ * to reduce CSS size on login page (only btn, card, input needed).
+ *
+ * This enables faster FCP (First Contentful Paint) on the login page.
+ */
+
+/* Import custom styles - layer order declaration first */
+@layer base, components, utilities;
+
+/* Base variables and theme - full set needed for consistency */
+@import './layers/base.css';
+
+/* Critical-only components (btn, card, input only) - smaller than full components.css */
+@import './layers/components-critical.css';
+
+/* Login brand colors - centralized for easy theming */
+:root {
+  --login-bg: #0B2535;
+  --login-swoosh-primary: #0E3A4A;
+  --login-swoosh-secondary: #155A6E;
+  --login-panel-bg: rgba(255, 255, 255, 0.8);
+  --login-label: #005368;
+  --login-input-bg: #fff;
+  --login-focus-border: #00B5E2;
+  --login-focus-ring: rgba(0, 181, 226, 0.3);
+  --login-btn-bg: #006D87;
+  --login-btn-hover: #005368;
+  --login-btn-text: #fff;
+  --login-link: #005368;
+  --login-link-hover: #003D4C;
+}
+
+/* Tailwind directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* @property must be top-level (outside @layer) for gradient animation */
+@property --gradient-angle {
+  syntax: '<angle>';
+  initial-value: 100deg;
+  inherits: false;
+}
+
+@property --purple-x {
+  syntax: '<percentage>';
+  initial-value: 2%;
+  inherits: false;
+}
+
+@property --purple-y {
+  syntax: '<percentage>';
+  initial-value: 40%;
+  inherits: false;
+}
+
+@property --cyan-x {
+  syntax: '<percentage>';
+  initial-value: 90%;
+  inherits: false;
+}
+
+@property --cyan-y {
+  syntax: '<percentage>';
+  initial-value: 35%;
+  inherits: false;
+}
+
+@layer components {
+  @keyframes swooshDrift {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(12px, -8px) scale(1.03); }
+    100% { transform: translate(0, 0) scale(1); }
+  }
+
+  .login-swoosh {
+    animation: swooshDrift 18s ease-in-out infinite;
+  }
+
+  .native-input {
+    height: 32px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 18px;
+    background-color: var(--login-input-bg);
+    border: none;
+    border-radius: 8px;
+    color: rgb(17 24 39);
+  }
+
+  .native-input-label {
+    font-size: 16px;
+    line-height: 19px;
+    font-weight: 400;
+    font-style: italic;
+    text-transform: capitalize;
+    color: var(--login-label);
+  }
+
+  .native-btn-login {
+    width: 246px;
+    height: 44px;
+    min-height: 44px;
+    background-color: var(--login-btn-bg);
+    color: var(--login-btn-text);
+    border-radius: 8px;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 7px 5px;
+    font-size: 18px;
+    line-height: 22px;
+    border: none;
+    box-shadow: 5px 5px 10px -5px rgba(0, 0, 0, 0.25);
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .native-btn-login:hover {
+    background-color: var(--login-btn-hover);
+    box-shadow: 5px 5px 12px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Demo credential quick-login buttons */
+  .login-demo-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 0;
+    overflow: hidden;
+    padding: 10px 6px 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(8px);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  }
+
+  .login-demo-btn:hover {
+    background: rgba(255, 255, 255, 0.10);
+    border-color: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+  }
+
+  .login-demo-btn:active {
+    transform: translateY(0);
+  }
+
+  .login-demo-badge {
+    display: inline-block;
+    padding: 2px 10px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
+
+  .login-demo-badge-admin {
+    background: rgba(139, 92, 246, 0.2);
+    color: #c4b5fd;
+  }
+
+  .login-demo-badge-manager {
+    background: rgba(6, 182, 212, 0.2);
+    color: #67e8f9;
+  }
+
+  .login-demo-badge-viewer {
+    background: rgba(52, 211, 153, 0.2);
+    color: #6ee7b7;
+  }
+
+  .native-link-subtle {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--login-link);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .native-link-subtle:hover {
+    color: var(--login-link-hover);
+  }
+
+  /* Each property gets its own animation with a prime-number duration.
+     Since the cycles never sync, the combined motion feels organic. */
+  @keyframes driftPurpleX {
+    0%, 100% { --purple-x: 2%; }
+    27% { --purple-x: 16%; }
+    58% { --purple-x: 5%; }
+    82% { --purple-x: 12%; }
+  }
+
+  @keyframes driftPurpleY {
+    0%, 100% { --purple-y: 40%; }
+    22% { --purple-y: 24%; }
+    51% { --purple-y: 56%; }
+    76% { --purple-y: 30%; }
+  }
+
+  @keyframes driftCyanX {
+    0%, 100% { --cyan-x: 90%; }
+    30% { --cyan-x: 76%; }
+    62% { --cyan-x: 94%; }
+    85% { --cyan-x: 82%; }
+  }
+
+  @keyframes driftCyanY {
+    0%, 100% { --cyan-y: 35%; }
+    25% { --cyan-y: 16%; }
+    55% { --cyan-y: 54%; }
+    78% { --cyan-y: 22%; }
+  }
+
+  @keyframes driftAngle {
+    0%, 100% { --gradient-angle: 100deg; }
+    32% { --gradient-angle: 195deg; }
+    64% { --gradient-angle: 240deg; }
+    88% { --gradient-angle: 145deg; }
+  }
+
+  .brand-gradient {
+    background:
+      radial-gradient(ellipse at 2% 40%, #9030B0 0%, rgba(110, 35, 140, 0.8) 32%, transparent 68%),
+      radial-gradient(ellipse at 90% 35%, #1498D8 0%, rgba(18, 130, 210, 0.5) 35%, transparent 65%),
+      radial-gradient(ellipse at 5% 95%, #040C1A 0%, transparent 30%),
+      radial-gradient(ellipse at 95% 90%, #081830 0%, transparent 25%),
+      linear-gradient(135deg, #5E2088 0%, #2A1C6A 20%, #142548 42%, #0C4058 65%, #1088B8 100%);
+  }
+
+  .brand-gradient-animated {
+    background:
+      radial-gradient(ellipse at var(--purple-x) var(--purple-y), #9030B0 0%, rgba(110, 35, 140, 0.8) 32%, transparent 68%),
+      radial-gradient(ellipse at var(--cyan-x) var(--cyan-y), #1498D8 0%, rgba(18, 130, 210, 0.5) 35%, transparent 65%),
+      radial-gradient(ellipse at 5% 95%, #040C1A 0%, transparent 30%),
+      radial-gradient(ellipse at 95% 90%, #081830 0%, transparent 25%),
+      linear-gradient(var(--gradient-angle), #5E2088 0%, #2A1C6A 20%, #142548 42%, #0C4058 65%, #1088B8 100%);
+    animation:
+      driftPurpleX 11s ease-in-out infinite,
+      driftPurpleY 14s ease-in-out infinite,
+      driftCyanX 17s ease-in-out infinite,
+      driftCyanY 19s ease-in-out infinite,
+      driftAngle 23s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-swoosh,
+  .brand-gradient-animated {
+    animation: none;
+  }
+}

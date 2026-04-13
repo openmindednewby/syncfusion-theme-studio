@@ -1,0 +1,3020 @@
+/*
+ * Syncfusion Component Overrides
+ *
+ * This layer contains CSS variable overrides for Syncfusion components
+ * to integrate them with our theme system.
+ *
+ * Priority: syncfusion-overrides > syncfusion-base
+ *
+ * All component styles use CSS variables that are injected by themeInjector.ts
+ * based on the current mode (light/dark). This enables automatic theme switching.
+ */
+
+@layer syncfusion-overrides {
+  /* ===== GLOBAL SYNCFUSION OVERRIDES ===== */
+
+  /* Apply theme font-family to all Syncfusion components */
+  /* Note: !important is required to override Syncfusion's hardcoded font-family */
+  /* CRITICAL: .e-icons must be excluded — it uses the 'e-icons' icon font for glyphs */
+  .e-control,
+  .e-lib,
+  .e-popup,
+  .e-dialog,
+  .e-grid,
+  .e-input,
+  .e-btn,
+  .e-checkbox-wrapper,
+  .e-radio-wrapper,
+  .e-switch-wrapper,
+  .e-dropdown-popup,
+  [class^='e-']:not(.e-icons),
+  [class*=' e-']:not(.e-icons) {
+    font-family: var(--font-sans) !important;
+  }
+
+  /* Preserve Syncfusion icon font — the 'e-icons' class uses a custom @font-face */
+  /* that maps Unicode code points to vector glyphs (chevrons, checks, arrows, etc.) */
+  .e-icons {
+    font-family: 'e-icons' !important;
+    color: inherit;
+  }
+
+  /* Global: hide Syncfusion popups in their closed state.
+     Syncfusion normally hides these via JS, but when they render
+     inside the document flow (e.g. grid edit/delete confirm dialogs,
+     column chooser), they can be visible without this rule. */
+  .e-popup-close:not(.e-popup-open):not(.e-ddl):not(.e-dropdown-popup):not(.e-grid-menu) {
+    display: none !important;
+  }
+
+  /* Column chooser dialog: Syncfusion renders .e-ccdlg inside the grid with
+     position: static, which causes its inline top/left to be ignored and the
+     dialog to render in document flow far from the toolbar button.
+     This rule ensures the dialog uses absolute positioning relative to the
+     grid (which has position: relative) as a CSS safety net; the JS
+     repositionColumnChooserPopup() function recalculates the exact offsets. */
+  .e-ccdlg.e-popup-open {
+    position: absolute !important;
+  }
+
+  /* Global: ensure all Syncfusion icon containers are transparent */
+  .e-input-group-icon {
+    background-color: transparent !important;
+    border-left: none !important;
+  }
+
+  /* ===== BUTTON OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  .e-btn.e-primary,
+  .e-css.e-btn.e-primary {
+    background-color: var(--component-button-primary-bg) !important;
+    border-color: var(--component-button-primary-bg) !important;
+    color: var(--component-button-primary-text) !important;
+  }
+
+  .e-btn.e-primary:hover:not(:disabled),
+  .e-css.e-btn.e-primary:hover:not(:disabled) {
+    background-color: var(--component-button-primary-bg-hover) !important;
+    border-color: var(--component-button-primary-bg-hover) !important;
+  }
+
+  .e-btn.e-primary:focus,
+  .e-css.e-btn.e-primary:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px var(--component-button-primary-bg) !important;
+  }
+
+  .e-btn.e-primary:active,
+  .e-css.e-btn.e-primary:active {
+    background-color: var(--component-button-primary-bg-hover) !important;
+    border-color: var(--component-button-primary-bg-hover) !important;
+  }
+
+  .e-btn.e-secondary,
+  .e-css.e-btn.e-secondary {
+    background-color: var(--component-button-secondary-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: var(--component-button-secondary-text) !important;
+  }
+
+  .e-btn.e-secondary:hover:not(:disabled),
+  .e-css.e-btn.e-secondary:hover:not(:disabled) {
+    background-color: var(--component-button-secondary-bg-hover) !important;
+  }
+
+  .e-btn.e-outline,
+  .e-css.e-btn.e-outline {
+    background-color: transparent !important;
+    border-color: var(--component-button-outline-border) !important;
+    color: var(--component-button-outline-text) !important;
+  }
+
+  .e-btn.e-outline:hover:not(:disabled),
+  .e-css.e-btn.e-outline:hover:not(:disabled) {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-btn.e-flat,
+  .e-css.e-btn.e-flat {
+    background-color: transparent !important;
+    border-color: transparent !important;
+    color: var(--component-button-ghost-text) !important;
+  }
+
+  .e-btn.e-flat:hover:not(:disabled),
+  .e-css.e-btn.e-flat:hover:not(:disabled) {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-btn.e-danger,
+  .e-css.e-btn.e-danger {
+    background-color: var(--component-button-danger-bg) !important;
+    border-color: var(--component-button-danger-bg) !important;
+    color: var(--component-button-danger-text) !important;
+  }
+
+  .e-btn.e-danger:hover:not(:disabled),
+  .e-css.e-btn.e-danger:hover:not(:disabled) {
+    background-color: rgb(var(--color-error-700)) !important;
+    border-color: rgb(var(--color-error-700)) !important;
+  }
+
+  .e-btn.e-danger:focus,
+  .e-css.e-btn.e-danger:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-error-500)) !important;
+  }
+
+  /* Success button */
+  .e-btn.e-success,
+  .e-css.e-btn.e-success {
+    background-color: rgb(var(--color-success-500)) !important;
+    border-color: rgb(var(--color-success-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-btn.e-success:hover:not(:disabled),
+  .e-css.e-btn.e-success:hover:not(:disabled) {
+    background-color: rgb(var(--color-success-700)) !important;
+    border-color: rgb(var(--color-success-700)) !important;
+  }
+
+  .e-btn.e-success:focus,
+  .e-css.e-btn.e-success:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-success-500)) !important;
+  }
+
+  /* Warning button */
+  .e-btn.e-warning,
+  .e-css.e-btn.e-warning {
+    background-color: rgb(var(--color-warning-500)) !important;
+    border-color: rgb(var(--color-warning-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-btn.e-warning:hover:not(:disabled),
+  .e-css.e-btn.e-warning:hover:not(:disabled) {
+    background-color: rgb(var(--color-warning-700)) !important;
+    border-color: rgb(var(--color-warning-700)) !important;
+  }
+
+  .e-btn.e-warning:focus,
+  .e-css.e-btn.e-warning:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-warning-500)) !important;
+  }
+
+  /* Info button */
+  .e-btn.e-info,
+  .e-css.e-btn.e-info {
+    background-color: rgb(var(--color-info-500)) !important;
+    border-color: rgb(var(--color-info-500)) !important;
+    color: #fff !important;
+  }
+
+  .e-btn.e-info:hover:not(:disabled),
+  .e-css.e-btn.e-info:hover:not(:disabled) {
+    background-color: rgb(var(--color-info-700)) !important;
+    border-color: rgb(var(--color-info-700)) !important;
+  }
+
+  .e-btn.e-info:focus,
+  .e-css.e-btn.e-info:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-info-500)) !important;
+  }
+
+  /* ===== CHECKBOX OVERRIDES ===== */
+  /* Uses shared --component-checkbox-* CSS variables from CheckboxConfig */
+  .e-checkbox-wrapper .e-frame,
+  .e-css.e-checkbox-wrapper .e-frame {
+    background-color: var(--component-checkbox-unchecked-bg, transparent) !important;
+    border-color: var(--component-checkbox-unchecked-border, rgb(var(--color-border))) !important;
+    border-width: var(--component-checkbox-border-width, 2px) !important;
+    border-radius: var(--component-checkbox-border-radius, 4px) !important;
+    width: var(--component-checkbox-size, 18px) !important;
+    height: var(--component-checkbox-size, 18px) !important;
+    line-height: var(--component-checkbox-size, 18px) !important;
+  }
+
+  .e-checkbox-wrapper .e-frame.e-check,
+  .e-css.e-checkbox-wrapper .e-frame.e-check {
+    background-color: var(--component-checkbox-checked-bg, rgb(var(--color-primary-500))) !important;
+    border-color: var(--component-checkbox-checked-border, rgb(var(--color-primary-500))) !important;
+    color: var(--component-checkbox-checkmark, #fff) !important;
+  }
+
+  .e-checkbox-wrapper .e-frame.e-stop,
+  .e-css.e-checkbox-wrapper .e-frame.e-stop {
+    background-color: var(--component-checkbox-indeterminate-bg, rgb(var(--color-primary-500))) !important;
+    border-color: var(--component-checkbox-indeterminate-bg, rgb(var(--color-primary-500))) !important;
+    color: var(--component-checkbox-checkmark, #fff) !important;
+  }
+
+  .e-checkbox-wrapper:hover .e-frame:not(.e-check):not(.e-stop),
+  .e-css.e-checkbox-wrapper:hover .e-frame:not(.e-check):not(.e-stop) {
+    border-color: var(--component-checkbox-hover-border, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-checkbox-wrapper:hover .e-frame.e-check,
+  .e-css.e-checkbox-wrapper:hover .e-frame.e-check {
+    background-color: var(--component-checkbox-checked-bg, rgb(var(--color-primary-500))) !important;
+    border-color: var(--component-checkbox-checked-border, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-checkbox-wrapper:hover .e-frame.e-stop,
+  .e-css.e-checkbox-wrapper:hover .e-frame.e-stop {
+    background-color: var(--component-checkbox-indeterminate-bg, rgb(var(--color-primary-500))) !important;
+    border-color: var(--component-checkbox-indeterminate-bg, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-checkbox-wrapper .e-checkbox:focus + .e-frame,
+  .e-css.e-checkbox-wrapper .e-checkbox:focus + .e-frame {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px var(--component-checkbox-focus-ring, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-checkbox-wrapper .e-checkbox:focus + .e-frame.e-check,
+  .e-css.e-checkbox-wrapper .e-checkbox:focus + .e-frame.e-check {
+    background-color: var(--component-checkbox-checked-bg, rgb(var(--color-primary-500))) !important;
+    border-color: var(--component-checkbox-checked-border, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-checkbox-wrapper .e-label,
+  .e-css.e-checkbox-wrapper .e-label {
+    color: var(--component-checkbox-label-color, rgb(var(--color-text-primary))) !important;
+  }
+
+  .e-checkbox-wrapper.e-checkbox-disabled,
+  .e-css.e-checkbox-wrapper.e-checkbox-disabled {
+    opacity: var(--component-checkbox-disabled-opacity, 0.5) !important;
+  }
+
+  .e-checkbox-wrapper.e-checkbox-disabled .e-frame.e-check,
+  .e-css.e-checkbox-wrapper.e-checkbox-disabled .e-frame.e-check {
+    background-color: var(--component-checkbox-checked-bg, rgb(var(--color-primary-500))) !important;
+    border-color: var(--component-checkbox-checked-border, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-checkbox-wrapper.e-checkbox-disabled .e-label,
+  .e-css.e-checkbox-wrapper.e-checkbox-disabled .e-label {
+    color: var(--component-checkbox-label-disabled, rgb(var(--color-text-secondary))) !important;
+  }
+
+  /* ===== RADIO BUTTON OVERRIDES ===== */
+  /* Uses shared --component-radio-* CSS variables from RadioConfig */
+  .e-radio-wrapper .e-radio + label::before,
+  .e-css.e-radio-wrapper .e-radio + label::before {
+    border-color: var(--component-radio-unchecked-border, rgb(var(--color-border))) !important;
+    background-color: var(--component-radio-unchecked-bg, transparent) !important;
+    border-width: var(--component-radio-border-width, 2px) !important;
+    width: var(--component-radio-size, 20px) !important;
+    height: var(--component-radio-size, 20px) !important;
+  }
+
+  .e-radio-wrapper .e-radio:checked + label::before,
+  .e-css.e-radio-wrapper .e-radio:checked + label::before {
+    border-color: var(--component-radio-selected-border, rgb(var(--color-primary-500))) !important;
+    background-color: var(--component-radio-selected-bg, transparent) !important;
+  }
+
+  .e-radio-wrapper .e-radio:checked + label::after,
+  .e-css.e-radio-wrapper .e-radio:checked + label::after {
+    background-color: var(--component-radio-dot, rgb(var(--color-primary-500))) !important;
+    width: var(--component-radio-dot-size, 10px) !important;
+    height: var(--component-radio-dot-size, 10px) !important;
+  }
+
+  .e-radio-wrapper:hover .e-radio:not(:checked) + label::before,
+  .e-css.e-radio-wrapper:hover .e-radio:not(:checked) + label::before {
+    border-color: var(--component-radio-hover-border, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-radio-wrapper .e-radio:focus + label::before,
+  .e-css.e-radio-wrapper .e-radio:focus + label::before {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px var(--component-radio-focus-ring, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-radio-wrapper .e-label,
+  .e-css.e-radio-wrapper .e-label {
+    color: var(--component-radio-label-color, rgb(var(--color-text-primary))) !important;
+  }
+
+  .e-radio-wrapper.e-disabled,
+  .e-css.e-radio-wrapper.e-disabled {
+    opacity: var(--component-radio-disabled-opacity, 0.5) !important;
+  }
+
+  .e-radio-wrapper.e-disabled .e-radio:checked + label::after,
+  .e-css.e-radio-wrapper.e-disabled .e-radio:checked + label::after {
+    background-color: var(--component-radio-dot, rgb(var(--color-primary-500))) !important;
+  }
+
+  .e-radio-wrapper.e-disabled .e-label,
+  .e-css.e-radio-wrapper.e-disabled .e-label {
+    color: var(--component-radio-label-disabled, rgb(var(--color-text-secondary))) !important;
+  }
+
+  /* ===== SWITCH OVERRIDES ===== */
+  /* Uses theme CSS variables for switch colors */
+  .e-switch-wrapper .e-switch-inner,
+  .e-css.e-switch-wrapper .e-switch-inner {
+    background-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-switch-wrapper .e-switch-on,
+  .e-css.e-switch-wrapper .e-switch-on {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-switch-wrapper .e-switch-handle,
+  .e-css.e-switch-wrapper .e-switch-handle {
+    background-color: #fff !important;
+  }
+
+  .e-switch-wrapper:hover .e-switch-on,
+  .e-css.e-switch-wrapper:hover .e-switch-on {
+    background-color: rgb(var(--color-primary-600)) !important;
+  }
+
+  .e-switch-wrapper .e-switch:focus + .e-switch-inner,
+  .e-css.e-switch-wrapper .e-switch:focus + .e-switch-inner {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-switch-wrapper.e-switch-disabled .e-switch-on,
+  .e-css.e-switch-wrapper.e-switch-disabled .e-switch-on {
+    background-color: rgb(var(--color-primary-300)) !important;
+  }
+
+  /* ===== CHIP OVERRIDES ===== */
+  /* Base chip styling using component CSS variables */
+  .e-chip,
+  .e-chip-list .e-chip {
+    background-color: var(--component-chip-bg) !important;
+    color: var(--component-chip-text) !important;
+    border-color: var(--component-chip-border) !important;
+    border-radius: var(--component-chip-border-radius) !important;
+    border: 1px solid var(--component-chip-border) !important;
+    font-family: 'Fira Sans', sans-serif !important;
+    font-size: 10px !important;
+    font-weight: 400 !important;
+    line-height: 12px !important;
+    padding: 4px 10px !important;
+    transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease !important;
+  }
+
+  .e-chip:hover,
+  .e-chip-list .e-chip:hover {
+    background-color: var(--component-chip-hover-bg) !important;
+    color: var(--component-chip-hover-text) !important;
+  }
+
+  /* Colored variants using theme variables */
+  .e-chip.e-primary,
+  .e-chip-list .e-chip.e-primary {
+    background-color: var(--component-chip-primary-bg) !important;
+    border-color: var(--component-chip-primary-border) !important;
+    color: var(--component-chip-primary-text) !important;
+  }
+
+  .e-chip.e-success,
+  .e-chip-list .e-chip.e-success {
+    background-color: var(--component-chip-success-bg) !important;
+    border-color: var(--component-chip-success-border) !important;
+    color: var(--component-chip-success-text) !important;
+  }
+
+  .e-chip.e-warning,
+  .e-chip-list .e-chip.e-warning {
+    background-color: var(--component-chip-warning-bg) !important;
+    border-color: var(--component-chip-warning-border) !important;
+    color: var(--component-chip-warning-text) !important;
+  }
+
+  .e-chip.e-danger,
+  .e-chip-list .e-chip.e-danger {
+    background-color: var(--component-chip-danger-bg) !important;
+    border-color: var(--component-chip-danger-border) !important;
+    color: var(--component-chip-danger-text) !important;
+  }
+
+  /* ===== INPUT OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  /* Selector: Syncfusion renders TextBox as <span class="e-input-group e-control-wrapper"> */
+  /* The e-textbox class is on the inner <input>, NOT the wrapper span */
+  /* Exclude dropdowns (.e-ddl), multiselects (.e-multiselect), and datepickers (.e-date-wrapper) which have their own overrides */
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper) {
+    background-color: var(--component-input-background) !important;
+    border-color: var(--component-input-border-default) !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper):hover:not(.e-disabled) {
+    border-color: var(--component-input-border-hover) !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-input-focus {
+    border-color: var(--component-input-border-focus) !important;
+    box-shadow: 0 0 0 3px var(--component-input-focus-ring) !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper) .e-input {
+    color: var(--component-input-text-color) !important;
+    background-color: transparent !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper) .e-input::placeholder {
+    color: var(--component-input-placeholder) !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-disabled {
+    opacity: 0.5 !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-error {
+    border-color: var(--component-input-border-error) !important;
+  }
+
+  .e-input-group.e-control-wrapper:not(.e-ddl):not(.e-multiselect):not(.e-date-wrapper).e-error.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
+  }
+
+  /* ===== DROPDOWN/SELECT OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  /* Covers: DropDownList (.e-ddl), ComboBox (.e-ddl), AutoComplete (.e-ddl), MultiSelect (.e-multiselect) */
+
+  /* Hidden native <select> used by Syncfusion for form submission compatibility.
+     The Syncfusion base CSS rule for this is stripped during build (CSS tree-shaking),
+     so we must replicate it here to prevent the native select from appearing visually. */
+  .e-ddl .e-ddl-hidden {
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    border: 0 !important;
+    height: 0 !important;
+    padding: 0 !important;
+    visibility: hidden !important;
+    width: 0 !important;
+    position: absolute !important;
+    overflow: hidden !important;
+  }
+
+  /* --- Input wrapper: DropDownList / ComboBox / AutoComplete --- */
+  .e-ddl.e-control-wrapper {
+    background-color: var(--component-select-background) !important;
+    border-color: var(--component-select-border-default) !important;
+    border-radius: var(--component-select-border-radius) !important;
+    transition: border-color var(--component-select-transition) ease, box-shadow var(--component-select-transition) ease !important;
+  }
+
+  .e-ddl.e-control-wrapper:hover:not(.e-disabled) {
+    border-color: var(--component-select-border-hover) !important;
+  }
+
+  .e-ddl.e-control-wrapper.e-input-focus {
+    border-color: var(--component-select-border-focus) !important;
+    box-shadow: 0 0 0 var(--component-select-focus-ring-width) var(--component-select-focus-ring) !important;
+  }
+
+  .e-ddl.e-control-wrapper .e-input {
+    color: var(--component-select-text-color) !important;
+    background-color: transparent !important;
+  }
+
+  .e-ddl.e-control-wrapper .e-input::placeholder {
+    color: var(--component-select-placeholder-color) !important;
+  }
+
+  .e-ddl.e-control-wrapper .e-input-group-icon {
+    color: var(--component-select-icon-color) !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  /* Ensure Syncfusion dropdown glyph icons always use the icon font. */
+  .e-input-group-icon.e-ddl-icon::before,
+  .e-input-group-icon.e-search-icon:not(.e-input-group.e-search .e-input-group-icon)::before,
+  .e-input-group-icon.e-filter-icon::before {
+    content: "\e729" !important;
+    font-family: 'e-icons' !important;
+    font-size: 11px !important;
+  }
+
+  .e-ddl.e-control-wrapper.e-disabled {
+    opacity: var(--component-select-disabled-opacity) !important;
+  }
+
+  .e-ddl.e-control-wrapper.e-error {
+    border-color: var(--component-select-border-error) !important;
+  }
+
+  /* --- Input wrapper: MultiSelect --- */
+  .e-multiselect.e-control-wrapper {
+    background-color: var(--component-select-background) !important;
+    border-color: var(--component-select-border-default) !important;
+    border-radius: var(--component-select-border-radius) !important;
+    transition: border-color var(--component-select-transition) ease, box-shadow var(--component-select-transition) ease !important;
+  }
+
+  .e-multiselect.e-control-wrapper:hover:not(.e-disabled) {
+    border-color: var(--component-select-border-hover) !important;
+  }
+
+  .e-multiselect.e-control-wrapper.e-input-focus {
+    border-color: var(--component-select-border-focus) !important;
+    box-shadow: 0 0 0 var(--component-select-focus-ring-width) var(--component-select-focus-ring) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-multi-select-wrapper {
+    background-color: transparent !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-input {
+    color: var(--component-select-text-color) !important;
+    background-color: transparent !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-input::placeholder {
+    color: var(--component-select-placeholder-color) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-input-group-icon {
+    color: var(--component-select-icon-color) !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-chips .e-chipcontent {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-chips {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper .e-chips .e-chips-close::before {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-multiselect.e-control-wrapper.e-disabled {
+    opacity: var(--component-select-disabled-opacity) !important;
+  }
+
+  .e-multiselect.e-control-wrapper.e-error {
+    border-color: var(--component-select-border-error) !important;
+  }
+
+  /* --- Dropdown popup: all types --- */
+  /* DropDownList, ComboBox, AutoComplete all use .e-ddl on their popup */
+  /* MultiSelect uses .e-multiselect-list-wrapper or .e-popup with .e-multiselect */
+  .e-popup.e-ddl,
+  .e-popup.e-popup-open .e-dropdownbase,
+  .e-popup.e-multiselect {
+    background-color: var(--component-select-popup-bg) !important;
+    border-color: var(--component-select-popup-border) !important;
+    border-radius: var(--component-select-popup-border-radius) !important;
+    box-shadow: var(--component-select-popup-shadow) !important;
+    max-height: var(--component-select-popup-max-height) !important;
+  }
+
+  /* Popup content area background for all dropdown types */
+  .e-popup.e-ddl .e-content,
+  .e-popup.e-multiselect .e-content,
+  .e-dropdownbase .e-content {
+    background-color: var(--component-select-popup-bg) !important;
+    padding: 4px 0 !important;
+  }
+
+  /* List items in all dropdown popups */
+  .e-popup.e-ddl .e-list-item,
+  .e-popup.e-multiselect .e-list-item,
+  .e-dropdownbase .e-list-item {
+    color: var(--component-select-item-text) !important;
+    background-color: transparent !important;
+    padding: var(--component-select-item-padding) !important;
+    border-radius: var(--radius-sm) !important;
+    margin: 2px 4px !important;
+    transition: background-color var(--component-select-transition) ease, color var(--component-select-transition) ease !important;
+    font-size: var(--component-select-item-font-size) !important;
+  }
+
+  /* Hover state for list items */
+  .e-popup.e-ddl .e-list-item.e-hover,
+  .e-popup.e-ddl .e-list-item:hover,
+  .e-popup.e-multiselect .e-list-item.e-hover,
+  .e-popup.e-multiselect .e-list-item:hover,
+  .e-dropdownbase .e-list-item.e-hover,
+  .e-dropdownbase .e-list-item:hover {
+    background-color: var(--component-select-item-hover) !important;
+    color: var(--component-select-item-text) !important;
+  }
+
+  /* Active / selected state */
+  .e-popup.e-ddl .e-list-item.e-active,
+  .e-popup.e-ddl .e-list-item.e-item-focus,
+  .e-popup.e-multiselect .e-list-item.e-active,
+  .e-popup.e-multiselect .e-list-item.e-item-focus,
+  .e-dropdownbase .e-list-item.e-active,
+  .e-dropdownbase .e-list-item.e-item-focus {
+    background-color: var(--component-select-item-selected-bg) !important;
+    color: var(--component-select-item-selected-text) !important;
+    font-weight: 500 !important;
+  }
+
+  /* Filter input inside ComboBox / AutoComplete popups */
+  .e-popup.e-ddl .e-input-filter,
+  .e-popup.e-multiselect .e-input-filter,
+  .e-popup .e-filter-parent {
+    background-color: var(--component-select-search-bg) !important;
+    border-color: var(--component-select-search-border) !important;
+  }
+
+  .e-popup.e-ddl .e-input-filter input,
+  .e-popup.e-multiselect .e-input-filter input,
+  .e-popup .e-filter-parent input {
+    color: var(--component-select-item-text) !important;
+    background-color: transparent !important;
+  }
+
+  /* No records / no data message in popups */
+  .e-popup.e-ddl .e-list-nrt,
+  .e-popup.e-multiselect .e-list-nrt,
+  .e-dropdownbase .e-list-nrt {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* Popup scrollbar theming for dark mode */
+  .e-popup.e-ddl .e-content::-webkit-scrollbar-track,
+  .e-popup.e-multiselect .e-content::-webkit-scrollbar-track {
+    background: var(--component-select-popup-bg);
+  }
+
+  .e-popup.e-ddl .e-content::-webkit-scrollbar-thumb,
+  .e-popup.e-multiselect .e-content::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border));
+    border-radius: var(--radius-full);
+  }
+
+  /* ===== GRID OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  .e-grid {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    border-radius: var(--radius-lg) !important;
+  }
+
+  /* Clip content at rounded corners on inner containers only.
+     overflow:hidden on .e-grid itself blocks column-menu / filter popups
+     that Syncfusion renders inside the grid DOM. */
+  .e-grid > .e-gridheader {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+    overflow: hidden;
+  }
+
+  .e-grid > .e-pager {
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg) !important;
+    overflow: visible;
+  }
+
+  .e-grid .e-gridheader {
+    background-color: var(--component-datagrid-header-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-grid .e-headercell,
+  .e-grid .e-detailheadercell,
+  .e-grid .e-headercell .e-headertext,
+  .e-grid .e-headercell .e-headercelldiv {
+    background-color: var(--component-datagrid-header-bg) !important;
+    color: var(--component-datagrid-header-text) !important;
+    font-weight: var(--component-datagrid-header-font-weight) !important;
+    text-transform: var(--component-datagrid-header-transform) !important;
+    font-size: var(--component-datagrid-header-font-size) !important;
+    letter-spacing: var(--component-datagrid-header-letter-spacing) !important;
+    text-align: var(--component-datagrid-header-text-align) !important;
+    vertical-align: var(--component-datagrid-header-vertical-align) !important;
+  }
+
+  /* Add vertical dividers to header cells like Figma */
+  .e-grid .e-headercell:not(:last-child) {
+    border-right: 1px solid var(--component-datagrid-header-border) !important;
+  }
+
+  /* Apply padding only to non-selection cells to avoid pushing the checkbox */
+  .e-grid .e-headercell:not(.e-selectioncolumn):not(:has(.e-headerchkcelldiv)),
+  .e-grid .e-detailheadercell:not(.e-selectioncolumn):not(:has(.e-headerchkcelldiv)) {
+    padding: var(--component-datagrid-header-text-padding) !important;
+  }
+
+  /* Center checkbox in selection column - absolute clear padding for perfect alignment */
+  .e-grid .e-headercell.e-selectioncolumn,
+  .e-grid .e-headercell:has(.e-headerchkcelldiv),
+  .e-grid .e-rowcell.e-selectioncolumn,
+  .e-grid .e-rowcell.e-gridchkbox,
+  .e-grid .e-headercell.e-selectioncolumn .e-headercelldiv,
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-headercelldiv,
+  .e-grid .e-rowcell.e-selectioncolumn .e-rowcelldiv {
+    padding: 0 !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* Center the header checkbox: hide the column-menu icon that steals flex space */
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-headercell-container {
+    justify-content: center !important;
+  }
+
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-columnmenu,
+  .e-grid .e-headercell:has(.e-headerchkcelldiv) .e-sortfilterdiv {
+    display: none !important;
+  }
+
+  /* Syncfusion's inner header div uses flexbox — text-align on the parent
+     .e-headercell has no effect on flex children.  Mirror the configured
+     alignment with justify-content so headers actually center / align.
+     text-align is set as a fallback for non-flex rendering modes. */
+  .e-grid .e-headercell:not(.e-selectioncolumn) .e-headercelldiv,
+  .e-grid .e-detailheadercell:not(.e-selectioncolumn) .e-headercelldiv {
+    text-align: var(--component-datagrid-header-text-align) !important;
+    justify-content: var(--component-datagrid-header-text-align) !important;
+  }
+
+  .e-grid .e-rowcell {
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: var(--component-datagrid-cell-border) !important;
+    text-align: var(--component-datagrid-default-text-align) !important;
+    vertical-align: var(--component-datagrid-default-vertical-align) !important;
+    padding: var(--component-datagrid-cell-padding) !important;
+    line-height: 1.25 !important;
+  }
+
+  .e-grid .e-row {
+    height: var(--component-datagrid-row-height) !important;
+  }
+
+  .e-grid .e-row:hover .e-rowcell {
+    background-color: var(--component-datagrid-row-hover) !important;
+  }
+
+  .e-grid .e-row.e-altrow .e-rowcell {
+    background-color: var(--component-datagrid-row-odd) !important;
+  }
+
+  .e-grid .e-row:not(.e-altrow) .e-rowcell {
+    background-color: var(--component-datagrid-row-even) !important;
+  }
+
+  .e-grid .e-row.e-selectionbackground .e-rowcell {
+    background-color: var(--component-datagrid-row-selected) !important;
+  }
+
+  /* Grid table elements — strip Syncfusion's default white background
+     so the themed container backgrounds (header-bg / row-even) show through */
+  .e-grid .e-gridheader table,
+  .e-grid .e-gridcontent table {
+    background-color: transparent !important;
+  }
+
+  /* Grid content area — must match row-even so the gap below
+     short pages (when table height < container height) is themed */
+  .e-grid .e-gridcontent,
+  .e-grid .e-gridcontent .e-content {
+    background-color: var(--component-datagrid-row-even) !important;
+  }
+
+  /* ===== GRID GROUPING DROP AREA + CHIPS ===== */
+  .e-grid .e-groupdroparea {
+    background-color: var(--component-datagrid-group-drop-bg) !important;
+    color: var(--component-datagrid-group-drop-text) !important;
+    border-color: var(--component-datagrid-group-drop-border) !important;
+  }
+
+  /* Group header cell chip (e.g. "Department ↑ ×") — Syncfusion uses
+     .e-groupheadercell, NOT .e-chip, inside the drop area */
+  .e-grid .e-groupdroparea .e-groupheadercell {
+    background-color: var(--component-datagrid-group-chip-bg) !important;
+    color: var(--component-datagrid-group-chip-text) !important;
+    border-color: var(--component-datagrid-group-chip-bg) !important;
+  }
+
+  .e-grid .e-groupdroparea .e-groupheadercell .e-grouptext {
+    color: var(--component-datagrid-group-chip-text) !important;
+  }
+
+  .e-grid .e-groupdroparea .e-groupheadercell .e-groupsort,
+  .e-grid .e-groupdroparea .e-groupheadercell .e-ungroupbutton {
+    color: var(--component-datagrid-group-chip-text) !important;
+  }
+
+  /* Group caption rows (e.g. "Department: Analytics - 2 items") */
+  .e-grid .e-groupcaptionrow td,
+  .e-grid .e-groupcaptionrow .e-groupcaption,
+  .e-grid .e-groupcaptionrow .e-recordplusexpand {
+    background-color: var(--component-datagrid-group-header-bg) !important;
+    color: var(--component-datagrid-group-header-text) !important;
+    border-color: var(--component-datagrid-group-header-bg) !important;
+  }
+
+  /* Indent spacer cells for grouped rows + header top-left corner cell */
+  .e-grid .e-indentcell,
+  .e-grid .e-grouptopleftcell {
+    background-color: var(--component-datagrid-group-header-bg) !important;
+    border-color: var(--component-datagrid-group-header-bg) !important;
+  }
+
+  /* Group expand/collapse icon color */
+  .e-grid .e-groupcaptionrow .e-recordplusexpand .e-icons {
+    color: var(--component-datagrid-group-header-text) !important;
+  }
+
+  /* ===== GRID FOOTER / AGGREGATE ROW OVERRIDES ===== */
+  /* Applies themed footer colors to Syncfusion summary/aggregate rows.
+     Without these overrides, Syncfusion's tailwind.css hardcodes #f9fafb
+     (light-mode white) on .e-gridfooter / .e-summaryrow / .e-summarycell,
+     which stays white even when the app is in dark mode.
+     See: node_modules/@syncfusion/ej2-grids/styles/grid/tailwind.css ~L3662
+     CSS vars: --component-datagrid-footer-bg, --component-datagrid-footer-text
+     Injected by: dataGridInjector.ts via dataGridVarMap.ts */
+
+  .e-grid .e-gridfooter,
+  .e-grid .e-gridfooter .e-leftfreeze,
+  .e-grid .e-gridfooter .e-rightfreeze,
+  .e-grid .e-gridfooter .e-fixedfreeze {
+    background-color: var(--component-datagrid-footer-bg) !important;
+  }
+
+  .e-grid .e-summaryrow .e-summarycell,
+  .e-grid .e-summaryrow .e-templatecell,
+  .e-grid .e-summarycontent .e-indentcell,
+  .e-grid .e-summarycontent {
+    background-color: var(--component-datagrid-footer-bg) !important;
+    color: var(--component-datagrid-footer-text) !important;
+    border-color: var(--component-datagrid-cell-border) !important;
+  }
+
+  .e-grid .e-summarycell {
+    color: var(--component-datagrid-footer-text) !important;
+    font-size: var(--component-datagrid-footer-font-size) !important;
+    font-weight: var(--component-datagrid-footer-font-weight) !important;
+    padding: var(--component-datagrid-footer-padding) !important;
+  }
+
+  .e-grid .e-gridfooter {
+    border-top-width: var(--component-datagrid-footer-border-width) !important;
+    border-top-style: solid !important;
+  }
+
+  /* ===== GRID PAGER OVERRIDES ===== */
+  /* Uses component-specific CSS variables from dataGridInjector.ts */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+
+  /* Main pager container */
+  .e-grid .e-pager {
+    background-color: var(--component-datagrid-pagination-bg) !important;
+    border-color: var(--component-datagrid-pagination-border) !important;
+    color: var(--component-datagrid-pagination-text) !important;
+    display: grid !important;
+    grid-template-columns: max-content max-content minmax(0, 1fr) !important;
+    align-items: center !important;
+    padding: 10px 16px !important;
+    column-gap: 12px !important;
+    row-gap: 0 !important;
+    border-top: 1px solid var(--component-datagrid-pagination-border) !important;
+  }
+
+  /* Numeric button group wrapper - Align to LEFT */
+  .e-grid .e-pager .e-pagercontainer {
+    background-color: var(--component-datagrid-pagination-bg) !important;
+    border: 1px solid var(--component-datagrid-pager-container-border, var(--component-datagrid-pagination-border)) !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    justify-content: flex-start !important;
+    float: none !important;
+    margin: 0 !important;
+    width: auto !important;
+    min-width: max-content !important;
+    flex: 0 1 auto !important;
+    overflow: visible !important;
+    order: 1 !important;
+  }
+
+  /* Numeric container */
+  .e-grid .e-pager .e-numericcontainer {
+    display: flex !important;
+    align-items: center !important;
+    gap: 2px !important;
+  }
+
+  /* Individual page number buttons */
+  .e-grid .e-pager .e-numericitem {
+    color: var(--component-datagrid-pagination-text) !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    min-width: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    line-height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 6px !important;
+    cursor: pointer !important;
+    transition: background-color 150ms ease, color 150ms ease !important;
+    font-size: var(--font-size-sm) !important;
+    font-weight: 500 !important;
+  }
+
+  /* Hover state for page buttons */
+  .e-grid .e-pager .e-numericitem:hover:not(.e-currentitem) {
+    background-color: var(--component-datagrid-pagination-hover-bg) !important;
+  }
+
+  /* Active / current page button */
+  .e-grid .e-pager .e-numericitem.e-currentitem {
+    background-color: var(--component-datagrid-pagination-active-bg) !important;
+    color: var(--component-datagrid-pagination-active-text) !important;
+    border-color: var(--component-datagrid-pagination-active-bg) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Navigation arrow buttons (first, prev, next, last) */
+  .e-grid .e-pager .e-first,
+  .e-grid .e-pager .e-prev,
+  .e-grid .e-pager .e-next,
+  .e-grid .e-pager .e-last {
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    min-width: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    transition: background-color 150ms ease !important;
+  }
+
+  .e-grid .e-pager .e-first:hover,
+  .e-grid .e-pager .e-prev:hover,
+  .e-grid .e-pager .e-next:hover,
+  .e-grid .e-pager .e-last:hover {
+    background-color: var(--component-datagrid-pagination-hover-bg) !important;
+  }
+
+  /* Navigation icon glyphs - active state */
+  .e-grid .e-pager .e-icon-first,
+  .e-grid .e-pager .e-icon-prev,
+  .e-grid .e-pager .e-icon-next,
+  .e-grid .e-pager .e-icon-last,
+  .e-grid .e-pager .e-firstpage,
+  .e-grid .e-pager .e-prevpage,
+  .e-grid .e-pager .e-nextpage,
+  .e-grid .e-pager .e-lastpage {
+    color: var(--component-datagrid-pagination-nav-color) !important;
+  }
+
+  /* Navigation icon glyph content - restore e-icons font content values
+     that get overridden to "" by higher-specificity grid CSS selectors */
+  .e-grid .e-pager .e-icon-first::before {
+    content: "\e744" !important;
+  }
+
+  .e-grid .e-pager .e-icon-prev::before {
+    content: "\e765" !important;
+  }
+
+  .e-grid .e-pager .e-icon-next::before {
+    content: "\e748" !important;
+  }
+
+  .e-grid .e-pager .e-icon-last::before {
+    content: "\e7a9" !important;
+  }
+
+  /* Restore pager dropdown icon glyph - match Figma chevron */
+  .e-grid .e-pager .e-pagerdropdown .e-input-group-icon::before {
+    content: "\e729" !important;
+    font-family: 'e-icons' !important;
+    font-size: 11px !important;
+    opacity: 0.8;
+  }
+
+  /* Ensure nav icon elements are visible */
+  .e-grid .e-pager .e-first .e-icons,
+  .e-grid .e-pager .e-prev .e-icons,
+  .e-grid .e-pager .e-next .e-icons,
+  .e-grid .e-pager .e-last .e-icons {
+    display: inline-block !important;
+    font-family: 'e-icons' !important;
+    font-size: 14px !important;
+  }
+
+  /* Navigation icon glyphs - disabled state */
+  .e-grid .e-pager .e-firstpagedisabled,
+  .e-grid .e-pager .e-prevpagedisabled,
+  .e-grid .e-pager .e-nextpagedisabled,
+  .e-grid .e-pager .e-lastpagedisabled {
+    color: var(--component-datagrid-pagination-nav-disabled) !important;
+    cursor: default !important;
+  }
+
+  /* Disabled nav button container - prevent hover effect */
+  .e-grid .e-pager .e-first.e-disable,
+  .e-grid .e-pager .e-prev.e-disable,
+  .e-grid .e-pager .e-next.e-disable,
+  .e-grid .e-pager .e-last.e-disable {
+    cursor: default !important;
+  }
+
+  .e-grid .e-pager .e-first.e-disable:hover,
+  .e-grid .e-pager .e-prev.e-disable:hover,
+  .e-grid .e-pager .e-next.e-disable:hover,
+  .e-grid .e-pager .e-last.e-disable:hover {
+    background-color: transparent !important;
+  }
+
+  /* Ellipsis navigation dots */
+  .e-grid .e-pager .e-pp,
+  .e-grid .e-pager .e-np {
+    color: var(--component-datagrid-pagination-text) !important;
+    min-width: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    cursor: pointer !important;
+  }
+
+  /* Hide inactive ellipsis controls (common for 1-2 pages or edge pages) */
+  .e-grid .e-pager .e-pp.e-disable,
+  .e-grid .e-pager .e-np.e-disable {
+    display: none !important;
+  }
+
+  .e-grid .e-pager .e-pp:hover,
+  .e-grid .e-pager .e-np:hover {
+    background-color: var(--component-datagrid-pagination-hover-bg) !important;
+  }
+
+  /* Page size dropdown container - Aligned to CENTER */
+  .e-grid .e-pager .e-pagesizes {
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+    justify-content: flex-start !important;
+    margin: 0 0 0 4px !important;
+    width: auto !important;
+    flex: 0 0 auto !important;
+    order: 2 !important;
+  }
+
+  /* Page size dropdown */
+  .e-grid .e-pager .e-pagerdropdown {
+    background-color: var(--component-datagrid-pagination-bg) !important;
+    color: var(--component-datagrid-pagination-text) !important;
+    border-color: var(--component-datagrid-pagination-border) !important;
+    border-radius: var(--component-datagrid-pagination-btn-radius, 6px) !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    min-width: 54px !important;
+    order: 1 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    margin-top: 0px !important;
+  }
+
+  /* "Items per page" label alignment */
+  .e-grid .e-pager .e-pagerconstant {
+    color: var(--component-datagrid-pagination-info-text) !important;
+    font-size: var(--font-size-sm) !important;
+    margin: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    height: var(--component-datagrid-pagination-btn-size, 32px) !important;
+    order: 2 !important;
+    white-space: nowrap;
+  }
+
+  /* Page count text (e.g. "(592 items)") */
+  .e-grid .e-pager .e-pagecountmsg {
+    display: inline-flex !important;
+    align-items: center !important;
+    color: var(--component-datagrid-pagination-info-text) !important;
+    font-size: var(--font-size-sm) !important;
+    white-space: nowrap !important;
+    margin-left: 8px !important;
+  }
+
+  /* "X to Y of Z items" info bar - Align to RIGHT */
+  .e-grid .e-pager .e-parentmsgbar {
+    color: var(--component-datagrid-pagination-info-text) !important;
+    font-size: var(--font-size-sm) !important;
+    display: flex !important;
+    justify-content: flex-end !important;
+    text-align: right !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 100% !important;
+    flex: 0 0 auto !important;
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    order: 3 !important;
+    margin-left: 0 !important;
+  }
+
+  /* Grid sorting icon */
+  .e-grid .e-sortfilterdiv .e-ascending,
+  .e-grid .e-sortfilterdiv .e-descending {
+    color: rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Sorted header text — keep readable in dark mode */
+  .e-grid .e-headercell[aria-sort] .e-headertext {
+    color: var(--component-datagrid-header-text) !important;
+  }
+
+  /* Grid filter */
+  .e-grid .e-filterbar .e-filterbarcell {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  /* ===== GRID COLUMN MENU + FILTER POPUP ===== */
+  /* Column menu trigger in header cell (3 dots) */
+  .e-grid .e-gridheader .e-columnmenu {
+    color: var(--component-datagrid-colmenu-trigger) !important;
+    border-radius: 6px !important;
+    padding: 4px !important;
+    transition: color 140ms ease, background-color 140ms ease !important;
+  }
+
+  .e-grid .e-gridheader .e-columnmenu:hover,
+  .e-grid .e-gridheader .e-columnmenu.e-columnmenu-open {
+    color: var(--component-datagrid-colmenu-trigger-hover) !important;
+    background-color: var(--component-datagrid-colmenu-hover) !important;
+  }
+
+  /* Column menu wrapper — move offscreen when closed so the inner styled list
+     never leaks visibly at the bottom of the page.  We avoid display:none because
+     Syncfusion needs the element measurable for position calculations. */
+  .e-grid-menu.e-contextmenu-wrapper:not(.e-popup-open) {
+    position: fixed !important;
+    left: -9999px !important;
+    visibility: hidden !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    overflow: visible !important;
+  }
+
+  /* Visual styling lives on the inner list, which Syncfusion hides/shows. */
+  .e-grid-menu.e-contextmenu-wrapper > .e-menu-parent,
+  .e-grid-menu.e-contextmenu-wrapper .e-contextmenu-container > .e-ul {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    border: 1px solid var(--component-datagrid-colmenu-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
+    min-width: 196px !important;
+    overflow: hidden !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-ul,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-parent {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+  }
+
+  /* Syncfusion _cmenu list needs absolute positioning base styles.
+     Without context-menu base CSS this can render inline and get clipped. */
+  .e-grid-menu.e-contextmenu-wrapper ul[id$="_cmenu"] {
+    position: absolute !important;
+    min-width: 160px !important;
+  }
+
+  /* Submenus (e.g. Columns list) should open to the side, with direction set by JS class */
+  .e-grid-menu.e-contextmenu-wrapper.sf-submenu-right .e-menu-item > .e-ul {
+    left: 100% !important;
+    right: auto !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper.sf-submenu-left .e-menu-item > .e-ul {
+    left: auto !important;
+    right: 100% !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item > .e-ul {
+    margin-left: 6px !important;
+    margin-right: 6px !important;
+    border: 1px solid var(--component-datagrid-colmenu-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
+    overflow: hidden !important;
+    z-index: 10002 !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item {
+    color: var(--component-datagrid-colmenu-text) !important;
+    min-height: 34px !important;
+    padding: 7px 12px !important;
+    line-height: 1.2 !important;
+    border: 0 !important;
+    transition: background-color 140ms ease, color 140ms ease !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item .e-menu-icon,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item .e-caret {
+    color: var(--component-datagrid-colmenu-text) !important;
+    opacity: 0.92;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item.e-focused,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item:hover,
+  .e-grid-menu.e-contextmenu-wrapper .e-menu-item.e-selected {
+    background-color: var(--component-datagrid-colmenu-hover) !important;
+    color: var(--component-datagrid-colmenu-text) !important;
+  }
+
+  .e-grid-menu.e-contextmenu-wrapper .e-separator {
+    border-top: 1px solid var(--component-datagrid-colmenu-separator) !important;
+    margin: 4px 0 !important;
+  }
+
+  /* Filter popup panel launched from column menu */
+  .e-grid .e-col-menu.e-filter-popup,
+  .e-grid-popup .e-col-menu.e-filter-popup,
+  .e-grid .e-dialog.e-flmenu,
+  .e-grid-popup .e-dialog.e-flmenu {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    border: 1px solid var(--component-datagrid-colmenu-border) !important;
+    border-radius: var(--radius-md) !important;
+    box-shadow: 0 14px 34px rgb(2 6 23 / 0.45) !important;
+    overflow: hidden !important;
+  }
+
+  /* Filter popup: absolute positioning so JS repositionFilterPopup() can
+     calculate scroll-adjusted coordinates reliably. Syncfusion may rewrite
+     inline styles; keeping CSS absolute prevents stale fixed drift. */
+  .e-dialog.e-filter-popup.e-col-menu,
+  .e-flmenu.e-dialog.e-filter-popup,
+  .e-col-menu.e-dialog.e-filter-popup,
+  .e-ddl.e-popup.e-popup-flmenu {
+    position: absolute !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-dlg-content,
+  .e-grid-popup .e-dialog.e-flmenu .e-dlg-content {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    color: var(--component-datagrid-colmenu-text) !important;
+    padding: 12px !important;
+  }
+
+  .e-grid .e-flmenu-valuediv,
+  .e-grid-popup .e-flmenu-valuediv {
+    margin-top: 8px !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-dropdownlist,
+  .e-grid .e-dialog.e-flmenu .e-input,
+  .e-grid .e-dialog.e-flmenu .e-ddl.e-control-wrapper,
+  .e-grid-popup .e-dialog.e-flmenu .e-dropdownlist,
+  .e-grid-popup .e-dialog.e-flmenu .e-input,
+  .e-grid-popup .e-dialog.e-flmenu .e-ddl.e-control-wrapper {
+    background-color: var(--component-datagrid-filter-input-bg) !important;
+    color: var(--component-datagrid-colmenu-text) !important;
+    border-color: var(--component-datagrid-colmenu-border) !important;
+    border-radius: 6px !important;
+  }
+
+  /* Increase operator dropdown height and ensure scrollbar visibility */
+  .e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"],
+  .e-ddl.e-popup.e-popup-open[id$="-floptr_popup"],
+  .e-ddl.e-popup.e-popup-flmenu {
+    max-height: 450px !important;
+    height: auto !important;
+  }
+
+  .e-ddl.e-popup.e-popup-flmenu.e-popup-open[id$="-floptr_popup"] .e-content.e-dropdownbase,
+  .e-ddl.e-popup.e-popup-flmenu .e-content.e-dropdownbase {
+    max-height: 448px !important;
+    overflow-y: auto !important;
+    display: block !important;
+    scrollbar-width: thin !important;
+    scrollbar-color: rgb(var(--color-border)) transparent !important;
+  }
+
+  /* List items refinement */
+  .e-ddl.e-popup.e-popup-flmenu .e-list-item {
+    padding: 8px 12px !important;
+    min-height: 36px !important;
+  }
+
+  /* Filter operator dropdown popup must stay absolute to avoid off-screen/fixed drift. */
+  .e-grid .e-ddl.e-popup.e-popup-flmenu,
+  .e-grid-popup .e-ddl.e-popup.e-popup-flmenu {
+    position: absolute !important;
+  }
+
+  /* When Syncfusion appends filter operator popup to <body>, the scoped selectors
+     above no longer match. Keep this global to enforce absolute positioning. */
+  .e-ddl.e-popup.e-popup-flmenu {
+    position: absolute !important;
+  }
+
+  /* Filter operator/value dropdown toggle icon should be chevron, not search glyph. */
+  .e-grid .e-dialog.e-flmenu .e-input-group-icon.e-ddl-icon::before,
+  .e-grid .e-dialog.e-flmenu .e-input-group-icon.e-search-icon::before,
+  .e-grid-popup .e-dialog.e-flmenu .e-input-group-icon.e-ddl-icon::before,
+  .e-grid-popup .e-dialog.e-flmenu .e-input-group-icon.e-search-icon::before {
+    content: "\e729" !important;
+    font-family: 'e-icons' !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-footer-content,
+  .e-grid-popup .e-dialog.e-flmenu .e-footer-content {
+    background-color: var(--component-datagrid-colmenu-bg) !important;
+    border-top: 1px solid var(--component-datagrid-colmenu-border) !important;
+    padding: 10px 12px !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+  }
+
+  .e-grid .e-dialog.e-flmenu .e-footer-content .e-btn,
+  .e-grid-popup .e-dialog.e-flmenu .e-footer-content .e-btn {
+    border-radius: 6px !important;
+    min-height: 30px !important;
+    padding: 0 14px !important;
+  }
+
+  /* ===== DATEPICKER OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  /* Selector: Syncfusion renders DatePicker wrapper as <span class="e-input-group e-control-wrapper e-date-wrapper"> */
+  /* The e-datepicker class is on the inner <input>, NOT the wrapper span */
+  .e-date-wrapper.e-control-wrapper {
+    background-color: var(--component-datepicker-background) !important;
+    border-color: var(--component-datepicker-border-default) !important;
+    border-radius: var(--radius-md) !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper:hover:not(.e-disabled) {
+    border-color: rgb(var(--color-primary-400)) !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper.e-input-focus {
+    border-color: var(--component-datepicker-border-focus) !important;
+    box-shadow: 0 0 0 3px rgb(var(--color-primary-500) / 0.1) !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper .e-input {
+    color: var(--component-datepicker-text-color) !important;
+    background-color: transparent !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper .e-input::placeholder {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper .e-input-group-icon {
+    color: var(--component-datepicker-icon-color) !important;
+    background-color: transparent !important;
+    border: none !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper.e-error {
+    border-color: rgb(var(--color-error-500)) !important;
+  }
+
+  .e-date-wrapper.e-control-wrapper.e-error.e-input-focus {
+    box-shadow: 0 0 0 3px rgb(var(--color-error-500) / 0.1) !important;
+  }
+
+  /* Calendar popup */
+  .e-calendar.e-datepicker {
+    background-color: var(--component-datepicker-calendar-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
+    border-radius: var(--radius-lg) !important;
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+  }
+
+  .e-calendar .e-header {
+    background-color: var(--component-datepicker-calendar-header-bg) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-calendar .e-header .e-title {
+    color: var(--component-datepicker-calendar-header-text) !important;
+  }
+
+  .e-calendar .e-header .e-icon-container .e-icons {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-calendar .e-content td.e-cell {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-calendar .e-content td.e-cell:hover {
+    background-color: var(--component-datepicker-cell-hover) !important;
+  }
+
+  .e-calendar .e-content td.e-selected {
+    background-color: var(--component-datepicker-selected-bg) !important;
+    color: var(--component-datepicker-selected-text) !important;
+  }
+
+  .e-calendar .e-content td.e-today {
+    border-color: var(--component-datepicker-today-border) !important;
+  }
+
+  .e-calendar .e-content td.e-other-month {
+    color: var(--component-datepicker-other-month-text) !important;
+  }
+
+  /* ===== DIALOG OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+  .e-dialog {
+    background-color: var(--component-dialog-content-bg) !important;
+    border-color: var(--component-dialog-border) !important;
+    border-radius: var(--radius-xl) !important;
+    box-shadow:
+      0 20px 25px -5px rgb(0 0 0 / 0.1),
+      0 8px 10px -6px rgb(0 0 0 / 0.1) !important;
+  }
+
+  .e-dialog .e-dlg-header-content {
+    background-color: var(--component-dialog-header-bg) !important;
+    border-bottom: 1px solid var(--component-dialog-border) !important;
+    padding: 1rem 1.5rem;
+  }
+
+  .e-dialog .e-dlg-header {
+    color: var(--component-dialog-header-text) !important;
+    font-weight: 600;
+    font-size: var(--font-size-lg);
+  }
+
+  .e-dialog .e-btn.e-dlg-closeicon-btn {
+    color: var(--component-dialog-close-btn-color) !important;
+  }
+
+  .e-dialog .e-btn.e-dlg-closeicon-btn:hover {
+    background-color: var(--component-dialog-close-btn-hover-bg) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-dialog .e-dlg-content {
+    background-color: var(--component-dialog-content-bg) !important;
+    color: rgb(var(--color-text-primary)) !important;
+    padding: 1.5rem;
+  }
+
+  .e-dialog .e-footer-content {
+    background-color: var(--component-dialog-footer-bg) !important;
+    border-top: 1px solid var(--component-dialog-border) !important;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
+  /* Dialog overlay */
+  .e-dlg-overlay {
+    background-color: var(--component-dialog-backdrop) !important;
+  }
+
+  /* Danger dialog variant */
+  .e-dialog.dialog-danger .e-dlg-header {
+    color: rgb(var(--color-error-700));
+  }
+
+  /* ===== CARD OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  /* Note: !important is required to override Syncfusion's hardcoded card styles */
+  .e-card,
+  .theme-card {
+    background-color: var(--component-card-background) !important;
+    border-color: var(--component-card-border) !important;
+    color: var(--component-card-text) !important;
+    transition: border-color var(--transition-fast);
+  }
+
+  .e-card:hover,
+  .theme-card:hover {
+    border-color: var(--component-card-hover-border) !important;
+  }
+
+  .e-card .e-card-header,
+  .theme-card-header {
+    background-color: var(--component-card-header-bg) !important;
+    border-bottom: 1px solid var(--component-card-header-border) !important;
+    color: var(--component-card-header-text) !important;
+  }
+
+  .e-card .e-card-header .e-card-header-title,
+  .e-card .e-card-header-title {
+    color: var(--component-card-title) !important;
+  }
+
+  .e-card .e-card-header .e-card-sub-title {
+    color: var(--component-card-subtitle) !important;
+  }
+
+  .e-card .e-card-content {
+    color: var(--component-card-text) !important;
+    padding: var(--component-card-content-padding);
+  }
+
+  .e-card .e-card-actions,
+  .e-card .e-card-footer,
+  .theme-card-footer {
+    background-color: var(--component-card-footer-bg) !important;
+    border-top: 1px solid var(--component-card-footer-border) !important;
+  }
+
+  .e-card .e-card-actions .e-card-btn,
+  .e-card .e-card-actions .e-btn {
+    color: var(--component-card-action-text) !important;
+  }
+
+  .e-card .e-card-actions .e-card-btn:hover,
+  .e-card .e-card-actions .e-btn:hover {
+    color: var(--component-card-action-hover) !important;
+  }
+
+  /* ===== BADGE OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-badge.e-badge-success,
+  .theme-badge-success {
+    background-color: var(--component-badge-success-bg);
+    color: var(--component-badge-success-text);
+  }
+
+  .e-badge.e-badge-warning,
+  .theme-badge-warning {
+    background-color: var(--component-badge-warning-bg);
+    color: var(--component-badge-warning-text);
+  }
+
+  .e-badge.e-badge-danger,
+  .theme-badge-error {
+    background-color: var(--component-badge-error-bg);
+    color: var(--component-badge-error-text);
+  }
+
+  .e-badge.e-badge-info,
+  .theme-badge-info {
+    background-color: var(--component-badge-info-bg);
+    color: var(--component-badge-info-text);
+  }
+
+  /* ===== MODAL OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-modal-overlay,
+  .theme-modal-overlay {
+    background-color: var(--component-modal-backdrop);
+  }
+
+  .e-modal-content,
+  .theme-modal-content {
+    background-color: var(--component-modal-content-bg);
+    border-color: var(--component-modal-border);
+  }
+
+  .e-modal-header,
+  .theme-modal-header {
+    background-color: var(--component-modal-header-bg);
+  }
+
+  .e-modal-footer,
+  .theme-modal-footer {
+    background-color: var(--component-modal-footer-bg);
+  }
+
+  /* ===== HEADER OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .theme-header,
+  .app-header {
+    background-color: var(--component-header-background);
+    color: var(--component-header-text-color);
+    border-bottom-color: var(--component-header-border-bottom);
+    height: var(--component-header-height);
+  }
+
+  /* ===== SIDEBAR OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .theme-sidebar,
+  .app-sidebar {
+    background-color: var(--component-sidebar-background);
+    color: var(--component-sidebar-text-color);
+    border-right-color: var(--component-sidebar-border-right);
+  }
+
+  .theme-sidebar-item.active,
+  .app-sidebar .nav-item.active {
+    background-color: var(--component-sidebar-active-bg);
+    color: var(--component-sidebar-active-text);
+  }
+
+  .theme-sidebar-item:hover,
+  .app-sidebar .nav-item:hover {
+    background-color: var(--component-sidebar-hover-bg);
+  }
+
+  /* ===== TOAST OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-toast-container .e-toast {
+    background-color: var(--component-toast-bg) !important;
+    color: var(--component-toast-text) !important;
+    border: 1px solid var(--component-toast-border) !important;
+    border-radius: var(--component-toast-border-radius) !important;
+    box-shadow: var(--component-toast-shadow) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-title {
+    color: var(--component-toast-title) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-close-icon {
+    color: var(--component-toast-close-btn) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-close-icon:hover {
+    color: var(--component-toast-close-btn-hover) !important;
+  }
+
+  .e-toast-container .e-toast .e-toast-progress {
+    background-color: var(--component-toast-progress) !important;
+  }
+
+  /* Toast severity variants */
+  .e-toast-container .e-toast.e-toast-success {
+    background-color: var(--component-toast-success-bg) !important;
+    color: var(--component-toast-success-text) !important;
+    border-color: var(--component-toast-success-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-success .e-toast-icon {
+    color: var(--component-toast-success-icon) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-warning {
+    background-color: var(--component-toast-warning-bg) !important;
+    color: var(--component-toast-warning-text) !important;
+    border-color: var(--component-toast-warning-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-warning .e-toast-icon {
+    color: var(--component-toast-warning-icon) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-danger {
+    background-color: var(--component-toast-error-bg) !important;
+    color: var(--component-toast-error-text) !important;
+    border-color: var(--component-toast-error-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-danger .e-toast-icon {
+    color: var(--component-toast-error-icon) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-info {
+    background-color: var(--component-toast-info-bg) !important;
+    color: var(--component-toast-info-text) !important;
+    border-color: var(--component-toast-info-bg) !important;
+  }
+
+  .e-toast-container .e-toast.e-toast-info .e-toast-icon {
+    color: var(--component-toast-info-icon) !important;
+  }
+
+  /* ===== MESSAGE OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-message {
+    border-radius: var(--component-message-border-radius) !important;
+  }
+
+  .e-message.e-success {
+    background-color: var(--component-message-success-bg) !important;
+    color: var(--component-message-success-text) !important;
+    border-color: var(--component-message-success-border) !important;
+  }
+
+  .e-message.e-warning {
+    background-color: var(--component-message-warning-bg) !important;
+    color: var(--component-message-warning-text) !important;
+    border-color: var(--component-message-warning-border) !important;
+  }
+
+  .e-message.e-error {
+    background-color: var(--component-message-error-bg) !important;
+    color: var(--component-message-error-text) !important;
+    border-color: var(--component-message-error-border) !important;
+  }
+
+  .e-message.e-info {
+    background-color: var(--component-message-info-bg) !important;
+    color: var(--component-message-info-text) !important;
+    border-color: var(--component-message-info-border) !important;
+  }
+
+  .e-message.e-normal {
+    background-color: var(--component-message-normal-bg) !important;
+    color: var(--component-message-normal-text) !important;
+    border-color: var(--component-message-normal-border) !important;
+  }
+
+  /* ===== ACCORDION OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-accordion {
+    background-color: var(--component-accordion-bg) !important;
+    border-color: var(--component-accordion-border) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header {
+    background-color: var(--component-accordion-header-bg) !important;
+    border-color: var(--component-accordion-border) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header .e-acrdn-header-content {
+    color: var(--component-accordion-header-text) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header:hover {
+    background-color: var(--component-accordion-header-hover-bg) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-header .e-toggle-icon .e-icons {
+    color: var(--component-accordion-icon) !important;
+  }
+
+  .e-accordion .e-acrdn-item.e-select > .e-acrdn-header {
+    background-color: var(--component-accordion-expanded-bg) !important;
+  }
+
+  .e-accordion .e-acrdn-item.e-select > .e-acrdn-header .e-acrdn-header-content {
+    color: var(--component-accordion-expanded-text) !important;
+  }
+
+  .e-accordion .e-acrdn-item .e-acrdn-panel .e-acrdn-content {
+    background-color: var(--component-accordion-bg) !important;
+    color: var(--component-accordion-text) !important;
+    border-color: var(--component-accordion-border) !important;
+  }
+
+  /* ===== TOOLBAR OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-toolbar {
+    background-color: var(--component-toolbar-bg) !important;
+    border-color: var(--component-toolbar-border) !important;
+  }
+
+  .e-toolbar .e-toolbar-items {
+    background: var(--component-toolbar-bg) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn {
+    background-color: transparent !important;
+    color: var(--component-toolbar-text) !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-icons {
+    color: var(--component-toolbar-icon) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+    color: var(--component-toolbar-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:hover {
+    background-color: var(--component-toolbar-hover-bg) !important;
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover .e-icons {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover .e-tbar-btn-text {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:active {
+    background-color: var(--component-toolbar-active-bg) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active .e-icons,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active .e-tbar-btn-text {
+    color: var(--component-toolbar-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-flat.e-active {
+    background-color: var(--component-toolbar-active-bg) !important;
+    box-shadow: none !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-flat.e-active .e-icons,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-flat.e-active .e-tbar-btn-text {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:focus,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:focus {
+    background-color: var(--component-toolbar-hover-bg) !important;
+    box-shadow: none !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:focus .e-icons,
+  .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:focus .e-tbar-btn-text {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-toolbar .e-toolbar-items .e-separator {
+    border-color: var(--component-toolbar-separator) !important;
+  }
+
+  /* ===== HORIZONTAL SCROLL (TOOLBAR OVERFLOW) OVERRIDES ===== */
+
+  .e-hscroll .e-scroll-nav {
+    background: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-hscroll .e-scroll-nav .e-icons,
+  .e-hscroll .e-scroll-nav .e-nav-arrow {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-hscroll .e-scroll-nav:hover {
+    background: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-hscroll .e-scroll-nav:hover .e-icons,
+  .e-hscroll .e-scroll-nav:hover .e-nav-arrow {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-hscroll.e-scroll-device .e-scroll-nav.e-scroll-right-nav {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-hscroll .e-scroll-overlay.e-scroll-left-overlay,
+  .e-hscroll .e-scroll-overlay.e-scroll-right-overlay {
+    background-image: none !important;
+  }
+
+  /* ===== MENU OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-menu-wrapper,
+  .e-menu-wrapper .e-menu {
+    background-color: var(--component-menu-bg) !important;
+    border-color: var(--component-menu-border) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item {
+    color: var(--component-menu-text) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item .e-menu-icon {
+    color: var(--component-menu-icon) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item:hover {
+    background-color: var(--component-menu-hover-bg) !important;
+    color: var(--component-menu-hover-text) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-menu-item.e-selected {
+    background-color: var(--component-menu-active-bg) !important;
+  }
+
+  .e-menu-wrapper .e-menu .e-separator {
+    border-color: var(--component-menu-separator) !important;
+  }
+
+  /* Menu popup (submenu) */
+  .e-menu-wrapper .e-ul {
+    background-color: var(--component-menu-popup-bg) !important;
+    border-color: var(--component-menu-popup-border) !important;
+    box-shadow:
+      0 10px 15px -3px rgb(0 0 0 / 0.1),
+      0 4px 6px -4px rgb(0 0 0 / 0.1) !important;
+  }
+
+  .e-menu-wrapper .e-ul .e-menu-item {
+    color: var(--component-menu-popup-text) !important;
+  }
+
+  .e-menu-wrapper .e-ul .e-menu-item:hover {
+    background-color: var(--component-menu-hover-bg) !important;
+    color: var(--component-menu-hover-text) !important;
+  }
+
+  .e-menu-wrapper .e-ul .e-separator {
+    border-color: var(--component-menu-separator) !important;
+  }
+
+  /* ===== BREADCRUMB OVERRIDES ===== */
+  /* Uses component-specific CSS variables from theme editor */
+  .e-breadcrumb {
+    background-color: var(--component-breadcrumb-bg) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item .e-breadcrumb-text {
+    color: var(--component-breadcrumb-text) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item .e-breadcrumb-text:hover {
+    color: var(--component-breadcrumb-hover-text) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item:last-child .e-breadcrumb-text {
+    color: var(--component-breadcrumb-active-text) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-separator {
+    color: var(--component-breadcrumb-separator) !important;
+  }
+
+  .e-breadcrumb .e-breadcrumb-item .e-icons {
+    color: var(--component-breadcrumb-icon) !important;
+  }
+
+  /* ===== SLIDER OVERRIDES ===== */
+  /* Uses theme CSS variables for slider colors */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+
+  /* Slider track background (unfilled portion) */
+  .e-slider-container .e-slider .e-slider-track {
+    background-color: var(--component-slider-track) !important;
+  }
+
+  /* Slider filled range bar */
+  .e-slider-container .e-slider .e-range {
+    background-color: var(--component-slider-fill) !important;
+  }
+
+  /* Slider handle (thumb) */
+  .e-slider-container .e-slider .e-handle {
+    background-color: var(--component-slider-thumb) !important;
+    border-color: var(--component-slider-thumb) !important;
+  }
+
+  /* Slider handle hover */
+  .e-slider-container .e-slider .e-handle:hover {
+    background-color: var(--component-slider-thumb-hover) !important;
+    border-color: var(--component-slider-thumb-hover) !important;
+  }
+
+  /* Slider handle active/pressed */
+  .e-slider-container .e-slider .e-handle.e-handle-active,
+  .e-slider-container .e-slider .e-handle:active {
+    background-color: var(--component-slider-thumb-active) !important;
+    border-color: var(--component-slider-thumb-active) !important;
+  }
+
+  /* Slider handle focus ring */
+  .e-slider-container .e-slider .e-handle.e-handle-active::after,
+  .e-slider-container .e-slider .e-handle:focus::after {
+    background-color: var(--component-slider-focus-ring) !important;
+    opacity: 0.2;
+  }
+
+  /* Slider tick marks */
+  .e-slider-container .e-scale .e-tick .e-tick-value {
+    color: var(--component-slider-tick) !important;
+  }
+
+  /* Slider tooltip */
+  .e-slider-container .e-slider-tooltip.e-tooltip-wrap {
+    background-color: var(--component-slider-tooltip-bg) !important;
+    border-color: var(--component-slider-tooltip-bg) !important;
+    color: var(--component-slider-tooltip-text) !important;
+  }
+
+  .e-slider-container .e-slider-tooltip.e-tooltip-wrap .e-arrow-tip-inner {
+    color: var(--component-slider-tooltip-bg) !important;
+  }
+
+  /* Disabled slider */
+  .e-slider-container.e-disabled .e-slider .e-range {
+    opacity: var(--component-slider-disabled-opacity) !important;
+  }
+
+  .e-slider-container.e-disabled .e-slider .e-handle {
+    opacity: var(--component-slider-disabled-opacity) !important;
+  }
+
+  /* ===== TAB OVERRIDES ===== */
+  /* Uses theme CSS variables for tab colors */
+  /* Note: !important is required to override Syncfusion's hardcoded colors */
+
+  /* Tab header background */
+  .e-tab .e-tab-header {
+    background-color: var(--component-tabs-bg) !important;
+    border-bottom-color: var(--component-tabs-border) !important;
+  }
+
+  /* Tab header toolbar-items — override generic .e-toolbar .e-toolbar-items
+     since .e-tab-header also has .e-toolbar class */
+  .e-tab .e-tab-header .e-toolbar-items {
+    background: var(--component-tabs-bg) !important;
+  }
+
+  /* Tab item text */
+  .e-tab .e-tab-header .e-toolbar-item .e-tab-text {
+    color: var(--component-tabs-inactive-text) !important;
+  }
+
+  /* Tab item wrap (inherits text color for close icon etc.) */
+  .e-tab .e-tab-header .e-toolbar-item .e-tab-wrap {
+    color: var(--component-tabs-inactive-text) !important;
+    background-color: transparent !important;
+  }
+
+  /* Tab close icon */
+  .e-tab .e-tab-header .e-toolbar-item .e-close-icon {
+    color: var(--component-tabs-inactive-text) !important;
+  }
+
+  .e-tab .e-tab-header .e-toolbar-item .e-close-icon:hover {
+    color: var(--component-tabs-active-text) !important;
+  }
+
+  /* Active tab text */
+  .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-text {
+    color: var(--component-tabs-active-text) !important;
+    font-weight: 600 !important;
+  }
+
+  /* Active tab wrap */
+  .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-wrap {
+    color: var(--component-tabs-active-text) !important;
+    background-color: var(--component-tabs-active-bg) !important;
+  }
+
+  /* Active tab close icon */
+  .e-tab .e-tab-header .e-toolbar-item.e-active .e-close-icon {
+    color: var(--component-tabs-active-text) !important;
+  }
+
+  /* Tab hover text */
+  .e-tab .e-tab-header .e-toolbar-item:hover:not(.e-active) .e-tab-text {
+    color: var(--component-tabs-active-text) !important;
+  }
+
+  /* Tab hover wrap */
+  .e-tab .e-tab-header .e-toolbar-item:hover:not(.e-active) .e-tab-wrap {
+    background-color: var(--component-tabs-hover-bg) !important;
+    color: var(--component-tabs-active-text) !important;
+  }
+
+  /* Active tab indicator line */
+  .e-tab .e-tab-header .e-indicator {
+    background-color: var(--component-tabs-indicator) !important;
+  }
+
+  /* Tab content area */
+  .e-tab .e-content {
+    background-color: transparent !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  /* Tab focus ring */
+  .e-tab .e-tab-header .e-toolbar-item .e-tab-wrap:focus {
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.95), 0 0 0 4px var(--component-tabs-indicator) !important;
+  }
+
+  /* ===== SPREADSHEET FORMULA BAR OVERRIDES ===== */
+  /* Syncfusion hardcodes #fff background, #374151 text, #6b7280 icons, #e5e7eb borders */
+
+  .e-spreadsheet .e-formula-bar-panel {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-spreadsheet .e-formula-bar-panel .e-input-group.e-control-wrapper.e-name-box,
+  .e-spreadsheet .e-formula-bar-panel .e-formula-bar {
+    color: rgb(var(--color-text-primary)) !important;
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-formula-bar-panel .e-insert-function.e-btn.e-flat .e-btn-icon,
+  .e-spreadsheet .e-formula-bar-panel .e-btn.e-css.e-formula-submit .e-btn-icon,
+  .e-spreadsheet .e-formula-bar-panel .e-drop-icon {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-spreadsheet .e-formula-bar-panel .e-insert-function.e-btn:hover .e-btn-icon,
+  .e-spreadsheet .e-formula-bar-panel .e-drop-icon:hover {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-spreadsheet .e-formula-bar-panel .e-separator {
+    border-left-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-spreadsheet .e-formula-bar-panel .e-name-box .e-input-group-icon {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* ===== SPREADSHEET OVERRIDES ===== */
+  /* The spreadsheet uses Ribbon, Tab, Toolbar, Accordion internally.
+     Generic tab/toolbar overrides above must NOT cascade in — reset here. */
+
+  /* --- Ribbon container --- */
+  .e-spreadsheet .e-ribbon {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-drop-icon {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* --- Ribbon tab header (Home, Insert, Formulas, etc.) --- */
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header {
+    background-color: inherit !important;
+    border-bottom-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-toolbar-items {
+    background: inherit !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-toolbar-item .e-tab-wrap {
+    color: rgb(var(--color-text-secondary)) !important;
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-toolbar-item .e-tab-text {
+    color: inherit !important;
+    font-weight: inherit !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-wrap {
+    color: rgb(var(--color-primary)) !important;
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-text {
+    color: inherit !important;
+    font-weight: inherit !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-toolbar-item:hover:not(.e-active) .e-tab-wrap {
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-tab-header .e-indicator {
+    background-color: rgb(var(--color-primary)) !important;
+  }
+
+  /* --- Ribbon tab content (toolbar button panels) --- */
+  .e-spreadsheet .e-ribbon .e-tab .e-content {
+    background-color: rgb(var(--color-surface)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar {
+    background: rgb(var(--color-surface)) !important;
+    border-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items {
+    background: transparent !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn,
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn {
+    background-color: transparent !important;
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-icons {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover,
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:hover {
+    background-color: rgb(var(--color-surface-hover)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover .e-icons,
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover .e-tbar-btn-text {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-spreadsheet .e-ribbon .e-tab .e-content .e-toolbar .e-toolbar-items .e-separator {
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  /* --- Bottom sheet tabs (Sheet1, Sheet2, …) --- */
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header {
+    background-color: rgb(var(--color-surface)) !important;
+    border-bottom-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-toolbar-items {
+    background: inherit !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-toolbar-item .e-tab-wrap {
+    color: rgb(var(--color-text-secondary)) !important;
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-toolbar-item .e-tab-text {
+    color: inherit !important;
+    font-weight: inherit !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-wrap {
+    color: rgb(var(--color-primary)) !important;
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-toolbar-item.e-active .e-tab-text {
+    color: inherit !important;
+    font-weight: inherit !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-toolbar-item:hover:not(.e-active) .e-tab-wrap {
+    background-color: transparent !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-tab-header .e-indicator {
+    background-color: rgb(var(--color-primary)) !important;
+  }
+
+  .e-spreadsheet .e-sheet-tab-panel .e-tab .e-content {
+    background-color: transparent !important;
+  }
+
+  /* --- Spreadsheet toolbar (standalone, outside ribbon) --- */
+  .e-spreadsheet .e-toolbar:not(.e-tab-header) {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  /* ===== DIAGRAM & SYMBOL PALETTE OVERRIDES ===== */
+  /* Syncfusion hardcodes #fff backgrounds, #f3f4f6 hovers, #e5e7eb selections,
+     #4f46e5 accent, and #6b7280 ruler/icon colors. Override with theme vars. */
+
+  .e-diagram {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-diagram .e-ruler {
+    background: rgb(var(--color-surface-elevated)) !important;
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-diagram .e-ruler-overlap {
+    background: rgb(var(--color-surface-elevated)) !important;
+  }
+
+  .e-diagram .e-diagram-text-edit {
+    background: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-primary)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-symbolpalette {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-symbolpalette .e-acrdn-content {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-symbolpalette .e-input-group {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-symbolpalette .e-input-group .e-input {
+    color: rgb(var(--color-text-primary)) !important;
+    background-color: transparent !important;
+  }
+
+  .e-symbolpalette .e-input-group .e-input::placeholder {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-symbolpalette .e-input-group .e-icons {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-symbolpalette .e-symbol-hover:hover {
+    background: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-symbolpalette .e-symbol-selected {
+    background: rgb(var(--color-surface-active)) !important;
+  }
+
+  /* ===== RATING OVERRIDES ===== */
+  /* Syncfusion's tailwind theme hardcodes dark colors (#111827) for selected stars, */
+  /* which are invisible on dark backgrounds. Override with theme-aware colors. */
+
+  /* Unrated star outline and fill - use muted text color */
+  .e-rating-container .e-rating-item-container .e-rating-icon {
+    -webkit-text-stroke: 1px rgb(var(--color-text-muted)) !important;
+    background: rgb(var(--color-text-muted)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+  }
+
+  /* Selected/filled star - use amber/gold for visibility in both modes */
+  .e-rating-container .e-rating-item-container.e-rating-selected .e-rating-icon,
+  .e-rating-container .e-rating-item-container.e-rating-intermediate .e-rating-icon {
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-warning-500)) var(--rating-value),
+      transparent var(--rating-value)
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-stroke: 1px rgb(var(--color-warning-500)) !important;
+  }
+
+  /* Hover state - use primary color for interactive feedback */
+  .e-rating-container .e-rating-item-list:hover .e-rating-item-container.e-rating-selected .e-rating-icon,
+  .e-rating-container .e-rating-item-list:hover .e-rating-item-container.e-rating-intermediate .e-rating-icon {
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-primary-500)) var(--rating-value),
+      transparent var(--rating-value)
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-stroke: 1px rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Currently hovered star indicator */
+  .e-rating-container .e-rating-item-container.e-selected-value .e-rating-icon {
+    -webkit-text-stroke: 1px rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Disabled unrated star */
+  .e-rating-container.e-disabled .e-rating-item-container .e-rating-icon {
+    -webkit-text-stroke: 1px rgb(var(--color-border)) !important;
+    background: rgb(var(--color-border)) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+  }
+
+  /* Disabled selected star - muted version */
+  .e-rating-container.e-disabled .e-rating-item-container.e-rating-selected .e-rating-icon,
+  .e-rating-container.e-disabled .e-rating-item-container.e-rating-intermediate .e-rating-icon {
+    background: linear-gradient(
+      to right,
+      rgb(var(--color-text-muted)) var(--rating-value),
+      transparent var(--rating-value)
+    ) !important;
+    background-clip: text !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-stroke: 1px rgb(var(--color-text-muted)) !important;
+  }
+
+  /* Reset button */
+  .e-rating-container .e-reset {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-rating-container .e-reset:hover {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  /* ============================================
+   * RADIO SELECTION — single selection radio appearance
+   * Uses a custom _radio column with a React template.
+   * ============================================ */
+
+  /* Hide header for radio column in single selection mode */
+  .sf-radio-selection .e-headerchkcelldiv {
+    visibility: hidden;
+  }
+
+  /* Radio indicator — unselected state */
+  .sf-radio-selection .sf-radio-indicator {
+    border-color: rgb(var(--color-border));
+  }
+
+  /* Radio indicator — selected state (Syncfusion adds e-active to cells) */
+  .sf-radio-selection td.e-active .sf-radio-indicator {
+    border-color: rgb(var(--color-primary-500));
+    box-shadow:
+      inset 0 0 0 3px rgb(var(--color-surface, 255 255 255)),
+      inset 0 0 0 9px rgb(var(--color-primary-500));
+  }
+
+  /* ===== GANTT CHART OVERRIDES ===== */
+
+  /* Hide internal Syncfusion <caption> elements that expose auto-generated
+     element IDs (e.g. "treeGridgantt_1948878302_0_gridcontrol_header_table")
+     as visible text above the Gantt grid. */
+  .e-gantt .e-table caption,
+  .e-gantt caption {
+    display: none !important;
+  }
+
+  /* Gantt toolbar: ensure it inherits the themed toolbar variables even
+     when Syncfusion scopes the toolbar inside .e-gantt. */
+  .e-gantt .e-toolbar {
+    background-color: var(--component-toolbar-bg) !important;
+    border-color: var(--component-toolbar-border) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items {
+    background: var(--component-toolbar-bg) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn {
+    background-color: transparent !important;
+    color: var(--component-toolbar-text) !important;
+    border-color: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-icons {
+    color: var(--component-toolbar-icon) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn .e-tbar-btn-text {
+    color: var(--component-toolbar-text) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:hover {
+    background-color: var(--component-toolbar-hover-bg) !important;
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover .e-icons,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:hover .e-tbar-btn-text {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:active {
+    background-color: var(--component-toolbar-active-bg) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active .e-icons,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:active .e-tbar-btn-text {
+    color: var(--component-toolbar-text) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-flat.e-active {
+    background-color: var(--component-toolbar-active-bg) !important;
+    box-shadow: none !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-flat.e-active .e-icons,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-flat.e-active .e-tbar-btn-text {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:focus,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn.e-btn:focus {
+    background-color: var(--component-toolbar-hover-bg) !important;
+    box-shadow: none !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:focus .e-icons,
+  .e-gantt .e-toolbar .e-toolbar-items .e-toolbar-item .e-tbar-btn:focus .e-tbar-btn-text {
+    color: var(--component-toolbar-hover-text) !important;
+  }
+
+  .e-gantt .e-toolbar .e-toolbar-items .e-separator {
+    border-color: var(--component-toolbar-separator) !important;
+  }
+
+  /* Gantt tree-grid: theme the grid portion with surface colors */
+  .e-gantt .e-grid,
+  .e-gantt .e-gridheader,
+  .e-gantt .e-gridcontent {
+    background-color: rgb(var(--color-surface)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-gantt .e-grid .e-headercell,
+  .e-gantt .e-grid .e-headercelldiv {
+    background-color: rgb(var(--color-surface-hover)) !important;
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-gantt .e-grid .e-rowcell {
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-gantt .e-grid .e-row:hover .e-rowcell {
+    background-color: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-gantt .e-grid td.e-active,
+  .e-gantt .e-gantt-tree-grid-pane .e-grid td.e-active {
+    background: rgb(var(--color-primary-500) / 0.12) !important;
+  }
+
+  .e-gantt .e-gantt-tree-grid-pane .e-headercell-hover .e-headercell:not(.e-active):hover {
+    background-color: rgb(var(--color-surface-hover)) !important;
+  }
+
+  /* Gantt splitter and pane borders */
+  .e-gantt .e-gantt-splitter {
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-gantt .e-temp-content,
+  .e-gantt .e-splitter-box,
+  .e-gantt .e-gantt-temp-header,
+  .e-gantt .e-gantt-chart-pane {
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  /* Gantt chart timeline header */
+  .e-gantt .e-gantt-chart .e-timeline-header-container {
+    background: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-timeline-top-header-cell,
+  .e-gantt .e-gantt-chart .e-timeline-single-header-cell {
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  /* Gantt chart body */
+  .e-gantt .e-gantt-chart .e-chart-root-container {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-chart-row-hover .e-chart-row:not(.e-active):hover,
+  .e-gantt .e-gantt-chart .e-timeline-cell-hover .e-timeline-top-header-cell:not(.e-active):hover {
+    background-color: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-chart-row-border {
+    border-top-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-chart-row-border.e-lastrow {
+    border-bottom-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-chart-row-cell {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-line-container-cell {
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-active-container {
+    outline-color: rgb(var(--color-border)) !important;
+  }
+
+  /* Gantt taskbars — use primary palette */
+  .e-gantt .e-gantt-chart .e-gantt-child-taskbar-inner-div {
+    background: rgb(var(--color-primary-400)) !important;
+    outline-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-gantt-child-progressbar-inner-div {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-gantt-parent-taskbar-inner-div {
+    background-color: rgb(var(--color-text-muted) / 0.3) !important;
+    outline-color: rgb(var(--color-text-muted) / 0.5) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-gantt-parent-progressbar-inner-div {
+    background-color: rgb(var(--color-text-muted) / 0.6) !important;
+  }
+
+  /* Gantt weekend and holiday */
+  .e-gantt .e-gantt-chart .e-holiday {
+    background: rgb(var(--color-surface-elevated)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-holiday .e-span {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-weekend,
+  .e-gantt .e-gantt-chart .e-weekend-header-cell {
+    background: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-gantt .e-gantt-chart .e-weekend-cell-hover:not(.e-active):hover {
+    background-color: rgb(var(--color-surface-hover)) !important;
+  }
+
+  /* Gantt clone (drag & drop) */
+  .e-gantt .e-cloneproperties {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  /* Gantt event markers */
+  .e-gantt .e-gantt-chart .e-event-markers {
+    border-left-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Gantt frozen swimlane row */
+  .e-gantt .e-frozen-swimlane-row {
+    background: rgb(var(--color-surface)) !important;
+  }
+
+  /* ===== KANBAN BOARD OVERRIDES ===== */
+
+  /* Make kanban board horizontally scrollable on mobile so column headers
+     do not overlap and compress. */
+  .kanban-board-wrapper {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent kanban columns from shrinking below a usable minimum width */
+  .kanban-board-wrapper .e-kanban .e-kanban-table {
+    min-width: 600px;
+  }
+
+  /* ===== KANBAN BOARD OVERRIDES ===== */
+  /* Theme integration for Syncfusion KanbanComponent shell elements */
+
+  .e-kanban {
+    background: rgb(var(--color-surface)) !important;
+  }
+
+  .e-kanban .e-kanban-table .e-header-cells {
+    background: rgb(var(--color-surface-elevated)) !important;
+  }
+
+  .e-kanban .e-kanban-table .e-header-cells .e-header-text {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-kanban .e-kanban-table .e-header-cells .e-item-count,
+  .e-kanban .e-kanban-table .e-header-cells .e-limits {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-kanban .e-kanban-table .e-header-cells .e-column-expand,
+  .e-kanban .e-kanban-table .e-header-cells .e-column-collapse {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-content-row:not(.e-swimlane-row) td {
+    background: rgb(var(--color-surface)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-content-row.e-swimlane-row .e-swimlane-text,
+  .e-kanban .e-kanban-table.e-content-table .e-content-row.e-swimlane-row .e-item-count {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-card {
+    background: rgb(var(--color-surface-elevated)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-card.e-selection {
+    background: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-card .e-card-header {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-card .e-card-content {
+    color: rgb(var(--color-text-secondary)) !important;
+  }
+
+  .e-kanban .e-kanban-table.e-content-table .e-card .e-card-tag.e-card-label {
+    background: rgb(var(--color-surface-hover)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells.e-max-color {
+    background: rgb(var(--color-error-500) / 0.08) !important;
+  }
+
+  .e-kanban .e-kanban-header .e-header-cells.e-max-color {
+    background: rgb(var(--color-error-500) / 0.08) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells.e-min-color {
+    background: rgb(var(--color-warning-500) / 0.08) !important;
+  }
+
+  .e-kanban .e-kanban-header .e-header-cells.e-min-color {
+    background: rgb(var(--color-warning-500) / 0.08) !important;
+  }
+
+  .e-kanban .e-kanban-header .e-header-cells.e-collapsed {
+    background: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells.e-collapsed .e-collapse-header-text {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells .e-card-wrapper .e-empty-card {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-kanban .e-frozen-swimlane-row {
+    background: rgb(var(--color-surface)) !important;
+  }
+
+  .e-kanban .e-frozen-swimlane-row .e-swimlane-header .e-swimlane-text {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-kanban .e-frozen-swimlane-row .e-swimlane-header .e-item-count {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells .e-show-add-button {
+    border-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells .e-show-add-button .e-show-add-icon {
+    color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-kanban .e-kanban-content .e-content-row .e-content-cells .e-show-add-button:hover {
+    background: rgb(var(--color-primary-500) / 0.1) !important;
+  }
+
+  .e-kanban .e-header-cells.e-stacked-header-cell {
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-kanban-dialog.e-dialog .e-kanban-form-wrapper table textarea {
+    background: rgb(var(--color-surface)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  /* ===== SCHEDULE (CALENDAR) OVERRIDES ===== */
+  /* Theme integration for Syncfusion ScheduleComponent */
+
+  .e-schedule {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-schedule-toolbar .e-toolbar-items {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-schedule .e-schedule-toolbar .e-tbar-btn {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-header-cells,
+  .e-schedule .e-header-row {
+    background-color: rgb(var(--color-surface)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-schedule .e-work-cells {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-schedule .e-work-cells.e-other-month {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-schedule .e-content-wrap {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+  }
+
+  .e-schedule .e-date-header-wrap {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-schedule .e-current-day {
+    color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-schedule .e-date-header-wrap .e-header-cells.e-current-day {
+    color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-schedule .e-date-header {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-work-cells.e-other-month .e-date-header {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-schedule .e-work-cells.e-current-date {
+    background-color: rgb(var(--color-primary-500) / 0.12) !important;
+  }
+
+  .e-schedule .e-work-cells.e-current-date .e-date-header {
+    color: rgb(var(--color-primary-400)) !important;
+    font-weight: 600;
+  }
+
+  .e-schedule .e-time-cells-wrap,
+  .e-schedule .e-time-cells {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-schedule .e-vertical-view .e-time-cells-wrap table td {
+    background: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  .e-schedule .e-all-day-cells {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-schedule .e-resource-cells {
+    background-color: rgb(var(--color-surface)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-new-event {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-schedule .e-more-indicator {
+    color: rgb(var(--color-primary-500)) !important;
+  }
+
+  /* Schedule quick-info popup (event click) */
+  .e-schedule .e-quick-popup-wrapper .e-event-popup,
+  .e-schedule .e-quick-popup-wrapper .e-cell-popup {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  /* Popup header — override inline background-color set by Syncfusion */
+  .e-schedule .e-quick-popup-wrapper .e-popup-header {
+    background-color: rgb(var(--color-primary-500)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-popup-header .e-subject {
+    color: rgb(255 255 255) !important;
+    background-color: transparent !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-header-icon-wrapper .e-edit,
+  .e-schedule .e-quick-popup-wrapper .e-header-icon-wrapper .e-delete,
+  .e-schedule .e-quick-popup-wrapper .e-header-icon-wrapper .e-close {
+    color: rgb(255 255 255) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-header-icon-wrapper .e-edit:hover,
+  .e-schedule .e-quick-popup-wrapper .e-header-icon-wrapper .e-delete:hover,
+  .e-schedule .e-quick-popup-wrapper .e-header-icon-wrapper .e-close:hover {
+    background-color: rgb(var(--color-primary-600)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-popup-content {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-popup-footer {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-popup-footer .e-event-edit,
+  .e-schedule .e-quick-popup-wrapper .e-popup-footer .e-event-delete {
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-popup-footer .e-event-edit:hover,
+  .e-schedule .e-quick-popup-wrapper .e-popup-footer .e-event-delete:hover {
+    background-color: rgb(var(--color-surface-hover)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-subject,
+  .e-schedule .e-quick-popup-wrapper .e-date-time,
+  .e-schedule .e-quick-popup-wrapper .e-location,
+  .e-schedule .e-quick-popup-wrapper .e-description,
+  .e-schedule .e-quick-popup-wrapper .e-resource {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-quick-popup-wrapper .e-date-time .e-icons,
+  .e-schedule .e-quick-popup-wrapper .e-location .e-icons,
+  .e-schedule .e-quick-popup-wrapper .e-description .e-icons,
+  .e-schedule .e-quick-popup-wrapper .e-resource .e-icons {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  /* Popup content detail text — overrides Syncfusion hardcoded #111827 */
+  .e-quick-popup-wrapper .e-event-popup .e-date-time-details,
+  .e-quick-popup-wrapper .e-event-popup .e-location-details,
+  .e-quick-popup-wrapper .e-event-popup .e-description-details,
+  .e-quick-popup-wrapper .e-event-popup .e-resource-details,
+  .e-quick-popup-wrapper .e-cell-popup .e-date-time-details,
+  .e-quick-popup-wrapper .e-cell-popup .e-location-details,
+  .e-quick-popup-wrapper .e-cell-popup .e-description-details,
+  .e-quick-popup-wrapper .e-cell-popup .e-resource-details {
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  /* Popup content icons — overrides Syncfusion hardcoded #6b7280 */
+  .e-quick-popup-wrapper .e-event-popup .e-date-time-icon,
+  .e-quick-popup-wrapper .e-event-popup .e-location-icon,
+  .e-quick-popup-wrapper .e-event-popup .e-description-icon,
+  .e-quick-popup-wrapper .e-event-popup .e-resource-icon,
+  .e-quick-popup-wrapper .e-cell-popup .e-date-time-icon,
+  .e-quick-popup-wrapper .e-cell-popup .e-location-icon,
+  .e-quick-popup-wrapper .e-cell-popup .e-description-icon,
+  .e-quick-popup-wrapper .e-cell-popup .e-resource-icon {
+    color: rgb(var(--color-text-muted)) !important;
+  }
+
+  /* Schedule event editor dialog */
+  .e-schedule .e-schedule-dialog .e-dlg-content,
+  .e-schedule .e-schedule-dialog .e-footer-content {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-schedule-dialog .e-dlg-header-content {
+    background-color: rgb(var(--color-surface)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+  }
+
+  .e-schedule .e-agenda-view .e-content-wrap {
+    background-color: rgb(var(--color-surface)) !important;
+  }
+
+  .e-schedule .e-agenda-view .e-day-date-header {
+    background-color: rgb(var(--color-surface-elevated)) !important;
+    color: rgb(var(--color-text-primary)) !important;
+    border-color: rgb(var(--color-border)) !important;
+  }
+
+
+}

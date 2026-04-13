@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Apply dark/light mode before React renders to prevent FOUC -->
+    <script>
+      try {
+        var s = JSON.parse(localStorage.getItem('mode-storage') || '{}');
+        if (!s.state || s.state.mode === 'dark') document.documentElement.classList.add('dark');
+      } catch (e) { document.documentElement.classList.add('dark'); }
+    </script>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+
+    <!-- Note: Google Fonts removed for performance - using system fonts -->
+    <!-- Note: Syncfusion CDN preconnect removed - using bundled CSS instead -->
+
+    <!-- Primary Meta Tags -->
+    <title>Syncfusion Theme Studio - Create Custom React Admin Portal Themes</title>
+    <meta name="title" content="Syncfusion Theme Studio - Create Custom React Admin Portal Themes" />
+    <meta name="description" content="Design and customize beautiful React admin portal themes with Syncfusion Theme Studio. Create custom color schemes, typography, and component styles with live preview and export options." />
+    <meta name="keywords" content="Syncfusion, Theme Studio, React, Admin Portal, Theme Customization, UI Components, Design System, Color Schemes, Typography, Tailwind CSS" />
+    <meta name="author" content="Syncfusion Theme Studio" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#3B82F6" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://syncfusion-theme-studio.com/" />
+    <meta property="og:title" content="Syncfusion Theme Studio - Create Custom React Admin Portal Themes" />
+    <meta property="og:description" content="Design and customize beautiful React admin portal themes with Syncfusion Theme Studio. Create custom color schemes, typography, and component styles with live preview and export options." />
+    <meta property="og:image" content="/screenshots/desktop.png" />
+    <meta property="og:site_name" content="Syncfusion Theme Studio" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://syncfusion-theme-studio.com/" />
+    <meta name="twitter:title" content="Syncfusion Theme Studio - Create Custom React Admin Portal Themes" />
+    <meta name="twitter:description" content="Design and customize beautiful React admin portal themes with Syncfusion Theme Studio. Create custom color schemes, typography, and component styles with live preview and export options." />
+    <meta name="twitter:image" content="/screenshots/desktop.png" />
+
+    <!-- Additional SEO -->
+    <link rel="canonical" href="https://syncfusion-theme-studio.com/" />
+
+    <!-- Critical CSS inline for faster FCP (First Contentful Paint) -->
+    <style>
+      /* Critical CSS for initial render - prevents layout shift */
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+      }
+
+      html {
+        font-family: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+        font-size: 1rem;
+        line-height: 1.5;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      body {
+        margin: 0;
+        background-color: #fff;
+        color: #111827;
+      }
+
+      .dark body {
+        background-color: #111827;
+        color: #f9fafb;
+      }
+
+      /* Loading state for root element - shows spinner while JS loads */
+      #root {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #root:empty::after {
+        content: '';
+        width: 40px;
+        height: 40px;
+        border: 3px solid #d1d5db;
+        border-top-color: #006976;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+      }
+
+      .dark #root:empty::after {
+        border-color: #374151;
+        border-top-color: #2dd4bf;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      /* Font display swap for performance */
+      @font-face {
+        font-family: 'System';
+        src: local('ui-sans-serif'), local('system-ui'), local('sans-serif');
+        font-display: swap;
+      }
+    </style>
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Syncfusion Theme Studio",
+      "description": "Design and customize beautiful React admin portal themes with live preview and export options.",
+      "url": "https://syncfusion-theme-studio.com/",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Custom color schemes",
+        "Typography customization",
+        "Component styling",
+        "Live preview",
+        "Theme export",
+        "Dark mode support"
+      ]
+    }
+    </script>
+  </head>
+  <body>
+    <!-- Noscript fallback for accessibility -->
+    <noscript>
+      <div style="padding: 2rem; text-align: center;">
+        <h1>JavaScript Required</h1>
+        <p>Please enable JavaScript to use this application.</p>
+      </div>
+    </noscript>
+
+    <div id="root"></div>
+
+    <!-- Main app script -->
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

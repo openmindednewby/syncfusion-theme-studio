@@ -1,0 +1,14 @@
+namespace MockServer.UseCases.DTOs;
+
+public record ProductDto(
+  int Id,
+  string Title,
+  string Description,
+  decimal Price,
+  decimal DiscountPercentage,
+  decimal Rating,
+  int Stock,
+  string Brand,
+  string Category,
+  string Thumbnail,
+  List<string> Images);

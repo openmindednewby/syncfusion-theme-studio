@@ -1,0 +1,28 @@
+import type { GridDropdownConfig } from '../types';
+
+export const DEFAULT_GRID_DROPDOWN_DARK: GridDropdownConfig = {
+  triggerBackground: '17 19 25',
+  triggerBackgroundHover: '31 41 55',
+  triggerBorderColor: '57 64 75',
+  triggerIconColor: '156 163 175',
+  triggerSize: '20px',
+  triggerBorderRadius: '2px',
+  triggerBorderWidth: '1px',
+  triggerDisabledOpacity: '1',
+  triggerDisabledIconColor: '156 163 175 / 0.3',
+  popupBackground: '31 41 55',
+  popupBorderColor: '55 65 81',
+  popupBorderRadius: '6px',
+  popupShadow: '0 4px 12px rgb(0 0 0 / 0.3)',
+  popupPadding: '4px',
+  itemTextColor: '209 213 219',
+  itemTextColorHover: '249 250 251',
+  itemBackgroundHover: '55 65 81',
+  itemPaddingV: '6px',
+  itemPaddingH: '10px',
+  itemFontSize: '12px',
+  itemBorderRadius: '4px',
+  itemDangerTextColor: '248 113 113',
+  itemDangerBackgroundHover: '50 20 20',
+  transitionDuration: '150ms',
+};

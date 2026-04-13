@@ -1,0 +1,157 @@
+import { test, expect } from '@playwright/test';
+
+import { login, openThemeDrawer, getCSSVariable, clearThemeStorage } from '../fixtures/auth';
+import { TestIds } from '../shared/testIds';
+
+test.describe('Theme Presets', () => {
+  test.beforeEach(async ({ page }) => {
+    // Clear theme storage before each test for isolation
+    await page.goto('/');
+    await clearThemeStorage(page);
+    await login(page);
+    await openThemeDrawer(page);
+    // Click on Presets tab
+    await page.getByTestId(TestIds.THEME_TAB_PRESETS).click();
+  });
+
+  test('should display all preset options', async ({ page }) => {
+    // Find all preset cards
+    const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
+
+    // Should have multiple presets (17 according to themePresets.ts)
+    await expect(presetCards).toHaveCount(17);
+  });
+
+  test('should apply preset and update UI colors', async ({ page }) => {
+    // Get initial primary color
+    const initialColor = await getCSSVariable(page, '--color-primary-500');
+
+    // Find and click a different preset (Forest Green)
+    const forestGreenPreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Forest Green'
+    });
+
+    await forestGreenPreset.click();
+
+    // Verify color changed
+    const newColor = await getCSSVariable(page, '--color-primary-500');
+    expect(newColor).not.toBe(initialColor);
+  });
+
+  test('should visually indicate the active preset', async ({ page }) => {
+    // Click on Ocean Blue preset
+    const oceanBluePreset = page.locator('[data-preset-id="ocean-blue"]');
+
+    await oceanBluePreset.click();
+
+    // The active preset should have aria-pressed="true"
+    await expect(oceanBluePreset).toHaveAttribute('aria-pressed', 'true');
+  });
+
+  test('should persist preset after page reload', async ({ page }) => {
+    // Apply Royal Purple preset
+    const royalPurplePreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Royal Purple'
+    });
+
+    await royalPurplePreset.click();
+
+    // Get the color value
+    const colorBefore = await getCSSVariable(page, '--color-primary-500');
+
+    // Reload page
+    await page.reload();
+    await page.waitForLoadState('domcontentloaded');
+
+    // Wait for Zustand theme store to rehydrate from localStorage
+    await expect(async () => {
+      const colorAfter = await getCSSVariable(page, '--color-primary-500');
+      expect(colorAfter).toBe(colorBefore);
+    }).toPass({ timeout: 10000 });
+  });
+
+  test('should reset to default when reset button is clicked', async ({ page }) => {
+    // First apply a different preset
+    const copperPreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Copper'
+    });
+
+    await copperPreset.click();
+
+    // Get the copper color
+    const copperColor = await getCSSVariable(page, '--color-primary-500');
+
+    // Click reset button
+    const resetBtn = page.getByTestId(TestIds.THEME_RESET_BTN);
+    await resetBtn.scrollIntoViewIfNeeded();
+    await resetBtn.click();
+
+    // Verify color changed back to default
+    const resetColor = await getCSSVariable(page, '--color-primary-500');
+    expect(resetColor).not.toBe(copperColor);
+  });
+
+  test('should apply each preset without errors', async ({ page }) => {
+    const presetCards = page.getByTestId(TestIds.THEME_PRESET_CARD);
+    const count = await presetCards.count();
+
+    for (let i = 0; i < count; i++) {
+      const preset = presetCards.nth(i);
+      const _name = await preset.innerText();
+
+      // Click preset
+      await preset.click();
+
+      // Verify no error indicators (excludes .text-error-500 — it's a color utility, not an error state)
+      const errors = page.locator('.error, [data-error="true"]');
+      await expect(errors).toHaveCount(0);
+
+      // Verify primary color CSS variable exists
+      const primaryColor = await getCSSVariable(page, '--color-primary-500');
+      expect(primaryColor).toBeTruthy();
+    }
+  });
+
+  test('should load Fremen as the default preset', async ({ page }) => {
+    // Fremen is now the default theme - verify its teal primary color is applied
+    const primaryColor = await getCSSVariable(page, '--color-primary-500');
+    expect(primaryColor).toBe('0 188 212');
+
+    // Verify Fremen preset card is first and marked active
+    const firstPreset = page.getByTestId(TestIds.THEME_PRESET_CARD).first();
+    await expect(firstPreset).toContainText('Fremen');
+  });
+
+  test('should apply Fremen preset and set teal colors', async ({ page }) => {
+    // Apply a different preset first
+    const slatePreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Slate'
+    });
+    await slatePreset.click();
+
+    // Now apply Fremen
+    const fremenPreset = page.locator(`[data-testid="${TestIds.THEME_PRESET_CARD}"]`).filter({
+      hasText: 'Fremen'
+    });
+    await fremenPreset.click();
+
+    // Verify teal primary color is applied
+    const primaryColor = await getCSSVariable(page, '--color-primary-500');
+    expect(primaryColor).toBe('0 188 212');
+
+    // Verify violet secondary color
+    const secondaryColor = await getCSSVariable(page, '--color-secondary-500');
+    expect(secondaryColor).toBe('139 92 246');
+  });
+
+  test('should display preset with name and description', async ({ page }) => {
+    // Each preset card should show name and description
+    const firstPreset = page.getByTestId(TestIds.THEME_PRESET_CARD).first();
+    await expect(firstPreset).toBeVisible();
+
+    // Preset should contain text (the name)
+    const text = await firstPreset.textContent();
+    expect(text).toBeTruthy();
+    expect(text!.length).toBeGreaterThan(0);
+  });
+});

@@ -1,0 +1,16 @@
+node_modules
+dist
+.git
+e2e
+test-results
+reports
+coverage
+playwright-report
+MockServer
+*.md
+!README.md
+.env*
+.vscode
+.idea
+.tiltignore
+Tiltfile

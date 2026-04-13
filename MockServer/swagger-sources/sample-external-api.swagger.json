@@ -1,0 +1,514 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Sample External API",
+    "description": "A sample external API spec for testing the MockGenerator",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/customers": {
+      "get": {
+        "tags": ["Customers"],
+        "operationId": "GetCustomers",
+        "summary": "List all customers",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": { "type": "integer", "default": 0 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 25 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of customers",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaginatedListOfCustomer" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Customers"],
+        "operationId": "CreateCustomer",
+        "summary": "Create a new customer",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Customer" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Customer created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Customer" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/customers/{id}": {
+      "get": {
+        "tags": ["Customers"],
+        "operationId": "GetCustomerById",
+        "summary": "Get a customer by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The customer",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Customer" }
+              }
+            }
+          },
+          "404": { "description": "Customer not found" }
+        }
+      },
+      "put": {
+        "tags": ["Customers"],
+        "operationId": "UpdateCustomer",
+        "summary": "Update a customer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Customer" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Customer updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Customer" }
+              }
+            }
+          },
+          "404": { "description": "Customer not found" }
+        }
+      },
+      "delete": {
+        "tags": ["Customers"],
+        "operationId": "DeleteCustomer",
+        "summary": "Delete a customer",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Customer deleted" }
+        }
+      }
+    },
+    "/api/invoices": {
+      "get": {
+        "tags": ["Invoices"],
+        "operationId": "GetInvoices",
+        "summary": "List all invoices",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": { "type": "integer", "default": 0 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 25 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of invoices",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaginatedListOfInvoice" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Invoices"],
+        "operationId": "CreateInvoice",
+        "summary": "Create a new invoice",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Invoice" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Invoice created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Invoice" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/invoices/{id}": {
+      "get": {
+        "tags": ["Invoices"],
+        "operationId": "GetInvoiceById",
+        "summary": "Get an invoice by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The invoice",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Invoice" }
+              }
+            }
+          },
+          "404": { "description": "Invoice not found" }
+        }
+      },
+      "put": {
+        "tags": ["Invoices"],
+        "operationId": "UpdateInvoice",
+        "summary": "Update an invoice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/Invoice" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Invoice updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Invoice" }
+              }
+            }
+          },
+          "404": { "description": "Invoice not found" }
+        }
+      },
+      "delete": {
+        "tags": ["Invoices"],
+        "operationId": "DeleteInvoice",
+        "summary": "Delete an invoice",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Invoice deleted" }
+        }
+      }
+    },
+    "/api/inventory": {
+      "get": {
+        "tags": ["Inventory"],
+        "operationId": "GetInventoryItems",
+        "summary": "List all inventory items",
+        "parameters": [
+          {
+            "name": "skip",
+            "in": "query",
+            "schema": { "type": "integer", "default": 0 }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "schema": { "type": "integer", "default": 25 }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A paginated list of inventory items",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/PaginatedListOfInventoryItem" }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Inventory"],
+        "operationId": "CreateInventoryItem",
+        "summary": "Create a new inventory item",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/InventoryItem" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Inventory item created",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InventoryItem" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/inventory/{id}": {
+      "get": {
+        "tags": ["Inventory"],
+        "operationId": "GetInventoryItemById",
+        "summary": "Get an inventory item by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The inventory item",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InventoryItem" }
+              }
+            }
+          },
+          "404": { "description": "Inventory item not found" }
+        }
+      },
+      "put": {
+        "tags": ["Inventory"],
+        "operationId": "UpdateInventoryItem",
+        "summary": "Update an inventory item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/InventoryItem" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Inventory item updated",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/InventoryItem" }
+              }
+            }
+          },
+          "404": { "description": "Inventory item not found" }
+        }
+      },
+      "delete": {
+        "tags": ["Inventory"],
+        "operationId": "DeleteInventoryItem",
+        "summary": "Delete an inventory item",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "204": { "description": "Inventory item deleted" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Customer": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "firstName": { "type": "string" },
+          "lastName": { "type": "string" },
+          "email": { "type": "string", "format": "email" },
+          "phone": { "type": "string", "nullable": true },
+          "companyName": { "type": "string", "nullable": true },
+          "address": { "$ref": "#/components/schemas/Address" },
+          "isActive": { "type": "boolean" },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time", "nullable": true }
+        },
+        "required": ["id", "firstName", "lastName", "email", "isActive", "createdAt"]
+      },
+      "Address": {
+        "type": "object",
+        "properties": {
+          "street": { "type": "string" },
+          "city": { "type": "string" },
+          "state": { "type": "string" },
+          "zipCode": { "type": "string" },
+          "country": { "type": "string" }
+        }
+      },
+      "Invoice": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "invoiceNumber": { "type": "string" },
+          "customerId": { "type": "integer", "format": "int32" },
+          "status": { "$ref": "#/components/schemas/InvoiceStatus" },
+          "issueDate": { "type": "string", "format": "date-time" },
+          "dueDate": { "type": "string", "format": "date-time" },
+          "subtotal": { "type": "number", "format": "decimal" },
+          "taxRate": { "type": "number", "format": "double" },
+          "taxAmount": { "type": "number", "format": "decimal" },
+          "totalAmount": { "type": "number", "format": "decimal" },
+          "notes": { "type": "string", "nullable": true },
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InvoiceItem" }
+          },
+          "createdAt": { "type": "string", "format": "date-time" },
+          "updatedAt": { "type": "string", "format": "date-time", "nullable": true }
+        },
+        "required": ["id", "invoiceNumber", "customerId", "status", "issueDate", "dueDate", "subtotal", "taxRate", "taxAmount", "totalAmount", "items", "createdAt"]
+      },
+      "InvoiceItem": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "description": { "type": "string" },
+          "quantity": { "type": "integer", "format": "int32" },
+          "unitPrice": { "type": "number", "format": "decimal" },
+          "totalPrice": { "type": "number", "format": "decimal" }
+        },
+        "required": ["id", "description", "quantity", "unitPrice", "totalPrice"]
+      },
+      "InvoiceStatus": {
+        "type": "string",
+        "enum": ["Draft", "Sent", "Paid", "Overdue", "Cancelled"]
+      },
+      "InventoryItem": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer", "format": "int32" },
+          "sku": { "type": "string" },
+          "name": { "type": "string" },
+          "description": { "type": "string", "nullable": true },
+          "category": { "type": "string" },
+          "unitPrice": { "type": "number", "format": "decimal" },
+          "costPrice": { "type": "number", "format": "decimal" },
+          "quantityInStock": { "type": "integer", "format": "int32" },
+          "reorderLevel": { "type": "integer", "format": "int32" },
+          "imageUrl": { "type": "string", "format": "uri", "nullable": true },
+          "isActive": { "type": "boolean" },
+          "lastRestockedAt": { "type": "string", "format": "date-time", "nullable": true },
+          "createdAt": { "type": "string", "format": "date-time" }
+        },
+        "required": ["id", "sku", "name", "category", "unitPrice", "costPrice", "quantityInStock", "reorderLevel", "isActive", "createdAt"]
+      },
+      "PaginatedListOfCustomer": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Customer" }
+          },
+          "total": { "type": "integer", "format": "int32" },
+          "skip": { "type": "integer", "format": "int32" },
+          "limit": { "type": "integer", "format": "int32" }
+        },
+        "required": ["items", "total", "skip", "limit"]
+      },
+      "PaginatedListOfInvoice": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/Invoice" }
+          },
+          "total": { "type": "integer", "format": "int32" },
+          "skip": { "type": "integer", "format": "int32" },
+          "limit": { "type": "integer", "format": "int32" }
+        },
+        "required": ["items", "total", "skip", "limit"]
+      },
+      "PaginatedListOfInventoryItem": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": { "$ref": "#/components/schemas/InventoryItem" }
+          },
+          "total": { "type": "integer", "format": "int32" },
+          "skip": { "type": "integer", "format": "int32" },
+          "limit": { "type": "integer", "format": "int32" }
+        },
+        "required": ["items", "total", "skip", "limit"]
+      }
+    }
+  }
+}

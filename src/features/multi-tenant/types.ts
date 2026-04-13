@@ -1,0 +1,8 @@
+export interface Organization {
+  id: number;
+  name: string;
+  slug: string;
+  logoUrl: string;
+  plan: string;
+  memberCount: number;
+}

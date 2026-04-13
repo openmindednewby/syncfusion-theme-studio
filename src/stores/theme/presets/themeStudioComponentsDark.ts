@@ -1,0 +1,138 @@
+// ThemeStudio Dark Components
+// Same base component styles as FigmaDesign + ThemeStudio-specific overrides (datePicker, inputs, select)
+
+import { DEFAULT_COMPONENTS_DARK } from '../defaults';
+
+import type { ComponentsConfig } from '../types';
+
+export const THEMESTUDIO_COMPONENTS_DARK: ComponentsConfig['dark'] = {
+  ...DEFAULT_COMPONENTS_DARK,
+  alertBadges: {
+    ...DEFAULT_COMPONENTS_DARK.alertBadges,
+    error: {
+      ...DEFAULT_COMPONENTS_DARK.alertBadges.error,
+      background: '239 68 68',
+      textColor: '17 19 25',
+      borderColor: '239 68 68',
+    },
+    warning: {
+      ...DEFAULT_COMPONENTS_DARK.alertBadges.warning,
+      background: '249 115 22',
+      textColor: '17 19 25',
+      borderColor: '249 115 22',
+    },
+    info: {
+      ...DEFAULT_COMPONENTS_DARK.alertBadges.info,
+      background: '254 177 48',
+      textColor: '17 19 25',
+      borderColor: '254 177 48',
+    },
+    success: {
+      ...DEFAULT_COMPONENTS_DARK.alertBadges.success,
+      background: '123 164 175',
+      textColor: '17 19 25',
+      borderColor: '16 185 129',
+    },
+    outlineFillOpacity: '0.2',
+    padding: {
+      paddingTop: '8px',
+      paddingRight: '5px',
+      paddingBottom: '5px',
+      paddingLeft: '5px',
+    },
+    typography: {
+      fontFamily: 'Fira Sans Condensed',
+      fontSize: '10px',
+      fontWeight: '500',
+      lineHeight: '15px',
+      letterSpacing: '0px',
+      textTransform: 'uppercase',
+    },
+  },
+  badges: {
+    ...DEFAULT_COMPONENTS_DARK.badges,
+    error: {
+      ...DEFAULT_COMPONENTS_DARK.badges.error,
+      background: '239 68 68',
+      textColor: '17 19 25',
+      borderColor: '239 68 68',
+    },
+    warning: {
+      ...DEFAULT_COMPONENTS_DARK.badges.warning,
+      background: '249 115 22',
+      textColor: '17 19 25',
+      borderColor: '249 115 22',
+    },
+    info: {
+      ...DEFAULT_COMPONENTS_DARK.badges.info,
+      background: '254 177 48',
+      textColor: '17 19 25',
+      borderColor: '254 177 48',
+    },
+    success: {
+      ...DEFAULT_COMPONENTS_DARK.badges.success,
+      background: '123 164 175',
+      textColor: '17 19 25',
+      borderColor: '16 185 129',
+    },
+  },
+  buttons: {
+    ...DEFAULT_COMPONENTS_DARK.buttons,
+    primary: { ...DEFAULT_COMPONENTS_DARK.buttons.primary, background: '255 255 255', textColor: '17 19 25', borderColor: 'transparent', borderRadius: '4px', borderWidth: '1px', backgroundHover: '229 231 235', textColorHover: '17 19 25', backgroundActive: '209 213 219', textColorActive: '17 19 25', borderColorActive: 'transparent', disabledBackground: '255 255 255', disabledTextColor: '156 163 175', disabledBorderColor: 'transparent', disabledOpacity: '0.25' },
+    secondary: { ...DEFAULT_COMPONENTS_DARK.buttons.secondary, background: '17 19 25', textColor: '123 123 123', borderColor: '57 64 75', borderRadius: '4px', borderWidth: '1px', backgroundHover: '32 34 40', textColorHover: '123 123 123', backgroundActive: '17 19 25', textColorActive: '249 250 251', borderColorActive: '75 85 99', disabledBackground: '17 19 25', disabledTextColor: '123 123 123', disabledBorderColor: '57 64 75', disabledOpacity: '0.25' },
+    ghost: { ...DEFAULT_COMPONENTS_DARK.buttons.ghost, background: 'transparent', textColor: '209 213 219', borderColor: 'transparent', borderWidth: '1px', borderRadius: '4px', backgroundHover: '55 65 81', textColorHover: '249 250 251', textColorActive: '249 250 251', borderColorActive: 'transparent' },
+    outline: { ...DEFAULT_COMPONENTS_DARK.buttons.outline, background: 'transparent', textColor: '209 213 219', borderColor: '156 163 175', borderWidth: '1px', borderRadius: '4px', backgroundHover: '55 65 81', textColorHover: '249 250 251', textColorActive: '249 250 251', borderColorActive: '156 163 175' },
+    danger: { ...DEFAULT_COMPONENTS_DARK.buttons.danger, background: '239 68 68', textColor: '255 255 255', borderColor: 'transparent', borderRadius: '4px', borderWidth: '1px', backgroundHover: '248 113 113', textColorHover: '255 255 255', backgroundActive: '252 165 165', textColorActive: '255 255 255', borderColorActive: 'transparent', disabledBackground: '239 68 68', disabledTextColor: '156 163 175', disabledBorderColor: 'transparent', disabledOpacity: '0.25' },
+    gap: '10px',
+    padding: { paddingTop: '8px', paddingRight: '10px', paddingBottom: '5px', paddingLeft: '10px' },
+    typography: { fontFamily: 'Fira Sans', fontSize: '12px', fontWeight: '400', lineHeight: '14px', letterSpacing: '0px' },
+  },
+  checkbox: { ...DEFAULT_COMPONENTS_DARK.checkbox, checkedBackground: '0 0 0', checkedBorderColor: '106 106 106', checkmarkColor: '255 255 255', uncheckedBorderColor: '106 106 106', indeterminateBackground: '0 0 0', size: '18px', borderRadius: '4px', uncheckedBackground: 'transparent', hoverBorderColor: '106 106 106', focusRingColor: '106 106 106', disabledOpacity: '0.5', borderWidth: '2px', checkmarkBorderRadius: '2px', checkmarkStrokeWidth: '2px' },
+  dataGrid: { ...DEFAULT_COMPONENTS_DARK.dataGrid, headerBackground: '31 41 55', headerTextColor: '209 213 219', headerBorder: '55 65 81', rowEvenBackground: '17 24 39', rowOddBackground: '31 41 55', rowSelectedBackground: '30 58 138', rowHoverBackground: '55 65 81', cellBorderColor: '55 65 81', headerFontWeight: '500', headerFontSize: '14px', headerTextTransform: 'uppercase', cellPadding: '8px', rowHeight: '42px', selectionBarBackground: '17 24 39', selectionBarChipBackground: '67 129 145', selectionBarChipTextColor: '246 246 246', selectionBarClearBackground: '55 65 81', selectionBarClearTextColor: '209 213 219' },
+  datePicker: {
+    ...DEFAULT_COMPONENTS_DARK.datePicker,
+    calendarSelectedBackground: '0 151 167',
+    calendarTodayBorderColor: '38 198 218',
+    focusRingColor: '38 198 218',
+    borderFocus: '38 198 218',
+    calendarBackground: '17 24 39',
+    calendarHeaderBackground: '15 20 38',
+    calendarBorderColor: '45 58 82',
+    weekHeaderBorderColor: '45 58 82',
+    rangeBackground: '0 161 201',
+  },
+  image: {
+    ...DEFAULT_COMPONENTS_DARK.image,
+    background: '17 24 39',
+    borderColor: '45 58 82',
+    borderRadius: '2px',
+    placeholderIconColor: '107 114 128',
+  },
+  externalLink: {
+    ...DEFAULT_COMPONENTS_DARK.externalLink,
+    textColor: '96 165 250', iconColor: '96 165 250',
+    hoverTextColor: '147 197 253', hoverIconColor: '147 197 253',
+    disabledTextColor: '107 114 128', disabledIconColor: '107 114 128',
+    typography: { ...DEFAULT_COMPONENTS_DARK.externalLink.typography, fontFamily: 'Fira Sans', fontSize: '12px', fontWeight: '400', lineHeight: '14px', letterSpacing: '0px' },
+    textDecoration: 'none', gap: '4px', iconSize: '12px', transitionDuration: '150ms',
+  },
+  inputs: {
+    ...DEFAULT_COMPONENTS_DARK.inputs,
+    background: '17 24 39',
+    borderDefault: '45 58 82',
+    borderFocus: '0 188 212',
+    textColor: '248 250 252',
+    placeholderColor: '100 116 139',
+  },
+  menu: { ...DEFAULT_COMPONENTS_DARK.menu, background: '17 24 39', textColor: '17 19 25', activeBackground: '0 83 104', borderColor: '55 65 81' },
+  radio: { ...DEFAULT_COMPONENTS_DARK.radio, selectedBorderColor: '106 106 106', dotColor: '106 106 106', uncheckedBorderColor: '106 106 106', selectedBackground: 'transparent', size: '18px', uncheckedBackground: 'transparent', hoverBorderColor: '106 106 106', focusRingColor: '106 106 106', labelDisabledColor: '107 114 128', disabledOpacity: '0.5', borderWidth: '2px', dotSize: '8px' },
+  select: { ...DEFAULT_COMPONENTS_DARK.select, background: '27 32 41', borderDefault: '57 64 75', borderHover: '71 85 105', borderFocus: '0 161 201', textColor: '123 123 123', placeholderColor: '123 123 123', iconColor: '123 123 123', popupBackground: '27 32 41', popupBorderColor: '57 64 75', itemHoverBackground: '26 34 56', itemTextColor: '123 123 123', itemSelectedBackground: '0 161 201', itemSelectedTextColor: '17 19 25', searchInputBackground: '27 32 41', searchInputBorderColor: '57 64 75', focusRingColor: '0 161 201', borderRadius: '4px', popupBorderRadius: '4px', itemFontSize: '12px', itemPadding: '8px 10px', comboboxChipBackground: '0 161 201', comboboxChipTextColor: '17 19 25', comboboxChipCloseIconColor: '17 19 25', comboboxClearBackground: '57 64 75', comboboxClearIconColor: '156 163 175', comboboxSelectedRowBackground: '26 34 56', comboboxCheckboxCheckedBackground: '0 161 201', comboboxCheckboxBorderColor: '123 123 123' },
+  sidebar: { ...DEFAULT_COMPONENTS_DARK.sidebar, background: '17 19 25', textColor: '255 255 255', activeItemBackground: '0 181 226', activeItemTextColor: '255 255 255', borderRight: '57 64 75', searchHighlightColor: '96 165 250', fontFamily: "'Fira Sans'", fontSize: '14px', fontWeight: '400', itemBorderRadius: '7px' },
+  textDescription: { ...DEFAULT_COMPONENTS_DARK.textDescription, textColor: '180 190 210', fontFamily: 'Fira Sans', fontSize: '12px', fontWeight: '400', lineHeight: '14px', letterSpacing: 'normal', seeMoreTextColor: '180 190 210', seeMoreFontSize: '12px', seeMoreFontWeight: '400', seeMoreLineHeight: '14px', seeMoreHeight: '14px', seeMorePadding: { paddingTop: '0px', paddingRight: '0px', paddingBottom: '0px', paddingLeft: '0px' }, seeMoreMargin: { marginTop: '0px', marginRight: '0px', marginBottom: '0px', marginLeft: '0px' } },
+  toggle: { ...DEFAULT_COMPONENTS_DARK.toggle, trackActiveBackground: '83 148 60', trackInactiveBackground: '75 85 99', thumbBackground: '255 255 255', trackBorderRadius: '9px', focusRingColor: '83 148 60', disabledOpacity: '0.5', thumbShadow: '0 1px 3px rgb(0 0 0 / 0.3)', trackWidth: '36px', trackHeight: '18px', thumbSize: '14px' },
+  inputMessage: { ...DEFAULT_COMPONENTS_DARK.inputMessage, textColor: '209 213 219', idleIconColor: '0 122 194', validIconColor: '53 172 70', invalidIconColor: '216 48 32', fontFamily: 'Fira Sans', fontWeight: '500' },
+  searchPanel: { ...DEFAULT_COMPONENTS_DARK.searchPanel, background: '26 32 44', borderColor: '55 65 81', labelColor: '180 190 210', labelFontSize: '12px' },
+  pagination: { ...DEFAULT_COMPONENTS_DARK.pagination, background: '17 19 25', borderColor: '57 64 75', textColor: '123 123 123', buttonBackground: '17 19 25', buttonTextColor: '123 123 123', buttonBorderColor: '57 64 75', selectBackground: '17 19 25', selectBorderColor: '57 64 75', selectTextColor: '123 123 123', navTextColor: '123 123 123', infoTextColor: '123 123 123' },
+  progressBar: { ...DEFAULT_COMPONENTS_DARK.progressBar, trackBg: '57 64 75', fillColor: '0 161 201' },
+  slider: { ...DEFAULT_COMPONENTS_DARK.slider, trackBg: '57 64 75', fillColor: '0 161 201', thumbColor: '0 161 201', thumbHoverColor: '51 183 215', thumbActiveColor: '102 205 229', focusRingColor: '0 161 201', tooltipBg: '0 161 201', tooltipText: '17 19 25' },
+};

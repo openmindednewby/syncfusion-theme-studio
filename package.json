@@ -47,7 +47,9 @@
     "lighthouse:prod:ci": "node scripts/run-lighthouse.js http://localhost:4445/login?no-prefetch --output json --output-path ./reports/lighthouse-prod.json --preset=desktop --chrome-flags=\"--headless=new --no-sandbox\" --budget-path=./lighthouse-budget.json",
     "lighthouse:prod:open": "start ./reports/lighthouse-prod.html",
     "lighthouse:prod:assert": "node scripts/lighthouse-assert.js reports/lighthouse-prod.json",
-    "analyze": "vite build --mode analyze"
+    "analyze": "vite build --mode analyze",
+    "smoke": "npx playwright test --config test-smoke/playwright.config.ts",
+    "smoke:report": "node ../personalServerNotes/scripts/smoke-report-writer.mjs --service syncfusion-theme-studio --target-url https://syncfusion-theme-studio.dloizides.com --runner playwright --results test-results/results.json --env-build-flag THEME_STUDIO_DEPLOY=production"
   },
   "dependencies": {
     "@fontsource/fira-sans": "^5.2.7",

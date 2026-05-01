@@ -2,7 +2,12 @@ import { test, expect } from '@playwright/test';
 
 /**
  * Layer 1 -- heartbeat. Cheapest proof the deployed ThemeStudio
- * loads its login page without throwing.
+ * boots without throwing.
+ *
+ * Targets `/` (not `/login`) because the deployed app runs in demo mode
+ * and auto-redirects `/login` -> `/dashboard` (no login form ever renders).
+ * The heartbeat proves that React mounts + the app shell renders without
+ * runtime errors, independent of which route lands.
  *
  * Failure modes caught:
  *   - 404 / 5xx on the deploy URL
@@ -12,9 +17,7 @@ import { test, expect } from '@playwright/test';
  *   - Any unhandled exception during initial render
  */
 
-test('heartbeat -- login page loads with no runtime errors', async ({
-  page,
-}) => {
+test('heartbeat -- app boots with no runtime errors', async ({ page }) => {
   const consoleErrors: string[] = [];
   const pageErrors: Error[] = [];
 
@@ -28,21 +31,27 @@ test('heartbeat -- login page loads with no runtime errors', async ({
   });
   page.on('pageerror', (err) => pageErrors.push(err));
 
-  await page.goto('/login', { waitUntil: 'networkidle' });
+  await page.goto('/', { waitUntil: 'networkidle' });
 
-  // The login page should render a form with at least an email/username input.
-  // Wait for the page to have meaningful DOM content.
-  await page.waitForSelector('input', { timeout: 15_000 });
+  // Wait for React to mount SOMETHING into #root. We don't assert on a
+  // specific element (login form, dashboard, pricing) because the landing
+  // route depends on demo-mode auth state; only that the bundle executed
+  // and mounted a non-empty tree.
+  await page.waitForFunction(
+    () => {
+      const root = document.querySelector('#root');
+      return root !== null && root.children.length > 0;
+    },
+    { timeout: 15_000 }
+  );
 
-  await page.screenshot({ path: 'test-results/heartbeat-login.png' });
+  await page.screenshot({ path: 'test-results/heartbeat-root.png' });
 
-  // Assertions
   expect(pageErrors, 'pageerror events fired during boot').toEqual([]);
   expect(consoleErrors, 'console error messages emitted during boot').toEqual(
     []
   );
 
-  // Verify the page has a title (React rendered something)
   const title = await page.title();
   expect(title.length, 'page has a title').toBeGreaterThan(0);
 });

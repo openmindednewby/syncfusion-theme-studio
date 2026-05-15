@@ -17,6 +17,10 @@ RUN dotnet publish src/MockServer.Web/MockServer.Web.csproj -c Release -o /app/p
 # Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
 WORKDIR /app
+LABEL org.opencontainers.image.authors="dloizides.com"
+LABEL org.opencontainers.image.vendor="dloizides.com"
+LABEL org.opencontainers.image.title="SyncfusionThemeStudio.MockServer"
+LABEL built-by="dloizides.com"
 
 # Install curl for Docker healthcheck
 RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*

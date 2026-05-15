@@ -26,6 +26,10 @@ RUN npm run build
 
 # Stage 2: Serve with Nginx
 FROM nginx:alpine AS production
+LABEL org.opencontainers.image.authors="dloizides.com"
+LABEL org.opencontainers.image.vendor="dloizides.com"
+LABEL org.opencontainers.image.title="SyncfusionThemeStudio"
+LABEL built-by="dloizides.com"
 
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/nginx.conf

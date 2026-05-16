@@ -258,9 +258,6 @@ export const enum RouteSegment {
   Chat = 'chat',
 
 
-  // Spreadsheet
-  Spreadsheet = 'spreadsheet',
-
   // Diagram
   Diagram = 'diagram',
 

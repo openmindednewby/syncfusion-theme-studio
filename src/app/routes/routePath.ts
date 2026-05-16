@@ -261,9 +261,6 @@ export const enum RoutePath {
   Chat = '/chat',
 
 
-  // Spreadsheet
-  Spreadsheet = '/spreadsheet',
-
   // Diagram
   Diagram = '/diagram',
 

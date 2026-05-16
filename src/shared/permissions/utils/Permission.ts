@@ -26,7 +26,6 @@ export const enum Permission {
   ViewComponents = 'ViewComponents',
   ViewMarketplace = 'ViewMarketplace',
 
-  ViewSpreadsheet = 'ViewSpreadsheet',
   ViewDiagram = 'ViewDiagram',
   AdminAccess = 'AdminAccess',
 }

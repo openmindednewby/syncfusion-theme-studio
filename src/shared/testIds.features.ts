@@ -46,11 +46,4 @@ export const FeatureTestIds = {
   DIAGRAM_EXPORT_SVG_BTN: 'diagram-export-svg-btn',
   DIAGRAM_CLEAR_BTN: 'diagram-clear-btn',
 
-  // Spreadsheet Page
-  NAV_SPREADSHEET: 'nav-spreadsheet',
-  SPREADSHEET_PAGE: 'spreadsheet-page',
-  SPREADSHEET_VIEW: 'spreadsheet-view',
-  SPREADSHEET_SHEET_SELECTOR: 'spreadsheet-sheet-selector',
-  SPREADSHEET_SHEET_BTN: 'spreadsheet-sheet-btn',
-
 } as const;

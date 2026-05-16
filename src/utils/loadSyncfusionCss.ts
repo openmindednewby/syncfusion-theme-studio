@@ -27,7 +27,6 @@ export const enum SyncfusionCssModule {
   Notifications = 'notifications',
 
   Diagrams = 'diagrams',
-  Spreadsheet = 'spreadsheet',
   Schedule = 'schedule',
   Gantt = 'gantt',
   Kanban = 'kanban',
@@ -45,7 +44,6 @@ const CSS_LOADERS: Record<SyncfusionCssModule, () => Promise<unknown>> = {
   [SyncfusionCssModule.Notifications]: async () => import('@syncfusion/ej2-react-notifications/styles/tailwind.css'),
 
   [SyncfusionCssModule.Diagrams]: async () => import('@syncfusion/ej2-diagrams/styles/tailwind.css'),
-  [SyncfusionCssModule.Spreadsheet]: async () => import('@syncfusion/ej2-react-spreadsheet/styles/tailwind.css'),
   [SyncfusionCssModule.Schedule]: async () => import('@syncfusion/ej2-react-schedule/styles/tailwind.css'),
   [SyncfusionCssModule.Gantt]: async () => import('@syncfusion/ej2-react-gantt/styles/tailwind.css'),
   [SyncfusionCssModule.Kanban]: async () => import('@syncfusion/ej2-react-kanban/styles/tailwind.css'),

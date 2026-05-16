@@ -219,7 +219,7 @@ local_resource(
     trigger_mode=TRIGGER_MODE_MANUAL,
 )
 
-# 3c: n-z files (75 tests) — notifications, orders, org-switcher, pdf-viewer, pricing, rich-text, settings, spreadsheet, system-settings, user-profile
+# 3c: n-z files (75 tests) — notifications, orders, org-switcher, pdf-viewer, pricing, rich-text, settings, system-settings, user-profile
 local_resource(
     name='e2e-3c-pages',
     labels=['Testing'],

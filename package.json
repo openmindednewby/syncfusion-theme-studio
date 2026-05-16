@@ -75,7 +75,6 @@
     "@syncfusion/ej2-react-popups": "^32.2.3",
     "@syncfusion/ej2-react-richtexteditor": "^32.2.8",
     "@syncfusion/ej2-react-schedule": "^32.2.3",
-    "@syncfusion/ej2-react-spreadsheet": "^32.2.5",
     "@tanstack/react-query": "^5.51.0",
     "axios": "^1.6.0",
     "i18next": "^25.8.4",

@@ -299,22 +299,6 @@
     "showBubbles": "Show employee bubbles",
     "locationCount": "{{p1}} locations"
   },
-  "spreadsheet": {
-    "title": "Spreadsheet",
-    "description": "Excel-like editing with formulas, formatting, and multiple sheets.",
-    "sampleSheets": "Sample sheets:",
-    "sheets": {
-      "salesReport": {
-        "name": "Sales Report"
-      },
-      "budgetTemplate": {
-        "name": "Budget Template"
-      },
-      "employeeRoster": {
-        "name": "Employee Roster"
-      }
-    }
-  },
   "diagram": {
     "title": "Diagram Editor",
     "description": "Create flowcharts, org charts, and diagrams with drag-and-drop shapes.",
@@ -867,7 +851,6 @@
       "chat": "Chat",
       "maps": "Maps",
 
-      "spreadsheet": "Spreadsheet",
       "diagram": "Diagram",
       "userProfile": "My Profile",
       "business": "Business",

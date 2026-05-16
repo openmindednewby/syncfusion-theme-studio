@@ -82,8 +82,7 @@ const PROTECTED_PAGES: PageEntry[] = [
   { path: '/maps', name: 'Maps', testId: TestIds.MAPS_PAGE },
   { path: '/chat', name: 'Chat', testId: TestIds.CHAT_PAGE },
 
-  // Spreadsheet / Diagram
-  { path: '/spreadsheet', name: 'Spreadsheet', testId: TestIds.SPREADSHEET_PAGE },
+  // Diagram
   { path: '/diagram', name: 'Diagram', testId: TestIds.DIAGRAM_PAGE },
 
   // Admin hub

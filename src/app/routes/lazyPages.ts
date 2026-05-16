@@ -208,9 +208,6 @@ export const MapsPage = lazy(async () => import('@/features/maps/pages/MapsPage'
 // Chat
 export const ChatPage = lazy(async () => import('@/features/chat/pages/ChatPage'));
 
-// Spreadsheet
-export const SpreadsheetPage = lazy(async () => import('@/features/spreadsheet/pages/SpreadsheetPage'));
-
 // Diagram
 export const DiagramPage = lazy(async () => import('@/features/diagram/pages/DiagramPage'));
 

@@ -91,7 +91,6 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
   { id: 'chat', labelKey: 'sidebar.nav.chat', testId: TestIds.NAV_CHAT, path: RoutePath.Chat, iconName: IconName.MessageCircle, requiredPermission: Permission.ViewChat },
   { id: 'maps', labelKey: 'sidebar.nav.maps', testId: TestIds.NAV_MAPS, path: RoutePath.Maps, iconName: IconName.MapPin, requiredPermission: Permission.ViewMaps },
 
-  { id: 'spreadsheet', labelKey: 'sidebar.nav.spreadsheet', testId: TestIds.NAV_SPREADSHEET, path: RoutePath.Spreadsheet, iconName: IconName.Table, requiredPermission: Permission.ViewSpreadsheet },
   { id: 'diagram', labelKey: 'sidebar.nav.diagram', testId: TestIds.NAV_DIAGRAM, path: RoutePath.Diagram, iconName: IconName.GitBranch, requiredPermission: Permission.ViewDiagram },
   { id: 'notifications', labelKey: 'sidebar.nav.notifications', testId: TestIds.NAV_NOTIFICATIONS, path: RoutePath.Notifications, iconName: IconName.MessageSquare, requiredPermission: Permission.ViewNotifications },
   { id: 'activity-log', labelKey: 'sidebar.nav.activityLog', testId: TestIds.NAV_ACTIVITY_LOG, path: RoutePath.ActivityLog, iconName: IconName.List, requiredPermission: Permission.ViewActivityLog },

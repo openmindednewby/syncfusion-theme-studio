@@ -513,13 +513,6 @@ export const TestIds = {
   NAV_ORDERS: 'nav-orders',
 
 
-  // Spreadsheet Page
-  NAV_SPREADSHEET: 'nav-spreadsheet',
-  SPREADSHEET_PAGE: 'spreadsheet-page',
-  SPREADSHEET_VIEW: 'spreadsheet-view',
-  SPREADSHEET_SHEET_SELECTOR: 'spreadsheet-sheet-selector',
-  SPREADSHEET_SHEET_BTN: 'spreadsheet-sheet-btn',
-
   // Diagram Page
   DIAGRAM_PAGE: 'diagram-page',
 

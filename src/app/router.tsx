@@ -43,7 +43,6 @@ import {
   NativeProductsPage,
   PricingPage,
   ProductsListPage,
-  SpreadsheetPage,
   ServerErrorPage,
   SettingsPage,
   SyncfusionComponentsPage,
@@ -166,8 +165,6 @@ const routes: RouteObject[] = [
       { path: RouteSegment.Maps, element: <LazyPage component={MapsPage} /> },
       // Chat
       { path: RouteSegment.Chat, element: <LazyPage component={ChatPage} /> },
-      // Spreadsheet
-      { path: RouteSegment.Spreadsheet, element: <LazyPage component={SpreadsheetPage} /> },
       // Diagram
       { path: RouteSegment.Diagram, element: <LazyPage component={DiagramPage} /> },
       // Error Pages

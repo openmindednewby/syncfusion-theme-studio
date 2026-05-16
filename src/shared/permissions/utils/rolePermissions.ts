@@ -32,7 +32,6 @@ const ADMIN_PERMISSIONS: Permission[] = [
   Permission.ViewChat,
   Permission.ViewMaps,
 
-  Permission.ViewSpreadsheet,
   Permission.ViewDiagram,
   Permission.AdminAccess,
 ];
@@ -59,7 +58,6 @@ const MANAGER_PERMISSIONS: Permission[] = [
   Permission.ViewChat,
   Permission.ViewMaps,
 
-  Permission.ViewSpreadsheet,
   Permission.ViewDiagram,
 ];
 
@@ -79,7 +77,6 @@ const VIEWER_PERMISSIONS: Permission[] = [
   Permission.ViewChat,
   Permission.ViewMaps,
 
-  Permission.ViewSpreadsheet,
   Permission.ViewDiagram,
 ];
 
@@ -96,7 +93,6 @@ const ANALYST_PERMISSIONS: Permission[] = [
   Permission.ViewChat,
   Permission.ViewMaps,
 
-  Permission.ViewSpreadsheet,
   Permission.ViewDiagram,
 ];
 

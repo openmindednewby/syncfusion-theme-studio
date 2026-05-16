@@ -44,5 +44,4 @@ export const enum RoutePrefix {
   Settings = '/settings',
   Calendar = '/calendar',
   Kanban = '/kanban',
-  Gantt = '/gantt',
 }

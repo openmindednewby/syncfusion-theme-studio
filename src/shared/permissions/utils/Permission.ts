@@ -16,8 +16,6 @@ export const enum Permission {
   ManageCalendar = 'ManageCalendar',
   ViewKanban = 'ViewKanban',
   ManageKanban = 'ManageKanban',
-  ViewGantt = 'ViewGantt',
-  ManageGantt = 'ManageGantt',
   ViewChat = 'ViewChat',
   ViewMaps = 'ViewMaps',
   ViewNotifications = 'ViewNotifications',

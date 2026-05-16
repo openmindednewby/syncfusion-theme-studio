@@ -75,10 +75,9 @@ const PROTECTED_PAGES: PageEntry[] = [
   { path: '/inventory', name: 'Inventory', testId: TestIds.INVENTORY_PAGE },
   { path: '/settings', name: 'Settings', testId: TestIds.SETTINGS_PAGE },
 
-  // Calendar / Kanban / Gantt / Maps / Chat
+  // Calendar / Kanban / Maps / Chat
   { path: '/calendar', name: 'Calendar', testId: TestIds.CALENDAR_PAGE },
   { path: '/kanban', name: 'Kanban', testId: TestIds.KANBAN_PAGE },
-  { path: '/gantt', name: 'Gantt', testId: TestIds.GANTT_PAGE },
   { path: '/maps', name: 'Maps', testId: TestIds.MAPS_PAGE },
   { path: '/chat', name: 'Chat', testId: TestIds.CHAT_PAGE },
 

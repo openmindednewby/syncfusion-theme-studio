@@ -199,9 +199,6 @@ export const CalendarPage = lazy(async () => import('@/features/calendar/pages/C
 // Kanban
 export const KanbanPage = lazy(async () => import('@/features/kanban/pages/KanbanPage'));
 
-// Gantt
-export const GanttPage = lazy(async () => import('@/features/gantt/pages/GanttPage'));
-
 // Maps
 export const MapsPage = lazy(async () => import('@/features/maps/pages/MapsPage'));
 

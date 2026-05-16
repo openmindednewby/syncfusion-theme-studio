@@ -426,13 +426,6 @@ export const TestIds = {
   KANBAN_DIALOG: 'kanban-dialog',
   KANBAN_SAVE_BTN: 'kanban-save-btn',
 
-  // Gantt Page
-  NAV_GANTT: 'nav-gantt',
-  GANTT_PAGE: 'gantt-page',
-  GANTT_CHART: 'gantt-chart',
-  GANTT_TOOLBAR: 'gantt-toolbar',
-  GANTT_FILTER_ALL: 'gantt-filter-all',
-
   // Chat Page
   NAV_CHAT: 'nav-chat',
   CHAT_PAGE: 'chat-page',

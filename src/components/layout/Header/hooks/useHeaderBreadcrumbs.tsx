@@ -98,9 +98,6 @@ const SEGMENT_LABELS: Record<string, string> = {
   // Maps
   maps: 'sidebar.nav.maps',
 
-  // Gantt
-  gantt: 'sidebar.nav.gantt',
-
   // Editor
   editor: 'sidebar.nav.editor',
 

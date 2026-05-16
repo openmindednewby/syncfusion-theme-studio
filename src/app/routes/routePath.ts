@@ -251,9 +251,6 @@ export const enum RoutePath {
   // Kanban
   Kanban = '/kanban',
 
-  // Gantt
-  Gantt = '/gantt',
-
   // Maps
   Maps = '/maps',
 

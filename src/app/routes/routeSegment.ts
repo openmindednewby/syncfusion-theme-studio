@@ -248,9 +248,6 @@ export const enum RouteSegment {
   // Kanban
   Kanban = 'kanban',
 
-  // Gantt
-  Gantt = 'gantt',
-
   // Maps
   Maps = 'maps',
 

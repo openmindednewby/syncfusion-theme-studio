@@ -95,7 +95,6 @@ const ICON_MAP: Record<IconName, IconComponent> = {
   [IconName.Package]: IconPackage,
   [IconName.Calendar]: IconCalendar,
   [IconName.Kanban]: IconClipboard,
-  [IconName.Gantt]: IconBarChart,
   [IconName.Edit]: IconEdit,
   [IconName.FolderOpen]: IconFolder,
   [IconName.MessageCircle]: IconMessageCircle,

@@ -87,7 +87,6 @@ export const MAIN_NAV_ITEMS: SidebarNavEntry[] = [
   },
   { id: 'calendar', labelKey: 'sidebar.nav.calendar', testId: TestIds.NAV_CALENDAR, path: RoutePath.Calendar, iconName: IconName.Calendar, requiredPermission: Permission.ViewCalendar },
   { id: 'kanban', labelKey: 'sidebar.nav.kanban', testId: TestIds.NAV_KANBAN, path: RoutePath.Kanban, iconName: IconName.Kanban, requiredPermission: Permission.ViewKanban },
-  { id: 'gantt', labelKey: 'sidebar.nav.gantt', testId: TestIds.NAV_GANTT, path: RoutePath.Gantt, iconName: IconName.Gantt, requiredPermission: Permission.ViewGantt },
   { id: 'chat', labelKey: 'sidebar.nav.chat', testId: TestIds.NAV_CHAT, path: RoutePath.Chat, iconName: IconName.MessageCircle, requiredPermission: Permission.ViewChat },
   { id: 'maps', labelKey: 'sidebar.nav.maps', testId: TestIds.NAV_MAPS, path: RoutePath.Maps, iconName: IconName.MapPin, requiredPermission: Permission.ViewMaps },
 

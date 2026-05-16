@@ -210,7 +210,7 @@ local_resource(
     trigger_mode=TRIGGER_MODE_MANUAL,
 )
 
-# 3b: e-m files (72 tests) — error-pages, externallink, file-manager, gantt, inventory, invoices, kanban, landing-page, language, maps
+# 3b: e-m files (72 tests) — error-pages, externallink, file-manager, inventory, invoices, kanban, landing-page, language, maps
 local_resource(
     name='e2e-3b-pages',
     labels=['Testing'],

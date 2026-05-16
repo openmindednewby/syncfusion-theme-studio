@@ -42,7 +42,6 @@ export const enum IconName {
   Package = 'package',
   Calendar = 'calendar',
   Kanban = 'kanban',
-  Gantt = 'gantt',
   Edit = 'edit',
   FolderOpen = 'folderOpen',
   MessageCircle = 'messageCircle',

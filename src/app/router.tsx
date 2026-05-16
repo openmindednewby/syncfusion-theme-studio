@@ -15,7 +15,6 @@ import {
   CalendarPage,
   ChatPage,
   DiagramPage,
-  GanttPage,
   KanbanPage,
   LandingPage,
   AdminIntegrationsPage,
@@ -159,8 +158,6 @@ const routes: RouteObject[] = [
       { path: RouteSegment.Calendar, element: <LazyPage component={CalendarPage} /> },
       // Kanban
       { path: RouteSegment.Kanban, element: <LazyPage component={KanbanPage} /> },
-      // Gantt
-      { path: RouteSegment.Gantt, element: <LazyPage component={GanttPage} /> },
       // Maps
       { path: RouteSegment.Maps, element: <LazyPage component={MapsPage} /> },
       // Chat

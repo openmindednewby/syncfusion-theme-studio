@@ -272,21 +272,6 @@
       "dueDate": "Due Date"
     }
   },
-  "gantt": {
-    "title": "Gantt Chart",
-    "error": "Failed to load Gantt tasks.",
-    "filterByPriority": "Filter by priority:",
-    "columns": {
-      "id": "ID",
-      "taskName": "Task Name",
-      "startDate": "Start Date",
-      "endDate": "End Date",
-      "duration": "Duration",
-      "progress": "Progress",
-      "assignee": "Assignee",
-      "priority": "Priority"
-    }
-  },
   "maps": {
     "title": "Maps & Locations",
     "offices": "Office Locations",
@@ -847,7 +832,6 @@
       "activityLog": "Activity Log",
       "calendar": "Calendar",
       "kanban": "Kanban Board",
-      "gantt": "Gantt Chart",
       "chat": "Chat",
       "maps": "Maps",
 

@@ -4,8 +4,23 @@ server {
 
   root /usr/share/nginx/html;
 
+  # SPA fallback. The HTML response must NEVER be cached so a redeploy is picked
+  # up on the next load (no service worker forces the update otherwise). nginx's
+  # try_files internal redirect to /index.html does NOT reliably inherit the
+  # `location = /index.html` add_header, so emit no-cache directly on this block
+  # too — this is the route the browser's `/` navigation actually hits.
   location / {
     try_files $uri $uri/ /index.html;
+    add_header Cache-Control "no-cache" always;
+    expires off;
+  }
+
+  # Vite content-hashed build output (/assets/<name>.<hash>.js|css) — the hash
+  # changes every rebuild, so the old URL is never re-requested. Safe forever.
+  location /assets/ {
+    add_header Cache-Control "public, max-age=31536000, immutable" always;
+    expires 1y;
+    try_files $uri =404;
   }
 
   # index.html must never be cached — hashed asset filenames change per build,

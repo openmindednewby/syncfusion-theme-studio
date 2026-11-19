@@ -1,0 +1,17 @@
+{
+  "components/alert-grid.spec.ts": {
+    "max-lines": 1
+  },
+  "components/grid-playground-console-errors.spec.ts": {
+    "max-lines": 1
+  },
+  "page-objects/BasePage.ts": {
+    "@typescript-eslint/member-ordering": 3
+  },
+  "shared/testIds.ts": {
+    "max-lines": 1
+  },
+  "visual-qa-grid-features.spec.ts": {
+    "max-lines": 1
+  }
+}

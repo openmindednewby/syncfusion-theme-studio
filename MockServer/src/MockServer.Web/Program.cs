@@ -3,6 +3,7 @@ using MockServer.Infrastructure;
 using MockServer.Infrastructure.Data;
 using MockServer.Infrastructure.FileSystem;
 using MockServer.UseCases;
+using MockServer.Web.Configurations;
 using MockServer.Web.Hubs;
 using ServiceDefaults.HealthChecks;
 
@@ -70,7 +71,7 @@ await app.Services.SeedDatabaseAsync();
 app.UseCors();
 
 app.UsePrometheusMetrics();
-app.MapPlatformHealthChecks();
+app.MapPlatformEndpoints();
 
 app.UseMiddleware<MockServer.Web.Middleware.ApiVersionRedirectMiddleware>();
 

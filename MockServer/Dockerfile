@@ -1,5 +1,5 @@
-# Stage 1: Build the .NET 9 MockServer
-FROM mcr.microsoft.com/dotnet/sdk:9.0 AS build
+# Stage 1: Build the .NET 10 MockServer
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
 WORKDIR /src
 
 # Copy project files first for layer caching
@@ -15,7 +15,7 @@ COPY src/ src/
 RUN dotnet publish src/MockServer.Web/MockServer.Web.csproj -c Release -o /app/publish --no-restore
 
 # Stage 2: Runtime
-FROM mcr.microsoft.com/dotnet/aspnet:9.0 AS final
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
 LABEL org.opencontainers.image.authors="dloizides.com"
 LABEL org.opencontainers.image.vendor="dloizides.com"

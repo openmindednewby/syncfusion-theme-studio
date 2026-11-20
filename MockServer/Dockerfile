@@ -17,6 +17,10 @@ RUN dotnet publish src/MockServer.Web/MockServer.Web.csproj -c Release -o /app/p
 # Stage 2: Runtime
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
 WORKDIR /app
+ARG BUILD_SHA=""
+ARG BUILD_TIME=""
+ENV BUILD_SHA=$BUILD_SHA
+ENV BUILD_TIME=$BUILD_TIME
 LABEL org.opencontainers.image.authors="dloizides.com"
 LABEL org.opencontainers.image.vendor="dloizides.com"
 LABEL org.opencontainers.image.title="SyncfusionThemeStudio.MockServer"

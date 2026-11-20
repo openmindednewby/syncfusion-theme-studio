@@ -1,0 +1,4 @@
+MockServer/src/MockServer.Infrastructure/Data/SeedData.cs 472
+MockServer/src/MockServer.Infrastructure/FileSystem/InMemoryFileSystemService.cs 424
+MockServer/tools/MockGenerator/EndpointGenerator.cs 352
+MockServer/tools/MockGenerator/SchemaParser.cs 391
